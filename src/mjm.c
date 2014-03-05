@@ -54,11 +54,14 @@ int main(int argc, char *argv[]) {
 
 
 int Reader(char *scandir, menu_entry *menu_entries) {
+	static const char EXECUTABLE[] = "Exec";
+	static const char ICON[]       = "Icon";
+	static const char NAME[]       = "Name";
+	static const char CATEGORIES[] = "Categories";
 
 	DIR *dir;
 	FILE *fp;
 	struct dirent *dp;
-	char *sexec = "Exec", *sicon = "Icon", *sname = "Name", *scate = "Categories";
 	char sline[1024], stmp[1024];
 	char *sbuff;
 	menu_entry *itmp;
@@ -90,10 +93,10 @@ int Reader(char *scandir, menu_entry *menu_entries) {
 				sbuff = NULL;
 				sbuff = strtok(sline, "=");
 				if (sbuff) {
-					if (strcmp(sbuff, sexec)==0) { strcpy(itmp->executable, strtok(NULL, "\n")); }
-					if (strcmp(sbuff, sicon)==0) { strcpy(itmp->icon, strtok(NULL, "\n")); }
-					if (strcmp(sbuff, sname)==0) { strcpy(itmp->name, strtok(NULL, "\n")); }
-					if (strcmp(sbuff, scate)==0) { strcpy(itmp->category, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, EXECUTABLE)==0) { strcpy(itmp->executable, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, ICON)==0)       { strcpy(itmp->icon, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, NAME)==0)       { strcpy(itmp->name, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, CATEGORIES)==0) { strcpy(itmp->category, strtok(NULL, "\n")); }
 				}
 			}
 
