@@ -39,15 +39,15 @@ int main(int argc, char *argv[]) {
 		if (itms) {
 			iitm = Reader(scandir, itms);
 			Itmsrt(iitm, itms);
-			if (Rcwrite(iitm, itms, outfile, aexp)) {
-			 printf("write err...\n");
+			if (Rcwrite(iitm, itms, outfile, icon_extension)) {
+				printf("write err...\n");
 			}
-			free(itms);
-			} else {
-					printf("malloc err...\n");
-			}
+			menu_entry_destroy(itms);
+		} else {
+			printf("malloc err...\n");
+		}
 	} else {
-			printf("read err...\n");
+		printf("read err...\n");
 	}
 	exit(iitm);
 }
@@ -83,20 +83,17 @@ int Reader(char *scandir, menu_entry *itms) {
 				ectr++;
 				break;
 			}
-			
-			strcpy(itmp->executable, "");
-			strcpy(itmp->icon, "");
-			strcpy(itmp->name, "");
-			strcpy(itmp->category, "");
-			
+
+			menu_entry_blank(itmp);
+
 			while (fgets(sline, 256, fp) != NULL) {
 				sbuff = NULL;
 				sbuff = strtok(sline, "=");
 				if (sbuff) {
-				if (strcmp(sbuff, sexec)==0) { strcpy(itmp->executable, strtok(NULL, "\n")); }
-				if (strcmp(sbuff, sicon)==0) { strcpy(itmp->icon, strtok(NULL, "\n")); }
-				if (strcmp(sbuff, sname)==0) { strcpy(itmp->name, strtok(NULL, "\n")); }
-				if (strcmp(sbuff, scate)==0) { strcpy(itmp->category, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, sexec)==0) { strcpy(itmp->executable, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, sicon)==0) { strcpy(itmp->icon, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, sname)==0) { strcpy(itmp->name, strtok(NULL, "\n")); }
+					if (strcmp(sbuff, scate)==0) { strcpy(itmp->category, strtok(NULL, "\n")); }
 				}
 			}
 
@@ -113,7 +110,7 @@ int Reader(char *scandir, menu_entry *itms) {
 			fclose(fp);
 			}
 			closedir(dir);
-			free(itmp);
+			menu_entry_destroy(itmp);
 		}
 	}
 	if (ectr) {
@@ -150,13 +147,13 @@ int Itmsrt(int iitm, menu_entry *itms) {
 	menu_entry stmp;
 
 	for (i=0; i<iitm-1; i++) {
-			for (j=i+1; j<iitm; j++) {
-					if ((strcmp((itms+j)->name, (itms+i)->name)) < 0) {
-						stmp = itms[i];
-						itms[i] = itms[j];
-						itms[j] = stmp;
-					}
+		for (j=i+1; j<iitm; j++) {
+			if ((strcmp((itms+j)->name, (itms+i)->name)) < 0) {
+				stmp = itms[i];
+				itms[i] = itms[j];
+				itms[j] = stmp;
 			}
+		}
 	}
 	return 0;
 }
