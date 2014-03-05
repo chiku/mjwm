@@ -11,15 +11,8 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "menu_entry.h"
+#include "menu_entry.c"
 #include "mjm.h"
-
-struct menu_entry {
-	char name[256];
-	char executable[256];
-	char icon[256];
-	char category[256];
-};
 
 
 int main(int argc, char *argv[]) {
@@ -40,7 +33,7 @@ int main(int argc, char *argv[]) {
 
 	iitm = Reader(scandir, NULL);
 	if (iitm) {
-		itms = (menu_entry*)malloc( sizeof( menu_entry ) * iitm );
+		itms = menu_entry_create(iitm);
 		if (itms) {
 			iitm = Reader(scandir, itms);
 			Itmsrt(iitm, itms);
@@ -74,7 +67,7 @@ int Reader(char *scandir, menu_entry *itms) {
 	if (!dir) {
 			ectr++;
 	} else {
-		itmp = (menu_entry*)malloc(sizeof(menu_entry));
+		itmp = menu_entry_create(1);
 		if (!itmp) {
 				ectr++;
 		} else {
@@ -130,26 +123,26 @@ int Reader(char *scandir, menu_entry *itms) {
 
 int Rcwrite(int iitm, menu_entry *itms, char *outfile, int aexp) {
 
-FILE *wfp;
-int i, rslt;
-char *sprt;
+	FILE *wfp;
+	int i, rslt;
+	char *sprt;
 
-if (aexp) {
-	sprt="<Program label=\"%s\" icon=\"%s.png\">%s</Program>\n";
-} else {
-	sprt="<Program label=\"%s\" icon=\"%s\">%s</Program>\n";
-}
-
-	if ((wfp=fopen(outfile, "w")) == NULL) {
-		rslt = 1;
-	} else { 
-		for (i=0 ; i<iitm ; i++) {
-		fprintf(wfp, sprt, (itms+i)->name, (itms+i)->icon, (itms+i)->executable);
-		}
-		fclose(wfp);
-		rslt = 0;
+	if (aexp) {
+		sprt="<Program label=\"%s\" icon=\"%s.png\">%s</Program>\n";
+	} else {
+		sprt="<Program label=\"%s\" icon=\"%s\">%s</Program>\n";
 	}
-	return rslt;
+
+		if ((wfp=fopen(outfile, "w")) == NULL) {
+			rslt = 1;
+		} else {
+			for (i=0 ; i<iitm ; i++) {
+			fprintf(wfp, sprt, (itms+i)->name, (itms+i)->icon, (itms+i)->executable);
+			}
+			fclose(wfp);
+			rslt = 0;
+		}
+		return rslt;
 }
 
 
@@ -161,9 +154,9 @@ int Itmsrt(int iitm, menu_entry *itms) {
 	for (i=0; i<iitm-1; i++) {
 			for (j=i+1; j<iitm; j++) {
 					if ((strcmp((itms+j)->name, (itms+i)->name)) < 0) {
-							stmp = itms[i];
-							itms[i] = itms[j];
-							itms[j] = stmp;
+						stmp = itms[i];
+						itms[i] = itms[j];
+						itms[j] = stmp;
 					}
 			}
 	}
