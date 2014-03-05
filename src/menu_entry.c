@@ -5,6 +5,7 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -22,7 +23,14 @@ struct menu_entry {
 menu_entry*
 menu_entry_create(int size)
 {
-	return (menu_entry*)malloc(sizeof(menu_entry) * size);
+	void *memory = malloc(sizeof(menu_entry) * size);
+
+	if (memory == NULL) {
+		fprintf(stderr, "malloc error");
+		exit(1);
+	}
+
+	return (menu_entry*)memory;
 }
 
 void

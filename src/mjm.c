@@ -43,8 +43,6 @@ int main(int argc, char *argv[]) {
 				printf("write err...\n");
 			}
 			menu_entry_destroy(itms);
-		} else {
-			printf("malloc err...\n");
 		}
 	} else {
 		printf("read err...\n");
