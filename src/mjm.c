@@ -11,9 +11,10 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "menu_entry.h"
 #include "mjm.h"
 
-struct entry {
+struct menu_entry {
 	char name[256];
 	char executable[256];
 	char icon[256];
@@ -26,7 +27,7 @@ int main(int argc, char *argv[]) {
 	char *scandir = "/usr/share/applications/";
 	char *outfile = "./automenu";
 	int iitm=0, i, aexp=0;
-	entry *itms;
+	menu_entry *itms;
 
 
 	for (i=1; i<argc; i++) {
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 
 	iitm = Reader(scandir, NULL);
 	if (iitm) {
-		itms = (entry*)malloc( sizeof( entry ) * iitm );
+		itms = (menu_entry*)malloc( sizeof( menu_entry ) * iitm );
 		if (itms) {
 			iitm = Reader(scandir, itms);
 			Itmsrt(iitm, itms);
@@ -57,7 +58,7 @@ int main(int argc, char *argv[]) {
 }
 
 
-int Reader(char *scandir, entry *itms) {
+int Reader(char *scandir, menu_entry *itms) {
 
 	DIR *dir;
 	FILE *fp;
@@ -65,7 +66,7 @@ int Reader(char *scandir, entry *itms) {
 	char *sexec = "Exec", *sicon = "Icon", *sname = "Name", *scate = "Categories";
 	char sline[1024], stmp[1024];
 	char *sbuff;
-	entry *itmp;
+	menu_entry *itmp;
 	int ictr = 0, ectr = 0;
 	
 	dir=opendir(scandir);
@@ -73,7 +74,7 @@ int Reader(char *scandir, entry *itms) {
 	if (!dir) {
 			ectr++;
 	} else {
-		itmp = (entry*)malloc(sizeof(entry));
+		itmp = (menu_entry*)malloc(sizeof(menu_entry));
 		if (!itmp) {
 				ectr++;
 		} else {
@@ -127,7 +128,7 @@ int Reader(char *scandir, entry *itms) {
 }
 
 
-int Rcwrite(int iitm, entry *itms, char *outfile, int aexp) {
+int Rcwrite(int iitm, menu_entry *itms, char *outfile, int aexp) {
 
 FILE *wfp;
 int i, rslt;
@@ -152,10 +153,10 @@ if (aexp) {
 }
 
 
-int Itmsrt(int iitm, entry *itms) {
+int Itmsrt(int iitm, menu_entry *itms) {
 
 	int i, j;
-	entry stmp;
+	menu_entry stmp;
 
 	for (i=0; i<iitm-1; i++) {
 			for (j=i+1; j<iitm; j++) {
