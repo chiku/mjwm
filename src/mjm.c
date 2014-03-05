@@ -1,7 +1,8 @@
 /*
-mjm makes jwm's menu from many (freedesktop)desktop files automatically.
-use it including the made file in the rootmenu section of your system.jwmrc.
+mjm2 creates jwm's menu from many (freedesktop) desktop files automatically.
+Including the generated file in the rootmenu section of your system.jwmrc.
 Copyright (C) 2010 insmyic <gminsm@gmail.com>
+Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
 #include <stdio.h>
@@ -170,13 +171,15 @@ int Itmsrt(int iitm, itm *itms) {
 
 
 void Dspout() {
-	printf("this mjm version=1.1\n");
-	printf("mjm makes jwm's menu from many (freedesktop)desktop files automatically.\n");
-	printf("  -a   add (.png) string to icon-filename.\n");
-	printf("  -h   show this help.\n");
-	printf("  -o   define outfile.					 default_value=./automenu\n");
-	printf("  -s   define scanning directry. default_value=/usr/share/applications/ \n\n");
-	printf("use it including the made file in the rootmenu section of your system.jwmrc.\n");
+void display_help() {
+	printf("mjm2\n");
+	printf("Version 1.0\n");
+	printf("mjm creates jwm's menu from many (freedesktop) desktop files automatically\n");
+	printf("  -o   Define outfile [Default: ./automenu]\n");
+	printf("  -s   Define scanning directry [Default: /usr/share/applications/]\n");
+	printf("  -a   Add '.png' to icon filenames\n");
+	printf("  -h   Show this help\n\n");
+	printf("use it including the made file in the rootmenu section of your system.jwmrc\n");
 	printf("more information -> http://mjm.sourceforge.net/ and http://insm.cocolog-nifty.com/\n");
  
 	exit(0);
