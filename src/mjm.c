@@ -19,14 +19,16 @@ int main(int argc, char *argv[]) {
 
 	char *scandir = "/usr/share/applications/";
 	char *outfile = "./automenu";
-	int iitm=0, i, aexp=0;
+	char icon_extension[5];
+	icon_extension[0] = '\n';
+	int iitm=0, i;
 	menu_entry *itms;
 
 
 	for (i=1; i<argc; i++) {
 		if (strcmp(argv[i], "-o")==0 && i+1<argc) {outfile = argv[i+1];}
 		if (strcmp(argv[i], "-s")==0 && i+1<argc) {scandir = argv[i+1];}
-		if (strcmp(argv[i], "-a")==0 ) {aexp = 1;}
+		if (strcmp(argv[i], "-a")==0 ) {strncpy(icon_extension, ".png", 5);}
 		if (strcmp(argv[i], "-h")==0 && i==1) {display_help(); exit(0);}
 	}
 
@@ -121,28 +123,24 @@ int Reader(char *scandir, menu_entry *itms) {
 }
 
 
-int Rcwrite(int iitm, menu_entry *itms, char *outfile, int aexp) {
+int Rcwrite(int iitm, menu_entry *itms, char *outfile, char *icon_extension) {
 
 	FILE *wfp;
 	int i, rslt;
 	char *sprt;
 
-	if (aexp) {
-		sprt="<Program label=\"%s\" icon=\"%s.png\">%s</Program>\n";
-	} else {
-		sprt="<Program label=\"%s\" icon=\"%s\">%s</Program>\n";
-	}
+	sprt="<Program label=\"%s\" icon=\"%s%s\">%s</Program>\n";
 
-		if ((wfp=fopen(outfile, "w")) == NULL) {
-			rslt = 1;
-		} else {
-			for (i=0 ; i<iitm ; i++) {
-			fprintf(wfp, sprt, (itms+i)->name, (itms+i)->icon, (itms+i)->executable);
-			}
-			fclose(wfp);
-			rslt = 0;
+	if ((wfp=fopen(outfile, "w")) == NULL) {
+		rslt = 1;
+	} else {
+		for (i=0 ; i<iitm ; i++) {
+		fprintf(wfp, sprt, (itms+i)->name, (itms+i)->icon, icon_extension, (itms+i)->executable);
 		}
-		return rslt;
+		fclose(wfp);
+		rslt = 0;
+	}
+	return rslt;
 }
 
 

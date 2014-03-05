@@ -6,6 +6,6 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
 int Reader(char *scandir, menu_entry *itms);
-int Rcwrite(int iitm, menu_entry *itms, char *outfile, int aexp);
+int Rcwrite(int iitm, menu_entry *itms, char *outfile, char *icon_extension);
 int Itmsrt(int iitm, menu_entry *itms);
 void display_help(void);
