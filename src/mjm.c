@@ -17,17 +17,19 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 
 int main(int argc, char *argv[]) {
 
-	char *scandir = "/usr/share/applications/";
-	char *outfile = "./automenu";
+	char scandir[1024];
+	char outfile[1024];
 	char icon_extension[5];
-	icon_extension[0] = '\n';
 	int iitm=0, i;
-	menu_entry *itms;
+	menu_entry *menu_entries;
 
+	strncpy(scandir, "/usr/share/applications/", 1024);
+	strncpy(outfile, "./automenu", 1024);
+	strncpy(icon_extension, "", 5);
 
 	for (i=1; i<argc; i++) {
-		if (strcmp(argv[i], "-o")==0 && i+1<argc) {outfile = argv[i+1];}
-		if (strcmp(argv[i], "-s")==0 && i+1<argc) {scandir = argv[i+1];}
+		if (strcmp(argv[i], "-o")==0 && i+1<argc) {strncpy(outfile, argv[i+1], 1024);}
+		if (strcmp(argv[i], "-s")==0 && i+1<argc) {strncpy(scandir, argv[i+1], 1024);}
 		if (strcmp(argv[i], "-a")==0 ) {strncpy(icon_extension, ".png", 5);}
 		if (strcmp(argv[i], "-h")==0 && i==1) {display_help(); exit(0);}
 	}
@@ -35,14 +37,14 @@ int main(int argc, char *argv[]) {
 
 	iitm = Reader(scandir, NULL);
 	if (iitm) {
-		itms = menu_entry_create(iitm);
-		if (itms) {
-			iitm = Reader(scandir, itms);
-			Itmsrt(iitm, itms);
-			if (Rcwrite(iitm, itms, outfile, icon_extension)) {
+		menu_entries = menu_entry_create(iitm);
+		if (menu_entries) {
+			iitm = Reader(scandir, menu_entries);
+			Itmsrt(iitm, menu_entries);
+			if (Rcwrite(iitm, menu_entries, outfile, icon_extension)) {
 				printf("write err...\n");
 			}
-			menu_entry_destroy(itms);
+			menu_entry_destroy(menu_entries);
 		}
 	} else {
 		printf("read err...\n");
@@ -51,7 +53,7 @@ int main(int argc, char *argv[]) {
 }
 
 
-int Reader(char *scandir, menu_entry *itms) {
+int Reader(char *scandir, menu_entry *menu_entries) {
 
 	DIR *dir;
 	FILE *fp;
@@ -97,11 +99,11 @@ int Reader(char *scandir, menu_entry *itms) {
 
 			if (strlen(itmp->executable) && strlen(itmp->icon) && strlen(itmp->name)) {
 				ictr++;
-				if (itms) {
-					strcpy((itms+ictr-1)->executable, itmp->executable);
-					strcpy((itms+ictr-1)->icon, itmp->icon);
-					strcpy((itms+ictr-1)->name, itmp->name);
-					strcpy((itms+ictr-1)->category, itmp->category);
+				if (menu_entries) {
+					strcpy((menu_entries+ictr-1)->executable, itmp->executable);
+					strcpy((menu_entries+ictr-1)->icon, itmp->icon);
+					strcpy((menu_entries+ictr-1)->name, itmp->name);
+					strcpy((menu_entries+ictr-1)->category, itmp->category);
 				} 
 			}
 			
@@ -118,19 +120,20 @@ int Reader(char *scandir, menu_entry *itms) {
 }
 
 
-int Rcwrite(int iitm, menu_entry *itms, char *outfile, char *icon_extension) {
+int Rcwrite(int iitm, menu_entry *menu_entries, char *outfile, char *icon_extension) {
 
 	FILE *wfp;
 	int i, rslt;
-	char *sprt;
+	char sprt[1024];
 
-	sprt="<Program label=\"%s\" icon=\"%s%s\">%s</Program>\n";
+	strncpy(sprt, "<Program label=\"%s\" icon=\"%s%s\">%s</Program>\n", 1024);
+	sprt[1023] = '\0';
 
 	if ((wfp=fopen(outfile, "w")) == NULL) {
 		rslt = 1;
 	} else {
 		for (i=0 ; i<iitm ; i++) {
-		fprintf(wfp, sprt, (itms+i)->name, (itms+i)->icon, icon_extension, (itms+i)->executable);
+		fprintf(wfp, sprt, (menu_entries+i)->name, (menu_entries+i)->icon, icon_extension, (menu_entries+i)->executable);
 		}
 		fclose(wfp);
 		rslt = 0;
@@ -139,17 +142,17 @@ int Rcwrite(int iitm, menu_entry *itms, char *outfile, char *icon_extension) {
 }
 
 
-int Itmsrt(int iitm, menu_entry *itms) {
+int Itmsrt(int iitm, menu_entry *menu_entries) {
 
 	int i, j;
 	menu_entry stmp;
 
 	for (i=0; i<iitm-1; i++) {
 		for (j=i+1; j<iitm; j++) {
-			if ((strcmp((itms+j)->name, (itms+i)->name)) < 0) {
-				stmp = itms[i];
-				itms[i] = itms[j];
-				itms[j] = stmp;
+			if ((strcmp((menu_entries+j)->name, (menu_entries+i)->name)) < 0) {
+				stmp = menu_entries[i];
+				menu_entries[i] = menu_entries[j];
+				menu_entries[j] = stmp;
 			}
 		}
 	}
