@@ -21,19 +21,18 @@ int main(int argc, char *argv[]) {
 
 	char scandir[1024];
 	char outfile[1024];
-	char icon_extension[5];
+	std::string icon_extension("");
 	int iitm=0, i;
 	mjwm::menu_entry *menu_entries;
 
 	strncpy(scandir, "/usr/share/applications/", 1024);
 	strncpy(outfile, "./automenu", 1024);
-	strncpy(icon_extension, "", 5);
 
 	for (i=1; i<argc; i++) {
 		if (strcmp(argv[i], "-o")==0 && i+1<argc) {strncpy(outfile, argv[i+1], 1024);}
 		if (strcmp(argv[i], "-s")==0 && i+1<argc) {strncpy(scandir, argv[i+1], 1024);}
-		if (strcmp(argv[i], "-a")==0 ) {strncpy(icon_extension, ".png", 5);}
-		if (strcmp(argv[i], "-h")==0 && i==1) {display_help(); exit(0);}
+		if (strcmp(argv[i], "-a")==0 ) { icon_extension = ".png"; }
+		if (strcmp(argv[i], "-h")==0 && i==1) { display_help(); exit(0); }
 	}
 
 
@@ -82,13 +81,10 @@ int Reader(char *scandir, mjwm::menu_entry *menu_entries) {
 			itmp.populate(sline);
 		}
 
-		if (itmp.executable.length() && itmp.icon.length() && itmp.name.length()) {
+		if (itmp.is_valid()) {
 			ictr++;
 			if (menu_entries) {
-				(menu_entries+ictr-1)->executable = itmp.executable;
-				(menu_entries+ictr-1)->icon       = itmp.icon;
-				(menu_entries+ictr-1)->name       = itmp.name;
-				(menu_entries+ictr-1)->category   = itmp.category;
+				menu_entries[ictr-1] = itmp;
 			}
 		}
 
@@ -103,11 +99,11 @@ int Reader(char *scandir, mjwm::menu_entry *menu_entries) {
 }
 
 
-void Rcwrite(int iitm, mjwm::menu_entry *menu_entries, char *outfilename, char *icon_extension) {
+void Rcwrite(int iitm, mjwm::menu_entry *menu_entries, char *outfilename, std::string icon_extension) {
 	std::ofstream file(outfilename);
 
 	for (int i=0 ; i<iitm ; i++) {
-		file << "<Program label=\"" << (menu_entries+i)->name << "\"icon=\"" << (menu_entries+i)->icon << icon_extension << "\"" << (menu_entries+i)->executable << "</Program>" << std::endl;
+		menu_entries[i].write_to(file, icon_extension);
 	}
 }
 
@@ -118,7 +114,7 @@ int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 
 	for (i=0; i<iitm-1; i++) {
 		for (j=i+1; j<iitm; j++) {
-			if ((menu_entries+j)->name != (menu_entries+i)->name) {
+			if (!menu_entries[j].has_same_name(menu_entries[i])) {
 				stmp = menu_entries[i];
 				menu_entries[i] = menu_entries[j];
 				menu_entries[j] = stmp;

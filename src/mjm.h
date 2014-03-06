@@ -8,8 +8,12 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 #ifndef __mjwm_mjwm__
 #define __mjwm_mjwm__
 
+#include <string>
+
+#include "menu_entry.h"
+
 int Reader(char *scandir, mjwm::menu_entry *itms);
-void Rcwrite(int iitm, mjwm::menu_entry *itms, char *outfile, char *icon_extension);
+void Rcwrite(int iitm, mjwm::menu_entry *itms, char *outfile, std::string icon_extension);
 int Itmsrt(int iitm, mjwm::menu_entry *itms);
 void display_help(void);
 

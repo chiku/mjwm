@@ -5,10 +5,10 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
-#include <stdlib.h>
+#include <string.h>
 
 #include <iostream>
-#include <string.h>
+#include <fstream>
 
 #include "menu_entry.h"
 
@@ -19,6 +19,18 @@ mjwm::menu_entry::menu_entry()
 	executable = "";
 	icon       = "";
 	category   = "";
+}
+
+bool
+mjwm::menu_entry::is_valid() const
+{
+	return (executable.length() > 0) && (icon.length() > 0) && (name.length() > 0);
+}
+
+bool
+mjwm::menu_entry::has_same_name(mjwm::menu_entry other) const
+{
+	return name == other.name;
 }
 
 void
@@ -50,7 +62,13 @@ mjwm::menu_entry::populate(char *line)
 }
 
 void
-mjwm::menu_entry::dump()
+mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) const
+{
+	file << "<Program label=\"" << name << "\"icon=\"" << icon << icon_extension << "\"" << executable << "</Program>" << std::endl;
+}
+
+void
+mjwm::menu_entry::dump() const
 {
 	std::cout << "Name: "       << name       << std::endl;
 	std::cout << "Executable: " << executable << std::endl;
