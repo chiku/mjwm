@@ -10,6 +10,8 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <iostream>
+#include <fstream>
 
 #include "menu_entry.cpp"
 #include "mjm.h"
@@ -21,7 +23,7 @@ int main(int argc, char *argv[]) {
 	char outfile[1024];
 	char icon_extension[5];
 	int iitm=0, i;
-	menu_entry *menu_entries;
+	mjwm::menu_entry *menu_entries;
 
 	strncpy(scandir, "/usr/share/applications/", 1024);
 	strncpy(outfile, "./automenu", 1024);
@@ -36,29 +38,27 @@ int main(int argc, char *argv[]) {
 
 
 	iitm = Reader(scandir, NULL);
-	// if (iitm) {
-	// 	menu_entries = menu_entry_create(iitm);
-	// 	if (menu_entries) {
-	// 		iitm = Reader(scandir, menu_entries);
-	// 		Itmsrt(iitm, menu_entries);
-	// 		if (Rcwrite(iitm, menu_entries, outfile, icon_extension)) {
-	// 			printf("write err...\n");
-	// 		}
-	// 		menu_entry_destroy(menu_entries);
-	// 	}
-	// } else {
-	// 	printf("read err...\n");
-	// }
+	if (iitm) {
+		menu_entries = new mjwm::menu_entry[iitm];
+		if (menu_entries) {
+			iitm = Reader(scandir, menu_entries);
+			Itmsrt(iitm, menu_entries);
+			Rcwrite(iitm, menu_entries, outfile, icon_extension);
+			delete[] menu_entries;
+		}
+	} else {
+		printf("read err...\n");
+	}
 	exit(iitm);
 }
 
 
-int Reader(char *scandir, menu_entry *menu_entries) {
+int Reader(char *scandir, mjwm::menu_entry *menu_entries) {
 	DIR *dir;
 	FILE *fp;
 	struct dirent *dp;
 	char sline[1024], stmp[1024];
-	menu_entry *itmp;
+	mjwm::menu_entry itmp;
 	int ictr = 0, ectr = 0;
 	
 	dir=opendir(scandir);
@@ -66,7 +66,7 @@ int Reader(char *scandir, menu_entry *menu_entries) {
 	if (!dir) {
 		ectr++;
 	} else {
-		itmp = menu_entry_create(1);
+		itmp = mjwm::menu_entry();
 		for(dp=readdir(dir);dp!=NULL;dp=readdir(dir)) {
 
 		strcpy(stmp, "");
@@ -78,26 +78,23 @@ int Reader(char *scandir, menu_entry *menu_entries) {
 			break;
 		}
 
-		menu_entry_blank(itmp);
-
 		while (fgets(sline, 1024, fp) != NULL) {
-			menu_entry_populate(itmp, sline);
+			itmp.populate(sline);
 		}
 
-		if (strlen(itmp->executable) && strlen(itmp->icon) && strlen(itmp->name)) {
+		if (itmp.executable.length() && itmp.icon.length() && itmp.name.length()) {
 			ictr++;
 			if (menu_entries) {
-				strcpy((menu_entries+ictr-1)->executable, itmp->executable);
-				strcpy((menu_entries+ictr-1)->icon, itmp->icon);
-				strcpy((menu_entries+ictr-1)->name, itmp->name);
-				strcpy((menu_entries+ictr-1)->category, itmp->category);
-			} 
+				(menu_entries+ictr-1)->executable = itmp.executable;
+				(menu_entries+ictr-1)->icon       = itmp.icon;
+				(menu_entries+ictr-1)->name       = itmp.name;
+				(menu_entries+ictr-1)->category   = itmp.category;
+			}
 		}
 
 		fclose(fp);
 		}
 		closedir(dir);
-		menu_entry_destroy(itmp);
 	}
 	if (ectr) {
 		ictr = 0;
@@ -106,36 +103,22 @@ int Reader(char *scandir, menu_entry *menu_entries) {
 }
 
 
-int Rcwrite(int iitm, menu_entry *menu_entries, char *outfile, char *icon_extension) {
+void Rcwrite(int iitm, mjwm::menu_entry *menu_entries, char *outfilename, char *icon_extension) {
+	std::ofstream file(outfilename);
 
-	FILE *wfp;
-	int i, rslt;
-	char sprt[1024];
-
-	strncpy(sprt, "<Program label=\"%s\" icon=\"%s%s\">%s</Program>\n", 1024);
-	sprt[1023] = '\0';
-
-	if ((wfp=fopen(outfile, "w")) == NULL) {
-		rslt = 1;
-	} else {
-		for (i=0 ; i<iitm ; i++) {
-		fprintf(wfp, sprt, (menu_entries+i)->name, (menu_entries+i)->icon, icon_extension, (menu_entries+i)->executable);
-		}
-		fclose(wfp);
-		rslt = 0;
+	for (int i=0 ; i<iitm ; i++) {
+		file << "<Program label=\"" << (menu_entries+i)->name << "\"icon=\"" << (menu_entries+i)->icon << icon_extension << "\"" << (menu_entries+i)->executable << "</Program>" << std::endl;
 	}
-	return rslt;
 }
 
 
-int Itmsrt(int iitm, menu_entry *menu_entries) {
-
+int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 	int i, j;
-	menu_entry stmp;
+	mjwm::menu_entry stmp;
 
 	for (i=0; i<iitm-1; i++) {
 		for (j=i+1; j<iitm; j++) {
-			if ((strcmp((menu_entries+j)->name, (menu_entries+i)->name)) < 0) {
+			if ((menu_entries+j)->name != (menu_entries+i)->name) {
 				stmp = menu_entries[i];
 				menu_entries[i] = menu_entries[j];
 				menu_entries[j] = stmp;

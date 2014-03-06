@@ -5,51 +5,24 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
-#include <stdio.h>
 #include <stdlib.h>
+
+#include <iostream>
 #include <string.h>
 
 #include "menu_entry.h"
 
-#define MENU_ENTRY_MAX_SIZE 1024
 
-struct menu_entry {
-	char name      [MENU_ENTRY_MAX_SIZE];
-	char executable[MENU_ENTRY_MAX_SIZE];
-	char icon      [MENU_ENTRY_MAX_SIZE];
-	char category  [MENU_ENTRY_MAX_SIZE];
-};
-
-menu_entry*
-menu_entry_create(int size)
+mjwm::menu_entry::menu_entry()
 {
-	void *memory = malloc(sizeof(menu_entry) * size);
-
-	if (memory == NULL) {
-		fprintf(stderr, "malloc error");
-		exit(1);
-	}
-
-	return (menu_entry*)memory;
+	name       = "";
+	executable = "";
+	icon       = "";
+	category   = "";
 }
 
 void
-menu_entry_destroy(menu_entry *self)
-{
-	free(self);
-}
-
-void
-menu_entry_blank(menu_entry *self)
-{
-	strncpy(self->name,       "", MENU_ENTRY_MAX_SIZE);
-	strncpy(self->executable, "", MENU_ENTRY_MAX_SIZE);
-	strncpy(self->icon,       "", MENU_ENTRY_MAX_SIZE);
-	strncpy(self->category,   "", MENU_ENTRY_MAX_SIZE);
-}
-
-void
-menu_entry_populate(menu_entry *self, char *line)
+mjwm::menu_entry::populate(char *line)
 {
 	static const char EXECUTABLE[] = "Exec";
 	static const char ICON[]       = "Icon";
@@ -62,29 +35,25 @@ menu_entry_populate(menu_entry *self, char *line)
 
 	if (buffer[0] != '\0') {
 		if (strncmp(buffer, EXECUTABLE, MENU_ENTRY_MAX_SIZE)==0) { 
-			strncpy(self->executable, strtok(NULL, "\n"), MENU_ENTRY_MAX_SIZE); 
-			self->executable[MENU_ENTRY_MAX_SIZE-1] = '\0'; 
+			executable = strtok(NULL, "\n");
 		}
 		if (strncmp(buffer, ICON, MENU_ENTRY_MAX_SIZE)==0) { 
-			strncpy(self->icon,strtok(NULL, "\n"), MENU_ENTRY_MAX_SIZE);
-			self->icon[MENU_ENTRY_MAX_SIZE-1] = '\0';
+			icon = strtok(NULL, "\n");
 		}
 		if (strncmp(buffer, NAME,MENU_ENTRY_MAX_SIZE)==0) {
-			strncpy(self->name,strtok(NULL, "\n"), MENU_ENTRY_MAX_SIZE);
-			self->name[MENU_ENTRY_MAX_SIZE-1] = '\0';
+			name = strtok(NULL, "\n");
 		}
 		if (strncmp(buffer, CATEGORIES, MENU_ENTRY_MAX_SIZE)==0) {
-			strncpy(self->category, strtok(NULL, "\n"), MENU_ENTRY_MAX_SIZE);
-			self->category[MENU_ENTRY_MAX_SIZE-1] = '\0';
+			category = strtok(NULL, "\n");
 		}
 	}
 }
 
 void
-menu_entry_dump(menu_entry* self)
+mjwm::menu_entry::dump()
 {
-	printf("Name: %s\n",       self->name);
-	printf("Executable: %s\n", self->executable);
-	printf("Icon: %s\n",       self->icon);
-	printf("Categories: %s\n", self->category);
+	std::cout << "Name: "       << name       << std::endl;
+	std::cout << "Executable: " << executable << std::endl;
+	std::cout << "Icon: "       << icon       << std::endl;
+	std::cout << "Categories: " << category   << std::endl;
 }

@@ -5,7 +5,12 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
-int Reader(char *scandir, menu_entry *itms);
-int Rcwrite(int iitm, menu_entry *itms, char *outfile, char *icon_extension);
-int Itmsrt(int iitm, menu_entry *itms);
+#ifndef __mjwm_mjwm__
+#define __mjwm_mjwm__
+
+int Reader(char *scandir, mjwm::menu_entry *itms);
+void Rcwrite(int iitm, mjwm::menu_entry *itms, char *outfile, char *icon_extension);
+int Itmsrt(int iitm, mjwm::menu_entry *itms);
 void display_help(void);
+
+#endif

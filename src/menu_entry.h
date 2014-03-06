@@ -5,11 +5,29 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
-typedef struct menu_entry menu_entry;
+#ifndef __mjwm_menu_entry__
+#define __mjwm_menu_entry__
 
-menu_entry* menu_entry_create(int size);
-void menu_entry_destroy(menu_entry* self);
+#include <string>
 
-void menu_entry_blank(menu_entry* self);
-void menu_entry_populate(menu_entry *self, char *line);
-void menu_entry_dump(menu_entry* self);
+const int MENU_ENTRY_MAX_SIZE=1024;
+
+namespace mjwm
+{
+	class menu_entry
+	{
+	public:
+		std::string name;
+		std::string executable;
+		std::string icon;
+		std::string category;
+
+	public:
+		menu_entry();
+
+		void populate(char *line);
+		void dump();
+	};
+}
+
+#endif
