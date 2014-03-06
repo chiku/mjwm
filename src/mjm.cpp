@@ -11,7 +11,7 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "menu_entry.c"
+#include "menu_entry.cpp"
 #include "mjm.h"
 
 
@@ -36,85 +36,68 @@ int main(int argc, char *argv[]) {
 
 
 	iitm = Reader(scandir, NULL);
-	if (iitm) {
-		menu_entries = menu_entry_create(iitm);
-		if (menu_entries) {
-			iitm = Reader(scandir, menu_entries);
-			Itmsrt(iitm, menu_entries);
-			if (Rcwrite(iitm, menu_entries, outfile, icon_extension)) {
-				printf("write err...\n");
-			}
-			menu_entry_destroy(menu_entries);
-		}
-	} else {
-		printf("read err...\n");
-	}
+	// if (iitm) {
+	// 	menu_entries = menu_entry_create(iitm);
+	// 	if (menu_entries) {
+	// 		iitm = Reader(scandir, menu_entries);
+	// 		Itmsrt(iitm, menu_entries);
+	// 		if (Rcwrite(iitm, menu_entries, outfile, icon_extension)) {
+	// 			printf("write err...\n");
+	// 		}
+	// 		menu_entry_destroy(menu_entries);
+	// 	}
+	// } else {
+	// 	printf("read err...\n");
+	// }
 	exit(iitm);
 }
 
 
 int Reader(char *scandir, menu_entry *menu_entries) {
-	static const char EXECUTABLE[] = "Exec";
-	static const char ICON[]       = "Icon";
-	static const char NAME[]       = "Name";
-	static const char CATEGORIES[] = "Categories";
-
 	DIR *dir;
 	FILE *fp;
 	struct dirent *dp;
 	char sline[1024], stmp[1024];
-	char *sbuff;
 	menu_entry *itmp;
 	int ictr = 0, ectr = 0;
 	
 	dir=opendir(scandir);
 	
 	if (!dir) {
-			ectr++;
+		ectr++;
 	} else {
 		itmp = menu_entry_create(1);
-		if (!itmp) {
-				ectr++;
-		} else {
-			for(dp=readdir(dir);dp!=NULL;dp=readdir(dir)){
+		for(dp=readdir(dir);dp!=NULL;dp=readdir(dir)) {
 
-			strcpy(stmp, "");
-			strcat(stmp, scandir);
-			strcat(stmp, dp->d_name);
+		strcpy(stmp, "");
+		strcat(stmp, scandir);
+		strcat(stmp, dp->d_name);
 
-			if ((fp = fopen(stmp, "r")) == NULL) {
-				ectr++;
-				break;
-			}
-
-			menu_entry_blank(itmp);
-
-			while (fgets(sline, 256, fp) != NULL) {
-				sbuff = NULL;
-				sbuff = strtok(sline, "=");
-				if (sbuff) {
-					if (strcmp(sbuff, EXECUTABLE)==0) { strcpy(itmp->executable, strtok(NULL, "\n")); }
-					if (strcmp(sbuff, ICON)==0)       { strcpy(itmp->icon, strtok(NULL, "\n")); }
-					if (strcmp(sbuff, NAME)==0)       { strcpy(itmp->name, strtok(NULL, "\n")); }
-					if (strcmp(sbuff, CATEGORIES)==0) { strcpy(itmp->category, strtok(NULL, "\n")); }
-				}
-			}
-
-			if (strlen(itmp->executable) && strlen(itmp->icon) && strlen(itmp->name)) {
-				ictr++;
-				if (menu_entries) {
-					strcpy((menu_entries+ictr-1)->executable, itmp->executable);
-					strcpy((menu_entries+ictr-1)->icon, itmp->icon);
-					strcpy((menu_entries+ictr-1)->name, itmp->name);
-					strcpy((menu_entries+ictr-1)->category, itmp->category);
-				} 
-			}
-			
-			fclose(fp);
-			}
-			closedir(dir);
-			menu_entry_destroy(itmp);
+		if ((fp = fopen(stmp, "r")) == NULL) {
+			ectr++;
+			break;
 		}
+
+		menu_entry_blank(itmp);
+
+		while (fgets(sline, 1024, fp) != NULL) {
+			menu_entry_populate(itmp, sline);
+		}
+
+		if (strlen(itmp->executable) && strlen(itmp->icon) && strlen(itmp->name)) {
+			ictr++;
+			if (menu_entries) {
+				strcpy((menu_entries+ictr-1)->executable, itmp->executable);
+				strcpy((menu_entries+ictr-1)->icon, itmp->icon);
+				strcpy((menu_entries+ictr-1)->name, itmp->name);
+				strcpy((menu_entries+ictr-1)->category, itmp->category);
+			} 
+		}
+
+		fclose(fp);
+		}
+		closedir(dir);
+		menu_entry_destroy(itmp);
 	}
 	if (ectr) {
 		ictr = 0;
