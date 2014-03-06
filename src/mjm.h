@@ -12,8 +12,8 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 
 #include "menu_entry.h"
 
-int Reader(char *scandir, mjwm::menu_entry *itms);
-void Rcwrite(int iitm, mjwm::menu_entry *itms, char *outfile, std::string icon_extension);
+int Reader(std::string directory_to_scan, mjwm::menu_entry *itms);
+void Rcwrite(int iitm, mjwm::menu_entry *itms, std::string output_filename, std::string icon_extension);
 int Itmsrt(int iitm, mjwm::menu_entry *itms);
 void display_help(void);
 
