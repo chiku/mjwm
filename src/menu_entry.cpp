@@ -12,6 +12,10 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 
 #include "menu_entry.h"
 
+const std::string EXECUTABLE = "Exec";
+const std::string ICON       = "Icon";
+const std::string NAME       = "Name";
+const std::string CATEGORIES = "Categories";
 
 mjwm::menu_entry::menu_entry()
 {
@@ -36,27 +40,20 @@ mjwm::menu_entry::has_same_name(mjwm::menu_entry other) const
 void
 mjwm::menu_entry::populate(char *line)
 {
-	static const char EXECUTABLE[] = "Exec";
-	static const char ICON[]       = "Icon";
-	static const char NAME[]       = "Name";
-	static const char CATEGORIES[] = "Categories";
-
-	char buffer[MENU_ENTRY_MAX_SIZE];
-	strncpy(buffer, strtok(line, "="), MENU_ENTRY_MAX_SIZE);
-	buffer[MENU_ENTRY_MAX_SIZE-1] = '\0';
+	std::string buffer = strtok(line, "=");
 
 	if (buffer[0] != '\0') {
-		if (strncmp(buffer, EXECUTABLE, MENU_ENTRY_MAX_SIZE)==0) { 
-			executable = strtok(NULL, "\n");
+		if (buffer == EXECUTABLE) {
+			executable = safe_parse();
 		}
-		if (strncmp(buffer, ICON, MENU_ENTRY_MAX_SIZE)==0) { 
-			icon = strtok(NULL, "\n");
+		if (buffer == ICON) {
+			icon = safe_parse();
 		}
-		if (strncmp(buffer, NAME,MENU_ENTRY_MAX_SIZE)==0) {
-			name = strtok(NULL, "\n");
+		if (buffer == NAME) {
+			name = safe_parse();
 		}
-		if (strncmp(buffer, CATEGORIES, MENU_ENTRY_MAX_SIZE)==0) {
-			category = strtok(NULL, "\n");
+		if (buffer == CATEGORIES) {
+			category = safe_parse();
 		}
 	}
 }
@@ -74,4 +71,11 @@ mjwm::menu_entry::dump() const
 	std::cout << "Executable: " << executable << std::endl;
 	std::cout << "Icon: "       << icon       << std::endl;
 	std::cout << "Categories: " << category   << std::endl;
+}
+
+std::string
+mjwm::menu_entry::safe_parse() const
+{
+	char *token = strtok(NULL, "\n");
+	return token == NULL ? std::string("") : std::string(token);
 }

@@ -31,6 +31,7 @@ namespace mjwm
 		void populate(char *line);
 		void write_to(std::ofstream &file, std::string icon_extension) const;
 		void dump() const;
+		std::string safe_parse() const;
 	};
 }
 
