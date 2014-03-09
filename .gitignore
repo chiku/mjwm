@@ -1,7 +1,6 @@
 **/*.o
 AUTHORS
 COPYING
-ChangeLog
 INSTALL
 Makefile
 Makefile.in

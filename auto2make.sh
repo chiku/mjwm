@@ -1,4 +1,4 @@
-touch NEWS AUTHORS ChangeLog
+touch NEWS AUTHORS
 autoreconf -i
 ./configure
 make
