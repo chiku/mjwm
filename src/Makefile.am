@@ -1,2 +1,2 @@
-bin_PROGRAMS = mjm
-mjm_SOURCES = menu_entry.cpp mjm.cpp
+bin_PROGRAMS = mjwm
+mjwm_SOURCES = menu_entry.cpp mjwm.cpp

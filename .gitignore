@@ -21,6 +21,6 @@ missing
 src/.deps/
 src/Makefile
 src/Makefile.in
-src/mjm
+src/mjwm
 stamp-h1
 automenu

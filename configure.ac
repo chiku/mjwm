@@ -2,9 +2,9 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.66])
-AC_INIT([mjm2], [1.0], [chirantan.mitra@gmail.com])
+AC_INIT([mjwm], [1.0], [chirantan.mitra@gmail.com])
 AC_CONFIG_SRCDIR([src/menu_entry.cpp])
-AC_CONFIG_SRCDIR([src/mjm.cpp])
+AC_CONFIG_SRCDIR([src/mjwm.cpp])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE
 
@@ -23,7 +23,7 @@ AC_C_CONST
 
 # Checks for library functions.
 AC_FUNC_MALLOC
-AC_CHECK_FUNCS([mjm])
+AC_CHECK_FUNCS([mjwm])
 AC_CONFIG_FILES([Makefile src/Makefile])
 
 AC_OUTPUT

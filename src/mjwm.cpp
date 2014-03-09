@@ -1,8 +1,8 @@
 /*
-mjm2 creates jwm's menu from many (freedesktop) desktop files automatically
-Including the generated file in the rootmenu section of your system.jwmrc
-Copyright (C) 2010 insmyic <gminsm@gmail.com>
-Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
+mjwm creates jwm's menu from (freedesktop) desktop files
+Include the generated file in the rootmenu section of your system.jwmrc
+Based on work by insmyic <gminsm@gmail.com> http://sourceforge.net/projects/mjm
+Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
 #include <iostream>
@@ -16,7 +16,7 @@ Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 #include <unistd.h>
 
 #include "menu_entry.h"
-#include "mjm.h"
+#include "mjwm.h"
 
 
 int main(int argc, char *argv[]) {
@@ -59,7 +59,7 @@ int Reader(std::string directory_to_scan, mjwm::menu_entry *menu_entries) {
 	int ictr = 0, ectr = 0;
 
 	dir=opendir(directory_to_scan.c_str());
-	
+
 	if (!dir) {
 		ectr++;
 	} else {
@@ -124,13 +124,13 @@ int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 
 
 void display_help() {
-	std::cout << "mjm2" << std::endl;
+	std::cout << "mjwm" << std::endl;
 	std::cout << "Version 1.0" << std::endl;
-	std::cout << "mjm creates jwm's menu from many (freedesktop) desktop files automatically" << std::endl;
+	std::cout << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
 	std::cout << "  -o   Outfile file [Default: ./automenu]" << std::endl;
 	std::cout << "  -s   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
 	std::cout << "  -a   Add '.png' to icon filenames" << std::endl;
 	std::cout << "  -h   Show this help" << std::endl << std::endl;
-	std::cout << "Including the generated file in the rootmenu section of your system.jwmrc" << std::endl;
-	std::cout << "more information -> http://github.com/chiku/mjm2" << std::endl;
+	std::cout << "Include the generated file in the rootmenu section of your system.jwmrc" << std::endl;
+	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
 }
