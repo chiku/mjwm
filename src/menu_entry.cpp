@@ -61,7 +61,7 @@ mjwm::menu_entry::populate(char *line)
 void
 mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) const
 {
-	file << "<Program label=\"" << name << "\"icon=\"" << icon << icon_extension << "\"" << executable << "</Program>" << std::endl;
+	file << "<Program label=\"" << name << "\" icon=\"" << icon << icon_extension << "\">" << executable << "</Program>" << std::endl;
 }
 
 void
