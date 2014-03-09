@@ -124,13 +124,13 @@ int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 
 
 void display_help() {
-	printf("mjm2\n");
-	printf("Version 1.0\n");
-	printf("mjm creates jwm's menu from many (freedesktop) desktop files automatically\n");
-	printf("  -o   Outfile file [Default: ./automenu]\n");
-	printf("  -s   Directory to scan for '.desktop' files [Default: /usr/share/applications/]\n");
-	printf("  -a   Add '.png' to icon filenames\n");
-	printf("  -h   Show this help\n\n");
-	printf("Including the generated file in the rootmenu section of your system.jwmrc\n");
-	printf("more information -> http://github.com/chiku/mjm2\n");
+	std::cout << "mjm2" << std::endl;
+	std::cout << "Version 1.0" << std::endl;
+	std::cout << "mjm creates jwm's menu from many (freedesktop) desktop files automatically" << std::endl;
+	std::cout << "  -o   Outfile file [Default: ./automenu]" << std::endl;
+	std::cout << "  -s   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
+	std::cout << "  -a   Add '.png' to icon filenames" << std::endl;
+	std::cout << "  -h   Show this help" << std::endl << std::endl;
+	std::cout << "Including the generated file in the rootmenu section of your system.jwmrc" << std::endl;
+	std::cout << "more information -> http://github.com/chiku/mjm2" << std::endl;
 }
