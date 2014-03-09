@@ -6,7 +6,6 @@ INSTALL
 Makefile
 Makefile.in
 NEWS
-README
 aclocal.m4
 autom4te.cache/
 compile
