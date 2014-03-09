@@ -5,10 +5,10 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
-#include <string.h>
-
 #include <iostream>
 #include <fstream>
+
+#include <string.h>
 
 #include "menu_entry.h"
 

@@ -3,9 +3,11 @@
 
 AC_PREREQ([2.66])
 AC_INIT([mjm2], [1.0], [chirantan.mitra@gmail.com])
+AC_CONFIG_SRCDIR([src/menu_entry.cpp])
 AC_CONFIG_SRCDIR([src/mjm.cpp])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE
+
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
@@ -13,7 +15,7 @@ AC_PROG_INSTALL
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdlib.h string.h dirent.h stdio.h unistd.h])
+AC_CHECK_HEADERS([iostream fstream string stdio.h dirent.h string.h stdlib.h unistd.h])
 AC_HEADER_STDC
 
 # Checks for typedefs, structures, and compiler characteristics.

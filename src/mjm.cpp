@@ -5,16 +5,17 @@ Copyright (C) 2010 insmyic <gminsm@gmail.com>
 Copyright (C) 2013 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
 
+#include <iostream>
+#include <fstream>
+#include <string>
+
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
 #include <stdlib.h>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <unistd.h>
 
-#include "menu_entry.cpp"
+#include "menu_entry.h"
 #include "mjm.h"
 
 
