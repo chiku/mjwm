@@ -11,7 +11,14 @@ namespace mjwm
 			TEST(menu_entry_test::test_menu_entry_parses_icon),
 			TEST(menu_entry_test::test_menu_entry_parses_executable),
 			TEST(menu_entry_test::test_menu_entry_parses_categories),
-			TEST(menu_entry_test::test_menu_entry_escapes_tokens)
+			TEST(menu_entry_test::test_menu_entry_escapes_tokens),
+			TEST(menu_entry_test::test_menu_entry_parse_doesnt_fail_when_entry_is_missing),
+			TEST(menu_entry_test::test_menu_entry_has_same_name_when_names_are_same),
+			TEST(menu_entry_test::test_menu_entry_doesnt_have_same_name_when_names_are_different),
+			TEST(menu_entry_test::test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable),
+			TEST(menu_entry_test::test_menu_entry_is_not_valid_without_name),
+			TEST(menu_entry_test::test_menu_entry_is_not_valid_without_icon),
+			TEST(menu_entry_test::test_menu_entry_is_not_valid_without_executable)
 		) {}
 
 		void test_menu_entry_parses_name()
@@ -48,5 +55,66 @@ namespace mjwm
 			entry.populate("Name=<'Complicated' & \"Fun\">\n");
 			EXPECT_EQUAL("&lt;&apos;Complicated&apos; &amp; &quot;Fun&quot;&gt;", entry.name());
 		}
+
+		void test_menu_entry_parse_doesnt_fail_when_entry_is_missing()
+		{
+			menu_entry entry;
+			entry.populate("Categories=");
+			EXPECT_EQUAL("", entry.executable());
+		}
+
+		void test_menu_entry_has_same_name_when_names_are_same()
+		{
+			menu_entry first_entry, second_entry;
+			first_entry.populate("Name=Mousepad\n");
+			first_entry.populate("Icon=accessories-text-editor\n");
+			second_entry.populate("Name=Mousepad\n");
+			second_entry.populate("Icon=mousepad\n");
+			EXPECT_TRUE(first_entry.has_same_name(second_entry));
+		}
+
+		void test_menu_entry_doesnt_have_same_name_when_names_are_different()
+		{
+			menu_entry first_entry, second_entry;
+			first_entry.populate("Name=Mousepad\n");
+			first_entry.populate("Icon=accessories-text-editor\n");
+			second_entry.populate("Name=mousepad");
+			second_entry.populate("Icon=accessories-text-editor\n");
+			EXPECT_FALSE(first_entry.has_same_name(second_entry));
+		}
+
+		void test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable()
+		{
+			menu_entry valid_entry;
+			valid_entry.populate("Name=Mousepad\n");
+			valid_entry.populate("Icon=accessories-text-editor\n");
+			valid_entry.populate("Exec=mousepad %F\n");
+			EXPECT_TRUE(valid_entry.is_valid());
+		}
+
+		void test_menu_entry_is_not_valid_without_name()
+		{
+			menu_entry missing_name_entry;
+			missing_name_entry.populate("Icon=accessories-text-editor\n");
+			missing_name_entry.populate("Exec=mousepad %F\n");
+			EXPECT_FALSE(missing_name_entry.is_valid());
+		}
+
+		void test_menu_entry_is_not_valid_without_icon()
+		{
+			menu_entry missing_icon_entry;
+			missing_icon_entry.populate("Name=Mousepad\n");
+			missing_icon_entry.populate("Exec=mousepad %F\n");
+			EXPECT_FALSE(missing_icon_entry.is_valid());
+		}
+
+		void test_menu_entry_is_not_valid_without_executable()
+		{
+			menu_entry missing_executable_entry;
+			missing_executable_entry.populate("Name=Mousepad\n");
+			missing_executable_entry.populate("Icon=accessories-text-editor\n");
+			EXPECT_FALSE(missing_executable_entry.is_valid());
+		}
+
 	} __menu_entry_test;
 }
