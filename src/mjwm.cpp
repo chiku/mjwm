@@ -173,6 +173,11 @@ void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entri
 		file.close();
 	}
 	closedir(directory);
+
+	if (menu_entries.size() == 0) {
+		std::cerr << directoryname << " doesn't have any valid .desktop files" << std::endl;
+		exit(1);
+	}
 }
 
 void Itmsrt(int iitm, std::vector<mjwm::menu_entry> &menu_entries) {
