@@ -3,6 +3,7 @@ Current
 * Provide make install
 * Test suite
 * Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols
+* Parse options using getopt - Allows parsing of long & short command-line options
 
 v1.0
 ----

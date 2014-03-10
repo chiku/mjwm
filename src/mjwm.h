@@ -15,6 +15,7 @@ Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>
 int Reader(std::string directory_to_scan, mjwm::menu_entry *itms);
 void Rcwrite(int iitm, mjwm::menu_entry *itms, std::string output_filename, std::string icon_extension);
 int Itmsrt(int iitm, mjwm::menu_entry *itms);
-void display_help(void);
+void display_help();
+void display_option_error(std::string program);
 
 #endif

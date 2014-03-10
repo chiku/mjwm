@@ -11,13 +11,12 @@ Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>
 
 #include <stdio.h>
 #include <dirent.h>
-#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <getopt.h>
 
 #include "menu_entry.h"
 #include "mjwm.h"
-
 
 int main(int argc, char *argv[]) {
 	std::string directory_to_scan("/usr/share/applications/");
@@ -26,11 +25,45 @@ int main(int argc, char *argv[]) {
 	int iitm=0, i;
 	mjwm::menu_entry *menu_entries;
 
-	for (i=1; i<argc; i++) {
-		if (strcmp(argv[i], "-o")==0 && i+1<argc) { output_filename = argv[i+1]; }
-		if (strcmp(argv[i], "-s")==0 && i+1<argc) { directory_to_scan = argv[i+1] ;}
-		if (strcmp(argv[i], "-a")==0 ) { icon_extension = ".png"; }
-		if (strcmp(argv[i], "-h")==0 && i==1) { display_help(); exit(0); }
+	const char* short_options = "ahs:f:";
+	const option long_options[] =
+	{
+		{"output-file",     required_argument, 0, 'f'},
+		{"input-directory", required_argument, 0, 's'},
+		{"append-png",      no_argument,       0, 'a'},
+		{"help",            no_argument,       0, 'h'},
+		{0, 0, 0, 0}
+	};
+
+	int chosen_option;
+	int option_index = 0;
+
+	while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
+		switch (chosen_option) {
+			case 'f':
+				output_filename = optarg;
+				break;
+
+			case 's':
+				directory_to_scan = optarg;
+				break;
+
+			case 'a':
+				icon_extension = ".png";
+				break;
+
+			case 'h':
+				display_help();
+				return 0;
+
+			case '?':
+				display_option_error(argv[0]);
+				return 1;
+
+			default:
+				display_option_error(argv[0]);
+				return 1;
+		}
 	}
 
 	iitm = Reader(directory_to_scan, NULL);
@@ -45,26 +78,27 @@ int main(int argc, char *argv[]) {
 	} else {
 		printf("read err...\n");
 	}
-	exit(iitm);
+
+	return 0;
 }
 
-
+// Avoid double entry to the function
 int Reader(std::string directory_to_scan, mjwm::menu_entry *menu_entries) {
 	DIR *dir;
 	FILE *fp;
-	struct dirent *dp;
+	dirent *dp;
 	char sline[1024];
 	std::string desktop_file;
 	mjwm::menu_entry itmp;
 	int ictr = 0, ectr = 0;
 
-	dir=opendir(directory_to_scan.c_str());
+	dir = opendir(directory_to_scan.c_str());
 
 	if (!dir) {
 		ectr++;
 	} else {
 		itmp = mjwm::menu_entry();
-		for(dp=readdir(dir);dp!=NULL;dp=readdir(dir)) {
+		for(dp = readdir(dir); dp != NULL; dp = readdir(dir)) {
 
 		desktop_file = directory_to_scan;
 		desktop_file.append(dp->d_name);
@@ -127,10 +161,14 @@ void display_help() {
 	std::cout << "mjwm" << std::endl;
 	std::cout << "Version 1.0" << std::endl;
 	std::cout << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
-	std::cout << "  -o   Outfile file [Default: ./automenu]" << std::endl;
-	std::cout << "  -s   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
-	std::cout << "  -a   Add '.png' to icon filenames" << std::endl;
-	std::cout << "  -h   Show this help" << std::endl << std::endl;
+	std::cout << "  -o, --output-file       Outfile file [Default: ./automenu]" << std::endl;
+	std::cout << "  -s, --input-directory   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
+	std::cout << "  -a, --append-png        Add '.png' to icon filenames" << std::endl;
+	std::cout << "  -h, --help              Show this help" << std::endl << std::endl;
 	std::cout << "Include the generated file in the rootmenu section of your system.jwmrc" << std::endl;
 	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
+}
+
+void display_option_error(std::string program) {
+	std::cerr << "Please run " << program << " -h to see options" << std::endl;
 }
