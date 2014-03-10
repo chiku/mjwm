@@ -5,6 +5,7 @@ Current
 * Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols
 * Parse options using getopt - Allows parsing of long & short command-line options
 * Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc
+* Sort items based on its name
 
 v1.0
 ----
