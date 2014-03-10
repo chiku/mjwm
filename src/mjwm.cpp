@@ -84,12 +84,10 @@ int main(int argc, char *argv[]) {
 	iitm = Reader(directory_to_scan, NULL);
 	if (iitm) {
 		menu_entries = new mjwm::menu_entry[iitm];
-		if (menu_entries) {
-			iitm = Reader(directory_to_scan, menu_entries);
-			Itmsrt(iitm, menu_entries);
-			Rcwrite(iitm, menu_entries, output_filename, icon_extension);
-			delete[] menu_entries;
-		}
+		iitm = Reader(directory_to_scan, menu_entries);
+		Itmsrt(iitm, menu_entries);
+		Rcwrite(iitm, menu_entries, output_filename, icon_extension);
+		delete[] menu_entries;
 	} else {
 		std::cerr << "read err..." << std::endl;
 	}
