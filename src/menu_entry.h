@@ -18,20 +18,22 @@ namespace mjwm
 	class menu_entry
 	{
 	private:
-		std::string name;
-		std::string executable;
-		std::string icon;
-		std::string category;
+		std::string _name;
+		std::string _executable;
+		std::string _icon;
+		std::string _categories;
 
+		std::string safe_parse() const;
 	public:
 		menu_entry();
+
+		std::string name() const;
 
 		bool is_valid() const;
 		bool has_same_name(mjwm::menu_entry other) const;
 		void populate(char *line);
 		void write_to(std::ofstream &file, std::string icon_extension) const;
 		void dump() const;
-		std::string safe_parse() const;
 	};
 }
 

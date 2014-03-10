@@ -1,29 +1,22 @@
 #include "tpunit++.hpp"
 
+#include "../src/menu_entry.h"
+
 namespace mjwm
 {
 	struct menu_entry_test : tpunit::TestFixture
 	{
 		menu_entry_test() : tpunit::TestFixture(
-			TEST(menu_entry_test::test_pass),
-			TEST(menu_entry_test::test_fail),
-			TEST(menu_entry_test::test_pass_again)
+			TEST(menu_entry_test::test_menu_entry_parses_name)
 		) {}
 
-		void test_pass()
+		void test_menu_entry_parses_name()
 		{
-			ASSERT_TRUE(1==1);
+			menu_entry entry;
+			entry.populate("Name=foo\n");
+			EXPECT_EQUAL("foo", entry.name());
 		}
 
-		void test_fail()
-		{
-			ASSERT_TRUE(1==0);
-		}
-
-		void test_pass_again()
-		{
-			ASSERT_TRUE(0==0);
-		}
 	} __menu_entry_test;
 
 }
