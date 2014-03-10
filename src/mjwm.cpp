@@ -1,6 +1,6 @@
 /*
 mjwm creates jwm's menu from (freedesktop) desktop files
-Include the generated file in the rootmenu section of your system.jwmrc
+Include the generated file in the rootmenu section of your ~/.jwmrc
 Based on work by insmyic <gminsm@gmail.com> http://sourceforge.net/projects/mjm
 Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>
 */
@@ -165,7 +165,7 @@ void display_help() {
 	std::cout << "  -s, --input-directory   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
 	std::cout << "  -a, --append-png        Add '.png' to icon filenames" << std::endl;
 	std::cout << "  -h, --help              Show this help" << std::endl << std::endl;
-	std::cout << "Include the generated file in the rootmenu section of your system.jwmrc" << std::endl;
+	std::cout << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
 	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
 }
 

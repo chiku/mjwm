@@ -1,6 +1,5 @@
 * Categorize items
 * Avoid double .png extensions
-* Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
 * Reduce C & use more C++

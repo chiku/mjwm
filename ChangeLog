@@ -4,6 +4,7 @@ Current
 * Test suite
 * Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols
 * Parse options using getopt - Allows parsing of long & short command-line options
+* Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc
 
 v1.0
 ----
