@@ -109,10 +109,10 @@ mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) cons
 void
 mjwm::menu_entry::dump() const
 {
-	std::cout << "Name: "       << name()       << std::endl;
-	std::cout << "Executable: " << executable() << std::endl;
-	std::cout << "Icon: "       << icon()       << std::endl;
-	std::cout << "Categories: " << categories() << std::endl;
+	std::cout << "Name       : " << name()       << std::endl;
+	std::cout << "Executable : " << executable() << std::endl;
+	std::cout << "Icon       : " << icon()       << std::endl;
+	std::cout << "Categories : " << categories() << std::endl;
 }
 
 std::string
