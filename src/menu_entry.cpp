@@ -66,12 +66,6 @@ mjwm::menu_entry::categories() const
 }
 
 bool
-mjwm::menu_entry::has_same_name(mjwm::menu_entry other) const
-{
-	return name() == other.name();
-}
-
-bool
 mjwm::menu_entry::operator < (const mjwm::menu_entry &other) const
 {
 	return name() < other.name();

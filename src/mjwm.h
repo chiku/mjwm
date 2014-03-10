@@ -28,9 +28,8 @@
 
 #include "menu_entry.h"
 
-int Reader(std::string directoryname);
 void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entries);
-void Itmsrt(int iitm, std::vector<mjwm::menu_entry> &menu_entries);
+void Itmsrt(std::vector<mjwm::menu_entry> &menu_entries);
 void Rcwrite(std::vector<mjwm::menu_entry> menu_entries, std::string output_filename, std::string icon_extension);
 void display_help();
 void display_option_error(std::string program);

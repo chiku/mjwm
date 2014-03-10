@@ -48,7 +48,6 @@ namespace mjwm
 		bool operator != (const mjwm::menu_entry &other) const;
 
 		bool is_valid() const;
-		bool has_same_name(mjwm::menu_entry other) const;
 		void populate(std::string line);
 		void write_to(std::ofstream &file, std::string icon_extension) const;
 		void dump() const;

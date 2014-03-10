@@ -82,66 +82,15 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	int iitm = Reader(directory_to_scan);
-	if (!iitm) {
-		std::cerr << "read err..." << std::endl;
-		return 1;
-	}
-
 	std::vector<mjwm::menu_entry> menu_entries;
 	menu_entries.reserve(NORMAL_RESERVE_SIZE);
 	Reader(directory_to_scan, menu_entries);
-	Itmsrt(iitm, menu_entries);
+	Itmsrt(menu_entries);
 	Rcwrite(menu_entries, output_filename, icon_extension);
 
 	return 0;
 }
 
-// TODO : Avoid double entry to the function
-int Reader(std::string directoryname) {
-	DIR *directory;
-	dirent *directory_entry;
-	std::string line;
-	std::string desktop_filename;
-	mjwm::menu_entry itmp;
-	int ictr = 0, ectr = 0;
-
-	directory = opendir(directoryname.c_str());
-
-	if (!directory) {
-		std::cerr << "Couldn't open directory " << directoryname << std::endl;
-		exit(1);
-	}
-
-	itmp = mjwm::menu_entry();
-	for(directory_entry = readdir(directory); directory_entry != NULL; directory_entry = readdir(directory)) {
-		desktop_filename = directoryname + directory_entry->d_name;
-
-		std::ifstream file(desktop_filename.c_str());
-		if (file == NULL) {
-			ectr++;
-			break;
-		}
-
-		while (std::getline(file, line)) {
-			itmp.populate(line);
-		}
-
-		if (itmp.is_valid()) {
-			ictr++;
-		}
-
-		file.close();
-	}
-	closedir(directory);
-
-	if (ectr) {
-		ictr = 0;
-	}
-	return ictr;
-}
-
-// TODO : Avoid double entry to the function
 void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entries) {
 	DIR *directory = opendir(directoryname.c_str());
 
@@ -180,7 +129,7 @@ void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entri
 	}
 }
 
-void Itmsrt(int iitm, std::vector<mjwm::menu_entry> &menu_entries) {
+void Itmsrt(std::vector<mjwm::menu_entry> &menu_entries) {
 	std::sort(menu_entries.begin(), menu_entries.end());
 }
 
