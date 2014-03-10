@@ -64,28 +64,30 @@ mjwm::menu_entry::has_same_name(mjwm::menu_entry other) const
 void
 mjwm::menu_entry::populate(std::string line)
 {
+	if (line[0] == '\0') {
+		return;
+	}
+
 	std::string buffer = strtok(strdup(line.c_str()), "=");
 
-	if (buffer[0] != '\0') {
-		if (buffer == NAME) {
-			_name = safe_parse();
-		}
-		if (buffer == ICON) {
-			_icon = safe_parse();
-		}
-		if (buffer == EXECUTABLE) {
-			_executable = safe_parse();
-		}
-		if (buffer == CATEGORIES) {
-			_categories = safe_parse();
-		}
+	if (buffer == NAME) {
+		_name = safe_parse();
+	}
+	if (buffer == ICON) {
+		_icon = safe_parse();
+	}
+	if (buffer == EXECUTABLE) {
+		_executable = safe_parse();
+	}
+	if (buffer == CATEGORIES) {
+		_categories = safe_parse();
 	}
 }
 
 void
-mjwm::menu_entry::write_to(std::ofstream &file, std::string _icon_extension) const
+mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) const
 {
-	file << "<Program label=\"" << name() << "\" icon=\"" << icon() << _icon_extension << "\">" << executable() << "</Program>" << std::endl;
+	file << "<Program label=\"" << name() << "\" icon=\"" << icon() << icon_extension << "\">" << executable() << "</Program>" << std::endl;
 }
 
 void

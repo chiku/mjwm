@@ -13,6 +13,7 @@ namespace mjwm
 			TEST(menu_entry_test::test_menu_entry_parses_categories),
 			TEST(menu_entry_test::test_menu_entry_escapes_tokens),
 			TEST(menu_entry_test::test_menu_entry_parse_doesnt_fail_when_entry_is_missing),
+			TEST(menu_entry_test::test_menu_entry_parse_doesnt_fail_when_line_is_missing),
 			TEST(menu_entry_test::test_menu_entry_has_same_name_when_names_are_same),
 			TEST(menu_entry_test::test_menu_entry_doesnt_have_same_name_when_names_are_different),
 			TEST(menu_entry_test::test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable),
@@ -61,6 +62,13 @@ namespace mjwm
 			menu_entry entry;
 			entry.populate("Categories=");
 			EXPECT_EQUAL("", entry.executable());
+		}
+
+		void test_menu_entry_parse_doesnt_fail_when_line_is_missing()
+		{
+			menu_entry entry;
+			entry.populate("");
+			EXPECT_EQUAL("", entry.name());
 		}
 
 		void test_menu_entry_has_same_name_when_names_are_same()

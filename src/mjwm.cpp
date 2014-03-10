@@ -82,28 +82,28 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-// Avoid double entry to the function
+// TODO : Avoid double entry to the function
 int Reader(std::string directory_to_scan, mjwm::menu_entry *menu_entries) {
 	DIR *dir;
 	FILE *fp;
 	dirent *dp;
 	char sline[1024];
-	std::string desktop_file;
+	std::string desktop_filename;
 	mjwm::menu_entry itmp;
 	int ictr = 0, ectr = 0;
 
 	dir = opendir(directory_to_scan.c_str());
 
 	if (!dir) {
-		ectr++;
-	} else {
-		itmp = mjwm::menu_entry();
-		for(dp = readdir(dir); dp != NULL; dp = readdir(dir)) {
+		std::cerr << "Couldn't open directory " << directory_to_scan << std::endl;
+		exit(1);
+	}
 
-		desktop_file = directory_to_scan;
-		desktop_file.append(dp->d_name);
+	itmp = mjwm::menu_entry();
+	for(dp = readdir(dir); dp != NULL; dp = readdir(dir)) {
+		desktop_filename = directory_to_scan + dp->d_name;
 
-		if ((fp = fopen(desktop_file.c_str(), "r")) == NULL) {
+		if ((fp = fopen(desktop_filename.c_str(), "r")) == NULL) {
 			ectr++;
 			break;
 		}
@@ -120,16 +120,16 @@ int Reader(std::string directory_to_scan, mjwm::menu_entry *menu_entries) {
 		}
 
 		fclose(fp);
-		}
-		closedir(dir);
 	}
+	closedir(dir);
+
 	if (ectr) {
 		ictr = 0;
 	}
 	return ictr;
 }
 
-
+// TODO : pass menu_entries as a vector
 void Rcwrite(int iitm, mjwm::menu_entry *menu_entries, std::string output_filename, std::string icon_extension)
 {
 	std::ofstream file(output_filename.c_str());
@@ -140,6 +140,7 @@ void Rcwrite(int iitm, mjwm::menu_entry *menu_entries, std::string output_filena
 }
 
 
+// TODO : pass menu_entries as a vector
 int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 	int i, j;
 	mjwm::menu_entry stmp;
