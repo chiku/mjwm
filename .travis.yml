@@ -1,0 +1,8 @@
+language: cpp
+compiler:
+  - gcc
+script:
+  - touch NEWS AUTHORS ChangeLog
+  - autoreconf -i
+  - make
+  - ./test/mjwm_test
