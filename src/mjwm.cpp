@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 	const char* short_options = "ahs:f:";
 	const option long_options[] =
 	{
-		{"output-file",     required_argument, 0, 'f'},
+		{"output-file",     required_argument, 0, 'o'},
 		{"input-directory", required_argument, 0, 's'},
 		{"append-png",      no_argument,       0, 'a'},
 		{"help",            no_argument,       0, 'h'},
