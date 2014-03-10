@@ -22,8 +22,6 @@
 #include <fstream>
 #include <string>
 
-const int MENU_ENTRY_MAX_SIZE=1024;
-
 namespace mjwm
 {
 	class menu_entry

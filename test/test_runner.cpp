@@ -18,8 +18,7 @@
 
 #include "tpunit++.hpp"
 
-int
-main()
+int main()
 {
 	return tpunit::Tests::Run();
 }
