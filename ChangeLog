@@ -2,7 +2,7 @@ Current
 -------
 * Provide make install
 * Test suite
-
+* Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols
 
 v1.0
 ----
