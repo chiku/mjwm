@@ -29,7 +29,6 @@
 
 #include <dirent.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <getopt.h>
 
 #include "menu_entry.h"

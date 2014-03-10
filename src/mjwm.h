@@ -25,6 +25,7 @@
 #define __mjwm_mjwm__
 
 #include <string>
+#include <vector>
 
 #include "menu_entry.h"
 
