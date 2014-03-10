@@ -4,5 +4,6 @@ compiler:
 script:
   - touch NEWS AUTHORS ChangeLog
   - autoreconf -i
+  - ./configure
   - make
   - ./test/mjwm_test
