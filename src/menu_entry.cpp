@@ -68,7 +68,7 @@ mjwm::menu_entry::categories() const
 bool
 mjwm::menu_entry::is_valid() const
 {
-	return (executable().length() > 0) && (icon().length() > 0) && (name().length() > 0);
+	return (executable().length() > 0) && (name().length() > 0) && (icon().length() > 0);
 }
 
 bool
