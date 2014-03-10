@@ -25,6 +25,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include <dirent.h>
 #include <stdlib.h>
@@ -175,18 +176,7 @@ void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entri
 }
 
 void Itmsrt(int iitm, std::vector<mjwm::menu_entry> &menu_entries) {
-	int i, j;
-	mjwm::menu_entry stmp;
-
-	for (i = 0; i < iitm-1; i++) {
-		for (j = i+1; j < iitm; j++) {
-			if (!menu_entries[j].has_same_name(menu_entries[i])) {
-				stmp = menu_entries[i];
-				menu_entries[i] = menu_entries[j];
-				menu_entries[j] = stmp;
-			}
-		}
-	}
+	std::sort(menu_entries.begin(), menu_entries.end());
 }
 
 void Rcwrite(std::vector<mjwm::menu_entry> menu_entries, std::string output_filename, std::string icon_extension)

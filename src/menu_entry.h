@@ -42,6 +42,11 @@ namespace mjwm
 		std::string executable() const;
 		std::string categories() const;
 
+		bool operator < (const mjwm::menu_entry &other) const;
+		bool operator > (const mjwm::menu_entry &other) const;
+		bool operator == (const mjwm::menu_entry &other) const;
+		bool operator != (const mjwm::menu_entry &other) const;
+
 		bool is_valid() const;
 		bool has_same_name(mjwm::menu_entry other) const;
 		void populate(std::string line);

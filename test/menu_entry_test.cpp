@@ -32,8 +32,10 @@ namespace mjwm
 			TEST(menu_entry_test::test_menu_entry_escapes_tokens),
 			TEST(menu_entry_test::test_menu_entry_parse_doesnt_fail_when_entry_is_missing),
 			TEST(menu_entry_test::test_menu_entry_parse_doesnt_fail_when_line_is_missing),
-			TEST(menu_entry_test::test_menu_entry_has_same_name_when_names_are_same),
-			TEST(menu_entry_test::test_menu_entry_doesnt_have_same_name_when_names_are_different),
+			TEST(menu_entry_test::test_menu_entry_is_lesser_than_a_menu_entry_with_alphabetically_greater_name),
+			TEST(menu_entry_test::test_menu_entry_is_greater_than_a_menu_entry_with_alphabetically_lesser_name),
+			TEST(menu_entry_test::test_menu_entry_is_equal_to_menu_entry_with_same_name),
+			TEST(menu_entry_test::test_menu_entry_is_not_equal_to_menu_entry_with_different_name),
 			TEST(menu_entry_test::test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable),
 			TEST(menu_entry_test::test_menu_entry_is_not_valid_without_name),
 			TEST(menu_entry_test::test_menu_entry_is_not_valid_without_icon),
@@ -89,24 +91,42 @@ namespace mjwm
 			EXPECT_EQUAL("", entry.name());
 		}
 
-		void test_menu_entry_has_same_name_when_names_are_same()
+		void test_menu_entry_is_lesser_than_a_menu_entry_with_alphabetically_greater_name()
 		{
-			menu_entry first_entry, second_entry;
-			first_entry.populate("Name=Mousepad\n");
-			first_entry.populate("Icon=accessories-text-editor\n");
-			second_entry.populate("Name=Mousepad\n");
-			second_entry.populate("Icon=mousepad\n");
-			EXPECT_TRUE(first_entry.has_same_name(second_entry));
+			menu_entry entry, greater_entry;
+			entry.populate("Name=Mousepad\n");
+			greater_entry.populate("Name=VLC\n");
+			EXPECT_TRUE(entry < greater_entry);
+			EXPECT_FALSE(greater_entry < entry);
 		}
 
-		void test_menu_entry_doesnt_have_same_name_when_names_are_different()
+		void test_menu_entry_is_greater_than_a_menu_entry_with_alphabetically_lesser_name()
 		{
-			menu_entry first_entry, second_entry;
-			first_entry.populate("Name=Mousepad\n");
-			first_entry.populate("Icon=accessories-text-editor\n");
-			second_entry.populate("Name=mousepad");
-			second_entry.populate("Icon=accessories-text-editor\n");
-			EXPECT_FALSE(first_entry.has_same_name(second_entry));
+			menu_entry entry, lesser_entry;
+			entry.populate("Name=VLC\n");
+			lesser_entry.populate("Name=Mousepad\n");
+			EXPECT_TRUE(entry > lesser_entry);
+			EXPECT_FALSE(lesser_entry > entry);
+		}
+
+		void test_menu_entry_is_equal_to_menu_entry_with_same_name()
+		{
+			menu_entry entry, same_entry, different_entry;
+			entry.populate("Name=Mousepad\n");
+			same_entry.populate("Name=Mousepad\n");
+			different_entry.populate("Name=VLC\n");
+			EXPECT_TRUE(entry == same_entry);
+			EXPECT_FALSE(entry == different_entry);
+		}
+
+		void test_menu_entry_is_not_equal_to_menu_entry_with_different_name()
+		{
+			menu_entry entry, same_entry, different_entry;
+			entry.populate("Name=Mousepad\n");
+			same_entry.populate("Name=Mousepad\n");
+			different_entry.populate("Name=VLC\n");
+			EXPECT_TRUE(entry != different_entry);
+			EXPECT_FALSE(entry != same_entry);
 		}
 
 		void test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable()
