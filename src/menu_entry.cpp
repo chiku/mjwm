@@ -22,7 +22,7 @@ mjwm::menu_entry::menu_entry()
 	_name       = "";
 	_executable = "";
 	_icon       = "";
-	_categories   = "";
+	_categories = "";
 }
 
 std::string
@@ -31,10 +31,28 @@ mjwm::menu_entry::name() const
 	return _name;
 }
 
+std::string
+mjwm::menu_entry::icon() const
+{
+	return _icon;
+}
+
+std::string
+mjwm::menu_entry::executable() const
+{
+	return _executable;
+}
+
+std::string
+mjwm::menu_entry::categories() const
+{
+	return _categories;
+}
+
 bool
 mjwm::menu_entry::is_valid() const
 {
-	return (_executable.length() > 0) && (_icon.length() > 0) && (name().length() > 0);
+	return (executable().length() > 0) && (icon().length() > 0) && (name().length() > 0);
 }
 
 bool
@@ -67,16 +85,16 @@ mjwm::menu_entry::populate(char *line) // TODO : pass std::string
 void
 mjwm::menu_entry::write_to(std::ofstream &file, std::string _icon_extension) const
 {
-	file << "<Program label=\"" << name() << "\" icon=\"" << _icon << _icon_extension << "\">" << _executable << "</Program>" << std::endl;
+	file << "<Program label=\"" << name() << "\" icon=\"" << icon() << _icon_extension << "\">" << executable() << "</Program>" << std::endl;
 }
 
 void
 mjwm::menu_entry::dump() const
 {
-	std::cout << "Name: "       << name()      << std::endl;
-	std::cout << "Executable: " << _executable << std::endl;
-	std::cout << "Icon: "       << _icon       << std::endl;
-	std::cout << "Categories: " << _categories   << std::endl;
+	std::cout << "Name: "       << name()       << std::endl;
+	std::cout << "Executable: " << executable() << std::endl;
+	std::cout << "Icon: "       << icon()       << std::endl;
+	std::cout << "Categories: " << categories() << std::endl;
 }
 
 std::string

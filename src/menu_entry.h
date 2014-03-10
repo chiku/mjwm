@@ -28,6 +28,9 @@ namespace mjwm
 		menu_entry();
 
 		std::string name() const;
+		std::string icon() const;
+		std::string executable() const;
+		std::string categories() const;
 
 		bool is_valid() const;
 		bool has_same_name(mjwm::menu_entry other) const;
