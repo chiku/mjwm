@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 	std::string directory_to_scan("/usr/share/applications/");
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
-	int iitm=0, i;
+	int iitm=0;
 	mjwm::menu_entry *menu_entries;
 
 	const char* short_options = "ahs:f:";
@@ -101,7 +101,6 @@ int main(int argc, char *argv[]) {
 int Reader(std::string directoryname, mjwm::menu_entry *menu_entries) {
 	DIR *directory;
 	dirent *directory_entry;
-	FILE *file;
 	std::string line;
 	std::string desktop_filename;
 	mjwm::menu_entry itmp;
