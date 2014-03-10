@@ -10,7 +10,8 @@ namespace mjwm
 			TEST(menu_entry_test::test_menu_entry_parses_name),
 			TEST(menu_entry_test::test_menu_entry_parses_icon),
 			TEST(menu_entry_test::test_menu_entry_parses_executable),
-			TEST(menu_entry_test::test_menu_entry_parses_categories)
+			TEST(menu_entry_test::test_menu_entry_parses_categories),
+			TEST(menu_entry_test::test_menu_entry_escapes_tokens)
 		) {}
 
 		void test_menu_entry_parses_name()
@@ -41,5 +42,11 @@ namespace mjwm
 			EXPECT_EQUAL("Application;Utility;TextEditor;GTK;", entry.categories());
 		}
 
+		void test_menu_entry_escapes_tokens()
+		{
+			menu_entry entry;
+			entry.populate("Name=<'Complicated' & \"Fun\">\n");
+			EXPECT_EQUAL("&lt;&apos;Complicated&apos; &amp; &quot;Fun&quot;&gt;", entry.name());
+		}
 	} __menu_entry_test;
 }
