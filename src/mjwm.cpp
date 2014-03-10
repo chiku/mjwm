@@ -25,7 +25,6 @@
 #include <fstream>
 #include <string>
 
-#include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -92,40 +91,41 @@ int main(int argc, char *argv[]) {
 			delete[] menu_entries;
 		}
 	} else {
-		printf("read err...\n");
+		std::cerr << "read err..." << std::endl;
 	}
 
 	return 0;
 }
 
 // TODO : Avoid double entry to the function
-int Reader(std::string directory_to_scan, mjwm::menu_entry *menu_entries) {
-	DIR *dir;
-	FILE *fp;
-	dirent *dp;
-	char sline[1024];
+int Reader(std::string directoryname, mjwm::menu_entry *menu_entries) {
+	DIR *directory;
+	dirent *directory_entry;
+	FILE *file;
+	std::string line;
 	std::string desktop_filename;
 	mjwm::menu_entry itmp;
 	int ictr = 0, ectr = 0;
 
-	dir = opendir(directory_to_scan.c_str());
+	directory = opendir(directoryname.c_str());
 
-	if (!dir) {
-		std::cerr << "Couldn't open directory " << directory_to_scan << std::endl;
+	if (!directory) {
+		std::cerr << "Couldn't open directory " << directoryname << std::endl;
 		exit(1);
 	}
 
 	itmp = mjwm::menu_entry();
-	for(dp = readdir(dir); dp != NULL; dp = readdir(dir)) {
-		desktop_filename = directory_to_scan + dp->d_name;
+	for(directory_entry = readdir(directory); directory_entry != NULL; directory_entry = readdir(directory)) {
+		desktop_filename = directoryname + directory_entry->d_name;
 
-		if ((fp = fopen(desktop_filename.c_str(), "r")) == NULL) {
+		std::ifstream file(desktop_filename.c_str());
+		if (file == NULL) {
 			ectr++;
 			break;
 		}
 
-		while (fgets(sline, 1024, fp) != NULL) {
-			itmp.populate(sline);
+		while (std::getline(file, line)) {
+			itmp.populate(line);
 		}
 
 		if (itmp.is_valid()) {
@@ -135,9 +135,9 @@ int Reader(std::string directory_to_scan, mjwm::menu_entry *menu_entries) {
 			}
 		}
 
-		fclose(fp);
+		file.close();
 	}
-	closedir(dir);
+	closedir(directory);
 
 	if (ectr) {
 		ictr = 0;
