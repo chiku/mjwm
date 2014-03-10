@@ -4,5 +4,4 @@
 * Update jwmrc when supplied option
 * Reduce C & use more C++
 * Elaborate README.md
-* Add LICENSE
 * Build should not require autoreconf & touches

@@ -175,13 +175,17 @@ int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 
 
 void display_help() {
-	std::cout << "mjwm" << std::endl;
-	std::cout << "Version 1.0" << std::endl;
+	std::cout << "mjwm version 1.0, Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
+	std::cout << "mjwm comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
+	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
+	std::cout << "under certain conditions; Refer COPYING for details." << std::endl;
+
 	std::cout << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
 	std::cout << "  -o, --output-file       Outfile file [Default: ./automenu]" << std::endl;
 	std::cout << "  -s, --input-directory   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
 	std::cout << "  -a, --append-png        Add '.png' to icon filenames" << std::endl;
 	std::cout << "  -h, --help              Show this help" << std::endl << std::endl;
+
 	std::cout << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
 	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
 }
