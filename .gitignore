@@ -1,6 +1,8 @@
 **/*.o
 **/.deps/
+**/.dirstamp
 *.log
+*~
 autom4te.cache/
 AUTHORS
 COPYING
