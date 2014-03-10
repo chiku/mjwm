@@ -1,4 +1,7 @@
-int main()
+#include "tpunit++.hpp"
+
+int
+main()
 {
-	return 0;
+	return tpunit::Tests::Run();
 }
