@@ -62,9 +62,9 @@ mjwm::menu_entry::has_same_name(mjwm::menu_entry other) const
 }
 
 void
-mjwm::menu_entry::populate(char *line) // TODO : pass std::string
+mjwm::menu_entry::populate(std::string line)
 {
-	std::string buffer = strtok(strdup(line), "=");
+	std::string buffer = strtok(strdup(line.c_str()), "=");
 
 	if (buffer[0] != '\0') {
 		if (buffer == NAME) {

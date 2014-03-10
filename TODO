@@ -1,5 +1,4 @@
 * Escape ampersands (&) in file names
-* Tests
 * Categorize items
 * Avoid double .png extensions
 * Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc

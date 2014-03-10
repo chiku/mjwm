@@ -34,7 +34,7 @@ namespace mjwm
 
 		bool is_valid() const;
 		bool has_same_name(mjwm::menu_entry other) const;
-		void populate(char *line);
+		void populate(std::string line);
 		void write_to(std::ofstream &file, std::string icon_extension) const;
 		void dump() const;
 	};

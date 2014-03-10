@@ -2,7 +2,7 @@ language: cpp
 compiler:
   - gcc
 script:
-  - touch NEWS AUTHORS ChangeLog
+  - touch NEWS AUTHORS
   - autoreconf -i
   - ./configure
   - make
