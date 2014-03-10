@@ -37,8 +37,6 @@ int main(int argc, char *argv[]) {
 	std::string directory_to_scan("/usr/share/applications/");
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
-	int iitm=0;
-	mjwm::menu_entry *menu_entries;
 
 	const char* short_options = "ahs:f:";
 	const option long_options[] =
@@ -81,9 +79,9 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	iitm = Reader(directory_to_scan, NULL);
+	int iitm = Reader(directory_to_scan, NULL);
 	if (iitm) {
-		menu_entries = new mjwm::menu_entry[iitm];
+		mjwm::menu_entry *menu_entries = new mjwm::menu_entry[iitm];
 		iitm = Reader(directory_to_scan, menu_entries);
 		Itmsrt(iitm, menu_entries);
 		Rcwrite(iitm, menu_entries, output_filename, icon_extension);
