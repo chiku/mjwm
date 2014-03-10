@@ -24,6 +24,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include <dirent.h>
 #include <stdlib.h>
@@ -50,6 +51,7 @@ int main(int argc, char *argv[]) {
 
 	int chosen_option;
 	int option_index = 0;
+	const int NORMAL_RESERVE_SIZE = 300;
 
 	while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
 		switch (chosen_option) {
@@ -79,22 +81,23 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	int iitm = Reader(directory_to_scan, NULL);
-	if (iitm) {
-		mjwm::menu_entry *menu_entries = new mjwm::menu_entry[iitm];
-		iitm = Reader(directory_to_scan, menu_entries);
-		Itmsrt(iitm, menu_entries);
-		Rcwrite(iitm, menu_entries, output_filename, icon_extension);
-		delete[] menu_entries;
-	} else {
+	int iitm = Reader(directory_to_scan);
+	if (!iitm) {
 		std::cerr << "read err..." << std::endl;
+		return 1;
 	}
+
+	std::vector<mjwm::menu_entry> menu_entries;
+	menu_entries.reserve(NORMAL_RESERVE_SIZE);
+	Reader(directory_to_scan, menu_entries);
+	Itmsrt(iitm, menu_entries);
+	Rcwrite(menu_entries, output_filename, icon_extension);
 
 	return 0;
 }
 
 // TODO : Avoid double entry to the function
-int Reader(std::string directoryname, mjwm::menu_entry *menu_entries) {
+int Reader(std::string directoryname) {
 	DIR *directory;
 	dirent *directory_entry;
 	std::string line;
@@ -125,9 +128,6 @@ int Reader(std::string directoryname, mjwm::menu_entry *menu_entries) {
 
 		if (itmp.is_valid()) {
 			ictr++;
-			if (menu_entries) {
-				menu_entries[ictr-1] = itmp;
-			}
 		}
 
 		file.close();
@@ -140,24 +140,46 @@ int Reader(std::string directoryname, mjwm::menu_entry *menu_entries) {
 	return ictr;
 }
 
-// TODO : pass menu_entries as a vector
-void Rcwrite(int iitm, mjwm::menu_entry *menu_entries, std::string output_filename, std::string icon_extension)
-{
-	std::ofstream file(output_filename.c_str());
+// TODO : Avoid double entry to the function
+void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entries) {
+	DIR *directory = opendir(directoryname.c_str());
 
-	for (int i=0 ; i<iitm ; i++) {
-		menu_entries[i].write_to(file, icon_extension);
+	if (!directory) {
+		std::cerr << "Couldn't open directory " << directoryname << std::endl;
+		exit(1);
 	}
+
+	mjwm::menu_entry entry = mjwm::menu_entry();
+	dirent *directory_entry;
+	std::string line;
+
+	for(directory_entry = readdir(directory); directory_entry != NULL; directory_entry = readdir(directory)) {
+		std::string desktop_filename = directoryname + directory_entry->d_name;
+
+		std::ifstream file(desktop_filename.c_str());
+		if (!file.good()) {
+			continue;
+		}
+
+		while (std::getline(file, line)) {
+			entry.populate(line);
+		}
+
+		if (entry.is_valid()) {
+			menu_entries.push_back(entry);
+		}
+
+		file.close();
+	}
+	closedir(directory);
 }
 
-
-// TODO : pass menu_entries as a vector
-int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
+void Itmsrt(int iitm, std::vector<mjwm::menu_entry> &menu_entries) {
 	int i, j;
 	mjwm::menu_entry stmp;
 
-	for (i=0; i<iitm-1; i++) {
-		for (j=i+1; j<iitm; j++) {
+	for (i = 0; i < iitm-1; i++) {
+		for (j = i+1; j < iitm; j++) {
 			if (!menu_entries[j].has_same_name(menu_entries[i])) {
 				stmp = menu_entries[i];
 				menu_entries[i] = menu_entries[j];
@@ -165,9 +187,18 @@ int Itmsrt(int iitm, mjwm::menu_entry *menu_entries) {
 			}
 		}
 	}
-	return 0;
 }
 
+void Rcwrite(std::vector<mjwm::menu_entry> menu_entries, std::string output_filename, std::string icon_extension)
+{
+	std::ofstream file(output_filename.c_str());
+
+	for(std::vector<mjwm::menu_entry>::iterator entry = menu_entries.begin(); entry != menu_entries.end(); ++entry) {
+		(*entry).write_to(file, icon_extension);
+	}
+
+	file.close();
+}
 
 void display_help() {
 	std::cout << "mjwm version 1.0, Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
