@@ -7,3 +7,5 @@ script:
   - ./configure
   - make
   - ./test/mjwm_test
+  - ./src/mjwm
+  - cat automenu
