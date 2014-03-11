@@ -44,8 +44,8 @@ void display_help() {
 	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
 }
 
-void display_option_error(std::string program) {
-	std::cerr << "Please run " << program << " -h to see options" << std::endl;
+void display_option_error() {
+	std::cerr << "Please run mjwm -h to see options" << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -85,11 +85,11 @@ int main(int argc, char *argv[]) {
 				return 0;
 
 			case '?':
-				display_option_error(argv[0]);
+				display_option_error();
 				return 1;
 
 			default:
-				display_option_error(argv[0]);
+				display_option_error();
 				return 1;
 		}
 	}
