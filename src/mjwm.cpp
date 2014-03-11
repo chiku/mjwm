@@ -22,24 +22,38 @@
 
 
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <vector>
-#include <algorithm>
-
-#include <dirent.h>
-#include <stdlib.h>
 #include <getopt.h>
 
 #include "menu_entry.h"
-#include "mjwm.h"
+#include "menu_group.h"
+
+void display_help() {
+	std::cout << "mjwm version 1.0, Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
+	std::cout << "mjwm comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
+	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
+	std::cout << "under certain conditions; Refer COPYING for details." << std::endl;
+
+	std::cout << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
+	std::cout << "  -o, --output-file       Outfile file [Default: ./automenu]" << std::endl;
+	std::cout << "  -s, --input-directory   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
+	std::cout << "  -a, --append-png        Add '.png' to icon filenames" << std::endl;
+	std::cout << "  -h, --help              Show this help" << std::endl << std::endl;
+
+	std::cout << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
+	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
+}
+
+void display_option_error(std::string program) {
+	std::cerr << "Please run " << program << " -h to see options" << std::endl;
+}
 
 int main(int argc, char *argv[]) {
 	std::string directory_to_scan("/usr/share/applications/");
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
 
-	const char* short_options = "ahs:o:";
+	const char* short_options = "o:s:ah";
 	const option long_options[] =
 	{
 		{"output-file",     required_argument, 0, 'o'},
@@ -51,7 +65,6 @@ int main(int argc, char *argv[]) {
 
 	int chosen_option;
 	int option_index = 0;
-	const int NORMAL_RESERVE_SIZE = 300;
 
 	while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
 		switch (chosen_option) {
@@ -81,84 +94,10 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	std::vector<mjwm::menu_entry> menu_entries;
-	menu_entries.reserve(NORMAL_RESERVE_SIZE);
-	Reader(directory_to_scan, menu_entries);
-	Itmsrt(menu_entries);
-	Rcwrite(menu_entries, output_filename, icon_extension);
+	mjwm::menu_group group(directory_to_scan, icon_extension);
+	group.populate();
+	group.sort();
+	group.write(output_filename);
 
 	return 0;
-}
-
-void Reader(std::string directoryname, std::vector<mjwm::menu_entry> &menu_entries) {
-	DIR *directory = opendir(directoryname.c_str());
-
-	if (!directory) {
-		std::cerr << "Couldn't open directory " << directoryname << std::endl;
-		exit(1);
-	}
-
-	mjwm::menu_entry entry = mjwm::menu_entry();
-	dirent *directory_entry;
-	std::string line;
-
-	for(directory_entry = readdir(directory); directory_entry != NULL; directory_entry = readdir(directory)) {
-		std::string desktop_filename = directoryname + directory_entry->d_name;
-
-		std::ifstream file(desktop_filename.c_str());
-		if (!file.good()) {
-			continue;
-		}
-
-		while (std::getline(file, line)) {
-			entry.populate(line);
-		}
-
-		if (entry.is_valid()) {
-			menu_entries.push_back(entry);
-		}
-
-		file.close();
-	}
-	closedir(directory);
-
-	if (menu_entries.size() == 0) {
-		std::cerr << directoryname << " doesn't have any valid .desktop files" << std::endl;
-		exit(1);
-	}
-}
-
-void Itmsrt(std::vector<mjwm::menu_entry> &menu_entries) {
-	std::sort(menu_entries.begin(), menu_entries.end());
-}
-
-void Rcwrite(std::vector<mjwm::menu_entry> menu_entries, std::string output_filename, std::string icon_extension)
-{
-	std::ofstream file(output_filename.c_str());
-
-	for(std::vector<mjwm::menu_entry>::iterator entry = menu_entries.begin(); entry != menu_entries.end(); ++entry) {
-		(*entry).write_to(file, icon_extension);
-	}
-
-	file.close();
-}
-
-void display_help() {
-	std::cout << "mjwm version 1.0, Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
-	std::cout << "mjwm comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
-	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
-	std::cout << "under certain conditions; Refer COPYING for details." << std::endl;
-
-	std::cout << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
-	std::cout << "  -o, --output-file       Outfile file [Default: ./automenu]" << std::endl;
-	std::cout << "  -s, --input-directory   Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
-	std::cout << "  -a, --append-png        Add '.png' to icon filenames" << std::endl;
-	std::cout << "  -h, --help              Show this help" << std::endl << std::endl;
-
-	std::cout << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
-	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
-}
-
-void display_option_error(std::string program) {
-	std::cerr << "Please run " << program << " -h to see options" << std::endl;
 }

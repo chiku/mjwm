@@ -19,11 +19,26 @@
 #ifndef __mjwm_menu_group__
 #define __mjwm_menu_group__
 
+#include <string>
+#include <vector>
+
+const int NORMAL_RESERVE_SIZE = 300;
+
 namespace mjwm
 {
-    class menu_group
-    {
-    };
+	class menu_group
+	{
+	private:
+		std::string _directory_name;
+		std::string _icon_extension;
+		std::vector<mjwm::menu_entry> _menu_entries;
+
+	public:
+		menu_group(std::string directory_name, std::string icon_extension);
+		void populate();
+		void sort();
+		void write(std::string output_filename);
+	};
 }
 
 #endif

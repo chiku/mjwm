@@ -18,7 +18,7 @@ AC_PROG_INSTALL
 # Checks for libraries.
 
 # Checks for header files.
-AC_CHECK_HEADERS([iostream fstream string vector algorithm stdio.h dirent.h string.h stdlib.h getopt.h])
+AC_CHECK_HEADERS([iostream fstream string vector algorithm cstdlib stdio.h dirent.h string.h getopt.h])
 AC_HEADER_STDC
 
 # Checks for typedefs, structures, and compiler characteristics.
