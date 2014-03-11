@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
 
-	const char* short_options = "ahs:f:";
+	const char* short_options = "ahs:o:";
 	const option long_options[] =
 	{
 		{"output-file",     required_argument, 0, 'o'},
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 
 	while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
 		switch (chosen_option) {
-			case 'f':
+			case 'o':
 				output_filename = optarg;
 				break;
 
