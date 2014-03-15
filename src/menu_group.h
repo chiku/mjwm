@@ -22,6 +22,8 @@
 #include <string>
 #include <vector>
 
+#include "menu_entry.h"
+
 const int NORMAL_RESERVE_SIZE = 300;
 
 namespace mjwm
