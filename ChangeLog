@@ -6,6 +6,7 @@ Current
 * Parse options using getopt - Allows parsing of long & short command-line options [#7]
 * Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc [#5]
 * Sort items based on its name
+* Don't create entries with stale data [#14]
 
 v1.0
 ----

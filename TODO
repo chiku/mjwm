@@ -5,5 +5,4 @@
 * Reduce C & use more C++
 * Elaborate README.md
 * Build should not require autoreconf & touches
-* Suppress duplicates
 * Print operation summary
