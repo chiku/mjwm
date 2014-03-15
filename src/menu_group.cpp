@@ -44,11 +44,11 @@ mjwm::menu_group::populate()
 		return;
 	}
 
-	mjwm::menu_entry entry = mjwm::menu_entry();
 	dirent *directory_entry;
-	std::string line;
 
 	while((directory_entry = readdir(directory)) != NULL) {
+		mjwm::menu_entry entry;
+		std::string line;
 		std::string desktop_filename = _directory_name + directory_entry->d_name;
 
 		std::ifstream file(desktop_filename.c_str());

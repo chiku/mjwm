@@ -36,10 +36,7 @@ namespace mjwm
 
 		void setup()
 		{
-			char resolved_path[1024];
-			realpath("fixtures", resolved_path);
-			_fixtures_directory = resolved_path;
-			_fixtures_directory += "/";
+			_fixtures_directory = "fixtures/";
 		}
 
 		void test_menu_group_is_valid_when_created()
@@ -72,14 +69,20 @@ namespace mjwm
 			assert_start_with(group.error(), "Doesn't have any valid .desktop files");
 		}
 
-		bool start_with(std::string sentence, std::string fragment)
+		void test_menu_group_writes_populated_entries_to_file()
 		{
-			return std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end();
+			menu_group group(_fixtures_directory + "desktop-files/", "");
+			group.populate();
+			group.sort();
+			group.write("automenu.output");
+			std::string file_content = read_file("automenu.output");
+			std::string expected_content = "<Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n<Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file %U</Program>\n";
+			QUNIT_IS_EQUAL(expected_content, file_content);
 		}
 
 		bool assert_start_with(std::string sentence, std::string fragment)
 		{
-			if (start_with(sentence, fragment)) {
+			if (std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end()) {
 				return true;
 			} else {
 				std::cout << "Sentence: >>" << sentence << "<<" << std::endl
@@ -89,6 +92,14 @@ namespace mjwm
 			return std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end();
 		}
 
+		std::string read_file(std::string file_name)
+		{
+			std::ifstream file(file_name.c_str());
+			std::stringstream stream;
+		    stream << file.rdbuf();
+		    file.close();
+		    return stream.str();
+		}
 
 	public:
 		menu_group_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
@@ -100,6 +111,7 @@ namespace mjwm
 			test_menu_group_has_error_when_scanning_absent_directory();
 			test_menu_group_populates_entries_for_desktop_files();
 			test_menu_group_has_error_when_no_desktop_files_exist_directory();
+			test_menu_group_writes_populated_entries_to_file();
 			return qunit.errors();
 		};
 	};
