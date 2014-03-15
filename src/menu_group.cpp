@@ -172,7 +172,7 @@ void
 mjwm::menu_group::write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries)
 {
 	if (entries.size() > 0) {
-		file << "        <Menu " << section << std::endl;
+		file << "        <Menu " << section << ">" << std::endl;
 		for(std::vector<mjwm::menu_entry>::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
 			(*entry).write_to(file, _icon_extension);
 		}

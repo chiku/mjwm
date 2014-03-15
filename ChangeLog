@@ -1,3 +1,7 @@
+current
+-------
+* Add missing closing tag for menus [#16]
+
 v2.0
 ----
 * Categorize items based on freedesktop standard menus (http://standards.freedesktop.org/menu-spec/latest/apa.html) [#3]
