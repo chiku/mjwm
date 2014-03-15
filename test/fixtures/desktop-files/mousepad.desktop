@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=Mousepad
+Comment=Simple Text Editor
+GenericName=Text Editor
+Exec=mousepad %F
+Icon=accessories-text-editor
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=Application;Utility;TextEditor;GTK;
+MimeType=text/plain

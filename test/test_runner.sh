@@ -21,5 +21,6 @@ set -e
 pushd `dirname $0`
 
 ./mjwm_menu_entry_test
+./mjwm_menu_group_test
 
 popd

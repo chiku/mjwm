@@ -21,6 +21,7 @@ Makefile.in
 src/Makefile
 src/Makefile.in
 src/mjwm
-test/mjwm_test
+test/*_test
+test/*.output
 stamp-h1
 automenu

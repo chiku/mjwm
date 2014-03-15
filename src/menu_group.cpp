@@ -40,7 +40,7 @@ mjwm::menu_group::populate()
 	DIR *directory = opendir(_directory_name.c_str());
 
 	if (!directory) {
-		_error = "Couldn't open directory " + _directory_name;
+		_error = "Couldn't open directory: " + _directory_name;
 		return;
 	}
 
@@ -69,7 +69,7 @@ mjwm::menu_group::populate()
 	closedir(directory);
 
 	if (_menu_entries.size() == 0) {
-		_error = _directory_name + " doesn't have any valid .desktop files";
+		_error = "Doesn't have any valid .desktop files: " + _directory_name;
 	}
 }
 
