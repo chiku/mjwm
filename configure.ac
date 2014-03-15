@@ -5,6 +5,7 @@ AC_PREREQ([2.66])
 AC_INIT([mjwm], [1.0], [chirantan.mitra@gmail.com])
 AC_LANG(C++)
 
+AC_CONFIG_SRCDIR([src/categories.cpp])
 AC_CONFIG_SRCDIR([src/menu_entry.cpp])
 AC_CONFIG_SRCDIR([src/menu_group.cpp])
 AC_CONFIG_SRCDIR([src/mjwm.cpp])

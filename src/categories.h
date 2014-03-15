@@ -16,46 +16,37 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __mjwm_menu_entry__
-#define __mjwm_menu_entry__
+#ifndef __mjwm_categories__
+#define __mjwm_categories__
 
-#include <fstream>
 #include <string>
 #include <vector>
 
-#include "categories.h"
-
 namespace mjwm
 {
-	class menu_entry
-	{
-	private:
-		std::string _name;
-		std::string _executable;
-		std::string _icon;
-		mjwm::categories _categories;
+	const std::string DELIM = ";";
+	const std::string AUDIO_VIDEO = "AudioVideo";
 
-		std::string safe_parse() const;
-		std::string encode(std::string data) const;
+	class categories
+	{
+	public:
+		std::string _raw;
+		std::vector<std::string> _categories;
+
+		bool _multimedia;
+
+		void parse();
+		void sort();
+		void interpret();
 
 	public:
-		menu_entry();
+		categories();
+		categories(std::string raw);
 
-		std::string name() const;
-		std::string icon() const;
-		std::string executable() const;
-		mjwm::categories categories() const;
-
-		bool operator < (const mjwm::menu_entry &other) const;
-		bool operator > (const mjwm::menu_entry &other) const;
-		bool operator == (const mjwm::menu_entry &other) const;
-		bool operator != (const mjwm::menu_entry &other) const;
-
-		bool is_valid() const;
-		void populate(std::string line);
-		void write_to(std::ofstream &file, std::string icon_extension) const;
-		void dump() const;
+		bool is_multimedia() const;
+		friend std::ostream& operator << (std::ostream& stream, const mjwm::categories& categories);
 	};
+
 }
 
 #endif

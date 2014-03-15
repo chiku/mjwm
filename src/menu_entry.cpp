@@ -53,7 +53,7 @@ mjwm::menu_entry::executable() const
 	return _executable;
 }
 
-std::vector<std::string>
+mjwm::categories
 mjwm::menu_entry::categories() const
 {
 	return _categories;
@@ -108,8 +108,7 @@ mjwm::menu_entry::populate(std::string line)
 		_executable = safe_parse();
 	}
 	if (buffer == CATEGORIES) {
-		_raw_categories = safe_parse();
-		split_categories();
+		_categories = mjwm::categories(safe_parse());
 	}
 }
 
@@ -122,10 +121,10 @@ mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) cons
 void
 mjwm::menu_entry::dump() const
 {
-	std::cout << "Name       : " << name()          << std::endl;
-	std::cout << "Executable : " << executable()    << std::endl;
-	std::cout << "Icon       : " << icon()          << std::endl;
-	std::cout << "Categories : " << _raw_categories << std::endl;
+	std::cout << "Name       : " << name()       << std::endl;
+	std::cout << "Executable : " << executable() << std::endl;
+	std::cout << "Icon       : " << icon()       << std::endl;
+	std::cout << "Categories : " << _categories  << std::endl;
 }
 
 std::string
@@ -152,19 +151,4 @@ mjwm::menu_entry::encode(std::string data) const
 		}
 	}
 	return buffer;
-}
-
-void
-mjwm::menu_entry::split_categories()
-{
-	std::string raw = _raw_categories;
-	std::string delim = ";";
-	unsigned long int start = 0U;
-	unsigned long int end = raw.find(delim);
-
-	while (end != std::string::npos) {
-		_categories.push_back(raw.substr(start, end - start));
-		start = end + delim.length();
-		end = raw.find(delim, start);
-	}
 }
