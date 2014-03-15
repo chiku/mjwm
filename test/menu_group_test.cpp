@@ -21,7 +21,6 @@
 #include <string>
 #include <streambuf>
 #include <algorithm>
-#include <cstdlib>
 
 #include "QUnit.hpp"
 
