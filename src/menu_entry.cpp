@@ -33,13 +33,7 @@ const std::string EXECUTABLE = "Exec";
 const std::string ICON       = "Icon";
 const std::string CATEGORIES = "Categories";
 
-mjwm::menu_entry::menu_entry()
-{
-	_name       = "";
-	_executable = "";
-	_icon       = "";
-	_categories = "";
-}
+mjwm::menu_entry::menu_entry() {}
 
 std::string
 mjwm::menu_entry::name() const
@@ -59,7 +53,7 @@ mjwm::menu_entry::executable() const
 	return _executable;
 }
 
-std::string
+std::vector<std::string>
 mjwm::menu_entry::categories() const
 {
 	return _categories;
@@ -114,7 +108,8 @@ mjwm::menu_entry::populate(std::string line)
 		_executable = safe_parse();
 	}
 	if (buffer == CATEGORIES) {
-		_categories = safe_parse();
+		_raw_categories = safe_parse();
+		split_categories();
 	}
 }
 
@@ -127,10 +122,10 @@ mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) cons
 void
 mjwm::menu_entry::dump() const
 {
-	std::cout << "Name       : " << name()       << std::endl;
-	std::cout << "Executable : " << executable() << std::endl;
-	std::cout << "Icon       : " << icon()       << std::endl;
-	std::cout << "Categories : " << categories() << std::endl;
+	std::cout << "Name       : " << name()          << std::endl;
+	std::cout << "Executable : " << executable()    << std::endl;
+	std::cout << "Icon       : " << icon()          << std::endl;
+	std::cout << "Categories : " << _raw_categories << std::endl;
 }
 
 std::string
@@ -148,13 +143,28 @@ mjwm::menu_entry::encode(std::string data) const
 	buffer.reserve(data.size());
 	for(size_t pos = 0; pos != data.size(); ++pos) {
 		switch(data[pos]) {
-			case '&':  buffer.append("&amp;");       break;
+			case '&' : buffer.append("&amp;");       break;
 			case '\"': buffer.append("&quot;");      break;
 			case '\'': buffer.append("&apos;");      break;
-			case '<':  buffer.append("&lt;");        break;
-			case '>':  buffer.append("&gt;");        break;
-			default:   buffer.append(&data[pos], 1); break;
+			case '<' : buffer.append("&lt;");        break;
+			case '>' : buffer.append("&gt;");        break;
+			default  : buffer.append(&data[pos], 1); break;
 		}
 	}
 	return buffer;
+}
+
+void
+mjwm::menu_entry::split_categories()
+{
+	std::string raw = _raw_categories;
+	std::string delim = ";";
+	unsigned long int start = 0U;
+	unsigned long int end = raw.find(delim);
+
+	while (end != std::string::npos) {
+		_categories.push_back(raw.substr(start, end - start));
+		start = end + delim.length();
+		end = raw.find(delim, start);
+	}
 }

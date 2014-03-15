@@ -21,6 +21,7 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 namespace mjwm
 {
@@ -30,17 +31,20 @@ namespace mjwm
 		std::string _name;
 		std::string _executable;
 		std::string _icon;
-		std::string _categories;
+		std::string _raw_categories;
+		std::vector<std::string> _categories;
 
 		std::string safe_parse() const;
 		std::string encode(std::string data) const;
+		void split_categories();
+
 	public:
 		menu_entry();
 
 		std::string name() const;
 		std::string icon() const;
 		std::string executable() const;
-		std::string categories() const;
+		std::vector<std::string> categories() const;
 
 		bool operator < (const mjwm::menu_entry &other) const;
 		bool operator > (const mjwm::menu_entry &other) const;

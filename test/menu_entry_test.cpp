@@ -17,6 +17,8 @@
 */
 
 #include <iostream>
+#include <vector>
+#include <string>
 
 #include "QUnit.hpp"
 
@@ -54,7 +56,9 @@ namespace mjwm
 		{
 			menu_entry entry;
 			entry.populate("Categories=Application;Utility;TextEditor;GTK;\n");
-			QUNIT_IS_EQUAL("Application;Utility;TextEditor;GTK;", entry.categories());
+			std::string raw[] = { "Application", "Utility", "TextEditor", "GTK" };
+			std::vector<std::string> expected(raw, raw + 4);
+			QUNIT_IS_TRUE(expected == entry.categories());
 		}
 
 		void test_menu_entry_escapes_tokens()
