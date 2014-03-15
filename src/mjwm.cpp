@@ -29,7 +29,7 @@
 #include "menu_group.h"
 
 void display_help() {
-	std::cout << "mjwm version 1.1, Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
+	std::cout << "mjwm version 2.0, Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
 	std::cout << "mjwm comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
 	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
 	std::cout << "under certain conditions; Refer COPYING for details." << std::endl;
