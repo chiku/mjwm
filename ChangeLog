@@ -1,5 +1,5 @@
-Current
--------
+v1.1
+----
 * Provide make install [#6]
 * Test suite [#2]
 * Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols [#1]
