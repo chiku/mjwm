@@ -67,7 +67,11 @@ mjwm::menu_group::populate()
 		file.close();
 	}
 	closedir(directory);
+}
 
+void
+mjwm::menu_group::validate()
+{
 	if (_menu_entries.size() == 0) {
 		std::cerr << _directory_name << " doesn't have any valid .desktop files" << std::endl;
 		exit(1);

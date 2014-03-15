@@ -96,6 +96,7 @@ int main(int argc, char *argv[]) {
 
 	mjwm::menu_group group(directory_to_scan, icon_extension);
 	group.populate();
+	group.validate();
 	group.sort();
 	group.write(output_filename);
 

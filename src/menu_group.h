@@ -36,6 +36,7 @@ namespace mjwm
 	public:
 		menu_group(std::string directory_name, std::string icon_extension);
 		void populate();
+		void validate();
 		void sort();
 		void write(std::string output_filename);
 	};
