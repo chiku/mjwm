@@ -1,10 +1,14 @@
+Current
+-------
+* Categorize items based on freedesktop standard menus (http://standards.freedesktop.org/menu-spec/latest/apa.html) [#3]
+
 v1.1
 ----
 * Provide make install [#6]
 * Test suite [#2]
 * Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols [#1]
 * Parse options using getopt - Allows parsing of long & short command-line options [#7]
-* Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc [#5]
+* Don't refer /etc/system.jwmrc - encourage modifications to ~/.jwmrc [#5]
 * Sort items based on its name
 * Don't create entries with stale data [#14]
 

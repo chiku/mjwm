@@ -19,22 +19,39 @@
 #ifndef __mjwm_menu_group__
 #define __mjwm_menu_group__
 
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "menu_entry.h"
 
-const int NORMAL_RESERVE_SIZE = 300;
-
 namespace mjwm
 {
+	const int NORMAL_RESERVE_SIZE = 30;
+
 	class menu_group
 	{
 	private:
 		std::string _directory_name;
 		std::string _icon_extension;
-		std::vector<mjwm::menu_entry> _menu_entries;
 		std::string _error;
+		bool _parsed;
+
+		std::vector<mjwm::menu_entry> _audiovideo_menu_entries;
+		std::vector<mjwm::menu_entry> _development_menu_entries;
+		std::vector<mjwm::menu_entry> _education_menu_entries;
+		std::vector<mjwm::menu_entry> _game_menu_entries;
+		std::vector<mjwm::menu_entry> _graphics_menu_entries;
+		std::vector<mjwm::menu_entry> _network_menu_entries;
+		std::vector<mjwm::menu_entry> _office_menu_entries;
+		std::vector<mjwm::menu_entry> _science_menu_entries;
+		std::vector<mjwm::menu_entry> _settings_menu_entries;
+		std::vector<mjwm::menu_entry> _system_menu_entries;
+		std::vector<mjwm::menu_entry> _utility_menu_entries;
+		std::vector<mjwm::menu_entry> _other_menu_entries;
+
+		void classify(mjwm::menu_entry entry);
+		void write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries);
 
 	public:
 		menu_group(std::string directory_name, std::string icon_extension);

@@ -74,8 +74,18 @@ namespace mjwm
 			group.populate();
 			group.sort();
 			group.write("automenu.output");
-			std::string file_content = read_file("automenu.output");
-			std::string expected_content = "<Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n<Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file %U</Program>\n";
+			std::string file_content = read_file("automenu.output");\
+			std::string expected_content =
+"        <Menu label=\"Multimedia\" icon=\"multimedia\"\n\
+           <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file %U</Program>\n\
+        </Menu>\n\
+        <Menu label=\"Utilities\" icon=\"utility\"\n\
+           <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
+        </Menu>\n\
+        <Menu label=\"Others\" icon=\"others\"\n\
+           <Program label=\"Unclassified\" icon=\"unclassified\">unclassify</Program>\n\
+        </Menu>\n\
+";
 			QUNIT_IS_EQUAL(expected_content, file_content);
 		}
 

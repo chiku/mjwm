@@ -25,7 +25,18 @@
 namespace mjwm
 {
 	const std::string DELIM = ";";
+
 	const std::string AUDIO_VIDEO = "AudioVideo";
+	const std::string DEVELOPMENT = "Development";
+	const std::string EDUCATION   = "Education";
+	const std::string GAME        = "Game";
+	const std::string GRAPHICS    = "Graphics";
+	const std::string NETWORK     = "Network";
+	const std::string OFFICE      = "Office";
+	const std::string SCIENCE     = "Science";
+	const std::string SETTINGS    = "Settings";
+	const std::string SYSTEM      = "System";
+	const std::string UTILITY     = "Utility";
 
 	class categories
 	{
@@ -33,7 +44,17 @@ namespace mjwm
 		std::string _raw;
 		std::vector<std::string> _categories;
 
-		bool _multimedia;
+		bool _audiovideo;
+		bool _development;
+		bool _education;
+		bool _game;
+		bool _graphics;
+		bool _network;
+		bool _office;
+		bool _science;
+		bool _settings;
+		bool _system;
+		bool _utility;
 
 		void parse();
 		void sort();
@@ -43,7 +64,18 @@ namespace mjwm
 		categories();
 		categories(std::string raw);
 
-		bool is_multimedia() const;
+		bool is_audiovideo() const;
+		bool is_development() const;
+		bool is_education() const;
+		bool is_game() const;
+		bool is_graphics() const;
+		bool is_network() const;
+		bool is_office() const;
+		bool is_science() const;
+		bool is_settings() const;
+		bool is_system() const;
+		bool is_utility() const;
+
 		friend std::ostream& operator << (std::ostream& stream, const mjwm::categories& categories);
 	};
 
