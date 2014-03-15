@@ -38,6 +38,10 @@ namespace mjwm
 	const std::string SYSTEM      = "System";
 	const std::string UTILITY     = "Utility";
 
+	class categories;
+
+	std::ostream& operator <<(std::ostream& stream, const mjwm::categories& categories);
+
 	class categories
 	{
 	public:
