@@ -1,10 +1,10 @@
 Current
 -------
-* Provide make install
-* Test suite
-* Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols
-* Parse options using getopt - Allows parsing of long & short command-line options
-* Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc
+* Provide make install [#6]
+* Test suite [#2]
+* Escape ampersands (&), single quote ('), double quote ("), greater than (>) and lesser than (<) symbols [#1]
+* Parse options using getopt - Allows parsing of long & short command-line options [#7]
+* Don't refer /etc/system.jwmrc - encougage modifications to ~/.jwmrc [#5]
 * Sort items based on its name
 
 v1.0
