@@ -32,11 +32,13 @@ namespace mjwm
 		std::string _directory_name;
 		std::string _icon_extension;
 		std::vector<mjwm::menu_entry> _menu_entries;
+		std::string _error;
 
 	public:
 		menu_group(std::string directory_name, std::string icon_extension);
 		void populate();
-		void validate();
+		bool is_valid() const;
+		std::string error() const;
 		void sort();
 		void write(std::string output_filename);
 	};

@@ -40,8 +40,8 @@ mjwm::menu_group::populate()
 	DIR *directory = opendir(_directory_name.c_str());
 
 	if (!directory) {
-		std::cerr << "Couldn't open directory " << _directory_name << std::endl;
-		exit(1);
+		_error = "Couldn't open directory " + _directory_name;
+		return;
 	}
 
 	mjwm::menu_entry entry = mjwm::menu_entry();
@@ -67,15 +67,22 @@ mjwm::menu_group::populate()
 		file.close();
 	}
 	closedir(directory);
+
+	if (_menu_entries.size() == 0) {
+		_error = _directory_name + " doesn't have any valid .desktop files";
+	}
 }
 
-void
-mjwm::menu_group::validate()
+bool
+mjwm::menu_group::is_valid() const
 {
-	if (_menu_entries.size() == 0) {
-		std::cerr << _directory_name << " doesn't have any valid .desktop files" << std::endl;
-		exit(1);
-	}
+	return _error == "";
+}
+
+std::string
+mjwm::menu_group::error() const
+{
+	return _error;
 }
 
 void

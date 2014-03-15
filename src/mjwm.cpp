@@ -96,7 +96,10 @@ int main(int argc, char *argv[]) {
 
 	mjwm::menu_group group(directory_to_scan, icon_extension);
 	group.populate();
-	group.validate();
+	if (!group.is_valid()) {
+		std::cerr << group.error() << std::endl;
+		return 1;
+	}
 	group.sort();
 	group.write(output_filename);
 
