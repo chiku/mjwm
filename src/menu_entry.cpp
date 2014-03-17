@@ -99,7 +99,7 @@ mjwm::menu_entry::populate(std::string line)
 	std::string buffer = strtok(strdup(line.c_str()), "=");
 
 	if (buffer == NAME) {
-		_name = safe_parse();
+		_name = encode(safe_parse());
 	}
 	if (buffer == ICON) {
 		_icon = safe_parse();
@@ -131,7 +131,7 @@ std::string
 mjwm::menu_entry::safe_parse() const
 {
 	char *token = strtok(NULL, "\n");
-	return token == NULL ? std::string("") : encode(std::string(token));
+	return token == NULL ? std::string("") : std::string(token);
 }
 
 // based on http://stackoverflow.com/questions/5665231/most-efficient-way-to-escape-xml-html-in-c-string#answer-5665377

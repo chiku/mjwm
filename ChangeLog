@@ -1,3 +1,7 @@
+Current
+-------
+* Don't encode executable, icon and category [#18]
+
 v2.1
 ----
 * Add missing closing tag for menus [#16]

@@ -61,11 +61,18 @@ namespace mjwm
 			QUNIT_IS_EQUAL(expected, entry.categories());
 		}
 
-		void test_menu_entry_escapes_tokens()
+		void test_menu_entry_escapes_tokens_in_name()
 		{
 			menu_entry entry;
 			entry.populate("Name=<'Complicated' & \"Fun\">\n");
 			QUNIT_IS_EQUAL("&lt;&apos;Complicated&apos; &amp; &quot;Fun&quot;&gt;", entry.name());
+		}
+
+		void test_menu_entry_doesnt_escape_tokens_in_exec()
+		{
+			menu_entry entry;
+			entry.populate("Exec=rxvt -font 7x14 -bg \"#c0c0c0\" -fg");
+			QUNIT_IS_EQUAL("rxvt -font 7x14 -bg \"#c0c0c0\" -fg", entry.executable());
 		}
 
 		void test_menu_entry_parse_doesnt_fail_when_entry_is_missing()
@@ -162,7 +169,8 @@ namespace mjwm
 			test_menu_entry_parses_icon();
 			test_menu_entry_parses_executable();
 			test_menu_entry_parses_categories();
-			test_menu_entry_escapes_tokens();
+			test_menu_entry_escapes_tokens_in_name();
+			test_menu_entry_doesnt_escape_tokens_in_exec();
 			test_menu_entry_parse_doesnt_fail_when_entry_is_missing();
 			test_menu_entry_parse_doesnt_fail_when_line_is_missing();
 			test_menu_entry_is_lesser_than_a_menu_entry_with_alphabetically_greater_name();
