@@ -48,7 +48,8 @@ namespace mjwm
 		std::string _error;
 		bool _parsed;
 
-		std::map<std::string, mjwm::menu_group::group> _groups;
+		std::map<std::string, mjwm::menu_group::group> _menu_entries;
+		std::vector<std::string> _category_names;
 
 		void classify(mjwm::menu_entry entry);
 		void write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries);
