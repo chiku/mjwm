@@ -2,6 +2,7 @@ Current
 -------
 * Don't encode executable, icon and category [#18]
 * Parse categories that don't with a semicolon [#17]
+* Introduce semantic versioning [#19]
 
 v2.1
 ----
