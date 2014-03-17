@@ -52,13 +52,20 @@ mjwm::categories::categories(std::string raw)
 void
 mjwm::categories::parse()
 {
+	std::string raw = _raw;
+	unsigned int size = raw.length();
+
+	if (size >= 1 && raw.at(size - 1) != DELIM.at(0)) {
+		raw += DELIM;
+	}
+
 	unsigned long int start = 0U;
-	unsigned long int end = _raw.find(DELIM);
+	unsigned long int end = raw.find(DELIM);
 
 	while (end != std::string::npos) {
-		_categories.push_back(_raw.substr(start, end - start));
+		_categories.push_back(raw.substr(start, end - start));
 		start = end + DELIM.length();
-		end = _raw.find(DELIM, start);
+		end = raw.find(DELIM, start);
 	}
 }
 

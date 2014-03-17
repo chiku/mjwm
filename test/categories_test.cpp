@@ -43,6 +43,12 @@ namespace mjwm
 			QUNIT_IS_FALSE(categories.is_audiovideo());
 		}
 
+		void test_categories_as_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon()
+		{
+			categories categories("Video;AudioVideo");
+			QUNIT_IS_TRUE(categories.is_audiovideo());
+		}
+
 
 		void test_categories_as_development_if_tag_includes_Development()
 		{
@@ -180,6 +186,7 @@ namespace mjwm
 		{
 			test_categories_as_audiovideo_if_tag_includes_AudioVideo();
 			test_categories_not_as_audiovideo_if_tag_excludes_AudioVideo();
+			test_categories_as_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
 			test_categories_as_development_if_tag_includes_Development();
 			test_categories_not_as_development_if_tag_excludes_Development();
 			test_categories_as_education_if_tag_includes_Education();

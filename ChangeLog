@@ -1,6 +1,7 @@
 Current
 -------
 * Don't encode executable, icon and category [#18]
+* Parse categories that don't with a semicolon [#17]
 
 v2.1
 ----
