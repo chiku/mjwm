@@ -28,7 +28,7 @@
 #include "menu_entry.h"
 #include "menu_group.h"
 
-static const std::string VERSION = "2.1.0";
+static const std::string VERSION = "2.1.1";
 
 static void display_help()
 {
