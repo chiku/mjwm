@@ -38,7 +38,6 @@ namespace mjwm
 
 		void parse();
 		void sort();
-		void interpret();
 
 	public:
 		categories();
