@@ -27,37 +27,36 @@
 #include "menu_entry.h"
 #include "menu_group.h"
 
+mjwm::menu_group::group::group()
+{
+	menu_entries.reserve(NORMAL_RESERVE_SIZE);
+}
+
+mjwm::menu_group::group::group(std::string name_to_display, std::string icon_name)
+{
+	pretty_name = name_to_display;
+	icon = icon_name;
+	menu_entries.reserve(NORMAL_RESERVE_SIZE);
+}
+
 mjwm::menu_group::menu_group(std::string directory_name, std::string icon_extension)
 {
 	_directory_name = directory_name;
 	_icon_extension = icon_extension;
 	_parsed = false;
 
-	_all_name_to_pretty_name["AudioVideo"]  = "Multimedia";
-	_all_name_to_pretty_name["Development"] = "Development";
-	_all_name_to_pretty_name["Education"]   = "Education";
-	_all_name_to_pretty_name["Game"]        = "Games";
-	_all_name_to_pretty_name["Graphics"]    = "Graphics";
-	_all_name_to_pretty_name["Network"]     = "Internet";
-	_all_name_to_pretty_name["Office"]      = "Office";
-	_all_name_to_pretty_name["Science"]     = "Science";
-	_all_name_to_pretty_name["Settings"]    = "Settings";
-	_all_name_to_pretty_name["System"]      = "System";
-	_all_name_to_pretty_name["Utility"]     = "Accessories";
-	_all_name_to_pretty_name["Others"]      = "Others";
-
-	_all_name_to_icon["AudioVideo"]  = "multimedia";
-	_all_name_to_icon["Development"] = "development";
-	_all_name_to_icon["Education"]   = "education";
-	_all_name_to_icon["Game"]        = "games";
-	_all_name_to_icon["Graphics"]    = "graphics";
-	_all_name_to_icon["Network"]     = "internet";
-	_all_name_to_icon["Office"]      = "office";
-	_all_name_to_icon["Science"]     = "science";
-	_all_name_to_icon["Settings"]    = "settings";
-	_all_name_to_icon["System"]      = "system";
-	_all_name_to_icon["Utility"]     = "accessories";
-	_all_name_to_icon["Others"]      = "others";
+	_groups["AudioVideo"]  = mjwm::menu_group::group("Multimedia",  "multimedia");
+	_groups["Development"] = mjwm::menu_group::group("Development", "development");
+	_groups["Education"]   = mjwm::menu_group::group("Education",   "education");
+	_groups["Game"]        = mjwm::menu_group::group("Games",       "games");
+	_groups["Graphics"]    = mjwm::menu_group::group("Graphics",    "graphics");
+	_groups["Network"]     = mjwm::menu_group::group("Internet",    "internet");
+	_groups["Office"]      = mjwm::menu_group::group("Office",      "office");
+	_groups["Science"]     = mjwm::menu_group::group("Science",     "science");
+	_groups["Settings"]    = mjwm::menu_group::group("Settings",    "settings");
+	_groups["System"]      = mjwm::menu_group::group("System",      "system");
+	_groups["Utility"]     = mjwm::menu_group::group("Accessories", "accessories");
+	_groups["Others"]      = mjwm::menu_group::group("Others",      "others");
 }
 
 void
@@ -106,15 +105,15 @@ mjwm::menu_group::classify(mjwm::menu_entry entry)
 	mjwm::categories categories = entry.categories();
 	bool classified = false;
 
-	for (std::map<std::string, std::string>::iterator iter = _all_name_to_pretty_name.begin(); iter != _all_name_to_pretty_name.end(); ++iter) {
+	for (std::map<std::string, mjwm::menu_group::group>::iterator iter = _groups.begin(); iter != _groups.end(); ++iter) {
 		if (categories.is_a(iter->first)) {
 			classified = true;
-			_all_name_to_menu_entry[iter->first].push_back(entry);
+			_groups[iter->first].menu_entries.push_back(entry);
 		}
 	}
 
 	if (!classified) {
-		_all_name_to_menu_entry["Others"].push_back(entry);
+		_groups["Others"].menu_entries.push_back(entry);
 	}
 }
 
@@ -133,8 +132,8 @@ mjwm::menu_group::error() const
 void
 mjwm::menu_group::sort()
 {
-	for (std::map<std::string, std::vector<mjwm::menu_entry> >::iterator iter = _all_name_to_menu_entry.begin(); iter != _all_name_to_menu_entry.end(); ++iter) {
-		std::sort(iter->second.begin(), iter->second.end());
+	for (std::map<std::string, mjwm::menu_group::group>::iterator iter = _groups.begin(); iter != _groups.end(); ++iter) {
+		std::sort(iter->second.menu_entries.begin(), iter->second.menu_entries.end());
 	}
 }
 
@@ -143,8 +142,8 @@ mjwm::menu_group::write(std::string output_filename)
 {
 	std::ofstream file(output_filename.c_str());
 
-	for (std::map<std::string, std::string>::iterator iter = _all_name_to_pretty_name.begin(); iter != _all_name_to_pretty_name.end(); ++iter) {
-		write(file, "label=\"" + iter->second + "\" icon=\"" + _all_name_to_icon[iter->first] + "\"", _all_name_to_menu_entry[iter->first]);
+	for (std::map<std::string, mjwm::menu_group::group>::iterator iter = _groups.begin(); iter != _groups.end(); ++iter) {
+		write(file, "label=\"" + iter->second.pretty_name + "\" icon=\"" + iter->second.icon + "\"", iter->second.menu_entries);
 	}
 
 	file.close();

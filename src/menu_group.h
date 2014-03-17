@@ -32,15 +32,23 @@ namespace mjwm
 
 	class menu_group
 	{
+		struct group
+		{
+			std::string pretty_name;
+			std::string icon;
+			std::vector<mjwm::menu_entry> menu_entries;
+
+			group();
+			group(std::string pretty_name, std::string icon);
+		};
+
 	private:
 		std::string _directory_name;
 		std::string _icon_extension;
 		std::string _error;
 		bool _parsed;
 
-		std::map<std::string, std::string> _all_name_to_pretty_name;
-		std::map<std::string, std::string> _all_name_to_icon;
-		std::map<std::string, std::vector<mjwm::menu_entry> > _all_name_to_menu_entry;
+		std::map<std::string, mjwm::menu_group::group> _groups;
 
 		void classify(mjwm::menu_entry entry);
 		void write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries);
