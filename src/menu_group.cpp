@@ -39,6 +39,7 @@ mjwm::menu_group::group::group(std::string name_to_display, std::string icon_nam
 	menu_entries.reserve(NORMAL_RESERVE_SIZE);
 }
 
+// TODO : replace with a vector of pairs - will give ordered entries and group related items
 mjwm::menu_group::menu_group(std::string directory_name, std::string icon_extension)
 {
 	_directory_name = directory_name;
