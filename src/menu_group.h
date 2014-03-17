@@ -22,6 +22,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 #include "menu_entry.h"
 
@@ -37,18 +38,9 @@ namespace mjwm
 		std::string _error;
 		bool _parsed;
 
-		std::vector<mjwm::menu_entry> _audiovideo_menu_entries;
-		std::vector<mjwm::menu_entry> _development_menu_entries;
-		std::vector<mjwm::menu_entry> _education_menu_entries;
-		std::vector<mjwm::menu_entry> _game_menu_entries;
-		std::vector<mjwm::menu_entry> _graphics_menu_entries;
-		std::vector<mjwm::menu_entry> _network_menu_entries;
-		std::vector<mjwm::menu_entry> _office_menu_entries;
-		std::vector<mjwm::menu_entry> _science_menu_entries;
-		std::vector<mjwm::menu_entry> _settings_menu_entries;
-		std::vector<mjwm::menu_entry> _system_menu_entries;
-		std::vector<mjwm::menu_entry> _utility_menu_entries;
-		std::vector<mjwm::menu_entry> _other_menu_entries;
+		std::map<std::string, std::string> _all_name_to_pretty_name;
+		std::map<std::string, std::string> _all_name_to_icon;
+		std::map<std::string, std::vector<mjwm::menu_entry> > _all_name_to_menu_entry;
 
 		void classify(mjwm::menu_entry entry);
 		void write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries);
