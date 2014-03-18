@@ -17,8 +17,8 @@
 */
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include <streambuf>
 
 #include "QUnit.hpp"
 
@@ -55,6 +55,13 @@ namespace mjwm
 			QUNIT_IS_FALSE(categories.is_a("AudioVideo"));
 		}
 
+		void test_categories_serialized_to_an_output_stream()
+		{
+			categories categories("AudioVideo;Player;GTK;");
+			std::stringstream stream;
+			stream << categories;
+			QUNIT_IS_EQUAL("AudioVideo; GTK; Player; ", stream.str());
+		}
 
 	public:
 		categories_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
@@ -65,6 +72,7 @@ namespace mjwm
 			test_categories_not_as_audiovideo_if_tag_excludes_AudioVideo();
 			test_categories_as_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
 			test_categories_not_as_audiovideo_if_empty();
+			test_categories_serialized_to_an_output_stream();
 			return qunit.errors();
 		}
 
