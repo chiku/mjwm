@@ -26,7 +26,6 @@ Installation from source
 
 * From the root of the application run
 ```script
-touch NEWS AUTHORS
 autoreconf -i
 ./configure --prefix=/usr/local # Install mjwm to /usr/local
 make
@@ -67,7 +66,6 @@ Running tests
 
 * From the root of the application run
 ``` script
-touch NEWS AUTHORS
 autoreconf -i
 ./configure --prefix=/usr/local
 make

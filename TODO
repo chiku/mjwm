@@ -1,5 +1,4 @@
 * Avoid double extensions (.png, .xpm)
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
-* Build should not require autoreconf & touches
 * Print operation summary

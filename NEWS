@@ -1,0 +1,29 @@
+mjwm NEWS - User visible changes. 2014-03-16
+Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
+
+version 2.1.1 - Chirantan Mitra, 2014-03-16
+
+* [BUG] Don't encode executable, icon & categories
+* [BUG] Tolerate category entries that don't end in a semicolon
+
+version 2.1 - Chirantan Mitra, 2014-03-16
+
+* [BUG] Add missing bracket in menu entries
+
+version 2.0 - Chirantan Mitra, 2014-03-16
+
+* Put menus into subcategories based on FreDesktop standards
+
+
+version 1.1 - Chirantan Mitra, 2014-03-15
+
+* Sort entries based on their names
+* [BUG] XML escape for characters
+* [BUG] Don't create entries with stale data
+* Provide long conmmand line options
+
+
+version 1.0 - Chirantan Mitra, 2014-03-09
+
+* Initial release - C++ port of mjm by insmyic gminsm@gmail.com http://sourceforge.net/projects/mjm
+* [BUG] Fixed segmentation faults in mjm

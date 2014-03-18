@@ -4,9 +4,7 @@
 *.log
 *~
 autom4te.cache/
-AUTHORS
 INSTALL
-NEWS
 aclocal.m4
 compile
 config.h

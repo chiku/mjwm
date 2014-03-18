@@ -3,6 +3,7 @@ Current
 * Specify the order in which menu categories appear
 * Ignore spaces around equals sign in Desktop file entries [#20]
 * Reduce use of C based strings. Use more C++ strings [#10]
+* Provide AUTHORS and NEWS files. Removed references to touch these files for a build.
 
 v2.1.1
 ------
