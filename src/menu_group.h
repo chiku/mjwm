@@ -22,7 +22,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map>
+#include <utility>
 
 #include "menu_entry.h"
 
@@ -30,29 +30,30 @@ namespace mjwm
 {
 	const int NORMAL_RESERVE_SIZE = 30;
 
+	struct qualified_menu_entry
+	{
+		std::string pretty_name;
+		std::string icon;
+		std::vector<mjwm::menu_entry> menu_entries;
+
+		qualified_menu_entry();
+		qualified_menu_entry(std::string pretty_name, std::string icon);
+	};
+
 	class menu_group
 	{
-		struct group
-		{
-			std::string pretty_name;
-			std::string icon;
-			std::vector<mjwm::menu_entry> menu_entries;
-
-			group();
-			group(std::string pretty_name, std::string icon);
-		};
-
 	private:
 		std::string _directory_name;
 		std::string _icon_extension;
 		std::string _error;
 		bool _parsed;
 
-		std::map<std::string, mjwm::menu_group::group> _menu_entries;
-		std::vector<std::string> _category_names;
+		std::vector< std::pair<std::string, mjwm::qualified_menu_entry> > _menu_entries;
+		mjwm::qualified_menu_entry _unclassified_entries;
 
-		void classify(mjwm::menu_entry entry);
+		bool classify(mjwm::menu_entry entry);
 		void write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries);
+		void construct_menu_entries(std::string name, std::string pretty_name, std::string icon);
 
 	public:
 		menu_group(std::string directory_name, std::string icon_extension);

@@ -28,15 +28,11 @@
 
 namespace mjwm
 {
+	const std::string _fixtures_directory = "fixtures/";
+
 	class menu_group_test
 	{
 		QUnit::UnitTest qunit;
-		std::string _fixtures_directory;
-
-		void setup()
-		{
-			_fixtures_directory = "fixtures/";
-		}
 
 		void test_menu_group_is_valid_when_created()
 		{
@@ -54,7 +50,7 @@ namespace mjwm
 
 		void test_menu_group_populates_entries_for_desktop_files()
 		{
-			menu_group group(_fixtures_directory + "desktop-files/", "");
+			menu_group group(_fixtures_directory + "all-proper/", "");
 			group.populate();
 			QUNIT_IS_TRUE(group.is_valid());
 			QUNIT_IS_EQUAL("", group.error());
@@ -70,11 +66,14 @@ namespace mjwm
 
 		void test_menu_group_writes_populated_entries_to_file()
 		{
-			menu_group group(_fixtures_directory + "desktop-files/", "");
+			std::string file_name = "all-proper.output";
+			menu_group group(_fixtures_directory + "all-proper/", "");
 			group.populate();
 			group.sort();
-			group.write("automenu.output");
-			std::string file_content = read_file("automenu.output");\
+
+			group.write(file_name);
+
+			std::string file_content = read_file(file_name);
 			std::string expected_content =
 "        <Menu label=\"Accessories\" icon=\"accessories\">\n\
            <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
@@ -82,11 +81,39 @@ namespace mjwm
         <Menu label=\"Multimedia\" icon=\"multimedia\">\n\
            <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file %U</Program>\n\
         </Menu>\n\
+";
+			QUNIT_IS_EQUAL(expected_content, file_content);
+		}
+
+		void test_menu_group_writes_unclassified_entries_to_end_of_the_file()
+		{
+			std::string file_name = "unclassified-content.output";
+			menu_group group(_fixtures_directory + "unclassified-content/", "");
+			group.populate();
+			group.sort();
+
+			group.write(file_name);
+
+			std::string file_content = read_file(file_name);
+			std::string expected_content =
+"        <Menu label=\"Accessories\" icon=\"accessories\">\n\
+           <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
+        </Menu>\n\
         <Menu label=\"Others\" icon=\"others\">\n\
            <Program label=\"Unclassified\" icon=\"unclassified\">unclassify</Program>\n\
         </Menu>\n\
 ";
 			QUNIT_IS_EQUAL(expected_content, file_content);
+		}
+
+		void test_menu_group_skips_files_that_are_missing_content()
+		{
+			std::string file_name = "unclassified-content.output";
+			menu_group group(_fixtures_directory + "missing-content/", "");
+			group.populate();
+
+			QUNIT_IS_FALSE(group.is_valid());
+			assert_start_with(group.error(), "Doesn't have any valid .desktop files");
 		}
 
 		bool assert_start_with(std::string sentence, std::string fragment)
@@ -115,11 +142,12 @@ namespace mjwm
 
 		int run()
 		{
-			setup();
 			test_menu_group_is_valid_when_created();
 			test_menu_group_has_error_when_scanning_absent_directory();
-			test_menu_group_populates_entries_for_desktop_files();
 			test_menu_group_has_error_when_no_desktop_files_exist_directory();
+			test_menu_group_populates_entries_for_desktop_files();
+			test_menu_group_writes_unclassified_entries_to_end_of_the_file();
+			test_menu_group_skips_files_that_are_missing_content();
 			test_menu_group_writes_populated_entries_to_file();
 			return qunit.errors();
 		};
