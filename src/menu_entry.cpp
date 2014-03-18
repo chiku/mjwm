@@ -16,22 +16,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-    Based on work by insmyic <gminsm@gmail.com> http://sourceforge.net/projects/mjm
-*/
-
 #include <iostream>
 #include <fstream>
 #include <string>
 
-#include <string.h>
-
 #include "menu_entry.h"
 
-const std::string NAME       = "Name";
-const std::string EXECUTABLE = "Exec";
-const std::string ICON       = "Icon";
-const std::string CATEGORIES = "Categories";
+static const std::string NAME       = "Name";
+static const std::string EXECUTABLE = "Exec";
+static const std::string ICON       = "Icon";
+static const std::string CATEGORIES = "Categories";
 
 mjwm::menu_entry::menu_entry() {}
 
@@ -96,20 +90,38 @@ mjwm::menu_entry::populate(std::string line)
 		return;
 	}
 
-	std::string buffer = strtok(strdup(line.c_str()), "=");
+	std::string delim = "=";
+	unsigned long int location = line.find(delim);
+	std::string first_part = line.substr(0, location);
+	std::string second_part = line.substr(location + delim.length(), line.length());
 
-	if (buffer == NAME) {
-		_name = encode(safe_parse());
+	std::string trimmed_first_part = trim(first_part);
+
+	if (trimmed_first_part == NAME) {
+		_name = encode(trim(second_part));
+	} else if (trimmed_first_part == ICON) {
+		_icon = trim(second_part);
+	} else if (trimmed_first_part == EXECUTABLE) {
+		_executable = trim(second_part);
+	} else if (trimmed_first_part == CATEGORIES) {
+		_categories = mjwm::categories(trim(second_part));
 	}
-	if (buffer == ICON) {
-		_icon = safe_parse();
+}
+
+std::string
+mjwm::menu_entry::trim(std::string input) const
+{
+	const std::string whitespace = " \t\n";
+	const unsigned long int begin = input.find_first_not_of(whitespace);
+
+	if (begin == std::string::npos) {
+		return "";
 	}
-	if (buffer == EXECUTABLE) {
-		_executable = safe_parse();
-	}
-	if (buffer == CATEGORIES) {
-		_categories = mjwm::categories(safe_parse());
-	}
+
+	const unsigned long int end = input.find_last_not_of(whitespace);
+	const unsigned long int range = end - begin + 1;
+
+	return input.substr(begin, range);
 }
 
 void
@@ -125,13 +137,6 @@ mjwm::menu_entry::dump() const
 	std::cout << "Executable : " << executable() << std::endl;
 	std::cout << "Icon       : " << icon()       << std::endl;
 	std::cout << "Categories : " << _categories  << std::endl;
-}
-
-std::string
-mjwm::menu_entry::safe_parse() const
-{
-	char *token = strtok(NULL, "\n");
-	return token == NULL ? std::string("") : std::string(token);
 }
 
 // based on http://stackoverflow.com/questions/5665231/most-efficient-way-to-escape-xml-html-in-c-string#answer-5665377

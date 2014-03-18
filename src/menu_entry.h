@@ -35,8 +35,8 @@ namespace mjwm
 		std::string _icon;
 		mjwm::categories _categories;
 
-		std::string safe_parse() const;
 		std::string encode(std::string data) const;
+		std::string trim(std::string input) const;
 
 	public:
 		menu_entry();

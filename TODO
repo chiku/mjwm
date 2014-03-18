@@ -1,7 +1,5 @@
 * Avoid double extensions (.png, .xpm)
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
-* Reduce C & use more C++
-* Elaborate README.md
 * Build should not require autoreconf & touches
 * Print operation summary

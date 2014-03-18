@@ -75,6 +75,37 @@ namespace mjwm
 			QUNIT_IS_EQUAL("rxvt -font 7x14 -bg \"#c0c0c0\" -fg", entry.executable());
 		}
 
+		void test_menu_entry_escapes_whitespaces_when_parsing_name()
+		{
+			menu_entry entry;
+			entry.populate(" Name = Mousepad \n ");
+			QUNIT_IS_EQUAL("Mousepad", entry.name());
+		}
+
+		void test_menu_entry_escapes_whitespaces_when_parsing_executable()
+		{
+			menu_entry entry;
+			entry.populate(" Exec = mousepad \n ");
+			QUNIT_IS_EQUAL("mousepad", entry.executable());
+		}
+
+
+		void test_menu_entry_escapes_whitespaces_when_parsing_icon()
+		{
+			menu_entry entry;
+			entry.populate("Icon\t=accessories-text-editor \t\n");
+			QUNIT_IS_EQUAL("accessories-text-editor", entry.icon());
+		}
+
+
+		void test_menu_entry_escapes_whitespaces_when_parsing_categories()
+		{
+			menu_entry entry;
+			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
+			mjwm::categories expected("Application;Utility;TextEditor;GTK;");
+			QUNIT_IS_EQUAL(expected, entry.categories());
+		}
+
 		void test_menu_entry_parse_doesnt_fail_when_entry_is_missing()
 		{
 			menu_entry entry;
@@ -171,6 +202,10 @@ namespace mjwm
 			test_menu_entry_parses_categories();
 			test_menu_entry_escapes_tokens_in_name();
 			test_menu_entry_doesnt_escape_tokens_in_exec();
+			test_menu_entry_escapes_whitespaces_when_parsing_name();
+			test_menu_entry_escapes_whitespaces_when_parsing_executable();
+			test_menu_entry_escapes_whitespaces_when_parsing_icon();
+			test_menu_entry_escapes_whitespaces_when_parsing_categories();
 			test_menu_entry_parse_doesnt_fail_when_entry_is_missing();
 			test_menu_entry_parse_doesnt_fail_when_line_is_missing();
 			test_menu_entry_is_lesser_than_a_menu_entry_with_alphabetically_greater_name();
