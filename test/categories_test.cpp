@@ -49,6 +49,12 @@ namespace mjwm
 			QUNIT_IS_TRUE(categories.is_a("AudioVideo"));
 		}
 
+		void test_categories_not_as_audiovideo_if_empty()
+		{
+			categories categories("");
+			QUNIT_IS_FALSE(categories.is_a("AudioVideo"));
+		}
+
 
 	public:
 		categories_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
@@ -58,6 +64,7 @@ namespace mjwm
 			test_categories_as_audiovideo_if_tag_includes_AudioVideo();
 			test_categories_not_as_audiovideo_if_tag_excludes_AudioVideo();
 			test_categories_as_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
+			test_categories_not_as_audiovideo_if_empty();
 			return qunit.errors();
 		}
 
