@@ -40,7 +40,6 @@ void
 mjwm::categories::parse()
 {
 	std::string raw = _raw;
-	unsigned int size = raw.length();
 
 	if ((raw.length() >= DELIM.length()) && (raw.compare(raw.length() - DELIM.length(), DELIM.length(), DELIM) != 0)) {
 		raw += DELIM;
