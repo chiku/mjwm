@@ -171,7 +171,7 @@ mjwm::menu_group::write(std::ofstream& file, std::string section, std::vector<mj
 
 		std::vector<mjwm::menu_entry>::iterator entry;
 		for(entry = entries.begin(); entry != entries.end(); ++entry) {
-			(*entry).write_to(file, _icon_extension);
+			file << "           <Program label=\"" << entry->name() << "\" icon=\"" << entry->icon() << _icon_extension << "\">" << entry->executable() << "</Program>" << std::endl;
 		}
 
 		file << "        </Menu>" << std::endl;

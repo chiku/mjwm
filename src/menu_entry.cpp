@@ -125,12 +125,6 @@ mjwm::menu_entry::trim(std::string input) const
 }
 
 void
-mjwm::menu_entry::write_to(std::ofstream &file, std::string icon_extension) const
-{
-	file << "           <Program label=\"" << name() << "\" icon=\"" << icon() << icon_extension << "\">" << executable() << "</Program>" << std::endl;
-}
-
-void
 mjwm::menu_entry::dump() const
 {
 	std::cout << "Name       : " << name()       << std::endl;

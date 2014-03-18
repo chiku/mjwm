@@ -53,7 +53,6 @@ namespace mjwm
 
 		bool is_valid() const;
 		void populate(std::string line);
-		void write_to(std::ofstream &file, std::string icon_extension) const;
 		void dump() const;
 	};
 }
