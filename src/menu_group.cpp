@@ -155,10 +155,14 @@ mjwm::menu_group::write(std::string output_filename)
 {
 	std::ofstream file(output_filename.c_str());
 
+	file << "<JWM>" << std::endl;
+
 	std::vector< std::pair<std::string, mjwm::qualified_menu_entry> >::iterator group;
 	for (group = _menu_entries.begin(); group != _menu_entries.end(); ++group) {
 		write(file, "label=\"" + group->second.pretty_name + "\" icon=\"" + group->second.icon + _icon_extension + "\"", group->second.menu_entries);
 	}
+
+	file << "</JWM>" << std::endl;
 
 	file.close();
 }
@@ -167,13 +171,13 @@ void
 mjwm::menu_group::write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries)
 {
 	if (entries.size() > 0) {
-		file << "        <Menu " << section << ">" << std::endl;
+		file << "  <Menu " << section << ">" << std::endl;
 
 		std::vector<mjwm::menu_entry>::iterator entry;
 		for(entry = entries.begin(); entry != entries.end(); ++entry) {
-			file << "           <Program label=\"" << entry->name() << "\" icon=\"" << entry->icon() << _icon_extension << "\">" << entry->executable() << "</Program>" << std::endl;
+			file << "    <Program label=\"" << entry->name() << "\" icon=\"" << entry->icon() << _icon_extension << "\">" << entry->executable() << "</Program>" << std::endl;
 		}
 
-		file << "        </Menu>" << std::endl;
+		file << "  </Menu>" << std::endl;
 	}
 }

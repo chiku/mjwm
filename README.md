@@ -32,8 +32,8 @@ make
 sudo make install
 ```
 
-Usage
------
+Options
+-------
 
 ``` script
 Usage: mjwm [options]
@@ -44,6 +44,36 @@ Optional arguments:
     -a, --append-png                   Add '.png' to icon filenames
     -h, --help                         Show this help
     -v, --version                      Show version information
+```
+
+Usage
+-----
+
+* Run the script
+``` script
+mjwm -o /home/tester/.mjwm-entries -a
+```
+
+* Modify your RootMenu entry and add an Include for /home/tester/.mjwm-entries line to it
+``` xml
+<JWM>
+  <!-- SNIP SNIP -->
+
+  <RootMenu onroot="12">
+      <!-- Other Menu Entries -->
+
+      <Include>/home/tester/automenu</Include>
+
+      <!-- Other Menu Entries -->
+  </RootMenu>
+
+  <!-- SNIP SNIP -->
+</JWM>
+```
+
+* Reload JWM
+``` script
+jwm -reload
 ```
 
 Examples
