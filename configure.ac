@@ -2,17 +2,15 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.66])
-AC_INIT([mjwm], [1.0], [chirantan.mitra@gmail.com])
+AC_INIT([mjwm], [2.1.1], [chirantan.mitra@gmail.com])
 AC_LANG(C++)
 
 # Silent by default
 AM_SILENT_RULES([yes])
 
-AC_CONFIG_SRCDIR([src/categories.cpp])
-AC_CONFIG_SRCDIR([src/menu_entry.cpp])
-AC_CONFIG_SRCDIR([src/menu_group.cpp])
 AC_CONFIG_SRCDIR([src/mjwm.cpp])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([parallel-tests color-tests])
 
 # Checks for programs.
