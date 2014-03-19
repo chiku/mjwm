@@ -7,5 +7,5 @@ script:
   - ./configure
   - make
   - ./test/test_runner.sh
-  - ./src/mjwm
+  - time ./src/mjwm
   - cat automenu
