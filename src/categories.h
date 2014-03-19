@@ -16,19 +16,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __mjwm_categories__
-#define __mjwm_categories__
+#ifndef __amm_categories__
+#define __amm_categories__
 
 #include <string>
 #include <vector>
 
-namespace mjwm
+namespace amm
 {
 	const std::string DELIM = ";";
 
 	class categories;
 
-	std::ostream& operator <<(std::ostream& stream, const mjwm::categories& categories);
+	std::ostream& operator <<(std::ostream& stream, const amm::categories& categories);
 
 	class categories
 	{
@@ -45,7 +45,7 @@ namespace mjwm
 
 		bool is_a(std::string type) const;
 
-		friend std::ostream& operator << (std::ostream& stream, const mjwm::categories& categories);
+		friend std::ostream& operator << (std::ostream& stream, const amm::categories& categories);
 	};
 
 }

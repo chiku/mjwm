@@ -27,64 +27,64 @@ static const std::string EXECUTABLE = "Exec";
 static const std::string ICON       = "Icon";
 static const std::string CATEGORIES = "Categories";
 
-mjwm::menu_entry::menu_entry() {}
+amm::menu_entry::menu_entry() {}
 
 std::string
-mjwm::menu_entry::name() const
+amm::menu_entry::name() const
 {
 	return _name;
 }
 
 std::string
-mjwm::menu_entry::icon() const
+amm::menu_entry::icon() const
 {
 	return _icon;
 }
 
 std::string
-mjwm::menu_entry::executable() const
+amm::menu_entry::executable() const
 {
 	return _executable;
 }
 
-mjwm::categories
-mjwm::menu_entry::categories() const
+amm::categories
+amm::menu_entry::categories() const
 {
 	return _categories;
 }
 
 bool
-mjwm::menu_entry::operator < (const mjwm::menu_entry &other) const
+amm::menu_entry::operator < (const amm::menu_entry &other) const
 {
 	return name() < other.name();
 }
 
 bool
-mjwm::menu_entry::operator > (const mjwm::menu_entry &other) const
+amm::menu_entry::operator > (const amm::menu_entry &other) const
 {
 	return name() > other.name();
 }
 
 bool
-mjwm::menu_entry::operator == (const mjwm::menu_entry &other) const
+amm::menu_entry::operator == (const amm::menu_entry &other) const
 {
 	return name() == other.name();
 }
 
 bool
-mjwm::menu_entry::operator != (const mjwm::menu_entry &other) const
+amm::menu_entry::operator != (const amm::menu_entry &other) const
 {
 	return name() != other.name();
 }
 
 bool
-mjwm::menu_entry::is_valid() const
+amm::menu_entry::is_valid() const
 {
 	return (executable().length() > 0) && (name().length() > 0) && (icon().length() > 0);
 }
 
 void
-mjwm::menu_entry::populate(std::string line)
+amm::menu_entry::populate(std::string line)
 {
 	if (line[0] == '\0') {
 		return;
@@ -104,12 +104,12 @@ mjwm::menu_entry::populate(std::string line)
 	} else if (trimmed_first_part == EXECUTABLE) {
 		_executable = trim(second_part);
 	} else if (trimmed_first_part == CATEGORIES) {
-		_categories = mjwm::categories(trim(second_part));
+		_categories = amm::categories(trim(second_part));
 	}
 }
 
 std::string
-mjwm::menu_entry::trim(std::string input) const
+amm::menu_entry::trim(std::string input) const
 {
 	const std::string whitespace = " \t\n";
 	const unsigned long int begin = input.find_first_not_of(whitespace);
@@ -125,7 +125,7 @@ mjwm::menu_entry::trim(std::string input) const
 }
 
 void
-mjwm::menu_entry::dump() const
+amm::menu_entry::dump() const
 {
 	std::cout << "Name       : " << name()       << std::endl;
 	std::cout << "Executable : " << executable() << std::endl;
@@ -135,7 +135,7 @@ mjwm::menu_entry::dump() const
 
 // based on http://stackoverflow.com/questions/5665231/most-efficient-way-to-escape-xml-html-in-c-string#answer-5665377
 std::string
-mjwm::menu_entry::encode(std::string data) const
+amm::menu_entry::encode(std::string data) const
 {
 	std::string buffer;
 	buffer.reserve(data.size());

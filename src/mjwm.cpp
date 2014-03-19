@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	mjwm::menu_group group(directory_to_scan, icon_extension);
+	amm::menu_group group(directory_to_scan, icon_extension);
 	group.populate();
 	if (!group.is_valid()) {
 		std::cerr << group.error() << std::endl;

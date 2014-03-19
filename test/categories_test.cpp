@@ -25,7 +25,7 @@
 #include "../src/categories.h"
 
 
-namespace mjwm
+namespace amm
 {
 	class categories_test
 	{
@@ -81,5 +81,5 @@ namespace mjwm
 
 int main()
 {
-	return mjwm::categories_test(std::cerr, QUnit::normal).run();
+	return amm::categories_test(std::cerr, QUnit::normal).run();
 }

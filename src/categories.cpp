@@ -22,13 +22,13 @@
 
 #include "categories.h"
 
-mjwm::categories::categories()
+amm::categories::categories()
 {
 	_raw = "";
 }
 
 
-mjwm::categories::categories(std::string raw)
+amm::categories::categories(std::string raw)
 {
 	_raw = raw;
 
@@ -37,7 +37,7 @@ mjwm::categories::categories(std::string raw)
 }
 
 void
-mjwm::categories::parse()
+amm::categories::parse()
 {
 	std::string raw = _raw;
 
@@ -56,19 +56,19 @@ mjwm::categories::parse()
 }
 
 void
-mjwm::categories::sort()
+amm::categories::sort()
 {
 	std::sort(_categories.begin(), _categories.end());
 }
 
 bool
-mjwm::categories::is_a(std::string type) const
+amm::categories::is_a(std::string type) const
 {
 	return std::binary_search(_categories.begin(), _categories.end(), type);
 }
 
 std::ostream&
-mjwm::operator << (std::ostream& stream, const mjwm::categories& categories)
+amm::operator << (std::ostream& stream, const amm::categories& categories)
 {
 	std::vector<std::string> container = categories._categories;
 

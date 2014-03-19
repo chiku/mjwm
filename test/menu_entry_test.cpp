@@ -26,7 +26,7 @@
 #include "../src/menu_entry.h"
 
 
-namespace mjwm
+namespace amm
 {
 	class menu_entry_test
 	{
@@ -57,7 +57,7 @@ namespace mjwm
 		{
 			menu_entry entry;
 			entry.populate("Categories=Application;Utility;TextEditor;GTK;\n");
-			mjwm::categories expected("Application;Utility;TextEditor;GTK;");
+			amm::categories expected("Application;Utility;TextEditor;GTK;");
 			QUNIT_IS_EQUAL(expected, entry.categories());
 		}
 
@@ -102,7 +102,7 @@ namespace mjwm
 		{
 			menu_entry entry;
 			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
-			mjwm::categories expected("Application;Utility;TextEditor;GTK;");
+			amm::categories expected("Application;Utility;TextEditor;GTK;");
 			QUNIT_IS_EQUAL(expected, entry.categories());
 		}
 
@@ -224,5 +224,5 @@ namespace mjwm
 
 int main()
 {
-	return mjwm::menu_entry_test(std::cerr, QUnit::normal).run();
+	return amm::menu_entry_test(std::cerr, QUnit::normal).run();
 }

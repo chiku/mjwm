@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __mjwm_menu_group__
-#define __mjwm_menu_group__
+#ifndef __amm_menu_group__
+#define __amm_menu_group__
 
 #include <iostream>
 #include <string>
@@ -26,7 +26,7 @@
 
 #include "menu_entry.h"
 
-namespace mjwm
+namespace amm
 {
 	const int NORMAL_RESERVE_SIZE = 30;
 
@@ -34,7 +34,7 @@ namespace mjwm
 	{
 		std::string pretty_name;
 		std::string icon;
-		std::vector<mjwm::menu_entry> menu_entries;
+		std::vector<amm::menu_entry> menu_entries;
 
 		qualified_menu_entry();
 		qualified_menu_entry(std::string pretty_name, std::string icon);
@@ -48,11 +48,11 @@ namespace mjwm
 		std::string _error;
 		bool _parsed;
 
-		std::vector< std::pair<std::string, mjwm::qualified_menu_entry> > _menu_entries;
-		mjwm::qualified_menu_entry _unclassified_entries;
+		std::vector< std::pair<std::string, amm::qualified_menu_entry> > _menu_entries;
+		amm::qualified_menu_entry _unclassified_entries;
 
-		bool classify(mjwm::menu_entry entry);
-		void write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries);
+		bool classify(amm::menu_entry entry);
+		void write(std::ofstream& file, std::string section, std::vector<amm::menu_entry> entries);
 		void construct_menu_entries(std::string name, std::string pretty_name, std::string icon);
 
 	public:

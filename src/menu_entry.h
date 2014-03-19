@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __mjwm_menu_entry__
-#define __mjwm_menu_entry__
+#ifndef __amm_menu_entry__
+#define __amm_menu_entry__
 
 #include <fstream>
 #include <string>
@@ -25,7 +25,7 @@
 
 #include "categories.h"
 
-namespace mjwm
+namespace amm
 {
 	class menu_entry
 	{
@@ -33,7 +33,7 @@ namespace mjwm
 		std::string _name;
 		std::string _executable;
 		std::string _icon;
-		mjwm::categories _categories;
+		amm::categories _categories;
 
 		std::string encode(std::string data) const;
 		std::string trim(std::string input) const;
@@ -44,12 +44,12 @@ namespace mjwm
 		std::string name() const;
 		std::string icon() const;
 		std::string executable() const;
-		mjwm::categories categories() const;
+		amm::categories categories() const;
 
-		bool operator < (const mjwm::menu_entry &other) const;
-		bool operator > (const mjwm::menu_entry &other) const;
-		bool operator == (const mjwm::menu_entry &other) const;
-		bool operator != (const mjwm::menu_entry &other) const;
+		bool operator < (const amm::menu_entry &other) const;
+		bool operator > (const amm::menu_entry &other) const;
+		bool operator == (const amm::menu_entry &other) const;
+		bool operator != (const amm::menu_entry &other) const;
 
 		bool is_valid() const;
 		void populate(std::string line);

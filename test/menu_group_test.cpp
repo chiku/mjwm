@@ -27,7 +27,7 @@
 
 #include "../src/menu_group.h"
 
-namespace mjwm
+namespace amm
 {
 	const std::string fixtures_directory = "test/fixtures/";
 	const std::string results_directory = "test/results/";
@@ -197,5 +197,5 @@ namespace mjwm
 
 int main()
 {
-	return mjwm::menu_group_test(std::cerr, QUnit::normal).run();
+	return amm::menu_group_test(std::cerr, QUnit::normal).run();
 }

@@ -27,24 +27,24 @@
 #include "menu_entry.h"
 #include "menu_group.h"
 
-mjwm::qualified_menu_entry::qualified_menu_entry()
+amm::qualified_menu_entry::qualified_menu_entry()
 {
 	menu_entries.reserve(NORMAL_RESERVE_SIZE);
 }
 
-mjwm::qualified_menu_entry::qualified_menu_entry(std::string name_to_display, std::string icon_name)
+amm::qualified_menu_entry::qualified_menu_entry(std::string name_to_display, std::string icon_name)
 {
 	pretty_name = name_to_display;
 	icon = icon_name;
 	menu_entries.reserve(NORMAL_RESERVE_SIZE);
 }
 
-mjwm::menu_group::menu_group(std::string directory_name, std::string icon_extension)
+amm::menu_group::menu_group(std::string directory_name, std::string icon_extension)
 {
 	_directory_name = directory_name;
 	_icon_extension = icon_extension;
 	_parsed = false;
-	_unclassified_entries = mjwm::qualified_menu_entry("Others", "others");
+	_unclassified_entries = amm::qualified_menu_entry("Others", "others");
 
 
 	construct_menu_entries("Settings",    "Settings",    "settings");
@@ -61,15 +61,15 @@ mjwm::menu_group::menu_group(std::string directory_name, std::string icon_extens
 }
 
 void
-mjwm::menu_group::construct_menu_entries(std::string name, std::string pretty_name, std::string icon)
+amm::menu_group::construct_menu_entries(std::string name, std::string pretty_name, std::string icon)
 {
-	std::pair<std::string, mjwm::qualified_menu_entry> entries;
-	entries = std::make_pair(name, mjwm::qualified_menu_entry(pretty_name, icon));
+	std::pair<std::string, amm::qualified_menu_entry> entries;
+	entries = std::make_pair(name, amm::qualified_menu_entry(pretty_name, icon));
 	_menu_entries.push_back(entries);
 }
 
 void
-mjwm::menu_group::populate()
+amm::menu_group::populate()
 {
 	DIR *directory = opendir(_directory_name.c_str());
 
@@ -81,7 +81,7 @@ mjwm::menu_group::populate()
 	dirent *directory_entry;
 
 	while((directory_entry = readdir(directory)) != NULL) {
-		mjwm::menu_entry entry;
+		amm::menu_entry entry;
 		std::string line;
 		std::string desktop_filename = _directory_name + directory_entry->d_name;
 
@@ -113,12 +113,12 @@ mjwm::menu_group::populate()
 }
 
 bool
-mjwm::menu_group::classify(mjwm::menu_entry entry)
+amm::menu_group::classify(amm::menu_entry entry)
 {
-	mjwm::categories categories = entry.categories();
+	amm::categories categories = entry.categories();
 	bool classified = false;
 
-	std::vector< std::pair<std::string, mjwm::qualified_menu_entry> >::iterator group;
+	std::vector< std::pair<std::string, amm::qualified_menu_entry> >::iterator group;
 	for (group = _menu_entries.begin(); group != _menu_entries.end(); ++group) {
 		if (categories.is_a(group->first)) {
 			classified = true;
@@ -130,34 +130,34 @@ mjwm::menu_group::classify(mjwm::menu_entry entry)
 }
 
 bool
-mjwm::menu_group::is_valid() const
+amm::menu_group::is_valid() const
 {
 	return _error == "";
 }
 
 std::string
-mjwm::menu_group::error() const
+amm::menu_group::error() const
 {
 	return _error;
 }
 
 void
-mjwm::menu_group::sort()
+amm::menu_group::sort()
 {
-	std::vector< std::pair<std::string, mjwm::qualified_menu_entry> >::iterator group;
+	std::vector< std::pair<std::string, amm::qualified_menu_entry> >::iterator group;
 	for (group = _menu_entries.begin(); group != _menu_entries.end(); ++group) {
 		std::sort(group->second.menu_entries.begin(), group->second.menu_entries.end());
 	}
 }
 
 void
-mjwm::menu_group::write(std::string output_filename)
+amm::menu_group::write(std::string output_filename)
 {
 	std::ofstream file(output_filename.c_str());
 
 	file << "<JWM>" << std::endl;
 
-	std::vector< std::pair<std::string, mjwm::qualified_menu_entry> >::iterator group;
+	std::vector< std::pair<std::string, amm::qualified_menu_entry> >::iterator group;
 	for (group = _menu_entries.begin(); group != _menu_entries.end(); ++group) {
 		write(file, "label=\"" + group->second.pretty_name + "\" icon=\"" + group->second.icon + _icon_extension + "\"", group->second.menu_entries);
 	}
@@ -168,12 +168,12 @@ mjwm::menu_group::write(std::string output_filename)
 }
 
 void
-mjwm::menu_group::write(std::ofstream& file, std::string section, std::vector<mjwm::menu_entry> entries)
+amm::menu_group::write(std::ofstream& file, std::string section, std::vector<amm::menu_entry> entries)
 {
 	if (entries.size() > 0) {
 		file << "  <Menu " << section << ">" << std::endl;
 
-		std::vector<mjwm::menu_entry>::iterator entry;
+		std::vector<amm::menu_entry>::iterator entry;
 		for(entry = entries.begin(); entry != entries.end(); ++entry) {
 			file << "    <Program label=\"" << entry->name() << "\" icon=\"" << entry->icon() << _icon_extension << "\">" << entry->executable() << "</Program>" << std::endl;
 		}
