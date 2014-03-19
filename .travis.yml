@@ -6,6 +6,6 @@ script:
   - autoreconf -i
   - ./configure
   - make check
-  - ./test/test_runner.sh
-  - time ./src/mjwm
+  - ./test_runner.sh
+  - time ./mjwm
   - cat automenu

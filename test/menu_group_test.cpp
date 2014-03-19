@@ -21,6 +21,7 @@
 #include <string>
 #include <streambuf>
 #include <algorithm>
+#include <cstdio>
 
 #include "QUnit.hpp"
 
@@ -28,21 +29,30 @@
 
 namespace mjwm
 {
-	const std::string _fixtures_directory = "fixtures/";
+	const std::string fixtures_directory = "test/fixtures/";
+	const std::string results_directory = "test/results/";
+	const std::string all_proper_output = results_directory + "all-proper.output";
+	const std::string unclassified_content_output = results_directory + "unclassified-content.output";
 
 	class menu_group_test
 	{
 		QUnit::UnitTest qunit;
 
+		void setup()
+		{
+			std::remove(all_proper_output.c_str());
+			std::remove(unclassified_content_output.c_str());
+		}
+
 		void test_menu_group_is_valid_when_created()
 		{
-			menu_group group(_fixtures_directory + "not-present/", "");
+			menu_group group(fixtures_directory + "not-present/", "");
 			QUNIT_IS_TRUE(group.is_valid());
 		}
 
 		void test_menu_group_has_error_when_scanning_absent_directory()
 		{
-			menu_group group(_fixtures_directory + "not-present/", "");
+			menu_group group(fixtures_directory + "not-present/", "");
 			group.populate();
 			QUNIT_IS_FALSE(group.is_valid());
 			assert_start_with(group.error(), "Couldn't open directory");
@@ -50,7 +60,7 @@ namespace mjwm
 
 		void test_menu_group_populates_entries_for_desktop_files()
 		{
-			menu_group group(_fixtures_directory + "all-proper/", "");
+			menu_group group(fixtures_directory + "all-proper/", "");
 			group.populate();
 			QUNIT_IS_TRUE(group.is_valid());
 			QUNIT_IS_EQUAL("", group.error());
@@ -58,7 +68,7 @@ namespace mjwm
 
 		void test_menu_group_has_error_when_no_desktop_files_exist_directory()
 		{
-			menu_group group(_fixtures_directory + "no-desktop-files/", "");
+			menu_group group(fixtures_directory + "no-desktop-files/", "");
 			group.populate();
 			QUNIT_IS_FALSE(group.is_valid());
 			assert_start_with(group.error(), "Doesn't have any valid .desktop files");
@@ -66,16 +76,16 @@ namespace mjwm
 
 		void test_menu_group_writes_populated_entries_to_file()
 		{
-			std::string file_name = "all-proper.output";
-			menu_group group(_fixtures_directory + "all-proper/", "");
+			std::string file_name = all_proper_output;
+			menu_group group(fixtures_directory + "all-proper/", "");
 			group.populate();
 			group.sort();
 
 			group.write(file_name);
 
 			std::string file_content = read_file(file_name);
-			std::string expected_content =
-"        <Menu label=\"Accessories\" icon=\"accessories\">\n\
+			std::string expected_content = "\
+        <Menu label=\"Accessories\" icon=\"accessories\">\n\
            <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
         </Menu>\n\
         <Menu label=\"Multimedia\" icon=\"multimedia\">\n\
@@ -87,16 +97,16 @@ namespace mjwm
 
 		void test_menu_group_writes_unclassified_entries_to_end_of_the_file()
 		{
-			std::string file_name = "unclassified-content.output";
-			menu_group group(_fixtures_directory + "unclassified-content/", "");
+			std::string file_name = unclassified_content_output;
+			menu_group group(fixtures_directory + "unclassified-content/", "");
 			group.populate();
 			group.sort();
 
 			group.write(file_name);
 
 			std::string file_content = read_file(file_name);
-			std::string expected_content =
-"        <Menu label=\"Accessories\" icon=\"accessories\">\n\
+			std::string expected_content = "\
+        <Menu label=\"Accessories\" icon=\"accessories\">\n\
            <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
         </Menu>\n\
         <Menu label=\"Others\" icon=\"others\">\n\
@@ -108,8 +118,8 @@ namespace mjwm
 
 		void test_menu_group_skips_files_that_are_missing_content()
 		{
-			std::string file_name = "unclassified-content.output";
-			menu_group group(_fixtures_directory + "missing-content/", "");
+			std::string file_name = results_directory + "unclassified-content.output";
+			menu_group group(fixtures_directory + "missing-content/", "");
 			group.populate();
 
 			QUNIT_IS_FALSE(group.is_valid());

@@ -1,2 +1,15 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = src test
+AUTOMAKE_OPTIONS = subdir-objects
+
+AM_CPPFLAGS=-Wall -Wextra
+
+bin_PROGRAMS = mjwm
+mjwm_SOURCES = src/categories.cpp src/menu_entry.cpp src/menu_group.cpp src/mjwm.cpp
+
+check_PROGRAMS = mjwm_categories_test mjwm_menu_entry_test mjwm_menu_group_test
+
+mjwm_categories_test_SOURCES = src/categories.cpp test/categories_test.cpp
+mjwm_menu_entry_test_SOURCES = src/categories.cpp src/menu_entry.cpp test/menu_entry_test.cpp
+mjwm_menu_group_test_SOURCES = src/categories.cpp src/menu_entry.cpp src/menu_group.cpp test/menu_group_test.cpp
+
+TESTS = $(check_PROGRAMS)

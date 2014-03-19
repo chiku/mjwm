@@ -1,10 +1,10 @@
-**/*.o
-**/.deps/
-**/.dirstamp
+*.o
+.deps
+.dirstamp
 *.log
 *.trs
 *~
-autom4te.cache/
+autom4te.cache
 INSTALL
 aclocal.m4
 compile
@@ -19,9 +19,9 @@ Makefile
 Makefile.in
 src/Makefile
 src/Makefile.in
-src/mjwm
-test/*_test
-test/*.output
+mjwm
+*_test
+*.output
 stamp-h1
 automenu
 test-driver
