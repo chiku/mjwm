@@ -101,7 +101,7 @@ autoreconf -i
 VERBOSE=true make check
 ```
 
-_mjwm uses [http://sourceforge.net/projects/qunit](QUnit) for unit tests. QUnit is released under public domain._
+_mjwm uses [QUnit](http://sourceforge.net/projects/qunit) for unit tests. QUnit is released under public domain._
 
 Contributing
 ------------
