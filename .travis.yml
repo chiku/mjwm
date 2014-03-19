@@ -5,7 +5,7 @@ compiler:
 script:
   - autoreconf -i
   - ./configure
-  - make
+  - make check
   - ./test/test_runner.sh
   - time ./src/mjwm
   - cat automenu
