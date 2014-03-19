@@ -6,6 +6,7 @@ Current
 * Provide AUTHORS and NEWS files. Removed references to touch these files for a build.
 * Reduce make verbosity
 * Migrate to non-recursive build
+* Adds icon extensions to icon category names when given -a command-line option
 
 v2.1.1
 ------

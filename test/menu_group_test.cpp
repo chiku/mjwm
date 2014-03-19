@@ -32,6 +32,7 @@ namespace mjwm
 	const std::string fixtures_directory = "test/fixtures/";
 	const std::string results_directory = "test/results/";
 	const std::string all_proper_output = results_directory + "all-proper.output";
+	const std::string all_proper_with_extension_output = results_directory + "all-proper-with-extension.output";
 	const std::string unclassified_content_output = results_directory + "unclassified-content.output";
 
 	class menu_group_test
@@ -90,6 +91,27 @@ namespace mjwm
         </Menu>\n\
         <Menu label=\"Multimedia\" icon=\"multimedia\">\n\
            <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file %U</Program>\n\
+        </Menu>\n\
+";
+			QUNIT_IS_EQUAL(expected_content, file_content);
+		}
+
+		void test_menu_group_writes_populated_entries_with_extension_to_file()
+		{
+			std::string file_name = all_proper_with_extension_output;
+			menu_group group(fixtures_directory + "all-proper/", ".png");
+			group.populate();
+			group.sort();
+
+			group.write(file_name);
+
+			std::string file_content = read_file(file_name);
+			std::string expected_content = "\
+        <Menu label=\"Accessories\" icon=\"accessories.png\">\n\
+           <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad %F</Program>\n\
+        </Menu>\n\
+        <Menu label=\"Multimedia\" icon=\"multimedia.png\">\n\
+           <Program label=\"VLC media player\" icon=\"vlc.png\">/usr/bin/vlc --started-from-file %U</Program>\n\
         </Menu>\n\
 ";
 			QUNIT_IS_EQUAL(expected_content, file_content);
@@ -156,6 +178,7 @@ namespace mjwm
 			test_menu_group_has_error_when_scanning_absent_directory();
 			test_menu_group_has_error_when_no_desktop_files_exist_directory();
 			test_menu_group_populates_entries_for_desktop_files();
+			test_menu_group_writes_populated_entries_with_extension_to_file();
 			test_menu_group_writes_unclassified_entries_to_end_of_the_file();
 			test_menu_group_skips_files_that_are_missing_content();
 			test_menu_group_writes_populated_entries_to_file();

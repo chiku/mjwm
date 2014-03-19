@@ -157,7 +157,7 @@ mjwm::menu_group::write(std::string output_filename)
 
 	std::vector< std::pair<std::string, mjwm::qualified_menu_entry> >::iterator group;
 	for (group = _menu_entries.begin(); group != _menu_entries.end(); ++group) {
-		write(file, "label=\"" + group->second.pretty_name + "\" icon=\"" + group->second.icon + "\"", group->second.menu_entries);
+		write(file, "label=\"" + group->second.pretty_name + "\" icon=\"" + group->second.icon + _icon_extension + "\"", group->second.menu_entries);
 	}
 
 	file.close();
