@@ -51,7 +51,7 @@ Usage
 
 * Run the script
 ``` script
-mjwm -o /home/tester/.mjwm-entries -a
+mjwm -o $HOME/.mjwm-entries -a
 ```
 
 * Modify your RootMenu entry and add an Include for /home/tester/.mjwm-entries line to it
@@ -62,7 +62,7 @@ mjwm -o /home/tester/.mjwm-entries -a
   <RootMenu onroot="12">
       <!-- Other Menu Entries -->
 
-      <Include>/home/tester/automenu</Include>
+      <Include>$HOME/.mjwm-entries</Include>
 
       <!-- Other Menu Entries -->
   </RootMenu>
