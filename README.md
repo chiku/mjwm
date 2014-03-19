@@ -29,7 +29,7 @@ Installation from source
 autoreconf -i
 ./configure --prefix=/usr/local # Install mjwm to /usr/local
 make
-cd src && sudo make install # Navigate to src to avoid installing test binaries
+sudo make install
 ```
 
 Usage
@@ -68,8 +68,7 @@ Running tests
 ``` script
 autoreconf -i
 ./configure --prefix=/usr/local
-make
-./test/test_runner.sh
+VERBOSE=true make check
 ```
 
 _mjwm uses [http://sourceforge.net/projects/qunit](QUnit) for unit tests. QUnit is released under public domain._

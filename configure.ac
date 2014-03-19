@@ -5,12 +5,15 @@ AC_PREREQ([2.66])
 AC_INIT([mjwm], [1.0], [chirantan.mitra@gmail.com])
 AC_LANG(C++)
 
+# Silent by default
+AM_SILENT_RULES([yes])
+
 AC_CONFIG_SRCDIR([src/categories.cpp])
 AC_CONFIG_SRCDIR([src/menu_entry.cpp])
 AC_CONFIG_SRCDIR([src/menu_group.cpp])
 AC_CONFIG_SRCDIR([src/mjwm.cpp])
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([parallel-tests color-tests])
 
 # Checks for programs.
 AC_PROG_CXX

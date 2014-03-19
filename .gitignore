@@ -2,6 +2,7 @@
 **/.deps/
 **/.dirstamp
 *.log
+*.trs
 *~
 autom4te.cache/
 INSTALL
@@ -23,3 +24,4 @@ test/*_test
 test/*.output
 stamp-h1
 automenu
+test-driver
