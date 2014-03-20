@@ -16,22 +16,43 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_transforms_jwm__
-#define __amm_transforms_jwm__
+#include <iostream>
+#include <vector>
+#include <string>
 
-#include "../desktop_file.h"
-#include "../menu_entry/jwm.h"
+#include "../QUnit.hpp"
+
+#include "../../src/desktop_file.h"
+#include "../../src/menu_entry/jwm.h"
+#include "../../src/transform/jwm.h"
 
 namespace amm
 {
-    namespace transform
-    {
-        // Understands converting a FreeDesktop .desktop file into Program entry in JWM configuration file
-        class jwm
-        {
-            amm::menu_entry::jwm transform(amm::desktop_file desktop_file);
-        };
-    }
+	namespace transform
+	{
+		class jwm_test
+		{
+			QUnit::UnitTest qunit;
+
+			void test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm()
+			{
+				QUNIT_IS_TRUE(true);
+			}
+
+		public:
+			jwm_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+
+			int run()
+			{
+				test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm();
+				return qunit.errors();
+			}
+
+		};
+	}
 }
 
-#endif
+int main()
+{
+	return amm::transform::jwm_test(std::cerr, QUnit::normal).run();
+}

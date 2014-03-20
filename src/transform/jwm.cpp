@@ -16,23 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_transforms_base__
-#define __amm_transforms_base__
+#include "../desktop_file.h"
+#include "jwm.h"
 
-#include <string>
-
-#include "../categories.h"
-
-namespace amm
+amm::menu_entry::jwm
+amm::transform::jwm::transform(amm::desktop_file desktop_file)
 {
-    namespace transforms
-    {
-        class base
-        {
-        public:
-            virtual amm::representations::base transform(mjwm::menu_entry desktop_file);
-        };
-    }
+    amm::menu_entry::jwm jwm_entry("", "", "", desktop_file.categories());
+    return jwm_entry;
 }
-
-#endif

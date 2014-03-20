@@ -16,23 +16,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_menu_entry_base__
-#define __amm_menu_entry_base__
-
+#include <iostream>
 #include <string>
 
 #include "../categories.h"
+#include "jwm.h"
 
-namespace amm
+amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable, amm::categories categories)
 {
-    namespace representations
-    {
-        class base
-        {
-        public:
-            base(std::string name, std::string icon, std::string executable, amm::categories categories);
-        };        
-    }
+
 }
 
-#endif
+std::ostream&
+amm::menu_entry::operator << (std::ostream& stream, const amm::menu_entry::jwm& jwm_entry)
+{
+    return stream;
+}

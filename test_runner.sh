@@ -23,5 +23,6 @@ cd `dirname $0`
 ./mjwm_categories_test
 ./mjwm_desktop_file_test
 ./mjwm_menu_group_test
+./mjwm_transform_jwm_test
 
 cd ..

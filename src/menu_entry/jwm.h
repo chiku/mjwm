@@ -19,6 +19,12 @@
 #ifndef __amm_menu_entry_jwm__
 #define __amm_menu_entry_jwm__
 
+#include <iostream>
+#include <string>
+
+#include "../categories.h"
+#include "../desktop_file.h"
+
 namespace amm
 {
     namespace menu_entry
@@ -28,10 +34,12 @@ namespace amm
         std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_entry);
 
 		// Understands a Program entry in RootMenu section of JWM configuration file
-        class jwm : public base
+        class jwm
         {
         public:
             jwm(std::string name, std::string icon, std::string executable, amm::categories categories);
+
+            friend std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_entry);
         };        
     }
 }
