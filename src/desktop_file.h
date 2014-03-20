@@ -54,7 +54,6 @@ namespace amm
 
 		bool is_valid() const;
 		void populate(std::string line);
-		void dump() const;
 	};
 }
 

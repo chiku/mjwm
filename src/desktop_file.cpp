@@ -124,15 +124,6 @@ amm::desktop_file::trim(std::string input) const
 	return input.substr(begin, range);
 }
 
-void
-amm::desktop_file::dump() const
-{
-	std::cout << "Name       : " << name()       << std::endl;
-	std::cout << "Executable : " << executable() << std::endl;
-	std::cout << "Icon       : " << icon()       << std::endl;
-	std::cout << "Categories : " << _categories  << std::endl;
-}
-
 // based on http://stackoverflow.com/questions/5665231/most-efficient-way-to-escape-xml-html-in-c-string#answer-5665377
 std::string
 amm::desktop_file::encode(std::string data) const
