@@ -23,124 +23,123 @@
 #include "QUnit.hpp"
 
 #include "../src/categories.h"
-#include "../src/menu_entry.h"
-
+#include "../src/desktop_file.h"
 
 namespace amm
 {
-	class menu_entry_test
+	class desktop_file_test
 	{
 		QUnit::UnitTest qunit;
 
-		void test_menu_entry_parses_name()
+		void test_desktop_file_parses_name()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Name=Mousepad\n");
 			QUNIT_IS_EQUAL("Mousepad", entry.name());
 		}
 
-		void test_menu_entry_parses_icon()
+		void test_desktop_file_parses_icon()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Icon=accessories-text-editor\n");
 			QUNIT_IS_EQUAL("accessories-text-editor", entry.icon());
 		}
 
-		void test_menu_entry_parses_executable()
+		void test_desktop_file_parses_executable()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Exec=mousepad %F\n");
 			QUNIT_IS_EQUAL("mousepad %F", entry.executable());
 		}
 
-		void test_menu_entry_parses_categories()
+		void test_desktop_file_parses_categories()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Categories=Application;Utility;TextEditor;GTK;\n");
 			amm::categories expected("Application;Utility;TextEditor;GTK;");
 			QUNIT_IS_EQUAL(expected, entry.categories());
 		}
 
-		void test_menu_entry_escapes_tokens_in_name()
+		void test_desktop_file_escapes_tokens_in_name()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Name=<'Complicated' & \"Fun\">\n");
 			QUNIT_IS_EQUAL("&lt;&apos;Complicated&apos; &amp; &quot;Fun&quot;&gt;", entry.name());
 		}
 
-		void test_menu_entry_doesnt_escape_tokens_in_exec()
+		void test_desktop_file_doesnt_escape_tokens_in_exec()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Exec=rxvt -font 7x14 -bg \"#c0c0c0\" -fg");
 			QUNIT_IS_EQUAL("rxvt -font 7x14 -bg \"#c0c0c0\" -fg", entry.executable());
 		}
 
-		void test_menu_entry_escapes_whitespaces_when_parsing_name()
+		void test_desktop_file_escapes_whitespaces_when_parsing_name()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate(" Name = Mousepad \n ");
 			QUNIT_IS_EQUAL("Mousepad", entry.name());
 		}
 
-		void test_menu_entry_escapes_whitespaces_when_parsing_executable()
+		void test_desktop_file_escapes_whitespaces_when_parsing_executable()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate(" Exec = mousepad \n ");
 			QUNIT_IS_EQUAL("mousepad", entry.executable());
 		}
 
 
-		void test_menu_entry_escapes_whitespaces_when_parsing_icon()
+		void test_desktop_file_escapes_whitespaces_when_parsing_icon()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Icon\t=accessories-text-editor \t\n");
 			QUNIT_IS_EQUAL("accessories-text-editor", entry.icon());
 		}
 
 
-		void test_menu_entry_escapes_whitespaces_when_parsing_categories()
+		void test_desktop_file_escapes_whitespaces_when_parsing_categories()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
 			amm::categories expected("Application;Utility;TextEditor;GTK;");
 			QUNIT_IS_EQUAL(expected, entry.categories());
 		}
 
-		void test_menu_entry_parse_doesnt_fail_when_entry_is_missing()
+		void test_desktop_file_parse_doesnt_fail_when_entry_is_missing()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("Categories=");
 			QUNIT_IS_EQUAL("", entry.executable());
 		}
 
-		void test_menu_entry_parse_doesnt_fail_when_line_is_missing()
+		void test_desktop_file_parse_doesnt_fail_when_line_is_missing()
 		{
-			menu_entry entry;
+			desktop_file entry;
 			entry.populate("");
 			QUNIT_IS_EQUAL("", entry.name());
 		}
 
-		void test_menu_entry_is_lesser_than_a_menu_entry_with_alphabetically_greater_name()
+		void test_desktop_file_is_lesser_than_a_desktop_file_with_alphabetically_greater_name()
 		{
-			menu_entry entry, greater_entry;
+			desktop_file entry, greater_entry;
 			entry.populate("Name=Mousepad\n");
 			greater_entry.populate("Name=VLC\n");
 			QUNIT_IS_TRUE(entry < greater_entry);
 			QUNIT_IS_FALSE(greater_entry < entry);
 		}
 
-		void test_menu_entry_is_greater_than_a_menu_entry_with_alphabetically_lesser_name()
+		void test_desktop_file_is_greater_than_a_desktop_file_with_alphabetically_lesser_name()
 		{
-			menu_entry entry, lesser_entry;
+			desktop_file entry, lesser_entry;
 			entry.populate("Name=VLC\n");
 			lesser_entry.populate("Name=Mousepad\n");
 			QUNIT_IS_TRUE(entry > lesser_entry);
 			QUNIT_IS_FALSE(lesser_entry > entry);
 		}
 
-		void test_menu_entry_is_equal_to_menu_entry_with_same_name()
+		void test_desktop_file_is_equal_to_desktop_file_with_same_name()
 		{
-			menu_entry entry, same_entry, different_entry;
+			desktop_file entry, same_entry, different_entry;
 			entry.populate("Name=Mousepad\n");
 			same_entry.populate("Name=Mousepad\n");
 			different_entry.populate("Name=VLC\n");
@@ -148,9 +147,9 @@ namespace amm
 			QUNIT_IS_FALSE(entry == different_entry);
 		}
 
-		void test_menu_entry_is_not_equal_to_menu_entry_with_different_name()
+		void test_desktop_file_is_not_equal_to_desktop_file_with_different_name()
 		{
-			menu_entry entry, same_entry, different_entry;
+			desktop_file entry, same_entry, different_entry;
 			entry.populate("Name=Mousepad\n");
 			same_entry.populate("Name=Mousepad\n");
 			different_entry.populate("Name=VLC\n");
@@ -158,64 +157,64 @@ namespace amm
 			QUNIT_IS_FALSE(entry != same_entry);
 		}
 
-		void test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable()
+		void test_desktop_file_is_valid_only_when_it_has_name_and_icon_and_executable()
 		{
-			menu_entry valid_entry;
+			desktop_file valid_entry;
 			valid_entry.populate("Name=Mousepad\n");
 			valid_entry.populate("Icon=accessories-text-editor\n");
 			valid_entry.populate("Exec=mousepad %F\n");
 			QUNIT_IS_TRUE(valid_entry.is_valid());
 		}
 
-		void test_menu_entry_is_not_valid_without_name()
+		void test_desktop_file_is_not_valid_without_name()
 		{
-			menu_entry missing_name_entry;
+			desktop_file missing_name_entry;
 			missing_name_entry.populate("Icon=accessories-text-editor\n");
 			missing_name_entry.populate("Exec=mousepad %F\n");
 			QUNIT_IS_FALSE(missing_name_entry.is_valid());
 		}
 
-		void test_menu_entry_is_not_valid_without_icon()
+		void test_desktop_file_is_not_valid_without_icon()
 		{
-			menu_entry missing_icon_entry;
+			desktop_file missing_icon_entry;
 			missing_icon_entry.populate("Name=Mousepad\n");
 			missing_icon_entry.populate("Exec=mousepad %F\n");
 			QUNIT_IS_FALSE(missing_icon_entry.is_valid());
 		}
 
-		void test_menu_entry_is_not_valid_without_executable()
+		void test_desktop_file_is_not_valid_without_executable()
 		{
-			menu_entry missing_executable_entry;
+			desktop_file missing_executable_entry;
 			missing_executable_entry.populate("Name=Mousepad\n");
 			missing_executable_entry.populate("Icon=accessories-text-editor\n");
 			QUNIT_IS_FALSE(missing_executable_entry.is_valid());
 		}
 
 	public:
-		menu_entry_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+		desktop_file_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 		int run()
 		{
-			test_menu_entry_parses_name();
-			test_menu_entry_parses_icon();
-			test_menu_entry_parses_executable();
-			test_menu_entry_parses_categories();
-			test_menu_entry_escapes_tokens_in_name();
-			test_menu_entry_doesnt_escape_tokens_in_exec();
-			test_menu_entry_escapes_whitespaces_when_parsing_name();
-			test_menu_entry_escapes_whitespaces_when_parsing_executable();
-			test_menu_entry_escapes_whitespaces_when_parsing_icon();
-			test_menu_entry_escapes_whitespaces_when_parsing_categories();
-			test_menu_entry_parse_doesnt_fail_when_entry_is_missing();
-			test_menu_entry_parse_doesnt_fail_when_line_is_missing();
-			test_menu_entry_is_lesser_than_a_menu_entry_with_alphabetically_greater_name();
-			test_menu_entry_is_greater_than_a_menu_entry_with_alphabetically_lesser_name();
-			test_menu_entry_is_equal_to_menu_entry_with_same_name();
-			test_menu_entry_is_not_equal_to_menu_entry_with_different_name();
-			test_menu_entry_is_valid_only_when_it_has_name_and_icon_and_executable();
-			test_menu_entry_is_not_valid_without_name();
-			test_menu_entry_is_not_valid_without_icon();
-			test_menu_entry_is_not_valid_without_executable();
+			test_desktop_file_parses_name();
+			test_desktop_file_parses_icon();
+			test_desktop_file_parses_executable();
+			test_desktop_file_parses_categories();
+			test_desktop_file_escapes_tokens_in_name();
+			test_desktop_file_doesnt_escape_tokens_in_exec();
+			test_desktop_file_escapes_whitespaces_when_parsing_name();
+			test_desktop_file_escapes_whitespaces_when_parsing_executable();
+			test_desktop_file_escapes_whitespaces_when_parsing_icon();
+			test_desktop_file_escapes_whitespaces_when_parsing_categories();
+			test_desktop_file_parse_doesnt_fail_when_entry_is_missing();
+			test_desktop_file_parse_doesnt_fail_when_line_is_missing();
+			test_desktop_file_is_lesser_than_a_desktop_file_with_alphabetically_greater_name();
+			test_desktop_file_is_greater_than_a_desktop_file_with_alphabetically_lesser_name();
+			test_desktop_file_is_equal_to_desktop_file_with_same_name();
+			test_desktop_file_is_not_equal_to_desktop_file_with_different_name();
+			test_desktop_file_is_valid_only_when_it_has_name_and_icon_and_executable();
+			test_desktop_file_is_not_valid_without_name();
+			test_desktop_file_is_not_valid_without_icon();
+			test_desktop_file_is_not_valid_without_executable();
 			return qunit.errors();
 		}
 
@@ -224,5 +223,5 @@ namespace amm
 
 int main()
 {
-	return amm::menu_entry_test(std::cerr, QUnit::normal).run();
+	return amm::desktop_file_test(std::cerr, QUnit::normal).run();
 }

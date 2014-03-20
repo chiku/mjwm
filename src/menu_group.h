@@ -24,20 +24,20 @@
 #include <vector>
 #include <utility>
 
-#include "menu_entry.h"
+#include "desktop_file.h"
 
 namespace amm
 {
 	const int NORMAL_RESERVE_SIZE = 30;
 
-	struct qualified_menu_entry
+	struct qualified_desktop_file
 	{
 		std::string pretty_name;
 		std::string icon;
-		std::vector<amm::menu_entry> menu_entries;
+		std::vector<amm::desktop_file> menu_entries;
 
-		qualified_menu_entry();
-		qualified_menu_entry(std::string pretty_name, std::string icon);
+		qualified_desktop_file();
+		qualified_desktop_file(std::string pretty_name, std::string icon);
 	};
 
 	class menu_group
@@ -48,11 +48,11 @@ namespace amm
 		std::string _error;
 		bool _parsed;
 
-		std::vector< std::pair<std::string, amm::qualified_menu_entry> > _menu_entries;
-		amm::qualified_menu_entry _unclassified_entries;
+		std::vector< std::pair<std::string, amm::qualified_desktop_file> > _menu_entries;
+		amm::qualified_desktop_file _unclassified_entries;
 
-		bool classify(amm::menu_entry entry);
-		void write(std::ofstream& file, std::string section, std::vector<amm::menu_entry> entries);
+		bool classify(amm::desktop_file entry);
+		void write(std::ofstream& file, std::string section, std::vector<amm::desktop_file> entries);
 		void construct_menu_entries(std::string name, std::string pretty_name, std::string icon);
 
 	public:

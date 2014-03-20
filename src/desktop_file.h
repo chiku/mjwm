@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_menu_entry__
-#define __amm_menu_entry__
+#ifndef __amm_desktop_file__
+#define __amm_desktop_file__
 
 #include <fstream>
 #include <string>
@@ -27,7 +27,8 @@
 
 namespace amm
 {
-	class menu_entry
+	// Understands a FreeDesktop .desktop file representation
+	class desktop_file
 	{
 	private:
 		std::string _name;
@@ -39,17 +40,17 @@ namespace amm
 		std::string trim(std::string input) const;
 
 	public:
-		menu_entry();
+		desktop_file();
 
 		std::string name() const;
 		std::string icon() const;
 		std::string executable() const;
 		amm::categories categories() const;
 
-		bool operator < (const amm::menu_entry &other) const;
-		bool operator > (const amm::menu_entry &other) const;
-		bool operator == (const amm::menu_entry &other) const;
-		bool operator != (const amm::menu_entry &other) const;
+		bool operator < (const amm::desktop_file &other) const;
+		bool operator > (const amm::desktop_file &other) const;
+		bool operator == (const amm::desktop_file &other) const;
+		bool operator != (const amm::desktop_file &other) const;
 
 		bool is_valid() const;
 		void populate(std::string line);

@@ -20,71 +20,71 @@
 #include <fstream>
 #include <string>
 
-#include "menu_entry.h"
+#include "desktop_file.h"
 
 static const std::string NAME       = "Name";
 static const std::string EXECUTABLE = "Exec";
 static const std::string ICON       = "Icon";
 static const std::string CATEGORIES = "Categories";
 
-amm::menu_entry::menu_entry() {}
+amm::desktop_file::desktop_file() {}
 
 std::string
-amm::menu_entry::name() const
+amm::desktop_file::name() const
 {
 	return _name;
 }
 
 std::string
-amm::menu_entry::icon() const
+amm::desktop_file::icon() const
 {
 	return _icon;
 }
 
 std::string
-amm::menu_entry::executable() const
+amm::desktop_file::executable() const
 {
 	return _executable;
 }
 
 amm::categories
-amm::menu_entry::categories() const
+amm::desktop_file::categories() const
 {
 	return _categories;
 }
 
 bool
-amm::menu_entry::operator < (const amm::menu_entry &other) const
+amm::desktop_file::operator < (const amm::desktop_file &other) const
 {
 	return name() < other.name();
 }
 
 bool
-amm::menu_entry::operator > (const amm::menu_entry &other) const
+amm::desktop_file::operator > (const amm::desktop_file &other) const
 {
 	return name() > other.name();
 }
 
 bool
-amm::menu_entry::operator == (const amm::menu_entry &other) const
+amm::desktop_file::operator == (const amm::desktop_file &other) const
 {
 	return name() == other.name();
 }
 
 bool
-amm::menu_entry::operator != (const amm::menu_entry &other) const
+amm::desktop_file::operator != (const amm::desktop_file &other) const
 {
 	return name() != other.name();
 }
 
 bool
-amm::menu_entry::is_valid() const
+amm::desktop_file::is_valid() const
 {
 	return (executable().length() > 0) && (name().length() > 0) && (icon().length() > 0);
 }
 
 void
-amm::menu_entry::populate(std::string line)
+amm::desktop_file::populate(std::string line)
 {
 	if (line[0] == '\0') {
 		return;
@@ -109,7 +109,7 @@ amm::menu_entry::populate(std::string line)
 }
 
 std::string
-amm::menu_entry::trim(std::string input) const
+amm::desktop_file::trim(std::string input) const
 {
 	const std::string whitespace = " \t\n";
 	const unsigned long int begin = input.find_first_not_of(whitespace);
@@ -125,7 +125,7 @@ amm::menu_entry::trim(std::string input) const
 }
 
 void
-amm::menu_entry::dump() const
+amm::desktop_file::dump() const
 {
 	std::cout << "Name       : " << name()       << std::endl;
 	std::cout << "Executable : " << executable() << std::endl;
@@ -135,7 +135,7 @@ amm::menu_entry::dump() const
 
 // based on http://stackoverflow.com/questions/5665231/most-efficient-way-to-escape-xml-html-in-c-string#answer-5665377
 std::string
-amm::menu_entry::encode(std::string data) const
+amm::desktop_file::encode(std::string data) const
 {
 	std::string buffer;
 	buffer.reserve(data.size());
