@@ -175,7 +175,7 @@ amm::menu_group::write(std::ofstream& file, std::string section, std::vector<amm
 
 		std::vector<amm::desktop_file>::iterator entry;
 		for(entry = entries.begin(); entry != entries.end(); ++entry) {
-			file << "    <Program label=\"" << entry->name() << "\" icon=\"" << entry->icon() << _icon_extension << "\">" << entry->executable() << "</Program>" << std::endl;
+			file << "    " << _jwm_transformer.transform(*entry, _icon_extension) << std::endl;
 		}
 
 		file << "  </Menu>" << std::endl;

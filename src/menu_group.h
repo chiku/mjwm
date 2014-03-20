@@ -25,6 +25,7 @@
 #include <utility>
 
 #include "desktop_file.h"
+#include "transform/jwm.h"
 
 namespace amm
 {
@@ -43,6 +44,7 @@ namespace amm
 	class menu_group
 	{
 	private:
+		amm::transform::jwm _jwm_transformer;
 		std::string _directory_name;
 		std::string _icon_extension;
 		std::string _error;
