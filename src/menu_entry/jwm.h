@@ -22,15 +22,13 @@
 #include <iostream>
 #include <string>
 
-#include "../desktop_file.h"
-
 namespace amm
 {
 	namespace menu_entry
 	{
 		class jwm;
 
-		std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_entry);
+		std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry);
 
 		// Understands a Program entry in RootMenu section of JWM configuration file
 		class jwm

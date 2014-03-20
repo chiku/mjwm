@@ -19,7 +19,6 @@
 #include <iostream>
 #include <string>
 
-#include "../categories.h"
 #include "jwm.h"
 
 amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable)
