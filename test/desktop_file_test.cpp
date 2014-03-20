@@ -56,22 +56,7 @@ namespace amm
 		{
 			desktop_file entry;
 			entry.populate("Categories=Application;Utility;TextEditor;GTK;\n");
-			amm::categories expected("Application;Utility;TextEditor;GTK;");
-			QUNIT_IS_EQUAL(expected, entry.categories());
-		}
-
-		void test_desktop_file_escapes_tokens_in_name()
-		{
-			desktop_file entry;
-			entry.populate("Name=<'Complicated' & \"Fun\">\n");
-			QUNIT_IS_EQUAL("&lt;&apos;Complicated&apos; &amp; &quot;Fun&quot;&gt;", entry.name());
-		}
-
-		void test_desktop_file_doesnt_escape_tokens_in_exec()
-		{
-			desktop_file entry;
-			entry.populate("Exec=rxvt -font 7x14 -bg \"#c0c0c0\" -fg");
-			QUNIT_IS_EQUAL("rxvt -font 7x14 -bg \"#c0c0c0\" -fg", entry.executable());
+			QUNIT_IS_EQUAL(amm::categories("Application;Utility;TextEditor;GTK;"), entry.categories());
 		}
 
 		void test_desktop_file_escapes_whitespaces_when_parsing_name()
@@ -101,8 +86,7 @@ namespace amm
 		{
 			desktop_file entry;
 			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
-			amm::categories expected("Application;Utility;TextEditor;GTK;");
-			QUNIT_IS_EQUAL(expected, entry.categories());
+			QUNIT_IS_EQUAL(amm::categories("Application;Utility;TextEditor;GTK;"), entry.categories());
 		}
 
 		void test_desktop_file_parse_doesnt_fail_when_entry_is_missing()
@@ -157,7 +141,7 @@ namespace amm
 			QUNIT_IS_FALSE(entry != same_entry);
 		}
 
-		void test_desktop_file_is_valid_only_when_it_has_name_and_icon_and_executable()
+		void test_desktop_file_is_valid_when_it_has_name_and_icon_and_executable()
 		{
 			desktop_file valid_entry;
 			valid_entry.populate("Name=Mousepad\n");
@@ -199,8 +183,6 @@ namespace amm
 			test_desktop_file_parses_icon();
 			test_desktop_file_parses_executable();
 			test_desktop_file_parses_categories();
-			test_desktop_file_escapes_tokens_in_name();
-			test_desktop_file_doesnt_escape_tokens_in_exec();
 			test_desktop_file_escapes_whitespaces_when_parsing_name();
 			test_desktop_file_escapes_whitespaces_when_parsing_executable();
 			test_desktop_file_escapes_whitespaces_when_parsing_icon();
@@ -211,7 +193,7 @@ namespace amm
 			test_desktop_file_is_greater_than_a_desktop_file_with_alphabetically_lesser_name();
 			test_desktop_file_is_equal_to_desktop_file_with_same_name();
 			test_desktop_file_is_not_equal_to_desktop_file_with_different_name();
-			test_desktop_file_is_valid_only_when_it_has_name_and_icon_and_executable();
+			test_desktop_file_is_valid_when_it_has_name_and_icon_and_executable();
 			test_desktop_file_is_not_valid_without_name();
 			test_desktop_file_is_not_valid_without_icon();
 			test_desktop_file_is_not_valid_without_executable();
