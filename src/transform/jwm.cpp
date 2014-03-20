@@ -16,12 +16,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string>
+
 #include "../desktop_file.h"
 #include "jwm.h"
 
 amm::menu_entry::jwm
-amm::transform::jwm::transform(amm::desktop_file desktop_file)
+amm::transform::jwm::transform(amm::desktop_file desktop_file, std::string icon_extension)
 {
-    amm::menu_entry::jwm jwm_entry("", "", "", desktop_file.categories());
-    return jwm_entry;
+	amm::menu_entry::jwm jwm_entry(
+		desktop_file.name(),
+		desktop_file.icon() + icon_extension,
+		desktop_file.executable(),
+		desktop_file.categories()
+	);
+	return jwm_entry;
 }

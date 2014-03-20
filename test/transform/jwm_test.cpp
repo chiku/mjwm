@@ -19,6 +19,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 
 #include "../QUnit.hpp"
 
@@ -36,7 +37,38 @@ namespace amm
 
 			void test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm()
 			{
-				QUNIT_IS_TRUE(true);
+				amm::desktop_file desktop_file = desktop_file_fixture();
+
+				amm::transform::jwm transformer;
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, "");
+
+				std::stringstream stream;
+				stream << jwm_menu_entry;
+				std::string expected = "<Program label=\"VLC\" icon=\"vlc\">vlc</Program>";
+				QUNIT_IS_EQUAL(expected, stream.str());
+			}
+
+			void test_transform_for_jwm_appends_the_icon_extension_to_icon_name()
+			{
+				amm::desktop_file desktop_file = desktop_file_fixture();
+
+				amm::transform::jwm transformer;
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, ".png");
+
+				std::stringstream stream;
+				stream << jwm_menu_entry;
+				std::string expected = "<Program label=\"VLC\" icon=\"vlc.png\">vlc</Program>";
+				QUNIT_IS_EQUAL(expected, stream.str());
+			}
+
+			amm::desktop_file desktop_file_fixture()
+			{
+				amm::desktop_file desktop_file;
+				desktop_file.populate("Name=VLC");
+				desktop_file.populate("Icon=vlc");
+				desktop_file.populate("Exec=vlc");
+				desktop_file.populate("Categories=AudioVideo;Audio;Video;");
+				return desktop_file;
 			}
 
 		public:
@@ -45,6 +77,7 @@ namespace amm
 			int run()
 			{
 				test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm();
+				test_transform_for_jwm_appends_the_icon_extension_to_icon_name();
 				return qunit.errors();
 			}
 

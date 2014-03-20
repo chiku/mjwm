@@ -19,19 +19,22 @@
 #ifndef __amm_transforms_jwm__
 #define __amm_transforms_jwm__
 
+#include <string>
+
 #include "../desktop_file.h"
 #include "../menu_entry/jwm.h"
 
 namespace amm
 {
-    namespace transform
-    {
-        // Understands converting a FreeDesktop .desktop file into Program entry in JWM configuration file
-        class jwm
-        {
-            amm::menu_entry::jwm transform(amm::desktop_file desktop_file);
-        };
-    }
+	namespace transform
+	{
+		// Understands converting a FreeDesktop .desktop file into Program entry in JWM configuration file
+		class jwm
+		{
+		public:
+			amm::menu_entry::jwm transform(amm::desktop_file desktop_file, std::string icon_extension);
+		};
+	}
 }
 
 #endif

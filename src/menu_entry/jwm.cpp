@@ -24,11 +24,44 @@
 
 amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable, amm::categories categories)
 {
+	_name = name;
+	_icon = icon;
+	_executable = executable;
+	_categories = categories;
+}
 
+std::string
+amm::menu_entry::jwm::name() const
+{
+	return _name;
+}
+
+std::string
+amm::menu_entry::jwm::icon() const
+{
+	return _icon;
+}
+
+std::string
+amm::menu_entry::jwm::executable() const
+{
+	return _executable;
+}
+
+amm::categories
+amm::menu_entry::jwm::categories() const
+{
+	return _categories;
 }
 
 std::ostream&
-amm::menu_entry::operator << (std::ostream& stream, const amm::menu_entry::jwm& jwm_entry)
+amm::menu_entry::operator << (std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry)
 {
-    return stream;
+	stream << "<Program "
+	       << "label=\"" << jwm_menu_entry.name() << "\" "
+	       << "icon=\"" << jwm_menu_entry.icon() << "\">"
+	       << jwm_menu_entry.executable()
+	       << "</Program>";
+
+	return stream;
 }

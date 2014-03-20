@@ -27,21 +27,32 @@
 
 namespace amm
 {
-    namespace menu_entry
-    {
-        class jwm;
+	namespace menu_entry
+	{
+		class jwm;
 
-        std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_entry);
+		std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_entry);
 
 		// Understands a Program entry in RootMenu section of JWM configuration file
-        class jwm
-        {
-        public:
-            jwm(std::string name, std::string icon, std::string executable, amm::categories categories);
+		class jwm
+		{
+		private:
+			std::string _name;
+			std::string _icon;
+			std::string _executable;
+			amm::categories _categories;
 
-            friend std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_entry);
-        };        
-    }
+		public:
+			jwm(std::string name, std::string icon, std::string executable, amm::categories categories);
+
+			std::string name() const;
+			std::string icon() const;
+			std::string executable() const;
+			amm::categories categories() const;
+
+			friend std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry);
+		};
+	}
 }
 
 #endif
