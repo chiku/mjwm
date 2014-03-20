@@ -20,9 +20,15 @@ set -e
 
 cd `dirname $0`
 
-./mjwm_categories_test
-./mjwm_desktop_file_test
-./mjwm_menu_group_test
-./mjwm_transform_jwm_test
+run() {
+	printf "%s: " $1
+	./$1
+}
+
+run mjwm_categories_test
+run mjwm_desktop_file_test
+run mjwm_menu_entry_jwm_test
+run mjwm_transform_jwm_test
+run mjwm_menu_group_test
 
 cd ..
