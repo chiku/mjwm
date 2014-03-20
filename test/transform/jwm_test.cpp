@@ -53,7 +53,39 @@ namespace amm
 				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, ".svg");
 
 				QUNIT_IS_EQUAL("vlc.svg", jwm_menu_entry.icon());
+			}
 
+			void test_transform_for_jwm_XML_escapes_name()
+			{
+				amm::desktop_file desktop_file = desktop_file_fixture();
+				desktop_file.populate("Name=<\'foo\' & \"bar\">");
+
+				amm::transform::jwm transformer;
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, "");
+
+				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.name());
+			}
+
+			void test_transform_for_jwm_XML_escapes_icon()
+			{
+				amm::desktop_file desktop_file = desktop_file_fixture();
+				desktop_file.populate("Icon=<\'foo\' & \"bar\">");
+
+				amm::transform::jwm transformer;
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, "");
+
+				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.icon());
+			}
+
+			void test_transform_for_jwm_XML_doesnt_escape_executable()
+			{
+				amm::desktop_file desktop_file = desktop_file_fixture();
+				desktop_file.populate("Exec=vlc &");
+
+				amm::transform::jwm transformer;
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, "");
+
+				QUNIT_IS_EQUAL("vlc &", jwm_menu_entry.executable());
 			}
 
 			amm::desktop_file desktop_file_fixture()
@@ -73,6 +105,9 @@ namespace amm
 			{
 				test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm();
 				test_transform_for_jwm_appends_the_icon_extension_to_icon_name();
+				test_transform_for_jwm_XML_escapes_name();
+				test_transform_for_jwm_XML_escapes_icon();
+				test_transform_for_jwm_XML_doesnt_escape_executable();
 				return qunit.errors();
 			}
 

@@ -25,8 +25,28 @@ amm::menu_entry::jwm
 amm::transform::jwm::transform(amm::desktop_file desktop_file, std::string icon_extension)
 {
 	std::string name = desktop_file.name();
-	std::string icon = desktop_file.icon() + icon_extension;
+	std::string icon = encode(desktop_file.icon() + icon_extension);
 	std::string executable = desktop_file.executable();
 
 	return amm::menu_entry::jwm(name, icon, executable);
+}
+
+std::string
+amm::transform::jwm::encode(std::string input) const
+{
+    std::string result;
+    result.reserve(input.size());
+
+    for(size_t pos = 0; pos != input.size(); ++pos) {
+        switch(input[pos]) {
+            case '&' : result.append("&amp;");       break;
+            case '\"': result.append("&quot;");      break;
+            case '\'': result.append("&apos;");      break;
+            case '<' : result.append("&lt;");        break;
+            case '>' : result.append("&gt;");        break;
+            default  : result.append(&input[pos], 1); break;
+        }
+    }
+
+    return result;
 }
