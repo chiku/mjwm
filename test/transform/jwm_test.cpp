@@ -17,9 +17,7 @@
 */
 
 #include <iostream>
-#include <vector>
 #include <string>
-#include <sstream>
 
 #include "../QUnit.hpp"
 
@@ -42,10 +40,9 @@ namespace amm
 				amm::transform::jwm transformer;
 				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, "");
 
-				std::stringstream stream;
-				stream << jwm_menu_entry;
-				std::string expected = "<Program label=\"VLC\" icon=\"vlc\">vlc</Program>";
-				QUNIT_IS_EQUAL(expected, stream.str());
+				QUNIT_IS_EQUAL("VLC", jwm_menu_entry.name());
+				QUNIT_IS_EQUAL("vlc", jwm_menu_entry.icon());
+				QUNIT_IS_EQUAL("vlc", jwm_menu_entry.executable());
 			}
 
 			void test_transform_for_jwm_appends_the_icon_extension_to_icon_name()
@@ -53,12 +50,10 @@ namespace amm
 				amm::desktop_file desktop_file = desktop_file_fixture();
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, ".png");
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, ".svg");
 
-				std::stringstream stream;
-				stream << jwm_menu_entry;
-				std::string expected = "<Program label=\"VLC\" icon=\"vlc.png\">vlc</Program>";
-				QUNIT_IS_EQUAL(expected, stream.str());
+				QUNIT_IS_EQUAL("vlc.svg", jwm_menu_entry.icon());
+
 			}
 
 			amm::desktop_file desktop_file_fixture()
