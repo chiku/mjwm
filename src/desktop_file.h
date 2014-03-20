@@ -36,7 +36,6 @@ namespace amm
 		std::string _icon;
 		amm::categories _categories;
 
-		std::string encode(std::string data) const;
 		std::string trim(std::string input) const;
 
 	public:

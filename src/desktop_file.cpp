@@ -98,7 +98,7 @@ amm::desktop_file::populate(std::string line)
 	std::string trimmed_first_part = trim(first_part);
 
 	if (trimmed_first_part == NAME) {
-		_name = encode(trim(second_part));
+		_name = trim(second_part);
 	} else if (trimmed_first_part == ICON) {
 		_icon = trim(second_part);
 	} else if (trimmed_first_part == EXECUTABLE) {
@@ -122,23 +122,4 @@ amm::desktop_file::trim(std::string input) const
 	const size_t range = end - begin + 1;
 
 	return input.substr(begin, range);
-}
-
-// based on http://stackoverflow.com/questions/5665231/most-efficient-way-to-escape-xml-html-in-c-string#answer-5665377
-std::string
-amm::desktop_file::encode(std::string data) const
-{
-	std::string buffer;
-	buffer.reserve(data.size());
-	for(size_t pos = 0; pos != data.size(); ++pos) {
-		switch(data[pos]) {
-			case '&' : buffer.append("&amp;");       break;
-			case '\"': buffer.append("&quot;");      break;
-			case '\'': buffer.append("&apos;");      break;
-			case '<' : buffer.append("&lt;");        break;
-			case '>' : buffer.append("&gt;");        break;
-			default  : buffer.append(&data[pos], 1); break;
-		}
-	}
-	return buffer;
 }
