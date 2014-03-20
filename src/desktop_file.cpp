@@ -91,7 +91,7 @@ amm::desktop_file::populate(std::string line)
 	}
 
 	std::string delim = "=";
-	unsigned long int location = line.find(delim);
+	size_t location = line.find(delim);
 	std::string first_part = line.substr(0, location);
 	std::string second_part = line.substr(location + delim.length(), line.length());
 
@@ -112,14 +112,14 @@ std::string
 amm::desktop_file::trim(std::string input) const
 {
 	const std::string whitespace = " \t\n";
-	const unsigned long int begin = input.find_first_not_of(whitespace);
+	const size_t begin = input.find_first_not_of(whitespace);
 
 	if (begin == std::string::npos) {
 		return "";
 	}
 
-	const unsigned long int end = input.find_last_not_of(whitespace);
-	const unsigned long int range = end - begin + 1;
+	const size_t end = input.find_last_not_of(whitespace);
+	const size_t range = end - begin + 1;
 
 	return input.substr(begin, range);
 }

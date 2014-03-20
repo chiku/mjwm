@@ -45,8 +45,8 @@ amm::categories::parse()
 		raw += DELIM;
 	}
 
-	unsigned long int start = 0U;
-	unsigned long int end = raw.find(DELIM);
+	size_t start = 0U;
+	size_t end = raw.find(DELIM);
 
 	while (end != std::string::npos) {
 		_categories.push_back(raw.substr(start, end - start));
