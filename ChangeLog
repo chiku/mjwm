@@ -7,6 +7,8 @@ Current
 * Reduce make verbosity
 * Migrate to non-recursive build
 * Adds icon extensions to icon category names when given -a command-line option
+* Change mjwm namespace to amm - awesome menu maker
+* Reduce responsibility of old menu_entry. desktop_file represents a .desktop file. transform::jwm converts it to a menu_entry::jwm
 
 v2.1.1
 ------
