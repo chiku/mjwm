@@ -21,7 +21,7 @@ set -e
 cd `dirname $0`
 
 ./mjwm_categories_test
-./mjwm_menu_entry_test
+./mjwm_desktop_file_test
 ./mjwm_menu_group_test
 
 cd ..
