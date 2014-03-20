@@ -22,7 +22,6 @@
 #include <iostream>
 #include <string>
 
-#include "../categories.h"
 #include "../desktop_file.h"
 
 namespace amm
@@ -40,15 +39,13 @@ namespace amm
 			std::string _name;
 			std::string _icon;
 			std::string _executable;
-			amm::categories _categories;
 
 		public:
-			jwm(std::string name, std::string icon, std::string executable, amm::categories categories);
+			jwm(std::string name, std::string icon, std::string executable);
 
 			std::string name() const;
 			std::string icon() const;
 			std::string executable() const;
-			amm::categories categories() const;
 
 			friend std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry);
 		};

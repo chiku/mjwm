@@ -22,12 +22,11 @@
 #include "../categories.h"
 #include "jwm.h"
 
-amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable, amm::categories categories)
+amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable)
 {
 	_name = name;
 	_icon = icon;
 	_executable = executable;
-	_categories = categories;
 }
 
 std::string
@@ -46,12 +45,6 @@ std::string
 amm::menu_entry::jwm::executable() const
 {
 	return _executable;
-}
-
-amm::categories
-amm::menu_entry::jwm::categories() const
-{
-	return _categories;
 }
 
 std::ostream&

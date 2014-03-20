@@ -24,11 +24,9 @@
 amm::menu_entry::jwm
 amm::transform::jwm::transform(amm::desktop_file desktop_file, std::string icon_extension)
 {
-	amm::menu_entry::jwm jwm_entry(
-		desktop_file.name(),
-		desktop_file.icon() + icon_extension,
-		desktop_file.executable(),
-		desktop_file.categories()
-	);
-	return jwm_entry;
+	std::string name = desktop_file.name();
+	std::string icon = desktop_file.icon() + icon_extension;
+	std::string executable = desktop_file.executable();
+
+	return amm::menu_entry::jwm(name, icon, executable);
 }
