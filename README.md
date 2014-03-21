@@ -26,6 +26,7 @@ Installation from source
 
 * From the root of the application run
 ```script
+./autogen.sh
 ./configure --prefix=/usr/local # Install mjwm to /usr/local
 make
 sudo make install
@@ -80,6 +81,7 @@ Examples
 
 Generate menu entries for files inside /etc/xdg
 ``` script
+./autogen.sh
 mjwm -s /etc/xdg/ # The trailing slash is required
 ```
 

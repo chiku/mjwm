@@ -3,6 +3,16 @@ compiler:
   - gcc
   - clang
 script:
+  - automake --version
+  - autoconf --version
+  - aclocal -I .
+  - git diff -w
+  - autoheader -I .
+  - git diff -w
+  - automake --add-missing --copy --gnu
+  - git diff -w
+  - autoconf
+  - git diff -w
   - ./configure
   - make check
   - ./test_runner.sh
