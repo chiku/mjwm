@@ -68,7 +68,7 @@ amm::menu_group::construct_menu_entries(std::string name, std::string pretty_nam
 }
 
 void
-amm::menu_group::populate()
+amm::menu_group::find_all_desktop_file_names()
 {
 	DIR *directory = opendir(_directory_name.c_str());
 
@@ -80,11 +80,22 @@ amm::menu_group::populate()
 	dirent *directory_entry;
 
 	while((directory_entry = readdir(directory)) != NULL) {
-		amm::desktop_file entry;
-		std::string line;
-		std::string desktop_filename = _directory_name + directory_entry->d_name;
+		_desktop_file_names.push_back(_directory_name + directory_entry->d_name);
+	}
 
-		std::ifstream file(desktop_filename.c_str());
+	closedir(directory);
+}
+
+void
+amm::menu_group::populate()
+{
+	find_all_desktop_file_names();
+	std::vector<std::string>::iterator name;
+	for (name = _desktop_file_names.begin(); name != _desktop_file_names.end(); ++name) {
+		std::string line;
+		amm::desktop_file entry;
+		std::ifstream file(name->c_str());
+
 		if (!file.good()) {
 			continue;
 		}
@@ -102,7 +113,6 @@ amm::menu_group::populate()
 
 		file.close();
 	}
-	closedir(directory);
 
 	_menu_entries.push_back(std::make_pair("Others", _unclassified_entries));
 

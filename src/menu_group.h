@@ -48,6 +48,7 @@ namespace amm
 	private:
 		amm::transform::jwm _jwm_transformer;
 		std::string _directory_name;
+		std::vector<std::string> _desktop_file_names;
 		std::string _icon_extension;
 		std::string _error;
 		bool _parsed;
@@ -58,6 +59,7 @@ namespace amm
 		bool classify(amm::desktop_file entry);
 		void write(std::ofstream& file, std::string section, std::vector<amm::desktop_file> entries);
 		void construct_menu_entries(std::string name, std::string pretty_name, std::string icon);
+		void find_all_desktop_file_names();
 
 	public:
 		menu_group(std::string directory_name, std::string icon_extension);
