@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-#include "categories.h"
+#include "desktop_file_categories.h"
 
 namespace amm
 {
@@ -34,7 +34,7 @@ namespace amm
 		std::string _name;
 		std::string _executable;
 		std::string _icon;
-		amm::categories _categories;
+		amm::desktop_file_categories _categories;
 
 		std::string trim(std::string input) const;
 
@@ -44,7 +44,7 @@ namespace amm
 		std::string name() const;
 		std::string icon() const;
 		std::string executable() const;
-		amm::categories categories() const;
+		amm::desktop_file_categories categories() const;
 
 		bool operator < (const amm::desktop_file &other) const;
 		bool operator > (const amm::desktop_file &other) const;

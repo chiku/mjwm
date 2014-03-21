@@ -25,7 +25,7 @@ run() {
 	./$1
 }
 
-run mjwm_categories_test
+run mjwm_desktop_file_categories_test
 run mjwm_desktop_file_test
 run mjwm_menu_entry_jwm_test
 run mjwm_transform_jwm_test

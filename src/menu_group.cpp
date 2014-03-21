@@ -110,7 +110,7 @@ amm::menu_group::populate()
 bool
 amm::menu_group::classify(amm::desktop_file entry)
 {
-	amm::categories categories = entry.categories();
+	amm::desktop_file_categories categories = entry.categories();
 	bool classified = false;
 
 	std::vector< std::pair<std::string, amm::qualified_desktop_file> >::iterator group;

@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/categories.h"
+#include "../src/desktop_file_categories.h"
 #include "../src/desktop_file.h"
 
 namespace amm
@@ -57,7 +57,7 @@ namespace amm
 		{
 			desktop_file entry;
 			entry.populate("Categories=Application;Utility;TextEditor;GTK;\n");
-			QUNIT_IS_EQUAL(amm::categories("Application;Utility;TextEditor;GTK;"), entry.categories());
+			QUNIT_IS_EQUAL(amm::desktop_file_categories("Application;Utility;TextEditor;GTK;"), entry.categories());
 		}
 
 		void test_desktop_file_escapes_whitespaces_when_parsing_name()
@@ -87,7 +87,7 @@ namespace amm
 		{
 			desktop_file entry;
 			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
-			QUNIT_IS_EQUAL(amm::categories("Application;Utility;TextEditor;GTK;"), entry.categories());
+			QUNIT_IS_EQUAL(amm::desktop_file_categories("Application;Utility;TextEditor;GTK;"), entry.categories());
 		}
 
 		void test_desktop_file_parse_doesnt_fail_when_entry_is_missing()

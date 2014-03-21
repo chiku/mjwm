@@ -26,12 +26,12 @@ namespace amm
 {
 	const std::string DELIM = ";";
 
-	class categories;
+	class desktop_file_categories;
 
-	std::ostream& operator <<(std::ostream& stream, const amm::categories& categories);
+	std::ostream& operator <<(std::ostream& stream, const amm::desktop_file_categories& desktop_file_categories);
 
 	// Understands what sub-section should a single desktop file entry belong to as per FreeDesktop guidelines
-	class categories
+	class desktop_file_categories
 	{
 	private:
 		std::string _raw;
@@ -41,14 +41,13 @@ namespace amm
 		void sort();
 
 	public:
-		categories();
-		categories(std::string raw);
+		desktop_file_categories();
+		desktop_file_categories(std::string raw);
 
 		bool is_a(std::string type) const;
 
-		friend std::ostream& operator << (std::ostream& stream, const amm::categories& categories);
+		friend std::ostream& operator << (std::ostream& stream, const amm::desktop_file_categories& categories);
 	};
-
 }
 
 #endif

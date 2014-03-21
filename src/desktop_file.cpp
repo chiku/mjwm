@@ -47,7 +47,7 @@ amm::desktop_file::executable() const
 	return _executable;
 }
 
-amm::categories
+amm::desktop_file_categories
 amm::desktop_file::categories() const
 {
 	return _categories;
@@ -104,7 +104,7 @@ amm::desktop_file::populate(std::string line)
 	} else if (trimmed_first_part == EXECUTABLE) {
 		_executable = trim(second_part);
 	} else if (trimmed_first_part == CATEGORIES) {
-		_categories = amm::categories(trim(second_part));
+		_categories = amm::desktop_file_categories(trim(second_part));
 	}
 }
 

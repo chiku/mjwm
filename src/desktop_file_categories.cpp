@@ -20,15 +20,15 @@
 #include <string>
 #include <algorithm>
 
-#include "categories.h"
+#include "desktop_file_categories.h"
 
-amm::categories::categories()
+amm::desktop_file_categories::desktop_file_categories()
 {
 	_raw = "";
 }
 
 
-amm::categories::categories(std::string raw)
+amm::desktop_file_categories::desktop_file_categories(std::string raw)
 {
 	_raw = raw;
 
@@ -37,7 +37,7 @@ amm::categories::categories(std::string raw)
 }
 
 void
-amm::categories::parse()
+amm::desktop_file_categories::parse()
 {
 	std::string raw = _raw;
 
@@ -56,19 +56,19 @@ amm::categories::parse()
 }
 
 void
-amm::categories::sort()
+amm::desktop_file_categories::sort()
 {
 	std::sort(_categories.begin(), _categories.end());
 }
 
 bool
-amm::categories::is_a(std::string type) const
+amm::desktop_file_categories::is_a(std::string type) const
 {
 	return std::binary_search(_categories.begin(), _categories.end(), type);
 }
 
 std::ostream&
-amm::operator << (std::ostream& stream, const amm::categories& categories)
+amm::operator << (std::ostream& stream, const amm::desktop_file_categories& categories)
 {
 	std::vector<std::string> container = categories._categories;
 

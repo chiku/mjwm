@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/categories.h"
+#include "../src/desktop_file_categories.h"
 
 
 namespace amm
@@ -34,31 +34,31 @@ namespace amm
 
 		void test_categories_as_audiovideo_if_tag_includes_AudioVideo()
 		{
-			categories categories("AudioVideo;Audio;Player;GTK;");
+			desktop_file_categories categories("AudioVideo;Audio;Player;GTK;");
 			QUNIT_IS_TRUE(categories.is_a("AudioVideo"));
 		}
 
 		void test_categories_not_as_audiovideo_if_tag_excludes_AudioVideo()
 		{
-			categories categories("Audio;Video;Player;GTK;");
+			desktop_file_categories categories("Audio;Video;Player;GTK;");
 			QUNIT_IS_FALSE(categories.is_a("AudioVideo"));
 		}
 
 		void test_categories_as_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon()
 		{
-			categories categories("Video;AudioVideo");
+			desktop_file_categories categories("Video;AudioVideo");
 			QUNIT_IS_TRUE(categories.is_a("AudioVideo"));
 		}
 
 		void test_categories_not_as_audiovideo_if_empty()
 		{
-			categories categories("");
+			desktop_file_categories categories("");
 			QUNIT_IS_FALSE(categories.is_a("AudioVideo"));
 		}
 
 		void test_categories_serialized_to_an_output_stream()
 		{
-			categories categories("AudioVideo;Player;GTK;");
+			desktop_file_categories categories("AudioVideo;Player;GTK;");
 			std::stringstream stream;
 			stream << categories;
 			QUNIT_IS_EQUAL("AudioVideo; GTK; Player; ", stream.str());

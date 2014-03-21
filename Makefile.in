@@ -77,7 +77,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = mjwm$(EXEEXT)
-check_PROGRAMS = mjwm_categories_test$(EXEEXT) \
+check_PROGRAMS = mjwm_desktop_file_categories_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) \
 	mjwm_menu_entry_jwm_test$(EXEEXT) \
 	mjwm_transform_jwm_test$(EXEEXT) mjwm_menu_group_test$(EXEEXT)
@@ -103,17 +103,20 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mjwm_OBJECTS = src/categories.$(OBJEXT) src/desktop_file.$(OBJEXT) \
-	src/menu_entry/jwm.$(OBJEXT) src/transform/jwm.$(OBJEXT) \
-	src/menu_group.$(OBJEXT) src/desktop_file_search.$(OBJEXT) \
-	src/mjwm.$(OBJEXT)
+am_mjwm_OBJECTS = src/desktop_file_categories.$(OBJEXT) \
+	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
+	src/transform/jwm.$(OBJEXT) src/menu_group.$(OBJEXT) \
+	src/desktop_file_search.$(OBJEXT) src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
-am_mjwm_categories_test_OBJECTS = src/categories.$(OBJEXT) \
-	test/categories_test.$(OBJEXT)
-mjwm_categories_test_OBJECTS = $(am_mjwm_categories_test_OBJECTS)
-mjwm_categories_test_LDADD = $(LDADD)
-am_mjwm_desktop_file_test_OBJECTS = src/categories.$(OBJEXT) \
+am_mjwm_desktop_file_categories_test_OBJECTS =  \
+	src/desktop_file_categories.$(OBJEXT) \
+	test/desktop_file_categories_test.$(OBJEXT)
+mjwm_desktop_file_categories_test_OBJECTS =  \
+	$(am_mjwm_desktop_file_categories_test_OBJECTS)
+mjwm_desktop_file_categories_test_LDADD = $(LDADD)
+am_mjwm_desktop_file_test_OBJECTS =  \
+	src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) test/desktop_file_test.$(OBJEXT)
 mjwm_desktop_file_test_OBJECTS = $(am_mjwm_desktop_file_test_OBJECTS)
 mjwm_desktop_file_test_LDADD = $(LDADD)
@@ -122,13 +125,15 @@ am_mjwm_menu_entry_jwm_test_OBJECTS = src/menu_entry/jwm.$(OBJEXT) \
 mjwm_menu_entry_jwm_test_OBJECTS =  \
 	$(am_mjwm_menu_entry_jwm_test_OBJECTS)
 mjwm_menu_entry_jwm_test_LDADD = $(LDADD)
-am_mjwm_menu_group_test_OBJECTS = src/categories.$(OBJEXT) \
+am_mjwm_menu_group_test_OBJECTS =  \
+	src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
 	src/transform/jwm.$(OBJEXT) src/menu_group.$(OBJEXT) \
 	test/menu_group_test.$(OBJEXT)
 mjwm_menu_group_test_OBJECTS = $(am_mjwm_menu_group_test_OBJECTS)
 mjwm_menu_group_test_LDADD = $(LDADD)
-am_mjwm_transform_jwm_test_OBJECTS = src/categories.$(OBJEXT) \
+am_mjwm_transform_jwm_test_OBJECTS =  \
+	src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
 	src/transform/jwm.$(OBJEXT) test/transform/jwm_test.$(OBJEXT)
 mjwm_transform_jwm_test_OBJECTS =  \
@@ -163,12 +168,13 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(mjwm_SOURCES) $(mjwm_categories_test_SOURCES) \
+SOURCES = $(mjwm_SOURCES) $(mjwm_desktop_file_categories_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_menu_entry_jwm_test_SOURCES) \
 	$(mjwm_menu_group_test_SOURCES) \
 	$(mjwm_transform_jwm_test_SOURCES)
-DIST_SOURCES = $(mjwm_SOURCES) $(mjwm_categories_test_SOURCES) \
+DIST_SOURCES = $(mjwm_SOURCES) \
+	$(mjwm_desktop_file_categories_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_menu_entry_jwm_test_SOURCES) \
 	$(mjwm_menu_group_test_SOURCES) \
@@ -509,12 +515,12 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS = -Wall -Wextra
-mjwm_SOURCES = src/categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp src/menu_group.cpp src/desktop_file_search.cpp src/mjwm.cpp
-mjwm_categories_test_SOURCES = src/categories.cpp test/categories_test.cpp
-mjwm_desktop_file_test_SOURCES = src/categories.cpp src/desktop_file.cpp test/desktop_file_test.cpp
+mjwm_SOURCES = src/desktop_file_categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp src/menu_group.cpp src/desktop_file_search.cpp src/mjwm.cpp
+mjwm_desktop_file_categories_test_SOURCES = src/desktop_file_categories.cpp test/desktop_file_categories_test.cpp
+mjwm_desktop_file_test_SOURCES = src/desktop_file_categories.cpp src/desktop_file.cpp test/desktop_file_test.cpp
 mjwm_menu_entry_jwm_test_SOURCES = src/menu_entry/jwm.cpp test/menu_entry/jwm_test.cpp
-mjwm_transform_jwm_test_SOURCES = src/categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp test/transform/jwm_test.cpp
-mjwm_menu_group_test_SOURCES = src/categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp src/menu_group.cpp test/menu_group_test.cpp
+mjwm_transform_jwm_test_SOURCES = src/desktop_file_categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp test/transform/jwm_test.cpp
+mjwm_menu_group_test_SOURCES = src/desktop_file_categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp src/menu_group.cpp test/menu_group_test.cpp
 TESTS = $(check_PROGRAMS)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -621,7 +627,7 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/categories.$(OBJEXT): src/$(am__dirstamp) \
+src/desktop_file_categories.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/desktop_file.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -656,12 +662,12 @@ test/$(am__dirstamp):
 test/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/$(DEPDIR)
 	@: > test/$(DEPDIR)/$(am__dirstamp)
-test/categories_test.$(OBJEXT): test/$(am__dirstamp) \
+test/desktop_file_categories_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
-mjwm_categories_test$(EXEEXT): $(mjwm_categories_test_OBJECTS) $(mjwm_categories_test_DEPENDENCIES) $(EXTRA_mjwm_categories_test_DEPENDENCIES) 
-	@rm -f mjwm_categories_test$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_categories_test_OBJECTS) $(mjwm_categories_test_LDADD) $(LIBS)
+mjwm_desktop_file_categories_test$(EXEEXT): $(mjwm_desktop_file_categories_test_OBJECTS) $(mjwm_desktop_file_categories_test_DEPENDENCIES) $(EXTRA_mjwm_desktop_file_categories_test_DEPENDENCIES) 
+	@rm -f mjwm_desktop_file_categories_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_desktop_file_categories_test_OBJECTS) $(mjwm_desktop_file_categories_test_LDADD) $(LIBS)
 test/desktop_file_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -711,14 +717,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/categories.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_categories.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_search.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu_group.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/menu_entry/$(DEPDIR)/jwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/transform/$(DEPDIR)/jwm.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/categories_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_categories_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_group_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/menu_entry/$(DEPDIR)/jwm_test.Po@am__quote@
@@ -940,9 +946,9 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-mjwm_categories_test.log: mjwm_categories_test$(EXEEXT)
-	@p='mjwm_categories_test$(EXEEXT)'; \
-	b='mjwm_categories_test'; \
+mjwm_desktop_file_categories_test.log: mjwm_desktop_file_categories_test$(EXEEXT)
+	@p='mjwm_desktop_file_categories_test$(EXEEXT)'; \
+	b='mjwm_desktop_file_categories_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
