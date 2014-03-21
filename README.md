@@ -17,7 +17,7 @@ Dependencies
 
 The application runs on a POSIX system with a C++ runtime.
 
-For compiling the aplication you need autoconf, make and a recent C++ compiler. This application has compiled fine with g++ 4.6, g++ 4.8 and clang++ 3.3.
+For compiling the aplication you need make and a recent C++ compiler. This application has compiled fine with g++ 4.6, g++ 4.8 and clang++ 3.3.
 
 Installation from source
 ------------------------
@@ -26,7 +26,6 @@ Installation from source
 
 * From the root of the application run
 ```script
-autoreconf -i
 ./configure --prefix=/usr/local # Install mjwm to /usr/local
 make
 sudo make install
@@ -96,7 +95,6 @@ Running tests
 
 * From the root of the application run
 ``` script
-autoreconf -i
 ./configure --prefix=/usr/local
 VERBOSE=true make check
 ```

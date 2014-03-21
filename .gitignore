@@ -5,23 +5,18 @@
 *.trs
 *~
 autom4te.cache
-INSTALL
-aclocal.m4
 compile
 config.h
-config.h.in
 config.status
-configure
-depcomp
-install-sh
-missing
 Makefile
-Makefile.in
-src/Makefile
-src/Makefile.in
+stamp-h1
+
+# Executables
 mjwm
 *_test
+
+# Test output
 *.output
-stamp-h1
+
+# Program output
 automenu
-test-driver
