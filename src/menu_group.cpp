@@ -39,15 +39,6 @@ amm::qualified_desktop_file::qualified_desktop_file(std::string name_to_display,
 	menu_entries.reserve(NORMAL_RESERVE_SIZE);
 }
 
-amm::menu_group::menu_group(std::string directory_name, std::string icon_extension)
-{
-	_directory_name = directory_name;
-	_icon_extension = icon_extension;
-	_parsed = false;
-	create_categories();
-	find_all_desktop_file_names();
-}
-
 amm::menu_group::menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension)
 {
 	_desktop_file_names = desktop_file_names;
@@ -83,25 +74,6 @@ amm::menu_group::construct_menu_entries(std::string name, std::string pretty_nam
 }
 
 void
-amm::menu_group::find_all_desktop_file_names()
-{
-	DIR *directory = opendir(_directory_name.c_str());
-
-	if (!directory) {
-		_error = "Couldn't open directory: " + _directory_name;
-		return;
-	}
-
-	dirent *directory_entry;
-
-	while((directory_entry = readdir(directory)) != NULL) {
-		_desktop_file_names.push_back(_directory_name + directory_entry->d_name);
-	}
-
-	closedir(directory);
-}
-
-void
 amm::menu_group::populate()
 {
 	std::vector<std::string>::iterator name;
@@ -131,7 +103,7 @@ amm::menu_group::populate()
 	_menu_entries.push_back(std::make_pair("Others", _unclassified_entries));
 
 	if (!_parsed) {
-		_error = "Doesn't have any valid .desktop files: " + _directory_name;
+		_error = "No valid .desktop file found";
 	}
 }
 

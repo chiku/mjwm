@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 
 	std::vector<std::string> desktop_files = amm::desktop_file_search(directories_to_search).all();
 
-	amm::menu_group group(directory_to_scan, icon_extension);
+	amm::menu_group group(desktop_files, icon_extension);
 	group.populate();
 	if (!group.is_valid()) {
 		std::cerr << group.error() << std::endl;

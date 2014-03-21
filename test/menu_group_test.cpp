@@ -64,7 +64,7 @@ namespace amm
 			group.populate();
 
 			QUNIT_IS_FALSE(group.is_valid());
-			assert_start_with(group.error(), "Doesn't have any valid .desktop files");
+			assert_start_with(group.error(), "No valid .desktop file found");
 		}
 
 		void test_menu_group_has_error_when_all_files_are_invalid()
@@ -76,7 +76,7 @@ namespace amm
 			group.populate();
 
 			QUNIT_IS_FALSE(group.is_valid());
-			assert_start_with(group.error(), "Doesn't have any valid .desktop files");
+			assert_start_with(group.error(), "No valid .desktop file found");
 		}
 
 		void test_menu_group_is_valid_for_proper_desktop_files()
@@ -182,7 +182,7 @@ namespace amm
 			group.write(output_file_name);
 
 			QUNIT_IS_FALSE(group.is_valid());
-			assert_start_with(group.error(), "Doesn't have any valid .desktop files");
+			assert_start_with(group.error(), "No valid .desktop file found");
 		}
 
 		bool assert_start_with(std::string sentence, std::string fragment)
