@@ -97,6 +97,7 @@ Running tests
 
 * From the root of the application run
 ``` script
+./autogen.sh
 ./configure --prefix=/usr/local
 VERBOSE=true make check
 ```
