@@ -3,7 +3,6 @@ compiler:
   - gcc
   - clang
 script:
-  - autoreconf -i -v
   - ./configure
   - make check
   - ./test_runner.sh
