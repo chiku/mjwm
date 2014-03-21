@@ -3,16 +3,10 @@ compiler:
   - gcc
   - clang
 script:
-  - automake --version
-  - autoconf --version
   - aclocal -I .
-  - git --no-pager diff -w
   - autoheader -I .
-  - git --no-pager diff -w
   - automake --add-missing --copy --gnu
-  - git --no-pager diff -w
   - autoconf
-  - git --no-pager diff -w
   - ./configure
   - make check
   - ./test_runner.sh
