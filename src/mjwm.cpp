@@ -23,8 +23,10 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <getopt.h>
 
+#include "desktop_file_search.h"
 #include "menu_group.h"
 
 static const std::string VERSION = "2.2.0";
@@ -108,6 +110,11 @@ int main(int argc, char *argv[])
 				return 1;
 		}
 	}
+
+	std::vector<std::string> directories_to_search;
+	directories_to_search.push_back(directory_to_scan);
+
+	std::vector<std::string> desktop_files = amm::desktop_file_search(directories_to_search).all();
 
 	amm::menu_group group(directory_to_scan, icon_extension);
 	group.populate();

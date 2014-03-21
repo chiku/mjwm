@@ -44,6 +44,21 @@ amm::menu_group::menu_group(std::string directory_name, std::string icon_extensi
 	_directory_name = directory_name;
 	_icon_extension = icon_extension;
 	_parsed = false;
+	create_categories();
+	find_all_desktop_file_names();
+}
+
+amm::menu_group::menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension)
+{
+	_desktop_file_names = desktop_file_names;
+	_icon_extension = icon_extension;
+	_parsed = false;
+	create_categories();
+}
+
+void
+amm::menu_group::create_categories()
+{
 	_unclassified_entries = amm::qualified_desktop_file("Others", "others");
 
 
@@ -89,7 +104,6 @@ amm::menu_group::find_all_desktop_file_names()
 void
 amm::menu_group::populate()
 {
-	find_all_desktop_file_names();
 	std::vector<std::string>::iterator name;
 	for (name = _desktop_file_names.begin(); name != _desktop_file_names.end(); ++name) {
 		std::string line;

@@ -60,8 +60,10 @@ namespace amm
 		void write(std::ofstream& file, std::string section, std::vector<amm::desktop_file> entries);
 		void construct_menu_entries(std::string name, std::string pretty_name, std::string icon);
 		void find_all_desktop_file_names();
+		void create_categories();
 
 	public:
+		menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension);
 		menu_group(std::string directory_name, std::string icon_extension);
 		void populate();
 		bool is_valid() const;

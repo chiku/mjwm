@@ -105,7 +105,8 @@ PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/categories.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/menu_entry/jwm.$(OBJEXT) src/transform/jwm.$(OBJEXT) \
-	src/menu_group.$(OBJEXT) src/mjwm.$(OBJEXT)
+	src/menu_group.$(OBJEXT) src/desktop_file_search.$(OBJEXT) \
+	src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_categories_test_OBJECTS = src/categories.$(OBJEXT) \
@@ -508,7 +509,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS = -Wall -Wextra
-mjwm_SOURCES = src/categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp src/menu_group.cpp src/mjwm.cpp
+mjwm_SOURCES = src/categories.cpp src/desktop_file.cpp src/menu_entry/jwm.cpp src/transform/jwm.cpp src/menu_group.cpp src/desktop_file_search.cpp src/mjwm.cpp
 mjwm_categories_test_SOURCES = src/categories.cpp test/categories_test.cpp
 mjwm_desktop_file_test_SOURCES = src/categories.cpp src/desktop_file.cpp test/desktop_file_test.cpp
 mjwm_menu_entry_jwm_test_SOURCES = src/menu_entry/jwm.cpp test/menu_entry/jwm_test.cpp
@@ -642,6 +643,8 @@ src/transform/jwm.$(OBJEXT): src/transform/$(am__dirstamp) \
 	src/transform/$(DEPDIR)/$(am__dirstamp)
 src/menu_group.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/desktop_file_search.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
 mjwm$(EXEEXT): $(mjwm_OBJECTS) $(mjwm_DEPENDENCIES) $(EXTRA_mjwm_DEPENDENCIES) 
@@ -710,6 +713,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/categories.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_search.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu_group.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/menu_entry/$(DEPDIR)/jwm.Po@am__quote@
