@@ -6,13 +6,13 @@ script:
   - automake --version
   - autoconf --version
   - aclocal -I .
-  - git diff -w
+  - git --no-pager diff -w
   - autoheader -I .
-  - git diff -w
+  - git --no-pager diff -w
   - automake --add-missing --copy --gnu
-  - git diff -w
+  - git --no-pager diff -w
   - autoconf
-  - git diff -w
+  - git --no-pager diff -w
   - ./configure
   - make check
   - ./test_runner.sh
