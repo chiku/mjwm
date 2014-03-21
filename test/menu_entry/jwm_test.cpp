@@ -28,6 +28,7 @@ namespace amm
 {
 	namespace menu_entry
 	{
+		// Verifies a Program entry in RootMenu section of JWM configuration file
 		class jwm_test
 		{
 			QUnit::UnitTest qunit;

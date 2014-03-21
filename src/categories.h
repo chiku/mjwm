@@ -30,6 +30,7 @@ namespace amm
 
 	std::ostream& operator <<(std::ostream& stream, const amm::categories& categories);
 
+	// Understands what sub-section should a single desktop file entry belong to as per FreeDesktop guidelines
 	class categories
 	{
 	private:

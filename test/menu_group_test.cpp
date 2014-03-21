@@ -35,6 +35,7 @@ namespace amm
 	const std::string all_proper_with_extension_output = results_directory + "all-proper-with-extension.output";
 	const std::string unclassified_content_output = results_directory + "unclassified-content.output";
 
+	// Verifies how a directory with FreeDesktop .desktop files is converted to a JWM menu section
 	class menu_group_test
 	{
 		QUnit::UnitTest qunit;

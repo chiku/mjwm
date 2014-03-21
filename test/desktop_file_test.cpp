@@ -27,6 +27,7 @@
 
 namespace amm
 {
+	// Verifies a FreeDesktop .desktop file representation
 	class desktop_file_test
 	{
 		QUnit::UnitTest qunit;

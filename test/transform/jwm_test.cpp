@@ -29,6 +29,7 @@ namespace amm
 {
 	namespace transform
 	{
+		// Verifies convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
 		class jwm_test
 		{
 			QUnit::UnitTest qunit;

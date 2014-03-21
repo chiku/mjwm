@@ -27,6 +27,7 @@
 
 namespace amm
 {
+	// Verifies what sub-section should a single desktop file entry belong to as per FreeDesktop guidelines
 	class categories_test
 	{
 		QUnit::UnitTest qunit;

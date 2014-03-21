@@ -28,7 +28,7 @@ namespace amm
 {
 	namespace transform
 	{
-		// Understands converting a FreeDesktop .desktop file into Program entry in JWM configuration file
+		// Understands convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
 		class jwm
 		{
 		private:

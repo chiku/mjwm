@@ -41,6 +41,8 @@ namespace amm
 		qualified_desktop_file(std::string pretty_name, std::string icon);
 	};
 
+	// Understands how a directory with FreeDesktop .desktop files is converted to a JWM menu section
+	// TODO - multiple responsibilities - split class
 	class menu_group
 	{
 	private:
