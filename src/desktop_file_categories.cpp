@@ -40,18 +40,19 @@ void
 amm::desktop_file_categories::parse()
 {
 	std::string raw = _raw;
+	size_t delim_length = DESKTOP_FILE_CATEGORY_DELIM.length();
 
-	if ((raw.length() >= DELIM.length()) && (raw.compare(raw.length() - DELIM.length(), DELIM.length(), DELIM) != 0)) {
-		raw += DELIM;
+	if ((raw.length() >= delim_length) && (raw.compare(raw.length() - delim_length, delim_length, DESKTOP_FILE_CATEGORY_DELIM) != 0)) {
+		raw += DESKTOP_FILE_CATEGORY_DELIM;
 	}
 
 	size_t start = 0U;
-	size_t end = raw.find(DELIM);
+	size_t end = raw.find(DESKTOP_FILE_CATEGORY_DELIM);
 
 	while (end != std::string::npos) {
 		_categories.push_back(raw.substr(start, end - start));
-		start = end + DELIM.length();
-		end = raw.find(DELIM, start);
+		start = end + delim_length;
+		end = raw.find(DESKTOP_FILE_CATEGORY_DELIM, start);
 	}
 }
 

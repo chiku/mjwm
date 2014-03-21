@@ -24,7 +24,7 @@
 
 namespace amm
 {
-	const std::string DELIM = ";";
+	const std::string DESKTOP_FILE_CATEGORY_DELIM = ";";
 
 	class desktop_file_categories;
 
@@ -46,7 +46,7 @@ namespace amm
 
 		bool is_a(std::string type) const;
 
-		friend std::ostream& operator << (std::ostream& stream, const amm::desktop_file_categories& categories);
+		friend std::ostream& operator << (std::ostream& stream, const amm::desktop_file_categories& desktop_file_categories);
 	};
 }
 
