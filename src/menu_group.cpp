@@ -63,9 +63,8 @@ amm::menu_group::menu_group(std::string directory_name, std::string icon_extensi
 void
 amm::menu_group::construct_menu_entries(std::string name, std::string pretty_name, std::string icon)
 {
-	std::pair<std::string, amm::qualified_desktop_file> entries;
-	entries = std::make_pair(name, amm::qualified_desktop_file(pretty_name, icon));
-	_menu_entries.push_back(entries);
+	amm::qualified_desktop_file qualified_desktop_file = amm::qualified_desktop_file(pretty_name, icon);
+	_menu_entries.push_back(std::make_pair(name, qualified_desktop_file));
 }
 
 void
