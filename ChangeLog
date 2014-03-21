@@ -1,5 +1,5 @@
-Current
--------
+v2.2.0
+------
 * Specify the order in which menu categories appear
 * Ignore spaces around equals sign in Desktop file entries [#20]
 * Reduce use of C based strings. Use more C++ strings [#10]

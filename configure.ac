@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.66])
-AC_INIT([mjwm], [2.1.1], [chirantan.mitra@gmail.com])
+AC_INIT([mjwm], [2.2.0], [chirantan.mitra@gmail.com])
 AC_LANG(C++)
 
 # Silent by default

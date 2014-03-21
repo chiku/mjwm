@@ -1,14 +1,23 @@
-mjwm NEWS - User visible changes. 2014-03-16
+mjwm NEWS - User visible changes. 2014-03-21
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
+
+version 2.2.0 - Chirantan Mitra, 2014-03-21
+
+* Specify the order in which menu categories appear
+* [BUG] Ignore spaces around equals sign in Desktop file entries [#20]
+* Add icon extension .png to icon category names when given -a command-line option
+
 
 version 2.1.1 - Chirantan Mitra, 2014-03-16
 
 * [BUG] Don't encode executable, icon & categories
 * [BUG] Tolerate category entries that don't end in a semicolon
 
+
 version 2.1 - Chirantan Mitra, 2014-03-16
 
 * [BUG] Add missing bracket in menu entries
+
 
 version 2.0 - Chirantan Mitra, 2014-03-16
 
