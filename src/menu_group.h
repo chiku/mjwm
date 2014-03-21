@@ -25,6 +25,7 @@
 #include <utility>
 
 #include "desktop_file.h"
+#include "menu_subcategory.h"
 #include "transform/jwm.h"
 
 namespace amm
@@ -46,9 +47,9 @@ namespace amm
 	class menu_group
 	{
 	private:
-		amm::transform::jwm _jwm_transformer;
+		amm::transform::jwm _jwm_transformer; // TODO : inject from outside
 		std::vector<std::string> _desktop_file_names;
-		std::string _icon_extension;
+		std::string _icon_extension; // TODO : find using a icon service
 		std::string _error;
 		bool _parsed;
 

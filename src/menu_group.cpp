@@ -22,7 +22,6 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
-#include <dirent.h>
 
 #include "desktop_file.h"
 #include "menu_group.h"
@@ -51,7 +50,6 @@ void
 amm::menu_group::create_categories()
 {
 	_unclassified_entries = amm::qualified_desktop_file("Others", "others");
-
 
 	construct_menu_entries("Settings",    "Settings",    "settings");
 	construct_menu_entries("Utility",     "Accessories", "accessories");
