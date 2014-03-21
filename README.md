@@ -54,7 +54,7 @@ Usage
 mjwm -o $HOME/.mjwm-entries -a
 ```
 
-* Modify your RootMenu entry and add an Include for /home/tester/.mjwm-entries line to it
+* Modify your RootMenu entry in $HOME/.jwmrc file and add an Include for $HOME/.mjwm-entries line to it
 ``` xml
 <JWM>
   <!-- SNIP SNIP -->
