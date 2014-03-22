@@ -27,30 +27,30 @@
 namespace amm
 {
 	// Verifies how different sub-sections of menu would be constructed
-	class menu_subcategory_test
+	class subcategory_test
 	{
 		QUnit::UnitTest qunit;
 
-		void test_menu_subcategory_has_no_entries_before_desktop_files_are_added()
+		void subcategory_has_no_entries_before_desktop_files_are_added()
 		{
-			menu_subcategory menu_subcategory("Utilitiies", "Accessories", "accessories", ".png");
-			QUNIT_IS_FALSE(menu_subcategory.has_entries());
+			subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
+			QUNIT_IS_FALSE(subcategory.has_entries());
 		}
 
-		void test_menu_subcategory_has_entries_after_a_desktop_file_is_added()
+		void subcategory_has_entries_after_a_desktop_file_is_added()
 		{
-			menu_subcategory menu_subcategory("Utilitiies", "Accessories", "accessories", ".png");
-			menu_subcategory.add_desktop_file(mousepad_desktop_file());
-			QUNIT_IS_TRUE(menu_subcategory.has_entries());
+			subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
+			subcategory.add_desktop_file(mousepad_desktop_file());
+			QUNIT_IS_TRUE(subcategory.has_entries());
 		}
 
-		void test_menu_subcategory_is_serializable_to_output_stream()
+		void subcategory_is_serializable_to_output_stream()
 		{
-			menu_subcategory menu_subcategory("Utilitiies", "Accessories", "accessories", ".png");
-			menu_subcategory.add_desktop_file(sakura_desktop_file());
-			menu_subcategory.add_desktop_file(mousepad_desktop_file());
+			subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
+			subcategory.add_desktop_file(sakura_desktop_file());
+			subcategory.add_desktop_file(mousepad_desktop_file());
 			std::stringstream stream;
-			stream << menu_subcategory;
+			stream << subcategory;
 
 			std::string expected = "\
   <Menu label=\"Accessories\" icon=\"accessories.png\">\n\
@@ -61,14 +61,14 @@ namespace amm
 			QUNIT_IS_EQUAL(expected, stream.str());
 		}
 
-		void test_menu_subcategory_sort_arranges_desktop_files_by_their_names_alphabetically()
+		void subcategory_sort_arranges_desktop_files_by_their_names_alphabetically()
 		{
-			menu_subcategory menu_subcategory("Utilitiies", "Accessories", "accessories", ".png");
-			menu_subcategory.add_desktop_file(sakura_desktop_file());
-			menu_subcategory.add_desktop_file(mousepad_desktop_file());
-			menu_subcategory.sort_desktop_files();
+			subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
+			subcategory.add_desktop_file(sakura_desktop_file());
+			subcategory.add_desktop_file(mousepad_desktop_file());
+			subcategory.sort_desktop_files();
 			std::stringstream stream;
-			stream << menu_subcategory;
+			stream << subcategory;
 
 			std::string expected = "\
   <Menu label=\"Accessories\" icon=\"accessories.png\">\n\
@@ -100,14 +100,14 @@ namespace amm
 		}
 
 	public:
-		menu_subcategory_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+		subcategory_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 		int run()
 		{
-			test_menu_subcategory_has_no_entries_before_desktop_files_are_added();
-			test_menu_subcategory_has_entries_after_a_desktop_file_is_added();
-			test_menu_subcategory_is_serializable_to_output_stream();
-			test_menu_subcategory_sort_arranges_desktop_files_by_their_names_alphabetically();
+			subcategory_has_no_entries_before_desktop_files_are_added();
+			subcategory_has_entries_after_a_desktop_file_is_added();
+			subcategory_is_serializable_to_output_stream();
+			subcategory_sort_arranges_desktop_files_by_their_names_alphabetically();
 			return qunit.errors();
 		};
 	};
@@ -116,5 +116,5 @@ namespace amm
 
 int main()
 {
-	return amm::menu_subcategory_test(std::cerr, QUnit::normal).run();
+	return amm::subcategory_test(std::cerr, QUnit::normal).run();
 }

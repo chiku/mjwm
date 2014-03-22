@@ -43,8 +43,8 @@ namespace amm
 		std::string _error;
 		bool _parsed;
 
-		std::vector<amm::menu_subcategory> _menu_subcategories;
-		amm::menu_subcategory _unclassified_menu_subcategory;
+		std::vector<amm::subcategory> _subcategories;
+		amm::subcategory _unclassified_subcategory;
 
 		bool classify(amm::desktop_file entry);
 		void create_categories();
