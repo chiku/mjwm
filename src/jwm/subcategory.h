@@ -52,13 +52,13 @@ namespace amm
 			std::string display_name() const;
 			std::string icon_name() const;
 			std::string icon_extension() const;
+			std::string first_line() const;
+			std::string last_line() const;
 			std::vector<amm::desktop_file> desktop_files() const;
 			bool has_entries() const;
 
 			void add_desktop_file(amm::desktop_file desktop_file);
 			void sort_desktop_files();
-
-			friend std::ostream& operator << (std::ostream& stream, const amm::jwm::subcategory& subcategory);
 		};
 	}
 }

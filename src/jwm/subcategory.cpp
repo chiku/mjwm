@@ -61,6 +61,20 @@ amm::jwm::subcategory::icon_extension() const
 	return _icon_extension;
 }
 
+std::string
+amm::jwm::subcategory::first_line() const
+{
+	std::string line = "<Menu ";
+	line += "label=\"" + _display_name + "\" icon=\"" + _icon_name + _icon_extension + "\">";
+	return line;
+}
+
+std::string
+amm::jwm::subcategory::last_line() const
+{
+	return "</Menu>";
+}
+
 std::vector<amm::desktop_file>
 amm::jwm::subcategory::desktop_files() const
 {
@@ -90,9 +104,8 @@ amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcat
 {
 	if (subcategory.has_entries()) {
 		amm::transform::jwm jwm_transformer; // TODO : inject from outside
-		std::string section = "label=\"" + subcategory.display_name() + "\" icon=\"" + subcategory.icon_name() + subcategory.icon_extension() + "\"";
 
-		stream << "  <Menu " << section << ">" << std::endl;
+		stream << "  " << subcategory.first_line() << std::endl;
 
 		std::vector<amm::desktop_file> desktop_files = subcategory.desktop_files();
 		std::vector<amm::desktop_file>::iterator entry;
@@ -100,7 +113,7 @@ amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcat
 			stream << "    " << jwm_transformer.transform(*entry, subcategory.icon_extension()) << std::endl;
 		}
 
-		stream << "  </Menu>" << std::endl;
+		stream << "  " << subcategory.last_line() << std::endl;
 	}
 
 	return stream;

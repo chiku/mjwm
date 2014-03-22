@@ -46,6 +46,18 @@ namespace amm
 				QUNIT_IS_TRUE(subcategory.has_entries());
 			}
 
+			void subcategory_has_a_first_line()
+			{
+				subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
+				QUNIT_IS_EQUAL("<Menu label=\"Accessories\" icon=\"accessories.png\">", subcategory.first_line());
+			}
+
+			void subcategory_has_a_last_line()
+			{
+				subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
+				QUNIT_IS_EQUAL("</Menu>", subcategory.last_line());
+			}
+
 			void subcategory_is_serializable_to_output_stream()
 			{
 				subcategory subcategory("Utilitiies", "Accessories", "accessories", ".png");
@@ -108,6 +120,8 @@ namespace amm
 			{
 				subcategory_has_no_entries_before_desktop_files_are_added();
 				subcategory_has_entries_after_a_desktop_file_is_added();
+				subcategory_has_a_first_line();
+				subcategory_has_a_last_line();
 				subcategory_is_serializable_to_output_stream();
 				subcategory_sort_arranges_desktop_files_by_their_names_alphabetically();
 				return qunit.errors();
