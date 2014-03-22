@@ -107,5 +107,12 @@ int main(int argc, char *argv[])
 	file << jwm_menu;
 	file.close();
 
+	std::cout << amm::messages::summary(
+		desktop_files.size(),
+		jwm_menu.total_parsed_files(),
+		jwm_menu.total_unclassified_parsed_files(),
+		jwm_menu.unparsed_file_names()
+	);
+
 	return 0;
 }

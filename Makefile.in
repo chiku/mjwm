@@ -82,6 +82,7 @@ check_PROGRAMS = mjwm_desktop_file_categories_test$(EXEEXT) \
 	mjwm_jwm_menu_entry_test$(EXEEXT) \
 	mjwm_jwm_transform_test$(EXEEXT) \
 	mjwm_jwm_subcategory_test$(EXEEXT) mjwm_jwm_menu_test$(EXEEXT) \
+	mjwm_messages_test$(EXEEXT) \
 	mjwm_application_directories_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
@@ -155,6 +156,10 @@ am_mjwm_jwm_transform_test_OBJECTS =  \
 mjwm_jwm_transform_test_OBJECTS =  \
 	$(am_mjwm_jwm_transform_test_OBJECTS)
 mjwm_jwm_transform_test_LDADD = $(LDADD)
+am_mjwm_messages_test_OBJECTS = src/messages.$(OBJEXT) \
+	test/messages_test.$(OBJEXT)
+mjwm_messages_test_OBJECTS = $(am_mjwm_messages_test_OBJECTS)
+mjwm_messages_test_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -190,7 +195,8 @@ SOURCES = $(mjwm_SOURCES) $(mjwm_application_directories_test_SOURCES) \
 	$(mjwm_jwm_menu_entry_test_SOURCES) \
 	$(mjwm_jwm_menu_test_SOURCES) \
 	$(mjwm_jwm_subcategory_test_SOURCES) \
-	$(mjwm_jwm_transform_test_SOURCES)
+	$(mjwm_jwm_transform_test_SOURCES) \
+	$(mjwm_messages_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_application_directories_test_SOURCES) \
 	$(mjwm_desktop_file_categories_test_SOURCES) \
@@ -198,7 +204,8 @@ DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_jwm_menu_entry_test_SOURCES) \
 	$(mjwm_jwm_menu_test_SOURCES) \
 	$(mjwm_jwm_subcategory_test_SOURCES) \
-	$(mjwm_jwm_transform_test_SOURCES)
+	$(mjwm_jwm_transform_test_SOURCES) \
+	$(mjwm_messages_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -579,6 +586,9 @@ mjwm_jwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
                              src/jwm/menu.cpp \
                              test/jwm/menu_test.cpp
 
+mjwm_messages_test_SOURCES = src/messages.cpp \
+                             test/messages_test.cpp
+
 TESTS = $(check_PROGRAMS)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -766,6 +776,12 @@ test/jwm/transform_test.$(OBJEXT): test/jwm/$(am__dirstamp) \
 mjwm_jwm_transform_test$(EXEEXT): $(mjwm_jwm_transform_test_OBJECTS) $(mjwm_jwm_transform_test_DEPENDENCIES) $(EXTRA_mjwm_jwm_transform_test_DEPENDENCIES) 
 	@rm -f mjwm_jwm_transform_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_jwm_transform_test_OBJECTS) $(mjwm_jwm_transform_test_LDADD) $(LIBS)
+test/messages_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_messages_test$(EXEEXT): $(mjwm_messages_test_OBJECTS) $(mjwm_messages_test_DEPENDENCIES) $(EXTRA_mjwm_messages_test_DEPENDENCIES) 
+	@rm -f mjwm_messages_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_messages_test_OBJECTS) $(mjwm_messages_test_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -789,6 +805,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/application_directories_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_categories_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/messages_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/jwm/$(DEPDIR)/menu_entry_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/jwm/$(DEPDIR)/menu_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/jwm/$(DEPDIR)/subcategory_test.Po@am__quote@
@@ -1048,6 +1065,13 @@ mjwm_jwm_subcategory_test.log: mjwm_jwm_subcategory_test$(EXEEXT)
 mjwm_jwm_menu_test.log: mjwm_jwm_menu_test$(EXEEXT)
 	@p='mjwm_jwm_menu_test$(EXEEXT)'; \
 	b='mjwm_jwm_menu_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_messages_test.log: mjwm_messages_test$(EXEEXT)
+	@p='mjwm_messages_test$(EXEEXT)'; \
+	b='mjwm_messages_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

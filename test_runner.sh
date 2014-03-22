@@ -32,5 +32,6 @@ run mjwm_jwm_transform_test
 run mjwm_jwm_subcategory_test
 run mjwm_jwm_menu_test
 run mjwm_application_directories_test
+run mjwm_messages_test
 
 cd ..

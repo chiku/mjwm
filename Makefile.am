@@ -20,6 +20,7 @@ check_PROGRAMS = mjwm_desktop_file_categories_test \
                  mjwm_jwm_transform_test \
                  mjwm_jwm_subcategory_test \
                  mjwm_jwm_menu_test \
+                 mjwm_messages_test \
                  mjwm_application_directories_test
 
 mjwm_desktop_file_categories_test_SOURCES = src/desktop_file_categories.cpp \
@@ -49,5 +50,7 @@ mjwm_jwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
                              src/jwm/subcategory.cpp \
                              src/jwm/menu.cpp \
                              test/jwm/menu_test.cpp
+mjwm_messages_test_SOURCES = src/messages.cpp \
+                             test/messages_test.cpp
 
 TESTS = $(check_PROGRAMS)
