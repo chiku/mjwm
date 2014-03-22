@@ -19,28 +19,44 @@
 #ifndef __amm_menu_subcategory__
 #define __amm_menu_subcategory__
 
+#include <iostream>
 #include <string>
 #include <vector>
 
+#include "desktop_file.h"
+#include "transform/jwm.h"
+
 namespace amm
 {
-    // Understands how different sub-sections of menu would be constructed
+	class menu_subcategory;
+
+	std::ostream& operator <<(std::ostream& stream, const amm::menu_subcategory& menu_subcategory);
+
+	// Understands how different sub-sections of menu would be constructed
 	class menu_subcategory
 	{
 	private:
-        std::string _name_in_desktop_file;
-        std::string _name_to_display;
+		std::string _classification_name;
+		std::string _display_name;
 		std::string _icon_name;
+		std::string _icon_extension;
 		std::vector<amm::desktop_file> _desktop_files;
 
-    public:
+	public:
 		menu_subcategory();
-		menu_subcategory(std::string name_in_desktop_file, std::string name_to_display, std::string icon_name);
+		menu_subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension);
 
-        std::string name() const;
-        std::string pretty_name() const;
-        std::string icon_name() const;
-        void add_desktop_file(amm::desktop_file desktop_file);
+		std::string classification_name() const;
+		std::string display_name() const;
+		std::string icon_name() const;
+		std::string icon_extension() const;
+		std::vector<amm::desktop_file> desktop_files() const;
+		bool has_entries() const;
+
+		void add_desktop_file(amm::desktop_file desktop_file);
+		void sort_desktop_files();
+
+		friend std::ostream& operator << (std::ostream& stream, const amm::menu_subcategory& menu_subcategory);
 	};
 }
 

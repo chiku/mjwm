@@ -22,7 +22,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <utility>
 
 #include "desktop_file.h"
 #include "menu_subcategory.h"
@@ -30,42 +29,27 @@
 
 namespace amm
 {
-	const int NORMAL_RESERVE_SIZE = 30;
-
-	struct qualified_desktop_file
-	{
-		std::string pretty_name;
-		std::string icon;
-		std::vector<amm::desktop_file> menu_entries;
-
-		qualified_desktop_file();
-		qualified_desktop_file(std::string pretty_name, std::string icon);
-	};
-
 	// Understands how a directory with FreeDesktop .desktop files is converted to a JWM menu section
 	// TODO - multiple responsibilities - split class
 	class menu_group
 	{
 	private:
-		amm::transform::jwm _jwm_transformer; // TODO : inject from outside
 		std::vector<std::string> _desktop_file_names;
 		std::string _icon_extension; // TODO : find using a icon service
 		std::string _error;
 		bool _parsed;
 
-		std::vector< std::pair<std::string, amm::qualified_desktop_file> > _menu_entries;
-		amm::qualified_desktop_file _unclassified_entries;
+		std::vector<amm::menu_subcategory> _menu_subcategories;
+		amm::menu_subcategory _unclassified_menu_subcategory;
 
 		bool classify(amm::desktop_file entry);
-		void write(std::ofstream& file, std::string section, std::vector<amm::desktop_file> entries);
-		void construct_menu_entries(std::string name, std::string pretty_name, std::string icon);
 		void create_categories();
 
 	public:
 		menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension);
 		void populate();
-		bool is_valid() const;
-		std::string error() const;
+		bool is_valid() const; // TODO : replace with stats - caller decides on error message
+		std::string error() const;  // TODO : replace with stats - caller decides on error message
 		void sort();
 		void write(std::string output_filename);
 	};

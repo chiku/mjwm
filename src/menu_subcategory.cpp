@@ -16,32 +16,37 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 #include "desktop_file.h"
+#include "transform/jwm.h"
 #include "menu_subcategory.h"
 
 amm::menu_subcategory::menu_subcategory()
 {
 }
 
-amm::menu_subcategory::menu_subcategory(std::string name_in_desktop_file, std::string name_to_display, std::string icon_name)
+amm::menu_subcategory::menu_subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension)
 {
-	_name_in_desktop_file = name_in_desktop_file;
-	_name_to_display = name_to_display;
+	_classification_name = classification_name;
+	_display_name = display_name;
 	_icon_name = icon_name;
+	_icon_extension = icon_extension;
 }
 
 std::string
-amm::menu_subcategory::name() const
+amm::menu_subcategory::classification_name() const
 {
-	return _name_in_desktop_file;
+	return _classification_name;
 }
 
 std::string
-amm::menu_subcategory::pretty_name() const
+amm::menu_subcategory::display_name() const
 {
-	return _name_to_display;
+	return _display_name;
 }
 
 std::string
@@ -50,8 +55,53 @@ amm::menu_subcategory::icon_name() const
 	return _icon_name;
 }
 
+std::string
+amm::menu_subcategory::icon_extension() const
+{
+	return _icon_extension;
+}
+
+std::vector<amm::desktop_file>
+amm::menu_subcategory::desktop_files() const
+{
+	return _desktop_files;
+}
+
+bool
+amm::menu_subcategory::has_entries() const
+{
+	return desktop_files().size() > 0;
+}
+
 void
 amm::menu_subcategory::add_desktop_file(amm::desktop_file desktop_file)
 {
 	_desktop_files.push_back(desktop_file);
+}
+
+void
+amm::menu_subcategory::sort_desktop_files()
+{
+	std::sort(_desktop_files.begin(), _desktop_files.end());
+}
+
+std::ostream&
+amm::operator << (std::ostream& stream, const amm::menu_subcategory& menu_subcategory)
+{
+	if (menu_subcategory.has_entries()) {
+		amm::transform::jwm jwm_transformer; // TODO : inject from outside
+		std::string section = "label=\"" + menu_subcategory.display_name() + "\" icon=\"" + menu_subcategory.icon_name() + menu_subcategory.icon_extension() + "\"";
+
+		stream << "  <Menu " << section << ">" << std::endl;
+
+		std::vector<amm::desktop_file> desktop_files = menu_subcategory.desktop_files();
+		std::vector<amm::desktop_file>::iterator entry;
+		for(entry = desktop_files.begin(); entry != desktop_files.end(); ++entry) {
+			stream << "    " << jwm_transformer.transform(*entry, menu_subcategory.icon_extension()) << std::endl;
+		}
+
+		stream << "  </Menu>" << std::endl;
+	}
+
+	return stream;
 }

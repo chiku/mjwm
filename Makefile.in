@@ -80,7 +80,9 @@ bin_PROGRAMS = mjwm$(EXEEXT)
 check_PROGRAMS = mjwm_desktop_file_categories_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) \
 	mjwm_menu_entry_jwm_test$(EXEEXT) \
-	mjwm_transform_jwm_test$(EXEEXT) mjwm_menu_group_test$(EXEEXT)
+	mjwm_transform_jwm_test$(EXEEXT) \
+	mjwm_menu_subcategory_test$(EXEEXT) \
+	mjwm_menu_group_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
@@ -105,8 +107,9 @@ PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
-	src/transform/jwm.$(OBJEXT) src/menu_group.$(OBJEXT) \
-	src/desktop_file_search.$(OBJEXT) src/mjwm.$(OBJEXT)
+	src/transform/jwm.$(OBJEXT) src/menu_subcategory.$(OBJEXT) \
+	src/menu_group.$(OBJEXT) src/desktop_file_search.$(OBJEXT) \
+	src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_desktop_file_categories_test_OBJECTS =  \
@@ -132,6 +135,14 @@ am_mjwm_menu_group_test_OBJECTS =  \
 	src/menu_group.$(OBJEXT) test/menu_group_test.$(OBJEXT)
 mjwm_menu_group_test_OBJECTS = $(am_mjwm_menu_group_test_OBJECTS)
 mjwm_menu_group_test_LDADD = $(LDADD)
+am_mjwm_menu_subcategory_test_OBJECTS =  \
+	src/desktop_file_categories.$(OBJEXT) \
+	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
+	src/transform/jwm.$(OBJEXT) src/menu_subcategory.$(OBJEXT) \
+	test/menu_subcategory_test.$(OBJEXT)
+mjwm_menu_subcategory_test_OBJECTS =  \
+	$(am_mjwm_menu_subcategory_test_OBJECTS)
+mjwm_menu_subcategory_test_LDADD = $(LDADD)
 am_mjwm_transform_jwm_test_OBJECTS =  \
 	src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
@@ -172,12 +183,14 @@ SOURCES = $(mjwm_SOURCES) $(mjwm_desktop_file_categories_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_menu_entry_jwm_test_SOURCES) \
 	$(mjwm_menu_group_test_SOURCES) \
+	$(mjwm_menu_subcategory_test_SOURCES) \
 	$(mjwm_transform_jwm_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_desktop_file_categories_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_menu_entry_jwm_test_SOURCES) \
 	$(mjwm_menu_group_test_SOURCES) \
+	$(mjwm_menu_subcategory_test_SOURCES) \
 	$(mjwm_transform_jwm_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -519,6 +532,7 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/desktop_file.cpp \
                src/menu_entry/jwm.cpp \
                src/transform/jwm.cpp \
+               src/menu_subcategory.cpp \
                src/menu_group.cpp \
                src/desktop_file_search.cpp \
                src/mjwm.cpp
@@ -538,6 +552,13 @@ mjwm_transform_jwm_test_SOURCES = src/desktop_file_categories.cpp \
                                   src/menu_entry/jwm.cpp \
                                   src/transform/jwm.cpp \
                                   test/transform/jwm_test.cpp
+
+mjwm_menu_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
+                                     src/desktop_file.cpp \
+                                     src/menu_entry/jwm.cpp \
+                                     src/transform/jwm.cpp \
+                                     src/menu_subcategory.cpp \
+                                     test/menu_subcategory_test.cpp
 
 mjwm_menu_group_test_SOURCES = src/desktop_file_categories.cpp \
                                src/desktop_file.cpp \
@@ -673,6 +694,8 @@ src/transform/$(DEPDIR)/$(am__dirstamp):
 	@: > src/transform/$(DEPDIR)/$(am__dirstamp)
 src/transform/jwm.$(OBJEXT): src/transform/$(am__dirstamp) \
 	src/transform/$(DEPDIR)/$(am__dirstamp)
+src/menu_subcategory.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/menu_group.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/desktop_file_search.$(OBJEXT): src/$(am__dirstamp) \
@@ -712,14 +735,18 @@ test/menu_entry/jwm_test.$(OBJEXT): test/menu_entry/$(am__dirstamp) \
 mjwm_menu_entry_jwm_test$(EXEEXT): $(mjwm_menu_entry_jwm_test_OBJECTS) $(mjwm_menu_entry_jwm_test_DEPENDENCIES) $(EXTRA_mjwm_menu_entry_jwm_test_DEPENDENCIES) 
 	@rm -f mjwm_menu_entry_jwm_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_menu_entry_jwm_test_OBJECTS) $(mjwm_menu_entry_jwm_test_LDADD) $(LIBS)
-src/menu_subcategory.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 test/menu_group_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
 mjwm_menu_group_test$(EXEEXT): $(mjwm_menu_group_test_OBJECTS) $(mjwm_menu_group_test_DEPENDENCIES) $(EXTRA_mjwm_menu_group_test_DEPENDENCIES) 
 	@rm -f mjwm_menu_group_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_menu_group_test_OBJECTS) $(mjwm_menu_group_test_LDADD) $(LIBS)
+test/menu_subcategory_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_menu_subcategory_test$(EXEEXT): $(mjwm_menu_subcategory_test_OBJECTS) $(mjwm_menu_subcategory_test_DEPENDENCIES) $(EXTRA_mjwm_menu_subcategory_test_DEPENDENCIES) 
+	@rm -f mjwm_menu_subcategory_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_menu_subcategory_test_OBJECTS) $(mjwm_menu_subcategory_test_LDADD) $(LIBS)
 test/transform/$(am__dirstamp):
 	@$(MKDIR_P) test/transform
 	@: > test/transform/$(am__dirstamp)
@@ -756,6 +783,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_categories_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_group_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_subcategory_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/menu_entry/$(DEPDIR)/jwm_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/transform/$(DEPDIR)/jwm_test.Po@am__quote@
 
@@ -999,6 +1027,13 @@ mjwm_menu_entry_jwm_test.log: mjwm_menu_entry_jwm_test$(EXEEXT)
 mjwm_transform_jwm_test.log: mjwm_transform_jwm_test$(EXEEXT)
 	@p='mjwm_transform_jwm_test$(EXEEXT)'; \
 	b='mjwm_transform_jwm_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_menu_subcategory_test.log: mjwm_menu_subcategory_test$(EXEEXT)
+	@p='mjwm_menu_subcategory_test$(EXEEXT)'; \
+	b='mjwm_menu_subcategory_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
