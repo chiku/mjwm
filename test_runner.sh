@@ -30,6 +30,6 @@ run mjwm_desktop_file_test
 run mjwm_menu_entry_jwm_test
 run mjwm_transform_jwm_test
 run mjwm_subcategory_test
-run mjwm_menu_group_test
+run mjwm_menu_test
 
 cd ..

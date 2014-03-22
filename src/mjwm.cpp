@@ -28,7 +28,7 @@
 
 #include "messages.h"
 #include "desktop_file_search.h"
-#include "menu_group.h"
+#include "menu.h"
 
 
 int main(int argc, char *argv[])

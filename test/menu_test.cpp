@@ -24,7 +24,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/menu_group.h"
+#include "../src/menu.h"
 
 namespace amm
 {

@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_menu_group__
-#define __amm_menu_group__
+#ifndef __amm_menu__
+#define __amm_menu__
 
 #include <iostream>
 #include <string>

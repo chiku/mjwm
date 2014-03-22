@@ -22,7 +22,7 @@
 #include <vector>
 
 #include "desktop_file.h"
-#include "menu_group.h"
+#include "menu.h"
 
 amm::menu_group::menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension)
 {
