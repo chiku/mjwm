@@ -211,6 +211,7 @@ namespace amm
 
 		int run()
 		{
+			setup();
 			test_menu_group_is_valid_when_created();
 			test_menu_group_has_error_when_no_files_present();
 			test_menu_group_has_error_when_all_files_are_invalid();
