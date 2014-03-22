@@ -54,7 +54,7 @@ Usage
 mjwm -o $HOME/.mjwm-entries -a
 ```
 
-* Modify your RootMenu entry in $HOME/.jwmrc file and add an Include for $HOME/.mjwm-entries line to it
+* Edit your $HOME/.jwmrc file. Add an Include $HOME/.mjwm-entries line inside RootMenu.
 ``` xml
 <JWM>
   <!-- SNIP SNIP -->
@@ -82,7 +82,8 @@ Examples
 Generate menu entries for files inside /etc/xdg
 ``` script
 ./autogen.sh
-mjwm -s /etc/xdg # The trailing slash is optional
+mjwm -s /etc/xdg 
+# mjwm -s /etc/xdg/ works as well
 ```
 
 Create menu entries with icons having a "png" extension
