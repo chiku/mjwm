@@ -35,13 +35,18 @@ namespace amm
 		{
 		private:
 			std::vector<std::string> _desktop_file_names;
-			std::string _icon_extension; // TODO : find using a icon service
+
 			size_t _total_parsed_files;
 			size_t _total_unclassified_parsed_files;
+			std::vector<std::string> _unparsed_file_names;
+
 			std::string _error;
 
 			std::vector<amm::jwm::subcategory> _subcategories;
 			amm::jwm::subcategory _unclassified_subcategory;
+
+			// TODO : find using a icon service
+			std::string _icon_extension;
 
 			void classify(amm::desktop_file entry);
 			void create_categories();
@@ -52,6 +57,7 @@ namespace amm
 			std::vector<amm::jwm::subcategory> subcategories() const;
 			size_t total_parsed_files() const;
 			size_t total_unclassified_parsed_files() const;
+			std::vector<std::string> unparsed_file_names() const;
 			bool is_valid() const; // TODO : replace with stats - caller decides on error message
 			std::string error() const;  // TODO : replace with stats - caller decides on error message
 

@@ -107,6 +107,20 @@ namespace amm
 				QUNIT_IS_EQUAL(1, menu.total_unclassified_parsed_files());
 			}
 
+			void test_jwm_menu_has_a_list_of_unparsed_files()
+			{
+				std::vector<std::string> files;
+				files.push_back(fixtures_directory + "vlc.desktop");
+				files.push_back(fixtures_directory + "missing.desktop");
+				menu menu(files, "");
+
+				menu.populate();
+
+				std::vector<std::string> unparsed_files = menu.unparsed_file_names();
+				QUNIT_IS_EQUAL(1, unparsed_files.size());
+				QUNIT_IS_EQUAL(fixtures_directory + "missing.desktop", unparsed_files[0]);
+			}
+
 			void test_jwm_menu_is_serilizable_to_output_stream()
 			{
 				std::vector<std::string> files;
@@ -221,6 +235,7 @@ namespace amm
 
 				test_jwm_menu_counts_total_desktop_files_parsed_successfully();
 				test_jwm_menu_counts_total_unclassified_desktop_files_parsed_successfully();
+				test_jwm_menu_has_a_list_of_unparsed_files();
 				test_jwm_menu_is_serilizable_to_output_stream();
 				test_jwm_menu_serialization_includes_icon_extension_when_present();
 				test_jwm_menu_serialization_has_unclassified_entries_at_the_end();

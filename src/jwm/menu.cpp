@@ -58,7 +58,7 @@ amm::jwm::menu::populate()
 	std::vector<std::string>::iterator name;
 	for (name = _desktop_file_names.begin(); name != _desktop_file_names.end(); ++name) {
 		std::string line;
-		amm::desktop_file entry;
+		amm::desktop_file desktop_file;
 		std::ifstream file(name->c_str());
 
 		if (!file.good()) {
@@ -66,11 +66,13 @@ amm::jwm::menu::populate()
 		}
 
 		while (std::getline(file, line)) {
-			entry.populate(line);
+			desktop_file.populate(line);
 		}
 
-		if (entry.is_valid()) {
-			classify(entry);
+		if (desktop_file.is_valid()) {
+			classify(desktop_file);
+		} else {
+			_unparsed_file_names.push_back(*name);
 		}
 
 		file.close();
@@ -84,10 +86,10 @@ amm::jwm::menu::populate()
 }
 
 void
-amm::jwm::menu::classify(amm::desktop_file entry)
+amm::jwm::menu::classify(amm::desktop_file desktop_file)
 {
 	bool classified = false;
-	amm::desktop_file_categories categories = entry.categories();
+	amm::desktop_file_categories categories = desktop_file.categories();
 
 	_total_parsed_files += 1;
 
@@ -95,13 +97,13 @@ amm::jwm::menu::classify(amm::desktop_file entry)
 	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
 		if (categories.is_a(subcategory->classification_name())) {
 			classified = true;
-			subcategory->add_desktop_file(entry);
+			subcategory->add_desktop_file(desktop_file);
 		}
 	}
 
 	if (!classified) {
 		_total_unclassified_parsed_files += 1;
-		_unclassified_subcategory.add_desktop_file(entry);
+		_unclassified_subcategory.add_desktop_file(desktop_file);
 	}
 }
 
@@ -121,6 +123,12 @@ size_t
 amm::jwm::menu::total_unclassified_parsed_files() const
 {
 	return _total_unclassified_parsed_files;
+}
+
+std::vector<std::string>
+amm::jwm::menu::unparsed_file_names() const
+{
+	return _unparsed_file_names;
 }
 
 bool
