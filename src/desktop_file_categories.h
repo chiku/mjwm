@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_categories__
-#define __amm_categories__
+#ifndef __amm_desktop_file_categories__
+#define __amm_desktop_file_categories__
 
 #include <string>
 #include <vector>
