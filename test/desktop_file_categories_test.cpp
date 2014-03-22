@@ -18,7 +18,6 @@
 
 #include <iostream>
 #include <string>
-#include <streambuf>
 
 #include "QUnit.hpp"
 
