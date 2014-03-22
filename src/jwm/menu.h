@@ -52,11 +52,10 @@ namespace amm
 		public:
 			menu(std::vector<std::string> desktop_file_names, std::string icon_extension);
 			void populate();
+			std::vector<amm::jwm::subcategory> subcategories() const;
 			bool is_valid() const; // TODO : replace with stats - caller decides on error message
 			std::string error() const;  // TODO : replace with stats - caller decides on error message
 			void sort();
-
-			friend std::ostream& operator << (std::ostream& stream, const amm::jwm::menu& menu);
 		};
 	}
 }

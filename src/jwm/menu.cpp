@@ -102,6 +102,12 @@ amm::jwm::menu::classify(amm::desktop_file entry)
 	return classified;
 }
 
+std::vector<amm::jwm::subcategory>
+amm::jwm::menu::subcategories() const
+{
+	return _subcategories;
+}
+
 bool
 amm::jwm::menu::is_valid() const
 {
@@ -128,7 +134,7 @@ amm::jwm::operator << (std::ostream& stream, const amm::jwm::menu& menu)
 {
 	stream << "<JWM>" << std::endl;
 
-	std::vector<amm::jwm::subcategory> menu_subcategories = menu._subcategories;
+	std::vector<amm::jwm::subcategory> menu_subcategories = menu.subcategories();
 	std::vector<amm::jwm::subcategory>::iterator group;
 	for (group = menu_subcategories.begin(); group != menu_subcategories.end(); ++group) {
 		stream << *group;

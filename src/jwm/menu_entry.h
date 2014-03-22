@@ -44,8 +44,6 @@ namespace amm
 			std::string name() const;
 			std::string icon() const;
 			std::string executable() const;
-
-			friend std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry);
 		};
 	}
 }
