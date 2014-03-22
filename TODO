@@ -1,5 +1,4 @@
 * Avoid double extensions (.png, .xpm)
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
-* Print operation summary
 * Restore older error message (as in v2.2.0) prior to the next release
