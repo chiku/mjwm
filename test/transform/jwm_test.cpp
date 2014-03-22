@@ -78,7 +78,7 @@ namespace amm
 				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.icon());
 			}
 
-			void test_transform_for_jwm_XML_doesnt_escape_executable()
+			void test_transform_for_jwm_doesnt_XML_escape_executable()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 				desktop_file.populate("Exec=vlc &");
@@ -108,7 +108,7 @@ namespace amm
 				test_transform_for_jwm_appends_the_icon_extension_to_icon_name();
 				test_transform_for_jwm_XML_escapes_name();
 				test_transform_for_jwm_XML_escapes_icon();
-				test_transform_for_jwm_XML_doesnt_escape_executable();
+				test_transform_for_jwm_doesnt_XML_escape_executable();
 				return qunit.errors();
 			}
 

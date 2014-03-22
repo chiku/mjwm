@@ -56,7 +56,7 @@ namespace amm
 			QUNIT_IS_FALSE(categories.is_a("AudioVideo"));
 		}
 
-		void test_categories_serialized_to_an_output_stream()
+		void test_categories_serializes_to_an_output_stream()
 		{
 			desktop_file_categories categories("AudioVideo;Player;GTK;");
 			std::stringstream stream;
@@ -73,7 +73,7 @@ namespace amm
 			test_categories_not_as_audiovideo_if_tag_excludes_AudioVideo();
 			test_categories_as_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
 			test_categories_not_as_audiovideo_if_empty();
-			test_categories_serialized_to_an_output_stream();
+			test_categories_serializes_to_an_output_stream();
 			return qunit.errors();
 		}
 
