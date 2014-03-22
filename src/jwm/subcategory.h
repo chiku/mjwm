@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_subcategory__
-#define __amm_subcategory__
+#ifndef __amm_jwm_subcategory__
+#define __amm_jwm_subcategory__
 
 #include <iostream>
 #include <string>

@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_menu_entry_jwm__
-#define __amm_menu_entry_jwm__
+#ifndef __amm_jwm_menu_entry__
+#define __amm_jwm_menu_entry__
 
 #include <iostream>
 #include <string>
