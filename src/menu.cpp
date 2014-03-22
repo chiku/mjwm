@@ -24,7 +24,7 @@
 #include "desktop_file.h"
 #include "menu.h"
 
-amm::menu_group::menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension)
+amm::menu::menu(std::vector<std::string> desktop_file_names, std::string icon_extension)
 {
 	_desktop_file_names = desktop_file_names;
 	_icon_extension = icon_extension;
@@ -33,7 +33,7 @@ amm::menu_group::menu_group(std::vector<std::string> desktop_file_names, std::st
 }
 
 void
-amm::menu_group::create_categories()
+amm::menu::create_categories()
 {
 	_unclassified_subcategory = amm::subcategory("Others", "Others", "others", _icon_extension);
 
@@ -51,7 +51,7 @@ amm::menu_group::create_categories()
 }
 
 void
-amm::menu_group::populate()
+amm::menu::populate()
 {
 	std::vector<std::string>::iterator name;
 	for (name = _desktop_file_names.begin(); name != _desktop_file_names.end(); ++name) {
@@ -85,7 +85,7 @@ amm::menu_group::populate()
 }
 
 bool
-amm::menu_group::classify(amm::desktop_file entry)
+amm::menu::classify(amm::desktop_file entry)
 {
 	amm::desktop_file_categories categories = entry.categories();
 	bool classified = false;
@@ -102,19 +102,19 @@ amm::menu_group::classify(amm::desktop_file entry)
 }
 
 bool
-amm::menu_group::is_valid() const
+amm::menu::is_valid() const
 {
 	return _error == "";
 }
 
 std::string
-amm::menu_group::error() const
+amm::menu::error() const
 {
 	return _error;
 }
 
 void
-amm::menu_group::sort()
+amm::menu::sort()
 {
 	std::vector<amm::subcategory>::iterator group;
 	for (group = _subcategories.begin(); group != _subcategories.end(); ++group) {
@@ -123,11 +123,11 @@ amm::menu_group::sort()
 }
 
 std::ostream&
-amm::operator << (std::ostream& stream, const amm::menu_group& menu_group)
+amm::operator << (std::ostream& stream, const amm::menu& menu)
 {
 	stream << "<JWM>" << std::endl;
 
-	std::vector<amm::subcategory> menu_subcategories = menu_group._subcategories;
+	std::vector<amm::subcategory> menu_subcategories = menu._subcategories;
 	std::vector<amm::subcategory>::iterator group;
 	for (group = menu_subcategories.begin(); group != menu_subcategories.end(); ++group) {
 		stream << *group;

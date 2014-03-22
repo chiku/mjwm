@@ -29,13 +29,13 @@
 
 namespace amm
 {
-	class menu_group;
+	class menu;
 
-	std::ostream& operator <<(std::ostream& stream, const amm::menu_group& menu_group);
+	std::ostream& operator <<(std::ostream& stream, const amm::menu& menu);
 
 	// Understands how a list of FreeDesktop .desktop files is converted to a menu
 	// TODO - multiple responsibilities - split class
-	class menu_group
+	class menu
 	{
 	private:
 		std::vector<std::string> _desktop_file_names;
@@ -50,13 +50,13 @@ namespace amm
 		void create_categories();
 
 	public:
-		menu_group(std::vector<std::string> desktop_file_names, std::string icon_extension);
+		menu(std::vector<std::string> desktop_file_names, std::string icon_extension);
 		void populate();
 		bool is_valid() const; // TODO : replace with stats - caller decides on error message
 		std::string error() const;  // TODO : replace with stats - caller decides on error message
 		void sort();
 
-		friend std::ostream& operator << (std::ostream& stream, const amm::menu_group& menu_group);
+		friend std::ostream& operator << (std::ostream& stream, const amm::menu& menu);
 	};
 }
 

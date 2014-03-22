@@ -32,23 +32,23 @@ namespace amm
 	const std::string results_directory = "test/results/";
 
 	// Verifies how a list of FreeDesktop .desktop files is converted to a menu
-	class menu_group_test
+	class menu_test
 	{
 		QUnit::UnitTest qunit;
 
-		void test_menu_group_is_valid_when_created()
+		void test_menu_is_valid_when_created()
 		{
 			std::vector<std::string> files;
 
-			menu_group group(files, "");
+			menu group(files, "");
 
 			QUNIT_IS_TRUE(group.is_valid());
 		}
 
-		void test_menu_group_has_error_when_no_files_present()
+		void test_menu_has_error_when_no_files_present()
 		{
 			std::vector<std::string> files;
-			menu_group group(files, "");
+			menu group(files, "");
 
 			group.populate();
 
@@ -56,11 +56,11 @@ namespace amm
 			assert_start_with(group.error(), "No valid .desktop file found");
 		}
 
-		void test_menu_group_has_error_when_all_files_are_invalid()
+		void test_menu_has_error_when_all_files_are_invalid()
 		{
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "missing.desktop");
-			menu_group group(files, "");
+			menu group(files, "");
 
 			group.populate();
 
@@ -68,12 +68,12 @@ namespace amm
 			assert_start_with(group.error(), "No valid .desktop file found");
 		}
 
-		void test_menu_group_is_valid_for_proper_desktop_files()
+		void test_menu_is_valid_for_proper_desktop_files()
 		{
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "vlc.desktop");
 			files.push_back(fixtures_directory + "mousepad.desktop");
-			menu_group group(files, "");
+			menu group(files, "");
 
 			group.populate();
 
@@ -81,12 +81,12 @@ namespace amm
 			QUNIT_IS_EQUAL("", group.error());
 		}
 
-		void test_menu_group_writes_populated_entries_to_file()
+		void test_menu_writes_populated_entries_to_file()
 		{
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "vlc.desktop");
 			files.push_back(fixtures_directory + "mousepad.desktop");
-			menu_group group(files, "");
+			menu group(files, "");
 
 			group.populate();
 			group.sort();
@@ -106,12 +106,12 @@ namespace amm
 			QUNIT_IS_EQUAL(expected_content, stream.str());
 		}
 
-		void test_menu_group_writes_populated_entries_with_extension_to_file()
+		void test_menu_writes_populated_entries_with_extension_to_file()
 		{
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "vlc.desktop");
 			files.push_back(fixtures_directory + "mousepad.desktop");
-			menu_group group(files, ".png");
+			menu group(files, ".png");
 
 			group.populate();
 			group.sort();
@@ -131,12 +131,12 @@ namespace amm
 			QUNIT_IS_EQUAL(expected_content, stream.str());
 		}
 
-		void test_menu_group_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file()
+		void test_menu_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file()
 		{
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "unclassified.desktop");
 			files.push_back(fixtures_directory + "mousepad.desktop");
-			menu_group group(files, "");
+			menu group(files, "");
 
 			group.populate();
 			group.sort();
@@ -156,11 +156,11 @@ namespace amm
 			QUNIT_IS_EQUAL(expected_content, stream.str());
 		}
 
-		void test_menu_group_skips_files_that_are_missing_content()
+		void test_menu_skips_files_that_are_missing_content()
 		{
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "missing.desktop");
-			menu_group group(files, "");
+			menu group(files, "");
 
 			group.populate();
 			group.sort();
@@ -185,18 +185,18 @@ namespace amm
 		}
 
 	public:
-		menu_group_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+		menu_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 		int run()
 		{
-			test_menu_group_is_valid_when_created();
-			test_menu_group_has_error_when_no_files_present();
-			test_menu_group_has_error_when_all_files_are_invalid();
-			test_menu_group_is_valid_for_proper_desktop_files();
-			test_menu_group_writes_populated_entries_to_file();
-			test_menu_group_writes_populated_entries_with_extension_to_file();
-			test_menu_group_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file();
-			test_menu_group_skips_files_that_are_missing_content();
+			test_menu_is_valid_when_created();
+			test_menu_has_error_when_no_files_present();
+			test_menu_has_error_when_all_files_are_invalid();
+			test_menu_is_valid_for_proper_desktop_files();
+			test_menu_writes_populated_entries_to_file();
+			test_menu_writes_populated_entries_with_extension_to_file();
+			test_menu_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file();
+			test_menu_skips_files_that_are_missing_content();
 			return qunit.errors();
 		};
 	};
@@ -205,5 +205,5 @@ namespace amm
 
 int main()
 {
-	return amm::menu_group_test(std::cerr, QUnit::normal).run();
+	return amm::menu_test(std::cerr, QUnit::normal).run();
 }
