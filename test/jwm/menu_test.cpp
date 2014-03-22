@@ -32,7 +32,7 @@ namespace amm
 
 	namespace jwm
 	{
-		// Verifies how a list of FreeDesktop .desktop files is converted to a JWM menu
+		// Verifies convertion of a list of FreeDesktop .desktop files to a JWM menu
 		class menu_test
 		{
 			QUnit::UnitTest qunit;
@@ -82,17 +82,42 @@ namespace amm
 				QUNIT_IS_EQUAL("", group.error());
 			}
 
-			void test_menu_writes_populated_entries_to_file()
+
+			void test_jwm_menu_counts_total_desktop_files_parsed_successfully()
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu group(files, "");
+				menu menu(files, "");
 
-				group.populate();
-				group.sort();
+				menu.populate();
+
+				QUNIT_IS_EQUAL(2, menu.total_parsed_files());
+			}
+
+			void test_jwm_menu_counts_total_unclassified_desktop_files_parsed_successfully()
+			{
+				std::vector<std::string> files;
+				files.push_back(fixtures_directory + "unclassified.desktop");
+				files.push_back(fixtures_directory + "mousepad.desktop");
+				menu menu(files, "");
+
+				menu.populate();
+
+				QUNIT_IS_EQUAL(1, menu.total_unclassified_parsed_files());
+			}
+
+			void test_jwm_menu_is_serilizable_to_output_stream()
+			{
+				std::vector<std::string> files;
+				files.push_back(fixtures_directory + "vlc.desktop");
+				files.push_back(fixtures_directory + "mousepad.desktop");
+				menu menu(files, "");
+
+				menu.populate();
+				menu.sort();
 				std::stringstream stream;
-				stream << group;
+				stream << menu;
 
 				std::string expected_content = "\
 <JWM>\n\
@@ -107,17 +132,17 @@ namespace amm
 				QUNIT_IS_EQUAL(expected_content, stream.str());
 			}
 
-			void test_menu_writes_populated_entries_with_extension_to_file()
+			void test_jwm_menu_serialization_includes_icon_extension_when_present()
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu group(files, ".png");
+				menu menu(files, ".png");
 
-				group.populate();
-				group.sort();
+				menu.populate();
+				menu.sort();
 				std::stringstream stream;
-				stream << group;
+				stream << menu;
 
 				std::string expected_content = "\
 <JWM>\n\
@@ -132,17 +157,17 @@ namespace amm
 				QUNIT_IS_EQUAL(expected_content, stream.str());
 			}
 
-			void test_menu_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file()
+			void test_jwm_menu_serialization_has_unclassified_entries_at_the_end()
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "unclassified.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu group(files, "");
+				menu menu(files, "");
 
-				group.populate();
-				group.sort();
+				menu.populate();
+				menu.sort();
 				std::stringstream stream;
-				stream << group;
+				stream << menu;
 
 				std::string expected_content = "\
 <JWM>\n\
@@ -157,19 +182,18 @@ namespace amm
 				QUNIT_IS_EQUAL(expected_content, stream.str());
 			}
 
-			void test_menu_skips_files_that_are_missing_content()
+			void test_jwm_menu_serialization_skips_files_with_missing_content()
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "missing.desktop");
-				menu group(files, "");
+				menu menu(files, "");
 
-				group.populate();
-				group.sort();
+				menu.populate();
+				menu.sort();
 				std::stringstream stream;
-				stream << group;
+				stream << menu;
 
-				QUNIT_IS_FALSE(group.is_valid());
-				assert_start_with(group.error(), "No valid .desktop file found");
+				QUNIT_IS_FALSE(menu.is_valid());
 				QUNIT_IS_EQUAL("<JWM>\n</JWM>\n", stream.str());
 			}
 
@@ -194,10 +218,13 @@ namespace amm
 				test_menu_has_error_when_no_files_present();
 				test_menu_has_error_when_all_files_are_invalid();
 				test_menu_is_valid_for_proper_desktop_files();
-				test_menu_writes_populated_entries_to_file();
-				test_menu_writes_populated_entries_with_extension_to_file();
-				test_menu_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file();
-				test_menu_skips_files_that_are_missing_content();
+
+				test_jwm_menu_counts_total_desktop_files_parsed_successfully();
+				test_jwm_menu_counts_total_unclassified_desktop_files_parsed_successfully();
+				test_jwm_menu_is_serilizable_to_output_stream();
+				test_jwm_menu_serialization_includes_icon_extension_when_present();
+				test_jwm_menu_serialization_has_unclassified_entries_at_the_end();
+				test_jwm_menu_serialization_skips_files_with_missing_content();
 				return qunit.errors();
 			};
 		};

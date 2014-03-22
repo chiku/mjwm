@@ -30,27 +30,32 @@ namespace amm
 {
 	namespace jwm
 	{
-		// Understands how a list of FreeDesktop .desktop files is converted to a JWM menu
+		// Understands convertion of a list of FreeDesktop .desktop files to a JWM menu
 		class menu
 		{
 		private:
 			std::vector<std::string> _desktop_file_names;
 			std::string _icon_extension; // TODO : find using a icon service
+			size_t _total_parsed_files;
+			size_t _total_unclassified_parsed_files;
 			std::string _error;
-			bool _parsed;
 
 			std::vector<amm::jwm::subcategory> _subcategories;
 			amm::jwm::subcategory _unclassified_subcategory;
 
-			bool classify(amm::desktop_file entry);
+			void classify(amm::desktop_file entry);
 			void create_categories();
 
 		public:
 			menu(std::vector<std::string> desktop_file_names, std::string icon_extension);
-			void populate();
+
 			std::vector<amm::jwm::subcategory> subcategories() const;
+			size_t total_parsed_files() const;
+			size_t total_unclassified_parsed_files() const;
 			bool is_valid() const; // TODO : replace with stats - caller decides on error message
 			std::string error() const;  // TODO : replace with stats - caller decides on error message
+
+			void populate();
 			void sort();
 		};
 

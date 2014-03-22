@@ -29,7 +29,8 @@ amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, std::string ic
 {
 	_desktop_file_names = desktop_file_names;
 	_icon_extension = icon_extension;
-	_parsed = false;
+	_total_parsed_files = 0;
+	_total_unclassified_parsed_files = 0;
 	create_categories();
 }
 
@@ -69,10 +70,7 @@ amm::jwm::menu::populate()
 		}
 
 		if (entry.is_valid()) {
-			_parsed = true;
-			if (!classify(entry)) {
-				_unclassified_subcategory.add_desktop_file(entry);
-			}
+			classify(entry);
 		}
 
 		file.close();
@@ -80,32 +78,49 @@ amm::jwm::menu::populate()
 
 	_subcategories.push_back(_unclassified_subcategory);
 
-	if (!_parsed) {
+	if (_total_parsed_files == 0) {
 		_error = "No valid .desktop file found";
 	}
 }
 
-bool
+void
 amm::jwm::menu::classify(amm::desktop_file entry)
 {
-	amm::desktop_file_categories categories = entry.categories();
 	bool classified = false;
+	amm::desktop_file_categories categories = entry.categories();
 
-	std::vector<amm::jwm::subcategory>::iterator group;
-	for (group = _subcategories.begin(); group != _subcategories.end(); ++group) {
-		if (categories.is_a(group->classification_name())) {
+	_total_parsed_files += 1;
+
+	std::vector<amm::jwm::subcategory>::iterator subcategory;
+	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
+		if (categories.is_a(subcategory->classification_name())) {
 			classified = true;
-			group->add_desktop_file(entry);
+			subcategory->add_desktop_file(entry);
 		}
 	}
 
-	return classified;
+	if (!classified) {
+		_total_unclassified_parsed_files += 1;
+		_unclassified_subcategory.add_desktop_file(entry);
+	}
 }
 
 std::vector<amm::jwm::subcategory>
 amm::jwm::menu::subcategories() const
 {
 	return _subcategories;
+}
+
+size_t
+amm::jwm::menu::total_parsed_files() const
+{
+	return _total_parsed_files;
+}
+
+size_t
+amm::jwm::menu::total_unclassified_parsed_files() const
+{
+	return _total_unclassified_parsed_files;
 }
 
 bool
