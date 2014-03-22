@@ -34,7 +34,7 @@ amm::messages::help()
 
 	stream << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
 	stream << "  -o, --output-file [FILE]           Outfile file [Default: ./automenu]" << std::endl;
-	stream << "  -s, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
+	stream << "  -i, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
 	stream << "  -a, --append-png                   Add '.png' to icon filenames" << std::endl;
 	stream << "  -v, --version                      Show version" << std::endl << std::endl;
 	stream << "  -h, --help                         Show this help" << std::endl << std::endl;

@@ -37,11 +37,11 @@ int main(int argc, char *argv[])
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
 
-	const char* short_options = "o:s:avh";
+	const char* short_options = "o:i:s:avh";
 	const option long_options[] =
 	{
 		{"output-file",     required_argument, 0, 'o'},
-		{"input-directory", required_argument, 0, 's'},
+		{"input-directory", required_argument, 0, 'i'},
 		{"append-png",      no_argument,       0, 'a'},
 		{"version",         no_argument,       0, 'v'},
 		{"help",            no_argument,       0, 'h'},
@@ -57,7 +57,12 @@ int main(int argc, char *argv[])
 				output_filename = optarg;
 				break;
 
+			case 'i':
+				directory_to_scan = optarg;
+				break;
+
 			case 's':
+				std::cerr << "Deprecated option: use -i instead. Proceeding..." << std::endl;
 				directory_to_scan = optarg;
 				break;
 

@@ -40,7 +40,7 @@ Usage: mjwm [options]
 
 Optional arguments:
     -o, --output-file [FILE]           Outfile file [Default: ./automenu]
-    -s, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]
+    -i, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]
     -a, --append-png                   Add '.png' to icon filenames
     -h, --help                         Show this help
     -v, --version                      Show version information
