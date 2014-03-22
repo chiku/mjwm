@@ -94,8 +94,12 @@ int main(int argc, char *argv[])
 		std::cerr << group.error() << std::endl;
 		return 1;
 	}
+
 	group.sort();
-	group.write(output_filename);
+
+	std::ofstream file(output_filename.c_str());
+	file << group;
+	file.close();
 
 	return 0;
 }

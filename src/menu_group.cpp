@@ -122,19 +122,18 @@ amm::menu_group::sort()
 	}
 }
 
-void
-amm::menu_group::write(std::string output_filename) // TODO : convert to <<
+std::ostream&
+amm::operator << (std::ostream& stream, const amm::menu_group& menu_group)
 {
-	std::ofstream file(output_filename.c_str());
+	stream << "<JWM>" << std::endl;
 
-	file << "<JWM>" << std::endl;
-
+	std::vector<amm::menu_subcategory> menu_subcategories = menu_group._menu_subcategories;
 	std::vector<amm::menu_subcategory>::iterator group;
-	for (group = _menu_subcategories.begin(); group != _menu_subcategories.end(); ++group) {
-		file << *group;
+	for (group = menu_subcategories.begin(); group != menu_subcategories.end(); ++group) {
+		stream << *group;
 	}
 
-	file << "</JWM>" << std::endl;
+	stream << "</JWM>" << std::endl;
 
-	file.close();
+	return stream;
 }

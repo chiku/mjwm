@@ -29,7 +29,11 @@
 
 namespace amm
 {
-	// Understands how a directory with FreeDesktop .desktop files is converted to a JWM menu section
+	class menu_group;
+
+	std::ostream& operator <<(std::ostream& stream, const amm::menu_group& menu_group);
+
+	// Understands how a list of FreeDesktop .desktop files is converted to a menu
 	// TODO - multiple responsibilities - split class
 	class menu_group
 	{
@@ -51,7 +55,8 @@ namespace amm
 		bool is_valid() const; // TODO : replace with stats - caller decides on error message
 		std::string error() const;  // TODO : replace with stats - caller decides on error message
 		void sort();
-		void write(std::string output_filename);
+
+		friend std::ostream& operator << (std::ostream& stream, const amm::menu_group& menu_group);
 	};
 }
 
