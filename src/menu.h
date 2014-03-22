@@ -25,7 +25,6 @@
 
 #include "desktop_file.h"
 #include "subcategory.h"
-#include "transform/jwm.h"
 
 namespace amm
 {
@@ -34,7 +33,6 @@ namespace amm
 	std::ostream& operator <<(std::ostream& stream, const amm::menu& menu);
 
 	// Understands how a list of FreeDesktop .desktop files is converted to a menu
-	// TODO - multiple responsibilities - split class
 	class menu
 	{
 	private:

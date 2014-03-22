@@ -22,19 +22,19 @@
 #include "../QUnit.hpp"
 
 #include "../../src/desktop_file.h"
-#include "../../src/menu_entry/jwm.h"
-#include "../../src/transform/jwm.h"
+#include "../../src/jwm/menu_entry.h"
+#include "../../src/jwm/transform.h"
 
 namespace amm
 {
-	namespace transform
+	namespace jwm
 	{
 		// Verifies convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
-		class jwm_test
+		class transform_test
 		{
 			QUnit::UnitTest qunit;
 
-			void test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm()
+			void test_jwm_transform_converts_desktop_file_to_menu_entry_for_jwm()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 
@@ -46,7 +46,7 @@ namespace amm
 				QUNIT_IS_EQUAL("vlc", jwm_menu_entry.executable());
 			}
 
-			void test_transform_for_jwm_appends_the_icon_extension_to_icon_name()
+			void test_jwm_transform_appends_the_icon_extension_to_icon_name()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 
@@ -56,7 +56,7 @@ namespace amm
 				QUNIT_IS_EQUAL("vlc.svg", jwm_menu_entry.icon());
 			}
 
-			void test_transform_for_jwm_XML_escapes_name()
+			void test_jwm_transform_XML_escapes_name()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 				desktop_file.populate("Name=<\'foo\' & \"bar\">");
@@ -67,7 +67,7 @@ namespace amm
 				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.name());
 			}
 
-			void test_transform_for_jwm_XML_escapes_icon()
+			void test_jwm_transform_XML_escapes_icon()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 				desktop_file.populate("Icon=<\'foo\' & \"bar\">");
@@ -78,7 +78,7 @@ namespace amm
 				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.icon());
 			}
 
-			void test_transform_for_jwm_doesnt_XML_escape_executable()
+			void test_jwm_transform_doesnt_XML_escape_executable()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 				desktop_file.populate("Exec=vlc &");
@@ -100,15 +100,15 @@ namespace amm
 			}
 
 		public:
-			jwm_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+			transform_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 			int run()
 			{
-				test_transform_for_jwm_converts_desktop_file_to_menu_entry_for_jwm();
-				test_transform_for_jwm_appends_the_icon_extension_to_icon_name();
-				test_transform_for_jwm_XML_escapes_name();
-				test_transform_for_jwm_XML_escapes_icon();
-				test_transform_for_jwm_doesnt_XML_escape_executable();
+				test_jwm_transform_converts_desktop_file_to_menu_entry_for_jwm();
+				test_jwm_transform_appends_the_icon_extension_to_icon_name();
+				test_jwm_transform_XML_escapes_name();
+				test_jwm_transform_XML_escapes_icon();
+				test_jwm_transform_doesnt_XML_escape_executable();
 				return qunit.errors();
 			}
 
@@ -118,5 +118,5 @@ namespace amm
 
 int main()
 {
-	return amm::transform::jwm_test(std::cerr, QUnit::normal).run();
+	return amm::jwm::transform_test(std::cerr, QUnit::normal).run();
 }

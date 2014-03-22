@@ -19,7 +19,7 @@
 #include <string>
 
 #include "../desktop_file.h"
-#include "jwm.h"
+#include "transform.h"
 
 amm::menu_entry::jwm
 amm::transform::jwm::transform(amm::desktop_file desktop_file, std::string icon_extension)

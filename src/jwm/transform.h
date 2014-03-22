@@ -16,44 +16,28 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <iostream>
+#ifndef __amm_transform_jwm__
+#define __amm_transform_jwm__
+
 #include <string>
 
-#include "jwm.h"
+#include "../desktop_file.h"
+#include "menu_entry.h"
 
-amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable)
+namespace amm
 {
-	_name = name;
-	_icon = icon;
-	_executable = executable;
+	namespace transform
+	{
+		// Understands convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
+		class jwm
+		{
+		private:
+			std::string encode(std::string input) const;
+
+		public:
+			amm::menu_entry::jwm transform(amm::desktop_file desktop_file, std::string icon_extension);
+		};
+	}
 }
 
-std::string
-amm::menu_entry::jwm::name() const
-{
-	return _name;
-}
-
-std::string
-amm::menu_entry::jwm::icon() const
-{
-	return _icon;
-}
-
-std::string
-amm::menu_entry::jwm::executable() const
-{
-	return _executable;
-}
-
-std::ostream&
-amm::menu_entry::operator << (std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry)
-{
-	stream << "<Program "
-	       << "label=\"" << jwm_menu_entry.name() << "\" "
-	       << "icon=\"" << jwm_menu_entry.icon() << "\">"
-	       << jwm_menu_entry.executable()
-	       << "</Program>";
-
-	return stream;
-}
+#endif

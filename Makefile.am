@@ -6,8 +6,8 @@ AM_CPPFLAGS=-Wall -Wextra
 bin_PROGRAMS = mjwm
 mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/desktop_file.cpp \
-               src/menu_entry/jwm.cpp \
-               src/transform/jwm.cpp \
+               src/jwm/menu_entry.cpp \
+               src/jwm/transform.cpp \
                src/subcategory.cpp \
                src/application_directories.cpp \
                src/menu.cpp \
@@ -16,8 +16,8 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
 
 check_PROGRAMS = mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
-                 mjwm_menu_entry_jwm_test \
-                 mjwm_transform_jwm_test \
+                 mjwm_jwm_menu_entry_test \
+                 mjwm_jwm_transform_test \
                  mjwm_subcategory_test \
                  mjwm_application_directories_test \
                  mjwm_menu_test
@@ -27,25 +27,25 @@ mjwm_desktop_file_categories_test_SOURCES = src/desktop_file_categories.cpp \
 mjwm_desktop_file_test_SOURCES = src/desktop_file_categories.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
-mjwm_menu_entry_jwm_test_SOURCES = src/menu_entry/jwm.cpp \
-                                   test/menu_entry/jwm_test.cpp
-mjwm_transform_jwm_test_SOURCES = src/desktop_file_categories.cpp \
+mjwm_jwm_menu_entry_test_SOURCES = src/jwm/menu_entry.cpp \
+                                   test/jwm/menu_entry_test.cpp
+mjwm_jwm_transform_test_SOURCES = src/desktop_file_categories.cpp \
                                   src/desktop_file.cpp \
-                                  src/menu_entry/jwm.cpp \
-                                  src/transform/jwm.cpp \
-                                  test/transform/jwm_test.cpp
+                                  src/jwm/menu_entry.cpp \
+                                  src/jwm/transform.cpp \
+                                  test/jwm/transform_test.cpp
 mjwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
                                      src/desktop_file.cpp \
-                                     src/menu_entry/jwm.cpp \
-                                     src/transform/jwm.cpp \
+                                     src/jwm/menu_entry.cpp \
+                                     src/jwm/transform.cpp \
                                      src/subcategory.cpp \
                                      test/subcategory_test.cpp
 mjwm_application_directories_test_SOURCES = src/application_directories.cpp \
                                             test/application_directories_test.cpp
 mjwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
                          src/desktop_file.cpp \
-                         src/menu_entry/jwm.cpp \
-                         src/transform/jwm.cpp \
+                         src/jwm/menu_entry.cpp \
+                         src/jwm/transform.cpp \
                          src/subcategory.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp

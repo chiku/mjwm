@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "desktop_file.h"
+#include "subcategory.h"
 #include "menu.h"
 
 amm::menu::menu(std::vector<std::string> desktop_file_names, std::string icon_extension)

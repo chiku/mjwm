@@ -22,7 +22,7 @@
 #include <algorithm>
 
 #include "desktop_file.h"
-#include "transform/jwm.h"
+#include "jwm/transform.h"
 #include "subcategory.h"
 
 amm::subcategory::subcategory()

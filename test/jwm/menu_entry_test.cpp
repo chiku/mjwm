@@ -22,18 +22,18 @@
 
 #include "../QUnit.hpp"
 
-#include "../../src/menu_entry/jwm.h"
+#include "../../src/jwm/menu_entry.h"
 
 namespace amm
 {
-	namespace menu_entry
+	namespace jwm
 	{
 		// Verifies a Program entry in RootMenu section of JWM configuration file
-		class jwm_test
+		class menu_entry_test
 		{
 			QUnit::UnitTest qunit;
 
-			void test_menu_entry_serializes_to_an_output_stream()
+			void test_jwm_menu_entry_serializes_to_an_output_stream()
 			{
 				amm::menu_entry::jwm jwm_menu_entry("VLC", "vlc.svg", "vlc");
 
@@ -45,11 +45,11 @@ namespace amm
 			}
 
 		public:
-			jwm_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+			menu_entry_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 			int run()
 			{
-				test_menu_entry_serializes_to_an_output_stream();
+				test_jwm_menu_entry_serializes_to_an_output_stream();
 				return qunit.errors();
 			}
 
@@ -59,5 +59,5 @@ namespace amm
 
 int main()
 {
-	return amm::menu_entry::jwm_test(std::cerr, QUnit::normal).run();
+	return amm::jwm::menu_entry_test(std::cerr, QUnit::normal).run();
 }

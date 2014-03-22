@@ -20,6 +20,7 @@
 #include <fstream>
 #include <string>
 
+#include "desktop_file_categories.h"
 #include "desktop_file.h"
 
 static const std::string NAME       = "Name";
