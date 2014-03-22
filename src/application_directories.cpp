@@ -20,15 +20,15 @@
 #include <vector>
 #include <dirent.h>
 
-#include "desktop_file_search.h"
+#include "application_directories.h"
 
-amm::desktop_file_search::desktop_file_search(std::vector<std::string> directory_names)
+amm::application_directories::application_directories(std::vector<std::string> directory_names)
 {
 	_directory_names = directory_names;
 }
 
 std::vector<std::string>
-amm::desktop_file_search::all()
+amm::application_directories::desktop_file_names()
 {
 	std::vector<std::string> desktop_file_names;
 

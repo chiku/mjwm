@@ -16,23 +16,23 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_desktop_file_search__
-#define __amm_desktop_file_search__
+#ifndef __amm_application_directories__
+#define __amm_application_directories__
 
 #include <string>
 #include <vector>
 
 namespace amm
 {
-	// Understands how to find .desktop files present in multiple directories
-	class desktop_file_search
+	// Understands how to search .desktop files present in multiple locations
+	class application_directories
 	{
 	private:
 		std::vector<std::string> _directory_names;
 
 	public:
-		desktop_file_search(std::vector<std::string> directory_names);
-		std::vector<std::string> all();
+		application_directories(std::vector<std::string> directory_names);
+		std::vector<std::string> desktop_file_names();
 	};
 }
 

@@ -27,7 +27,7 @@
 #include <getopt.h>
 
 #include "messages.h"
-#include "desktop_file_search.h"
+#include "application_directories.h"
 #include "menu.h"
 
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 	std::vector<std::string> directories_to_search;
 	directories_to_search.push_back(directory_to_scan);
 
-	std::vector<std::string> desktop_files = amm::desktop_file_search(directories_to_search).all();
+	std::vector<std::string> desktop_files = amm::application_directories(directories_to_search).desktop_file_names();
 
 	amm::menu menu(desktop_files, icon_extension);
 	menu.populate();
