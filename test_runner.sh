@@ -29,8 +29,8 @@ run mjwm_desktop_file_categories_test
 run mjwm_desktop_file_test
 run mjwm_jwm_menu_entry_test
 run mjwm_jwm_transform_test
-run mjwm_subcategory_test
+run mjwm_jwm_subcategory_test
+run mjwm_jwm_menu_test
 run mjwm_application_directories_test
-run mjwm_menu_test
 
 cd ..

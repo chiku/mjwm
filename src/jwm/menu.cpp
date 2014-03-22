@@ -21,11 +21,11 @@
 #include <string>
 #include <vector>
 
-#include "desktop_file.h"
+#include "../desktop_file.h"
 #include "subcategory.h"
 #include "menu.h"
 
-amm::menu::menu(std::vector<std::string> desktop_file_names, std::string icon_extension)
+amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, std::string icon_extension)
 {
 	_desktop_file_names = desktop_file_names;
 	_icon_extension = icon_extension;
@@ -34,25 +34,25 @@ amm::menu::menu(std::vector<std::string> desktop_file_names, std::string icon_ex
 }
 
 void
-amm::menu::create_categories()
+amm::jwm::menu::create_categories()
 {
-	_unclassified_subcategory = amm::subcategory("Others", "Others", "others", _icon_extension);
+	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_extension);
 
-	_subcategories.push_back(amm::subcategory("Settings",    "Settings",    "settings",    _icon_extension));
-	_subcategories.push_back(amm::subcategory("Utility",     "Accessories", "accessories", _icon_extension));
-	_subcategories.push_back(amm::subcategory("Development", "Development", "development", _icon_extension));
-	_subcategories.push_back(amm::subcategory("Education",   "Education",   "education",   _icon_extension));
-	_subcategories.push_back(amm::subcategory("Game",        "Games",       "games",       _icon_extension));
-	_subcategories.push_back(amm::subcategory("Graphics",    "Graphics",    "graphics",    _icon_extension));
-	_subcategories.push_back(amm::subcategory("Network",     "Internet",    "internet",    _icon_extension));
-	_subcategories.push_back(amm::subcategory("AudioVideo",  "Multimedia",  "multimedia",  _icon_extension));
-	_subcategories.push_back(amm::subcategory("Office",      "Office",      "office",      _icon_extension));
-	_subcategories.push_back(amm::subcategory("Science",     "Science",     "science",     _icon_extension));
-	_subcategories.push_back(amm::subcategory("System",      "System",      "system",      _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings",    _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories", _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development", _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Education",   "Education",   "education",   _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Game",        "Games",       "games",       _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Graphics",    "Graphics",    "graphics",    _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Network",     "Internet",    "internet",    _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("AudioVideo",  "Multimedia",  "multimedia",  _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office",      _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science",     _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system",      _icon_extension));
 }
 
 void
-amm::menu::populate()
+amm::jwm::menu::populate()
 {
 	std::vector<std::string>::iterator name;
 	for (name = _desktop_file_names.begin(); name != _desktop_file_names.end(); ++name) {
@@ -86,12 +86,12 @@ amm::menu::populate()
 }
 
 bool
-amm::menu::classify(amm::desktop_file entry)
+amm::jwm::menu::classify(amm::desktop_file entry)
 {
 	amm::desktop_file_categories categories = entry.categories();
 	bool classified = false;
 
-	std::vector<amm::subcategory>::iterator group;
+	std::vector<amm::jwm::subcategory>::iterator group;
 	for (group = _subcategories.begin(); group != _subcategories.end(); ++group) {
 		if (categories.is_a(group->classification_name())) {
 			classified = true;
@@ -103,33 +103,33 @@ amm::menu::classify(amm::desktop_file entry)
 }
 
 bool
-amm::menu::is_valid() const
+amm::jwm::menu::is_valid() const
 {
 	return _error == "";
 }
 
 std::string
-amm::menu::error() const
+amm::jwm::menu::error() const
 {
 	return _error;
 }
 
 void
-amm::menu::sort()
+amm::jwm::menu::sort()
 {
-	std::vector<amm::subcategory>::iterator group;
+	std::vector<amm::jwm::subcategory>::iterator group;
 	for (group = _subcategories.begin(); group != _subcategories.end(); ++group) {
 		group->sort_desktop_files();
 	}
 }
 
 std::ostream&
-amm::operator << (std::ostream& stream, const amm::menu& menu)
+amm::jwm::operator << (std::ostream& stream, const amm::jwm::menu& menu)
 {
 	stream << "<JWM>" << std::endl;
 
-	std::vector<amm::subcategory> menu_subcategories = menu._subcategories;
-	std::vector<amm::subcategory>::iterator group;
+	std::vector<amm::jwm::subcategory> menu_subcategories = menu._subcategories;
+	std::vector<amm::jwm::subcategory>::iterator group;
 	for (group = menu_subcategories.begin(); group != menu_subcategories.end(); ++group) {
 		stream << *group;
 	}

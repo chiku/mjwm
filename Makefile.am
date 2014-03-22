@@ -8,9 +8,9 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/desktop_file.cpp \
                src/jwm/menu_entry.cpp \
                src/jwm/transform.cpp \
-               src/subcategory.cpp \
+               src/jwm/subcategory.cpp \
+               src/jwm/menu.cpp \
                src/application_directories.cpp \
-               src/menu.cpp \
                src/messages.cpp \
                src/mjwm.cpp
 
@@ -18,9 +18,9 @@ check_PROGRAMS = mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
                  mjwm_jwm_menu_entry_test \
                  mjwm_jwm_transform_test \
-                 mjwm_subcategory_test \
-                 mjwm_application_directories_test \
-                 mjwm_menu_test
+                 mjwm_jwm_subcategory_test \
+                 mjwm_jwm_menu_test \
+                 mjwm_application_directories_test
 
 mjwm_desktop_file_categories_test_SOURCES = src/desktop_file_categories.cpp \
                                             test/desktop_file_categories_test.cpp
@@ -34,20 +34,20 @@ mjwm_jwm_transform_test_SOURCES = src/desktop_file_categories.cpp \
                                   src/jwm/menu_entry.cpp \
                                   src/jwm/transform.cpp \
                                   test/jwm/transform_test.cpp
-mjwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
-                                     src/desktop_file.cpp \
-                                     src/jwm/menu_entry.cpp \
-                                     src/jwm/transform.cpp \
-                                     src/subcategory.cpp \
-                                     test/subcategory_test.cpp
+mjwm_jwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
+                                    src/desktop_file.cpp \
+                                    src/jwm/menu_entry.cpp \
+                                    src/jwm/transform.cpp \
+                                    src/jwm/subcategory.cpp \
+                                    test/jwm/subcategory_test.cpp
 mjwm_application_directories_test_SOURCES = src/application_directories.cpp \
                                             test/application_directories_test.cpp
-mjwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
-                         src/desktop_file.cpp \
-                         src/jwm/menu_entry.cpp \
-                         src/jwm/transform.cpp \
-                         src/subcategory.cpp \
-                         src/menu.cpp \
-                         test/menu_test.cpp
+mjwm_jwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
+                             src/desktop_file.cpp \
+                             src/jwm/menu_entry.cpp \
+                             src/jwm/transform.cpp \
+                             src/jwm/subcategory.cpp \
+                             src/jwm/menu.cpp \
+                             test/jwm/menu_test.cpp
 
 TESTS = $(check_PROGRAMS)

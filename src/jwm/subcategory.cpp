@@ -21,15 +21,15 @@
 #include <vector>
 #include <algorithm>
 
-#include "desktop_file.h"
-#include "jwm/transform.h"
+#include "../desktop_file.h"
+#include "transform.h"
 #include "subcategory.h"
 
-amm::subcategory::subcategory()
+amm::jwm::subcategory::subcategory()
 {
 }
 
-amm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension)
+amm::jwm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension)
 {
 	_classification_name = classification_name;
 	_display_name = display_name;
@@ -38,55 +38,55 @@ amm::subcategory::subcategory(std::string classification_name, std::string displ
 }
 
 std::string
-amm::subcategory::classification_name() const
+amm::jwm::subcategory::classification_name() const
 {
 	return _classification_name;
 }
 
 std::string
-amm::subcategory::display_name() const
+amm::jwm::subcategory::display_name() const
 {
 	return _display_name;
 }
 
 std::string
-amm::subcategory::icon_name() const
+amm::jwm::subcategory::icon_name() const
 {
 	return _icon_name;
 }
 
 std::string
-amm::subcategory::icon_extension() const
+amm::jwm::subcategory::icon_extension() const
 {
 	return _icon_extension;
 }
 
 std::vector<amm::desktop_file>
-amm::subcategory::desktop_files() const
+amm::jwm::subcategory::desktop_files() const
 {
 	return _desktop_files;
 }
 
 bool
-amm::subcategory::has_entries() const
+amm::jwm::subcategory::has_entries() const
 {
 	return desktop_files().size() > 0;
 }
 
 void
-amm::subcategory::add_desktop_file(amm::desktop_file desktop_file)
+amm::jwm::subcategory::add_desktop_file(amm::desktop_file desktop_file)
 {
 	_desktop_files.push_back(desktop_file);
 }
 
 void
-amm::subcategory::sort_desktop_files()
+amm::jwm::subcategory::sort_desktop_files()
 {
 	std::sort(_desktop_files.begin(), _desktop_files.end());
 }
 
 std::ostream&
-amm::operator << (std::ostream& stream, const amm::subcategory& subcategory)
+amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcategory)
 {
 	if (subcategory.has_entries()) {
 		amm::transform::jwm jwm_transformer; // TODO : inject from outside
