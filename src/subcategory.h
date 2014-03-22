@@ -58,14 +58,6 @@ namespace amm
 
 		friend std::ostream& operator << (std::ostream& stream, const amm::subcategory& subcategory);
 	};
-
-	class menu_subcategory : public subcategory
-	{
-	public:
-		menu_subcategory() : subcategory(){}
-		menu_subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension) :
-			subcategory(classification_name, display_name, icon_name, icon_extension) {}
-	};
 }
 
 #endif
