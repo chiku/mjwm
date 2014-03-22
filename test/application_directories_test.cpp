@@ -55,10 +55,6 @@ namespace amm
 
 			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
 
-			for (auto i = file_names.begin(); i != file_names.end(); ++i) {
-				std::cout << *i << std::endl;
-			}
-
 			QUNIT_IS_EQUAL(4, file_names.size());
 
 			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
