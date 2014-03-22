@@ -25,11 +25,11 @@
 #include "transform/jwm.h"
 #include "subcategory.h"
 
-amm::menu_subcategory::menu_subcategory()
+amm::subcategory::subcategory()
 {
 }
 
-amm::menu_subcategory::menu_subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension)
+amm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension)
 {
 	_classification_name = classification_name;
 	_display_name = display_name;
@@ -38,66 +38,66 @@ amm::menu_subcategory::menu_subcategory(std::string classification_name, std::st
 }
 
 std::string
-amm::menu_subcategory::classification_name() const
+amm::subcategory::classification_name() const
 {
 	return _classification_name;
 }
 
 std::string
-amm::menu_subcategory::display_name() const
+amm::subcategory::display_name() const
 {
 	return _display_name;
 }
 
 std::string
-amm::menu_subcategory::icon_name() const
+amm::subcategory::icon_name() const
 {
 	return _icon_name;
 }
 
 std::string
-amm::menu_subcategory::icon_extension() const
+amm::subcategory::icon_extension() const
 {
 	return _icon_extension;
 }
 
 std::vector<amm::desktop_file>
-amm::menu_subcategory::desktop_files() const
+amm::subcategory::desktop_files() const
 {
 	return _desktop_files;
 }
 
 bool
-amm::menu_subcategory::has_entries() const
+amm::subcategory::has_entries() const
 {
 	return desktop_files().size() > 0;
 }
 
 void
-amm::menu_subcategory::add_desktop_file(amm::desktop_file desktop_file)
+amm::subcategory::add_desktop_file(amm::desktop_file desktop_file)
 {
 	_desktop_files.push_back(desktop_file);
 }
 
 void
-amm::menu_subcategory::sort_desktop_files()
+amm::subcategory::sort_desktop_files()
 {
 	std::sort(_desktop_files.begin(), _desktop_files.end());
 }
 
 std::ostream&
-amm::operator << (std::ostream& stream, const amm::menu_subcategory& menu_subcategory)
+amm::operator << (std::ostream& stream, const amm::subcategory& subcategory)
 {
-	if (menu_subcategory.has_entries()) {
+	if (subcategory.has_entries()) {
 		amm::transform::jwm jwm_transformer; // TODO : inject from outside
-		std::string section = "label=\"" + menu_subcategory.display_name() + "\" icon=\"" + menu_subcategory.icon_name() + menu_subcategory.icon_extension() + "\"";
+		std::string section = "label=\"" + subcategory.display_name() + "\" icon=\"" + subcategory.icon_name() + subcategory.icon_extension() + "\"";
 
 		stream << "  <Menu " << section << ">" << std::endl;
 
-		std::vector<amm::desktop_file> desktop_files = menu_subcategory.desktop_files();
+		std::vector<amm::desktop_file> desktop_files = subcategory.desktop_files();
 		std::vector<amm::desktop_file>::iterator entry;
 		for(entry = desktop_files.begin(); entry != desktop_files.end(); ++entry) {
-			stream << "    " << jwm_transformer.transform(*entry, menu_subcategory.icon_extension()) << std::endl;
+			stream << "    " << jwm_transformer.transform(*entry, subcategory.icon_extension()) << std::endl;
 		}
 
 		stream << "  </Menu>" << std::endl;

@@ -28,12 +28,12 @@
 
 namespace amm
 {
-	class menu_subcategory;
+	class subcategory;
 
-	std::ostream& operator <<(std::ostream& stream, const amm::menu_subcategory& menu_subcategory);
+	std::ostream& operator <<(std::ostream& stream, const amm::subcategory& subcategory);
 
 	// Understands how different sub-sections of menu would be constructed
-	class menu_subcategory
+	class subcategory
 	{
 	private:
 		std::string _classification_name;
@@ -43,8 +43,8 @@ namespace amm
 		std::vector<amm::desktop_file> _desktop_files;
 
 	public:
-		menu_subcategory();
-		menu_subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension);
+		subcategory();
+		subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension);
 
 		std::string classification_name() const;
 		std::string display_name() const;
@@ -56,7 +56,15 @@ namespace amm
 		void add_desktop_file(amm::desktop_file desktop_file);
 		void sort_desktop_files();
 
-		friend std::ostream& operator << (std::ostream& stream, const amm::menu_subcategory& menu_subcategory);
+		friend std::ostream& operator << (std::ostream& stream, const amm::subcategory& subcategory);
+	};
+
+	class menu_subcategory : public subcategory
+	{
+	public:
+		menu_subcategory() : subcategory(){}
+		menu_subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension) :
+			subcategory(classification_name, display_name, icon_name, icon_extension) {}
 	};
 }
 
