@@ -18,7 +18,7 @@ check_PROGRAMS = mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
                  mjwm_menu_entry_jwm_test \
                  mjwm_transform_jwm_test \
-                 mjwm_menu_subcategory_test \
+                 mjwm_subcategory_test \
                  mjwm_menu_group_test
 
 mjwm_desktop_file_categories_test_SOURCES = src/desktop_file_categories.cpp \
@@ -33,12 +33,12 @@ mjwm_transform_jwm_test_SOURCES = src/desktop_file_categories.cpp \
                                   src/menu_entry/jwm.cpp \
                                   src/transform/jwm.cpp \
                                   test/transform/jwm_test.cpp
-mjwm_menu_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
+mjwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
                                      src/desktop_file.cpp \
                                      src/menu_entry/jwm.cpp \
                                      src/transform/jwm.cpp \
                                      src/menu_subcategory.cpp \
-                                     test/menu_subcategory_test.cpp
+                                     test/subcategory_test.cpp
 mjwm_menu_group_test_SOURCES = src/desktop_file_categories.cpp \
                                src/desktop_file.cpp \
                                src/menu_entry/jwm.cpp \
