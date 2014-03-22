@@ -11,6 +11,7 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/menu_subcategory.cpp \
                src/menu_group.cpp \
                src/desktop_file_search.cpp \
+               src/messages.cpp \
                src/mjwm.cpp
 
 check_PROGRAMS = mjwm_desktop_file_categories_test \

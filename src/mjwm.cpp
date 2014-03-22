@@ -26,38 +26,10 @@
 #include <vector>
 #include <getopt.h>
 
+#include "messages.h"
 #include "desktop_file_search.h"
 #include "menu_group.h"
 
-static const std::string VERSION = "2.2.0";
-
-static void display_help()
-{
-	std::cout << "mjwm version " << VERSION <<  ", Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
-	std::cout << "mjwm comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
-	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
-	std::cout << "under certain conditions; Refer COPYING for details." << std::endl;
-
-	std::cout << "mjwm creates jwm's menu from (freedesktop) desktop files" << std::endl;
-	std::cout << "  -o, --output-file [FILE]           Outfile file [Default: ./automenu]" << std::endl;
-	std::cout << "  -s, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
-	std::cout << "  -a, --append-png                   Add '.png' to icon filenames" << std::endl;
-	std::cout << "  -v, --version                      Show version" << std::endl << std::endl;
-	std::cout << "  -h, --help                         Show this help" << std::endl << std::endl;
-
-	std::cout << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
-	std::cout << "More information at http://github.com/chiku/mjwm" << std::endl;
-}
-
-static void display_version()
-{
-	std::cout << "mjwm " << VERSION << std::endl;
-}
-
-static void display_option_error()
-{
-	std::cerr << "Please run mjwm -h to see options" << std::endl;
-}
 
 int main(int argc, char *argv[])
 {
@@ -94,19 +66,19 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'v':
-				display_version();
+				amm::messages::display_version();
 				return 0;
 
 			case 'h':
-				display_help();
+				amm::messages::display_help();
 				return 0;
 
 			case '?':
-				display_option_error();
+				amm::messages::display_option_error();
 				return 1;
 
 			default:
-				display_option_error();
+				amm::messages::display_option_error();
 				return 1;
 		}
 	}

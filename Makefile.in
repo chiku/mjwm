@@ -109,7 +109,7 @@ am_mjwm_OBJECTS = src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/menu_entry/jwm.$(OBJEXT) \
 	src/transform/jwm.$(OBJEXT) src/menu_subcategory.$(OBJEXT) \
 	src/menu_group.$(OBJEXT) src/desktop_file_search.$(OBJEXT) \
-	src/mjwm.$(OBJEXT)
+	src/messages.$(OBJEXT) src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_desktop_file_categories_test_OBJECTS =  \
@@ -535,6 +535,7 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/menu_subcategory.cpp \
                src/menu_group.cpp \
                src/desktop_file_search.cpp \
+               src/messages.cpp \
                src/mjwm.cpp
 
 mjwm_desktop_file_categories_test_SOURCES = src/desktop_file_categories.cpp \
@@ -700,6 +701,8 @@ src/menu_group.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/desktop_file_search.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/messages.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
 mjwm$(EXEEXT): $(mjwm_OBJECTS) $(mjwm_DEPENDENCIES) $(EXTRA_mjwm_DEPENDENCIES) 
@@ -777,6 +780,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_search.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu_group.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu_subcategory.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/menu_entry/$(DEPDIR)/jwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/transform/$(DEPDIR)/jwm.Po@am__quote@
