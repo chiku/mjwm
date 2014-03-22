@@ -24,7 +24,7 @@
 #include <vector>
 
 #include "desktop_file.h"
-#include "menu_subcategory.h"
+#include "subcategory.h"
 #include "transform/jwm.h"
 
 namespace amm

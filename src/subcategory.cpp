@@ -23,7 +23,7 @@
 
 #include "desktop_file.h"
 #include "transform/jwm.h"
-#include "menu_subcategory.h"
+#include "subcategory.h"
 
 amm::menu_subcategory::menu_subcategory()
 {
