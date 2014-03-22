@@ -29,11 +29,10 @@
 namespace amm
 {
 	const std::string fixtures_directory = "test/fixtures/";
-	const std::string results_directory = "test/results/";
 
 	namespace jwm
 	{
-		// Verifies how a list of FreeDesktop .desktop files is converted to a menu
+		// Verifies how a list of FreeDesktop .desktop files is converted to a JWM menu
 		class menu_test
 		{
 			QUnit::UnitTest qunit;

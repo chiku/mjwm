@@ -30,7 +30,7 @@ namespace amm
 {
 	namespace jwm
 	{
-		// Understands how a list of FreeDesktop .desktop files is converted to a menu
+		// Understands how a list of FreeDesktop .desktop files is converted to a JWM menu
 		class menu
 		{
 		private:
