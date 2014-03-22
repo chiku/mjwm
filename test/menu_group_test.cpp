@@ -94,7 +94,7 @@ namespace amm
 
 		void test_menu_group_writes_populated_entries_to_file()
 		{
-			std::string output_file_name = all_proper_with_extension_output;
+			std::string output_file_name = all_proper_output;
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "vlc.desktop");
 			files.push_back(fixtures_directory + "mousepad.desktop");
@@ -146,7 +146,7 @@ namespace amm
 
 		void test_menu_group_writes_entries_not_belonging_to_a_known_category_to_end_of_the_file()
 		{
-			std::string output_file_name = all_proper_with_extension_output;
+			std::string output_file_name = unclassified_content_output;
 			std::vector<std::string> files;
 			files.push_back(fixtures_directory + "unclassified.desktop");
 			files.push_back(fixtures_directory + "mousepad.desktop");
