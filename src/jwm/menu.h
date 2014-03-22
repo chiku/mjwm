@@ -30,10 +30,6 @@ namespace amm
 {
 	namespace jwm
 	{
-		class menu;
-
-		std::ostream& operator <<(std::ostream& stream, const amm::jwm::menu& menu);
-
 		// Understands how a list of FreeDesktop .desktop files is converted to a menu
 		class menu
 		{
@@ -57,6 +53,8 @@ namespace amm
 			std::string error() const;  // TODO : replace with stats - caller decides on error message
 			void sort();
 		};
+
+		std::ostream& operator << (std::ostream& stream, const amm::jwm::menu& menu);
 	}
 }
 

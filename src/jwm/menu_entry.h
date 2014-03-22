@@ -26,10 +26,6 @@ namespace amm
 {
 	namespace menu_entry
 	{
-		class jwm;
-
-		std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry);
-
 		// Understands a Program entry in RootMenu section of JWM configuration file
 		class jwm
 		{
@@ -45,6 +41,8 @@ namespace amm
 			std::string icon() const;
 			std::string executable() const;
 		};
+
+		std::ostream& operator <<(std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry);
 	}
 }
 

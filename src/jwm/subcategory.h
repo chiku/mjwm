@@ -30,10 +30,6 @@ namespace amm
 {
 	namespace jwm
 	{		
-		class subcategory;
-
-		std::ostream& operator <<(std::ostream& stream, const amm::jwm::subcategory& subcategory);
-
 		// Understands a Menu section inside JWM configuration file 
 		class subcategory
 		{
@@ -60,6 +56,8 @@ namespace amm
 			void add_desktop_file(amm::desktop_file desktop_file);
 			void sort_desktop_files();
 		};
+
+		std::ostream& operator <<(std::ostream& stream, const amm::jwm::subcategory& subcategory);
 	}
 }
 
