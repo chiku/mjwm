@@ -43,6 +43,7 @@ amm::desktop_file_search::all()
 		dirent *directory_entry;
 
 		while((directory_entry = readdir(directory)) != NULL) {
+			// TODO : exclude files that don't end with .desktop_file_names
 			desktop_file_names.push_back(*name + directory_entry->d_name);
 		}
 
