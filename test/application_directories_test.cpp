@@ -40,6 +40,27 @@ namespace amm
 
 			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
 
+			QUNIT_IS_EQUAL(4, file_names.size());
+
+			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
+			QUNIT_IS_TRUE(present_in("test/fixtures/mousepad.desktop", file_names));
+			QUNIT_IS_TRUE(present_in("test/fixtures/unclassified.desktop", file_names));
+			QUNIT_IS_TRUE(present_in("test/fixtures/vlc.desktop", file_names));
+		}
+
+		void test_application_directories_need_not_end_with_a_slash()
+		{
+			std::vector<std::string> directory_names;
+			directory_names.push_back("test/fixtures");
+
+			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
+
+			for (auto i = file_names.begin(); i != file_names.end(); ++i) {
+				std::cout << *i << std::endl;
+			}
+
+			QUNIT_IS_EQUAL(4, file_names.size());
+
 			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/mousepad.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/unclassified.desktop", file_names));
@@ -57,6 +78,7 @@ namespace amm
 		int run()
 		{
 			test_application_directories_gives_back_files_with_extension_desktop();
+			test_application_directories_need_not_end_with_a_slash();
 			return qunit.errors();
 		}
 

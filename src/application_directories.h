@@ -24,6 +24,8 @@
 
 namespace amm
 {
+	const std::string DESKTOP_EXTENSION = ".desktop";
+
 	// Understands how to search .desktop files present in multiple locations
 	class application_directories
 	{

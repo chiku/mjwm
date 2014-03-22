@@ -31,10 +31,17 @@ std::vector<std::string>
 amm::application_directories::desktop_file_names()
 {
 	std::vector<std::string> desktop_file_names;
+	size_t desktop_extension_length = DESKTOP_EXTENSION.length();
 
-	std::vector<std::string>::iterator name;
-	for (name = _directory_names.begin(); name != _directory_names.end(); ++name) {
-		DIR *directory = opendir(name->c_str());
+	std::vector<std::string>::iterator iter;
+	for (iter = _directory_names.begin(); iter != _directory_names.end(); ++iter) {
+		std::string name = *iter;
+
+		if ((name.length() >= 1) && (name.compare(name.length() - 1, 1, "/") != 0)) {
+			name += "/";
+		}
+
+		DIR *directory = opendir(name.c_str());
 
 		if (!directory) {
 			continue;
@@ -43,8 +50,11 @@ amm::application_directories::desktop_file_names()
 		dirent *directory_entry;
 
 		while((directory_entry = readdir(directory)) != NULL) {
-			// TODO : exclude files that don't end with .desktop_file_names
-			desktop_file_names.push_back(*name + directory_entry->d_name);
+			std::string file_name = directory_entry->d_name;
+			size_t file_name_length = file_name.length();
+			if (file_name_length > desktop_extension_length && file_name.compare(file_name_length - desktop_extension_length, desktop_extension_length, DESKTOP_EXTENSION) == 0) {
+				desktop_file_names.push_back(name + file_name);
+			}
 		}
 
 		closedir(directory);
