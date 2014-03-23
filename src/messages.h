@@ -24,8 +24,6 @@ namespace amm
 {
 	namespace messages
 	{
-		const std::string AMM_VERSION = "2.2.0";
-
 		std::string help();
 		std::string version();
 		std::string option_error();
