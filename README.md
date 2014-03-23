@@ -39,18 +39,18 @@ Options
 Usage: mjwm [options]
 
 Optional arguments:
-    -o, --output-file [FILE]      Outfile file [Default: ./automenu]
-    -i, --input-directories [DIRECTORIES]
-                                  Directories to scan for '.desktop' files
-                                    List is separated by colons
-                                    [Default: /usr/share/applications/]
-    -a, --append-png              Add '.png' to all icon file names
-    -h, --help                    Show this help
-    -v, --version                 Show version information
+ -o, --output-file [FILE]    Outfile file [Default: ./automenu]
+ -i, --input-directories [DIRECTORIES]
+                             Directories to scan for '.desktop' files
+                               List is separated by colons
+                               [Default: applications directories under
+                                $XDG_DATA_DIRS & $XDG_DATA_DIRS]
+ -a, --append-png            Add '.png' to all icon file names
+ -h, --help                  Show this help
+ -v, --version               Show version information
 
 Deprecated optional arguments:
-    -s [DIRECTORIES]              Same as -i
-
+  -s [DIRECTORIES]           Same as -i
 ```
 
 Usage
@@ -58,7 +58,7 @@ Usage
 
 * Run the script
 ``` script
-mjwm -o $HOME/.mjwm-entries -a -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
+mjwm -o $HOME/.mjwm-entries -a
 ```
 
 * Edit your $HOME/.jwmrc file. Add an Include $HOME/.mjwm-entries line inside RootMenu.

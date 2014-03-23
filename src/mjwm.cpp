@@ -19,6 +19,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
+#include <dirent.h>
 #include <getopt.h>
 
 #include "stringx.h"
@@ -28,13 +30,42 @@
 #include "icon_service.h"
 #include "jwm/menu.h"
 
+static std::vector<std::string> default_directories_to_search()
+{
+	char *raw_xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
+	std::string xdg_data_dirs;
+	if (raw_xdg_data_dirs == NULL) {
+		char *home = std::getenv("HOME");
+		xdg_data_dirs = home == NULL ? "" : std::string(home) + "/.local/share/applications";
+	} else {
+		xdg_data_dirs = raw_xdg_data_dirs;
+	}
+
+	char *raw_xdg_data_home = std::getenv("XDG_DATA_HOME");
+	std::string xdg_data_home = raw_xdg_data_home == NULL ? "" : raw_xdg_data_home;
+
+	std::string xdg_directories = std::string(xdg_data_dirs) + std::string(":") + std::string(xdg_data_home);
+	std::vector<std::string> directories = amm::stringx(xdg_directories).split(":");
+
+	std::vector<std::string> application_directories;
+	for (std::vector<std::string>::iterator iter = directories.begin(); iter != directories.end(); ++iter) {
+		std::string application_directory = amm::stringx(*iter).terminate_with("/") + "applications";
+
+		DIR *directory = opendir(application_directory.c_str());
+		if (directory) {
+			application_directories.push_back(application_directory);
+			closedir(directory);
+		}
+	}
+
+	return application_directories;
+}
 
 int main(int argc, char *argv[])
 {
-	std::vector<std::string> directories_to_search;
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
-	directories_to_search.push_back("/usr/share/applications/");
+	std::vector<std::string> directories_to_search = default_directories_to_search();
 
 	const char* short_options = "o:i:s:avh";
 	const option long_options[] =
