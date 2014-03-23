@@ -41,8 +41,6 @@ namespace amm
 			size_t _total_unclassified_parsed_files;
 			std::vector<std::string> _unparsed_file_names;
 
-			std::string _error;
-
 			std::vector<amm::jwm::subcategory> _subcategories;
 			amm::jwm::subcategory _unclassified_subcategory;
 
@@ -58,8 +56,6 @@ namespace amm
 			size_t total_parsed_files() const;
 			size_t total_unclassified_parsed_files() const;
 			std::vector<std::string> unparsed_file_names() const;
-			bool is_valid() const; // TODO : replace with stats - caller decides on error message - Deleteme
-			std::string error() const;  // TODO : replace with stats - caller decides on error message - Deleteme
 
 			void populate();
 			void sort();

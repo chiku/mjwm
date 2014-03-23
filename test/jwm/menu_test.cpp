@@ -45,52 +45,6 @@ namespace amm
 				icon_service_with_png.register_extension(".png");
 			}
 
-			void test_menu_is_valid_when_created()
-			{
-				std::vector<std::string> files;
-
-				menu group(files, icon_service);
-
-				QUNIT_IS_TRUE(group.is_valid());
-			}
-
-			void test_menu_has_error_when_no_files_present()
-			{
-				std::vector<std::string> files;
-				menu group(files, icon_service);
-
-				group.populate();
-
-				QUNIT_IS_FALSE(group.is_valid());
-				assert_start_with(group.error(), "No valid .desktop file found");
-			}
-
-			void test_menu_has_error_when_all_files_are_invalid()
-			{
-				std::vector<std::string> files;
-				files.push_back(fixtures_directory + "missing.desktop");
-				menu group(files, icon_service);
-
-				group.populate();
-
-				QUNIT_IS_FALSE(group.is_valid());
-				assert_start_with(group.error(), "No valid .desktop file found");
-			}
-
-			void test_menu_is_valid_for_proper_desktop_files()
-			{
-				std::vector<std::string> files;
-				files.push_back(fixtures_directory + "vlc.desktop");
-				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu group(files, icon_service);
-
-				group.populate();
-
-				QUNIT_IS_TRUE(group.is_valid());
-				QUNIT_IS_EQUAL("", group.error());
-			}
-
-
 			void test_jwm_menu_counts_total_desktop_files_parsed_successfully()
 			{
 				std::vector<std::string> files;
@@ -215,7 +169,6 @@ namespace amm
 				std::stringstream stream;
 				stream << menu;
 
-				QUNIT_IS_FALSE(menu.is_valid());
 				QUNIT_IS_EQUAL("<JWM>\n</JWM>\n", stream.str());
 			}
 
@@ -237,11 +190,6 @@ namespace amm
 			int run()
 			{
 				setup();
-				test_menu_is_valid_when_created();
-				test_menu_has_error_when_no_files_present();
-				test_menu_has_error_when_all_files_are_invalid();
-				test_menu_is_valid_for_proper_desktop_files();
-
 				test_jwm_menu_counts_total_desktop_files_parsed_successfully();
 				test_jwm_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 				test_jwm_menu_has_a_list_of_unparsed_files();

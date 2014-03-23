@@ -105,13 +105,13 @@ int main(int argc, char *argv[])
 
 	amm::icon_service icon_service;
 	icon_service.register_extension(icon_extension);
+
 	amm::jwm::menu jwm_menu(desktop_files, icon_service);
 	jwm_menu.populate();
-	if (!jwm_menu.is_valid()) {
-		std::cerr << jwm_menu.error() << std::endl;
+	if (jwm_menu.total_parsed_files() == 0) {
+		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
 		return 1;
 	}
-
 	jwm_menu.sort();
 
 	std::ofstream file(output_filename.c_str());

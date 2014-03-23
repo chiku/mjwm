@@ -80,10 +80,6 @@ amm::jwm::menu::populate()
 	}
 
 	_subcategories.push_back(_unclassified_subcategory);
-
-	if (_total_parsed_files == 0) {
-		_error = "No valid .desktop file found";
-	}
 }
 
 void
@@ -130,18 +126,6 @@ std::vector<std::string>
 amm::jwm::menu::unparsed_file_names() const
 {
 	return _unparsed_file_names;
-}
-
-bool
-amm::jwm::menu::is_valid() const
-{
-	return _error == "";
-}
-
-std::string
-amm::jwm::menu::error() const
-{
-	return _error;
 }
 
 void
