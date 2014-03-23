@@ -39,11 +39,18 @@ Options
 Usage: mjwm [options]
 
 Optional arguments:
-    -o, --output-file [FILE]           Outfile file [Default: ./automenu]
-    -i, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]
-    -a, --append-png                   Add '.png' to icon filenames
-    -h, --help                         Show this help
-    -v, --version                      Show version information
+    -o, --output-file [FILE]      Outfile file [Default: ./automenu]
+    -i, --input-directories [DIRECTORIES]
+                                  Directories to scan for '.desktop' files
+                                    List is separated by colons
+                                    [Default: /usr/share/applications/]
+    -a, --append-png              Add '.png' to all icon file names
+    -h, --help                    Show this help
+    -v, --version                 Show version information
+
+Deprecated optional arguments:
+    -s [DIRECTORIES]              Same as -i
+
 ```
 
 Usage
@@ -51,7 +58,7 @@ Usage
 
 * Run the script
 ``` script
-mjwm -o $HOME/.mjwm-entries -a
+mjwm -o $HOME/.mjwm-entries -a -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
 ```
 
 * Edit your $HOME/.jwmrc file. Add an Include $HOME/.mjwm-entries line inside RootMenu.
@@ -79,11 +86,16 @@ jwm -reload
 Examples
 --------
 
-Generate menu entries for files inside /etc/xdg
+Generate menu entries for files inside /usr/local/share/applications
 ``` script
-./autogen.sh
-mjwm -s /etc/xdg 
-# mjwm -s /etc/xdg/ works as well
+mjwm -i /usr/local/share/applications
+# mjwm -i /usr/local/share/applications/ # works as well
+```
+
+Generate menu entries for files inside multiple directories /usr/local/share/applications, /usr/share/applications
+& ~/.local/share/applications
+``` script
+mjwm -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
 ```
 
 Create menu entries with icons having a "png" extension

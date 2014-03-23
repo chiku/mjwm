@@ -21,6 +21,7 @@
 #include <vector>
 #include <getopt.h>
 
+#include "stringx.h"
 #include "vectorx.h"
 #include "messages.h"
 #include "application_directories.h"
@@ -30,9 +31,10 @@
 
 int main(int argc, char *argv[])
 {
-	std::string directory_to_scan("/usr/share/applications/");
+	std::vector<std::string> directories_to_search;
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
+	directories_to_search.push_back("/usr/share/applications/");
 
 	const char* short_options = "o:i:s:avh";
 	const option long_options[] =
@@ -55,12 +57,12 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'i':
-				directory_to_scan = optarg;
+				directories_to_search = amm::stringx(optarg).split(":");
 				break;
 
 			case 's':
 				std::cerr << "Deprecated option: use -i instead." << std::endl << "Proceeding..." << std::endl;
-				directory_to_scan = optarg;
+				directories_to_search = amm::stringx(optarg).split(":");
 				break;
 
 			case 'a':
@@ -84,9 +86,6 @@ int main(int argc, char *argv[])
 				return 1;
 		}
 	}
-
-	std::vector<std::string> directories_to_search;
-	directories_to_search.push_back(directory_to_scan);
 
 	amm::application_directories application_directories(directories_to_search);
 	std::vector<std::string> desktop_files = application_directories.desktop_file_names();

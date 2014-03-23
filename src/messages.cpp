@@ -30,17 +30,19 @@ amm::messages::help()
 {
 	std::stringstream stream;
 
-	stream << PACKAGE_STRING <<  ", Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
-	stream << PACKAGE << " comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
-	stream << "This is free software, and you are welcome to redistribute it" << std::endl;
-	stream << "under certain conditions; Refer COPYING for details." << std::endl;
+	stream << "Optional arguments:" << std::endl;
+	stream << "    -o, --output-file [FILE]      Outfile file [Default: ./automenu]" << std::endl;
+	stream << "    -i, --input-directories [DIRECTORIES]" << std::endl;
+	stream << "                                  Directories to scan for '.desktop' files" << std::endl;
+	stream << "                                    List is separated by colons" << std::endl;
+	stream << "                                    [Default: /usr/share/applications/]" << std::endl;
+	stream << "    -a, --append-png              Add '.png' to all icon file names" << std::endl;
+	stream << "    -h, --help                    Show this help" << std::endl;
+	stream << "    -v, --version                 Show version information" << std::endl;
+	stream << "" << std::endl;
+	stream << "Deprecated optional arguments:" << std::endl;
+	stream << "    -s [DIRECTORIES]              Same as -i" << std::endl;
 
-	stream << PACKAGE << " creates JWM's menu from (freedesktop) desktop files" << std::endl;
-	stream << "  -o, --output-file [FILE]           Outfile file [Default: ./automenu]" << std::endl;
-	stream << "  -i, --input-directory [DIRECTORY]  Directory to scan for '.desktop' files [Default: /usr/share/applications/]" << std::endl;
-	stream << "  -a, --append-png                   Add '.png' to icon filenames" << std::endl;
-	stream << "  -v, --version                      Show version" << std::endl << std::endl;
-	stream << "  -h, --help                         Show this help" << std::endl << std::endl;
 
 	stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
 	stream << "More information at http://github.com/chiku/mjwm" << std::endl;
