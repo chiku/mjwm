@@ -1,4 +1,3 @@
-#                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.12])
@@ -17,17 +16,12 @@ AM_INIT_AUTOMAKE([parallel-tests color-tests])
 AC_PROG_CXX
 AC_PROG_INSTALL
 
-# Checks for libraries.
-
 # Checks for header files.
 AC_CHECK_HEADERS([iostream fstream string sstream vector algorithm ctime dirent.h getopt.h])
 AC_HEADER_STDC
 
-# Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
 
 # Checks for library functions.
-AC_FUNC_MALLOC
 AC_CHECK_FUNCS([mjwm])
 AC_CONFIG_FILES([Makefile])
 
