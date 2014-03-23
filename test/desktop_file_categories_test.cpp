@@ -21,8 +21,8 @@
 
 #include "QUnit.hpp"
 
+#include "../src/stringx.h"
 #include "../src/desktop_file_categories.h"
-
 
 namespace amm
 {

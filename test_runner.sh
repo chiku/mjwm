@@ -25,6 +25,8 @@ run() {
 	./$1
 }
 
+run mjwm_stringx_test
+run mjwm_vectorx_test
 run mjwm_desktop_file_categories_test
 run mjwm_desktop_file_test
 run mjwm_jwm_menu_entry_test

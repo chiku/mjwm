@@ -20,6 +20,7 @@
 #include <fstream>
 #include <string>
 
+#include "stringx.h"
 #include "desktop_file_categories.h"
 #include "desktop_file.h"
 
@@ -96,31 +97,15 @@ amm::desktop_file::populate(std::string line)
 	std::string first_part = line.substr(0, location);
 	std::string second_part = line.substr(location + delim.length(), line.length());
 
-	std::string trimmed_first_part = trim(first_part);
+	std::string trimmed_first_part = amm::stringx(first_part).trim();
 
 	if (trimmed_first_part == NAME) {
-		_name = trim(second_part);
+		_name = amm::stringx(second_part).trim();
 	} else if (trimmed_first_part == ICON) {
-		_icon = trim(second_part);
+		_icon = amm::stringx(second_part).trim();
 	} else if (trimmed_first_part == EXECUTABLE) {
-		_executable = trim(second_part);
+		_executable = amm::stringx(second_part).trim();
 	} else if (trimmed_first_part == CATEGORIES) {
-		_categories = amm::desktop_file_categories(trim(second_part));
+		_categories = amm::desktop_file_categories(amm::stringx(second_part).trim());
 	}
-}
-
-std::string
-amm::desktop_file::trim(std::string input) const
-{
-	const std::string whitespace = " \t\n";
-	const size_t begin = input.find_first_not_of(whitespace);
-
-	if (begin == std::string::npos) {
-		return "";
-	}
-
-	const size_t end = input.find_last_not_of(whitespace);
-	const size_t range = end - begin + 1;
-
-	return input.substr(begin, range);
 }

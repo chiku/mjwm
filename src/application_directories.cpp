@@ -20,6 +20,7 @@
 #include <vector>
 #include <dirent.h>
 
+#include "stringx.h"
 #include "application_directories.h"
 
 amm::application_directories::application_directories(std::vector<std::string> directory_names)
@@ -31,36 +32,30 @@ amm::application_directories::application_directories(std::vector<std::string> d
 void
 amm::application_directories::resolve()
 {
-	size_t desktop_extension_length = DESKTOP_EXTENSION.length();
-
 	std::vector<std::string>::iterator iter;
 	for (iter = _directory_names.begin(); iter != _directory_names.end(); ++iter) {
 		std::string name = *iter;
 
-		if ((name.length() >= 1) && (name.compare(name.length() - 1, 1, "/") != 0)) {
-			name += "/";
-		}
+		name = amm::stringx(name).terminate_with("/");
 
 		DIR *directory = opendir(name.c_str());
 
 		if (!directory) {
 			_bad_paths.push_back(name);
-			continue;
-		}
+		} else {
+			dirent *directory_entry;
 
-		dirent *directory_entry;
-
-		while((directory_entry = readdir(directory)) != NULL) {
-			std::string file_name = directory_entry->d_name;
-			size_t file_name_length = file_name.length();
-			if (file_name_length > desktop_extension_length && file_name.compare(file_name_length - desktop_extension_length, desktop_extension_length, DESKTOP_EXTENSION) == 0) {
-				_desktop_file_names.push_back(name + file_name);
+			while((directory_entry = readdir(directory)) != NULL) {
+				std::string file_name = directory_entry->d_name;
+				if (amm::stringx(file_name).ends_with(DESKTOP_EXTENSION)) {
+					_desktop_file_names.push_back(name + file_name);
+				}
 			}
+
+			closedir(directory);
 		}
 
-		closedir(directory);
 	}
-
 }
 
 std::vector<std::string>

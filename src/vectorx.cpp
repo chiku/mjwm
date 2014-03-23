@@ -17,18 +17,24 @@
 */
 
 #include <string>
+#include <vector>
+#include <sstream>
 
-#include "../stringx.h"
-#include "../icon_service.h"
-#include "../desktop_file.h"
-#include "transform.h"
+#include "vectorx.h"
 
-amm::menu_entry::jwm
-amm::transform::jwm::transform(amm::desktop_file desktop_file, amm::icon_service icon_service)
+amm::vectorx::vectorx(std::vector<std::string> vector)
 {
-	std::string name = amm::stringx(desktop_file.name()).encode();
-	std::string icon = amm::stringx(icon_service.resolved_name(desktop_file.icon())).encode();
-	std::string executable = desktop_file.executable();
+	_vector = vector;
+}
 
-	return amm::menu_entry::jwm(name, icon, executable);
+std::string
+amm::vectorx::join(const std::string delimeter)
+{
+	std::stringstream stream;
+
+	for (std::vector<std::string>::iterator item = _vector.begin(); item != _vector.end(); ++item) {
+		stream << *item << delimeter;
+	}
+
+	return stream.str();
 }

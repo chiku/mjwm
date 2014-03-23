@@ -16,41 +16,22 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_desktop_file__
-#define __amm_desktop_file__
+#ifndef __amm_vectorx__
+#define __amm_vectorx__
 
-#include <fstream>
 #include <string>
 #include <vector>
 
-#include "desktop_file_categories.h"
-
 namespace amm
 {
-	// Understands a FreeDesktop .desktop file representation
-	class desktop_file
+	class vectorx
 	{
 	private:
-		std::string _name;
-		std::string _executable;
-		std::string _icon;
-		amm::desktop_file_categories _categories;
+		std::vector<std::string> _vector;
 
 	public:
-		desktop_file();
-
-		std::string name() const;
-		std::string icon() const;
-		std::string executable() const;
-		amm::desktop_file_categories categories() const;
-
-		bool operator < (const amm::desktop_file &other) const;
-		bool operator > (const amm::desktop_file &other) const;
-		bool operator == (const amm::desktop_file &other) const;
-		bool operator != (const amm::desktop_file &other) const;
-
-		bool is_valid() const;
-		void populate(std::string line);
+		vectorx(std::vector<std::string> vector);
+		std::string join(std::string delimiter);
 	};
 }
 

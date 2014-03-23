@@ -16,16 +16,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
-    Based on work by insmyic <gminsm@gmail.com> http://sourceforge.net/projects/mjm
-*/
-
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include <getopt.h>
 
+#include "vectorx.h"
 #include "messages.h"
 #include "application_directories.h"
 #include "icon_service.h"
@@ -96,10 +92,7 @@ int main(int argc, char *argv[])
 	std::vector<std::string> desktop_files = application_directories.desktop_file_names();
 	std::vector<std::string> bad_paths = application_directories.bad_paths();
 	if (bad_paths.size() > 0) {
-		std::cerr << "These paths couldn't be opened: ";
-		for (std::vector<std::string>::iterator path = bad_paths.begin(); path != bad_paths.end(); ++path) {
-			std::cerr << *path << " ";
-		}
+		std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(" ");
 		std::cerr << std::endl << "Proceeding..." << std::endl;
 	}
 

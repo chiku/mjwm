@@ -21,6 +21,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "stringx.h"
+#include "vectorx.h"
 #include "desktop_file_categories.h"
 
 amm::desktop_file_categories::desktop_file_categories()
@@ -40,21 +42,7 @@ amm::desktop_file_categories::desktop_file_categories(std::string raw)
 void
 amm::desktop_file_categories::parse()
 {
-	std::string raw = _raw;
-	size_t delim_length = DESKTOP_FILE_CATEGORY_DELIM.length();
-
-	if ((raw.length() >= delim_length) && (raw.compare(raw.length() - delim_length, delim_length, DESKTOP_FILE_CATEGORY_DELIM) != 0)) {
-		raw += DESKTOP_FILE_CATEGORY_DELIM;
-	}
-
-	size_t start = 0U;
-	size_t end = raw.find(DESKTOP_FILE_CATEGORY_DELIM);
-
-	while (end != std::string::npos) {
-		_categories.push_back(raw.substr(start, end - start));
-		start = end + delim_length;
-		end = raw.find(DESKTOP_FILE_CATEGORY_DELIM, start);
-	}
+	_categories = amm::stringx(_raw).split(";");
 }
 
 void
@@ -69,14 +57,15 @@ amm::desktop_file_categories::is_a(std::string type) const
 	return std::binary_search(_categories.begin(), _categories.end(), type);
 }
 
+std::vector<std::string>
+amm::desktop_file_categories::categories() const
+{
+	return _categories;
+}
+
 std::ostream&
 amm::operator << (std::ostream& stream, const amm::desktop_file_categories& categories)
 {
-	std::vector<std::string> container = categories._categories;
-
-	for(std::vector<std::string>::iterator category = container.begin(); category != container.end(); ++category) {
-		stream << *category << "; ";
-	}
-
+	stream << amm::vectorx(categories.categories()).join("; ");
 	return stream;
 }

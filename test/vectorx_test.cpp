@@ -16,19 +16,45 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
+#include <vector>
 #include <string>
 
-#include "../stringx.h"
-#include "../icon_service.h"
-#include "../desktop_file.h"
-#include "transform.h"
+#include "QUnit.hpp"
 
-amm::menu_entry::jwm
-amm::transform::jwm::transform(amm::desktop_file desktop_file, amm::icon_service icon_service)
+#include "../src/vectorx.h"
+
+namespace amm
 {
-	std::string name = amm::stringx(desktop_file.name()).encode();
-	std::string icon = amm::stringx(icon_service.resolved_name(desktop_file.icon())).encode();
-	std::string executable = desktop_file.executable();
+	namespace utils
+	{
+		class vectorx_test
+		{
+			QUnit::UnitTest qunit;
 
-	return amm::menu_entry::jwm(name, icon, executable);
+			void test_vectorx_joins_into_a_string_with_a_delimiter()
+			{
+				std::vector<std::string> vector;
+				vector.push_back("foo");
+				vector.push_back("bar");
+				vector.push_back("baz");
+				QUNIT_IS_EQUAL("foo; bar; baz; ", amm::vectorx(vector).join("; "));
+			}
+
+		public:
+			vectorx_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+
+			int run()
+			{
+				test_vectorx_joins_into_a_string_with_a_delimiter();
+				return qunit.errors();
+			}
+		};
+	}
+}
+
+
+int main()
+{
+	return amm::utils::vectorx_test(std::cerr, QUnit::normal).run();
 }

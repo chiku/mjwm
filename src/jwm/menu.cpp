@@ -62,21 +62,19 @@ amm::jwm::menu::populate()
 		amm::desktop_file desktop_file;
 		std::ifstream file(name->c_str());
 
-		if (!file.good()) {
-			continue;
-		}
+		if (file.good()) {
+			while (std::getline(file, line)) {
+				desktop_file.populate(line);
+			}
 
-		while (std::getline(file, line)) {
-			desktop_file.populate(line);
-		}
+			if (desktop_file.is_valid()) {
+				classify(desktop_file);
+			} else {
+				_unparsed_file_names.push_back(*name);
+			}
 
-		if (desktop_file.is_valid()) {
-			classify(desktop_file);
-		} else {
-			_unparsed_file_names.push_back(*name);
+			file.close();
 		}
-
-		file.close();
 	}
 
 	_subcategories.push_back(_unclassified_subcategory);
