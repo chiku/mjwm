@@ -31,10 +31,15 @@ namespace amm
 	{
 	private:
 		std::vector<std::string> _directory_names;
+		std::vector<std::string> _desktop_file_names;
+		std::vector<std::string> _bad_paths;
+
+		void resolve();
 
 	public:
 		application_directories(std::vector<std::string> directory_names);
-		std::vector<std::string> desktop_file_names();
+		std::vector<std::string> desktop_file_names() const;
+		std::vector<std::string> bad_paths() const;
 	};
 }
 

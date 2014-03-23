@@ -40,12 +40,7 @@ namespace amm
 
 			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
 
-			QUNIT_IS_EQUAL(4, file_names.size());
-
-			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
-			QUNIT_IS_TRUE(present_in("test/fixtures/mousepad.desktop", file_names));
-			QUNIT_IS_TRUE(present_in("test/fixtures/unclassified.desktop", file_names));
-			QUNIT_IS_TRUE(present_in("test/fixtures/vlc.desktop", file_names));
+			assert_files_are_present_in_list(file_names);
 		}
 
 		void test_application_directories_need_not_end_with_a_slash()
@@ -55,17 +50,46 @@ namespace amm
 
 			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
 
+			assert_files_are_present_in_list(file_names);
+		}
+
+		void test_application_directories_gives_back_files_when_one_directory_is_missing()
+		{
+			std::vector<std::string> directory_names;
+			directory_names.push_back("test/fixtures");
+			directory_names.push_back("test/does-not-exist");
+
+			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
+
+			assert_files_are_present_in_list(file_names);
+		}
+
+		void test_application_directories_tracks_bad_paths_it_couldnt_open()
+		{
+			std::vector<std::string> directory_names;
+			directory_names.push_back("test/fixtures");
+			directory_names.push_back("test/does-not-exist");
+
+			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
+			std::vector<std::string> bad_paths = application_directories(directory_names).bad_paths();
+
+			QUNIT_IS_EQUAL(1, bad_paths.size());
+			QUNIT_IS_EQUAL("test/does-not-exist/",bad_paths[0]);
+		}
+
+		bool present_in(std::string item, std::vector<std::string> list)
+		{
+			return std::find(list.begin(), list.end(), item) != list.end();
+		}
+
+		void assert_files_are_present_in_list(std::vector<std::string> file_names)
+		{
 			QUNIT_IS_EQUAL(4, file_names.size());
 
 			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/mousepad.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/unclassified.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/vlc.desktop", file_names));
-		}
-
-		bool present_in(std::string item, std::vector<std::string> list)
-		{
-			return std::find(list.begin(), list.end(), item) != list.end();
 		}
 
 	public:
@@ -75,6 +99,8 @@ namespace amm
 		{
 			test_application_directories_gives_back_files_with_extension_desktop();
 			test_application_directories_need_not_end_with_a_slash();
+			test_application_directories_gives_back_files_when_one_directory_is_missing();
+			test_application_directories_tracks_bad_paths_it_couldnt_open();
 			return qunit.errors();
 		}
 

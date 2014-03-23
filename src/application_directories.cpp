@@ -16,6 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
+
 #include <string>
 #include <vector>
 #include <dirent.h>
@@ -25,12 +27,12 @@
 amm::application_directories::application_directories(std::vector<std::string> directory_names)
 {
 	_directory_names = directory_names;
+	resolve();
 }
 
-std::vector<std::string>
-amm::application_directories::desktop_file_names()
+void
+amm::application_directories::resolve()
 {
-	std::vector<std::string> desktop_file_names;
 	size_t desktop_extension_length = DESKTOP_EXTENSION.length();
 
 	std::vector<std::string>::iterator iter;
@@ -44,6 +46,7 @@ amm::application_directories::desktop_file_names()
 		DIR *directory = opendir(name.c_str());
 
 		if (!directory) {
+			_bad_paths.push_back(name);
 			continue;
 		}
 
@@ -53,12 +56,23 @@ amm::application_directories::desktop_file_names()
 			std::string file_name = directory_entry->d_name;
 			size_t file_name_length = file_name.length();
 			if (file_name_length > desktop_extension_length && file_name.compare(file_name_length - desktop_extension_length, desktop_extension_length, DESKTOP_EXTENSION) == 0) {
-				desktop_file_names.push_back(name + file_name);
+				_desktop_file_names.push_back(name + file_name);
 			}
 		}
 
 		closedir(directory);
 	}
 
-	return desktop_file_names;
+}
+
+std::vector<std::string>
+amm::application_directories::desktop_file_names() const
+{
+	return _desktop_file_names;
+}
+
+std::vector<std::string>
+amm::application_directories::bad_paths() const
+{
+	return _bad_paths;
 }

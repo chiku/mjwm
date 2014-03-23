@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
 				break;
 
 			case 's':
-				std::cerr << "Deprecated option: use -i instead. Proceeding..." << std::endl;
+				std::cerr << "Deprecated option: use -i instead." << std::endl << "Proceeding..." << std::endl;
 				directory_to_scan = optarg;
 				break;
 
@@ -91,7 +91,16 @@ int main(int argc, char *argv[])
 	std::vector<std::string> directories_to_search;
 	directories_to_search.push_back(directory_to_scan);
 
-	std::vector<std::string> desktop_files = amm::application_directories(directories_to_search).desktop_file_names();
+	amm::application_directories application_directories(directories_to_search);
+	std::vector<std::string> desktop_files = application_directories.desktop_file_names();
+	std::vector<std::string> bad_paths = application_directories.bad_paths();
+	if (bad_paths.size() > 0) {
+		std::cerr << "These paths couldn't be opened: ";
+		for (std::vector<std::string>::iterator path = bad_paths.begin(); path != bad_paths.end(); ++path) {
+			std::cerr << *path << " ";
+		}
+		std::cerr << std::endl << "Proceeding..." << std::endl;
+	}
 
 	amm::jwm::menu jwm_menu(desktop_files, icon_extension);
 	jwm_menu.populate();
