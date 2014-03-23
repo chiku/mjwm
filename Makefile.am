@@ -35,6 +35,7 @@ mjwm_jwm_transform_test_SOURCES = src/desktop_file_categories.cpp \
                                   src/desktop_file.cpp \
                                   src/jwm/menu_entry.cpp \
                                   src/jwm/transform.cpp \
+                                  src/icon_service.cpp \
                                   test/jwm/transform_test.cpp
 mjwm_jwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
                                     src/desktop_file.cpp \

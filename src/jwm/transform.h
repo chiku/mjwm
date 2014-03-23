@@ -21,6 +21,7 @@
 
 #include <string>
 
+#include "../icon_service.h"
 #include "../desktop_file.h"
 #include "menu_entry.h"
 
@@ -35,7 +36,7 @@ namespace amm
 			std::string encode(std::string input) const;
 
 		public:
-			amm::menu_entry::jwm transform(amm::desktop_file desktop_file, std::string icon_extension);
+			amm::menu_entry::jwm transform(amm::desktop_file desktop_file, amm::icon_service icon_service);
 		};
 	}
 }

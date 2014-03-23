@@ -99,7 +99,7 @@ amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcat
 		std::vector<amm::desktop_file> desktop_files = subcategory.desktop_files();
 		std::vector<amm::desktop_file>::iterator entry;
 		for(entry = desktop_files.begin(); entry != desktop_files.end(); ++entry) {
-			stream << "    " << jwm_transformer.transform(*entry, icon_service.resolved_name("")) << std::endl;
+			stream << "    " << jwm_transformer.transform(*entry, icon_service) << std::endl;
 		}
 
 		stream << "  " << subcategory.last_line() << std::endl;

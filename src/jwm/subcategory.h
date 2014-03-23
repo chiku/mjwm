@@ -46,7 +46,7 @@ namespace amm
 			subcategory(std::string classification_name, std::string display_name, std::string icon_name, amm::icon_service icon_service);
 
 			amm::icon_service icon_service() const;
-			std::string classification_name() const;  // TODO : verify &  Deleteme
+			std::string classification_name() const;
 			std::string first_line() const;
 			std::string last_line() const;
 			std::vector<amm::desktop_file> desktop_files() const;

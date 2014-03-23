@@ -154,7 +154,8 @@ mjwm_jwm_subcategory_test_LDADD = $(LDADD)
 am_mjwm_jwm_transform_test_OBJECTS =  \
 	src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/jwm/menu_entry.$(OBJEXT) \
-	src/jwm/transform.$(OBJEXT) test/jwm/transform_test.$(OBJEXT)
+	src/jwm/transform.$(OBJEXT) src/icon_service.$(OBJEXT) \
+	test/jwm/transform_test.$(OBJEXT)
 mjwm_jwm_transform_test_OBJECTS =  \
 	$(am_mjwm_jwm_transform_test_OBJECTS)
 mjwm_jwm_transform_test_LDADD = $(LDADD)
@@ -569,6 +570,7 @@ mjwm_jwm_transform_test_SOURCES = src/desktop_file_categories.cpp \
                                   src/desktop_file.cpp \
                                   src/jwm/menu_entry.cpp \
                                   src/jwm/transform.cpp \
+                                  src/icon_service.cpp \
                                   test/jwm/transform_test.cpp
 
 mjwm_jwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
