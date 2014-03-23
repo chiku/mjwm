@@ -10,6 +10,7 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/jwm/transform.cpp \
                src/jwm/subcategory.cpp \
                src/jwm/menu.cpp \
+               src/icon_service.cpp \
                src/application_directories.cpp \
                src/messages.cpp \
                src/mjwm.cpp
@@ -40,6 +41,7 @@ mjwm_jwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
                                     src/jwm/menu_entry.cpp \
                                     src/jwm/transform.cpp \
                                     src/jwm/subcategory.cpp \
+                                    src/icon_service.cpp \
                                     test/jwm/subcategory_test.cpp
 mjwm_application_directories_test_SOURCES = src/application_directories.cpp \
                                             test/application_directories_test.cpp
@@ -49,6 +51,7 @@ mjwm_jwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
                              src/jwm/transform.cpp \
                              src/jwm/subcategory.cpp \
                              src/jwm/menu.cpp \
+                             src/icon_service.cpp \
                              test/jwm/menu_test.cpp
 mjwm_messages_test_SOURCES = src/messages.cpp \
                              test/messages_test.cpp

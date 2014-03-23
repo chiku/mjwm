@@ -24,6 +24,7 @@
 
 #include "../QUnit.hpp"
 
+#include "../../src/icon_service.h"
 #include "../../src/jwm/menu.h"
 
 namespace amm
@@ -36,12 +37,19 @@ namespace amm
 		class menu_test
 		{
 			QUnit::UnitTest qunit;
+			amm::icon_service icon_service;
+			amm::icon_service icon_service_with_png;
+
+			void setup()
+			{
+				icon_service_with_png.register_extension(".png");
+			}
 
 			void test_menu_is_valid_when_created()
 			{
 				std::vector<std::string> files;
 
-				menu group(files, "");
+				menu group(files, icon_service);
 
 				QUNIT_IS_TRUE(group.is_valid());
 			}
@@ -49,7 +57,7 @@ namespace amm
 			void test_menu_has_error_when_no_files_present()
 			{
 				std::vector<std::string> files;
-				menu group(files, "");
+				menu group(files, icon_service);
 
 				group.populate();
 
@@ -61,7 +69,7 @@ namespace amm
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "missing.desktop");
-				menu group(files, "");
+				menu group(files, icon_service);
 
 				group.populate();
 
@@ -74,7 +82,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu group(files, "");
+				menu group(files, icon_service);
 
 				group.populate();
 
@@ -88,7 +96,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, "");
+				menu menu(files, icon_service);
 
 				menu.populate();
 
@@ -100,7 +108,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "unclassified.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, "");
+				menu menu(files, icon_service);
 
 				menu.populate();
 
@@ -112,7 +120,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "missing.desktop");
-				menu menu(files, "");
+				menu menu(files, icon_service);
 
 				menu.populate();
 
@@ -126,7 +134,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, "");
+				menu menu(files, icon_service);
 
 				menu.populate();
 				menu.sort();
@@ -151,7 +159,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, ".png");
+				menu menu(files, icon_service_with_png);
 
 				menu.populate();
 				menu.sort();
@@ -176,7 +184,7 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "unclassified.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, "");
+				menu menu(files, icon_service);
 
 				menu.populate();
 				menu.sort();
@@ -200,7 +208,7 @@ namespace amm
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "missing.desktop");
-				menu menu(files, "");
+				menu menu(files, icon_service);
 
 				menu.populate();
 				menu.sort();
@@ -228,6 +236,7 @@ namespace amm
 
 			int run()
 			{
+				setup();
 				test_menu_is_valid_when_created();
 				test_menu_has_error_when_no_files_present();
 				test_menu_has_error_when_all_files_are_invalid();

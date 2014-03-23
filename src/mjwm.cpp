@@ -28,6 +28,7 @@
 
 #include "messages.h"
 #include "application_directories.h"
+#include "icon_service.h"
 #include "jwm/menu.h"
 
 
@@ -102,7 +103,9 @@ int main(int argc, char *argv[])
 		std::cerr << std::endl << "Proceeding..." << std::endl;
 	}
 
-	amm::jwm::menu jwm_menu(desktop_files, icon_extension);
+	amm::icon_service icon_service;
+	icon_service.register_extension(icon_extension);
+	amm::jwm::menu jwm_menu(desktop_files, icon_service);
 	jwm_menu.populate();
 	if (!jwm_menu.is_valid()) {
 		std::cerr << jwm_menu.error() << std::endl;

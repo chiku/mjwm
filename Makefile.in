@@ -109,8 +109,9 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/jwm/menu_entry.$(OBJEXT) \
 	src/jwm/transform.$(OBJEXT) src/jwm/subcategory.$(OBJEXT) \
-	src/jwm/menu.$(OBJEXT) src/application_directories.$(OBJEXT) \
-	src/messages.$(OBJEXT) src/mjwm.$(OBJEXT)
+	src/jwm/menu.$(OBJEXT) src/icon_service.$(OBJEXT) \
+	src/application_directories.$(OBJEXT) src/messages.$(OBJEXT) \
+	src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_application_directories_test_OBJECTS =  \
@@ -138,14 +139,15 @@ mjwm_jwm_menu_entry_test_LDADD = $(LDADD)
 am_mjwm_jwm_menu_test_OBJECTS = src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/jwm/menu_entry.$(OBJEXT) \
 	src/jwm/transform.$(OBJEXT) src/jwm/subcategory.$(OBJEXT) \
-	src/jwm/menu.$(OBJEXT) test/jwm/menu_test.$(OBJEXT)
+	src/jwm/menu.$(OBJEXT) src/icon_service.$(OBJEXT) \
+	test/jwm/menu_test.$(OBJEXT)
 mjwm_jwm_menu_test_OBJECTS = $(am_mjwm_jwm_menu_test_OBJECTS)
 mjwm_jwm_menu_test_LDADD = $(LDADD)
 am_mjwm_jwm_subcategory_test_OBJECTS =  \
 	src/desktop_file_categories.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/jwm/menu_entry.$(OBJEXT) \
 	src/jwm/transform.$(OBJEXT) src/jwm/subcategory.$(OBJEXT) \
-	test/jwm/subcategory_test.$(OBJEXT)
+	src/icon_service.$(OBJEXT) test/jwm/subcategory_test.$(OBJEXT)
 mjwm_jwm_subcategory_test_OBJECTS =  \
 	$(am_mjwm_jwm_subcategory_test_OBJECTS)
 mjwm_jwm_subcategory_test_LDADD = $(LDADD)
@@ -548,6 +550,7 @@ mjwm_SOURCES = src/desktop_file_categories.cpp \
                src/jwm/transform.cpp \
                src/jwm/subcategory.cpp \
                src/jwm/menu.cpp \
+               src/icon_service.cpp \
                src/application_directories.cpp \
                src/messages.cpp \
                src/mjwm.cpp
@@ -573,6 +576,7 @@ mjwm_jwm_subcategory_test_SOURCES = src/desktop_file_categories.cpp \
                                     src/jwm/menu_entry.cpp \
                                     src/jwm/transform.cpp \
                                     src/jwm/subcategory.cpp \
+                                    src/icon_service.cpp \
                                     test/jwm/subcategory_test.cpp
 
 mjwm_application_directories_test_SOURCES = src/application_directories.cpp \
@@ -584,6 +588,7 @@ mjwm_jwm_menu_test_SOURCES = src/desktop_file_categories.cpp \
                              src/jwm/transform.cpp \
                              src/jwm/subcategory.cpp \
                              src/jwm/menu.cpp \
+                             src/icon_service.cpp \
                              test/jwm/menu_test.cpp
 
 mjwm_messages_test_SOURCES = src/messages.cpp \
@@ -713,6 +718,8 @@ src/jwm/subcategory.$(OBJEXT): src/jwm/$(am__dirstamp) \
 	src/jwm/$(DEPDIR)/$(am__dirstamp)
 src/jwm/menu.$(OBJEXT): src/jwm/$(am__dirstamp) \
 	src/jwm/$(DEPDIR)/$(am__dirstamp)
+src/icon_service.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/application_directories.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
@@ -796,6 +803,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/application_directories.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_categories.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/icon_service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/jwm/$(DEPDIR)/menu.Po@am__quote@

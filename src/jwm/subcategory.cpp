@@ -29,12 +29,18 @@ amm::jwm::subcategory::subcategory()
 {
 }
 
-amm::jwm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension)
+amm::jwm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name, amm::icon_service icon_service)
 {
 	_classification_name = classification_name;
 	_display_name = display_name;
 	_icon_name = icon_name;
-	_icon_extension = icon_extension;
+	_icon_service = icon_service;
+}
+
+amm::icon_service
+amm::jwm::subcategory::icon_service() const
+{
+	return _icon_service;
 }
 
 std::string
@@ -44,28 +50,10 @@ amm::jwm::subcategory::classification_name() const
 }
 
 std::string
-amm::jwm::subcategory::display_name() const
-{
-	return _display_name;
-}
-
-std::string
-amm::jwm::subcategory::icon_name() const
-{
-	return _icon_name;
-}
-
-std::string
-amm::jwm::subcategory::icon_extension() const
-{
-	return _icon_extension;
-}
-
-std::string
 amm::jwm::subcategory::first_line() const
 {
 	std::string line = "<Menu ";
-	line += "label=\"" + _display_name + "\" icon=\"" + _icon_name + _icon_extension + "\">";
+	line += "label=\"" + _display_name + "\" icon=\"" + _icon_service.resolved_name(_icon_name) + "\">";
 	return line;
 }
 
@@ -103,14 +91,15 @@ std::ostream&
 amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcategory)
 {
 	if (subcategory.has_entries()) {
-		amm::transform::jwm jwm_transformer; // TODO : inject from outside
+		amm::transform::jwm jwm_transformer;
+		amm::icon_service icon_service = subcategory.icon_service();
 
 		stream << "  " << subcategory.first_line() << std::endl;
 
 		std::vector<amm::desktop_file> desktop_files = subcategory.desktop_files();
 		std::vector<amm::desktop_file>::iterator entry;
 		for(entry = desktop_files.begin(); entry != desktop_files.end(); ++entry) {
-			stream << "    " << jwm_transformer.transform(*entry, subcategory.icon_extension()) << std::endl;
+			stream << "    " << jwm_transformer.transform(*entry, icon_service.resolved_name("")) << std::endl;
 		}
 
 		stream << "  " << subcategory.last_line() << std::endl;

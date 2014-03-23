@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "../desktop_file.h"
+#include "../icon_service.h"
 #include "subcategory.h"
 
 namespace amm
@@ -45,21 +46,20 @@ namespace amm
 			std::vector<amm::jwm::subcategory> _subcategories;
 			amm::jwm::subcategory _unclassified_subcategory;
 
-			// TODO : find using a icon service
-			std::string _icon_extension;
+			amm::icon_service _icon_service;
 
 			void classify(amm::desktop_file entry);
 			void create_categories();
 
 		public:
-			menu(std::vector<std::string> desktop_file_names, std::string icon_extension);
+			menu(std::vector<std::string> desktop_file_names, amm::icon_service icon_service);
 
 			std::vector<amm::jwm::subcategory> subcategories() const;
 			size_t total_parsed_files() const;
 			size_t total_unclassified_parsed_files() const;
 			std::vector<std::string> unparsed_file_names() const;
-			bool is_valid() const; // TODO : replace with stats - caller decides on error message
-			std::string error() const;  // TODO : replace with stats - caller decides on error message
+			bool is_valid() const; // TODO : replace with stats - caller decides on error message - Deleteme
+			std::string error() const;  // TODO : replace with stats - caller decides on error message - Deleteme
 
 			void populate();
 			void sort();

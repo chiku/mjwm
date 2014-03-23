@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 
+#include "../icon_service.h"
 #include "../desktop_file.h"
 #include "transform.h"
 
@@ -37,17 +38,15 @@ namespace amm
 			std::string _classification_name;
 			std::string _display_name;
 			std::string _icon_name;
-			std::string _icon_extension;
+			amm::icon_service _icon_service;
 			std::vector<amm::desktop_file> _desktop_files;
 
 		public:
 			subcategory();
-			subcategory(std::string classification_name, std::string display_name, std::string icon_name, std::string icon_extension);
+			subcategory(std::string classification_name, std::string display_name, std::string icon_name, amm::icon_service icon_service);
 
-			std::string classification_name() const;
-			std::string display_name() const;
-			std::string icon_name() const;
-			std::string icon_extension() const;
+			amm::icon_service icon_service() const;
+			std::string classification_name() const;  // TODO : verify &  Deleteme
 			std::string first_line() const;
 			std::string last_line() const;
 			std::vector<amm::desktop_file> desktop_files() const;

@@ -21,14 +21,15 @@
 #include <string>
 #include <vector>
 
+#include "../icon_service.h"
 #include "../desktop_file.h"
 #include "subcategory.h"
 #include "menu.h"
 
-amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, std::string icon_extension)
+amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, amm::icon_service icon_service)
 {
 	_desktop_file_names = desktop_file_names;
-	_icon_extension = icon_extension;
+	_icon_service = icon_service;
 	_total_parsed_files = 0;
 	_total_unclassified_parsed_files = 0;
 	create_categories();
@@ -37,19 +38,19 @@ amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, std::string ic
 void
 amm::jwm::menu::create_categories()
 {
-	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_extension);
+	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_service);
 
-	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings",    _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories", _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development", _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Education",   "Education",   "education",   _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Game",        "Games",       "games",       _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Graphics",    "Graphics",    "graphics",    _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Network",     "Internet",    "internet",    _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("AudioVideo",  "Multimedia",  "multimedia",  _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office",      _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science",     _icon_extension));
-	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system",      _icon_extension));
+	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings",    _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories", _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development", _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Education",   "Education",   "education",   _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Game",        "Games",       "games",       _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Graphics",    "Graphics",    "graphics",    _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Network",     "Internet",    "internet",    _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("AudioVideo",  "Multimedia",  "multimedia",  _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office",      _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science",     _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system",      _icon_service));
 }
 
 void
