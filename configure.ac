@@ -18,8 +18,6 @@ AC_PROG_INSTALL
 
 # Checks for header files.
 AC_CHECK_HEADERS([iostream fstream string sstream vector algorithm ctime dirent.h getopt.h])
-AC_HEADER_STDC
-
 
 # Checks for library functions.
 AC_CHECK_FUNCS([mjwm])
