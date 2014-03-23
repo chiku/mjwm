@@ -35,14 +35,19 @@ static std::vector<std::string> default_directories_to_search()
 	char *raw_xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
 	std::string xdg_data_dirs;
 	if (raw_xdg_data_dirs == NULL) {
-		char *home = std::getenv("HOME");
-		xdg_data_dirs = home == NULL ? "" : std::string(home) + "/.local/share/applications";
+		xdg_data_dirs = "/usr/local/share:/usr/share";
 	} else {
 		xdg_data_dirs = raw_xdg_data_dirs;
 	}
 
 	char *raw_xdg_data_home = std::getenv("XDG_DATA_HOME");
-	std::string xdg_data_home = raw_xdg_data_home == NULL ? "" : raw_xdg_data_home;
+	std::string xdg_data_home;
+	if (raw_xdg_data_home == NULL) {
+		char *home = std::getenv("HOME");
+		xdg_data_home = home == NULL ? "" : std::string(home) + "/.local/share/applications";
+	} else {
+		xdg_data_home = raw_xdg_data_home;
+	}
 
 	std::string xdg_directories = std::string(xdg_data_dirs) + std::string(":") + std::string(xdg_data_home);
 	std::vector<std::string> directories = amm::stringx(xdg_directories).split(":");

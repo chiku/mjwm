@@ -7,7 +7,5 @@ script:
   - ./configure
   - make check
   - ./test_runner.sh
-  - echo $XDG_DATA_DIRS
-  - echo $XDG_DATA_HOME
-  - time ./mjwm -i /usr/share/applications
+  - time ./mjwm
   - cat automenu
