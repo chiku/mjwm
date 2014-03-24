@@ -38,7 +38,20 @@ namespace amm
 				vector.push_back("foo");
 				vector.push_back("bar");
 				vector.push_back("baz");
-				QUNIT_IS_EQUAL("foo; bar; baz; ", amm::vectorx(vector).join("; "));
+				QUNIT_IS_EQUAL("foo; bar; baz", amm::vectorx(vector).join("; "));
+			}
+
+			void test_vectorx_joins_into_vector_with_one_entry()
+			{
+				std::vector<std::string> vector;
+				vector.push_back("foo");
+				QUNIT_IS_EQUAL("foo", amm::vectorx(vector).join("; "));
+			}
+
+			void test_vectorx_joins_into_vector_with_no_entries()
+			{
+				std::vector<std::string> vector;
+				QUNIT_IS_EQUAL("", amm::vectorx(vector).join("; "));
 			}
 
 		public:
@@ -47,6 +60,8 @@ namespace amm
 			int run()
 			{
 				test_vectorx_joins_into_a_string_with_a_delimiter();
+				test_vectorx_joins_into_vector_with_one_entry();
+				test_vectorx_joins_into_vector_with_no_entries();
 				return qunit.errors();
 			}
 		};

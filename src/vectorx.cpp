@@ -31,10 +31,18 @@ std::string
 amm::vectorx::join(const std::string delimeter)
 {
 	std::stringstream stream;
+	size_t vector_size = _vector.size();
 
-	for (std::vector<std::string>::iterator item = _vector.begin(); item != _vector.end(); ++item) {
-		stream << *item << delimeter;
+	if (vector_size == 0) {
+		return "";
 	}
+
+	if (vector_size >= 2) {
+		for (size_t i = 0; i < vector_size - 1; ++i) {
+			stream << _vector[i] << delimeter;
+		}
+	}
+	stream << _vector[vector_size - 1];
 
 	return stream.str();
 }

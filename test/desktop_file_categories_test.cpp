@@ -60,7 +60,7 @@ namespace amm
 			desktop_file_categories categories("AudioVideo;Player;GTK;");
 			std::stringstream stream;
 			stream << categories;
-			QUNIT_IS_EQUAL("AudioVideo; GTK; Player; ", stream.str());
+			QUNIT_IS_EQUAL("AudioVideo; GTK; Player", stream.str());
 		}
 
 	public:
