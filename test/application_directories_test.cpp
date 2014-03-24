@@ -70,7 +70,6 @@ namespace amm
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/does-not-exist");
 
-			std::vector<std::string> file_names = application_directories(directory_names).desktop_file_names();
 			std::vector<std::string> bad_paths = application_directories(directory_names).bad_paths();
 
 			QUNIT_IS_EQUAL(1, bad_paths.size());
