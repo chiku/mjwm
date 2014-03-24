@@ -4,8 +4,8 @@ Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 version 2.2.0 - Chirantan Mitra, 2014-03-21
 
 * Specify the order in which menu categories appear
-* [BUG] Ignore spaces around equals sign in Desktop file entries [#20]
 * Add icon extension .png to icon category names when given -a command-line option
+* [BUG] Ignore spaces around equals sign in Desktop file entries [#20]
 
 
 version 2.1.1 - Chirantan Mitra, 2014-03-16
@@ -27,9 +27,9 @@ version 2.0 - Chirantan Mitra, 2014-03-16
 version 1.1 - Chirantan Mitra, 2014-03-15
 
 * Sort entries based on their names
+* Provide long conmmand line options
 * [BUG] XML escape for characters
 * [BUG] Don't create entries with stale data
-* Provide long conmmand line options
 
 
 version 1.0 - Chirantan Mitra, 2014-03-09
