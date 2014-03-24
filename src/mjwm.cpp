@@ -19,7 +19,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cstdlib>
 #include <dirent.h>
 #include <getopt.h>
 
@@ -30,53 +29,15 @@
 #include "icon_service.h"
 #include "jwm/menu.h"
 
-static std::string xdg_data_dirs()
-{
-	char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
-
-	if (xdg_data_dirs == NULL) {
-		return "/usr/local/share:/usr/share";
-	}
-
-	return xdg_data_dirs;
-}
-
-static std::string xdg_data_home()
-{
-	char *xdg_data_home = std::getenv("XDG_DATA_HOME");
-	char *home = std::getenv("HOME");
-
-	if (xdg_data_home == NULL && home == NULL) {
-		return "";
-	}
-	if (home != NULL) {
-		return std::string(home) + "/.local/share/applications";
-	}
-
-	return xdg_data_home;
-}
-
-static amm::application_directories default_application_directories()
-{
-	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs() + std::string(":") + xdg_data_home()).split(":");
-	std::vector<std::string> directories;
-
-	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
-		directories.push_back(directory);
-	}
-
-	amm::application_directories application_directories;
-	application_directories.resolve(directories);
-	application_directories.flush_bad_paths();
-	return application_directories;
-}
-
 int main(int argc, char *argv[])
 {
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
-	amm::application_directories application_directories = default_application_directories();
+	amm::application_directories application_directories;
+	amm::icon_service icon_service;
+
+	application_directories.read_from_environment();
+	icon_service.register_extension(icon_extension);
 
 	const char* short_options = "o:i:s:avh";
 	const option long_options[] =
@@ -128,9 +89,6 @@ int main(int argc, char *argv[])
 				return 1;
 		}
 	}
-
-	amm::icon_service icon_service;
-	icon_service.register_extension(icon_extension);
 
 	std::vector<std::string> bad_paths = application_directories.bad_paths();
 	if (bad_paths.size() > 0) {

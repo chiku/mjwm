@@ -18,10 +18,39 @@
 
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include <dirent.h>
 
 #include "stringx.h"
 #include "application_directories.h"
+
+static std::string
+xdg_data_dirs()
+{
+	char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
+
+	if (xdg_data_dirs == NULL) {
+		return "/usr/local/share:/usr/share";
+	}
+
+	return xdg_data_dirs;
+}
+
+static std::string
+xdg_data_home()
+{
+	char *xdg_data_home = std::getenv("XDG_DATA_HOME");
+	char *home = std::getenv("HOME");
+
+	if (xdg_data_home == NULL && home == NULL) {
+		return "";
+	}
+	if (home != NULL) {
+		return std::string(home) + "/.local/share/applications";
+	}
+
+	return xdg_data_home;
+}
 
 void
 amm::application_directories::resolve(std::vector<std::string> directory_names)
@@ -72,4 +101,20 @@ void
 amm::application_directories::flush_bad_paths()
 {
 	_bad_paths.clear();
+}
+
+void
+amm::application_directories::read_from_environment()
+{
+	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
+	directory_bases.push_back(xdg_data_home());
+	std::vector<std::string> directories;
+
+	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
+		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
+		directories.push_back(directory);
+	}
+
+	resolve(directories);
+	flush_bad_paths();
 }

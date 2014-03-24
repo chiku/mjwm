@@ -39,6 +39,7 @@ namespace amm
 	public:
 		void resolve(std::vector<std::string> directory_names);
 		void flush_bad_paths();
+		void read_from_environment();
 
 		std::vector<std::string> desktop_file_names() const;
 		std::vector<std::string> bad_paths() const;
