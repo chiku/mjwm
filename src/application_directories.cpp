@@ -23,18 +23,11 @@
 #include "stringx.h"
 #include "application_directories.h"
 
-amm::application_directories::application_directories(std::vector<std::string> directory_names)
-{
-	_directory_names = directory_names;
-	resolve();
-}
-
-// TODO : move out rejecting invalid entries into a separate method
 void
-amm::application_directories::resolve()
+amm::application_directories::resolve(std::vector<std::string> directory_names)
 {
 	std::vector<std::string>::iterator iter;
-	for (iter = _directory_names.begin(); iter != _directory_names.end(); ++iter) {
+	for (iter = directory_names.begin(); iter != directory_names.end(); ++iter) {
 		std::string name = *iter;
 
 		name = amm::stringx(name).terminate_with("/");
@@ -44,18 +37,22 @@ amm::application_directories::resolve()
 		if (!directory) {
 			_bad_paths.push_back(name);
 		} else {
-			dirent *directory_entry;
-
-			while((directory_entry = readdir(directory)) != NULL) {
-				std::string file_name = directory_entry->d_name;
-				if (amm::stringx(file_name).ends_with(DESKTOP_EXTENSION)) {
-					_desktop_file_names.push_back(name + file_name);
-				}
-			}
-
+			populate_desktop_file_names(directory, name);
 			closedir(directory);
 		}
+	}
+}
 
+void
+amm::application_directories::populate_desktop_file_names(DIR* directory, std::string directory_name)
+{
+	dirent *directory_entry;
+
+	while((directory_entry = readdir(directory)) != NULL) {
+		std::string file_name = directory_entry->d_name;
+		if (amm::stringx(file_name).ends_with(DESKTOP_EXTENSION)) {
+			_desktop_file_names.push_back(directory_name + file_name);
+		}
 	}
 }
 
@@ -69,4 +66,10 @@ std::vector<std::string>
 amm::application_directories::bad_paths() const
 {
 	return _bad_paths;
+}
+
+void
+amm::application_directories::flush_bad_paths()
+{
+	_bad_paths.clear();
 }

@@ -21,6 +21,7 @@
 
 #include <string>
 #include <vector>
+#include <dirent.h>
 
 namespace amm
 {
@@ -30,14 +31,15 @@ namespace amm
 	class application_directories
 	{
 	private:
-		std::vector<std::string> _directory_names;
 		std::vector<std::string> _desktop_file_names;
 		std::vector<std::string> _bad_paths;
 
-		void resolve();
+		void populate_desktop_file_names(DIR* directory, std::string directory_name);
 
 	public:
-		application_directories(std::vector<std::string> directory_names);
+		void resolve(std::vector<std::string> directory_names);
+		void flush_bad_paths();
+
 		std::vector<std::string> desktop_file_names() const;
 		std::vector<std::string> bad_paths() const;
 	};

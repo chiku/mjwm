@@ -30,40 +30,45 @@
 #include "icon_service.h"
 #include "jwm/menu.h"
 
-// TODO : move parts of method into application_directories
-static std::vector<std::string> default_directories_to_search()
+static std::string xdg_data_dirs()
 {
-	char *raw_xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
-	std::string xdg_data_dirs;
-	if (raw_xdg_data_dirs == NULL) {
-		xdg_data_dirs = "/usr/local/share:/usr/share";
-	} else {
-		xdg_data_dirs = raw_xdg_data_dirs;
+	char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
+
+	if (xdg_data_dirs == NULL) {
+		return "/usr/local/share:/usr/share";
 	}
 
-	char *raw_xdg_data_home = std::getenv("XDG_DATA_HOME");
-	std::string xdg_data_home;
-	if (raw_xdg_data_home == NULL) {
-		char *home = std::getenv("HOME");
-		xdg_data_home = home == NULL ? "" : std::string(home) + "/.local/share/applications";
-	} else {
-		xdg_data_home = raw_xdg_data_home;
+	return xdg_data_dirs;
+}
+
+static std::string xdg_data_home()
+{
+	char *xdg_data_home = std::getenv("XDG_DATA_HOME");
+	char *home = std::getenv("HOME");
+
+	if (xdg_data_home == NULL && home == NULL) {
+		return "";
+	}
+	if (home != NULL) {
+		return std::string(home) + "/.local/share/applications";
 	}
 
-	std::string xdg_directories = std::string(xdg_data_dirs) + std::string(":") + std::string(xdg_data_home);
-	std::vector<std::string> directories = amm::stringx(xdg_directories).split(":");
+	return xdg_data_home;
+}
 
-	std::vector<std::string> application_directories;
-	for (std::vector<std::string>::iterator iter = directories.begin(); iter != directories.end(); ++iter) {
-		std::string application_directory = amm::stringx(*iter).terminate_with("/") + "applications";
+static amm::application_directories default_application_directories()
+{
+	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs() + std::string(":") + xdg_data_home()).split(":");
+	std::vector<std::string> directories;
 
-		DIR *directory = opendir(application_directory.c_str());
-		if (directory) {
-			application_directories.push_back(application_directory);
-			closedir(directory);
-		}
+	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
+		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
+		directories.push_back(directory);
 	}
 
+	amm::application_directories application_directories;
+	application_directories.resolve(directories);
+	application_directories.flush_bad_paths();
 	return application_directories;
 }
 
@@ -71,7 +76,7 @@ int main(int argc, char *argv[])
 {
 	std::string output_filename("./automenu");
 	std::string icon_extension("");
-	std::vector<std::string> directories_to_search = default_directories_to_search();
+	amm::application_directories application_directories = default_application_directories();
 
 	const char* short_options = "o:i:s:avh";
 	const option long_options[] =
@@ -94,12 +99,12 @@ int main(int argc, char *argv[])
 				break;
 
 			case 'i':
-				directories_to_search = amm::stringx(optarg).split(":");
+				application_directories.resolve(amm::stringx(optarg).split(":"));
 				break;
 
 			case 's':
 				std::cerr << "Deprecated option: use -i instead." << std::endl << "Proceeding..." << std::endl;
-				directories_to_search = amm::stringx(optarg).split(":");
+				application_directories.resolve(amm::stringx(optarg).split(":"));
 				break;
 
 			case 'a':
@@ -124,16 +129,15 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	amm::application_directories application_directories(directories_to_search);
-	std::vector<std::string> desktop_files = application_directories.desktop_file_names();
-	std::vector<std::string> bad_paths = application_directories.bad_paths();
-	if (bad_paths.size() > 0) {
-		std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(" ");
-		std::cerr << std::endl << "Proceeding..." << std::endl;
-	}
-
 	amm::icon_service icon_service;
 	icon_service.register_extension(icon_extension);
+
+	std::vector<std::string> bad_paths = application_directories.bad_paths();
+	if (bad_paths.size() > 0) {
+		std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(", ");
+		std::cerr << std::endl << "Proceeding..." << std::endl;
+	}
+	std::vector<std::string> desktop_files = application_directories.desktop_file_names();
 
 	amm::jwm::menu jwm_menu(desktop_files, icon_service);
 	jwm_menu.populate();
