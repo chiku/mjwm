@@ -6,6 +6,8 @@ Current
 * Deprecate -s command line option in favour of -i. Retain -s, but display a deprecation message
 * Display a summary at the end of operation [#15]
 * Allow multiple directories to be scanned. The directories are separated by a colon. The value defaults to applications directories under $XDG_DATA_DIRS and $XDG_DATA_HOME [#22]
+* Display an error message if the output file couldn't be created [#27]
+* Lots of code cleanups
 
 v2.2.0
 ------
