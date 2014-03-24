@@ -29,6 +29,7 @@ amm::application_directories::application_directories(std::vector<std::string> d
 	resolve();
 }
 
+// TODO : move out rejecting invalid entries into a separate method
 void
 amm::application_directories::resolve()
 {

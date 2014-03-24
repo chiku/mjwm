@@ -30,6 +30,7 @@
 #include "icon_service.h"
 #include "jwm/menu.h"
 
+// TODO : move parts of method into application_directories
 static std::vector<std::string> default_directories_to_search()
 {
 	char *raw_xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
