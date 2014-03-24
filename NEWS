@@ -1,6 +1,16 @@
 mjwm NEWS - User visible changes. 2014-03-21
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
+version 2.3.0 - Chirantan Mitra, 2014-03-24
+
+* Include an XML comment in the generated output file telling that it is a generated file. [#24]
+* Display a summary at the end of operation [#15]
+* Allow multiple directories to be scanned. The directories are separated by a colon. The value defaults to applications directories under $XDG_DATA_DIRS and $XDG_DATA_HOME [#22]
+* [BUG] Trailing slash in the name of directory to scan is optional [#23]
+* [BUG] Display an error message if the output file couldn't be created [#27]
+* [DEPRECATE] Deprecate -s command line option in favour of -i. Retain -s, but display a deprecation message
+
+
 version 2.2.0 - Chirantan Mitra, 2014-03-21
 
 * Specify the order in which menu categories appear
