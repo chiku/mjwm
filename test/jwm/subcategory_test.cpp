@@ -76,7 +76,7 @@ namespace amm
 				std::string expected = "\
   <Menu label=\"Accessories\" icon=\"accessories.png\">\n\
     <Program label=\"Sakura\" icon=\"terminal-tango.png\">sakura</Program>\n\
-    <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad %F</Program>\n\
+    <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad</Program>\n\
   </Menu>\n\
 ";
 				QUNIT_IS_EQUAL(expected, stream.str());
@@ -93,7 +93,7 @@ namespace amm
 
 				std::string expected = "\
   <Menu label=\"Accessories\" icon=\"accessories.png\">\n\
-    <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad %F</Program>\n\
+    <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad</Program>\n\
     <Program label=\"Sakura\" icon=\"terminal-tango.png\">sakura</Program>\n\
   </Menu>\n\
 ";

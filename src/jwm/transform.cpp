@@ -17,8 +17,11 @@
 */
 
 #include <string>
+#include <sstream>
+#include <vector>
 
 #include "../stringx.h"
+#include "../vectorx.h"
 #include "../icon_service.h"
 #include "../desktop_file.h"
 #include "transform.h"
@@ -28,7 +31,22 @@ amm::transform::jwm::transform(amm::desktop_file desktop_file, amm::icon_service
 {
 	std::string name = amm::stringx(desktop_file.name()).encode();
 	std::string icon = amm::stringx(icon_service.resolved_name(desktop_file.icon())).encode();
-	std::string executable = desktop_file.executable();
+	std::string executable = remove_field_code(desktop_file.executable());
 
 	return amm::menu_entry::jwm(name, icon, executable);
+}
+
+std::string
+amm::transform::jwm::remove_field_code(std::string input) const
+{
+    std::vector<std::string> result;
+    std::vector<std::string> tokens = amm::stringx(input).split(" ");
+
+    for (std::vector<std::string>::iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
+        if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
+            result.push_back(*iter);
+        }
+    }
+
+    return amm::vectorx(result).join(" ");
 }

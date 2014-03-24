@@ -32,6 +32,9 @@ namespace amm
 		// Understands convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
 		class jwm
 		{
+        private:
+            std::string remove_field_code(std::string input) const;
+
 		public:
 			amm::menu_entry::jwm transform(amm::desktop_file desktop_file, amm::icon_service icon_service);
 		};

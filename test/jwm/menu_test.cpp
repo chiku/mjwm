@@ -98,10 +98,10 @@ namespace amm
 				std::string expected_content = "\
 <JWM>\n\
   <Menu label=\"Accessories\" icon=\"accessories\">\n\
-    <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
+    <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad</Program>\n\
   </Menu>\n\
   <Menu label=\"Multimedia\" icon=\"multimedia\">\n\
-    <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file %U</Program>\n\
+    <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file</Program>\n\
   </Menu>\n\
 </JWM>\n\
 ";
@@ -123,10 +123,10 @@ namespace amm
 				std::string expected_content = "\
 <JWM>\n\
   <Menu label=\"Accessories\" icon=\"accessories.png\">\n\
-    <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad %F</Program>\n\
+    <Program label=\"Mousepad\" icon=\"accessories-text-editor.png\">mousepad</Program>\n\
   </Menu>\n\
   <Menu label=\"Multimedia\" icon=\"multimedia.png\">\n\
-    <Program label=\"VLC media player\" icon=\"vlc.png\">/usr/bin/vlc --started-from-file %U</Program>\n\
+    <Program label=\"VLC media player\" icon=\"vlc.png\">/usr/bin/vlc --started-from-file</Program>\n\
   </Menu>\n\
 </JWM>\n\
 ";
@@ -148,7 +148,7 @@ namespace amm
 				std::string expected_content = "\
 <JWM>\n\
   <Menu label=\"Accessories\" icon=\"accessories\">\n\
-    <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad %F</Program>\n\
+    <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad</Program>\n\
   </Menu>\n\
   <Menu label=\"Others\" icon=\"others\">\n\
     <Program label=\"Unclassified\" icon=\"unclassified\">unclassify</Program>\n\
