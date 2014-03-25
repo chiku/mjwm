@@ -30,28 +30,27 @@ static std::string
 xdg_data_dirs()
 {
 	char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
-
-	if (xdg_data_dirs == NULL) {
-		return "/usr/local/share:/usr/share";
+	if (xdg_data_dirs != NULL) {
+		return xdg_data_dirs;
 	}
 
-	return xdg_data_dirs;
+	return "/usr/local/share:/usr/share";
 }
 
 static std::string
 xdg_data_home()
 {
 	char *xdg_data_home = std::getenv("XDG_DATA_HOME");
-	char *home = std::getenv("HOME");
-
-	if (xdg_data_home == NULL && home == NULL) {
-		return "";
+	if (xdg_data_home != NULL) {
+		return xdg_data_home;
 	}
+
+	char *home = std::getenv("HOME");
 	if (home != NULL) {
 		return std::string(home) + "/.local/share/applications";
 	}
 
-	return xdg_data_home;
+	return "";
 }
 
 void
