@@ -27,20 +27,21 @@
 #include "subcategory.h"
 #include "menu.h"
 
-amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, amm::icon_service icon_service)
+amm::jwm::menu::menu(amm::icon_service icon_service)
 {
-	_desktop_file_names = desktop_file_names;
 	_icon_service = icon_service;
 	_total_parsed_files = 0;
 	_total_unclassified_parsed_files = 0;
 	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_service);
 
-	create_categories();
+	create_default_categories();
 }
 
 void
-amm::jwm::menu::create_categories()
+amm::jwm::menu::create_default_categories()
 {
+	_subcategories.clear();
+
 	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings",    _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories", _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development", _icon_service));
@@ -71,10 +72,12 @@ amm::jwm::menu::load_categories(std::vector<std::string> lines)
 }
 
 void
-amm::jwm::menu::populate()
+amm::jwm::menu::populate(std::vector<std::string> desktop_file_names)
 {
+	_unparsed_file_names.clear();
+
 	std::vector<std::string>::iterator name;
-	for (name = _desktop_file_names.begin(); name != _desktop_file_names.end(); ++name) {
+	for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
 		std::string line;
 		amm::desktop_file desktop_file;
 		std::ifstream file(name->c_str());

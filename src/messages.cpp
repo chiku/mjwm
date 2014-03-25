@@ -99,6 +99,14 @@ amm::messages::no_valid_desktop_files()
 }
 
 std::string
+amm::messages::bad_category_file(const std::string file_name)
+{
+	std::stringstream stream;
+	stream << "Couldn't open category file: " << file_name;
+	return stream.str();
+}
+
+std::string
 amm::messages::bad_output_file(const std::string file_name)
 {
 	std::stringstream stream;

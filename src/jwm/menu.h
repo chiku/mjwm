@@ -47,10 +47,10 @@ namespace amm
 			amm::icon_service _icon_service;
 
 			void classify(amm::desktop_file entry);
-			void create_categories();
+			void create_default_categories();
 
 		public:
-			menu(std::vector<std::string> desktop_file_names, amm::icon_service icon_service);
+			menu(amm::icon_service icon_service);
 
 			std::vector<amm::jwm::subcategory> subcategories() const;
 			size_t total_parsed_files() const;
@@ -58,7 +58,7 @@ namespace amm
 			std::vector<std::string> unparsed_file_names() const;
 
 			void load_categories(std::vector<std::string> lines);
-			void populate();
+			void populate(std::vector<std::string> desktop_file_names);
 			void sort();
 		};
 

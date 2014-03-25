@@ -47,11 +47,10 @@ namespace amm
 
 			void test_jwm_menu_loads_categories_from_colon_separated_lines()
 			{
-				std::vector<std::string> files;
 				std::vector<std::string> lines;
 				lines.push_back("Utility:Accessories:accessories");
 				lines.push_back("Game:Games:games");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
 				menu.load_categories(lines);
 				std::vector<amm::jwm::subcategory> subcategories = menu.subcategories();
@@ -63,12 +62,11 @@ namespace amm
 
 			void test_jwm_menu_loads_categories_ignores_comments()
 			{
-				std::vector<std::string> files;
 				std::vector<std::string> lines;
 				lines.push_back("# Comments");
 				lines.push_back("Game:Games:games");
 				lines.push_back("#More:comment:here");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
 				menu.load_categories(lines);
 				std::vector<amm::jwm::subcategory> subcategories = menu.subcategories();
@@ -79,11 +77,10 @@ namespace amm
 
 			void test_jwm_menu_loads_categories_ignores_entries_without_three_tokens()
 			{
-				std::vector<std::string> files;
 				std::vector<std::string> lines;
 				lines.push_back("Utility::accessories");
 				lines.push_back("Game:Games");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
 				menu.load_categories(lines);
 				std::vector<amm::jwm::subcategory> subcategories = menu.subcategories();
@@ -96,9 +93,9 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
-				menu.populate();
+				menu.populate(files);
 
 				QUNIT_IS_EQUAL(2, menu.total_parsed_files());
 			}
@@ -108,9 +105,9 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "unclassified.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
-				menu.populate();
+				menu.populate(files);
 
 				QUNIT_IS_EQUAL(1, menu.total_unclassified_parsed_files());
 			}
@@ -120,9 +117,9 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "missing.desktop");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
-				menu.populate();
+				menu.populate(files);
 
 				std::vector<std::string> unparsed_files = menu.unparsed_file_names();
 				QUNIT_IS_EQUAL(1, unparsed_files.size());
@@ -134,9 +131,9 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
-				menu.populate();
+				menu.populate(files);
 				menu.sort();
 				std::stringstream stream;
 				stream << menu;
@@ -159,9 +156,9 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "vlc.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, icon_service_with_png);
+				menu menu(icon_service_with_png);
 
-				menu.populate();
+				menu.populate(files);
 				menu.sort();
 				std::stringstream stream;
 				stream << menu;
@@ -184,9 +181,9 @@ namespace amm
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "unclassified.desktop");
 				files.push_back(fixtures_directory + "mousepad.desktop");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
-				menu.populate();
+				menu.populate(files);
 				menu.sort();
 				std::stringstream stream;
 				stream << menu;
@@ -208,9 +205,9 @@ namespace amm
 			{
 				std::vector<std::string> files;
 				files.push_back(fixtures_directory + "missing.desktop");
-				menu menu(files, icon_service);
+				menu menu(icon_service);
 
-				menu.populate();
+				menu.populate(files);
 				menu.sort();
 				std::stringstream stream;
 				stream << menu;
