@@ -30,7 +30,8 @@ check_PROGRAMS = mjwm_vectorx_test \
 
 mjwm_stringx_test_SOURCES = src/stringx.cpp \
                             test/stringx_test.cpp
-mjwm_vectorx_test_SOURCES = src/vectorx.cpp \
+mjwm_vectorx_test_SOURCES = src/stringx.cpp \
+                            src/vectorx.cpp \
                             test/vectorx_test.cpp
 mjwm_desktop_file_categories_test_SOURCES = src/stringx.cpp \
                                             src/vectorx.cpp \
@@ -60,7 +61,8 @@ mjwm_jwm_subcategory_test_SOURCES = src/stringx.cpp \
                                     src/jwm/subcategory.cpp \
                                     src/icon_service.cpp \
                                     test/jwm/subcategory_test.cpp
-mjwm_application_directories_test_SOURCES = src/stringx.cpp \
+mjwm_application_directories_test_SOURCES = src/vectorx.cpp \
+                                            src/stringx.cpp \
                                             src/application_directories.cpp \
                                             test/application_directories_test.cpp
 mjwm_jwm_menu_test_SOURCES = src/stringx.cpp \

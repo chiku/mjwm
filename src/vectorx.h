@@ -31,7 +31,10 @@ namespace amm
 
 	public:
 		vectorx(std::vector<std::string> vector);
-		std::string join(std::string delimiter);
+
+		std::string join(std::string delimiter) const;
+		std::vector<std::string> terminate_with(std::string delimiter) const;
+		std::vector<std::string> unique() const;
 	};
 }
 

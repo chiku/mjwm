@@ -45,6 +45,24 @@ namespace amm
 			assert_files_are_present_in_list(file_names);
 		}
 
+		void test_application_directories_ignores_repeated_input_directories()
+		{
+			std::vector<std::string> directory_names;
+			directory_names.push_back("test/fixtures");
+			directory_names.push_back("test/fixtures/");
+			amm::application_directories application_directories;
+			application_directories.resolve(directory_names);
+
+			std::vector<std::string> file_names = application_directories.desktop_file_names();
+
+			for (std::vector<std::string>::iterator iter = file_names.begin(); iter != file_names.end(); ++iter)
+			{
+				std::cout << *iter << "  ";
+			}
+
+			QUNIT_IS_EQUAL(4, file_names.size());
+		}
+
 		void test_application_directories_need_not_end_with_a_slash()
 		{
 			std::vector<std::string> directory_names;
@@ -118,6 +136,7 @@ namespace amm
 		int run()
 		{
 			test_application_directories_gives_back_files_with_extension_desktop();
+			test_application_directories_ignores_repeated_input_directories();
 			test_application_directories_need_not_end_with_a_slash();
 			test_application_directories_gives_back_files_when_one_directory_is_missing();
 			test_application_directories_tracks_bad_paths_it_couldnt_open();

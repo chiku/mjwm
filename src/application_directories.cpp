@@ -18,10 +18,12 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <cstdlib>
 #include <dirent.h>
 
 #include "stringx.h"
+#include "vectorx.h"
 #include "application_directories.h"
 
 static std::string
@@ -55,18 +57,17 @@ xdg_data_home()
 void
 amm::application_directories::resolve(std::vector<std::string> directory_names)
 {
-	std::vector<std::string>::iterator iter;
-	for (iter = directory_names.begin(); iter != directory_names.end(); ++iter) {
-		std::string name = *iter;
+	std::vector<std::string> terminated_directory_names = amm::vectorx(directory_names).terminate_with("/");
+	std::vector<std::string> unique_directory_names = amm::vectorx(terminated_directory_names).unique();
 
-		name = amm::stringx(name).terminate_with("/");
-
-		DIR *directory = opendir(name.c_str());
+	std::vector<std::string>::const_iterator name;
+	for (name = unique_directory_names.begin(); name != unique_directory_names.end(); ++name) {
+		DIR *directory = opendir(name->c_str());
 
 		if (!directory) {
-			_bad_paths.push_back(name);
+			_bad_paths.push_back(*name);
 		} else {
-			populate_desktop_file_names(directory, name);
+			populate_desktop_file_names(directory, *name);
 			closedir(directory);
 		}
 	}

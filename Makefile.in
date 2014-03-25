@@ -116,8 +116,8 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
-am_mjwm_application_directories_test_OBJECTS = src/stringx.$(OBJEXT) \
-	src/application_directories.$(OBJEXT) \
+am_mjwm_application_directories_test_OBJECTS = src/vectorx.$(OBJEXT) \
+	src/stringx.$(OBJEXT) src/application_directories.$(OBJEXT) \
 	test/application_directories_test.$(OBJEXT)
 mjwm_application_directories_test_OBJECTS =  \
 	$(am_mjwm_application_directories_test_OBJECTS)
@@ -170,8 +170,8 @@ am_mjwm_stringx_test_OBJECTS = src/stringx.$(OBJEXT) \
 	test/stringx_test.$(OBJEXT)
 mjwm_stringx_test_OBJECTS = $(am_mjwm_stringx_test_OBJECTS)
 mjwm_stringx_test_LDADD = $(LDADD)
-am_mjwm_vectorx_test_OBJECTS = src/vectorx.$(OBJEXT) \
-	test/vectorx_test.$(OBJEXT)
+am_mjwm_vectorx_test_OBJECTS = src/stringx.$(OBJEXT) \
+	src/vectorx.$(OBJEXT) test/vectorx_test.$(OBJEXT)
 mjwm_vectorx_test_OBJECTS = $(am_mjwm_vectorx_test_OBJECTS)
 mjwm_vectorx_test_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -574,7 +574,8 @@ mjwm_SOURCES = src/stringx.cpp \
 mjwm_stringx_test_SOURCES = src/stringx.cpp \
                             test/stringx_test.cpp
 
-mjwm_vectorx_test_SOURCES = src/vectorx.cpp \
+mjwm_vectorx_test_SOURCES = src/stringx.cpp \
+                            src/vectorx.cpp \
                             test/vectorx_test.cpp
 
 mjwm_desktop_file_categories_test_SOURCES = src/stringx.cpp \
@@ -610,7 +611,8 @@ mjwm_jwm_subcategory_test_SOURCES = src/stringx.cpp \
                                     src/icon_service.cpp \
                                     test/jwm/subcategory_test.cpp
 
-mjwm_application_directories_test_SOURCES = src/stringx.cpp \
+mjwm_application_directories_test_SOURCES = src/vectorx.cpp \
+                                            src/stringx.cpp \
                                             src/application_directories.cpp \
                                             test/application_directories_test.cpp
 
