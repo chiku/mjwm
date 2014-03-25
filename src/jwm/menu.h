@@ -57,6 +57,7 @@ namespace amm
 			size_t total_unclassified_parsed_files() const;
 			std::vector<std::string> unparsed_file_names() const;
 
+			void load_categories(std::vector<std::string> lines);
 			void populate();
 			void sort();
 		};

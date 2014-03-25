@@ -45,6 +45,52 @@ namespace amm
 				icon_service_with_png.register_extension(".png");
 			}
 
+			void test_jwm_menu_loads_categories_from_colon_separated_lines()
+			{
+				std::vector<std::string> files;
+				std::vector<std::string> lines;
+				lines.push_back("Utility:Accessories:accessories");
+				lines.push_back("Game:Games:games");
+				menu menu(files, icon_service);
+
+				menu.load_categories(lines);
+				std::vector<amm::jwm::subcategory> subcategories = menu.subcategories();
+
+				QUNIT_IS_EQUAL(2, subcategories.size());
+				QUNIT_IS_EQUAL("<Menu label=\"Accessories\" icon=\"accessories\">", subcategories[0].first_line());
+				QUNIT_IS_EQUAL("<Menu label=\"Games\" icon=\"games\">", subcategories[1].first_line());
+			}
+
+			void test_jwm_menu_loads_categories_ignores_comments()
+			{
+				std::vector<std::string> files;
+				std::vector<std::string> lines;
+				lines.push_back("# Comments");
+				lines.push_back("Game:Games:games");
+				lines.push_back("#More:comment:here");
+				menu menu(files, icon_service);
+
+				menu.load_categories(lines);
+				std::vector<amm::jwm::subcategory> subcategories = menu.subcategories();
+
+				QUNIT_IS_EQUAL(1, subcategories.size());
+				QUNIT_IS_EQUAL("<Menu label=\"Games\" icon=\"games\">", subcategories[0].first_line());
+			}
+
+			void test_jwm_menu_loads_categories_ignores_entries_without_three_tokens()
+			{
+				std::vector<std::string> files;
+				std::vector<std::string> lines;
+				lines.push_back("Utility::accessories");
+				lines.push_back("Game:Games");
+				menu menu(files, icon_service);
+
+				menu.load_categories(lines);
+				std::vector<amm::jwm::subcategory> subcategories = menu.subcategories();
+
+				QUNIT_IS_EQUAL(0, subcategories.size());
+			}
+
 			void test_jwm_menu_counts_total_desktop_files_parsed_successfully()
 			{
 				std::vector<std::string> files;
@@ -190,6 +236,9 @@ namespace amm
 			int run()
 			{
 				setup();
+				test_jwm_menu_loads_categories_from_colon_separated_lines();
+				test_jwm_menu_loads_categories_ignores_comments();
+				test_jwm_menu_loads_categories_ignores_entries_without_three_tokens();
 				test_jwm_menu_counts_total_desktop_files_parsed_successfully();
 				test_jwm_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 				test_jwm_menu_has_a_list_of_unparsed_files();

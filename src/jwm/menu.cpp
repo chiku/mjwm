@@ -21,6 +21,7 @@
 #include <string>
 #include <vector>
 
+#include "../stringx.h"
 #include "../icon_service.h"
 #include "../desktop_file.h"
 #include "subcategory.h"
@@ -32,14 +33,14 @@ amm::jwm::menu::menu(std::vector<std::string> desktop_file_names, amm::icon_serv
 	_icon_service = icon_service;
 	_total_parsed_files = 0;
 	_total_unclassified_parsed_files = 0;
+	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_service);
+
 	create_categories();
 }
 
 void
 amm::jwm::menu::create_categories()
 {
-	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_service);
-
 	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings",    _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories", _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development", _icon_service));
@@ -51,6 +52,22 @@ amm::jwm::menu::create_categories()
 	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office",      _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science",     _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system",      _icon_service));
+}
+
+void
+amm::jwm::menu::load_categories(std::vector<std::string> lines)
+{
+	_subcategories.clear();
+
+	for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
+		if ((*line)[0] != '#') {
+			std::vector<std::string> tokens = amm::stringx(*line).split(":");
+			if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "" && tokens[2] != "") {
+				amm::jwm::subcategory subcategory(tokens[0], tokens[1], tokens[2], _icon_service);
+				_subcategories.push_back(subcategory);
+			}
+		}
+	}
 }
 
 void
