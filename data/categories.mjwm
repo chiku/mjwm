@@ -1,0 +1,20 @@
+# All lines that begin with hash are comments
+
+# Colon terminated list
+# Put each entry on a separate line
+# The entries will be created in same order in which they appear
+
+# Don't leave any trailing whitespace
+
+#Category name as it appears in desktop files:Category name in menu:Icon name in menu entry
+Settings:Settings:settings
+Utility:Accessories:accessories
+Development:Development:development
+Education:Education:education
+Game:Games:games
+Graphics:Graphics:graphics
+Network:Internet:internet
+AudioVideo:Multimedia:multimedia
+Office:Office:office
+Science:Science:science
+System:System:system

@@ -17,6 +17,9 @@ mjwm_SOURCES = src/stringx.cpp \
                src/messages.cpp \
                src/mjwm.cpp
 
+mjwmdir=$(datadir)/mjwm
+mjwm_DATA = data/categories.mjwm
+
 check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
                  mjwm_desktop_file_categories_test \
