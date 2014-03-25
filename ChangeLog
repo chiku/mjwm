@@ -1,6 +1,7 @@
 Current
 -------
 * Strip off field codes (%f, %U etc.) from execubale names [#21]
+* Ensure that same directory is not included twice for scanning desktop files [#28]
 
 v2.3.0
 ------
