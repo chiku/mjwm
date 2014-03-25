@@ -30,7 +30,6 @@ amm::desktop_file_categories::desktop_file_categories()
 	_raw = "";
 }
 
-
 amm::desktop_file_categories::desktop_file_categories(std::string raw)
 {
 	_raw = raw;
