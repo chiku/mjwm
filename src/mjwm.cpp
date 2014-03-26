@@ -19,6 +19,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include <dirent.h>
 #include <getopt.h>
 
@@ -28,119 +29,136 @@
 #include "application_directories.h"
 #include "icon_service.h"
 #include "jwm/menu.h"
+#include "command_line_options.h"
 
-int main(int argc, char *argv[])
+namespace amm
 {
-	std::string output_filename("./automenu");
-	std::string category_filename;
-	std::string icon_extension("");
-	amm::application_directories application_directories;
-	amm::icon_service icon_service;
-
-	application_directories.read_from_environment();
-
-	const char* short_options = "o:i:s:c:avh";
-	const option long_options[] =
+	class main
 	{
-		{"output-file",     required_argument, 0, 'o'},
-		{"input-directory", required_argument, 0, 'i'},
-		{"category-file",   required_argument, 0, 'c'},
-		{"append-png",      no_argument,       0, 'a'},
-		{"version",         no_argument,       0, 'v'},
-		{"help",            no_argument,       0, 'h'},
-		{0, 0, 0, 0}
+	private:
+		int _argc;
+		char **_argv;
+
+		amm::command_line_options _command_line_options;
+		amm::jwm::menu _jwm_menu;
+		std::vector<std::string> _desktop_file_names;
+
+	public:
+		main(int argc, char **argv);
+		void load_command_line_option();
+		void register_icon_service();
+		void read_categories();
+		void read_desktop_files();
+		void populate();
+		void write_output_file();
+		void print_summary();
 	};
+}
 
-	int chosen_option;
-	int option_index = 0;
+amm::main::main(int argc, char **argv)
+{
+	_argc = argc;
+	_argv = argv;
+}
 
-	while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
-		switch (chosen_option) {
-			case 'o':
-				output_filename = optarg;
-				break;
+void
+amm::main::load_command_line_option()
+{
+	_command_line_options = amm::command_line_options();
+	_command_line_options.parse(_argc, _argv);
+}
 
-			case 'i':
-				application_directories.resolve(amm::stringx(optarg).split(":"));
-				break;
+void
+amm::main::read_categories()
+{
+	std::string category_file_name = _command_line_options.category_file_name();
+	std::vector<std::string> category_lines;
 
-			case 's':
-				std::cerr << "Deprecated option: use -i instead." << std::endl << "Proceeding..." << std::endl;
-				application_directories.resolve(amm::stringx(optarg).split(":"));
-				break;
-
-			case 'c':
-				category_filename = optarg;
-				break;
-
-			case 'a':
-				icon_extension = ".png";
-				break;
-
-			case 'v':
-				std::cout << amm::messages::version();
-				return 0;
-
-			case 'h':
-				std::cout << amm::messages::help();
-				return 0;
-
-			case '?':
-				std::cerr << amm::messages::option_error();
-				return 1;
-
-			default:
-				std::cerr << amm::messages::option_error();
-				return 1;
+	if (category_file_name != "") {
+		std::ifstream category_file(category_file_name.c_str());
+		if (category_file.good()) {
+			std::string line;
+			while (std::getline(category_file, line)) {
+				category_lines.push_back(line);
+			}
+			_jwm_menu.load_categories(category_lines);
+			category_file.close();
+		} else {
+			std::cerr << amm::messages::bad_category_file(category_file_name) << std::endl;
+			exit(1);
 		}
 	}
+}
 
-	icon_service.register_extension(icon_extension);
-	amm::jwm::menu jwm_menu(icon_service);
+void
+amm::main::register_icon_service()
+{
+	amm::icon_service icon_service;
+	icon_service.register_extension(_command_line_options.icon_extension());
+	_jwm_menu.register_icon_service(icon_service);
+}
+
+void
+amm::main::read_desktop_files()
+{
+	std::vector<std::string> input_directory_names = _command_line_options.input_directory_names();
+
+	amm::application_directories application_directories;
+	application_directories.read_from_environment();
+	application_directories.resolve(input_directory_names);
 
 	std::vector<std::string> bad_paths = application_directories.bad_paths();
 	if (bad_paths.size() > 0) {
 		std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(", ");
 		std::cerr << std::endl << "Proceeding..." << std::endl;
 	}
-	std::vector<std::string> desktop_files = application_directories.desktop_file_names();
+	_desktop_file_names = application_directories.desktop_file_names();
+}
 
-	std::vector<std::string> category_lines;
-	if (category_filename != "") {
-		std::ifstream category_file(category_filename.c_str());
-		if (category_file.good()) {
-			std::string line;
-			while (std::getline(category_file, line)) {
-				category_lines.push_back(line);
-			}
-			jwm_menu.load_categories(category_lines);
-		} else {
-			std::cerr << amm::messages::bad_category_file(category_filename) << std::endl;
-		}
-	}
-
-	jwm_menu.populate(desktop_files);
-	if (jwm_menu.total_parsed_files() == 0) {
+void
+amm::main::populate()
+{
+	_jwm_menu.populate(_desktop_file_names);
+	if (_jwm_menu.total_parsed_files() == 0) {
 		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
-		return 1;
+		exit(1);
 	}
-	jwm_menu.sort();
+	_jwm_menu.sort();
+}
 
-	std::ofstream output_file(output_filename.c_str());
+void
+amm::main::write_output_file()
+{
+	std::string output_file_name = _command_line_options.output_file_name();
+	std::ofstream output_file(output_file_name.c_str());
 	if (!output_file.good()) {
-		std::cerr << amm::messages::bad_output_file(output_filename) << std::endl;
-		return 1;
+		std::cerr << amm::messages::bad_output_file(output_file_name) << std::endl;
+		exit(1);
 	}
 	output_file << amm::messages::autogenerated_by_amm();
-	output_file << jwm_menu;
+	output_file << _jwm_menu;
 	output_file.close();
+}
 
+void
+amm::main::print_summary()
+{
 	std::cout << amm::messages::summary(
-		desktop_files.size(),
-		jwm_menu.total_parsed_files(),
-		jwm_menu.total_unclassified_parsed_files(),
-		jwm_menu.unparsed_file_names()
+		_desktop_file_names.size(),
+		_jwm_menu.total_parsed_files(),
+		_jwm_menu.total_unclassified_parsed_files(),
+		_jwm_menu.unparsed_file_names()
 	);
+}
 
-	return 0;
+int main(int argc, char *argv[])
+{
+	amm::main operation(argc, argv);
+	operation.load_command_line_option();
+	operation.register_icon_service();
+	operation.read_categories();
+	operation.read_desktop_files();
+	operation.populate();
+	operation.write_output_file();
+	operation.print_summary();
 }

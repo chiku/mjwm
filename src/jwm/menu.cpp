@@ -27,9 +27,8 @@
 #include "subcategory.h"
 #include "menu.h"
 
-amm::jwm::menu::menu(amm::icon_service icon_service)
+amm::jwm::menu::menu()
 {
-	_icon_service = icon_service;
 	_total_parsed_files = 0;
 	_total_unclassified_parsed_files = 0;
 	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_service);
@@ -53,6 +52,16 @@ amm::jwm::menu::create_default_categories()
 	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office",      _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science",     _icon_service));
 	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system",      _icon_service));
+}
+
+void
+amm::jwm::menu::register_icon_service(amm::icon_service icon_service)
+{
+	_icon_service = icon_service;
+	for (std::vector<amm::jwm::subcategory>::iterator iter = _subcategories.begin(); iter != _subcategories.end(); ++iter) {
+		iter->register_icon_service(_icon_service);
+	}
+	_unclassified_subcategory.register_icon_service(_icon_service);
 }
 
 void

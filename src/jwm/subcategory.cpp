@@ -37,6 +37,12 @@ amm::jwm::subcategory::subcategory(std::string classification_name, std::string 
 	_icon_service = icon_service;
 }
 
+void
+amm::jwm::subcategory::register_icon_service(amm::icon_service icon_service)
+{
+	_icon_service = icon_service;
+}
+
 amm::icon_service
 amm::jwm::subcategory::icon_service() const
 {

@@ -54,6 +54,22 @@ xdg_data_home()
 }
 
 void
+amm::application_directories::read_from_environment()
+{
+	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
+	directory_bases.push_back(xdg_data_home());
+	std::vector<std::string> directories;
+
+	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
+		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
+		directories.push_back(directory);
+	}
+
+	resolve(directories);
+	flush_bad_paths();
+}
+
+void
 amm::application_directories::resolve(std::vector<std::string> directory_names)
 {
 	std::vector<std::string> terminated_directory_names = amm::vectorx(directory_names).terminate_with("/");
@@ -101,20 +117,4 @@ void
 amm::application_directories::flush_bad_paths()
 {
 	_bad_paths.clear();
-}
-
-void
-amm::application_directories::read_from_environment()
-{
-	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
-	directory_bases.push_back(xdg_data_home());
-	std::vector<std::string> directories;
-
-	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
-		directories.push_back(directory);
-	}
-
-	resolve(directories);
-	flush_bad_paths();
 }

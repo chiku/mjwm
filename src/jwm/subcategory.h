@@ -30,8 +30,8 @@
 namespace amm
 {
 	namespace jwm
-	{		
-		// Understands a Menu section inside JWM configuration file 
+	{
+		// Understands a Menu section inside JWM configuration file
 		class subcategory
 		{
 		private:
@@ -44,6 +44,8 @@ namespace amm
 		public:
 			subcategory();
 			subcategory(std::string classification_name, std::string display_name, std::string icon_name, amm::icon_service icon_service);
+
+			void register_icon_service(amm::icon_service icon_service);
 
 			amm::icon_service icon_service() const;
 			std::string classification_name() const;

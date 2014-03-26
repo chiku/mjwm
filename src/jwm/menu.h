@@ -50,13 +50,14 @@ namespace amm
 			void create_default_categories();
 
 		public:
-			menu(amm::icon_service icon_service);
+			menu();
 
 			std::vector<amm::jwm::subcategory> subcategories() const;
 			size_t total_parsed_files() const;
 			size_t total_unclassified_parsed_files() const;
 			std::vector<std::string> unparsed_file_names() const;
 
+			void register_icon_service(amm::icon_service icon_service);
 			void load_categories(std::vector<std::string> lines);
 			void populate(std::vector<std::string> desktop_file_names);
 			void sort();
