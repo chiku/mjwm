@@ -1,0 +1,73 @@
+.TH MJWM 1
+
+.SH NAME
+mjwm \- create menu for JWM
+
+.SH SYNOPSIS
+.B mjwm
+[\fB\-o\fR \fIFILE\fR]
+[\fB\-i\fR \fIDIRECTORIES\fR]
+
+.SH DESCRIPTION
+.B mjwm
+creates JWM menu from FreeDesktop files inside XDG application directories
+
+Include the generated file in the rootmenu section of your ~/.jwmrc.
+For more information visit http://github.com/chiku/mjwm.
+
+The following options are available.
+
+.TP
+.BR \-o ", " \-\-output\-file =\fIFILE\fR
+Menu output file name.
+Default is ./automenu.
+.LP
+
+.TP
+.BR \-i ", " \-\-input\-directories =\fIDIRECTORIES\fR
+The directories to scan for .desktop files. Multiple directories must be separated by colons.
+Default is $XDG_DATA_DIRS/applications:$XDG_DATA_HOME/applications.
+/usr/local/share/applications:/usr/share/applications is used if $XDG_DATA_DIRS is missing.
+$HOME/.local/share/applications is used if $XDG_DATA_HOME is missing.
+
+.TP
+.BR \-i ", " \-\-category\-file =\fIFILE\fR
+External category file.
+Overrides built in categories. Please look at sample categories.mjwm to write your own category file.
+
+.TP
+.BR \-a ", " \-\-append\-png
+Add ".png" extension to all icon file names.
+
+.TP
+.BR \-h ", " \-\-help
+Show help.
+
+.TP
+.BR \-v ", " \-\-version
+Show version information.
+
+.TP
+.BR \-s
+.B DEPRECATED.
+Same as \-i.
+.LP
+
+.SH EXAMPLES
+
+.TP
+Generate menu entries for files inside /usr/local/share/applications
+.BR mjwm \ \-i\ /usr/local/share/applications
+
+.TP
+Generate menu entries for files inside multiple directories /usr/local/share/applications, /usr/share/applications and ~/.local/share/applications
+.BR mjwm \ \-i\ /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
+
+.TP
+Create menu entries with icons having a "png" extension
+.BR mjwm \ \-a
+
+.TP
+Use categories from as an external file
+.BR mjwm \ \-c\ data/categories.mjwm
+.LP
