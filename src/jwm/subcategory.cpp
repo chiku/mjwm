@@ -29,12 +29,11 @@ amm::jwm::subcategory::subcategory()
 {
 }
 
-amm::jwm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name, amm::icon_service icon_service)
+amm::jwm::subcategory::subcategory(std::string classification_name, std::string display_name, std::string icon_name)
 {
 	_classification_name = classification_name;
 	_display_name = display_name;
 	_icon_name = icon_name;
-	_icon_service = icon_service;
 }
 
 void

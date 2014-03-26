@@ -43,7 +43,7 @@ namespace amm
 
 		public:
 			subcategory();
-			subcategory(std::string classification_name, std::string display_name, std::string icon_name, amm::icon_service icon_service);
+			subcategory(std::string classification_name, std::string display_name, std::string icon_name);
 
 			void register_icon_service(amm::icon_service icon_service);
 

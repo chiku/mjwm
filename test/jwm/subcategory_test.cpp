@@ -42,32 +42,35 @@ namespace amm
 
 			void subcategory_has_no_entries_before_desktop_files_are_added()
 			{
-				subcategory subcategory("Utilitiies", "Accessories", "accessories", icon_service);
+				subcategory subcategory("Utilitiies", "Accessories", "accessories");
 				QUNIT_IS_FALSE(subcategory.has_entries());
 			}
 
 			void subcategory_has_entries_after_a_desktop_file_is_added()
 			{
-				subcategory subcategory("Utilitiies", "Accessories", "accessories", icon_service);
+				subcategory subcategory("Utilitiies", "Accessories", "accessories");
 				subcategory.add_desktop_file(mousepad_desktop_file());
 				QUNIT_IS_TRUE(subcategory.has_entries());
 			}
 
 			void subcategory_has_a_first_line()
 			{
-				subcategory subcategory("Utilitiies", "Accessories", "accessories", icon_service);
+				subcategory subcategory("Utilitiies", "Accessories", "accessories");
+				subcategory.register_icon_service(icon_service);
 				QUNIT_IS_EQUAL("<Menu label=\"Accessories\" icon=\"accessories.png\">", subcategory.first_line());
 			}
 
 			void subcategory_has_a_last_line()
 			{
-				subcategory subcategory("Utilitiies", "Accessories", "accessories", icon_service);
+				subcategory subcategory("Utilitiies", "Accessories", "accessories");
+				subcategory.register_icon_service(icon_service);
 				QUNIT_IS_EQUAL("</Menu>", subcategory.last_line());
 			}
 
 			void subcategory_is_serializable_to_output_stream()
 			{
-				subcategory subcategory("Utilitiies", "Accessories", "accessories", icon_service);
+				subcategory subcategory("Utilitiies", "Accessories", "accessories");
+				subcategory.register_icon_service(icon_service);
 				subcategory.add_desktop_file(sakura_desktop_file());
 				subcategory.add_desktop_file(mousepad_desktop_file());
 				std::stringstream stream;
@@ -84,7 +87,8 @@ namespace amm
 
 			void subcategory_sort_arranges_desktop_files_by_their_names_alphabetically()
 			{
-				subcategory subcategory("Utilitiies", "Accessories", "accessories", icon_service);
+				subcategory subcategory("Utilitiies", "Accessories", "accessories");
+				subcategory.register_icon_service(icon_service);
 				subcategory.add_desktop_file(sakura_desktop_file());
 				subcategory.add_desktop_file(mousepad_desktop_file());
 				subcategory.sort_desktop_files();
@@ -134,7 +138,7 @@ namespace amm
 				subcategory_sort_arranges_desktop_files_by_their_names_alphabetically();
 				return qunit.errors();
 			};
-		};		
+		};
 	}
 }
 

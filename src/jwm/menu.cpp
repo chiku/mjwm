@@ -31,7 +31,7 @@ amm::jwm::menu::menu()
 {
 	_total_parsed_files = 0;
 	_total_unclassified_parsed_files = 0;
-	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others", _icon_service);
+	_unclassified_subcategory = amm::jwm::subcategory("Others", "Others", "others");
 
 	create_default_categories();
 }
@@ -41,17 +41,17 @@ amm::jwm::menu::create_default_categories()
 {
 	_subcategories.clear();
 
-	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings",    _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories", _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development", _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Education",   "Education",   "education",   _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Game",        "Games",       "games",       _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Graphics",    "Graphics",    "graphics",    _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Network",     "Internet",    "internet",    _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("AudioVideo",  "Multimedia",  "multimedia",  _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office",      _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science",     _icon_service));
-	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system",      _icon_service));
+	_subcategories.push_back(amm::jwm::subcategory("Settings",    "Settings",    "settings"   ));
+	_subcategories.push_back(amm::jwm::subcategory("Utility",     "Accessories", "accessories"));
+	_subcategories.push_back(amm::jwm::subcategory("Development", "Development", "development"));
+	_subcategories.push_back(amm::jwm::subcategory("Education",   "Education",   "education"  ));
+	_subcategories.push_back(amm::jwm::subcategory("Game",        "Games",       "games"      ));
+	_subcategories.push_back(amm::jwm::subcategory("Graphics",    "Graphics",    "graphics"   ));
+	_subcategories.push_back(amm::jwm::subcategory("Network",     "Internet",    "internet"   ));
+	_subcategories.push_back(amm::jwm::subcategory("AudioVideo",  "Multimedia",  "multimedia" ));
+	_subcategories.push_back(amm::jwm::subcategory("Office",      "Office",      "office"     ));
+	_subcategories.push_back(amm::jwm::subcategory("Science",     "Science",     "science"    ));
+	_subcategories.push_back(amm::jwm::subcategory("System",      "System",      "system"     ));
 }
 
 void
@@ -73,7 +73,7 @@ amm::jwm::menu::load_categories(std::vector<std::string> lines)
 		if ((*line)[0] != '#') {
 			std::vector<std::string> tokens = amm::stringx(*line).split(":");
 			if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "" && tokens[2] != "") {
-				amm::jwm::subcategory subcategory(tokens[0], tokens[1], tokens[2], _icon_service);
+				amm::jwm::subcategory subcategory(tokens[0], tokens[1], tokens[2]);
 				_subcategories.push_back(subcategory);
 			}
 		}
