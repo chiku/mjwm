@@ -15,6 +15,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/icon_service.cpp \
                src/application_directories.cpp \
                src/messages.cpp \
+               src/command_line_options.cpp \
                src/mjwm.cpp
 
 mjwmdir=$(datadir)/mjwm
@@ -29,7 +30,8 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_jwm_subcategory_test \
                  mjwm_jwm_menu_test \
                  mjwm_messages_test \
-                 mjwm_application_directories_test
+                 mjwm_application_directories_test \
+                 mjwm_command_line_options_test
 
 mjwm_stringx_test_SOURCES = src/stringx.cpp \
                             test/stringx_test.cpp
@@ -80,5 +82,7 @@ mjwm_jwm_menu_test_SOURCES = src/stringx.cpp \
                              test/jwm/menu_test.cpp
 mjwm_messages_test_SOURCES = src/messages.cpp \
                              test/messages_test.cpp
-
+mjwm_command_line_options_test_SOURCES = src/stringx.cpp \
+                                         src/command_line_options.cpp \
+                                         test/command_line_options_test.cpp
 TESTS = $(check_PROGRAMS)

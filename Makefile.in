@@ -85,7 +85,8 @@ check_PROGRAMS = mjwm_vectorx_test$(EXEEXT) mjwm_stringx_test$(EXEEXT) \
 	mjwm_jwm_transform_test$(EXEEXT) \
 	mjwm_jwm_subcategory_test$(EXEEXT) mjwm_jwm_menu_test$(EXEEXT) \
 	mjwm_messages_test$(EXEEXT) \
-	mjwm_application_directories_test$(EXEEXT)
+	mjwm_application_directories_test$(EXEEXT) \
+	mjwm_command_line_options_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
@@ -114,7 +115,7 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/jwm/transform.$(OBJEXT) src/jwm/subcategory.$(OBJEXT) \
 	src/jwm/menu.$(OBJEXT) src/icon_service.$(OBJEXT) \
 	src/application_directories.$(OBJEXT) src/messages.$(OBJEXT) \
-	src/mjwm.$(OBJEXT)
+	src/command_line_options.$(OBJEXT) src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_application_directories_test_OBJECTS = src/vectorx.$(OBJEXT) \
@@ -123,6 +124,12 @@ am_mjwm_application_directories_test_OBJECTS = src/vectorx.$(OBJEXT) \
 mjwm_application_directories_test_OBJECTS =  \
 	$(am_mjwm_application_directories_test_OBJECTS)
 mjwm_application_directories_test_LDADD = $(LDADD)
+am_mjwm_command_line_options_test_OBJECTS = src/stringx.$(OBJEXT) \
+	src/command_line_options.$(OBJEXT) \
+	test/command_line_options_test.$(OBJEXT)
+mjwm_command_line_options_test_OBJECTS =  \
+	$(am_mjwm_command_line_options_test_OBJECTS)
+mjwm_command_line_options_test_LDADD = $(LDADD)
 am_mjwm_desktop_file_categories_test_OBJECTS = src/stringx.$(OBJEXT) \
 	src/vectorx.$(OBJEXT) src/desktop_file_categories.$(OBJEXT) \
 	test/desktop_file_categories_test.$(OBJEXT)
@@ -205,6 +212,7 @@ am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(mjwm_SOURCES) $(mjwm_application_directories_test_SOURCES) \
+	$(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_categories_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_menu_entry_test_SOURCES) \
@@ -215,6 +223,7 @@ SOURCES = $(mjwm_SOURCES) $(mjwm_application_directories_test_SOURCES) \
 	$(mjwm_vectorx_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_application_directories_test_SOURCES) \
+	$(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_categories_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_menu_entry_test_SOURCES) \
@@ -571,6 +580,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/icon_service.cpp \
                src/application_directories.cpp \
                src/messages.cpp \
+               src/command_line_options.cpp \
                src/mjwm.cpp
 
 mjwmdir = $(datadir)/mjwm
@@ -633,6 +643,10 @@ mjwm_jwm_menu_test_SOURCES = src/stringx.cpp \
 
 mjwm_messages_test_SOURCES = src/messages.cpp \
                              test/messages_test.cpp
+
+mjwm_command_line_options_test_SOURCES = src/stringx.cpp \
+                                         src/command_line_options.cpp \
+                                         test/command_line_options_test.cpp
 
 TESTS = $(check_PROGRAMS)
 all: config.h
@@ -768,6 +782,8 @@ src/application_directories.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/command_line_options.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
 mjwm$(EXEEXT): $(mjwm_OBJECTS) $(mjwm_DEPENDENCIES) $(EXTRA_mjwm_DEPENDENCIES) 
@@ -785,6 +801,12 @@ test/application_directories_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_application_directories_test$(EXEEXT): $(mjwm_application_directories_test_OBJECTS) $(mjwm_application_directories_test_DEPENDENCIES) $(EXTRA_mjwm_application_directories_test_DEPENDENCIES) 
 	@rm -f mjwm_application_directories_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_application_directories_test_OBJECTS) $(mjwm_application_directories_test_LDADD) $(LIBS)
+test/command_line_options_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_command_line_options_test$(EXEEXT): $(mjwm_command_line_options_test_OBJECTS) $(mjwm_command_line_options_test_DEPENDENCIES) $(EXTRA_mjwm_command_line_options_test_DEPENDENCIES) 
+	@rm -f mjwm_command_line_options_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_command_line_options_test_OBJECTS) $(mjwm_command_line_options_test_LDADD) $(LIBS)
 test/desktop_file_categories_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -857,6 +879,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/application_directories.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/command_line_options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_categories.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/icon_service.Po@am__quote@
@@ -869,6 +892,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/jwm/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/jwm/$(DEPDIR)/transform.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/application_directories_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_categories_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/messages_test.Po@am__quote@
@@ -1182,6 +1206,13 @@ mjwm_messages_test.log: mjwm_messages_test$(EXEEXT)
 mjwm_application_directories_test.log: mjwm_application_directories_test$(EXEEXT)
 	@p='mjwm_application_directories_test$(EXEEXT)'; \
 	b='mjwm_application_directories_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_command_line_options_test.log: mjwm_command_line_options_test$(EXEEXT)
+	@p='mjwm_command_line_options_test$(EXEEXT)'; \
+	b='mjwm_command_line_options_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
