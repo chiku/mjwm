@@ -27,13 +27,19 @@
 #include "transform.h"
 
 amm::menu_entry::jwm
-amm::transform::jwm::transform(amm::desktop_file desktop_file, amm::icon_service icon_service)
+amm::transform::jwm::transform(amm::desktop_file desktop_file)
 {
 	std::string name = amm::stringx(desktop_file.name()).encode();
-	std::string icon = amm::stringx(icon_service.resolved_name(desktop_file.icon())).encode();
+	std::string icon = amm::stringx(_icon_service.resolved_name(desktop_file.icon())).encode();
 	std::string executable = remove_field_code(desktop_file.executable());
 
 	return amm::menu_entry::jwm(name, icon, executable);
+}
+
+void
+amm::transform::jwm::register_icon_service(amm::icon_service icon_service)
+{
+    _icon_service = icon_service;
 }
 
 std::string

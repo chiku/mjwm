@@ -34,20 +34,13 @@ namespace amm
 		class transform_test
 		{
 			QUnit::UnitTest qunit;
-			amm::icon_service icon_service;
-			amm::icon_service icon_service_with_svg;
-
-			void setup()
-			{
-				icon_service_with_svg.register_extension(".svg");
-			}
 
 			void test_jwm_transform_converts_desktop_file_to_menu_entry_for_jwm()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, icon_service);
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file);
 
 				QUNIT_IS_EQUAL("VLC", jwm_menu_entry.name());
 				QUNIT_IS_EQUAL("vlc", jwm_menu_entry.icon());
@@ -57,9 +50,12 @@ namespace amm
 			void test_jwm_transform_appends_the_icon_extension_to_icon_name()
 			{
 				amm::desktop_file desktop_file = desktop_file_fixture();
+				amm::icon_service icon_service;
+				icon_service.register_extension(".svg");
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, icon_service_with_svg);
+				transformer.register_icon_service(icon_service);
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file);
 
 				QUNIT_IS_EQUAL("vlc.svg", jwm_menu_entry.icon());
 			}
@@ -70,7 +66,7 @@ namespace amm
 				desktop_file.populate("Name=<\'foo\' & \"bar\">");
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, icon_service);
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file);
 
 				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.name());
 			}
@@ -81,7 +77,7 @@ namespace amm
 				desktop_file.populate("Icon=<\'foo\' & \"bar\">");
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, icon_service);
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file);
 
 				QUNIT_IS_EQUAL("&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;", jwm_menu_entry.icon());
 			}
@@ -92,7 +88,7 @@ namespace amm
 				desktop_file.populate("Exec=vlc &");
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, icon_service);
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file);
 
 				QUNIT_IS_EQUAL("vlc &", jwm_menu_entry.executable());
 			}
@@ -103,7 +99,7 @@ namespace amm
 				desktop_file.populate("Exec=foo %f %U bar");
 
 				amm::transform::jwm transformer;
-				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file, icon_service);
+				amm::menu_entry::jwm jwm_menu_entry = transformer.transform(desktop_file);
 
 				QUNIT_IS_EQUAL("foo bar", jwm_menu_entry.executable());
 			}
@@ -123,7 +119,6 @@ namespace amm
 
 			int run()
 			{
-				setup();
 				test_jwm_transform_converts_desktop_file_to_menu_entry_for_jwm();
 				test_jwm_transform_appends_the_icon_extension_to_icon_name();
 				test_jwm_transform_XML_escapes_name();

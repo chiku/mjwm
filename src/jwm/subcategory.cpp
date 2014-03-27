@@ -97,14 +97,14 @@ amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcat
 {
 	if (subcategory.has_entries()) {
 		amm::transform::jwm jwm_transformer;
-		amm::icon_service icon_service = subcategory.icon_service();
+		jwm_transformer.register_icon_service(subcategory.icon_service());
 
 		stream << "  " << subcategory.first_line() << std::endl;
 
 		std::vector<amm::desktop_file> desktop_files = subcategory.desktop_files();
 		std::vector<amm::desktop_file>::iterator entry;
 		for(entry = desktop_files.begin(); entry != desktop_files.end(); ++entry) {
-			stream << "    " << jwm_transformer.transform(*entry, icon_service) << std::endl;
+			stream << "    " << jwm_transformer.transform(*entry) << std::endl;
 		}
 
 		stream << "  " << subcategory.last_line() << std::endl;
