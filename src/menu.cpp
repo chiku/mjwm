@@ -24,7 +24,7 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "desktop_files.h"
+#include "menu.h"
 
 static std::string
 xdg_data_dirs()
@@ -53,13 +53,13 @@ xdg_data_home()
 	return "";
 }
 
-amm::desktop_files::desktop_files()
+amm::menu::menu()
 {
 	_capture_bad_paths = true;
 }
 
 void
-amm::desktop_files::register_directories_with_default_fallback(std::vector<std::string> directory_names)
+amm::menu::register_directories_with_default_fallback(std::vector<std::string> directory_names)
 {
 	if (directory_names.size() > 0) {
 		register_directories(directory_names);
@@ -69,13 +69,13 @@ amm::desktop_files::register_directories_with_default_fallback(std::vector<std::
 }
 
 void
-amm::desktop_files::register_directories(std::vector<std::string> directory_names)
+amm::menu::register_directories(std::vector<std::string> directory_names)
 {
 	_directory_names = directory_names;
 }
 
 void
-amm::desktop_files::register_default_directories()
+amm::menu::register_default_directories()
 {
 	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
 	directory_bases.push_back(xdg_data_home());
@@ -89,7 +89,7 @@ amm::desktop_files::register_default_directories()
 }
 
 void
-amm::desktop_files::resolve()
+amm::menu::resolve()
 {
 	_desktop_file_names.clear();
 	_bad_paths.clear();
@@ -111,7 +111,7 @@ amm::desktop_files::resolve()
 }
 
 void
-amm::desktop_files::populate_desktop_file_names(DIR* directory, std::string directory_name)
+amm::menu::populate_desktop_file_names(DIR* directory, std::string directory_name)
 {
 	dirent *directory_entry;
 
@@ -124,13 +124,13 @@ amm::desktop_files::populate_desktop_file_names(DIR* directory, std::string dire
 }
 
 std::vector<std::string>
-amm::desktop_files::desktop_file_names() const
+amm::menu::desktop_file_names() const
 {
 	return _desktop_file_names;
 }
 
 std::vector<std::string>
-amm::desktop_files::bad_paths() const
+amm::menu::bad_paths() const
 {
 	return _bad_paths;
 }

@@ -25,7 +25,7 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "desktop_files.h"
+#include "menu.h"
 #include "messages.h"
 #include "icon_service.h"
 #include "jwm/menu.h"
@@ -118,16 +118,16 @@ amm::main::read_desktop_files()
 {
 	std::vector<std::string> input_directory_names = _command_line_options.input_directory_names();
 
-	amm::desktop_files desktop_files;
-	desktop_files.register_directories_with_default_fallback(input_directory_names);
-	desktop_files.resolve();
+	amm::menu menu;
+	menu.register_directories_with_default_fallback(input_directory_names);
+	menu.resolve();
 
-	std::vector<std::string> bad_paths = desktop_files.bad_paths();
+	std::vector<std::string> bad_paths = menu.bad_paths();
 	if (bad_paths.size() > 0) {
 		std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(", ");
 		std::cerr << std::endl << "Proceeding..." << std::endl;
 	}
-	_desktop_file_names = desktop_files.desktop_file_names();
+	_desktop_file_names = menu.desktop_file_names();
 }
 
 void

@@ -23,80 +23,80 @@
 
 #include "QUnit.hpp"
 
-#include "../src/desktop_files.h"
+#include "../src/menu.h"
 
 
 namespace amm
 {
-	// Understands how to convert Freedesktop files to a mennu
-	class desktop_files_test
+	// Verifies a collection of desktop file entries
+	class menu_test
 	{
 		QUnit::UnitTest qunit;
 
-		void test_desktop_files_gives_back_files_with_extension_desktop()
+		void test_menu_gives_back_files_with_extension_desktop()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures/");
-			amm::desktop_files desktop_files;
-			desktop_files.register_directories(directory_names);
-			desktop_files.resolve();
+			amm::menu menu;
+			menu.register_directories(directory_names);
+			menu.resolve();
 
-			std::vector<std::string> file_names = desktop_files.desktop_file_names();
+			std::vector<std::string> file_names = menu.desktop_file_names();
 
 			assert_files_are_present_in_list(file_names);
 		}
 
-		void test_desktop_files_ignores_repeated_input_directories()
+		void test_menu_ignores_repeated_input_directories()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/fixtures/");
-			amm::desktop_files desktop_files;
-			desktop_files.register_directories(directory_names);
-			desktop_files.resolve();
+			amm::menu menu;
+			menu.register_directories(directory_names);
+			menu.resolve();
 
-			std::vector<std::string> file_names = desktop_files.desktop_file_names();
+			std::vector<std::string> file_names = menu.desktop_file_names();
 
 			QUNIT_IS_EQUAL(4, file_names.size());
 		}
 
-		void test_desktop_files_need_not_end_with_a_slash()
+		void test_menu_need_not_end_with_a_slash()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
-			amm::desktop_files desktop_files;
-			desktop_files.register_directories(directory_names);
-			desktop_files.resolve();
+			amm::menu menu;
+			menu.register_directories(directory_names);
+			menu.resolve();
 
-			std::vector<std::string> file_names = desktop_files.desktop_file_names();
+			std::vector<std::string> file_names = menu.desktop_file_names();
 
 			assert_files_are_present_in_list(file_names);
 		}
 
-		void test_desktop_files_gives_back_files_when_one_directory_is_missing()
+		void test_menu_gives_back_files_when_one_directory_is_missing()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/does-not-exist");
-			amm::desktop_files desktop_files;
-			desktop_files.register_directories(directory_names);
-			desktop_files.resolve();
+			amm::menu menu;
+			menu.register_directories(directory_names);
+			menu.resolve();
 
-			std::vector<std::string> file_names = desktop_files.desktop_file_names();
+			std::vector<std::string> file_names = menu.desktop_file_names();
 
 			assert_files_are_present_in_list(file_names);
 		}
 
-		void test_desktop_files_tracks_bad_paths_it_couldnt_open()
+		void test_menu_tracks_bad_paths_it_couldnt_open()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/does-not-exist");
-			amm::desktop_files desktop_files;
-			desktop_files.register_directories(directory_names);
-			desktop_files.resolve();
+			amm::menu menu;
+			menu.register_directories(directory_names);
+			menu.resolve();
 
-			std::vector<std::string> bad_paths = desktop_files.bad_paths();
+			std::vector<std::string> bad_paths = menu.bad_paths();
 
 			QUNIT_IS_EQUAL(1, bad_paths.size());
 			QUNIT_IS_EQUAL("test/does-not-exist/",bad_paths[0]);
@@ -118,15 +118,15 @@ namespace amm
 		}
 
 	public:
-		desktop_files_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+		menu_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 		int run()
 		{
-			test_desktop_files_gives_back_files_with_extension_desktop();
-			test_desktop_files_ignores_repeated_input_directories();
-			test_desktop_files_need_not_end_with_a_slash();
-			test_desktop_files_gives_back_files_when_one_directory_is_missing();
-			test_desktop_files_tracks_bad_paths_it_couldnt_open();
+			test_menu_gives_back_files_with_extension_desktop();
+			test_menu_ignores_repeated_input_directories();
+			test_menu_need_not_end_with_a_slash();
+			test_menu_gives_back_files_when_one_directory_is_missing();
+			test_menu_tracks_bad_paths_it_couldnt_open();
 			return qunit.errors();
 		}
 
@@ -135,5 +135,5 @@ namespace amm
 
 int main()
 {
-	return amm::desktop_files_test(std::cerr, QUnit::normal).run();
+	return amm::menu_test(std::cerr, QUnit::normal).run();
 }

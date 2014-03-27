@@ -13,7 +13,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/jwm/subcategory.cpp \
                src/jwm/menu.cpp \
                src/icon_service.cpp \
-               src/desktop_files.cpp \
+               src/menu.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
                src/mjwm.cpp
@@ -26,7 +26,7 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
                  mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
-                 mjwm_desktop_files_test \
+                 mjwm_menu_test \
                  mjwm_jwm_menu_entry_test \
                  mjwm_jwm_transform_test \
                  mjwm_jwm_subcategory_test \
@@ -48,10 +48,10 @@ mjwm_desktop_file_test_SOURCES = src/stringx.cpp \
                                  src/desktop_file_categories.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
-mjwm_desktop_files_test_SOURCES = src/vectorx.cpp \
-                                  src/stringx.cpp \
-                                  src/desktop_files.cpp \
-                                  test/desktop_files_test.cpp
+mjwm_menu_test_SOURCES = src/vectorx.cpp \
+                         src/stringx.cpp \
+                         src/menu.cpp \
+                         test/menu_test.cpp
 mjwm_jwm_menu_entry_test_SOURCES = src/jwm/menu_entry.cpp \
                                    test/jwm/menu_entry_test.cpp
 mjwm_jwm_transform_test_SOURCES = src/stringx.cpp \

@@ -38,7 +38,7 @@ namespace amm
 
 		public:
 			void register_icon_service(amm::icon_service icon_service);
-			amm::menu_entry::jwm transform(amm::desktop_file desktop_file, amm::icon_service icon_service);
+			amm::menu_entry::jwm transform(amm::desktop_file desktop_file);
 		};
 	}
 }

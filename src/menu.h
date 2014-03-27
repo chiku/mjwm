@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_desktop_files__
-#define __amm_desktop_files__
+#ifndef __amm_menu__
+#define __amm_menu__
 
 #include <string>
 #include <vector>
@@ -27,8 +27,8 @@ namespace amm
 {
 	const std::string DESKTOP_EXTENSION = ".desktop";
 
-	// Understands how to represent multiple Freedesktop files to be converted mennu
-	class desktop_files
+	// Understands a collection of desktop file entries
+	class menu
 	{
 	private:
 		std::vector<std::string> _directory_names;
@@ -39,7 +39,7 @@ namespace amm
 		void populate_desktop_file_names(DIR* directory, std::string directory_name);
 
 	public:
-		desktop_files();
+		menu();
 
 		void register_directories_with_default_fallback(std::vector<std::string> directory_names);
 		void register_default_directories();
