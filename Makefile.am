@@ -13,7 +13,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/jwm/subcategory.cpp \
                src/jwm/menu.cpp \
                src/icon_service.cpp \
-               src/application_directories.cpp \
+               src/desktop_files.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
                src/mjwm.cpp
@@ -25,12 +25,12 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
                  mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
+                 mjwm_desktop_files_test \
                  mjwm_jwm_menu_entry_test \
                  mjwm_jwm_transform_test \
                  mjwm_jwm_subcategory_test \
                  mjwm_jwm_menu_test \
                  mjwm_messages_test \
-                 mjwm_application_directories_test \
                  mjwm_command_line_options_test
 
 mjwm_stringx_test_SOURCES = src/stringx.cpp \
@@ -47,6 +47,10 @@ mjwm_desktop_file_test_SOURCES = src/stringx.cpp \
                                  src/desktop_file_categories.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
+mjwm_desktop_files_test_SOURCES = src/vectorx.cpp \
+                                  src/stringx.cpp \
+                                  src/desktop_files.cpp \
+                                  test/desktop_files_test.cpp
 mjwm_jwm_menu_entry_test_SOURCES = src/jwm/menu_entry.cpp \
                                    test/jwm/menu_entry_test.cpp
 mjwm_jwm_transform_test_SOURCES = src/stringx.cpp \
@@ -66,10 +70,6 @@ mjwm_jwm_subcategory_test_SOURCES = src/stringx.cpp \
                                     src/jwm/subcategory.cpp \
                                     src/icon_service.cpp \
                                     test/jwm/subcategory_test.cpp
-mjwm_application_directories_test_SOURCES = src/vectorx.cpp \
-                                            src/stringx.cpp \
-                                            src/application_directories.cpp \
-                                            test/application_directories_test.cpp
 mjwm_jwm_menu_test_SOURCES = src/stringx.cpp \
                              src/vectorx.cpp \
                              src/desktop_file_categories.cpp \

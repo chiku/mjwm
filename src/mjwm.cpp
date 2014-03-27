@@ -25,8 +25,8 @@
 
 #include "stringx.h"
 #include "vectorx.h"
+#include "desktop_files.h"
 #include "messages.h"
-#include "application_directories.h"
 #include "icon_service.h"
 #include "jwm/menu.h"
 #include "command_line_options.h"

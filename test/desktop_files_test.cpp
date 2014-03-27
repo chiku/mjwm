@@ -23,7 +23,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/application_directories.h"
+#include "../src/desktop_files.h"
 
 
 namespace amm

@@ -24,7 +24,7 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "application_directories.h"
+#include "desktop_files.h"
 
 static std::string
 xdg_data_dirs()
