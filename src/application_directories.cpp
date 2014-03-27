@@ -53,37 +53,59 @@ xdg_data_home()
 	return "";
 }
 
-void
-amm::application_directories::read_from_environment()
+amm::application_directories::application_directories()
 {
-	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
-	directory_bases.push_back(xdg_data_home());
-	std::vector<std::string> directories;
-
-	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
-		directories.push_back(directory);
-	}
-
-	resolve(directories);
-	flush_bad_paths();
+	_capture_bad_paths = true;
 }
 
 void
-amm::application_directories::resolve(std::vector<std::string> directory_names)
+amm::application_directories::register_directories_with_default_fallback(std::vector<std::string> directory_names)
 {
-	std::vector<std::string> terminated_directory_names = amm::vectorx(directory_names).terminate_with("/");
+	if (directory_names.size() > 0) {
+		register_directories(directory_names);
+	} else {
+		register_default_directories();
+	}
+}
+
+void
+amm::application_directories::register_directories(std::vector<std::string> directory_names)
+{
+	_directory_names = directory_names;
+}
+
+void
+amm::application_directories::register_default_directories()
+{
+	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
+	directory_bases.push_back(xdg_data_home());
+
+	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
+		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
+		_directory_names.push_back(directory);
+	}
+
+	_capture_bad_paths = false;
+}
+
+void
+amm::application_directories::resolve()
+{
+	_desktop_file_names.clear();
+	_bad_paths.clear();
+
+	std::vector<std::string> terminated_directory_names = amm::vectorx(_directory_names).terminate_with("/");
 	std::vector<std::string> unique_directory_names = amm::vectorx(terminated_directory_names).unique();
 
 	std::vector<std::string>::const_iterator name;
 	for (name = unique_directory_names.begin(); name != unique_directory_names.end(); ++name) {
 		DIR *directory = opendir(name->c_str());
 
-		if (!directory) {
-			_bad_paths.push_back(*name);
-		} else {
+		if (directory) {
 			populate_desktop_file_names(directory, *name);
 			closedir(directory);
+		} else if (_capture_bad_paths) {
+			_bad_paths.push_back(*name);
 		}
 	}
 }
@@ -111,10 +133,4 @@ std::vector<std::string>
 amm::application_directories::bad_paths() const
 {
 	return _bad_paths;
-}
-
-void
-amm::application_directories::flush_bad_paths()
-{
-	_bad_paths.clear();
 }

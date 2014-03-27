@@ -31,15 +31,20 @@ namespace amm
 	class application_directories
 	{
 	private:
+		std::vector<std::string> _directory_names;
 		std::vector<std::string> _desktop_file_names;
 		std::vector<std::string> _bad_paths;
+		bool _capture_bad_paths;
 
 		void populate_desktop_file_names(DIR* directory, std::string directory_name);
 
 	public:
-		void resolve(std::vector<std::string> directory_names);
-		void flush_bad_paths();
-		void read_from_environment();
+		application_directories();
+
+		void register_directories_with_default_fallback(std::vector<std::string> directory_names);
+		void register_default_directories();
+		void register_directories(std::vector<std::string> directory_names);
+		void resolve();
 
 		std::vector<std::string> desktop_file_names() const;
 		std::vector<std::string> bad_paths() const;

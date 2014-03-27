@@ -104,8 +104,8 @@ amm::main::read_desktop_files()
 	std::vector<std::string> input_directory_names = _command_line_options.input_directory_names();
 
 	amm::application_directories application_directories;
-	application_directories.read_from_environment();
-	application_directories.resolve(input_directory_names);
+	application_directories.register_directories_with_default_fallback(input_directory_names);
+	application_directories.resolve();
 
 	std::vector<std::string> bad_paths = application_directories.bad_paths();
 	if (bad_paths.size() > 0) {
