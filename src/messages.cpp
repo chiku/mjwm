@@ -47,8 +47,8 @@ amm::messages::help()
 	stream << "                               [Default: applications directories under " << std::endl;
 	stream << "                                $XDG_DATA_DIRS & $XDG_DATA_DIRS]" << std::endl;
 	stream << " -a, --append-png            Add '.png' to all icon file names" << std::endl;
-	stream << " -h, --help                  Show this help" << std::endl;
-	stream << " -v, --version               Show version information" << std::endl;
+	stream << "     --help                  Show this help" << std::endl;
+	stream << "     --version               Show version information" << std::endl;
 	stream << "" << std::endl;
 	stream << "Deprecated optional arguments:" << std::endl;
 	stream << "  -s [DIRECTORIES]           Same as -i" << std::endl;

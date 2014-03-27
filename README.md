@@ -47,8 +47,8 @@ Optional arguments:
                                 $XDG_DATA_DIRS & $XDG_DATA_DIRS]
  -a, --append-png            Add '.png' to all icon file names
  -c, --category-file         External category file
- -h, --help                  Show this help
- -v, --version               Show version information
+     --help                  Show this help
+     --version               Show version information
 
 Deprecated optional arguments:
   -s [DIRECTORIES]           Same as -i
