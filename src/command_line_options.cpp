@@ -41,7 +41,7 @@ amm::command_line_options::parse(int argc, char* const* argv)
 	int option_index = 0;
 	int help_flag = 0;
 	int version_flag = 0;
-	const char* short_options = "o:i:s:c:a";
+	const char* short_options = "o:i:s:c:ahv";
 	const option long_options[] =
 	{
 		{"help",            no_argument,       &help_flag   ,  1 },
@@ -85,6 +85,16 @@ amm::command_line_options::parse(int argc, char* const* argv)
 
 			case 'a':
 				_icon_extension = ".png";
+				break;
+
+			case 'h':
+				_is_help = true;
+				_deprecations.push_back("-h is deprecated. Please use --help instead.");
+				break;
+
+			case 'v':
+				_is_version = true;
+				_deprecations.push_back("-v is deprecated. Please use --version instead.");
 				break;
 
 			case '?':

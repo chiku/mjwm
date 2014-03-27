@@ -2,7 +2,6 @@
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
 * Change architecture - list of desktop files should convert to JWM menu when send a JWM menu visitor
-* Add deprecation for -h & -v command line options. Drop support in next major release
 * Cleanup commmand_line_options error test - see if parsing can be done using vanilla C++
 * DEPRECATE - default output file should be $HOME/.mjwm-menu
 * Document exit codes

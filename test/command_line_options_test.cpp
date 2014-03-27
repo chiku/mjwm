@@ -64,6 +64,18 @@ namespace amm
 
 			QUNIT_IS_TRUE(options.is_help());
 		}
+		void test_command_line_options_turns_on_help_flag_with_deprecation_on_h_option()
+		{
+			amm::command_line_options options;
+			char* argv[] = {strdup("amm"), strdup("-h"), 0};
+			options.parse(2, argv);
+			std::vector<std::string> deprecations = options.deprecations();
+
+			QUNIT_IS_TRUE(options.is_help());
+			QUNIT_IS_EQUAL(1, deprecations.size());
+			QUNIT_IS_EQUAL("-h is deprecated. Please use --help instead.", deprecations[0]);
+		}
+
 		void test_command_line_options_turns_off_version_by_default()
 		{
 			amm::command_line_options options;
@@ -79,6 +91,17 @@ namespace amm
 			options.parse(2, argv);
 
 			QUNIT_IS_TRUE(options.is_version());
+		}
+		void test_command_line_options_turns_on_version_flag_with_deprecation_on_v_option()
+		{
+			amm::command_line_options options;
+			char* argv[] = {strdup("amm"), strdup("-v"), 0};
+			options.parse(2, argv);
+			std::vector<std::string> deprecations = options.deprecations();
+
+			QUNIT_IS_TRUE(options.is_version());
+			QUNIT_IS_EQUAL(1, deprecations.size());
+			QUNIT_IS_EQUAL("-v is deprecated. Please use --version instead.", deprecations[0]);
 		}
 
 		void test_command_line_options_sets_output_file_name_to_automenu_by_default()
@@ -136,7 +159,7 @@ namespace amm
 			QUNIT_IS_EQUAL(1, input_directory_names.size());
 			QUNIT_IS_EQUAL("/usr/share/applications", input_directory_names[0]);
 		}
-		void test_command_line_options_sets_input_directory_names_to_argument_passed_with_s_option_with_deprecation()
+		void test_command_line_options_sets_input_directory_names_to_argument_passed_with_deprecation_with_s_option()
 		{
 			amm::command_line_options options;
 			char* argv[] = {strdup("amm"), strdup("-s"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
@@ -225,8 +248,11 @@ namespace amm
 
 			test_command_line_options_turns_off_help_flag_by_default();
 			test_command_line_options_turns_on_help_flag_on_help_option();
+			test_command_line_options_turns_on_help_flag_with_deprecation_on_h_option();
+
 			test_command_line_options_turns_off_version_by_default();
 			test_command_line_options_turns_on_version_flag_on_version_option();
+			test_command_line_options_turns_on_version_flag_with_deprecation_on_v_option();
 
 			test_command_line_options_sets_output_file_name_to_automenu_by_default();
 			test_command_line_options_sets_output_file_name_to_argument_passed_with_output_file_option();
@@ -235,7 +261,7 @@ namespace amm
 			test_command_line_options_sets_input_directory_names_to_empty_vector_by_default();
 			test_command_line_options_sets_input_directory_names_to_argument_passed_with_input_directory_option();
 			test_command_line_options_sets_input_directory_names_to_argument_passed_with_i_option();
-			test_command_line_options_sets_input_directory_names_to_argument_passed_with_s_option_with_deprecation();
+			test_command_line_options_sets_input_directory_names_to_argument_passed_with_deprecation_with_s_option();
 
 			test_command_line_options_sets_category_file_name_to_empty_string_by_default();
 			test_command_line_options_sets_category_file_name_to_argument_passed_with_category_file_option();

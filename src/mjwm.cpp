@@ -71,7 +71,7 @@ amm::main::load_command_line_option()
 	}
 	std::vector<std::string> deprecations = _command_line_options.deprecations();
 	if (deprecations.size() > 0) {
-		std::cerr << amm::vectorx(deprecations).join("\n") << "Proceeding..." << std::endl;
+		std::cerr << amm::vectorx(deprecations).join("\n") << std::endl << "Proceeding..." << std::endl;
 	}
 	if (_command_line_options.is_help()) {
 		std::cout << amm::messages::help() << std::endl;
