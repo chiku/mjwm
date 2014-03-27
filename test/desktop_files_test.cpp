@@ -28,80 +28,75 @@
 
 namespace amm
 {
-	// Verifies what sub-section should a single desktop file entry belong to as per FreeDesktop guidelines
-	class application_directories_test
+	// Understands how to convert Freedesktop files to a mennu
+	class desktop_files_test
 	{
 		QUnit::UnitTest qunit;
 
-		void test_application_directories_gives_back_files_with_extension_desktop()
+		void test_desktop_files_gives_back_files_with_extension_desktop()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures/");
-			amm::application_directories application_directories;
-			application_directories.register_directories(directory_names);
-			application_directories.resolve();
+			amm::desktop_files desktop_files;
+			desktop_files.register_directories(directory_names);
+			desktop_files.resolve();
 
-			std::vector<std::string> file_names = application_directories.desktop_file_names();
+			std::vector<std::string> file_names = desktop_files.desktop_file_names();
 
 			assert_files_are_present_in_list(file_names);
 		}
 
-		void test_application_directories_ignores_repeated_input_directories()
+		void test_desktop_files_ignores_repeated_input_directories()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/fixtures/");
-			amm::application_directories application_directories;
-			application_directories.register_directories(directory_names);
-			application_directories.resolve();
+			amm::desktop_files desktop_files;
+			desktop_files.register_directories(directory_names);
+			desktop_files.resolve();
 
-			std::vector<std::string> file_names = application_directories.desktop_file_names();
-
-			for (std::vector<std::string>::iterator iter = file_names.begin(); iter != file_names.end(); ++iter)
-			{
-				std::cout << *iter << "  ";
-			}
+			std::vector<std::string> file_names = desktop_files.desktop_file_names();
 
 			QUNIT_IS_EQUAL(4, file_names.size());
 		}
 
-		void test_application_directories_need_not_end_with_a_slash()
+		void test_desktop_files_need_not_end_with_a_slash()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
-			amm::application_directories application_directories;
-			application_directories.register_directories(directory_names);
-			application_directories.resolve();
+			amm::desktop_files desktop_files;
+			desktop_files.register_directories(directory_names);
+			desktop_files.resolve();
 
-			std::vector<std::string> file_names = application_directories.desktop_file_names();
+			std::vector<std::string> file_names = desktop_files.desktop_file_names();
 
 			assert_files_are_present_in_list(file_names);
 		}
 
-		void test_application_directories_gives_back_files_when_one_directory_is_missing()
+		void test_desktop_files_gives_back_files_when_one_directory_is_missing()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/does-not-exist");
-			amm::application_directories application_directories;
-			application_directories.register_directories(directory_names);
-			application_directories.resolve();
+			amm::desktop_files desktop_files;
+			desktop_files.register_directories(directory_names);
+			desktop_files.resolve();
 
-			std::vector<std::string> file_names = application_directories.desktop_file_names();
+			std::vector<std::string> file_names = desktop_files.desktop_file_names();
 
 			assert_files_are_present_in_list(file_names);
 		}
 
-		void test_application_directories_tracks_bad_paths_it_couldnt_open()
+		void test_desktop_files_tracks_bad_paths_it_couldnt_open()
 		{
 			std::vector<std::string> directory_names;
 			directory_names.push_back("test/fixtures");
 			directory_names.push_back("test/does-not-exist");
-			amm::application_directories application_directories;
-			application_directories.register_directories(directory_names);
-			application_directories.resolve();
+			amm::desktop_files desktop_files;
+			desktop_files.register_directories(directory_names);
+			desktop_files.resolve();
 
-			std::vector<std::string> bad_paths = application_directories.bad_paths();
+			std::vector<std::string> bad_paths = desktop_files.bad_paths();
 
 			QUNIT_IS_EQUAL(1, bad_paths.size());
 			QUNIT_IS_EQUAL("test/does-not-exist/",bad_paths[0]);
@@ -123,15 +118,15 @@ namespace amm
 		}
 
 	public:
-		application_directories_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+		desktop_files_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
 		int run()
 		{
-			test_application_directories_gives_back_files_with_extension_desktop();
-			test_application_directories_ignores_repeated_input_directories();
-			test_application_directories_need_not_end_with_a_slash();
-			test_application_directories_gives_back_files_when_one_directory_is_missing();
-			test_application_directories_tracks_bad_paths_it_couldnt_open();
+			test_desktop_files_gives_back_files_with_extension_desktop();
+			test_desktop_files_ignores_repeated_input_directories();
+			test_desktop_files_need_not_end_with_a_slash();
+			test_desktop_files_gives_back_files_when_one_directory_is_missing();
+			test_desktop_files_tracks_bad_paths_it_couldnt_open();
 			return qunit.errors();
 		}
 
@@ -140,5 +135,5 @@ namespace amm
 
 int main()
 {
-	return amm::application_directories_test(std::cerr, QUnit::normal).run();
+	return amm::desktop_files_test(std::cerr, QUnit::normal).run();
 }
