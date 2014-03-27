@@ -73,7 +73,7 @@ std::string
 amm::messages::option_error()
 {
 	std::stringstream stream;
-	stream << "Please run "<< PACKAGE << " -h to see options" << std::endl;
+	stream << "Please run "<< PACKAGE << " --help to see options" << std::endl;
 	return stream.str();
 }
 
