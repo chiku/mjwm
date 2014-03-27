@@ -65,7 +65,22 @@ void
 amm::main::load_command_line_option()
 {
 	_command_line_options = amm::command_line_options();
-	_command_line_options.parse(_argc, _argv);
+	if (!_command_line_options.parse(_argc, _argv)) {
+		std::cerr << amm::messages::option_error();
+		exit(2);
+	}
+	std::vector<std::string> deprecations = _command_line_options.deprecations();
+	if (deprecations.size() > 0) {
+		std::cerr << amm::vectorx(deprecations).join("\n") << "Proceeding..." << std::endl;
+	}
+	if (_command_line_options.is_help()) {
+		std::cout << amm::messages::help() << std::endl;
+		exit(0);
+	}
+	if (_command_line_options.is_version()) {
+		std::cout << amm::messages::version() << std::endl;
+		exit(0);
+	}
 }
 
 void
