@@ -46,6 +46,7 @@ Optional arguments:
                                [Default: applications directories under
                                 $XDG_DATA_DIRS & $XDG_DATA_DIRS]
  -a, --append-png            Add '.png' to all icon file names
+ -c, --category-file         External category file
  -h, --help                  Show this help
  -v, --version               Show version information
 
@@ -101,6 +102,12 @@ mjwm -i /usr/local/share/applications:/usr/share/applications:~/.local/share/app
 Create menu entries with icons having a "png" extension
 ``` script
 mjwm -a
+```
+
+Use categories from as an external file
+Look at data/categories.mjwm to create your own category file
+``` script
+mjwm -c data/categories.mjwm
 ```
 
 Running tests
