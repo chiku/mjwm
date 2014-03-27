@@ -20,6 +20,7 @@ mjwm_SOURCES = src/stringx.cpp \
 
 mjwmdir=$(datadir)/mjwm
 mjwm_DATA = data/categories.mjwm
+man1_MANS = docs/mjwm.1
 
 check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
