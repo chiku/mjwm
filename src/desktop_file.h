@@ -23,8 +23,6 @@
 #include <string>
 #include <vector>
 
-#include "desktop_file_categories.h"
-
 namespace amm
 {
 	// Understands a FreeDesktop .desktop file representation
@@ -34,7 +32,7 @@ namespace amm
 		std::string _name;
 		std::string _executable;
 		std::string _icon;
-		amm::desktop_file_categories _categories;
+		std::vector<std::string> _categories;
 
 	public:
 		desktop_file();
@@ -42,7 +40,7 @@ namespace amm
 		std::string name() const;
 		std::string icon() const;
 		std::string executable() const;
-		amm::desktop_file_categories categories() const;
+		std::vector<std::string> categories() const;
 
 		bool operator < (const amm::desktop_file &other) const;
 		bool operator > (const amm::desktop_file &other) const;
@@ -50,6 +48,7 @@ namespace amm
 		bool operator != (const amm::desktop_file &other) const;
 
 		bool is_valid() const;
+		bool is_a(std::string type) const;
 		void populate(std::string line);
 	};
 }

@@ -27,7 +27,6 @@ run() {
 
 run mjwm_stringx_test
 run mjwm_vectorx_test
-run mjwm_desktop_file_categories_test
 run mjwm_desktop_file_test
 run mjwm_subcategory_test
 run mjwm_menu_test

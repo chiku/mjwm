@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/desktop_file_categories.h"
+// #include "../src/desktop_file_categories.h"
 #include "../src/desktop_file.h"
 
 namespace amm
@@ -57,7 +57,12 @@ namespace amm
 		{
 			desktop_file entry;
 			entry.populate("Categories=Application;Utility;TextEditor;GTK;\n");
-			QUNIT_IS_EQUAL(amm::desktop_file_categories("Application;Utility;TextEditor;GTK;"), entry.categories());
+			std::vector<std::string> categories = entry.categories();
+			QUNIT_IS_EQUAL(4, categories.size());
+			QUNIT_IS_EQUAL("Application", categories[0]);
+			QUNIT_IS_EQUAL("GTK", categories[1]);
+			QUNIT_IS_EQUAL("TextEditor", categories[2]);
+			QUNIT_IS_EQUAL("Utility", categories[3]);
 		}
 
 		void test_desktop_file_escapes_whitespaces_when_parsing_name()
@@ -87,7 +92,12 @@ namespace amm
 		{
 			desktop_file entry;
 			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
-			QUNIT_IS_EQUAL(amm::desktop_file_categories("Application;Utility;TextEditor;GTK;"), entry.categories());
+			std::vector<std::string> categories = entry.categories();
+			QUNIT_IS_EQUAL(4, categories.size());
+			QUNIT_IS_EQUAL("Application", categories[0]);
+			QUNIT_IS_EQUAL("GTK", categories[1]);
+			QUNIT_IS_EQUAL("TextEditor", categories[2]);
+			QUNIT_IS_EQUAL("Utility", categories[3]);
 		}
 
 		void test_desktop_file_parse_doesnt_fail_when_entry_is_missing()
@@ -175,6 +185,34 @@ namespace amm
 			QUNIT_IS_FALSE(missing_executable_entry.is_valid());
 		}
 
+		void test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo()
+		{
+			desktop_file entry;
+			entry.populate("Categories=AudioVideo;Audio;Player;GTK;\n");
+			QUNIT_IS_TRUE(entry.is_a("AudioVideo"));
+		}
+
+		void test_desktop_file_is_not_a_audiovideo_if_tag_excludes_AudioVideo()
+		{
+			desktop_file entry;
+			entry.populate("Categories=Audio;Video;Player;GTK;\n");
+			QUNIT_IS_FALSE(entry.is_a("AudioVideo"));
+		}
+
+		void test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon()
+		{
+			desktop_file entry;
+			entry.populate("Categories=AudioVideo\n");
+			QUNIT_IS_TRUE(entry.is_a("AudioVideo"));
+		}
+
+		void test_desktop_file_is_not_a_audiovideo_if_empty()
+		{
+			desktop_file entry;
+			entry.populate("Categories=\n");
+			QUNIT_IS_FALSE(entry.is_a("AudioVideo"));
+		}
+
 	public:
 		desktop_file_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
@@ -198,6 +236,10 @@ namespace amm
 			test_desktop_file_is_not_valid_without_name();
 			test_desktop_file_is_not_valid_without_icon();
 			test_desktop_file_is_not_valid_without_executable();
+			test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo();
+			test_desktop_file_is_not_a_audiovideo_if_tag_excludes_AudioVideo();
+			test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
+			test_desktop_file_is_not_a_audiovideo_if_empty();
 			return qunit.errors();
 		}
 

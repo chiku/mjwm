@@ -6,7 +6,6 @@ AM_CPPFLAGS=-Wall -Wextra
 bin_PROGRAMS = mjwm
 mjwm_SOURCES = src/stringx.cpp \
                src/vectorx.cpp \
-               src/desktop_file_categories.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
                src/representation.cpp \
@@ -27,7 +26,6 @@ man1_MANS = docs/mjwm.1
 
 check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
-                 mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
                  mjwm_subcategory_test \
                  mjwm_menu_test \
@@ -44,13 +42,8 @@ mjwm_stringx_test_SOURCES = src/stringx.cpp \
 mjwm_vectorx_test_SOURCES = src/stringx.cpp \
                             src/vectorx.cpp \
                             test/vectorx_test.cpp
-mjwm_desktop_file_categories_test_SOURCES = src/stringx.cpp \
-                                            src/vectorx.cpp \
-                                            src/desktop_file_categories.cpp \
-                                            test/desktop_file_categories_test.cpp
 mjwm_desktop_file_test_SOURCES = src/stringx.cpp \
                                  src/vectorx.cpp \
-                                 src/desktop_file_categories.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
 mjwm_desktop_file_names_test_SOURCES = src/vectorx.cpp \
@@ -59,13 +52,11 @@ mjwm_desktop_file_names_test_SOURCES = src/vectorx.cpp \
                                        test/desktop_file_names_test.cpp
 mjwm_subcategory_test_SOURCES = src/vectorx.cpp \
                                 src/stringx.cpp \
-                                src/desktop_file_categories.cpp \
                                 src/desktop_file.cpp \
                                 src/subcategory.cpp \
                                 test/subcategory_test.cpp
 mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/stringx.cpp \
-                         src/desktop_file_categories.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
@@ -75,7 +66,6 @@ mjwm_jwm_menu_entry_test_SOURCES = src/jwm/menu_entry.cpp \
                                    test/jwm/menu_entry_test.cpp
 mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
                                     src/vectorx.cpp \
-                                    src/desktop_file_categories.cpp \
                                     src/desktop_file.cpp \
                                     src/jwm/menu_entry.cpp \
                                     src/jwm/transformer.cpp \
@@ -83,7 +73,6 @@ mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
                                     test/jwm/transformer_test.cpp
 mjwm_jwm_subcategory_test_SOURCES = src/stringx.cpp \
                                     src/vectorx.cpp \
-                                    src/desktop_file_categories.cpp \
                                     src/desktop_file.cpp \
                                     src/jwm/menu_entry.cpp \
                                     src/jwm/transformer.cpp \
@@ -92,7 +81,6 @@ mjwm_jwm_subcategory_test_SOURCES = src/stringx.cpp \
                                     test/jwm/subcategory_test.cpp
 mjwm_jwm_menu_test_SOURCES = src/stringx.cpp \
                              src/vectorx.cpp \
-                             src/desktop_file_categories.cpp \
                              src/desktop_file.cpp \
                              src/jwm/menu_entry.cpp \
                              src/jwm/transformer.cpp \

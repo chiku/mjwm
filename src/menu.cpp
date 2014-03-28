@@ -103,13 +103,12 @@ void
 amm::menu::classify(amm::desktop_file desktop_file)
 {
 	bool classified = false;
-	amm::desktop_file_categories categories = desktop_file.categories();
 
 	_total_parsed_files += 1;
 
 	std::vector<amm::subcategory>::iterator subcategory;
 	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
-		if (categories.is_a(subcategory->classification_name())) {
+		if (desktop_file.is_a(subcategory->classification_name())) {
 			classified = true;
 			subcategory->add_desktop_file(desktop_file);
 		}

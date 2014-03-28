@@ -17,11 +17,10 @@
 */
 
 #include <iostream>
-#include <fstream>
 #include <string>
+#include <algorithm>
 
 #include "stringx.h"
-#include "desktop_file_categories.h"
 #include "desktop_file.h"
 
 static const std::string NAME       = "Name";
@@ -49,7 +48,7 @@ amm::desktop_file::executable() const
 	return _executable;
 }
 
-amm::desktop_file_categories
+std::vector<std::string>
 amm::desktop_file::categories() const
 {
 	return _categories;
@@ -85,6 +84,12 @@ amm::desktop_file::is_valid() const
 	return (executable().length() > 0) && (name().length() > 0) && (icon().length() > 0);
 }
 
+bool
+amm::desktop_file::is_a(std::string type) const
+{
+	return std::binary_search(_categories.begin(), _categories.end(), type);
+}
+
 void
 amm::desktop_file::populate(std::string line)
 {
@@ -106,6 +111,7 @@ amm::desktop_file::populate(std::string line)
 	} else if (trimmed_first_part == EXECUTABLE) {
 		_executable = amm::stringx(second_part).trim();
 	} else if (trimmed_first_part == CATEGORIES) {
-		_categories = amm::desktop_file_categories(amm::stringx(second_part).trim());
+		_categories = amm::stringx(amm::stringx(second_part).trim()).split(";");
+		std::sort(_categories.begin(), _categories.end());
 	}
 }
