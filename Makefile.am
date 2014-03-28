@@ -8,12 +8,14 @@ mjwm_SOURCES = src/stringx.cpp \
                src/vectorx.cpp \
                src/desktop_file_categories.cpp \
                src/desktop_file.cpp \
+               src/subcategory.cpp \
+               src/menu.cpp \
                src/jwm/menu_entry.cpp \
                src/jwm/transform.cpp \
                src/jwm/subcategory.cpp \
                src/jwm/menu.cpp \
                src/icon_service.cpp \
-               src/menu.cpp \
+               src/desktop_file_names.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
                src/mjwm.cpp
@@ -26,7 +28,9 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
                  mjwm_desktop_file_categories_test \
                  mjwm_desktop_file_test \
+                 mjwm_subcategory_test \
                  mjwm_menu_test \
+                 mjwm_desktop_file_names_test \
                  mjwm_jwm_menu_entry_test \
                  mjwm_jwm_transform_test \
                  mjwm_jwm_subcategory_test \
@@ -48,8 +52,21 @@ mjwm_desktop_file_test_SOURCES = src/stringx.cpp \
                                  src/desktop_file_categories.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
+mjwm_desktop_file_names_test_SOURCES = src/vectorx.cpp \
+                                       src/stringx.cpp \
+                                       src/desktop_file_names.cpp \
+                                       test/desktop_file_names_test.cpp
+mjwm_subcategory_test_SOURCES = src/vectorx.cpp \
+                                src/stringx.cpp \
+                                src/desktop_file_categories.cpp \
+                                src/desktop_file.cpp \
+                                src/subcategory.cpp \
+                                test/subcategory_test.cpp
 mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/stringx.cpp \
+                         src/desktop_file_categories.cpp \
+                         src/desktop_file.cpp \
+                         src/subcategory.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 mjwm_jwm_menu_entry_test_SOURCES = src/jwm/menu_entry.cpp \

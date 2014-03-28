@@ -29,7 +29,7 @@ run mjwm_stringx_test
 run mjwm_vectorx_test
 run mjwm_desktop_file_categories_test
 run mjwm_desktop_file_test
-run mjwm_menu_test
+run mjwm_desktop_file_names_test
 run mjwm_jwm_menu_entry_test
 run mjwm_jwm_transform_test
 run mjwm_jwm_subcategory_test

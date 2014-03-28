@@ -25,9 +25,10 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "menu.h"
+#include "desktop_file_names.h"
 #include "messages.h"
 #include "icon_service.h"
+#include "menu.h"
 #include "jwm/menu.h"
 #include "command_line_options.h"
 
@@ -40,6 +41,7 @@ namespace amm
 		char **_argv;
 
 		amm::command_line_options _command_line_options;
+		amm::menu _menu;
 		amm::jwm::menu _jwm_menu;
 		std::vector<std::string> _desktop_file_names;
 
@@ -97,6 +99,7 @@ amm::main::read_categories()
 				category_lines.push_back(line);
 			}
 			_jwm_menu.load_categories(category_lines);
+			_menu.load_categories(category_lines);
 			category_file.close();
 		} else {
 			std::cerr << amm::messages::bad_category_file(category_file_name) << std::endl;
@@ -118,16 +121,16 @@ amm::main::read_desktop_files()
 {
 	std::vector<std::string> input_directory_names = _command_line_options.input_directory_names();
 
-	amm::menu menu;
-	menu.register_directories_with_default_fallback(input_directory_names);
-	menu.resolve();
+	amm::desktop_file_names desktop_file_names;
+	desktop_file_names.register_directories_with_default_fallback(input_directory_names);
+	desktop_file_names.resolve();
 
-	std::vector<std::string> bad_paths = menu.bad_paths();
+	std::vector<std::string> bad_paths = desktop_file_names.bad_paths();
 	if (bad_paths.size() > 0) {
 		std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(", ");
 		std::cerr << std::endl << "Proceeding..." << std::endl;
 	}
-	_desktop_file_names = menu.desktop_file_names();
+	_desktop_file_names = desktop_file_names.all();
 }
 
 void
@@ -139,6 +142,13 @@ amm::main::populate()
 		exit(1);
 	}
 	_jwm_menu.sort();
+
+	_menu.populate(_desktop_file_names);
+	if (_menu.total_parsed_files() == 0) {
+		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
+		exit(1);
+	}
+	_menu.sort();
 }
 
 void
@@ -160,9 +170,9 @@ amm::main::print_summary()
 {
 	std::cout << amm::messages::summary(
 		_desktop_file_names.size(),
-		_jwm_menu.total_parsed_files(),
-		_jwm_menu.total_unclassified_parsed_files(),
-		_jwm_menu.unparsed_file_names()
+		_menu.total_parsed_files(),
+		_menu.total_unclassified_parsed_files(),
+		_menu.unparsed_file_names()
 	);
 }
 

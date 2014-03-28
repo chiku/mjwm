@@ -1,120 +1,131 @@
 /*
-	This file is part of mjwm.
-	Copyright (C) 2014  Chirantan Mitra <chirantan.mitra@gmail.com>
+    This file is part of mjwm.
+    Copyright (C) 2014  Chirantan Mitra <chirantan.mitra@gmail.com>
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <iostream>
+#include <fstream>
 #include <string>
-#include <vector>
 #include <algorithm>
+#include <cstdio>
 
 #include "QUnit.hpp"
 
 #include "../src/menu.h"
 
-
 namespace amm
 {
-	// Verifies a collection of desktop file entries
+	const std::string fixtures_directory = "test/fixtures/";
+
+	// Verifies a collection of desktop files divided in subcategories
 	class menu_test
 	{
 		QUnit::UnitTest qunit;
 
-		void test_menu_gives_back_files_with_extension_desktop()
+		void test_menu_loads_categories_from_colon_separated_lines()
 		{
-			std::vector<std::string> directory_names;
-			directory_names.push_back("test/fixtures/");
-			amm::menu menu;
-			menu.register_directories(directory_names);
-			menu.resolve();
+			std::vector<std::string> lines;
+			lines.push_back("Accessories:Utility:accessories");
+			lines.push_back("Games:Game:games");
+			menu menu;
 
-			std::vector<std::string> file_names = menu.desktop_file_names();
+			menu.load_custom_categories(lines);
+			std::vector<amm::subcategory> subcategories = menu.subcategories();
 
-			assert_files_are_present_in_list(file_names);
+			QUNIT_IS_EQUAL(2, subcategories.size());
+			QUNIT_IS_EQUAL("Accessories", subcategories[0].display_name());
+			QUNIT_IS_EQUAL("Games", subcategories[1].display_name());
 		}
 
-		void test_menu_ignores_repeated_input_directories()
+		void test_menu_loads_categories_ignores_comments()
 		{
-			std::vector<std::string> directory_names;
-			directory_names.push_back("test/fixtures");
-			directory_names.push_back("test/fixtures/");
-			amm::menu menu;
-			menu.register_directories(directory_names);
-			menu.resolve();
+			std::vector<std::string> lines;
+			lines.push_back("# Comments");
+			lines.push_back("Games:Game:games");
+			lines.push_back("#More:comment:here");
+			menu menu;
 
-			std::vector<std::string> file_names = menu.desktop_file_names();
+			menu.load_custom_categories(lines);
+			std::vector<amm::subcategory> subcategories = menu.subcategories();
 
-			QUNIT_IS_EQUAL(4, file_names.size());
+			QUNIT_IS_EQUAL(1, subcategories.size());
+			QUNIT_IS_EQUAL("Games", subcategories[0].display_name());
 		}
 
-		void test_menu_need_not_end_with_a_slash()
+		void test_menu_loads_categories_ignores_entries_without_three_tokens()
 		{
-			std::vector<std::string> directory_names;
-			directory_names.push_back("test/fixtures");
-			amm::menu menu;
-			menu.register_directories(directory_names);
-			menu.resolve();
+			std::vector<std::string> lines;
+			lines.push_back("Accessories::accessories");
+			lines.push_back("Game:Games");
+			menu menu;
 
-			std::vector<std::string> file_names = menu.desktop_file_names();
+			menu.load_custom_categories(lines);
+			std::vector<amm::subcategory> subcategories = menu.subcategories();
 
-			assert_files_are_present_in_list(file_names);
+			QUNIT_IS_EQUAL(0, subcategories.size());
 		}
 
-		void test_menu_gives_back_files_when_one_directory_is_missing()
+		void test_menu_counts_total_desktop_files_parsed_successfully()
 		{
-			std::vector<std::string> directory_names;
-			directory_names.push_back("test/fixtures");
-			directory_names.push_back("test/does-not-exist");
-			amm::menu menu;
-			menu.register_directories(directory_names);
-			menu.resolve();
+			std::vector<std::string> files;
+			files.push_back(fixtures_directory + "vlc.desktop");
+			files.push_back(fixtures_directory + "mousepad.desktop");
+			menu menu;
 
-			std::vector<std::string> file_names = menu.desktop_file_names();
+			menu.populate(files);
 
-			assert_files_are_present_in_list(file_names);
+			QUNIT_IS_EQUAL(2, menu.total_parsed_files());
 		}
 
-		void test_menu_tracks_bad_paths_it_couldnt_open()
+		void test_menu_counts_total_unclassified_desktop_files_parsed_successfully()
 		{
-			std::vector<std::string> directory_names;
-			directory_names.push_back("test/fixtures");
-			directory_names.push_back("test/does-not-exist");
-			amm::menu menu;
-			menu.register_directories(directory_names);
-			menu.resolve();
+			std::vector<std::string> files;
+			files.push_back(fixtures_directory + "unclassified.desktop");
+			files.push_back(fixtures_directory + "mousepad.desktop");
+			menu menu;
 
-			std::vector<std::string> bad_paths = menu.bad_paths();
+			menu.populate(files);
 
-			QUNIT_IS_EQUAL(1, bad_paths.size());
-			QUNIT_IS_EQUAL("test/does-not-exist/",bad_paths[0]);
+			QUNIT_IS_EQUAL(1, menu.total_unclassified_parsed_files());
 		}
 
-		bool present_in(std::string item, std::vector<std::string> list)
+		void test_menu_has_a_list_of_unparsed_files()
 		{
-			return std::find(list.begin(), list.end(), item) != list.end();
+			std::vector<std::string> files;
+			files.push_back(fixtures_directory + "vlc.desktop");
+			files.push_back(fixtures_directory + "missing.desktop");
+			menu menu;
+
+			menu.populate(files);
+
+			std::vector<std::string> unparsed_files = menu.unparsed_file_names();
+			QUNIT_IS_EQUAL(1, unparsed_files.size());
+			QUNIT_IS_EQUAL(fixtures_directory + "missing.desktop", unparsed_files[0]);
 		}
 
-		void assert_files_are_present_in_list(std::vector<std::string> file_names)
+		bool assert_start_with(std::string sentence, std::string fragment)
 		{
-			QUNIT_IS_EQUAL(4, file_names.size());
-
-			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
-			QUNIT_IS_TRUE(present_in("test/fixtures/mousepad.desktop", file_names));
-			QUNIT_IS_TRUE(present_in("test/fixtures/unclassified.desktop", file_names));
-			QUNIT_IS_TRUE(present_in("test/fixtures/vlc.desktop", file_names));
+			if (std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end()) {
+				return true;
+			} else {
+				std::cout << "Sentence: >>" << sentence << "<<" << std::endl
+				          << "Doesn't start with: >>" << fragment << "<<" << std::endl;
+				return false;
+			}
+			return std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end();
 		}
 
 	public:
@@ -122,16 +133,17 @@ namespace amm
 
 		int run()
 		{
-			test_menu_gives_back_files_with_extension_desktop();
-			test_menu_ignores_repeated_input_directories();
-			test_menu_need_not_end_with_a_slash();
-			test_menu_gives_back_files_when_one_directory_is_missing();
-			test_menu_tracks_bad_paths_it_couldnt_open();
+			test_menu_loads_categories_from_colon_separated_lines();
+			test_menu_loads_categories_ignores_comments();
+			test_menu_loads_categories_ignores_entries_without_three_tokens();
+			test_menu_counts_total_desktop_files_parsed_successfully();
+			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
+			test_menu_has_a_list_of_unparsed_files();
 			return qunit.errors();
 		}
-
 	};
 }
+
 
 int main()
 {

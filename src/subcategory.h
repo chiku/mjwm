@@ -16,43 +16,38 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_menu__
-#define __amm_menu__
+#ifndef __amm_jwm_subcategory__
+#define __amm_jwm_subcategory__
 
+#include <iostream>
 #include <string>
 #include <vector>
 
-#include "subcategory.h"
+#include "desktop_file.h"
 
 namespace amm
 {
-	// Understands a collection of desktop files divided in subcategories
-	class menu
+	// Understands a collection of desktop files belonging to the same category
+	class subcategory
 	{
 	private:
-		std::vector<std::string> _desktop_file_names;
-
-		size_t _total_parsed_files;
-		size_t _total_unclassified_parsed_files;
-		std::vector<std::string> _unparsed_file_names;
-
-		std::vector<amm::subcategory> _subcategories;
-		amm::subcategory _unclassified_subcategory;
-
-		void classify(amm::desktop_file entry);
-		void create_default_categories();
+		std::string _display_name;
+		std::string _classification_name;
+		std::string _icon_name;
+		std::vector<amm::desktop_file> _desktop_files;
 
 	public:
-		menu();
+		subcategory();
+		subcategory(std::string display_name, std::string classification_name, std::string icon_name);
 
-		std::vector<amm::subcategory> subcategories() const;
-		size_t total_parsed_files() const;
-		size_t total_unclassified_parsed_files() const;
-		std::vector<std::string> unparsed_file_names() const;
+		std::string display_name() const;
+		std::string classification_name() const;
+		std::string icon_name() const;
+		std::vector<amm::desktop_file> desktop_files() const;
+		bool has_entries() const;
 
-		void load_custom_categories(std::vector<std::string> lines);
-		void populate(std::vector<std::string> desktop_file_names);
-		void sort();
+		void add_desktop_file(amm::desktop_file desktop_file);
+		void sort_desktop_files();
 	};
 }
 

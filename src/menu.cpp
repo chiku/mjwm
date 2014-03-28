@@ -16,121 +16,139 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <cstdlib>
-#include <dirent.h>
 
 #include "stringx.h"
-#include "vectorx.h"
+#include "desktop_file.h"
+#include "subcategory.h"
 #include "menu.h"
-
-static std::string
-xdg_data_dirs()
-{
-	char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
-	if (xdg_data_dirs != NULL) {
-		return xdg_data_dirs;
-	}
-
-	return "/usr/local/share:/usr/share";
-}
-
-static std::string
-xdg_data_home()
-{
-	char *xdg_data_home = std::getenv("XDG_DATA_HOME");
-	if (xdg_data_home != NULL) {
-		return xdg_data_home;
-	}
-
-	char *home = std::getenv("HOME");
-	if (home != NULL) {
-		return std::string(home) + "/.local/share/applications";
-	}
-
-	return "";
-}
 
 amm::menu::menu()
 {
-	_capture_bad_paths = true;
+	_total_parsed_files = 0;
+	_total_unclassified_parsed_files = 0;
+	_unclassified_subcategory = amm::subcategory("Others", "Others", "others");
+
+	create_default_categories();
 }
 
 void
-amm::menu::register_directories_with_default_fallback(std::vector<std::string> directory_names)
+amm::menu::create_default_categories()
 {
-	if (directory_names.size() > 0) {
-		register_directories(directory_names);
-	} else {
-		register_default_directories();
-	}
+	_subcategories.clear();
+
+	_subcategories.push_back(amm::subcategory("Settings",    "Settings",    "settings"   ));
+	_subcategories.push_back(amm::subcategory("Accessories", "Utility",     "accessories"));
+	_subcategories.push_back(amm::subcategory("Development", "Development", "development"));
+	_subcategories.push_back(amm::subcategory("Education",   "Education",   "education"  ));
+	_subcategories.push_back(amm::subcategory("Games",       "Game",        "games"      ));
+	_subcategories.push_back(amm::subcategory("Graphics",    "Graphics",    "graphics"   ));
+	_subcategories.push_back(amm::subcategory("Internet",    "Network",     "internet"   ));
+	_subcategories.push_back(amm::subcategory("Multimedia",  "AudioVideo",  "multimedia" ));
+	_subcategories.push_back(amm::subcategory("Office",      "Office",      "office"     ));
+	_subcategories.push_back(amm::subcategory("Science",     "Science",     "science"    ));
+	_subcategories.push_back(amm::subcategory("System",      "System",      "system"     ));
 }
 
 void
-amm::menu::register_directories(std::vector<std::string> directory_names)
+amm::menu::load_custom_categories(std::vector<std::string> lines)
 {
-	_directory_names = directory_names;
-}
+	_subcategories.clear();
 
-void
-amm::menu::register_default_directories()
-{
-	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
-	directory_bases.push_back(xdg_data_home());
-
-	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
-		_directory_names.push_back(directory);
-	}
-
-	_capture_bad_paths = false;
-}
-
-void
-amm::menu::resolve()
-{
-	_desktop_file_names.clear();
-	_bad_paths.clear();
-
-	std::vector<std::string> terminated_directory_names = amm::vectorx(_directory_names).terminate_with("/");
-	std::vector<std::string> unique_directory_names = amm::vectorx(terminated_directory_names).unique();
-
-	std::vector<std::string>::const_iterator name;
-	for (name = unique_directory_names.begin(); name != unique_directory_names.end(); ++name) {
-		DIR *directory = opendir(name->c_str());
-
-		if (directory) {
-			populate_desktop_file_names(directory, *name);
-			closedir(directory);
-		} else if (_capture_bad_paths) {
-			_bad_paths.push_back(*name);
+	for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
+		if ((*line)[0] != '#') {
+			std::vector<std::string> tokens = amm::stringx(*line).split(":");
+			if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "" && tokens[2] != "") {
+				amm::subcategory subcategory(tokens[0], tokens[1], tokens[2]);
+				_subcategories.push_back(subcategory);
+			}
 		}
 	}
 }
 
 void
-amm::menu::populate_desktop_file_names(DIR* directory, std::string directory_name)
+amm::menu::populate(std::vector<std::string> desktop_file_names)
 {
-	dirent *directory_entry;
+	_unparsed_file_names.clear();
 
-	while((directory_entry = readdir(directory)) != NULL) {
-		std::string file_name = directory_entry->d_name;
-		if (amm::stringx(file_name).ends_with(DESKTOP_EXTENSION)) {
-			_desktop_file_names.push_back(directory_name + file_name);
+	std::vector<std::string>::iterator name;
+	for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
+		std::string line;
+		amm::desktop_file desktop_file;
+		std::ifstream file(name->c_str());
+
+		if (file.good()) {
+			while (std::getline(file, line)) {
+				desktop_file.populate(line);
+			}
+
+			if (desktop_file.is_valid()) {
+				classify(desktop_file);
+			} else {
+				_unparsed_file_names.push_back(*name);
+			}
+
+			file.close();
 		}
+	}
+
+	_subcategories.push_back(_unclassified_subcategory);
+}
+
+void
+amm::menu::classify(amm::desktop_file desktop_file)
+{
+	bool classified = false;
+	amm::desktop_file_categories categories = desktop_file.categories();
+
+	_total_parsed_files += 1;
+
+	std::vector<amm::subcategory>::iterator subcategory;
+	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
+		if (categories.is_a(subcategory->classification_name())) {
+			classified = true;
+			subcategory->add_desktop_file(desktop_file);
+		}
+	}
+
+	if (!classified) {
+		_total_unclassified_parsed_files += 1;
+		_unclassified_subcategory.add_desktop_file(desktop_file);
 	}
 }
 
-std::vector<std::string>
-amm::menu::desktop_file_names() const
+std::vector<amm::subcategory>
+amm::menu::subcategories() const
 {
-	return _desktop_file_names;
+	return _subcategories;
+}
+
+size_t
+amm::menu::total_parsed_files() const
+{
+	return _total_parsed_files;
+}
+
+size_t
+amm::menu::total_unclassified_parsed_files() const
+{
+	return _total_unclassified_parsed_files;
 }
 
 std::vector<std::string>
-amm::menu::bad_paths() const
+amm::menu::unparsed_file_names() const
 {
-	return _bad_paths;
+	return _unparsed_file_names;
+}
+
+void
+amm::menu::sort()
+{
+	std::vector<amm::subcategory>::iterator group;
+	for (group = _subcategories.begin(); group != _subcategories.end(); ++group) {
+		group->sort_desktop_files();
+	}
 }
