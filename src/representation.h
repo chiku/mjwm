@@ -16,31 +16,62 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_jwm_transform__
-#define __amm_jwm_transform__
+#ifndef __amm_representation__
+#define __amm_representation__
 
 #include <string>
 
-#include "../icon_service.h"
-#include "../desktop_file.h"
-#include "menu_entry.h"
-
 namespace amm
 {
-	namespace transform
+	namespace representation
 	{
-		// Understands convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
-		class jwm
+		class base
+		{
+		public:
+			virtual std::string name() const = 0;
+		};
+
+		class menu_start : public base
+		{
+		public:
+			std::string name() const;
+		};
+
+		class menu_end : public base
+		{
+		public:
+			std::string name() const;
+		};
+
+
+		class subcategory_start : public base
 		{
 		private:
-			amm::icon_service _icon_service;
-			std::string remove_field_code(std::string input) const;
-
+			std::string _display_name;
 		public:
-			void register_icon_service(amm::icon_service icon_service);
-			amm::menu_entry::jwm transform(amm::desktop_file desktop_file);
+			subcategory_start(std::string display_name);
+			std::string name() const;
 		};
-	}
+
+		class subcategory_end : public base
+		{
+		private:
+			std::string _display_name;
+		public:
+			subcategory_end(std::string display_name);
+			std::string name() const;
+		};
+
+
+		class menu_entry : public base
+		{
+		private:
+			std::string _name;
+		public:
+			menu_entry(std::string name);
+			std::string name() const;
+		};
+	};
 }
 
 #endif

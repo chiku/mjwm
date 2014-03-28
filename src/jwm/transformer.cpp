@@ -24,26 +24,26 @@
 #include "../vectorx.h"
 #include "../icon_service.h"
 #include "../desktop_file.h"
-#include "transform.h"
+#include "transformer.h"
 
-amm::menu_entry::jwm
-amm::transform::jwm::transform(amm::desktop_file desktop_file)
+amm::jwm::menu_entry
+amm::jwm::transformer::transform(amm::desktop_file desktop_file)
 {
 	std::string name = amm::stringx(desktop_file.name()).encode();
 	std::string icon = amm::stringx(_icon_service.resolved_name(desktop_file.icon())).encode();
 	std::string executable = remove_field_code(desktop_file.executable());
 
-	return amm::menu_entry::jwm(name, icon, executable);
+	return amm::jwm::menu_entry(name, icon, executable);
 }
 
 void
-amm::transform::jwm::register_icon_service(amm::icon_service icon_service)
+amm::jwm::transformer::register_icon_service(amm::icon_service icon_service)
 {
     _icon_service = icon_service;
 }
 
 std::string
-amm::transform::jwm::remove_field_code(std::string input) const
+amm::jwm::transformer::remove_field_code(std::string input) const
 {
     std::vector<std::string> result;
     std::vector<std::string> tokens = amm::stringx(input).split(" ");

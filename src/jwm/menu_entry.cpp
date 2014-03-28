@@ -21,7 +21,7 @@
 
 #include "menu_entry.h"
 
-amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string executable)
+amm::jwm::menu_entry::menu_entry(std::string name, std::string icon, std::string executable)
 {
 	_name = name;
 	_icon = icon;
@@ -29,25 +29,25 @@ amm::menu_entry::jwm::jwm(std::string name, std::string icon, std::string execut
 }
 
 std::string
-amm::menu_entry::jwm::name() const
+amm::jwm::menu_entry::name() const
 {
 	return _name;
 }
 
 std::string
-amm::menu_entry::jwm::icon() const
+amm::jwm::menu_entry::icon() const
 {
 	return _icon;
 }
 
 std::string
-amm::menu_entry::jwm::executable() const
+amm::jwm::menu_entry::executable() const
 {
 	return _executable;
 }
 
 std::ostream&
-amm::menu_entry::operator << (std::ostream& stream, const amm::menu_entry::jwm& jwm_menu_entry)
+amm::jwm::operator << (std::ostream& stream, const amm::jwm::menu_entry& jwm_menu_entry)
 {
 	stream << "<Program "
 	       << "label=\"" << jwm_menu_entry.name() << "\" "

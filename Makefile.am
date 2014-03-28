@@ -9,9 +9,10 @@ mjwm_SOURCES = src/stringx.cpp \
                src/desktop_file_categories.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
+               src/representation.cpp \
                src/menu.cpp \
                src/jwm/menu_entry.cpp \
-               src/jwm/transform.cpp \
+               src/jwm/transformer.cpp \
                src/jwm/subcategory.cpp \
                src/jwm/menu.cpp \
                src/icon_service.cpp \
@@ -32,7 +33,7 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_menu_test \
                  mjwm_desktop_file_names_test \
                  mjwm_jwm_menu_entry_test \
-                 mjwm_jwm_transform_test \
+                 mjwm_jwm_transformer_test \
                  mjwm_jwm_subcategory_test \
                  mjwm_jwm_menu_test \
                  mjwm_messages_test \
@@ -67,24 +68,25 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/desktop_file_categories.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
+                         src/representation.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 mjwm_jwm_menu_entry_test_SOURCES = src/jwm/menu_entry.cpp \
                                    test/jwm/menu_entry_test.cpp
-mjwm_jwm_transform_test_SOURCES = src/stringx.cpp \
-                                  src/vectorx.cpp \
-                                  src/desktop_file_categories.cpp \
-                                  src/desktop_file.cpp \
-                                  src/jwm/menu_entry.cpp \
-                                  src/jwm/transform.cpp \
-                                  src/icon_service.cpp \
-                                  test/jwm/transform_test.cpp
+mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
+                                    src/vectorx.cpp \
+                                    src/desktop_file_categories.cpp \
+                                    src/desktop_file.cpp \
+                                    src/jwm/menu_entry.cpp \
+                                    src/jwm/transformer.cpp \
+                                    src/icon_service.cpp \
+                                    test/jwm/transformer_test.cpp
 mjwm_jwm_subcategory_test_SOURCES = src/stringx.cpp \
                                     src/vectorx.cpp \
                                     src/desktop_file_categories.cpp \
                                     src/desktop_file.cpp \
                                     src/jwm/menu_entry.cpp \
-                                    src/jwm/transform.cpp \
+                                    src/jwm/transformer.cpp \
                                     src/jwm/subcategory.cpp \
                                     src/icon_service.cpp \
                                     test/jwm/subcategory_test.cpp
@@ -93,7 +95,7 @@ mjwm_jwm_menu_test_SOURCES = src/stringx.cpp \
                              src/desktop_file_categories.cpp \
                              src/desktop_file.cpp \
                              src/jwm/menu_entry.cpp \
-                             src/jwm/transform.cpp \
+                             src/jwm/transformer.cpp \
                              src/jwm/subcategory.cpp \
                              src/jwm/menu.cpp \
                              src/icon_service.cpp \

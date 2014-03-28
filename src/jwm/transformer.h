@@ -16,36 +16,33 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_desktop_file_categories__
-#define __amm_desktop_file_categories__
+#ifndef __amm_jwm_transform__
+#define __amm_jwm_transform__
 
 #include <string>
-#include <vector>
+
+#include "../icon_service.h"
+#include "../desktop_file.h"
+#include "../subcategory.h"
+#include "menu_entry.h"
 
 namespace amm
 {
-	const std::string DESKTOP_FILE_CATEGORY_DELIM = ";";
-
-	// Understands what sub-section should a single desktop file entry belong to as per FreeDesktop guidelines
-	//  TODO : confusing class name - merge contents into desktop file
-	class desktop_file_categories
+	namespace jwm
 	{
-	private:
-		std::string _raw;
-		std::vector<std::string> _categories;
+		// Understands convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file
+		class transformer
+		{
+		private:
+			amm::icon_service _icon_service;
+			std::string remove_field_code(std::string input) const;
 
-		void parse();
-		void sort();
-
-	public:
-		desktop_file_categories();
-		desktop_file_categories(std::string raw);
-
-		bool is_a(std::string type) const;
-		std::vector<std::string> categories() const;
-	};
-
-	std::ostream& operator <<(std::ostream& stream, const amm::desktop_file_categories& desktop_file_categories);
+		public:
+			void register_icon_service(amm::icon_service icon_service);
+			amm::jwm::menu_entry transform(std::vector<amm::subcategory> subcategories, amm::subcategory unclassified_subcategory);
+			amm::jwm::menu_entry transform(amm::desktop_file desktop_file);
+		};
+	}
 }
 
 #endif

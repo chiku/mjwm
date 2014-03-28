@@ -22,7 +22,7 @@
 #include <algorithm>
 
 #include "../desktop_file.h"
-#include "transform.h"
+#include "transformer.h"
 #include "subcategory.h"
 
 amm::jwm::subcategory::subcategory()
@@ -96,7 +96,7 @@ std::ostream&
 amm::jwm::operator << (std::ostream& stream, const amm::jwm::subcategory& subcategory)
 {
 	if (subcategory.has_entries()) {
-		amm::transform::jwm jwm_transformer;
+		amm::jwm::transformer jwm_transformer;
 		jwm_transformer.register_icon_service(subcategory.icon_service());
 
 		stream << "  " << subcategory.first_line() << std::endl;

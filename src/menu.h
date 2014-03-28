@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "subcategory.h"
+#include "representation.h"
 
 namespace amm
 {
@@ -53,6 +54,7 @@ namespace amm
 		void load_custom_categories(std::vector<std::string> lines);
 		void populate(std::vector<std::string> desktop_file_names);
 		void sort();
+		std::vector<amm::representation::base*> representations() const;
 	};
 }
 

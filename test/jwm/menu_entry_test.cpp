@@ -35,7 +35,7 @@ namespace amm
 
 			void test_jwm_menu_entry_serializes_to_an_output_stream()
 			{
-				amm::menu_entry::jwm jwm_menu_entry("VLC", "vlc.svg", "vlc");
+				amm::jwm::menu_entry jwm_menu_entry("VLC", "vlc.svg", "vlc");
 
 				std::stringstream stream;
 				stream << jwm_menu_entry;

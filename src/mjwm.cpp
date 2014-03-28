@@ -98,8 +98,8 @@ amm::main::read_categories()
 			while (std::getline(category_file, line)) {
 				category_lines.push_back(line);
 			}
+			_menu.load_custom_categories(category_lines);
 			_jwm_menu.load_categories(category_lines);
-			_menu.load_categories(category_lines);
 			category_file.close();
 		} else {
 			std::cerr << amm::messages::bad_category_file(category_file_name) << std::endl;
@@ -136,6 +136,13 @@ amm::main::read_desktop_files()
 void
 amm::main::populate()
 {
+	_menu.populate(_desktop_file_names);
+	if (_menu.total_parsed_files() == 0) {
+		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
+		exit(1);
+	}
+	_menu.sort();
+
 	_jwm_menu.populate(_desktop_file_names);
 	if (_jwm_menu.total_parsed_files() == 0) {
 		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
@@ -143,12 +150,6 @@ amm::main::populate()
 	}
 	_jwm_menu.sort();
 
-	_menu.populate(_desktop_file_names);
-	if (_menu.total_parsed_files() == 0) {
-		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
-		exit(1);
-	}
-	_menu.sort();
 }
 
 void

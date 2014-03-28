@@ -25,7 +25,7 @@
 
 #include "../icon_service.h"
 #include "../desktop_file.h"
-#include "transform.h"
+#include "transformer.h"
 
 namespace amm
 {

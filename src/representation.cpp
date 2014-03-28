@@ -16,36 +16,54 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_desktop_file_categories__
-#define __amm_desktop_file_categories__
-
 #include <string>
-#include <vector>
 
-namespace amm
+#include "representation.h"
+
+std::string
+amm::representation::menu_start::name() const
 {
-	const std::string DESKTOP_FILE_CATEGORY_DELIM = ";";
-
-	// Understands what sub-section should a single desktop file entry belong to as per FreeDesktop guidelines
-	//  TODO : confusing class name - merge contents into desktop file
-	class desktop_file_categories
-	{
-	private:
-		std::string _raw;
-		std::vector<std::string> _categories;
-
-		void parse();
-		void sort();
-
-	public:
-		desktop_file_categories();
-		desktop_file_categories(std::string raw);
-
-		bool is_a(std::string type) const;
-		std::vector<std::string> categories() const;
-	};
-
-	std::ostream& operator <<(std::ostream& stream, const amm::desktop_file_categories& desktop_file_categories);
+	return "Menu start";
 }
 
-#endif
+std::string
+amm::representation::menu_end::name() const
+{
+	return "Menu end";
+}
+
+
+amm::representation::subcategory_start::subcategory_start(std::string display_name)
+{
+	_display_name = display_name;
+}
+
+std::string
+amm::representation::subcategory_start::name() const
+{
+	return _display_name;
+}
+
+
+amm::representation::subcategory_end::subcategory_end(std::string display_name)
+{
+	_display_name = display_name;
+}
+
+std::string
+amm::representation::subcategory_end::name() const
+{
+	return _display_name + " end";
+}
+
+
+amm::representation::menu_entry::menu_entry(std::string name)
+{
+	_name = name;
+}
+
+std::string
+amm::representation::menu_entry::name() const
+{
+	return _name;
+}

@@ -20,6 +20,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "stringx.h"
 #include "desktop_file.h"
@@ -151,4 +152,35 @@ amm::menu::sort()
 	for (group = _subcategories.begin(); group != _subcategories.end(); ++group) {
 		group->sort_desktop_files();
 	}
+}
+
+std::vector<amm::representation::base*>
+amm::menu::representations() const
+{
+	std::vector<amm::representation::base*> representations;
+	amm::representation::menu_start *menu_start = new amm::representation::menu_start;
+	representations.push_back(menu_start);
+
+	std::vector<amm::subcategory>::const_iterator subcategory;
+	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
+		if (subcategory->has_entries()) {
+			amm::representation::subcategory_start *start = new amm::representation::subcategory_start(subcategory->display_name());
+			representations.push_back(start);
+
+			std::vector<amm::desktop_file> desktop_files = subcategory->desktop_files();
+			std::vector<amm::desktop_file>::iterator desktop_file;
+			for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
+				amm::representation::menu_entry *entry = new amm::representation::menu_entry(desktop_file->name());
+				representations.push_back(entry);
+			}
+
+			amm::representation::subcategory_end *end = new amm::representation::subcategory_end(subcategory->display_name());
+			representations.push_back(end);
+		}
+	}
+
+	amm::representation::menu_end *menu_end = new amm::representation::menu_end;
+	representations.push_back(menu_end);
+	return representations;
+	// TODO - release memory
 }

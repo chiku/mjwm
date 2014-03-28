@@ -25,6 +25,7 @@
 #include "QUnit.hpp"
 
 #include "../src/menu.h"
+#include "../src/representation.h"
 
 namespace amm
 {
@@ -116,16 +117,24 @@ namespace amm
 			QUNIT_IS_EQUAL(fixtures_directory + "missing.desktop", unparsed_files[0]);
 		}
 
-		bool assert_start_with(std::string sentence, std::string fragment)
+		void test_menu_is_transformed_to_a_collection_of_representations()
 		{
-			if (std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end()) {
-				return true;
-			} else {
-				std::cout << "Sentence: >>" << sentence << "<<" << std::endl
-				          << "Doesn't start with: >>" << fragment << "<<" << std::endl;
-				return false;
-			}
-			return std::mismatch(fragment.begin(), fragment.end(), sentence.begin()).first == fragment.end();
+			std::vector<std::string> files;
+			files.push_back(fixtures_directory + "vlc.desktop");
+			files.push_back(fixtures_directory + "mousepad.desktop");
+			menu menu;
+
+			menu.populate(files);
+			std::vector<amm::representation::base*> representations = menu.representations();
+			QUNIT_IS_EQUAL(8, representations.size());
+			QUNIT_IS_EQUAL("Menu start", representations[0]->name());
+			QUNIT_IS_EQUAL("Accessories", representations[1]->name());
+			QUNIT_IS_EQUAL("Mousepad", representations[2]->name());
+			QUNIT_IS_EQUAL("Accessories end", representations[3]->name());
+			QUNIT_IS_EQUAL("Multimedia", representations[4]->name());
+			QUNIT_IS_EQUAL("VLC media player", representations[5]->name());
+			QUNIT_IS_EQUAL("Multimedia end", representations[6]->name());
+			QUNIT_IS_EQUAL("Menu end", representations[7]->name());
 		}
 
 	public:
@@ -139,6 +148,7 @@ namespace amm
 			test_menu_counts_total_desktop_files_parsed_successfully();
 			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 			test_menu_has_a_list_of_unparsed_files();
+			test_menu_is_transformed_to_a_collection_of_representations();
 			return qunit.errors();
 		}
 	};
