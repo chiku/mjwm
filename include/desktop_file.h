@@ -19,7 +19,6 @@
 #ifndef __amm_desktop_file__
 #define __amm_desktop_file__
 
-#include <fstream>
 #include <string>
 #include <vector>
 
