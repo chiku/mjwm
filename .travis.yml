@@ -5,9 +5,10 @@ compiler:
 script:
   - ./autogen.sh
   - ./configure --prefix /tmp/mjwm
+  - make
   - make check
-  - ./test_runner.sh
-  - time ./mjwm
-  - cat automenu
-  - make install
+  - make install-strip
   - ls -halR /tmp/mjwm
+  - ./test_runner.sh
+  - time /tmp/mjwm/bin/mjwm
+  - cat automenu
