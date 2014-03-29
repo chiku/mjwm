@@ -27,7 +27,7 @@ namespace amm
 {
 	const std::string DESKTOP_EXTENSION = ".desktop";
 
-	// Understands a collection of desktop file entries
+	// Understands search for .desktop files
 	class desktop_file_names
 	{
 	private:

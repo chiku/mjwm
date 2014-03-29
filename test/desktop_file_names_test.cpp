@@ -25,10 +25,9 @@
 
 #include "../src/desktop_file_names.h"
 
-
 namespace amm
 {
-	// Verifies a collection of desktop file entries
+	// Verifies search for .desktop files
 	class desktop_file_names_test
 	{
 		QUnit::UnitTest qunit;

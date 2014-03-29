@@ -22,12 +22,11 @@
 
 #include "QUnit.hpp"
 
-// #include "../src/desktop_file_categories.h"
 #include "../src/desktop_file.h"
 
 namespace amm
 {
-	// Verifies a FreeDesktop .desktop file representation
+	// Verifies the representation of a FreeDesktop .desktop file
 	class desktop_file_test
 	{
 		QUnit::UnitTest qunit;
@@ -222,20 +221,25 @@ namespace amm
 			test_desktop_file_parses_icon();
 			test_desktop_file_parses_executable();
 			test_desktop_file_parses_categories();
+
 			test_desktop_file_escapes_whitespaces_when_parsing_name();
 			test_desktop_file_escapes_whitespaces_when_parsing_executable();
 			test_desktop_file_escapes_whitespaces_when_parsing_icon();
 			test_desktop_file_escapes_whitespaces_when_parsing_categories();
+
 			test_desktop_file_parse_doesnt_fail_when_entry_is_missing();
 			test_desktop_file_parse_doesnt_fail_when_line_is_missing();
+
 			test_desktop_file_is_lesser_than_a_desktop_file_with_alphabetically_greater_name();
 			test_desktop_file_is_greater_than_a_desktop_file_with_alphabetically_lesser_name();
 			test_desktop_file_is_equal_to_desktop_file_with_same_name();
 			test_desktop_file_is_not_equal_to_desktop_file_with_different_name();
+
 			test_desktop_file_is_valid_when_it_has_name_and_icon_and_executable();
 			test_desktop_file_is_not_valid_without_name();
 			test_desktop_file_is_not_valid_without_icon();
 			test_desktop_file_is_not_valid_without_executable();
+
 			test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo();
 			test_desktop_file_is_not_a_audiovideo_if_tag_excludes_AudioVideo();
 			test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
