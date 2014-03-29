@@ -6,15 +6,17 @@
 
 # Don't leave any trailing whitespace
 
-#Category name in menu:Category name as it appears in desktop files:Icon name in menu entry
-Settings:Settings:settings
-Accessories:Utility:accessories
-Development:Development:development
-Education:Education:education
-Games:Game:games
-Graphics:Graphics:graphics
-Internet:Network:internet
-Multimedia:AudioVideo:multimedia
-Office:Office:office
-Science:Science:science
-System:System:system
+# These names are case-sensitive
+
+#Category name in menu:Icon name in menu entry:Category name as it appears in desktop files
+Settings:settings:Settings
+Accessories:accessories:Utility
+Development:development:Development
+Education:education:Education
+Games:games:Game
+Graphics:graphics:Graphics
+Internet:internet:Network
+Multimedia:multimedia:AudioVideo
+Office:office:Office
+Science:science:Science
+System:system:System

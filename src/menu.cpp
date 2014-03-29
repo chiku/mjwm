@@ -32,7 +32,7 @@ amm::menu::menu()
 {
 	_total_parsed_files = 0;
 	_total_unclassified_parsed_files = 0;
-	_unclassified_subcategory = amm::subcategory("Others", "Others", "others");
+	_unclassified_subcategory = amm::subcategory("Others", "others", "Others");
 
 	create_default_categories();
 }
@@ -42,17 +42,17 @@ amm::menu::create_default_categories()
 {
 	_subcategories.clear();
 
-	_subcategories.push_back(amm::subcategory("Settings",    "Settings",    "settings"   ));
-	_subcategories.push_back(amm::subcategory("Accessories", "Utility",     "accessories"));
-	_subcategories.push_back(amm::subcategory("Development", "Development", "development"));
-	_subcategories.push_back(amm::subcategory("Education",   "Education",   "education"  ));
-	_subcategories.push_back(amm::subcategory("Games",       "Game",        "games"      ));
-	_subcategories.push_back(amm::subcategory("Graphics",    "Graphics",    "graphics"   ));
-	_subcategories.push_back(amm::subcategory("Internet",    "Network",     "internet"   ));
-	_subcategories.push_back(amm::subcategory("Multimedia",  "AudioVideo",  "multimedia" ));
-	_subcategories.push_back(amm::subcategory("Office",      "Office",      "office"     ));
-	_subcategories.push_back(amm::subcategory("Science",     "Science",     "science"    ));
-	_subcategories.push_back(amm::subcategory("System",      "System",      "system"     ));
+	_subcategories.push_back(amm::subcategory("Settings",    "settings",    "Settings"   ));
+	_subcategories.push_back(amm::subcategory("Accessories", "accessories", "Utility"    ));
+	_subcategories.push_back(amm::subcategory("Development", "development", "Development"));
+	_subcategories.push_back(amm::subcategory("Education",   "education",   "Education"  ));
+	_subcategories.push_back(amm::subcategory("Games",       "games",       "Game"       ));
+	_subcategories.push_back(amm::subcategory("Graphics",    "graphics",    "Graphics"   ));
+	_subcategories.push_back(amm::subcategory("Internet",    "internet",    "Network"    ));
+	_subcategories.push_back(amm::subcategory("Multimedia",  "multimedia",  "AudioVideo" ));
+	_subcategories.push_back(amm::subcategory("Office",      "office",      "Office"     ));
+	_subcategories.push_back(amm::subcategory("Science",     "science",     "Science"    ));
+	_subcategories.push_back(amm::subcategory("System",      "system",      "System"     ));
 }
 
 void

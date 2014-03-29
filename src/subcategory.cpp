@@ -28,7 +28,7 @@ amm::subcategory::subcategory()
 {
 }
 
-amm::subcategory::subcategory(std::string display_name, std::string classification_name, std::string icon_name)
+amm::subcategory::subcategory(std::string display_name, std::string icon_name, std::string classification_name)
 {
 	_display_name = display_name;
 	_classification_name = classification_name;

@@ -32,20 +32,20 @@ namespace amm
 
 		void test_subcategory_has_no_entries_before_desktop_files_are_added()
 		{
-			subcategory subcategory("Accessories", "Utilitiies", "accessories");
+			subcategory subcategory("Accessories", "accessories", "Utilities");
 			QUNIT_IS_FALSE(subcategory.has_entries());
 		}
 
 		void test_subcategory_has_entries_after_a_desktop_file_is_added()
 		{
-			subcategory subcategory("Accessories", "Utilitiies", "accessories");
+			subcategory subcategory("Accessories", "accessories", "Utilities");
 			subcategory.add_desktop_file(mousepad_desktop_file());
 			QUNIT_IS_TRUE(subcategory.has_entries());
 		}
 
 		void test_subcategory_alphabetically_sorts_desktop_files_by_their_names()
 		{
-			subcategory subcategory("Accessories", "Utilitiies", "accessories");
+			subcategory subcategory("Accessories", "accessories", "Utilities");
 			subcategory.add_desktop_file(sakura_desktop_file());
 			subcategory.add_desktop_file(mousepad_desktop_file());
 			subcategory.sort_desktop_files();
@@ -58,22 +58,22 @@ namespace amm
 
 		desktop_file mousepad_desktop_file()
 		{
-			desktop_file mousepad;
-			mousepad.populate("Name=Mousepad");
-			mousepad.populate("Icon=accessories-text-editor");
-			mousepad.populate("Exec=mousepad %F");
-			mousepad.populate("Categories=Application;Utility;TextEditor;GTK;");
-			return mousepad;
+			desktop_file entry;
+			entry.populate("Name=Mousepad");
+			entry.populate("Icon=accessories-text-editor");
+			entry.populate("Exec=mousepad %F");
+			entry.populate("Categories=Application;Utility;TextEditor;GTK;");
+			return entry;
 		}
 
 		desktop_file sakura_desktop_file()
 		{
-			desktop_file sakura;
-			sakura.populate("Name=Sakura");
-			sakura.populate("Icon=terminal-tango");
-			sakura.populate("Exec=sakura");
-			sakura.populate("Categories=GTK;Utility;TerminalEmulator;System;");
-			return sakura;
+			desktop_file entry;
+			entry.populate("Name=Sakura");
+			entry.populate("Icon=terminal-tango");
+			entry.populate("Exec=sakura");
+			entry.populate("Categories=GTK;Utility;TerminalEmulator;System;");
+			return entry;
 		}
 
 	public:

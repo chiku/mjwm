@@ -40,8 +40,8 @@ namespace amm
 		void test_menu_loads_categories_from_colon_separated_lines()
 		{
 			std::vector<std::string> lines;
-			lines.push_back("Accessories:Utility:accessories");
-			lines.push_back("Games:Game:games");
+			lines.push_back("Accessories:accessories:Utility");
+			lines.push_back("Games:games:Game");
 			menu menu;
 
 			menu.load_custom_categories(lines);
@@ -70,7 +70,7 @@ namespace amm
 		void test_menu_loads_categories_ignores_entries_without_three_tokens()
 		{
 			std::vector<std::string> lines;
-			lines.push_back("Accessories::accessories");
+			lines.push_back("Accessories::Accessories");
 			lines.push_back("Game:Games");
 			menu menu;
 

@@ -38,7 +38,7 @@ namespace amm
 
 	public:
 		subcategory();
-		subcategory(std::string display_name, std::string classification_name, std::string icon_name);
+		subcategory(std::string display_name, std::string icon_name, std::string classification_name);
 
 		std::string display_name() const;
 		std::string classification_name() const;
