@@ -21,15 +21,10 @@
 
 #include <string>
 
-// #include "transformer.h"
+#include "transformer.h"
 
 namespace amm
 {
-	namespace transformer
-	{
-		class base;
-	}
-
 	namespace representation
 	{
 		class base
@@ -91,19 +86,6 @@ namespace amm
 			virtual std::string content(amm::transformer::base &transformer);
 		};
 	};
-
-	namespace transformer
-	{
-		class base
-		{
-		public:
-			virtual std::string transform(amm::representation::menu_start *entry) = 0;
-			virtual std::string transform(amm::representation::menu_end *entry) = 0;
-			virtual std::string transform(amm::representation::subcategory_start *entry) = 0;
-			virtual std::string transform(amm::representation::subcategory_end *entry) = 0;
-			virtual std::string transform(amm::representation::menu_entry *entry) = 0;
-		};
-	}
 }
 
 #endif

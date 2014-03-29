@@ -27,6 +27,7 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_subcategory_test \
                  mjwm_menu_test \
                  mjwm_desktop_file_names_test \
+                 mjwm_jwm_transformer_test \
                  mjwm_messages_test \
                  mjwm_command_line_options_test
 
@@ -56,6 +57,11 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/representation.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
+mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
+                                    src/vectorx.cpp \
+                                    src/representation.cpp \
+                                    src/jwm/transformer.cpp \
+                                    test/jwm/transformer_test.cpp
 mjwm_messages_test_SOURCES = src/messages.cpp \
                              test/messages_test.cpp
 mjwm_command_line_options_test_SOURCES = src/stringx.cpp \

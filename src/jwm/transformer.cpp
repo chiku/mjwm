@@ -57,7 +57,7 @@ std::string
 amm::transformer::jwm::transform(amm::representation::subcategory_start *entry)
 {
 	std::string result("  <Menu label=\"");
-	result = result + amm::stringx(entry->name()).encode() + "\" icon=\"" + amm::stringx(entry->icon()).encode() + "\">";
+	result = result + amm::stringx(entry->name()).encode() + "\" icon=\"" + entry->icon() + "\">";
 	return result;
 }
 
