@@ -1,7 +1,6 @@
 * Avoid double extensions (.png, .xpm)
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
-* Change architecture - list of desktop files should convert to JWM menu when send a JWM menu visitor
 * Cleanup commmand_line_options error test - see if parsing can be done using vanilla C++
 * DEPRECATE - default output file should be $HOME/.mjwm-menu
 * Document exit codes
