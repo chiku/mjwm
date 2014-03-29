@@ -235,7 +235,7 @@ namespace amm
 		{
 			amm::command_line_options options;
 			char* argv[] = {strdup("amm"), strdup("-c"), 0};
-			QUNIT_IS_FALSE(options.parse(3, argv));
+			QUNIT_IS_FALSE(options.parse(2, argv));
 		}
 
 	public:
@@ -271,8 +271,8 @@ namespace amm
 			test_command_line_options_sets_icon_extension_on_a_flag();
 			test_command_line_options_sets_icon_extension_on_append_png_flag();
 
-			// test_command_line_options_returns_false_on_parse_failure();
-			// test_command_line_options_returns_false_on_missing_mandatory_argument();
+			test_command_line_options_returns_false_on_parse_failure();
+			test_command_line_options_returns_false_on_missing_mandatory_argument();
 
 			return qunit.errors();
 		}

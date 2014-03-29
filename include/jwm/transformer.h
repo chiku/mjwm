@@ -31,9 +31,6 @@ namespace amm
 		// Understands the conversion of representation into a JWM menu
 		class jwm : public base
 		{
-		private:
-			std::string remove_field_code(std::string input) const;
-
 		public:
 			virtual std::string transform(amm::representation::menu_start *entry);
 			virtual std::string transform(amm::representation::menu_end *entry);

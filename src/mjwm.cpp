@@ -156,6 +156,9 @@ amm::main::write_output_file()
 	for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
 		output_file << (*iter)->visit(jwm_transformer) << std::endl;
 	}
+	for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+		delete *iter;
+	}
 
 	output_file.close();
 }

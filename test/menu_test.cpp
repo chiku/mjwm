@@ -135,7 +135,12 @@ namespace amm
 			QUNIT_IS_EQUAL("VLC media player", representations[5]->name());
 			QUNIT_IS_EQUAL("Multimedia end", representations[6]->name());
 			QUNIT_IS_EQUAL("Menu end", representations[7]->name());
+
+			for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+				delete *iter;
+			}
 		}
+
 
 	public:
 		menu_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
@@ -149,7 +154,6 @@ namespace amm
 			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 			test_menu_has_a_list_of_unparsed_files();
 			test_menu_is_transformed_to_a_collection_of_representations();
-			// test_menu_add_icon_extensions_to_representations_when_present();
 			return qunit.errors();
 		}
 	};

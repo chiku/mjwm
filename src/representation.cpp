@@ -20,6 +20,8 @@
 
 #include "representation.h"
 
+amm::representation::base::~base() {}
+
 std::string
 amm::representation::menu_start::name()
 {
@@ -30,6 +32,7 @@ amm::representation::menu_start::visit(amm::transformer::base &transformer)
 {
 	return transformer.transform(this);
 }
+amm::representation::menu_start::~menu_start() {}
 
 std::string
 amm::representation::menu_end::name()
@@ -41,6 +44,7 @@ amm::representation::menu_end::visit(amm::transformer::base &transformer)
 {
 	return transformer.transform(this);
 }
+amm::representation::menu_end::~menu_end() {}
 
 
 amm::representation::subcategory_start::subcategory_start(std::string name, std::string icon)
@@ -63,6 +67,7 @@ amm::representation::subcategory_start::visit(amm::transformer::base &transforme
 {
 	return transformer.transform(this);
 }
+amm::representation::subcategory_start::~subcategory_start() {}
 
 
 amm::representation::subcategory_end::subcategory_end(std::string name)
@@ -80,6 +85,7 @@ amm::representation::subcategory_end::visit(amm::transformer::base &transformer)
 {
 	return transformer.transform(this);
 }
+amm::representation::subcategory_end::~subcategory_end() {}
 
 
 amm::representation::menu_entry::menu_entry(std::string name, std::string icon, std::string executable)
@@ -108,3 +114,4 @@ amm::representation::menu_entry::visit(amm::transformer::base &transformer)
 {
 	return transformer.transform(this);
 }
+amm::representation::menu_entry::~menu_entry() {}

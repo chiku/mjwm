@@ -25,8 +25,8 @@
 #include "desktop_file.h"
 #include "jwm/transformer.h"
 
-std::string
-amm::transformer::jwm::remove_field_code(std::string input) const
+static std::string
+remove_field_code(std::string input)
 {
 	std::vector<std::string> result;
 	std::vector<std::string> tokens = amm::stringx(input).split(" ");

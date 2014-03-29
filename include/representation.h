@@ -32,6 +32,7 @@ namespace amm
 		public:
 			virtual std::string name() = 0;
 			virtual std::string visit(amm::transformer::base &transformer) = 0;
+			virtual ~base();
 		};
 
 		class menu_start : public base
@@ -39,6 +40,7 @@ namespace amm
 		public:
 			virtual std::string name();
 			virtual std::string visit(amm::transformer::base &transformer);
+			virtual ~menu_start();
 		};
 
 		class menu_end : public base
@@ -46,6 +48,7 @@ namespace amm
 		public:
 			virtual std::string name();
 			virtual std::string visit(amm::transformer::base &transformer);
+			virtual ~menu_end();
 		};
 
 
@@ -59,6 +62,7 @@ namespace amm
 			virtual std::string name();
 			virtual std::string icon();
 			virtual std::string visit(amm::transformer::base &transformer);
+			virtual ~subcategory_start();
 		};
 
 		class subcategory_end : public base
@@ -69,6 +73,7 @@ namespace amm
 			subcategory_end(std::string name);
 			virtual std::string name();
 			virtual std::string visit(amm::transformer::base &transformer);
+			virtual ~subcategory_end();
 		};
 
 
@@ -84,6 +89,7 @@ namespace amm
 			virtual std::string icon();
 			virtual std::string executable();
 			virtual std::string visit(amm::transformer::base &transformer);
+			virtual ~menu_entry();
 		};
 	};
 }

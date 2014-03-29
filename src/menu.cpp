@@ -160,7 +160,6 @@ amm::menu::sort()
 	}
 }
 
-// TODO : send parts of it to subcategory & dekktop_file
 std::vector<amm::representation::base*>
 amm::menu::representations() const
 {
@@ -189,5 +188,4 @@ amm::menu::representations() const
 	amm::representation::menu_end *menu_end = new amm::representation::menu_end;
 	representations.push_back(menu_end);
 	return representations;
-	// TODO - release memory
 }
