@@ -44,33 +44,53 @@ amm::transformer::jwm::remove_field_code(std::string input) const
 std::string
 amm::transformer::jwm::transform(amm::representation::menu_start *entry)
 {
-	return "<JWM>";
+	std::stringstream stream;
+	stream << "<JWM>"
+	       << std::endl
+	       << "<!--" << entry->name() << "-->";
+	return stream.str();
 }
 
 std::string
 amm::transformer::jwm::transform(amm::representation::menu_end *entry)
 {
-	return "</JWM>";
+	std::stringstream stream;
+	stream << "<!--" << entry->name() << "-->"
+	       << std::endl
+	       << "</JWM>";
+	return stream.str();
 }
 
 std::string
 amm::transformer::jwm::transform(amm::representation::subcategory_start *entry)
 {
-	std::string result("  <Menu label=\"");
-	result = result + amm::stringx(entry->name()).encode() + "\" icon=\"" + entry->icon() + "\">";
-	return result;
+	std::stringstream stream;
+	stream << "  <Menu "
+	       << "label=\"" << amm::stringx(entry->name()).encode()
+	       << "\" icon=\"" << entry->icon()
+	       << "\">";
+	return stream.str();
 }
 
 std::string
 amm::transformer::jwm::transform(amm::representation::subcategory_end *entry)
 {
-	return "  </Menu>";
+	std::stringstream stream;
+	stream << "  <!--" << entry->name() << "-->"
+	       << std::endl
+	       << "  </Menu>";
+	return stream.str();
 }
 
 std::string
 amm::transformer::jwm::transform(amm::representation::menu_entry *entry)
 {
-	std::string result("    <Program label=\"");
-	result = result + amm::stringx(entry->name()).encode() + "\" icon=\"" + amm::stringx(entry->icon()).encode() + "\">" + remove_field_code(entry->executable()) + "</Program>";
-	return result;
+	std::stringstream stream;
+	stream << "    <Program "
+	       << "label=\"" << amm::stringx(entry->name()).encode()
+	       << "\" icon=\"" << amm::stringx(entry->icon()).encode()
+	       << "\">"
+	       << remove_field_code(entry->executable())
+	       << "</Program>";
+	return stream.str();
 }

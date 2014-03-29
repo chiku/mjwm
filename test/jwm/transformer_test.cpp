@@ -37,14 +37,14 @@ namespace amm
 			{
 				amm::representation::menu_start menu_start;
 				amm::transformer::jwm jwm_transformer;
-				QUNIT_IS_EQUAL("<JWM>", jwm_transformer.transform(&menu_start));
+				QUNIT_IS_EQUAL("<JWM>\n<!--Menu start-->", jwm_transformer.transform(&menu_start));
 			}
 
 			void test_jwm_transformer_converts_menu_end_to_JWM_end_tag()
 			{
-				amm::representation::menu_start menu_start;
+				amm::representation::menu_end menu_end;
 				amm::transformer::jwm jwm_transformer;
-				QUNIT_IS_EQUAL("<JWM>", jwm_transformer.transform(&menu_start));
+				QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", jwm_transformer.transform(&menu_end));
 			}
 
 			void test_jwm_transformer_converts_subcategory_start_to_JWM_menu_start_tag()
@@ -65,7 +65,7 @@ namespace amm
 			{
 				amm::representation::subcategory_end subcategory_end("Application");
 				amm::transformer::jwm jwm_transformer;
-				QUNIT_IS_EQUAL("  </Menu>", jwm_transformer.transform(&subcategory_end));
+				QUNIT_IS_EQUAL("  <!--Application end-->\n  </Menu>", jwm_transformer.transform(&subcategory_end));
 			}
 
 			void test_jwm_transformer_converts_menu_entry_to_JWM_propram_tag()
