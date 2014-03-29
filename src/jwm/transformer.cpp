@@ -20,11 +20,10 @@
 #include <sstream>
 #include <vector>
 
-#include "../stringx.h"
-#include "../vectorx.h"
-#include "../icon_service.h"
-#include "../desktop_file.h"
-#include "transformer.h"
+#include "stringx.h"
+#include "vectorx.h"
+#include "desktop_file.h"
+#include "jwm/transformer.h"
 
 std::string
 amm::transformer::jwm::remove_field_code(std::string input) const

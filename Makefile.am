@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 AUTOMAKE_OPTIONS = subdir-objects
 
-AM_CPPFLAGS=-Wall -Wextra
+AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 
 bin_PROGRAMS = mjwm
 mjwm_SOURCES = src/stringx.cpp \

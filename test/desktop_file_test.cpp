@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/desktop_file.h"
+#include "desktop_file.h"
 
 namespace amm
 {

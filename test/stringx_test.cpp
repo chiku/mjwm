@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/stringx.h"
+#include "stringx.h"
 
 namespace amm
 {

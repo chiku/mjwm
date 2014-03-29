@@ -21,8 +21,8 @@
 
 #include <string>
 
-#include "../representation.h"
-#include "../transformer.h"
+#include "representation.h"
+#include "transformer.h"
 
 namespace amm
 {

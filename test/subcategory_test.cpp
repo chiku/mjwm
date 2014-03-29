@@ -21,7 +21,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/subcategory.h"
+#include "subcategory.h"
 
 namespace amm
 {

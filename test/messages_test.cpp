@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/messages.h"
+#include "messages.h"
 
 namespace amm
 {

@@ -22,7 +22,7 @@
 
 #include "QUnit.hpp"
 
-#include "../src/vectorx.h"
+#include "vectorx.h"
 
 namespace amm
 {

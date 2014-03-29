@@ -17,12 +17,9 @@
 */
 
 #include <iostream>
-#include <string>
-#include <vector>
-#include <cstring>
 
 #include "../QUnit.hpp"
-#include "../../src/jwm/transformer.h"
+#include "jwm/transformer.h"
 
 namespace amm
 {

@@ -22,7 +22,7 @@
 #include <cstring>
 
 #include "QUnit.hpp"
-#include "../src/command_line_options.h"
+#include "command_line_options.h"
 
 namespace amm
 {
