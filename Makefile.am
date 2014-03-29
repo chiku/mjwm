@@ -55,6 +55,7 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
+                         src/jwm/transformer.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \

@@ -34,6 +34,7 @@ amm::representation::menu_start::visit(amm::transformer::base &transformer)
 }
 amm::representation::menu_start::~menu_start() {}
 
+
 std::string
 amm::representation::menu_end::name()
 {

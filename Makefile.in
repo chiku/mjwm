@@ -141,8 +141,8 @@ mjwm_jwm_transformer_test_LDADD = $(LDADD)
 am_mjwm_menu_test_OBJECTS = src/vectorx.$(OBJEXT) \
 	src/stringx.$(OBJEXT) src/icon_service.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/subcategory.$(OBJEXT) \
-	src/representation.$(OBJEXT) src/menu.$(OBJEXT) \
-	test/menu_test.$(OBJEXT)
+	src/representation.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
+	src/menu.$(OBJEXT) test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
 am_mjwm_messages_test_OBJECTS = src/messages.$(OBJEXT) \
@@ -589,6 +589,7 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
+                         src/jwm/transformer.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 

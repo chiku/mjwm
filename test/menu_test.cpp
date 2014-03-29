@@ -26,6 +26,7 @@
 
 #include "menu.h"
 #include "representation.h"
+#include "jwm/transformer.h"
 
 namespace amm
 {
@@ -126,15 +127,46 @@ namespace amm
 
 			menu.populate(files);
 			std::vector<amm::representation::base*> representations = menu.representations();
+			amm::transformer::jwm jwm_transformer;
+
 			QUNIT_IS_EQUAL(8, representations.size());
-			QUNIT_IS_EQUAL("Menu start", representations[0]->name());
-			QUNIT_IS_EQUAL("Accessories", representations[1]->name());
-			QUNIT_IS_EQUAL("Mousepad", representations[2]->name());
-			QUNIT_IS_EQUAL("Accessories end", representations[3]->name());
-			QUNIT_IS_EQUAL("Multimedia", representations[4]->name());
-			QUNIT_IS_EQUAL("VLC media player", representations[5]->name());
-			QUNIT_IS_EQUAL("Multimedia end", representations[6]->name());
-			QUNIT_IS_EQUAL("Menu end", representations[7]->name());
+			QUNIT_IS_EQUAL("<JWM>\n<!--Menu start-->", representations[0]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <Menu label=\"Accessories\" icon=\"accessories\">", representations[1]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("    <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad</Program>", representations[2]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <!--Accessories end-->\n  </Menu>", representations[3]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <Menu label=\"Multimedia\" icon=\"multimedia\">", representations[4]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("    <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file</Program>", representations[5]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <!--Multimedia end-->\n  </Menu>", representations[6]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", representations[7]->visit(jwm_transformer));
+
+			for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+				delete *iter;
+			}
+		}
+
+		void test_menu_appends_icon_extension_when_available()
+		{
+			std::vector<std::string> files;
+			files.push_back(fixtures_directory + "vlc.desktop");
+			files.push_back(fixtures_directory + "mousepad.desktop");
+			menu menu;
+			amm::icon_service icon_service;
+			icon_service.register_extension(".xpm");
+			menu.register_icon_service(icon_service);
+
+			menu.populate(files);
+			std::vector<amm::representation::base*> representations = menu.representations();
+			amm::transformer::jwm jwm_transformer;
+
+			QUNIT_IS_EQUAL(8, representations.size());
+			QUNIT_IS_EQUAL("<JWM>\n<!--Menu start-->", representations[0]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <Menu label=\"Accessories\" icon=\"accessories.xpm\">", representations[1]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("    <Program label=\"Mousepad\" icon=\"accessories-text-editor.xpm\">mousepad</Program>", representations[2]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <!--Accessories end-->\n  </Menu>", representations[3]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <Menu label=\"Multimedia\" icon=\"multimedia.xpm\">", representations[4]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("    <Program label=\"VLC media player\" icon=\"vlc.xpm\">/usr/bin/vlc --started-from-file</Program>", representations[5]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("  <!--Multimedia end-->\n  </Menu>", representations[6]->visit(jwm_transformer));
+			QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", representations[7]->visit(jwm_transformer));
 
 			for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
 				delete *iter;
@@ -154,6 +186,7 @@ namespace amm
 			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 			test_menu_has_a_list_of_unparsed_files();
 			test_menu_is_transformed_to_a_collection_of_representations();
+			test_menu_appends_icon_extension_when_available();
 			return qunit.errors();
 		}
 	};
