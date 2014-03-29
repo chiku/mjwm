@@ -6,6 +6,9 @@
 /* Define to 1 if you have the <cstdlib> header file. */
 #undef HAVE_CSTDLIB
 
+/* Define to 1 if you have the <cstring> header file. */
+#undef HAVE_CSTRING
+
 /* Define to 1 if you have the <ctime> header file. */
 #undef HAVE_CTIME
 
