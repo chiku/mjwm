@@ -149,6 +149,7 @@ namespace amm
 			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 			test_menu_has_a_list_of_unparsed_files();
 			test_menu_is_transformed_to_a_collection_of_representations();
+			// test_menu_add_icon_extensions_to_representations_when_present();
 			return qunit.errors();
 		}
 	};

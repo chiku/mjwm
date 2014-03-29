@@ -30,20 +30,20 @@ namespace amm
 	{
 		QUnit::UnitTest qunit;
 
-		void subcategory_has_no_entries_before_desktop_files_are_added()
+		void test_subcategory_has_no_entries_before_desktop_files_are_added()
 		{
 			subcategory subcategory("Accessories", "Utilitiies", "accessories");
 			QUNIT_IS_FALSE(subcategory.has_entries());
 		}
 
-		void subcategory_has_entries_after_a_desktop_file_is_added()
+		void test_subcategory_has_entries_after_a_desktop_file_is_added()
 		{
 			subcategory subcategory("Accessories", "Utilitiies", "accessories");
 			subcategory.add_desktop_file(mousepad_desktop_file());
 			QUNIT_IS_TRUE(subcategory.has_entries());
 		}
 
-		void subcategory_alphabetically_sorts_desktop_files_by_their_names()
+		void test_subcategory_alphabetically_sorts_desktop_files_by_their_names()
 		{
 			subcategory subcategory("Accessories", "Utilitiies", "accessories");
 			subcategory.add_desktop_file(sakura_desktop_file());
@@ -81,9 +81,9 @@ namespace amm
 
 		int run()
 		{
-			subcategory_has_no_entries_before_desktop_files_are_added();
-			subcategory_has_entries_after_a_desktop_file_is_added();
-			subcategory_alphabetically_sorts_desktop_files_by_their_names();
+			test_subcategory_has_no_entries_before_desktop_files_are_added();
+			test_subcategory_has_entries_after_a_desktop_file_is_added();
+			test_subcategory_alphabetically_sorts_desktop_files_by_their_names();
 			return qunit.errors();
 		}
 	};

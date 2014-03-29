@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include "icon_service.h"
 #include "subcategory.h"
 #include "representation.h"
 
@@ -37,6 +38,7 @@ namespace amm
 		size_t _total_unclassified_parsed_files;
 		std::vector<std::string> _unparsed_file_names;
 
+		amm::icon_service _icon_service;
 		std::vector<amm::subcategory> _subcategories;
 		amm::subcategory _unclassified_subcategory;
 
@@ -52,6 +54,7 @@ namespace amm
 		std::vector<std::string> unparsed_file_names() const;
 
 		void load_custom_categories(std::vector<std::string> lines);
+		void register_icon_service(amm::icon_service icon_service);
 		void populate(std::vector<std::string> desktop_file_names);
 		void sort();
 		std::vector<amm::representation::base*> representations() const;

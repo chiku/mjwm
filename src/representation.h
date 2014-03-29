@@ -21,45 +21,59 @@
 
 #include <string>
 
+// #include "transformer.h"
+
 namespace amm
 {
+	namespace transformer2
+	{
+		class base;
+	}
+
 	namespace representation
 	{
 		class base
 		{
 		public:
-			virtual std::string name() const = 0;
+			virtual std::string name() = 0;
+			virtual std::string content(amm::transformer2::base &transformer) = 0;
 		};
 
 		class menu_start : public base
 		{
 		public:
-			std::string name() const;
+			virtual std::string name();
+			virtual std::string content(amm::transformer2::base &transformer);
 		};
 
 		class menu_end : public base
 		{
 		public:
-			std::string name() const;
+			virtual std::string name();
+			virtual std::string content(amm::transformer2::base &transformer);
 		};
 
 
 		class subcategory_start : public base
 		{
 		private:
-			std::string _display_name;
+			std::string _name;
+			std::string _icon;
 		public:
-			subcategory_start(std::string display_name);
-			std::string name() const;
+			subcategory_start(std::string name, std::string icon);
+			virtual std::string name();
+			virtual std::string icon();
+			virtual std::string content(amm::transformer2::base &transformer);
 		};
 
 		class subcategory_end : public base
 		{
 		private:
-			std::string _display_name;
+			std::string _name;
 		public:
-			subcategory_end(std::string display_name);
-			std::string name() const;
+			subcategory_end(std::string name);
+			virtual std::string name();
+			virtual std::string content(amm::transformer2::base &transformer);
 		};
 
 
@@ -67,11 +81,29 @@ namespace amm
 		{
 		private:
 			std::string _name;
+			std::string _icon;
+			std::string _executable;
 		public:
-			menu_entry(std::string name);
-			std::string name() const;
+			menu_entry(std::string name, std::string icon, std::string executable);
+			virtual std::string name();
+			virtual std::string icon();
+			virtual std::string executable();
+			virtual std::string content(amm::transformer2::base &transformer);
 		};
 	};
+
+	namespace transformer2
+	{
+		class base
+		{
+		public:
+			virtual std::string transform(amm::representation::menu_start *entry) = 0;
+			virtual std::string transform(amm::representation::menu_end *entry) = 0;
+			virtual std::string transform(amm::representation::subcategory_start *entry) = 0;
+			virtual std::string transform(amm::representation::subcategory_end *entry) = 0;
+			virtual std::string transform(amm::representation::menu_entry *entry) = 0;
+		};
+	}
 }
 
 #endif

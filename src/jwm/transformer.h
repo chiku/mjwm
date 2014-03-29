@@ -21,13 +21,68 @@
 
 #include <string>
 
+#include "../stringx.h"
+#include "../vectorx.h"
+
 #include "../icon_service.h"
 #include "../desktop_file.h"
 #include "../subcategory.h"
+#include "../transformer.h"
 #include "menu_entry.h"
 
 namespace amm
 {
+	namespace transformer2
+	{
+		class jwm : public base
+		{
+		private:
+			std::string remove_field_code(std::string input) const
+			{
+			    std::vector<std::string> result;
+			    std::vector<std::string> tokens = amm::stringx(input).split(" ");
+
+			    for (std::vector<std::string>::iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
+			        if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
+			            result.push_back(*iter);
+			        }
+			    }
+
+			    return amm::vectorx(result).join(" ");
+			}
+
+		public:
+			virtual std::string transform(amm::representation::menu_start *entry)
+			{
+				return "<JWM>";
+			}
+
+			virtual std::string transform(amm::representation::menu_end *entry) {
+				return "</JWM>";
+			}
+
+			virtual std::string transform(amm::representation::subcategory_start *entry)
+			{
+				std::string result("  <Menu label=\"");
+				result = result + amm::stringx(entry->name()).encode() + "\" icon=\"" + amm::stringx(entry->icon()).encode() + "\">";
+				return result;
+			}
+
+			virtual std::string transform(amm::representation::subcategory_end *entry)
+			{
+				return "  </Menu>";
+			}
+
+			virtual std::string transform(amm::representation::menu_entry *entry)
+			{
+				std::string result("    <Program label=\"");
+				result = result + amm::stringx(entry->name()).encode() + "\" icon=\"" + amm::stringx(entry->icon()).encode() + "\">" + remove_field_code(entry->executable()) + "</Program>";
+				return result;
+			}
+
+		};
+	}
+
 	namespace jwm
 	{
 		// Understands convertion of a FreeDesktop .desktop file into a Program entry in JWM configuration file

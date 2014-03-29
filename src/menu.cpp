@@ -23,6 +23,7 @@
 #include <memory>
 
 #include "stringx.h"
+#include "icon_service.h"
 #include "desktop_file.h"
 #include "subcategory.h"
 #include "menu.h"
@@ -68,6 +69,12 @@ amm::menu::load_custom_categories(std::vector<std::string> lines)
 			}
 		}
 	}
+}
+
+void
+amm::menu::register_icon_service(amm::icon_service icon_service)
+{
+	_icon_service = icon_service;
 }
 
 void
@@ -153,6 +160,7 @@ amm::menu::sort()
 	}
 }
 
+// TODO : send parts of it to subcategory & dekktop_file
 std::vector<amm::representation::base*>
 amm::menu::representations() const
 {
@@ -163,13 +171,13 @@ amm::menu::representations() const
 	std::vector<amm::subcategory>::const_iterator subcategory;
 	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
 		if (subcategory->has_entries()) {
-			amm::representation::subcategory_start *start = new amm::representation::subcategory_start(subcategory->display_name());
+			amm::representation::subcategory_start *start = new amm::representation::subcategory_start(subcategory->display_name(), _icon_service.resolved_name(subcategory->icon_name()));
 			representations.push_back(start);
 
 			std::vector<amm::desktop_file> desktop_files = subcategory->desktop_files();
 			std::vector<amm::desktop_file>::iterator desktop_file;
 			for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
-				amm::representation::menu_entry *entry = new amm::representation::menu_entry(desktop_file->name());
+				amm::representation::menu_entry *entry = new amm::representation::menu_entry(desktop_file->name(), _icon_service.resolved_name(desktop_file->icon()), desktop_file->executable());
 				representations.push_back(entry);
 			}
 

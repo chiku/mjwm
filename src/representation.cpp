@@ -21,49 +21,90 @@
 #include "representation.h"
 
 std::string
-amm::representation::menu_start::name() const
+amm::representation::menu_start::name()
 {
 	return "Menu start";
 }
-
 std::string
-amm::representation::menu_end::name() const
+amm::representation::menu_start::content(amm::transformer2::base &transformer)
 {
-	return "Menu end";
-}
-
-
-amm::representation::subcategory_start::subcategory_start(std::string display_name)
-{
-	_display_name = display_name;
+    return transformer.transform(this);
 }
 
 std::string
-amm::representation::subcategory_start::name() const
+amm::representation::menu_end::name()
 {
-	return _display_name;
+    return "Menu end";
 }
-
-
-amm::representation::subcategory_end::subcategory_end(std::string display_name)
-{
-	_display_name = display_name;
-}
-
 std::string
-amm::representation::subcategory_end::name() const
+amm::representation::menu_end::content(amm::transformer2::base &transformer)
 {
-	return _display_name + " end";
+	return transformer.transform(this);
 }
 
 
-amm::representation::menu_entry::menu_entry(std::string name)
+amm::representation::subcategory_start::subcategory_start(std::string name, std::string icon)
+{
+	_name = name;
+    _icon = icon;
+}
+std::string
+amm::representation::subcategory_start::name()
+{
+    return _name;
+}
+std::string
+amm::representation::subcategory_start::icon()
+{
+	return _icon;
+}
+std::string
+amm::representation::subcategory_start::content(amm::transformer2::base &transformer)
+{
+    return transformer.transform(this);
+}
+
+
+amm::representation::subcategory_end::subcategory_end(std::string name)
 {
 	_name = name;
 }
 
 std::string
-amm::representation::menu_entry::name() const
+amm::representation::subcategory_end::name()
 {
-	return _name;
+	return _name + " end";
+}
+std::string
+amm::representation::subcategory_end::content(amm::transformer2::base &transformer)
+{
+    return transformer.transform(this);
+}
+
+
+amm::representation::menu_entry::menu_entry(std::string name, std::string icon, std::string executable)
+{
+	_name = name;
+    _icon = icon;
+    _executable = executable;
+}
+std::string
+amm::representation::menu_entry::name()
+{
+    return _name;
+}
+std::string
+amm::representation::menu_entry::icon()
+{
+    return _icon;
+}
+std::string
+amm::representation::menu_entry::executable()
+{
+	return _executable;
+}
+std::string
+amm::representation::menu_entry::content(amm::transformer2::base &transformer)
+{
+    return transformer.transform(this);
 }

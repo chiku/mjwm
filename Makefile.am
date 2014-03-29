@@ -57,6 +57,7 @@ mjwm_subcategory_test_SOURCES = src/vectorx.cpp \
                                 test/subcategory_test.cpp
 mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/stringx.cpp \
+                         src/icon_service.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
