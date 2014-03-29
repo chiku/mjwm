@@ -558,7 +558,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/mjwm.cpp
 
 mjwmdir = $(datadir)/mjwm
-mjwm_DATA = data/categories.mjwm
+mjwm_DATA = data/default.mjwm
 man1_MANS = docs/mjwm.1
 mjwm_stringx_test_SOURCES = src/stringx.cpp \
                             test/stringx_test.cpp

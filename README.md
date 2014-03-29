@@ -105,9 +105,9 @@ mjwm -a
 ```
 
 Use categories from as an external file
-Look at data/categories.mjwm to create your own category file
+Look at data/default.mjwm to create your own category file
 ``` script
-mjwm -c data/categories.mjwm
+mjwm -c data/default.mjwm
 ```
 
 Running tests
