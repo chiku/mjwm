@@ -124,6 +124,13 @@ VERBOSE=true make check
 
 _mjwm uses [QUnit](http://sourceforge.net/projects/qunit) for unit tests. QUnit is released under public domain._
 
+Exit codes
+----------
+
+* 0 - All okay
+* 1 - Couldn't access file for read or write (e.g. couldn't create output file)
+* 2 - Invalid command line arguments
+
 Contributing
 ------------
 

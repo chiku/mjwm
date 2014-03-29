@@ -5,8 +5,9 @@ mjwm \- create menu for JWM
 
 .SH SYNOPSIS
 .B mjwm
-[\fB\-o\fR \fIFILE\fR]
-[\fB\-i\fR \fIDIRECTORIES\fR]
+[\fB\-o\fR \fIOUTPUT FILE\fR]
+[\fB\-i\fR \fIINPUT DIRECTORIES\fR]
+[\fB\-c\fR \fICATEGORY FILE\fR]
 
 .SH DESCRIPTION
 .B mjwm
@@ -15,7 +16,7 @@ creates JWM menu from FreeDesktop files inside XDG application directories
 Include the generated file in the rootmenu section of your ~/.jwmrc.
 For more information visit http://github.com/chiku/mjwm.
 
-The following options are available.
+.B The following options are available.
 
 .TP
 .BR \-o ", " \-\-output\-file =\fIFILE\fR
@@ -51,7 +52,16 @@ Show version information.
 .BR \-s
 .B DEPRECATED.
 Same as \-i.
-.LP
+
+.TP
+.B Exit Status:
+0      if OK,
+
+1      if files could not be accesses (e.g., cannot write output file),
+
+2      if command-line arguments are incorrect.
+.LP 
+
 
 .SH EXAMPLES
 

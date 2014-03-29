@@ -3,4 +3,3 @@
 * Update jwmrc when supplied option
 * Cleanup commmand_line_options error test - see if parsing can be done using vanilla C++
 * DEPRECATE - default output file should be $HOME/.mjwm-menu
-* Document exit codes
