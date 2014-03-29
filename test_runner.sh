@@ -33,8 +33,6 @@ run mjwm_menu_test
 run mjwm_desktop_file_names_test
 run mjwm_jwm_menu_entry_test
 run mjwm_jwm_transformer_test
-run mjwm_jwm_subcategory_test
-run mjwm_jwm_menu_test
 run mjwm_messages_test
 run mjwm_command_line_options_test
 

@@ -25,7 +25,7 @@
 
 namespace amm
 {
-	namespace transformer2
+	namespace transformer
 	{
 		class base;
 	}
@@ -36,21 +36,21 @@ namespace amm
 		{
 		public:
 			virtual std::string name() = 0;
-			virtual std::string content(amm::transformer2::base &transformer) = 0;
+			virtual std::string content(amm::transformer::base &transformer) = 0;
 		};
 
 		class menu_start : public base
 		{
 		public:
 			virtual std::string name();
-			virtual std::string content(amm::transformer2::base &transformer);
+			virtual std::string content(amm::transformer::base &transformer);
 		};
 
 		class menu_end : public base
 		{
 		public:
 			virtual std::string name();
-			virtual std::string content(amm::transformer2::base &transformer);
+			virtual std::string content(amm::transformer::base &transformer);
 		};
 
 
@@ -63,7 +63,7 @@ namespace amm
 			subcategory_start(std::string name, std::string icon);
 			virtual std::string name();
 			virtual std::string icon();
-			virtual std::string content(amm::transformer2::base &transformer);
+			virtual std::string content(amm::transformer::base &transformer);
 		};
 
 		class subcategory_end : public base
@@ -73,7 +73,7 @@ namespace amm
 		public:
 			subcategory_end(std::string name);
 			virtual std::string name();
-			virtual std::string content(amm::transformer2::base &transformer);
+			virtual std::string content(amm::transformer::base &transformer);
 		};
 
 
@@ -88,11 +88,11 @@ namespace amm
 			virtual std::string name();
 			virtual std::string icon();
 			virtual std::string executable();
-			virtual std::string content(amm::transformer2::base &transformer);
+			virtual std::string content(amm::transformer::base &transformer);
 		};
 	};
 
-	namespace transformer2
+	namespace transformer
 	{
 		class base
 		{
