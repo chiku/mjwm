@@ -20,18 +20,15 @@
 #include <string>
 #include <vector>
 #include <cstdlib>
-#include <dirent.h>
-#include <getopt.h>
 
-#include "stringx.h"
 #include "vectorx.h"
-#include "desktop_file_names.h"
 #include "messages.h"
+#include "command_line_options.h"
 #include "icon_service.h"
+#include "desktop_file_names.h"
 #include "representation.h"
 #include "menu.h"
 #include "jwm/transformer.h"
-#include "command_line_options.h"
 
 namespace amm
 {
