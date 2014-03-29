@@ -20,7 +20,10 @@ set -e
 
 cd `dirname $0`
 
+suites=0
+
 run() {
+	suites=$((suites+1))
 	printf "%s: " $1
 	./$1
 }
@@ -31,9 +34,9 @@ run mjwm_desktop_file_test
 run mjwm_subcategory_test
 run mjwm_menu_test
 run mjwm_desktop_file_names_test
-run mjwm_jwm_menu_entry_test
-run mjwm_jwm_transformer_test
 run mjwm_messages_test
 run mjwm_command_line_options_test
+
+echo "Suites run: $suites"
 
 cd ..
