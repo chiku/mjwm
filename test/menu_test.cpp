@@ -52,6 +52,23 @@ namespace amm
 			QUNIT_IS_EQUAL("Games", subcategories[1].display_name());
 		}
 
+		void test_menu_associates_multiple_categories_with_same_display_name_when_more_than_three_tokens_are_present()
+		{
+			std::vector<std::string> lines;
+			lines.push_back("Games:games:Game:Fun");
+			menu menu;
+
+			menu.load_custom_categories(lines);
+			std::vector<amm::subcategory> subcategories = menu.subcategories();
+
+			QUNIT_IS_EQUAL(1, subcategories.size());
+
+			std::vector<std::string> classification_names = subcategories[0].classification_names();
+			QUNIT_IS_EQUAL(2, classification_names.size());
+			QUNIT_IS_EQUAL("Game", classification_names[0]);
+			QUNIT_IS_EQUAL("Fun", classification_names[1]);
+		}
+
 		void test_menu_loads_categories_ignores_comments()
 		{
 			std::vector<std::string> lines;
@@ -72,6 +89,36 @@ namespace amm
 			std::vector<std::string> lines;
 			lines.push_back("Accessories::Accessories");
 			lines.push_back("Game:Games");
+			menu menu;
+
+			menu.load_custom_categories(lines);
+			std::vector<amm::subcategory> subcategories = menu.subcategories();
+
+			QUNIT_IS_EQUAL(0, subcategories.size());
+		}
+
+		void test_menu_load_categories_skips_missing_classification_names()
+		{
+			std::vector<std::string> lines;
+			lines.push_back("Games:games:Game::Fun::Frolic");
+			menu menu;
+
+			menu.load_custom_categories(lines);
+			std::vector<amm::subcategory> subcategories = menu.subcategories();
+
+			QUNIT_IS_EQUAL(1, subcategories.size());
+
+			std::vector<std::string> classification_names = subcategories[0].classification_names();
+			QUNIT_IS_EQUAL(3, classification_names.size());
+			QUNIT_IS_EQUAL("Game", classification_names[0]);
+			QUNIT_IS_EQUAL("Fun", classification_names[1]);
+			QUNIT_IS_EQUAL("Frolic", classification_names[2]);
+		}
+
+		void test_menu_load_categories_skips_categories_without_one_category_name()
+		{
+			std::vector<std::string> lines;
+			lines.push_back("Games:games:::");
 			menu menu;
 
 			menu.load_custom_categories(lines);
@@ -180,8 +227,11 @@ namespace amm
 		int run()
 		{
 			test_menu_loads_categories_from_colon_separated_lines();
+			test_menu_associates_multiple_categories_with_same_display_name_when_more_than_three_tokens_are_present();
 			test_menu_loads_categories_ignores_comments();
 			test_menu_loads_categories_ignores_entries_without_three_tokens();
+			test_menu_load_categories_skips_missing_classification_names();
+			test_menu_load_categories_skips_categories_without_one_category_name();
 			test_menu_counts_total_desktop_files_parsed_successfully();
 			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
 			test_menu_has_a_list_of_unparsed_files();

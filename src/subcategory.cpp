@@ -31,8 +31,15 @@ amm::subcategory::subcategory()
 amm::subcategory::subcategory(std::string display_name, std::string icon_name, std::string classification_name)
 {
 	_display_name = display_name;
-	_classification_name = classification_name;
 	_icon_name = icon_name;
+	_classification_names.push_back(classification_name);
+}
+
+amm::subcategory::subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names)
+{
+	_display_name = display_name;
+	_icon_name = icon_name;
+	_classification_names = classification_names;
 }
 
 std::string
@@ -41,10 +48,10 @@ amm::subcategory::display_name() const
 	return _display_name;
 }
 
-std::string
-amm::subcategory::classification_name() const
+std::vector<std::string>
+amm::subcategory::classification_names() const
 {
-	return _classification_name;
+	return _classification_names;
 }
 
 std::string

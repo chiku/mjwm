@@ -32,16 +32,17 @@ namespace amm
 	{
 	private:
 		std::string _display_name;
-		std::string _classification_name;
+		std::vector<std::string> _classification_names;
 		std::string _icon_name;
 		std::vector<amm::desktop_file> _desktop_files;
 
 	public:
 		subcategory();
 		subcategory(std::string display_name, std::string icon_name, std::string classification_name);
+		subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
 
 		std::string display_name() const;
-		std::string classification_name() const;
+		std::vector<std::string> classification_names() const;
 		std::string icon_name() const;
 		std::vector<amm::desktop_file> desktop_files() const;
 		bool has_entries() const;

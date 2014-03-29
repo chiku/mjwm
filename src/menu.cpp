@@ -63,9 +63,17 @@ amm::menu::load_custom_categories(std::vector<std::string> lines)
 	for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
 		if ((*line)[0] != '#') {
 			std::vector<std::string> tokens = amm::stringx(*line).split(":");
-			if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "" && tokens[2] != "") {
-				amm::subcategory subcategory(tokens[0], tokens[1], tokens[2]);
-				_subcategories.push_back(subcategory);
+			if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "") {
+				std::vector<std::string> classification_names;
+				for (size_t i = 2; i < tokens.size(); ++i) {
+					if (tokens[i] != "") {
+						classification_names.push_back(tokens[i]);
+					}
+				}
+				if (classification_names.size() > 0) {
+					amm::subcategory subcategory(tokens[0], tokens[1], classification_names);
+					_subcategories.push_back(subcategory);
+				}
 			}
 		}
 	}
@@ -115,7 +123,7 @@ amm::menu::classify(amm::desktop_file desktop_file)
 
 	std::vector<amm::subcategory>::iterator subcategory;
 	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
-		if (desktop_file.is_a(subcategory->classification_name())) {
+		if (desktop_file.is_any_of(subcategory->classification_names())) {
 			classified = true;
 			subcategory->add_desktop_file(desktop_file);
 		}
