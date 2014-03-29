@@ -212,6 +212,26 @@ namespace amm
 			QUNIT_IS_FALSE(entry.is_a("AudioVideo"));
 		}
 
+		void test_desktop_file_is_any_of_audiovideo_and_multimedia_if_tag_includes_AudioVideo()
+		{
+			desktop_file entry;
+			entry.populate("Categories=AudioVideo;Audio;Player;GTK;\n");
+			std::vector<std::string> classifications;
+			classifications.push_back("AudioVideo");
+			classifications.push_back("Multimedia");
+			QUNIT_IS_TRUE(entry.is_any_of(classifications));
+		}
+
+		void test_desktop_file_is_not_any_of_audiovideo_or_mutlimedia_if_tag_excludes_AudioVideo_and_multimedia()
+		{
+			desktop_file entry;
+			entry.populate("Categories=Audio;Video;Player;GTK;\n");
+			std::vector<std::string> classifications;
+			classifications.push_back("AudioVideo");
+			classifications.push_back("Multimedia");
+			QUNIT_IS_FALSE(entry.is_any_of(classifications));
+		}
+
 	public:
 		desktop_file_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
@@ -244,6 +264,9 @@ namespace amm
 			test_desktop_file_is_not_a_audiovideo_if_tag_excludes_AudioVideo();
 			test_desktop_file_is_a_audiovideo_if_tag_includes_AudioVideo_without_trailing_semicolon();
 			test_desktop_file_is_not_a_audiovideo_if_empty();
+
+			test_desktop_file_is_any_of_audiovideo_and_multimedia_if_tag_includes_AudioVideo();
+			test_desktop_file_is_not_any_of_audiovideo_or_mutlimedia_if_tag_excludes_AudioVideo_and_multimedia();
 			return qunit.errors();
 		}
 

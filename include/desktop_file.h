@@ -48,6 +48,7 @@ namespace amm
 
 		bool is_valid() const;
 		bool is_a(std::string type) const;
+		bool is_any_of(std::vector<std::string> types) const;
 		void populate(std::string line);
 	};
 }

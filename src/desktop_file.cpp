@@ -89,6 +89,17 @@ amm::desktop_file::is_a(std::string type) const
 	return std::binary_search(_categories.begin(), _categories.end(), type);
 }
 
+bool
+amm::desktop_file::is_any_of(std::vector<std::string> types) const
+{
+	for (std::vector<std::string>::const_iterator type = types.begin(); type != types.end(); ++type) {
+		if (is_a(*type)) {
+			return true;
+		}
+	};
+	return false;
+}
+
 void
 amm::desktop_file::populate(std::string line)
 {
