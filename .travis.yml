@@ -4,8 +4,10 @@ compiler:
   - clang
 script:
   - ./autogen.sh
-  - ./configure
+  - ./configure --prefix /tmp/mjwm
   - make check
   - ./test_runner.sh
   - time ./mjwm
   - cat automenu
+  - make install
+  - ls -halR /tmp/mjwm
