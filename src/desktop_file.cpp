@@ -57,31 +57,31 @@ amm::desktop_file::categories() const
 bool
 amm::desktop_file::operator < (const amm::desktop_file &other) const
 {
-	return name() < other.name();
+	return _name < other._name;
 }
 
 bool
 amm::desktop_file::operator > (const amm::desktop_file &other) const
 {
-	return name() > other.name();
+	return _name > other._name;
 }
 
 bool
 amm::desktop_file::operator == (const amm::desktop_file &other) const
 {
-	return name() == other.name();
+	return _name == other._name;
 }
 
 bool
 amm::desktop_file::operator != (const amm::desktop_file &other) const
 {
-	return name() != other.name();
+	return _name != other._name;
 }
 
 bool
 amm::desktop_file::is_valid() const
 {
-	return (executable().length() > 0) && (name().length() > 0) && (icon().length() > 0);
+	return (_executable.length() > 0) && (_name.length() > 0) && (_icon.length() > 0);
 }
 
 bool
