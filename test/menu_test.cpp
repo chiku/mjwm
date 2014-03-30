@@ -183,9 +183,7 @@ namespace amm
 			QUNIT_IS_EQUAL("  <!--Multimedia end-->\n  </Menu>", representations[6]->visit(jwm_transformer));
 			QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", representations[7]->visit(jwm_transformer));
 
-			for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
-				delete *iter;
-			}
+			clear_memory(representations);
 		}
 
 		void test_menu_appends_icon_extension_when_available()
@@ -212,6 +210,11 @@ namespace amm
 			QUNIT_IS_EQUAL("  <!--Multimedia end-->\n  </Menu>", representations[6]->visit(jwm_transformer));
 			QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", representations[7]->visit(jwm_transformer));
 
+			clear_memory(representations);
+		}
+
+		void clear_memory(std::vector<amm::representation::base*> representations)
+		{
 			for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
 				delete *iter;
 			}
