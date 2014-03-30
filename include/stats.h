@@ -31,17 +31,20 @@ namespace amm
 		std::vector<std::string> _classified_files;
 		std::vector<std::string> _unclassified_files;
 		std::vector<std::string> _unparsed_files;
+		std::vector<std::string> _suppressed_files;
 		std::vector<std::string> _unhandled_classifications;
 
 	public:
 		void add_classified_file(std::string file);
 		void add_unclassified_file(std::string file);
+		void add_suppressed_file(std::string file);
 		void add_unparsed_file(std::string file);
 		void add_unhandled_classifications(std::vector<std::string> classifications);
 
 		size_t total_files() const;
 		size_t total_parsed_files() const;
 		size_t total_unclassified_files() const;
+		size_t total_suppressed_files() const;
 		size_t total_unparsed_files() const;
 		std::vector<std::string> unparsed_files() const;
 		std::vector<std::string> unhandled_classifications();

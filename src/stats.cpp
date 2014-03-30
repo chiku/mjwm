@@ -37,6 +37,12 @@ amm::stats::add_unclassified_file(std::string file)
 }
 
 void
+amm::stats::add_suppressed_file(std::string file)
+{
+	_suppressed_files.push_back(file);
+}
+
+void
 amm::stats::add_unparsed_file(std::string file)
 {
 	_unparsed_files.push_back(file);
@@ -51,7 +57,7 @@ amm::stats::add_unhandled_classifications(std::vector<std::string> classificatio
 size_t
 amm::stats::total_files() const
 {
-	return _classified_files.size() + _unclassified_files.size() + _unparsed_files.size();
+	return _classified_files.size() + _unclassified_files.size() + _suppressed_files.size() + _unparsed_files.size();
 }
 
 size_t
@@ -64,6 +70,12 @@ size_t
 amm::stats::total_unclassified_files() const
 {
 	return _unclassified_files.size();
+}
+
+size_t
+amm::stats::total_suppressed_files() const
+{
+	return _suppressed_files.size();
 }
 
 size_t
@@ -97,6 +109,7 @@ amm::stats::short_summary() const
 	stream << "Total desktop files: " << total_files() << std::endl;
 	stream << "Parsed desktop files: " << total_parsed_files() << std::endl;
 	stream << "Unparsed desktop files: " << total_unparsed_files() << std::endl;
+	stream << "Suppressed desktop files (NoDisplay): " << total_suppressed_files() << std::endl;
 	stream << "Unclassified desktop files: " << total_unclassified_files() << std::endl;
 	return stream.str();
 }
@@ -119,6 +132,10 @@ amm::stats::long_summary()
 {
 	std::stringstream stream;
 	stream << summary();
+
+	if (total_suppressed_files() > 0) {
+		stream << "List of suppressed files: " << amm::vectorx(_suppressed_files).join(", ") << std::endl;
+	}
 
 	if (total_unclassified_files() > 0) {
 		stream << "List of unclassified files: " << amm::vectorx(_unclassified_files).join(", ") << std::endl;
