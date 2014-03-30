@@ -24,7 +24,7 @@
 namespace amm
 {
 	// Understands the way to search for the full path to a icon file
-	// Currently implemented as echo - it returns the name of icon
+	// Currently it returns the name of icon with an optional extension
 	class icon_service
 	{
 	private:
