@@ -80,7 +80,8 @@ POST_UNINSTALL = :
 bin_PROGRAMS = mjwm$(EXEEXT)
 check_PROGRAMS = mjwm_vectorx_test$(EXEEXT) mjwm_stringx_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) mjwm_subcategory_test$(EXEEXT) \
-	mjwm_menu_test$(EXEEXT) mjwm_desktop_file_names_test$(EXEEXT) \
+	mjwm_stats_test$(EXEEXT) mjwm_menu_test$(EXEEXT) \
+	mjwm_desktop_file_names_test$(EXEEXT) \
 	mjwm_jwm_transformer_test$(EXEEXT) mjwm_messages_test$(EXEEXT) \
 	mjwm_command_line_options_test$(EXEEXT)
 subdir = .
@@ -111,7 +112,8 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/representation.$(OBJEXT) src/menu.$(OBJEXT) \
 	src/jwm/transformer.$(OBJEXT) src/icon_service.$(OBJEXT) \
 	src/desktop_file_names.$(OBJEXT) src/messages.$(OBJEXT) \
-	src/command_line_options.$(OBJEXT) src/mjwm.$(OBJEXT)
+	src/command_line_options.$(OBJEXT) src/stats.$(OBJEXT) \
+	src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_command_line_options_test_OBJECTS = src/stringx.$(OBJEXT) \
@@ -142,13 +144,19 @@ am_mjwm_menu_test_OBJECTS = src/vectorx.$(OBJEXT) \
 	src/stringx.$(OBJEXT) src/icon_service.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/subcategory.$(OBJEXT) \
 	src/representation.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
-	src/menu.$(OBJEXT) test/menu_test.$(OBJEXT)
+	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
+	test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
 am_mjwm_messages_test_OBJECTS = src/messages.$(OBJEXT) \
 	test/messages_test.$(OBJEXT)
 mjwm_messages_test_OBJECTS = $(am_mjwm_messages_test_OBJECTS)
 mjwm_messages_test_LDADD = $(LDADD)
+am_mjwm_stats_test_OBJECTS = src/stringx.$(OBJEXT) \
+	src/vectorx.$(OBJEXT) src/stats.$(OBJEXT) \
+	test/stats_test.$(OBJEXT)
+mjwm_stats_test_OBJECTS = $(am_mjwm_stats_test_OBJECTS)
+mjwm_stats_test_LDADD = $(LDADD)
 am_mjwm_stringx_test_OBJECTS = src/stringx.$(OBJEXT) \
 	test/stringx_test.$(OBJEXT)
 mjwm_stringx_test_OBJECTS = $(am_mjwm_stringx_test_OBJECTS)
@@ -195,15 +203,17 @@ SOURCES = $(mjwm_SOURCES) $(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
-	$(mjwm_messages_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
-	$(mjwm_subcategory_test_SOURCES) $(mjwm_vectorx_test_SOURCES)
+	$(mjwm_messages_test_SOURCES) $(mjwm_stats_test_SOURCES) \
+	$(mjwm_stringx_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
+	$(mjwm_vectorx_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
-	$(mjwm_messages_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
-	$(mjwm_subcategory_test_SOURCES) $(mjwm_vectorx_test_SOURCES)
+	$(mjwm_messages_test_SOURCES) $(mjwm_stats_test_SOURCES) \
+	$(mjwm_stringx_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
+	$(mjwm_vectorx_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -555,6 +565,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/desktop_file_names.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
+               src/stats.cpp \
                src/mjwm.cpp
 
 mjwmdir = $(datadir)/mjwm
@@ -583,6 +594,11 @@ mjwm_subcategory_test_SOURCES = src/vectorx.cpp \
                                 src/subcategory.cpp \
                                 test/subcategory_test.cpp
 
+mjwm_stats_test_SOURCES = src/stringx.cpp \
+                          src/vectorx.cpp \
+                          src/stats.cpp \
+                          test/stats_test.cpp
+
 mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/stringx.cpp \
                          src/icon_service.cpp \
@@ -590,6 +606,7 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
                          src/jwm/transformer.cpp \
+                         src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 
@@ -739,6 +756,7 @@ src/messages.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/command_line_options.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/stats.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 
 mjwm$(EXEEXT): $(mjwm_OBJECTS) $(mjwm_DEPENDENCIES) $(EXTRA_mjwm_DEPENDENCIES) 
@@ -792,6 +810,12 @@ test/messages_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_messages_test$(EXEEXT): $(mjwm_messages_test_OBJECTS) $(mjwm_messages_test_DEPENDENCIES) $(EXTRA_mjwm_messages_test_DEPENDENCIES) 
 	@rm -f mjwm_messages_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_messages_test_OBJECTS) $(mjwm_messages_test_LDADD) $(LIBS)
+test/stats_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_stats_test$(EXEEXT): $(mjwm_stats_test_OBJECTS) $(mjwm_stats_test_DEPENDENCIES) $(EXTRA_mjwm_stats_test_DEPENDENCIES) 
+	@rm -f mjwm_stats_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_stats_test_OBJECTS) $(mjwm_stats_test_LDADD) $(LIBS)
 test/stringx_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -829,6 +853,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/representation.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stats.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stringx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
@@ -838,6 +863,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/messages_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stringx_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/vectorx_test.Po@am__quote@
@@ -1145,6 +1171,13 @@ mjwm_desktop_file_test.log: mjwm_desktop_file_test$(EXEEXT)
 mjwm_subcategory_test.log: mjwm_subcategory_test$(EXEEXT)
 	@p='mjwm_subcategory_test$(EXEEXT)'; \
 	b='mjwm_subcategory_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_stats_test.log: mjwm_stats_test$(EXEEXT)
+	@p='mjwm_stats_test$(EXEEXT)'; \
+	b='mjwm_stats_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

@@ -15,6 +15,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/desktop_file_names.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
+               src/stats.cpp \
                src/mjwm.cpp
 
 mjwmdir=$(datadir)/mjwm
@@ -25,6 +26,7 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_stringx_test \
                  mjwm_desktop_file_test \
                  mjwm_subcategory_test \
+                 mjwm_stats_test \
                  mjwm_menu_test \
                  mjwm_desktop_file_names_test \
                  mjwm_jwm_transformer_test \
@@ -49,6 +51,10 @@ mjwm_subcategory_test_SOURCES = src/vectorx.cpp \
                                 src/desktop_file.cpp \
                                 src/subcategory.cpp \
                                 test/subcategory_test.cpp
+mjwm_stats_test_SOURCES = src/stringx.cpp \
+                          src/vectorx.cpp \
+                          src/stats.cpp \
+                          test/stats_test.cpp
 mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/stringx.cpp \
                          src/icon_service.cpp \
@@ -56,6 +62,7 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
                          src/jwm/transformer.cpp \
+                         src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
@@ -68,4 +75,5 @@ mjwm_messages_test_SOURCES = src/messages.cpp \
 mjwm_command_line_options_test_SOURCES = src/stringx.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp
+
 TESTS = $(check_PROGRAMS)
