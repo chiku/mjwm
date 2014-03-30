@@ -1,0 +1,24 @@
+# All lines that begin with hash are comments
+
+# Colon terminated list
+# Put each entry on a separate line
+# The entries will be created in same order in which they appear
+
+# Don't leave any trailing whitespace
+
+# These names are case-sensitive
+
+#Category name in menu:Icon name in menu entry:Category names as they appears in desktop files
+Desktop:x48.png:X-Desktop:X-Desktop-appearance:X-Desktop-settings:X-DesktopApplets:X-DesktopCountry:DesktopSettings
+System:pc48.png:X-System:System:X-Setup-installation:X-System-memory:X-System-print:X-System-process:X-System-security:X-System-storage:X-SystemMemory:X-SystemSchedule:Monitor:Security
+Setup:configuration48.png:X-Setup-wizard:X-SetupWizard:X-SetupEntry:X-Setup-puppy:X-SetupUtility:PackageManager
+Utility:utility48.png:Utility:X-Utility:X-Utility-development:X-Utility-shell:X-Develop-Sub:Archiving::TerminalEmulator:Development
+Filesystem:folder48.png:X-Filesystem-mount:X-Filesystem-storage:X-FilesystemUtility:X-FilesystemFind:FileManager
+Graphic:paint48.png:X-Graphic-camera:X-Graphic-print:X-Graphic-scanner:X-GraphicUtility:X-Graphic-utility:RasterGraphics:Presentation:VectorGraphics
+Document:word48.png:WordProcessor:TextEditor:X-DocumentUtility:X-Document-utility
+Business:spread48.png:X-Calculate:Calculator:Spreadsheet
+Personal:date48.png:X-Personal-security:X-Personal:X-Personal-organizer:X-PersonalUtility
+Network:connect48.png:X-Network-transfer:Network
+Internet:www48.png:X-Internet:X-Internet-browser:X-Internet-transfer:X-Internet-block:Email:Telephony:FileTransfer:P2P
+Multimedia:multimedia48.png:X-Multimedia-optical:AudioVideo:Audio:Video:Player:DiskBurning:Mixer
+Fun:games48.png:X-Fun-puzzle:Game
