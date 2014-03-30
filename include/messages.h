@@ -19,6 +19,9 @@
 #ifndef __amm_messages__
 #define __amm_messages__
 
+#include <string>
+#include <vector>
+
 namespace amm
 {
 	namespace messages

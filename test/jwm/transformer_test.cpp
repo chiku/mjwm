@@ -19,6 +19,7 @@
 #include <iostream>
 
 #include "../QUnit.hpp"
+#include "representation.h"
 #include "jwm/transformer.h"
 
 namespace amm

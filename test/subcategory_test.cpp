@@ -17,10 +17,12 @@
 */
 
 #include <iostream>
+#include <vector>
 #include <string>
 
 #include "QUnit.hpp"
 
+#include "desktop_file.h"
 #include "subcategory.h"
 
 namespace amm

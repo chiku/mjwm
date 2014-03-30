@@ -17,6 +17,7 @@
 */
 
 #include <string>
+#include <vector>
 #include <algorithm>
 
 #include "stringx.h"
