@@ -27,8 +27,12 @@ static const std::string NAME       = "Name";
 static const std::string EXECUTABLE = "Exec";
 static const std::string ICON       = "Icon";
 static const std::string CATEGORIES = "Categories";
+static const std::string NO_DISPLAY = "NoDisplay";
 
-amm::desktop_file::desktop_file() {}
+amm::desktop_file::desktop_file()
+{
+	_display = true;
+}
 
 std::string
 amm::desktop_file::name() const
@@ -52,6 +56,12 @@ std::vector<std::string>
 amm::desktop_file::categories() const
 {
 	return _categories;
+}
+
+bool
+amm::desktop_file::display() const
+{
+	return _display;
 }
 
 bool
@@ -124,5 +134,8 @@ amm::desktop_file::populate(std::string line)
 	} else if (trimmed_first_part == CATEGORIES) {
 		_categories = amm::stringx(amm::stringx(second_part).trim()).split(";");
 		std::sort(_categories.begin(), _categories.end());
+	} else if (trimmed_first_part == NO_DISPLAY) {
+		std::string trimmed_second_part = amm::stringx(second_part).trim();
+		_display = (trimmed_second_part != "true" && trimmed_second_part != "1");
 	}
 }

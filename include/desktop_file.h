@@ -32,6 +32,7 @@ namespace amm
 		std::string _executable;
 		std::string _icon;
 		std::vector<std::string> _categories;
+		bool _display;
 
 	public:
 		desktop_file();
@@ -40,6 +41,7 @@ namespace amm
 		std::string icon() const;
 		std::string executable() const;
 		std::vector<std::string> categories() const;
+		bool display() const;
 
 		bool operator < (const amm::desktop_file &other) const;
 		bool operator > (const amm::desktop_file &other) const;

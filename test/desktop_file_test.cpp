@@ -64,39 +64,24 @@ namespace amm
 			QUNIT_IS_EQUAL("Utility", categories[3]);
 		}
 
-		void test_desktop_file_escapes_whitespaces_when_parsing_name()
+		void test_desktop_file_parses_no_display()
 		{
 			desktop_file entry;
-			entry.populate(" Name = Mousepad \n ");
-			QUNIT_IS_EQUAL("Mousepad", entry.name());
+			entry.populate("NoDisplay=true\n");
+			QUNIT_IS_FALSE(entry.display());
 		}
 
-		void test_desktop_file_escapes_whitespaces_when_parsing_executable()
+		void test_desktop_file_treats_1_as_true_for_no_display()
 		{
 			desktop_file entry;
-			entry.populate(" Exec = mousepad \n ");
-			QUNIT_IS_EQUAL("mousepad", entry.executable());
+			entry.populate("NoDisplay=1\n");
+			QUNIT_IS_FALSE(entry.display());
 		}
 
-
-		void test_desktop_file_escapes_whitespaces_when_parsing_icon()
+		void test_desktop_file_display_is_true_by_default()
 		{
 			desktop_file entry;
-			entry.populate("Icon\t=accessories-text-editor \t\n");
-			QUNIT_IS_EQUAL("accessories-text-editor", entry.icon());
-		}
-
-
-		void test_desktop_file_escapes_whitespaces_when_parsing_categories()
-		{
-			desktop_file entry;
-			entry.populate("Categories = Application;Utility;TextEditor;GTK;\n");
-			std::vector<std::string> categories = entry.categories();
-			QUNIT_IS_EQUAL(4, categories.size());
-			QUNIT_IS_EQUAL("Application", categories[0]);
-			QUNIT_IS_EQUAL("GTK", categories[1]);
-			QUNIT_IS_EQUAL("TextEditor", categories[2]);
-			QUNIT_IS_EQUAL("Utility", categories[3]);
+			QUNIT_IS_TRUE(entry.display());
 		}
 
 		void test_desktop_file_parse_doesnt_fail_when_entry_is_missing()
@@ -241,11 +226,9 @@ namespace amm
 			test_desktop_file_parses_icon();
 			test_desktop_file_parses_executable();
 			test_desktop_file_parses_categories();
-
-			test_desktop_file_escapes_whitespaces_when_parsing_name();
-			test_desktop_file_escapes_whitespaces_when_parsing_executable();
-			test_desktop_file_escapes_whitespaces_when_parsing_icon();
-			test_desktop_file_escapes_whitespaces_when_parsing_categories();
+			test_desktop_file_parses_no_display();
+			test_desktop_file_treats_1_as_true_for_no_display();
+			test_desktop_file_display_is_true_by_default();
 
 			test_desktop_file_parse_doesnt_fail_when_entry_is_missing();
 			test_desktop_file_parse_doesnt_fail_when_line_is_missing();
