@@ -5,6 +5,7 @@ Current
 * Accept user provided categories as a colon terminated file. Includes default.mjwm & a puppy linux specific puppy.mjwm files [#30]
 * Provide a man page
 * Allow multiple catgories to be classified into a single subcategory [#26]
+* Deprecate -h and -v in favour of --help and --version respectively
 * Lots of code cleanups
 
 v2.3.0
