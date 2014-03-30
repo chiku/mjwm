@@ -22,7 +22,6 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "desktop_file.h"
 #include "jwm/transformer.h"
 
 static std::string

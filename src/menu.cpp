@@ -16,11 +16,9 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include "stringx.h"
 #include "icon_service.h"
