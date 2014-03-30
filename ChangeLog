@@ -4,6 +4,8 @@ Current
 * Ensure that same directory is not included twice for scanning desktop files [#28]
 * Accept user provided categories as a colon terminated file [#30]
 * Provide a man page
+* Allow multiple catgories to be classified into a single subcategory [#26]
+* Lots of code cleanups
 
 v2.3.0
 ------
