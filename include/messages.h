@@ -33,7 +33,6 @@ namespace amm
 		std::string no_valid_desktop_files();
 		std::string bad_category_file(const std::string file_name);
 		std::string bad_output_file(const std::string file_name);
-		std::string summary(size_t total_files, size_t total_parsed_files, size_t total_unclassified_parsed_files, std::vector<std::string> unparsed_files);
 	}
 }
 

@@ -82,7 +82,7 @@ check_PROGRAMS = mjwm_vectorx_test$(EXEEXT) mjwm_stringx_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) mjwm_subcategory_test$(EXEEXT) \
 	mjwm_stats_test$(EXEEXT) mjwm_menu_test$(EXEEXT) \
 	mjwm_desktop_file_names_test$(EXEEXT) \
-	mjwm_jwm_transformer_test$(EXEEXT) mjwm_messages_test$(EXEEXT) \
+	mjwm_jwm_transformer_test$(EXEEXT) \
 	mjwm_command_line_options_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
@@ -148,10 +148,6 @@ am_mjwm_menu_test_OBJECTS = src/vectorx.$(OBJEXT) \
 	test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
-am_mjwm_messages_test_OBJECTS = src/messages.$(OBJEXT) \
-	test/messages_test.$(OBJEXT)
-mjwm_messages_test_OBJECTS = $(am_mjwm_messages_test_OBJECTS)
-mjwm_messages_test_LDADD = $(LDADD)
 am_mjwm_stats_test_OBJECTS = src/stringx.$(OBJEXT) \
 	src/vectorx.$(OBJEXT) src/stats.$(OBJEXT) \
 	test/stats_test.$(OBJEXT)
@@ -203,17 +199,15 @@ SOURCES = $(mjwm_SOURCES) $(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
-	$(mjwm_messages_test_SOURCES) $(mjwm_stats_test_SOURCES) \
-	$(mjwm_stringx_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
-	$(mjwm_vectorx_test_SOURCES)
+	$(mjwm_stats_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
+	$(mjwm_subcategory_test_SOURCES) $(mjwm_vectorx_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
-	$(mjwm_messages_test_SOURCES) $(mjwm_stats_test_SOURCES) \
-	$(mjwm_stringx_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
-	$(mjwm_vectorx_test_SOURCES)
+	$(mjwm_stats_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
+	$(mjwm_subcategory_test_SOURCES) $(mjwm_vectorx_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -616,9 +610,6 @@ mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
                                     src/jwm/transformer.cpp \
                                     test/jwm/transformer_test.cpp
 
-mjwm_messages_test_SOURCES = src/messages.cpp \
-                             test/messages_test.cpp
-
 mjwm_command_line_options_test_SOURCES = src/stringx.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp
@@ -804,12 +795,6 @@ test/menu_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_menu_test$(EXEEXT): $(mjwm_menu_test_OBJECTS) $(mjwm_menu_test_DEPENDENCIES) $(EXTRA_mjwm_menu_test_DEPENDENCIES) 
 	@rm -f mjwm_menu_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_menu_test_OBJECTS) $(mjwm_menu_test_LDADD) $(LIBS)
-test/messages_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-
-mjwm_messages_test$(EXEEXT): $(mjwm_messages_test_OBJECTS) $(mjwm_messages_test_DEPENDENCIES) $(EXTRA_mjwm_messages_test_DEPENDENCIES) 
-	@rm -f mjwm_messages_test$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_messages_test_OBJECTS) $(mjwm_messages_test_LDADD) $(LIBS)
 test/stats_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -862,7 +847,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_names_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/messages_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stringx_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
@@ -1199,13 +1183,6 @@ mjwm_desktop_file_names_test.log: mjwm_desktop_file_names_test$(EXEEXT)
 mjwm_jwm_transformer_test.log: mjwm_jwm_transformer_test$(EXEEXT)
 	@p='mjwm_jwm_transformer_test$(EXEEXT)'; \
 	b='mjwm_jwm_transformer_test'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-mjwm_messages_test.log: mjwm_messages_test$(EXEEXT)
-	@p='mjwm_messages_test$(EXEEXT)'; \
-	b='mjwm_messages_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

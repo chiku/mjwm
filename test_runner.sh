@@ -36,7 +36,6 @@ run mjwm_stats_test
 run mjwm_menu_test
 run mjwm_desktop_file_names_test
 run mjwm_jwm_transformer_test
-run mjwm_messages_test
 run mjwm_command_line_options_test
 
 echo "Suites run: $suites"

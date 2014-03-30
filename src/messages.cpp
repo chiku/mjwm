@@ -114,24 +114,3 @@ amm::messages::bad_output_file(const std::string file_name)
 	stream << "Couldn't open output file: " << file_name;
 	return stream.str();
 }
-
-std::string
-amm::messages::summary(size_t total_files, size_t total_parsed_files, size_t total_unclassified_parsed_files, std::vector<std::string> unparsed_files)
-{
-	std::stringstream stream;
-	stream << "Total desktop files: " << total_files << std::endl;
-	stream << "Valid desktop files: " << total_parsed_files << std::endl;
-	stream << "Unclassified valid desktop files: " << total_unclassified_parsed_files << std::endl;
-
-	if (unparsed_files.size() > 0) {
-		stream << "List of unparsed files: ";
-
-		std::vector<std::string>::const_iterator file_name;
-		for (file_name = unparsed_files.begin(); file_name != unparsed_files.end(); ++file_name) {
-			stream << *file_name << " ";
-		}
-		stream << std::endl;
-	}
-
-	return stream.str();
-}
