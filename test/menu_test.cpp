@@ -147,7 +147,22 @@ namespace amm
 			menu.populate(files);
 			amm::stats stats = menu.stats();
 
-			QUNIT_IS_EQUAL(1, menu.stats().total_unclassified_files());
+			QUNIT_IS_EQUAL(1, stats.total_unclassified_files());
+		}
+
+		void test_menu_stores_the_ctagories_that_werent_handled()
+		{
+			std::vector<std::string> files;
+			files.push_back(fixtures_directory + "unclassified.desktop");
+			files.push_back(fixtures_directory + "mousepad.desktop");
+			menu menu;
+
+			menu.populate(files);
+			amm::stats stats = menu.stats();
+			std::vector<std::string> unhandled_classifications = stats.unhandled_classifications();
+
+			QUNIT_IS_EQUAL(1, unhandled_classifications.size());
+			QUNIT_IS_EQUAL("GTK", unhandled_classifications[0]);
 		}
 
 		void test_menu_has_a_list_of_unparsed_files()
@@ -237,6 +252,7 @@ namespace amm
 			test_menu_load_categories_skips_categories_without_one_category_name();
 			test_menu_counts_total_desktop_files_parsed_successfully();
 			test_menu_counts_total_unclassified_desktop_files_parsed_successfully();
+			test_menu_stores_the_ctagories_that_werent_handled();
 			test_menu_has_a_list_of_unparsed_files();
 			test_menu_is_transformed_to_a_collection_of_representations();
 			test_menu_appends_icon_extension_when_available();

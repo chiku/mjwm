@@ -31,6 +31,45 @@ namespace amm
 	{
 		QUnit::UnitTest qunit;
 
+		void test_stats_doesnt_have_count_by_default()
+		{
+			amm::stats stats;
+			QUNIT_IS_EQUAL(0, stats.total_files());
+			QUNIT_IS_EQUAL(0, stats.total_parsed_files());
+			QUNIT_IS_EQUAL(0, stats.total_unclassified_files());
+			QUNIT_IS_EQUAL(0, stats.total_unparsed_files());
+		}
+
+		void test_stats_with_a_classified_file_increments_total_files_and_total_parsed_files()
+		{
+			amm::stats stats;
+			stats.add_classified_file("VLC");
+			QUNIT_IS_EQUAL(1, stats.total_files());
+			QUNIT_IS_EQUAL(1, stats.total_parsed_files());
+			QUNIT_IS_EQUAL(0, stats.total_unclassified_files());
+			QUNIT_IS_EQUAL(0, stats.total_unparsed_files());
+		}
+
+		void test_stats_with_an_unclassified_file_increments_total_files_and_total_parsed_files_and_total_unclassified_files()
+		{
+			amm::stats stats;
+			stats.add_unclassified_file("VLC");
+			QUNIT_IS_EQUAL(1, stats.total_files());
+			QUNIT_IS_EQUAL(1, stats.total_parsed_files());
+			QUNIT_IS_EQUAL(1, stats.total_unclassified_files());
+			QUNIT_IS_EQUAL(0, stats.total_unparsed_files());
+		}
+
+		void test_stats_with_an_unparsed_file_increments_total_files_and_total_unparsed_files()
+		{
+			amm::stats stats;
+			stats.add_unparsed_file("VLC");
+			QUNIT_IS_EQUAL(1, stats.total_files());
+			QUNIT_IS_EQUAL(0, stats.total_parsed_files());
+			QUNIT_IS_EQUAL(0, stats.total_unclassified_files());
+			QUNIT_IS_EQUAL(1, stats.total_unparsed_files());
+		}
+
 		void test_stats_doesnt_report_any_entries_in_short_summary_by_default()
 		{
 			amm::stats stats;
@@ -145,6 +184,11 @@ namespace amm
 
 		int run()
 		{
+			test_stats_doesnt_have_count_by_default();
+			test_stats_with_a_classified_file_increments_total_files_and_total_parsed_files();
+			test_stats_with_an_unclassified_file_increments_total_files_and_total_parsed_files_and_total_unclassified_files();
+			test_stats_with_an_unparsed_file_increments_total_files_and_total_unparsed_files();
+
 			test_stats_doesnt_report_any_entries_in_short_summary_by_default();
 			test_stats_short_summary_includes_counts();
 

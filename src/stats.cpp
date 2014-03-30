@@ -49,7 +49,7 @@ amm::stats::add_unhandled_classifications(std::vector<std::string> classificatio
 }
 
 size_t
-amm::stats::total_desktop_files() const
+amm::stats::total_files() const
 {
 	return _classified_files.size() + _unclassified_files.size() + _unparsed_files.size();
 }
@@ -78,11 +78,23 @@ amm::stats::unparsed_files() const
 	return _unparsed_files;
 }
 
+std::vector<std::string>
+amm::stats::unhandled_classifications()
+{
+	if (_unhandled_classifications.size() > 1) {
+		std::sort(_unhandled_classifications.begin(), _unhandled_classifications.end());
+		std::vector<std::string>::iterator it = std::unique(_unhandled_classifications.begin(), _unhandled_classifications.end());
+		_unhandled_classifications.resize(std::distance(_unhandled_classifications.begin(), it));
+	}
+
+	return _unhandled_classifications;
+}
+
 std::string
 amm::stats::short_summary() const
 {
 	std::stringstream stream;
-	stream << "Total desktop files: " << total_desktop_files() << std::endl;
+	stream << "Total desktop files: " << total_files() << std::endl;
 	stream << "Parsed desktop files: " << total_parsed_files() << std::endl;
 	stream << "Unparsed desktop files: " << total_unparsed_files() << std::endl;
 	stream << "Unclassified desktop files: " << total_unclassified_files() << std::endl;
@@ -113,11 +125,7 @@ amm::stats::long_summary()
 	}
 
 	if (_unhandled_classifications.size() > 0) {
-		std::sort(_unhandled_classifications.begin(), _unhandled_classifications.end());
-		std::vector<std::string>::iterator it = std::unique(_unhandled_classifications.begin(), _unhandled_classifications.end());
-		_unhandled_classifications.resize(std::distance(_unhandled_classifications.begin(), it));
-
-		stream << "List of unhandled classifications: " << amm::vectorx(_unhandled_classifications).join(", ") << std::endl;
+		stream << "List of unhandled classifications: " << amm::vectorx(unhandled_classifications()).join(", ") << std::endl;
 	}
 
 	return stream.str();

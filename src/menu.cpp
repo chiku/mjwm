@@ -125,6 +125,7 @@ amm::menu::classify(amm::desktop_file desktop_file, std::string desktop_file_nam
 	if (classified) {
 		_stats.add_classified_file(desktop_file_name);
 	} else {
+		_stats.add_unhandled_classifications(desktop_file.categories());
 		_stats.add_unclassified_file(desktop_file_name);
 		_unclassified_subcategory.add_desktop_file(desktop_file);
 	}
