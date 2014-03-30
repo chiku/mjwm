@@ -126,7 +126,7 @@ amm::messages::summary(size_t total_files, size_t total_parsed_files, size_t tot
 	if (unparsed_files.size() > 0) {
 		stream << "List of unparsed files: ";
 
-		std::vector<std::string>::iterator file_name;
+		std::vector<std::string>::const_iterator file_name;
 		for (file_name = unparsed_files.begin(); file_name != unparsed_files.end(); ++file_name) {
 			stream << *file_name << " ";
 		}

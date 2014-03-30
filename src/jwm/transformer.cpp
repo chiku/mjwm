@@ -30,7 +30,7 @@ remove_field_code(std::string input)
 	std::vector<std::string> result;
 	std::vector<std::string> tokens = amm::stringx(input).split(" ");
 
-	for (std::vector<std::string>::iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
+	for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
 		if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
 			result.push_back(*iter);
 		}

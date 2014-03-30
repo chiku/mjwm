@@ -79,7 +79,7 @@ amm::desktop_file_names::register_default_directories()
 	std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
 	directory_bases.push_back(xdg_data_home());
 
-	for (std::vector<std::string>::iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
+	for (std::vector<std::string>::const_iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
 		std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
 		_directory_names.push_back(directory);
 	}

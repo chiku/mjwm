@@ -88,7 +88,7 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
 {
 	_unparsed_file_names.clear();
 
-	std::vector<std::string>::iterator name;
+	std::vector<std::string>::const_iterator name;
 	for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
 		std::string line;
 		amm::desktop_file desktop_file;
@@ -180,7 +180,7 @@ amm::menu::representations() const
 			representations.push_back(start);
 
 			std::vector<amm::desktop_file> desktop_files = subcategory->desktop_files();
-			std::vector<amm::desktop_file>::iterator desktop_file;
+			std::vector<amm::desktop_file>::const_iterator desktop_file;
 			for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
 				amm::representation::menu_entry *entry = new amm::representation::menu_entry(desktop_file->name(), _icon_service.resolved_name(desktop_file->icon()), desktop_file->executable());
 				representations.push_back(entry);
