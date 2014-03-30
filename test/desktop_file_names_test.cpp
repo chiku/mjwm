@@ -56,7 +56,7 @@ namespace amm
 
 			std::vector<std::string> file_names = desktop_file_names.all();
 
-			QUNIT_IS_EQUAL(4, file_names.size());
+			QUNIT_IS_EQUAL(6, file_names.size());
 		}
 
 		void test_desktop_file_names_need_not_end_with_a_slash()
@@ -108,12 +108,14 @@ namespace amm
 
 		void assert_files_are_present_in_list(std::vector<std::string> file_names)
 		{
-			QUNIT_IS_EQUAL(4, file_names.size());
+			QUNIT_IS_EQUAL(6, file_names.size());
 
 			QUNIT_IS_TRUE(present_in("test/fixtures/missing.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/mousepad.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/unclassified.desktop", file_names));
 			QUNIT_IS_TRUE(present_in("test/fixtures/vlc.desktop", file_names));
+			QUNIT_IS_TRUE(present_in("test/fixtures/suppressed.desktop", file_names));
+			QUNIT_IS_TRUE(present_in("test/fixtures/suppressedinvalid.desktop", file_names));
 		}
 
 	public:
