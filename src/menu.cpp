@@ -94,8 +94,9 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
 			while (std::getline(file, line)) {
 				desktop_file.populate(line);
 			}
-
-			if (desktop_file.is_valid()) {
+			if (!desktop_file.display()) {
+				_stats.add_suppressed_file(*name);
+			} else if (desktop_file.is_valid()) {
 				classify(desktop_file, *name);
 			} else {
 				_stats.add_unparsed_file(*name);
@@ -125,9 +126,9 @@ amm::menu::classify(amm::desktop_file desktop_file, std::string desktop_file_nam
 	if (classified) {
 		_stats.add_classified_file(desktop_file_name);
 	} else {
-		_stats.add_unhandled_classifications(desktop_file.categories());
-		_stats.add_unclassified_file(desktop_file_name);
 		_unclassified_subcategory.add_desktop_file(desktop_file);
+		_stats.add_unclassified_file(desktop_file_name);
+		_stats.add_unhandled_classifications(desktop_file.categories());
 	}
 }
 

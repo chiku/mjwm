@@ -1,3 +1,8 @@
+Current
+-------
+
+* Ignore desktop files that are marked NoDisplay=true [#31]
+
 v2.4.0
 ------
 * Strip off field codes (%f, %U etc.) from executable names [#21]
