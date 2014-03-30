@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_messages__
-#define __amm_messages__
+#ifndef AMM_MESSAGES_H
+#define AMM_MESSAGES_H
 
 #include <string>
 #include <vector>

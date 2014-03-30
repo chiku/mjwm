@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_desktop_file__
-#define __amm_desktop_file__
+#ifndef AMM_DESKTOP_FILE_H
+#define AMM_DESKTOP_FILE_H
 
 #include <string>
 #include <vector>

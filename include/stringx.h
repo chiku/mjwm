@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_stringx__
-#define __amm_stringx__
+#ifndef AMM_STRINGX_H
+#define AMM_STRINGX_H
 
 #include <string>
 #include <vector>

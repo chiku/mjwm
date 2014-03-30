@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_command_line_options__
-#define __amm_command_line_options__
+#ifndef AMM_COMMAND_LINE_OPTIONS_H
+#define AMM_COMMAND_LINE_OPTIONS_H
 
 #include <string>
 #include <vector>

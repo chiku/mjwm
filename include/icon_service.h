@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_icon_service__
-#define __amm_icon_service__
+#ifndef AMM_ICON_SERVICE_H
+#define AMM_ICON_SERVICE_H
 
 #include <string>
 

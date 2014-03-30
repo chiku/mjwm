@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_jwm_transformer__
-#define __amm_jwm_transformer__
+#ifndef AMM_JWM_TRANSFORMER_H
+#define AMM_JWM_TRANSFORMER_H
 
 #include <string>
 

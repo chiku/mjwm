@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_representation__
-#define __amm_representation__
+#ifndef AMM_REPRESENTATION_H
+#define AMM_REPRESENTATION_H
 
 #include <string>
 

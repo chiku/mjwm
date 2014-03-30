@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_transformer__
-#define __amm_transformer__
+#ifndef AMM_TRANSFORMER_H
+#define AMM_TRANSFORMER_H
 
 #include <string>
 

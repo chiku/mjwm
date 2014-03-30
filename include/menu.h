@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_menu__
-#define __amm_menu__
+#ifndef AMM_MENU_H
+#define AMM_MENU_H
 
 #include <string>
 #include <vector>

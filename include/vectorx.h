@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __amm_vectorx__
-#define __amm_vectorx__
+#ifndef AMM_VECTORX_H
+#define AMM_VECTORX_H
 
 #include <string>
 #include <vector>
