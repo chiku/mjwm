@@ -20,7 +20,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "stringx.h"
+#include "utils.h"
 #include "desktop_file.h"
 
 static const std::string NAME       = "Name";

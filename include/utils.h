@@ -16,14 +16,28 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_VECTORX_H
-#define AMM_VECTORX_H
+#ifndef AMM_UTILS_H
+#define AMM_UTILS_H
 
 #include <string>
 #include <vector>
 
 namespace amm
 {
+	class stringx
+	{
+	private:
+		std::string _string;
+
+	public:
+		stringx(std::string string);
+		bool ends_with(const std::string delimiter) const;
+		std::string terminate_with(const std::string end);
+		std::string encode() const;
+		std::string trim() const;
+		std::vector<std::string> split(const std::string delimiter) const;
+	};
+
 	class vectorx
 	{
 	private:

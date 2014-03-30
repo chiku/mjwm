@@ -20,7 +20,7 @@
 #include <vector>
 #include <getopt.h>
 
-#include "stringx.h"
+#include "utils.h"
 #include "command_line_options.h"
 
 amm::command_line_options::command_line_options()

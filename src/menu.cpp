@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-#include "stringx.h"
+#include "utils.h"
 #include "icon_service.h"
 #include "desktop_file.h"
 #include "subcategory.h"

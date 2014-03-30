@@ -20,9 +20,9 @@
 #include <string>
 #include <vector>
 
-#include "stats.h"
-
 #include "QUnit.hpp"
+
+#include "stats.h"
 
 namespace amm
 {

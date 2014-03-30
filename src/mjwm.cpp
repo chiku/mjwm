@@ -22,7 +22,7 @@
 #include <vector>
 #include <cstdlib>
 
-#include "vectorx.h"
+#include "utils.h"
 #include "messages.h"
 #include "command_line_options.h"
 #include "icon_service.h"

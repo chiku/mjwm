@@ -21,8 +21,7 @@
 #include <cstdlib>
 #include <dirent.h>
 
-#include "stringx.h"
-#include "vectorx.h"
+#include "utils.h"
 #include "desktop_file_names.h"
 
 static std::string

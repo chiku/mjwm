@@ -4,8 +4,7 @@ AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 
 bin_PROGRAMS = mjwm
-mjwm_SOURCES = src/stringx.cpp \
-               src/vectorx.cpp \
+mjwm_SOURCES = src/utils.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
                src/representation.cpp \
@@ -22,8 +21,7 @@ mjwmdir=$(datadir)/mjwm
 mjwm_DATA = data/default.mjwm data/puppy.mjwm
 man1_MANS = doc/mjwm.1
 
-check_PROGRAMS = mjwm_vectorx_test \
-                 mjwm_stringx_test \
+check_PROGRAMS = mjwm_utils_test \
                  mjwm_desktop_file_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
@@ -32,30 +30,22 @@ check_PROGRAMS = mjwm_vectorx_test \
                  mjwm_jwm_transformer_test \
                  mjwm_command_line_options_test
 
-mjwm_stringx_test_SOURCES = src/stringx.cpp \
-                            test/stringx_test.cpp
-mjwm_vectorx_test_SOURCES = src/stringx.cpp \
-                            src/vectorx.cpp \
-                            test/vectorx_test.cpp
-mjwm_desktop_file_test_SOURCES = src/stringx.cpp \
-                                 src/vectorx.cpp \
+mjwm_utils_test_SOURCES = src/utils.cpp \
+                          test/utils_test.cpp
+mjwm_desktop_file_test_SOURCES = src/utils.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
-mjwm_desktop_file_names_test_SOURCES = src/vectorx.cpp \
-                                       src/stringx.cpp \
+mjwm_desktop_file_names_test_SOURCES = src/utils.cpp \
                                        src/desktop_file_names.cpp \
                                        test/desktop_file_names_test.cpp
-mjwm_subcategory_test_SOURCES = src/vectorx.cpp \
-                                src/stringx.cpp \
+mjwm_subcategory_test_SOURCES = src/utils.cpp \
                                 src/desktop_file.cpp \
                                 src/subcategory.cpp \
                                 test/subcategory_test.cpp
-mjwm_stats_test_SOURCES = src/stringx.cpp \
-                          src/vectorx.cpp \
+mjwm_stats_test_SOURCES = src/utils.cpp \
                           src/stats.cpp \
                           test/stats_test.cpp
-mjwm_menu_test_SOURCES = src/vectorx.cpp \
-                         src/stringx.cpp \
+mjwm_menu_test_SOURCES = src/utils.cpp \
                          src/icon_service.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
@@ -64,12 +54,11 @@ mjwm_menu_test_SOURCES = src/vectorx.cpp \
                          src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
-mjwm_jwm_transformer_test_SOURCES = src/stringx.cpp \
-                                    src/vectorx.cpp \
+mjwm_jwm_transformer_test_SOURCES = src/utils.cpp \
                                     src/representation.cpp \
                                     src/jwm/transformer.cpp \
                                     test/jwm/transformer_test.cpp
-mjwm_command_line_options_test_SOURCES = src/stringx.cpp \
+mjwm_command_line_options_test_SOURCES = src/utils.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp
 

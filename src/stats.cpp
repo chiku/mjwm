@@ -21,7 +21,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "vectorx.h"
+#include "utils.h"
 #include "stats.h"
 
 void

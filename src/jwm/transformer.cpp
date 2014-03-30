@@ -20,8 +20,7 @@
 #include <sstream>
 #include <vector>
 
-#include "stringx.h"
-#include "vectorx.h"
+#include "utils.h"
 #include "jwm/transformer.h"
 
 static std::string

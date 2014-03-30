@@ -18,8 +18,10 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
+#include <algorithm>
 
-#include "stringx.h"
+#include "utils.h"
 
 amm::stringx::stringx(std::string string)
 {
@@ -94,6 +96,56 @@ amm::stringx::split(const std::string delimeter) const
 		start = end + delimeter_length;
 		end = raw.find(delimeter, start);
 	}
+
+	return result;
+}
+
+
+amm::vectorx::vectorx(std::vector<std::string> vector)
+{
+	_vector = vector;
+}
+
+std::string
+amm::vectorx::join(std::string delimeter) const
+{
+	std::stringstream stream;
+	size_t vector_size = _vector.size();
+
+	if (vector_size == 0) {
+		return "";
+	}
+
+	if (vector_size >= 2) {
+		for (size_t i = 0; i < vector_size - 1; ++i) {
+			stream << _vector[i] << delimeter;
+		}
+	}
+	stream << _vector[vector_size - 1];
+
+	return stream.str();
+}
+
+std::vector<std::string>
+amm::vectorx::terminate_with(std::string delimiter) const
+{
+	std::vector<std::string> result;
+
+	for (std::vector<std::string>::const_iterator i = _vector.begin(); i != _vector.end(); ++i) {
+		result.push_back(amm::stringx(*i).terminate_with(delimiter));
+	}
+
+	return result;
+}
+
+std::vector<std::string>
+amm::vectorx::unique() const
+{
+	std::vector<std::string> result = _vector;
+
+	std::sort(result.begin(), result.end());
+	std::vector<std::string>::iterator it = std::unique(result.begin(), result.end());
+	result.resize(std::distance(result.begin(), it));
 
 	return result;
 }
