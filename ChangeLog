@@ -1,10 +1,10 @@
-Current
--------
-* Strip off field codes (%f, %U etc.) from execubale names [#21]
+v2.4.0
+------
+* Strip off field codes (%f, %U etc.) from executable names [#21]
 * Ensure that same directory is not included twice for scanning desktop files [#28]
 * Accept user provided categories as a colon terminated file. Includes default.mjwm & a puppy linux specific puppy.mjwm files [#30]
-* Provide a man page
-* Allow multiple catgories to be classified into a single subcategory [#26]
+* Install a man page
+* Allow multiple user-specified categories to be classified into a single subcategory [#26]
 * Deprecate -h and -v in favour of --help and --version respectively
 * Lots of code cleanups
 

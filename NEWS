@@ -1,6 +1,16 @@
 mjwm NEWS - User visible changes. 2014-03-21
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
+version 2.4.0 - Chirantan Mitra, 2014-03-30
+
+* Accept user provided categories as a colon terminated file. Includes default.mjwm & a puppy linux specific puppy.mjwm files [#30]
+* Allow multiple user-specified catgories to be classified into a single subcategory [#26]
+* Install a man page
+* [BUG] Strip off field codes (%f, %U etc.) from executable names [#21]
+* [BUG] Ensure that same directory is not included twice for scanning desktop files [#28]
+* [DEPRECATE] Deprecate -h and -v in favour of --help and --version respectively
+
+
 version 2.3.0 - Chirantan Mitra, 2014-03-24
 
 * Include an XML comment in the generated output file telling that it is a generated file. [#24]

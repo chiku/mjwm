@@ -1,7 +1,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.12])
-AC_INIT([mjwm], [2.3.0], [https://github.com/chiku/mjwm/issues])
+AC_INIT([mjwm], [2.4.0], [https://github.com/chiku/mjwm/issues])
 AC_LANG(C++)
 
 # Silent by default
