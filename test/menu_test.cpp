@@ -132,8 +132,9 @@ namespace amm
 			menu menu;
 
 			menu.populate(files);
+			amm::stats stats = menu.stats();
 
-			QUNIT_IS_EQUAL(2, menu.total_parsed_files());
+			QUNIT_IS_EQUAL(2, stats.total_parsed_files());
 		}
 
 		void test_menu_counts_total_unclassified_desktop_files_parsed_successfully()
@@ -144,8 +145,9 @@ namespace amm
 			menu menu;
 
 			menu.populate(files);
+			amm::stats stats = menu.stats();
 
-			QUNIT_IS_EQUAL(1, menu.total_unclassified_parsed_files());
+			QUNIT_IS_EQUAL(1, menu.stats().total_unclassified_files());
 		}
 
 		void test_menu_has_a_list_of_unparsed_files()
@@ -156,8 +158,9 @@ namespace amm
 			menu menu;
 
 			menu.populate(files);
+			amm::stats stats = menu.stats();
+			std::vector<std::string> unparsed_files = stats.unparsed_files();
 
-			std::vector<std::string> unparsed_files = menu.unparsed_file_names();
 			QUNIT_IS_EQUAL(1, unparsed_files.size());
 			QUNIT_IS_EQUAL(fixtures_directory + "missing.desktop", unparsed_files[0]);
 		}

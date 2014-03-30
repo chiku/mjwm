@@ -28,6 +28,7 @@
 #include "icon_service.h"
 #include "desktop_file_names.h"
 #include "representation.h"
+#include "stats.h"
 #include "menu.h"
 #include "jwm/transformer.h"
 
@@ -134,7 +135,7 @@ void
 amm::main::populate()
 {
 	_menu.populate(_desktop_file_names);
-	if (_menu.total_parsed_files() == 0) {
+	if (_menu.stats().total_parsed_files() == 0) {
 		std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
 		exit(1);
 	}
@@ -170,12 +171,7 @@ amm::main::write_output_file()
 void
 amm::main::print_summary()
 {
-	std::cout << amm::messages::summary(
-		_desktop_file_names.size(),
-		_menu.total_parsed_files(),
-		_menu.total_unclassified_parsed_files(),
-		_menu.unparsed_file_names()
-	);
+	std::cout << _menu.stats().summary();
 }
 
 int main(int argc, char *argv[])

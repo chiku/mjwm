@@ -25,6 +25,7 @@
 #include "icon_service.h"
 #include "subcategory.h"
 #include "representation.h"
+#include "stats.h"
 
 namespace amm
 {
@@ -34,24 +35,20 @@ namespace amm
 	private:
 		std::vector<std::string> _desktop_file_names;
 
-		size_t _total_parsed_files;
-		size_t _total_unclassified_parsed_files;
-		std::vector<std::string> _unparsed_file_names;
+		amm::stats _stats;
 
 		amm::icon_service _icon_service;
 		std::vector<amm::subcategory> _subcategories;
 		amm::subcategory _unclassified_subcategory;
 
-		void classify(amm::desktop_file entry);
+		void classify(amm::desktop_file entry, std::string file_name);
 		void create_default_categories();
 
 	public:
 		menu();
 
 		std::vector<amm::subcategory> subcategories() const;
-		size_t total_parsed_files() const;
-		size_t total_unclassified_parsed_files() const;
-		std::vector<std::string> unparsed_file_names() const;
+		amm::stats stats() const;
 
 		void load_custom_categories(std::vector<std::string> lines);
 		void register_icon_service(amm::icon_service icon_service);

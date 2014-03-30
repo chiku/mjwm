@@ -28,8 +28,6 @@
 
 amm::menu::menu()
 {
-	_total_parsed_files = 0;
-	_total_unclassified_parsed_files = 0;
 	_unclassified_subcategory = amm::subcategory("Others", "others", "Others");
 
 	create_default_categories();
@@ -86,8 +84,6 @@ amm::menu::register_icon_service(amm::icon_service icon_service)
 void
 amm::menu::populate(std::vector<std::string> desktop_file_names)
 {
-	_unparsed_file_names.clear();
-
 	std::vector<std::string>::const_iterator name;
 	for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
 		std::string line;
@@ -100,9 +96,9 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
 			}
 
 			if (desktop_file.is_valid()) {
-				classify(desktop_file);
+				classify(desktop_file, *name);
 			} else {
-				_unparsed_file_names.push_back(*name);
+				_stats.add_unparsed_file(*name);
 			}
 
 			file.close();
@@ -112,12 +108,11 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
 	_subcategories.push_back(_unclassified_subcategory);
 }
 
+// TODO : desktop file should store which file it was created from
 void
-amm::menu::classify(amm::desktop_file desktop_file)
+amm::menu::classify(amm::desktop_file desktop_file, std::string desktop_file_name)
 {
 	bool classified = false;
-
-	_total_parsed_files += 1;
 
 	std::vector<amm::subcategory>::iterator subcategory;
 	for (subcategory = _subcategories.begin(); subcategory != _subcategories.end(); ++subcategory) {
@@ -127,8 +122,10 @@ amm::menu::classify(amm::desktop_file desktop_file)
 		}
 	}
 
-	if (!classified) {
-		_total_unclassified_parsed_files += 1;
+	if (classified) {
+		_stats.add_classified_file(desktop_file_name);
+	} else {
+		_stats.add_unclassified_file(desktop_file_name);
 		_unclassified_subcategory.add_desktop_file(desktop_file);
 	}
 }
@@ -139,22 +136,10 @@ amm::menu::subcategories() const
 	return _subcategories;
 }
 
-size_t
-amm::menu::total_parsed_files() const
+amm::stats
+amm::menu::stats() const
 {
-	return _total_parsed_files;
-}
-
-size_t
-amm::menu::total_unclassified_parsed_files() const
-{
-	return _total_unclassified_parsed_files;
-}
-
-std::vector<std::string>
-amm::menu::unparsed_file_names() const
-{
-	return _unparsed_file_names;
+	return _stats;
 }
 
 void
