@@ -19,7 +19,7 @@ mjwm_SOURCES = src/stringx.cpp \
                src/mjwm.cpp
 
 mjwmdir=$(datadir)/mjwm
-mjwm_DATA = data/default.mjwm
+mjwm_DATA = data/default.mjwm data/puppy.mjwm
 man1_MANS = doc/mjwm.1
 
 check_PROGRAMS = mjwm_vectorx_test \
