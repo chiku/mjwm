@@ -1,17 +1,17 @@
 // QUnit.hpp - a simple unit test framework for C++
-// 
+//
 // Typical usage:
-// 
+//
 // #include "QUnit.hpp"
-// 
+//
 // int main() {
 //   QUnit::UnitTest qunit(std::cerr, QUnit::verbose);
-// 
+//
 //   QUNIT_IS_TRUE(true);
 //   QUNIT_IS_FALSE(4!=4);
 //   QUNIT_IS_EQUAL(42, 42.0);
 //   QUNIT_IS_NOT_EQUAL(42,"43");
-// 
+//
 //   return qunit.errors();
 // }
 //
@@ -39,20 +39,20 @@
 namespace QUnit {
 
     enum { silent, quiet, normal, verbose, noisy };
-      
+
     class UnitTest {
-        
+
     public:
         UnitTest(std::ostream & out, int verboseLevel);
         ~UnitTest();
-          
+
         void verboseLevel(int level);
         int  verboseLevel();
 
         void printStatus();
-        
+
         int  errors() const;
-          
+
         void evaluate(bool, bool,
                       std::string, std::string, std::string, std::string,
                       const char *, int, const char *);
@@ -63,16 +63,16 @@ namespace QUnit {
         int tests_;
         std::ostream & out_;
     };
-  
+
     inline UnitTest::UnitTest(std::ostream & out, int verboseLevel)
         : verboseLevel_(verboseLevel) , errors_(0) , tests_(0) , out_(out) {
     }
-  
+
     inline UnitTest::~UnitTest() {
-        if ( verboseLevel_ > quiet ) 
+        if ( verboseLevel_ > quiet )
             printStatus();
     }
-  
+
     inline void UnitTest::verboseLevel(int level) {
         verboseLevel_ = level;
     }
@@ -86,14 +86,14 @@ namespace QUnit {
              << tests_ << " tests, " << ( tests_ - errors_ ) << " ok, "
              << errors_ << " failed)" << std::endl;
     }
-  
+
     inline int UnitTest::errors() const {
         return errors_;
     }
-  
+
     inline void UnitTest::evaluate(
         bool compare, bool result,
-        std::string val1, std::string val2, 
+        std::string val1, std::string val2,
         std::string str1, std::string str2,
         const char * file, int line, const char * func) {
 
@@ -103,7 +103,7 @@ namespace QUnit {
 
         if( (ok && !(verboseLevel_ > normal)) || verboseLevel_ == silent )
             return;
-  
+
         out_ << file << ( ok ? ";" : ":" ) << line << ": ";
         out_ << ( ok ? "OK/" : "FAILED/" ) << func << "(): ";
         if( compare ) {

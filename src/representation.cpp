@@ -1,19 +1,19 @@
 /*
-	This file is part of mjwm.
-	Copyright (C) 2014  Chirantan Mitra <chirantan.mitra@gmail.com>
+  This file is part of mjwm.
+  Copyright (C) 2014  Chirantan Mitra <chirantan.mitra@gmail.com>
 
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <string>
@@ -25,12 +25,12 @@ amm::representation::base::~base() {}
 std::string
 amm::representation::menu_start::name()
 {
-	return "Menu start";
+  return "Menu start";
 }
 std::string
 amm::representation::menu_start::visit(amm::transformer::base &transformer)
 {
-	return transformer.transform(this);
+  return transformer.transform(this);
 }
 amm::representation::menu_start::~menu_start() {}
 
@@ -38,81 +38,81 @@ amm::representation::menu_start::~menu_start() {}
 std::string
 amm::representation::menu_end::name()
 {
-	return "Menu end";
+  return "Menu end";
 }
 std::string
 amm::representation::menu_end::visit(amm::transformer::base &transformer)
 {
-	return transformer.transform(this);
+  return transformer.transform(this);
 }
 amm::representation::menu_end::~menu_end() {}
 
 
 amm::representation::subcategory_start::subcategory_start(std::string name, std::string icon)
 {
-	_name = name;
-	_icon = icon;
+  _name = name;
+  _icon = icon;
 }
 std::string
 amm::representation::subcategory_start::name()
 {
-	return _name;
+  return _name;
 }
 std::string
 amm::representation::subcategory_start::icon()
 {
-	return _icon;
+  return _icon;
 }
 std::string
 amm::representation::subcategory_start::visit(amm::transformer::base &transformer)
 {
-	return transformer.transform(this);
+  return transformer.transform(this);
 }
 amm::representation::subcategory_start::~subcategory_start() {}
 
 
 amm::representation::subcategory_end::subcategory_end(std::string name)
 {
-	_name = name;
+  _name = name;
 }
 
 std::string
 amm::representation::subcategory_end::name()
 {
-	return _name + " end";
+  return _name + " end";
 }
 std::string
 amm::representation::subcategory_end::visit(amm::transformer::base &transformer)
 {
-	return transformer.transform(this);
+  return transformer.transform(this);
 }
 amm::representation::subcategory_end::~subcategory_end() {}
 
 
 amm::representation::menu_entry::menu_entry(std::string name, std::string icon, std::string executable)
 {
-	_name = name;
-	_icon = icon;
-	_executable = executable;
+  _name = name;
+  _icon = icon;
+  _executable = executable;
 }
 std::string
 amm::representation::menu_entry::name()
 {
-	return _name;
+  return _name;
 }
 std::string
 amm::representation::menu_entry::icon()
 {
-	return _icon;
+  return _icon;
 }
 std::string
 amm::representation::menu_entry::executable()
 {
-	return _executable;
+  return _executable;
 }
 std::string
 amm::representation::menu_entry::visit(amm::transformer::base &transformer)
 {
-	return transformer.transform(this);
+  return transformer.transform(this);
 }
 amm::representation::menu_entry::~menu_entry() {}
