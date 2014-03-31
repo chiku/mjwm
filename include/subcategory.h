@@ -31,10 +31,10 @@ namespace amm
 	class subcategory
 	{
 	private:
-		std::string _display_name;
-		std::vector<std::string> _classification_names;
-		std::string _icon_name;
-		std::vector<amm::desktop_file> _desktop_files;
+		std::string display_name_;
+		std::vector<std::string> classification_names_;
+		std::string icon_name_;
+		std::vector<amm::desktop_file> desktop_files_;
 
 	public:
 		subcategory();

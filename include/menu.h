@@ -33,13 +33,13 @@ namespace amm
 	class menu
 	{
 	private:
-		std::vector<std::string> _desktop_file_names;
+		std::vector<std::string> desktop_file_names_;
 
-		amm::stats _stats;
+		amm::stats stats_;
 
-		amm::icon_service _icon_service;
-		std::vector<amm::subcategory> _subcategories;
-		amm::subcategory _unclassified_subcategory;
+		amm::icon_service icon_service_;
+		std::vector<amm::subcategory> subcategories_;
+		amm::subcategory unclassified_subcategory_;
 
 		void classify(amm::desktop_file entry, std::string file_name);
 		void create_default_categories();

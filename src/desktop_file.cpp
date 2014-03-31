@@ -31,73 +31,73 @@ static const std::string NO_DISPLAY = "NoDisplay";
 
 amm::desktop_file::desktop_file()
 {
-  _display = true;
+  display_ = true;
 }
 
 std::string
 amm::desktop_file::name() const
 {
-  return _name;
+  return name_;
 }
 
 std::string
 amm::desktop_file::icon() const
 {
-  return _icon;
+  return icon_;
 }
 
 std::string
 amm::desktop_file::executable() const
 {
-  return _executable;
+  return executable_;
 }
 
 std::vector<std::string>
 amm::desktop_file::categories() const
 {
-  return _categories;
+  return categories_;
 }
 
 bool
 amm::desktop_file::display() const
 {
-  return _display;
+  return display_;
 }
 
 bool
 amm::desktop_file::operator < (const amm::desktop_file &other) const
 {
-  return _name < other._name;
+  return name_ < other.name_;
 }
 
 bool
 amm::desktop_file::operator > (const amm::desktop_file &other) const
 {
-  return _name > other._name;
+  return name_ > other.name_;
 }
 
 bool
 amm::desktop_file::operator == (const amm::desktop_file &other) const
 {
-  return _name == other._name;
+  return name_ == other.name_;
 }
 
 bool
 amm::desktop_file::operator != (const amm::desktop_file &other) const
 {
-  return _name != other._name;
+  return name_ != other.name_;
 }
 
 bool
 amm::desktop_file::is_valid() const
 {
-  return (_executable.length() > 0) && (_name.length() > 0) && (_icon.length() > 0);
+  return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
 }
 
 bool
 amm::desktop_file::is_a(std::string type) const
 {
-  return std::binary_search(_categories.begin(), _categories.end(), type);
+  return std::binary_search(categories_.begin(), categories_.end(), type);
 }
 
 bool
@@ -126,16 +126,16 @@ amm::desktop_file::populate(std::string line)
   std::string trimmed_first_part = amm::stringx(first_part).trim();
 
   if (trimmed_first_part == NAME) {
-    _name = amm::stringx(second_part).trim();
+    name_ = amm::stringx(second_part).trim();
   } else if (trimmed_first_part == ICON) {
-    _icon = amm::stringx(second_part).trim();
+    icon_ = amm::stringx(second_part).trim();
   } else if (trimmed_first_part == EXECUTABLE) {
-    _executable = amm::stringx(second_part).trim();
+    executable_ = amm::stringx(second_part).trim();
   } else if (trimmed_first_part == CATEGORIES) {
-    _categories = amm::stringx(amm::stringx(second_part).trim()).split(";");
-    std::sort(_categories.begin(), _categories.end());
+    categories_ = amm::stringx(amm::stringx(second_part).trim()).split(";");
+    std::sort(categories_.begin(), categories_.end());
   } else if (trimmed_first_part == NO_DISPLAY) {
     std::string trimmed_second_part = amm::stringx(second_part).trim();
-    _display = (trimmed_second_part != "true" && trimmed_second_part != "1");
+    display_ = (trimmed_second_part != "true" && trimmed_second_part != "1");
   }
 }

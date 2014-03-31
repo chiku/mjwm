@@ -25,38 +25,38 @@
 
 amm::stringx::stringx(std::string string)
 {
-  _string = string;
+  string_ = string;
 }
 
 bool
 amm::stringx::ends_with(const std::string delimeter) const
 {
-  const size_t length = _string.length();
+  const size_t length = string_.length();
   const size_t delimeter_length = delimeter.length();
 
-  return ((length >= delimeter_length) && (_string.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
+  return ((length >= delimeter_length) && (string_.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
 }
 
 std::string
 amm::stringx::terminate_with(std::string delimeter)
 {
-  return ends_with(delimeter) ? _string : _string + delimeter;
+  return ends_with(delimeter) ? string_ : string_ + delimeter;
 }
 
 std::string
 amm::stringx::encode() const
 {
   std::string result;
-  result.reserve(_string.size());
+  result.reserve(string_.size());
 
-  for(size_t pos = 0; pos != _string.size(); ++pos) {
-    switch(_string[pos]) {
+  for(size_t pos = 0; pos != string_.size(); ++pos) {
+    switch(string_[pos]) {
       case '&' : result.append("&amp;");       break;
       case '\"': result.append("&quot;");      break;
       case '\'': result.append("&apos;");      break;
       case '<' : result.append("&lt;");        break;
       case '>' : result.append("&gt;");        break;
-      default  : result.append(&_string[pos], 1); break;
+      default  : result.append(&string_[pos], 1); break;
     }
   }
 
@@ -67,22 +67,22 @@ std::string
 amm::stringx::trim() const
 {
   const std::string whitespace = " \t\n";
-  const size_t begin = _string.find_first_not_of(whitespace);
+  const size_t begin = string_.find_first_not_of(whitespace);
 
   if (begin == std::string::npos) {
     return "";
   }
 
-  const size_t end = _string.find_last_not_of(whitespace);
+  const size_t end = string_.find_last_not_of(whitespace);
   const size_t range = end - begin + 1;
 
-  return _string.substr(begin, range);
+  return string_.substr(begin, range);
 }
 
 std::vector<std::string>
 amm::stringx::split(const std::string delimeter) const
 {
-  std::string raw = _string;
+  std::string raw = string_;
   size_t delimeter_length = delimeter.length();
   std::vector<std::string> result;
 
@@ -103,14 +103,14 @@ amm::stringx::split(const std::string delimeter) const
 
 amm::vectorx::vectorx(std::vector<std::string> vector)
 {
-  _vector = vector;
+  vector_ = vector;
 }
 
 std::string
 amm::vectorx::join(std::string delimeter) const
 {
   std::stringstream stream;
-  size_t vector_size = _vector.size();
+  size_t vector_size = vector_.size();
 
   if (vector_size == 0) {
     return "";
@@ -118,10 +118,10 @@ amm::vectorx::join(std::string delimeter) const
 
   if (vector_size >= 2) {
     for (size_t i = 0; i < vector_size - 1; ++i) {
-      stream << _vector[i] << delimeter;
+      stream << vector_[i] << delimeter;
     }
   }
-  stream << _vector[vector_size - 1];
+  stream << vector_[vector_size - 1];
 
   return stream.str();
 }
@@ -131,7 +131,7 @@ amm::vectorx::terminate_with(std::string delimiter) const
 {
   std::vector<std::string> result;
 
-  for (std::vector<std::string>::const_iterator i = _vector.begin(); i != _vector.end(); ++i) {
+  for (std::vector<std::string>::const_iterator i = vector_.begin(); i != vector_.end(); ++i) {
     result.push_back(amm::stringx(*i).terminate_with(delimiter));
   }
 
@@ -141,7 +141,7 @@ amm::vectorx::terminate_with(std::string delimiter) const
 std::vector<std::string>
 amm::vectorx::unique() const
 {
-  std::vector<std::string> result = _vector;
+  std::vector<std::string> result = vector_;
 
   std::sort(result.begin(), result.end());
   std::vector<std::string>::iterator it = std::unique(result.begin(), result.end());

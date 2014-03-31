@@ -28,11 +28,11 @@ namespace amm
 	class stats
 	{
 	private:
-		std::vector<std::string> _classified_files;
-		std::vector<std::string> _unclassified_files;
-		std::vector<std::string> _unparsed_files;
-		std::vector<std::string> _suppressed_files;
-		std::vector<std::string> _unhandled_classifications;
+		std::vector<std::string> classified_files_;
+		std::vector<std::string> unclassified_files_;
+		std::vector<std::string> unparsed_files_;
+		std::vector<std::string> suppressed_files_;
+		std::vector<std::string> unhandled_classifications_;
 
 	public:
 		void add_classified_file(std::string file);

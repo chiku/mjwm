@@ -53,7 +53,7 @@ xdg_data_home()
 
 amm::desktop_file_names::desktop_file_names()
 {
-  _capture_bad_paths = true;
+  capture_bad_paths_ = true;
 }
 
 void
@@ -69,7 +69,7 @@ amm::desktop_file_names::register_directories_with_default_fallback(std::vector<
 void
 amm::desktop_file_names::register_directories(std::vector<std::string> directory_names)
 {
-  _directory_names = directory_names;
+  directory_names_ = directory_names;
 }
 
 void
@@ -80,19 +80,19 @@ amm::desktop_file_names::register_default_directories()
 
   for (std::vector<std::string>::const_iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
     std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
-    _directory_names.push_back(directory);
+    directory_names_.push_back(directory);
   }
 
-  _capture_bad_paths = false;
+  capture_bad_paths_ = false;
 }
 
 void
 amm::desktop_file_names::resolve()
 {
-  _desktop_file_names.clear();
-  _bad_paths.clear();
+  desktop_file_names_.clear();
+  bad_paths_.clear();
 
-  std::vector<std::string> terminated_directory_names = amm::vectorx(_directory_names).terminate_with("/");
+  std::vector<std::string> terminated_directory_names = amm::vectorx(directory_names_).terminate_with("/");
   std::vector<std::string> unique_directory_names = amm::vectorx(terminated_directory_names).unique();
 
   std::vector<std::string>::const_iterator name;
@@ -102,8 +102,8 @@ amm::desktop_file_names::resolve()
     if (directory) {
       populate(directory, *name);
       closedir(directory);
-    } else if (_capture_bad_paths) {
-      _bad_paths.push_back(*name);
+    } else if (capture_bad_paths_) {
+      bad_paths_.push_back(*name);
     }
   }
 }
@@ -116,7 +116,7 @@ amm::desktop_file_names::populate(DIR* directory, std::string directory_name)
   while((directory_entry = readdir(directory)) != NULL) {
     std::string file_name = directory_entry->d_name;
     if (amm::stringx(file_name).ends_with(DESKTOP_EXTENSION)) {
-      _desktop_file_names.push_back(directory_name + file_name);
+      desktop_file_names_.push_back(directory_name + file_name);
     }
   }
 }
@@ -124,11 +124,11 @@ amm::desktop_file_names::populate(DIR* directory, std::string directory_name)
 std::vector<std::string>
 amm::desktop_file_names::all() const
 {
-  return _desktop_file_names;
+  return desktop_file_names_;
 }
 
 std::vector<std::string>
 amm::desktop_file_names::bad_paths() const
 {
-  return _bad_paths;
+  return bad_paths_;
 }

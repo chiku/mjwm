@@ -50,18 +50,18 @@ amm::representation::menu_end::~menu_end() {}
 
 amm::representation::subcategory_start::subcategory_start(std::string name, std::string icon)
 {
-  _name = name;
-  _icon = icon;
+  name_ = name;
+  icon_ = icon;
 }
 std::string
 amm::representation::subcategory_start::name()
 {
-  return _name;
+  return name_;
 }
 std::string
 amm::representation::subcategory_start::icon()
 {
-  return _icon;
+  return icon_;
 }
 std::string
 amm::representation::subcategory_start::visit(amm::transformer::base &transformer)
@@ -73,13 +73,13 @@ amm::representation::subcategory_start::~subcategory_start() {}
 
 amm::representation::subcategory_end::subcategory_end(std::string name)
 {
-  _name = name;
+  name_ = name;
 }
 
 std::string
 amm::representation::subcategory_end::name()
 {
-  return _name + " end";
+  return name_ + " end";
 }
 std::string
 amm::representation::subcategory_end::visit(amm::transformer::base &transformer)
@@ -91,24 +91,24 @@ amm::representation::subcategory_end::~subcategory_end() {}
 
 amm::representation::menu_entry::menu_entry(std::string name, std::string icon, std::string executable)
 {
-  _name = name;
-  _icon = icon;
-  _executable = executable;
+  name_ = name;
+  icon_ = icon;
+  executable_ = executable;
 }
 std::string
 amm::representation::menu_entry::name()
 {
-  return _name;
+  return name_;
 }
 std::string
 amm::representation::menu_entry::icon()
 {
-  return _icon;
+  return icon_;
 }
 std::string
 amm::representation::menu_entry::executable()
 {
-  return _executable;
+  return executable_;
 }
 std::string
 amm::representation::menu_entry::visit(amm::transformer::base &transformer)

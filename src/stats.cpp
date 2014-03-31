@@ -27,79 +27,79 @@
 void
 amm::stats::add_classified_file(std::string file)
 {
-  _classified_files.push_back(file);
+  classified_files_.push_back(file);
 }
 
 void
 amm::stats::add_unclassified_file(std::string file)
 {
-  _unclassified_files.push_back(file);
+  unclassified_files_.push_back(file);
 }
 
 void
 amm::stats::add_suppressed_file(std::string file)
 {
-  _suppressed_files.push_back(file);
+  suppressed_files_.push_back(file);
 }
 
 void
 amm::stats::add_unparsed_file(std::string file)
 {
-  _unparsed_files.push_back(file);
+  unparsed_files_.push_back(file);
 }
 
 void
 amm::stats::add_unhandled_classifications(std::vector<std::string> classifications)
 {
-  _unhandled_classifications.insert(_unhandled_classifications.begin(), classifications.begin(), classifications.end());
+  unhandled_classifications_.insert(unhandled_classifications_.begin(), classifications.begin(), classifications.end());
 }
 
 size_t
 amm::stats::total_files() const
 {
-  return _classified_files.size() + _unclassified_files.size() + _suppressed_files.size() + _unparsed_files.size();
+  return classified_files_.size() + unclassified_files_.size() + suppressed_files_.size() + unparsed_files_.size();
 }
 
 size_t
 amm::stats::total_parsed_files() const
 {
-  return _classified_files.size() + _unclassified_files.size();
+  return classified_files_.size() + unclassified_files_.size();
 }
 
 size_t
 amm::stats::total_unclassified_files() const
 {
-  return _unclassified_files.size();
+  return unclassified_files_.size();
 }
 
 size_t
 amm::stats::total_suppressed_files() const
 {
-  return _suppressed_files.size();
+  return suppressed_files_.size();
 }
 
 size_t
 amm::stats::total_unparsed_files() const
 {
-  return _unparsed_files.size();
+  return unparsed_files_.size();
 }
 
 std::vector<std::string>
 amm::stats::unparsed_files() const
 {
-  return _unparsed_files;
+  return unparsed_files_;
 }
 
 std::vector<std::string>
 amm::stats::unhandled_classifications()
 {
-  if (_unhandled_classifications.size() > 1) {
-    std::sort(_unhandled_classifications.begin(), _unhandled_classifications.end());
-    std::vector<std::string>::iterator it = std::unique(_unhandled_classifications.begin(), _unhandled_classifications.end());
-    _unhandled_classifications.resize(std::distance(_unhandled_classifications.begin(), it));
+  if (unhandled_classifications_.size() > 1) {
+    std::sort(unhandled_classifications_.begin(), unhandled_classifications_.end());
+    std::vector<std::string>::iterator it = std::unique(unhandled_classifications_.begin(), unhandled_classifications_.end());
+    unhandled_classifications_.resize(std::distance(unhandled_classifications_.begin(), it));
   }
 
-  return _unhandled_classifications;
+  return unhandled_classifications_;
 }
 
 std::string
@@ -121,7 +121,7 @@ amm::stats::summary() const
   stream << short_summary();
 
   if (total_unparsed_files() > 0) {
-    stream << "List of unparsed files: " << amm::vectorx(_unparsed_files).join(", ") << std::endl;
+    stream << "List of unparsed files: " << amm::vectorx(unparsed_files_).join(", ") << std::endl;
   }
 
   return stream.str();
@@ -134,14 +134,14 @@ amm::stats::long_summary()
   stream << summary();
 
   if (total_suppressed_files() > 0) {
-    stream << "List of suppressed files: " << amm::vectorx(_suppressed_files).join(", ") << std::endl;
+    stream << "List of suppressed files: " << amm::vectorx(suppressed_files_).join(", ") << std::endl;
   }
 
   if (total_unclassified_files() > 0) {
-    stream << "List of unclassified files: " << amm::vectorx(_unclassified_files).join(", ") << std::endl;
+    stream << "List of unclassified files: " << amm::vectorx(unclassified_files_).join(", ") << std::endl;
   }
 
-  if (_unhandled_classifications.size() > 0) {
+  if (unhandled_classifications_.size() > 0) {
     stream << "List of unhandled classifications: " << amm::vectorx(unhandled_classifications()).join(", ") << std::endl;
   }
 

@@ -55,8 +55,8 @@ namespace amm
 		class subcategory_start : public base
 		{
 		private:
-			std::string _name;
-			std::string _icon;
+			std::string name_;
+			std::string icon_;
 		public:
 			subcategory_start(std::string name, std::string icon);
 			virtual std::string name();
@@ -68,7 +68,7 @@ namespace amm
 		class subcategory_end : public base
 		{
 		private:
-			std::string _name;
+			std::string name_;
 		public:
 			subcategory_end(std::string name);
 			virtual std::string name();
@@ -80,9 +80,9 @@ namespace amm
 		class menu_entry : public base
 		{
 		private:
-			std::string _name;
-			std::string _icon;
-			std::string _executable;
+			std::string name_;
+			std::string icon_;
+			std::string executable_;
 		public:
 			menu_entry(std::string name, std::string icon, std::string executable);
 			virtual std::string name();

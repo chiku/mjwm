@@ -25,9 +25,9 @@
 
 amm::command_line_options::command_line_options()
 {
-  _is_help = false;
-  _is_version = false;
-  _output_file_name = "./automenu";
+  is_help_ = false;
+  is_version_ = false;
+  output_file_name_ = "./automenu";
 }
 
 bool
@@ -58,42 +58,42 @@ amm::command_line_options::parse(int argc, char* const* argv)
     switch (chosen_option) {
       case 0:
         if (help_flag == 1) {
-          _is_help = true;
+          is_help_ = true;
         }
         if (version_flag == 1) {
-          _is_version = true;
+          is_version_ = true;
         }
         break;
 
       case 'o':
-        _output_file_name = optarg;
+        output_file_name_ = optarg;
         break;
 
       case 'i':
-        _input_directory_names = amm::stringx(optarg).split(":");
+        input_directory_names_ = amm::stringx(optarg).split(":");
         break;
 
       case 's':
-        _input_directory_names = amm::stringx(optarg).split(":");
-        _deprecations.push_back("-s is deprecated. Please use -i instead.");
+        input_directory_names_ = amm::stringx(optarg).split(":");
+        deprecations_.push_back("-s is deprecated. Please use -i instead.");
         break;
 
       case 'c':
-        _category_file_name = optarg;
+        category_file_name_ = optarg;
         break;
 
       case 'a':
-        _icon_extension = ".png";
+        icon_extension_ = ".png";
         break;
 
       case 'h':
-        _is_help = true;
-        _deprecations.push_back("-h is deprecated. Please use --help instead.");
+        is_help_ = true;
+        deprecations_.push_back("-h is deprecated. Please use --help instead.");
         break;
 
       case 'v':
-        _is_version = true;
-        _deprecations.push_back("-v is deprecated. Please use --version instead.");
+        is_version_ = true;
+        deprecations_.push_back("-v is deprecated. Please use --version instead.");
         break;
 
       case '?':
@@ -112,41 +112,41 @@ amm::command_line_options::parse(int argc, char* const* argv)
 bool
 amm::command_line_options::is_help() const
 {
-  return _is_help;
+  return is_help_;
 }
 
 bool
 amm::command_line_options::is_version() const
 {
-  return _is_version;
+  return is_version_;
 }
 
 std::string
 amm::command_line_options::output_file_name() const
 {
-  return _output_file_name;
+  return output_file_name_;
 }
 
 std::vector<std::string>
 amm::command_line_options::input_directory_names() const
 {
-  return _input_directory_names;
+  return input_directory_names_;
 }
 
 std::string
 amm::command_line_options::category_file_name() const
 {
-  return _category_file_name;
+  return category_file_name_;
 }
 
 std::string
 amm::command_line_options::icon_extension() const
 {
-  return _icon_extension;
+  return icon_extension_;
 }
 
 std::vector<std::string>
 amm::command_line_options::deprecations() const
 {
-  return _deprecations;
+  return deprecations_;
 }

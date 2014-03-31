@@ -27,7 +27,7 @@ namespace amm
 	class stringx
 	{
 	private:
-		std::string _string;
+		std::string string_;
 
 	public:
 		stringx(std::string string);
@@ -41,7 +41,7 @@ namespace amm
 	class vectorx
 	{
 	private:
-		std::vector<std::string> _vector;
+		std::vector<std::string> vector_;
 
 	public:
 		vectorx(std::vector<std::string> vector);

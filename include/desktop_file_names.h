@@ -31,10 +31,10 @@ namespace amm
 	class desktop_file_names
 	{
 	private:
-		std::vector<std::string> _directory_names;
-		std::vector<std::string> _desktop_file_names;
-		std::vector<std::string> _bad_paths;
-		bool _capture_bad_paths;
+		std::vector<std::string> directory_names_;
+		std::vector<std::string> desktop_file_names_;
+		std::vector<std::string> bad_paths_;
+		bool capture_bad_paths_;
 
 		void populate(DIR* directory, std::string directory_name);
 

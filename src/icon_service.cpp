@@ -23,11 +23,11 @@
 void
 amm::icon_service::register_extension(std::string extension)
 {
-  _extension = extension;
+  extension_ = extension;
 }
 
 std::string
 amm::icon_service::resolved_name(std::string icon_name) const
 {
-  return icon_name + _extension;
+  return icon_name + extension_;
 }

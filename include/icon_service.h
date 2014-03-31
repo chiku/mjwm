@@ -28,7 +28,7 @@ namespace amm
 	class icon_service
 	{
 	private:
-		std::string _extension;
+		std::string extension_;
 
 	public:
 		void register_extension(std::string extension);

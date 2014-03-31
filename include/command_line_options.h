@@ -28,13 +28,13 @@ namespace amm
 	class command_line_options
 	{
 	private:
-		bool _is_help;
-		bool _is_version;
-		std::string _output_file_name;
-		std::vector<std::string> _input_directory_names;
-		std::string _category_file_name;
-		std::string _icon_extension;
-		std::vector<std::string> _deprecations;
+		bool is_help_;
+		bool is_version_;
+		std::string output_file_name_;
+		std::vector<std::string> input_directory_names_;
+		std::string category_file_name_;
+		std::string icon_extension_;
+		std::vector<std::string> deprecations_;
 
 	public:
 		command_line_options();

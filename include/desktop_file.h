@@ -28,11 +28,11 @@ namespace amm
 	class desktop_file
 	{
 	private:
-		std::string _name;
-		std::string _executable;
-		std::string _icon;
-		std::vector<std::string> _categories;
-		bool _display;
+		std::string name_;
+		std::string executable_;
+		std::string icon_;
+		std::vector<std::string> categories_;
+		bool display_;
 
 	public:
 		desktop_file();
