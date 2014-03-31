@@ -37,16 +37,12 @@ namespace amm
   class main
   {
   private:
-    int _argc;
-    char **_argv;
-
     amm::command_line_options _command_line_options;
     amm::menu _menu;
     std::vector<std::string> _desktop_file_names;
 
   public:
-    main(int argc, char **argv);
-    void load_command_line_option();
+    void load_command_line_option(int argc, char **argv);
     void register_icon_service();
     void read_categories();
     void read_desktop_files();
@@ -56,17 +52,11 @@ namespace amm
   };
 }
 
-amm::main::main(int argc, char **argv)
-{
-  _argc = argc;
-  _argv = argv;
-}
-
 void
-amm::main::load_command_line_option()
+amm::main::load_command_line_option(int argc, char **argv)
 {
   _command_line_options = amm::command_line_options();
-  if (!_command_line_options.parse(_argc, _argv)) {
+  if (!_command_line_options.parse(argc, argv)) {
     std::cerr << amm::messages::option_error();
     exit(2);
   }
@@ -176,8 +166,8 @@ amm::main::print_summary()
 
 int main(int argc, char *argv[])
 {
-  amm::main operation(argc, argv);
-  operation.load_command_line_option();
+  amm::main operation;
+  operation.load_command_line_option(argc, argv);
   operation.register_icon_service();
   operation.read_categories();
   operation.read_desktop_files();
