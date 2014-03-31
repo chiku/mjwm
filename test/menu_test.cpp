@@ -18,15 +18,57 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 #include "QUnit.hpp"
 
 #include "menu.h"
 #include "representation.h"
-#include "jwm/transformer.h"
+#include "transformer.h"
 
 namespace amm
 {
+  namespace transformer
+  {
+    class test : public base
+    {
+      std::string transform(amm::representation::menu_start *entry)
+      {
+        std::stringstream stream;
+        stream << "Menu start--> name: " << entry->name();
+        return stream.str();
+      }
+
+      std::string transform(amm::representation::menu_end *entry)
+      {
+        std::stringstream stream;
+        stream << "Menu end--> name: " << entry->name();
+        return stream.str();
+      }
+
+      std::string transform(amm::representation::subcategory_start *entry)
+      {
+        std::stringstream stream;
+        stream << "Subsection start--> name: " << entry->name() << " icon: " << entry->icon();
+        return stream.str();
+      }
+
+      std::string transform(amm::representation::subcategory_end *entry)
+      {
+        std::stringstream stream;
+        stream << "Subsection end--> name: " << entry->name();
+        return stream.str();
+      }
+
+      std::string transform(amm::representation::menu_entry *entry)
+      {
+        std::stringstream stream;
+        stream << "Program--> name: " << entry->name() << " icon: " << entry->icon() << " executable: " << entry->executable();
+        return stream.str();
+      }
+    };
+  }
+
   const std::string fixtures_directory = "test/fixtures/";
 
   // Verifies a collection of desktop files divided in subcategories
@@ -218,17 +260,17 @@ namespace amm
 
       menu.populate(files);
       std::vector<amm::representation::base*> representations = menu.representations();
-      amm::transformer::jwm jwm_transformer;
+      amm::transformer::test test_transformer;
 
       QUNIT_IS_EQUAL(8, representations.size());
-      QUNIT_IS_EQUAL("<JWM>\n<!--Menu start-->", representations[0]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <Menu label=\"Accessories\" icon=\"accessories\">", representations[1]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("    <Program label=\"Mousepad\" icon=\"accessories-text-editor\">mousepad</Program>", representations[2]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <!--Accessories end-->\n  </Menu>", representations[3]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <Menu label=\"Multimedia\" icon=\"multimedia\">", representations[4]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("    <Program label=\"VLC media player\" icon=\"vlc\">/usr/bin/vlc --started-from-file</Program>", representations[5]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <!--Multimedia end-->\n  </Menu>", representations[6]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", representations[7]->visit(jwm_transformer));
+      QUNIT_IS_EQUAL("Menu start--> name: Menu start", representations[0]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection start--> name: Accessories icon: accessories", representations[1]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Program--> name: Mousepad icon: accessories-text-editor executable: mousepad %F", representations[2]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection end--> name: Accessories end", representations[3]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection start--> name: Multimedia icon: multimedia", representations[4]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U", representations[5]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection end--> name: Multimedia end", representations[6]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Menu end--> name: Menu end", representations[7]->visit(test_transformer));
 
       clear_memory(representations);
     }
@@ -245,17 +287,17 @@ namespace amm
 
       menu.populate(files);
       std::vector<amm::representation::base*> representations = menu.representations();
-      amm::transformer::jwm jwm_transformer;
+      amm::transformer::test test_transformer;
 
       QUNIT_IS_EQUAL(8, representations.size());
-      QUNIT_IS_EQUAL("<JWM>\n<!--Menu start-->", representations[0]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <Menu label=\"Accessories\" icon=\"accessories.xpm\">", representations[1]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("    <Program label=\"Mousepad\" icon=\"accessories-text-editor.xpm\">mousepad</Program>", representations[2]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <!--Accessories end-->\n  </Menu>", representations[3]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <Menu label=\"Multimedia\" icon=\"multimedia.xpm\">", representations[4]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("    <Program label=\"VLC media player\" icon=\"vlc.xpm\">/usr/bin/vlc --started-from-file</Program>", representations[5]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("  <!--Multimedia end-->\n  </Menu>", representations[6]->visit(jwm_transformer));
-      QUNIT_IS_EQUAL("<!--Menu end-->\n</JWM>", representations[7]->visit(jwm_transformer));
+      QUNIT_IS_EQUAL("Menu start--> name: Menu start", representations[0]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection start--> name: Accessories icon: accessories.xpm", representations[1]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Program--> name: Mousepad icon: accessories-text-editor.xpm executable: mousepad %F", representations[2]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection end--> name: Accessories end", representations[3]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection start--> name: Multimedia icon: multimedia.xpm", representations[4]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Program--> name: VLC media player icon: vlc.xpm executable: /usr/bin/vlc --started-from-file %U", representations[5]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Subsection end--> name: Multimedia end", representations[6]->visit(test_transformer));
+      QUNIT_IS_EQUAL("Menu end--> name: Menu end", representations[7]->visit(test_transformer));
 
       clear_memory(representations);
     }

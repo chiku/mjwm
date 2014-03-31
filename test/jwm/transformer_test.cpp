@@ -49,35 +49,35 @@ namespace amm
       {
         amm::representation::subcategory_start subcategory_start("Application", "application.png");
         amm::transformer::jwm jwm_transformer;
-        QUNIT_IS_EQUAL("  <Menu label=\"Application\" icon=\"application.png\">", jwm_transformer.transform(&subcategory_start));
+        QUNIT_IS_EQUAL("    <Menu label=\"Application\" icon=\"application.png\">", jwm_transformer.transform(&subcategory_start));
       }
 
       void test_jwm_transformer_XML_escapes_subcategory_start_name()
       {
         amm::representation::subcategory_start subcategory_start("Fun & Games", "application.png");
         amm::transformer::jwm jwm_transformer;
-        QUNIT_IS_EQUAL("  <Menu label=\"Fun &amp; Games\" icon=\"application.png\">", jwm_transformer.transform(&subcategory_start));
+        QUNIT_IS_EQUAL("    <Menu label=\"Fun &amp; Games\" icon=\"application.png\">", jwm_transformer.transform(&subcategory_start));
       }
 
       void test_jwm_transformer_converts_subcategory_end_to_JWM_menu_end_tag()
       {
         amm::representation::subcategory_end subcategory_end("Application");
         amm::transformer::jwm jwm_transformer;
-        QUNIT_IS_EQUAL("  <!--Application end-->\n  </Menu>", jwm_transformer.transform(&subcategory_end));
+        QUNIT_IS_EQUAL("    <!--Application end-->\n    </Menu>", jwm_transformer.transform(&subcategory_end));
       }
 
       void test_jwm_transformer_converts_menu_entry_to_JWM_propram_tag()
       {
         amm::representation::menu_entry menu_entry("Application", "application.png", "/usr/bin/application");
         amm::transformer::jwm jwm_transformer;
-        QUNIT_IS_EQUAL("    <Program label=\"Application\" icon=\"application.png\">/usr/bin/application</Program>", jwm_transformer.transform(&menu_entry));
+        QUNIT_IS_EQUAL("        <Program label=\"Application\" icon=\"application.png\">/usr/bin/application</Program>", jwm_transformer.transform(&menu_entry));
       }
 
       void test_jwm_transformer_XML_escapes_menu_entry_name()
       {
         amm::representation::menu_entry menu_entry("Fun & Games", "application.png", "/usr/bin/application");
         amm::transformer::jwm jwm_transformer;
-        QUNIT_IS_EQUAL("    <Program label=\"Fun &amp; Games\" icon=\"application.png\">/usr/bin/application</Program>", jwm_transformer.transform(&menu_entry));
+        QUNIT_IS_EQUAL("        <Program label=\"Fun &amp; Games\" icon=\"application.png\">/usr/bin/application</Program>", jwm_transformer.transform(&menu_entry));
       }
 
     public:

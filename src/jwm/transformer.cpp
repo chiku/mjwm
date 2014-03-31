@@ -62,7 +62,7 @@ std::string
 amm::transformer::jwm::transform(amm::representation::subcategory_start *entry)
 {
   std::stringstream stream;
-  stream << "  <Menu "
+  stream << "    <Menu "
          << "label=\"" << amm::stringx(entry->name()).encode()
          << "\" icon=\"" << entry->icon()
          << "\">";
@@ -73,9 +73,9 @@ std::string
 amm::transformer::jwm::transform(amm::representation::subcategory_end *entry)
 {
   std::stringstream stream;
-  stream << "  <!--" << entry->name() << "-->"
+  stream << "    <!--" << entry->name() << "-->"
          << std::endl
-         << "  </Menu>";
+         << "    </Menu>";
   return stream.str();
 }
 
@@ -83,7 +83,7 @@ std::string
 amm::transformer::jwm::transform(amm::representation::menu_entry *entry)
 {
   std::stringstream stream;
-  stream << "    <Program "
+  stream << "        <Program "
          << "label=\"" << amm::stringx(entry->name()).encode()
          << "\" icon=\"" << amm::stringx(entry->icon()).encode()
          << "\">"
