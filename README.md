@@ -10,7 +10,7 @@ mjwm creates JWM's menu from (freedesktop) desktop files. Include the generated 
 
 Read more about JWM (Joe's Window Manager) at [http://joewing.net/projects/jwm](http://joewing.net/projects/jwm)
 
-It is based on mjm by insmyic <gminsm@gmail.com> [http://sourceforge.net/projects/mjm](http://sourceforge.net/projects/mjm)
+mjwm is based on mjm by insmyic <gminsm@gmail.com> [http://sourceforge.net/projects/mjm](http://sourceforge.net/projects/mjm)
 
 Dependencies
 ------------
@@ -27,7 +27,7 @@ Installation from source
 * From the root of the application run
 ```script
 ./autogen.sh
-./configure --prefix=/usr/local # Install mjwm to /usr/local
+./configure --prefix=/usr # Install mjwm to /usr, when prefix is not mentioned installs to /usr/local
 make
 sudo make install
 ```
@@ -118,7 +118,7 @@ Running tests
 * From the root of the application run
 ``` script
 ./autogen.sh
-./configure --prefix=/usr/local
+./configure
 VERBOSE=true make check
 ```
 
