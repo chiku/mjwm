@@ -76,7 +76,7 @@ static std::string expected_short_summary_with_values()
          "Unclassified desktop files: 2\n";
 }
 
-SCENARIO("amm::stats", "[stats]") {
+SCENARIO("amm::stats totals", "[stats]") {
   GIVEN("A stat") {
     amm::stats stats;
 
@@ -139,6 +139,13 @@ SCENARIO("amm::stats", "[stats]") {
       THEN("it has no suppressed files")   { REQUIRE(stats.total_suppressed_files() == 0); }
       THEN("it has one unparsed files")    { REQUIRE(stats.total_unparsed_files() == 1); }
     }
+  }
+}
+
+
+SCENARIO("amm::stats summaries", "[stats]") {
+  GIVEN("A stat") {
+    amm::stats stats;
 
     WHEN("different types of files are added") {
       amm::stats stats = populated_stats();

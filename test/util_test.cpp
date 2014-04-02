@@ -121,7 +121,7 @@ SCENARIO("amm::StringX", "[stringx]") {
 }
 
 
-SCENARIO("amm::VectorX", "[VectorX]") {
+SCENARIO("amm::VectorX", "[vectorx]") {
   GIVEN("A VectorX with more than one item") {
     std::vector<std::string> vector;
     vector.push_back("foo");
@@ -137,7 +137,7 @@ SCENARIO("amm::VectorX", "[VectorX]") {
     }
   }
 
-  GIVEN("A VectorX with one item") {
+  GIVEN("A vectorx with one item") {
     std::vector<std::string> vector;
     vector.push_back("foo");
     amm::VectorX VectorX(vector);
@@ -150,7 +150,7 @@ SCENARIO("amm::VectorX", "[VectorX]") {
     }
   }
 
-  GIVEN("A VectorX with some items ending in a delimeter") {
+  GIVEN("A vectorx with some items ending in a delimeter") {
     std::vector<std::string> vector;
     vector.push_back("foo/");
     vector.push_back("bar");
@@ -168,7 +168,7 @@ SCENARIO("amm::VectorX", "[VectorX]") {
     }
   }
 
-  GIVEN("A VectorX with duplicates") {
+  GIVEN("A vectorx with duplicates") {
     std::vector<std::string> vector;
       vector.push_back("foo");
       vector.push_back("bar");
