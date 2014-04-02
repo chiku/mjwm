@@ -17,10 +17,6 @@ mjwm_SOURCES = src/utils.cpp \
                src/stats.cpp \
                src/mjwm.cpp
 
-mjwmdir=$(datadir)/mjwm
-mjwm_DATA = data/default.mjwm data/puppy.mjwm
-man1_MANS = doc/mjwm.1
-
 check_PROGRAMS = mjwm_utils_test \
                  mjwm_desktop_file_test \
                  mjwm_subcategory_test \
@@ -29,6 +25,12 @@ check_PROGRAMS = mjwm_utils_test \
                  mjwm_desktop_file_names_test \
                  mjwm_jwm_transformer_test \
                  mjwm_command_line_options_test
+
+mjwmdir=$(datadir)/mjwm
+mjwm_DATA = data/default.mjwm data/puppy.mjwm
+man1_MANS = doc/mjwm.1
+
+TESTS = $(check_PROGRAMS)
 
 mjwm_utils_test_SOURCES = src/utils.cpp \
                           test/utils_test.cpp
@@ -61,5 +63,3 @@ mjwm_jwm_transformer_test_SOURCES = src/utils.cpp \
 mjwm_command_line_options_test_SOURCES = src/utils.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp
-
-TESTS = $(check_PROGRAMS)

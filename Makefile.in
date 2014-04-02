@@ -555,6 +555,7 @@ mjwm_SOURCES = src/utils.cpp \
 mjwmdir = $(datadir)/mjwm
 mjwm_DATA = data/default.mjwm data/puppy.mjwm
 man1_MANS = doc/mjwm.1
+TESTS = $(check_PROGRAMS)
 mjwm_utils_test_SOURCES = src/utils.cpp \
                           test/utils_test.cpp
 
@@ -594,7 +595,6 @@ mjwm_command_line_options_test_SOURCES = src/utils.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp
 
-TESTS = $(check_PROGRAMS)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
