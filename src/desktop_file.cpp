@@ -20,7 +20,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "utils.h"
+#include "util.h"
 #include "desktop_file.h"
 
 static const std::string NAME       = "Name";
@@ -123,19 +123,19 @@ amm::desktop_file::populate(std::string line)
   std::string first_part = line.substr(0, location);
   std::string second_part = line.substr(location + delim.length(), line.length());
 
-  std::string trimmed_first_part = amm::stringx(first_part).trim();
+  std::string trimmed_first_part = amm::StringX(first_part).Trim();
 
   if (trimmed_first_part == NAME) {
-    name_ = amm::stringx(second_part).trim();
+    name_ = amm::StringX(second_part).Trim();
   } else if (trimmed_first_part == ICON) {
-    icon_ = amm::stringx(second_part).trim();
+    icon_ = amm::StringX(second_part).Trim();
   } else if (trimmed_first_part == EXECUTABLE) {
-    executable_ = amm::stringx(second_part).trim();
+    executable_ = amm::StringX(second_part).Trim();
   } else if (trimmed_first_part == CATEGORIES) {
-    categories_ = amm::stringx(amm::stringx(second_part).trim()).split(";");
+    categories_ = amm::StringX(amm::StringX(second_part).Trim()).Split(";");
     std::sort(categories_.begin(), categories_.end());
   } else if (trimmed_first_part == NO_DISPLAY) {
-    std::string trimmed_second_part = amm::stringx(second_part).trim();
+    std::string trimmed_second_part = amm::StringX(second_part).Trim();
     display_ = (trimmed_second_part != "true" && trimmed_second_part != "1");
   }
 }

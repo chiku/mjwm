@@ -16,39 +16,39 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_UTILS_H
-#define AMM_UTILS_H
+#ifndef AMM_UTIL_H
+#define AMM_UTIL_H
 
 #include <string>
 #include <vector>
 
 namespace amm
 {
-	class stringx
+	class StringX
 	{
 	private:
 		std::string string_;
 
 	public:
-		stringx(std::string string);
-		bool ends_with(const std::string delimiter) const;
-		std::string terminate_with(const std::string end);
-		std::string encode() const;
-		std::string trim() const;
-		std::vector<std::string> split(const std::string delimiter) const;
+		StringX(std::string string);
+		bool EndsWith(const std::string delimiter) const;
+		std::string TerminateWith(const std::string end);
+		std::string Encode() const;
+		std::string Trim() const;
+		std::vector<std::string> Split(const std::string delimiter) const;
 	};
 
-	class vectorx
+	class VectorX
 	{
 	private:
 		std::vector<std::string> vector_;
 
 	public:
-		vectorx(std::vector<std::string> vector);
+		VectorX(std::vector<std::string> vector);
 
-		std::string join(std::string delimiter) const;
-		std::vector<std::string> terminate_with(std::string delimiter) const;
-		std::vector<std::string> unique() const;
+		std::string Join(std::string delimiter) const;
+		std::vector<std::string> TerminateWith(std::string delimiter) const;
+		std::vector<std::string> Unique() const;
 	};
 }
 

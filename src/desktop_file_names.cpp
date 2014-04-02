@@ -21,7 +21,7 @@
 #include <cstdlib>
 #include <dirent.h>
 
-#include "utils.h"
+#include "util.h"
 #include "desktop_file_names.h"
 
 static std::string
@@ -75,11 +75,11 @@ amm::desktop_file_names::register_directories(std::vector<std::string> directory
 void
 amm::desktop_file_names::register_default_directories()
 {
-  std::vector<std::string> directory_bases = amm::stringx(xdg_data_dirs()).split(":");
+  std::vector<std::string> directory_bases = amm::StringX(xdg_data_dirs()).Split(":");
   directory_bases.push_back(xdg_data_home());
 
   for (std::vector<std::string>::const_iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-    std::string directory = amm::stringx(*iter).terminate_with("/") + "applications";
+    std::string directory = amm::StringX(*iter).TerminateWith("/") + "applications";
     directory_names_.push_back(directory);
   }
 
@@ -92,8 +92,8 @@ amm::desktop_file_names::resolve()
   desktop_file_names_.clear();
   bad_paths_.clear();
 
-  std::vector<std::string> terminated_directory_names = amm::vectorx(directory_names_).terminate_with("/");
-  std::vector<std::string> unique_directory_names = amm::vectorx(terminated_directory_names).unique();
+  std::vector<std::string> terminated_directory_names = amm::VectorX(directory_names_).TerminateWith("/");
+  std::vector<std::string> unique_directory_names = amm::VectorX(terminated_directory_names).Unique();
 
   std::vector<std::string>::const_iterator name;
   for (name = unique_directory_names.begin(); name != unique_directory_names.end(); ++name) {
@@ -115,7 +115,7 @@ amm::desktop_file_names::populate(DIR* directory, std::string directory_name)
 
   while((directory_entry = readdir(directory)) != NULL) {
     std::string file_name = directory_entry->d_name;
-    if (amm::stringx(file_name).ends_with(DESKTOP_EXTENSION)) {
+    if (amm::StringX(file_name).EndsWith(DESKTOP_EXTENSION)) {
       desktop_file_names_.push_back(directory_name + file_name);
     }
   }

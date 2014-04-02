@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-#include "utils.h"
+#include "util.h"
 #include "icon_service.h"
 #include "desktop_file.h"
 #include "subcategory.h"
@@ -58,7 +58,7 @@ amm::menu::load_custom_categories(std::vector<std::string> lines)
 
   for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
     if ((*line)[0] != '#') {
-      std::vector<std::string> tokens = amm::stringx(*line).split(":");
+      std::vector<std::string> tokens = amm::StringX(*line).Split(":");
       if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "") {
         std::vector<std::string> classification_names;
         for (size_t i = 2; i < tokens.size(); ++i) {

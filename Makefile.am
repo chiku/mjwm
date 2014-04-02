@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 
 bin_PROGRAMS = mjwm
-mjwm_SOURCES = src/utils.cpp \
+mjwm_SOURCES = src/util.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
                src/representation.cpp \
@@ -17,7 +17,7 @@ mjwm_SOURCES = src/utils.cpp \
                src/stats.cpp \
                src/mjwm.cpp
 
-check_PROGRAMS = mjwm_utils_test \
+check_PROGRAMS = mjwm_util_test \
                  mjwm_desktop_file_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
@@ -32,22 +32,22 @@ man1_MANS = doc/mjwm.1
 
 TESTS = $(check_PROGRAMS)
 
-mjwm_utils_test_SOURCES = src/utils.cpp \
-                          test/utils_test.cpp
-mjwm_desktop_file_test_SOURCES = src/utils.cpp \
+mjwm_util_test_SOURCES = src/util.cpp \
+                         test/util_test.cpp
+mjwm_desktop_file_test_SOURCES = src/util.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
-mjwm_desktop_file_names_test_SOURCES = src/utils.cpp \
+mjwm_desktop_file_names_test_SOURCES = src/util.cpp \
                                        src/desktop_file_names.cpp \
                                        test/desktop_file_names_test.cpp
-mjwm_subcategory_test_SOURCES = src/utils.cpp \
+mjwm_subcategory_test_SOURCES = src/util.cpp \
                                 src/desktop_file.cpp \
                                 src/subcategory.cpp \
                                 test/subcategory_test.cpp
-mjwm_stats_test_SOURCES = src/utils.cpp \
+mjwm_stats_test_SOURCES = src/util.cpp \
                           src/stats.cpp \
                           test/stats_test.cpp
-mjwm_menu_test_SOURCES = src/utils.cpp \
+mjwm_menu_test_SOURCES = src/util.cpp \
                          src/icon_service.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
@@ -56,10 +56,10 @@ mjwm_menu_test_SOURCES = src/utils.cpp \
                          src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
-mjwm_jwm_transformer_test_SOURCES = src/utils.cpp \
+mjwm_jwm_transformer_test_SOURCES = src/util.cpp \
                                     src/representation.cpp \
                                     src/jwm/transformer.cpp \
                                     test/jwm/transformer_test.cpp
-mjwm_command_line_options_test_SOURCES = src/utils.cpp \
+mjwm_command_line_options_test_SOURCES = src/util.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp

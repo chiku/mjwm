@@ -21,15 +21,15 @@
 #include <sstream>
 #include <algorithm>
 
-#include "utils.h"
+#include "util.h"
 
-amm::stringx::stringx(std::string string)
+amm::StringX::StringX(std::string string)
 {
   string_ = string;
 }
 
 bool
-amm::stringx::ends_with(const std::string delimeter) const
+amm::StringX::EndsWith(const std::string delimeter) const
 {
   const size_t length = string_.length();
   const size_t delimeter_length = delimeter.length();
@@ -38,13 +38,13 @@ amm::stringx::ends_with(const std::string delimeter) const
 }
 
 std::string
-amm::stringx::terminate_with(std::string delimeter)
+amm::StringX::TerminateWith(std::string delimeter)
 {
-  return ends_with(delimeter) ? string_ : string_ + delimeter;
+  return EndsWith(delimeter) ? string_ : string_ + delimeter;
 }
 
 std::string
-amm::stringx::encode() const
+amm::StringX::Encode() const
 {
   std::string result;
   result.reserve(string_.size());
@@ -64,7 +64,7 @@ amm::stringx::encode() const
 }
 
 std::string
-amm::stringx::trim() const
+amm::StringX::Trim() const
 {
   const std::string whitespace = " \t\n";
   const size_t begin = string_.find_first_not_of(whitespace);
@@ -80,13 +80,13 @@ amm::stringx::trim() const
 }
 
 std::vector<std::string>
-amm::stringx::split(const std::string delimeter) const
+amm::StringX::Split(const std::string delimeter) const
 {
   std::string raw = string_;
   size_t delimeter_length = delimeter.length();
   std::vector<std::string> result;
 
-  raw = amm::stringx(raw).terminate_with(delimeter);
+  raw = amm::StringX(raw).TerminateWith(delimeter);
 
   size_t start = 0U;
   size_t end = raw.find(delimeter);
@@ -101,13 +101,13 @@ amm::stringx::split(const std::string delimeter) const
 }
 
 
-amm::vectorx::vectorx(std::vector<std::string> vector)
+amm::VectorX::VectorX(std::vector<std::string> vector)
 {
   vector_ = vector;
 }
 
 std::string
-amm::vectorx::join(std::string delimeter) const
+amm::VectorX::Join(std::string delimeter) const
 {
   std::stringstream stream;
   size_t vector_size = vector_.size();
@@ -127,19 +127,19 @@ amm::vectorx::join(std::string delimeter) const
 }
 
 std::vector<std::string>
-amm::vectorx::terminate_with(std::string delimiter) const
+amm::VectorX::TerminateWith(std::string delimiter) const
 {
   std::vector<std::string> result;
 
   for (std::vector<std::string>::const_iterator i = vector_.begin(); i != vector_.end(); ++i) {
-    result.push_back(amm::stringx(*i).terminate_with(delimiter));
+    result.push_back(amm::StringX(*i).TerminateWith(delimiter));
   }
 
   return result;
 }
 
 std::vector<std::string>
-amm::vectorx::unique() const
+amm::VectorX::Unique() const
 {
   std::vector<std::string> result = vector_;
 

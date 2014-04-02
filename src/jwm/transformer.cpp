@@ -20,14 +20,14 @@
 #include <sstream>
 #include <vector>
 
-#include "utils.h"
+#include "util.h"
 #include "jwm/transformer.h"
 
 static std::string
 remove_field_code(std::string input)
 {
   std::vector<std::string> result;
-  std::vector<std::string> tokens = amm::stringx(input).split(" ");
+  std::vector<std::string> tokens = amm::StringX(input).Split(" ");
 
   for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
     if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
@@ -35,7 +35,7 @@ remove_field_code(std::string input)
     }
   }
 
-  return amm::vectorx(result).join(" ");
+  return amm::VectorX(result).Join(" ");
 }
 
 std::string
@@ -63,7 +63,7 @@ amm::transformer::jwm::transform(amm::representation::subcategory_start *entry)
 {
   std::stringstream stream;
   stream << "    <Menu "
-         << "label=\"" << amm::stringx(entry->name()).encode()
+         << "label=\"" << amm::StringX(entry->name()).Encode()
          << "\" icon=\"" << entry->icon()
          << "\">";
   return stream.str();
@@ -84,8 +84,8 @@ amm::transformer::jwm::transform(amm::representation::menu_entry *entry)
 {
   std::stringstream stream;
   stream << "        <Program "
-         << "label=\"" << amm::stringx(entry->name()).encode()
-         << "\" icon=\"" << amm::stringx(entry->icon()).encode()
+         << "label=\"" << amm::StringX(entry->name()).Encode()
+         << "\" icon=\"" << amm::StringX(entry->icon()).Encode()
          << "\">"
          << remove_field_code(entry->executable())
          << "</Program>";

@@ -22,7 +22,7 @@
 #include <vector>
 #include <cstdlib>
 
-#include "utils.h"
+#include "util.h"
 #include "messages.h"
 #include "command_line_options.h"
 #include "icon_service.h"
@@ -62,7 +62,7 @@ amm::main::load_command_line_option(int argc, char **argv)
   }
   std::vector<std::string> deprecations = command_line_options_.deprecations();
   if (deprecations.size() > 0) {
-    std::cerr << amm::vectorx(deprecations).join("\n") << std::endl << "Proceeding..." << std::endl;
+    std::cerr << amm::VectorX(deprecations).Join("\n") << std::endl << "Proceeding..." << std::endl;
   }
   if (command_line_options_.is_help()) {
     std::cout << amm::messages::help() << std::endl;
@@ -115,7 +115,7 @@ amm::main::read_desktop_files()
 
   std::vector<std::string> bad_paths = desktop_file_names.bad_paths();
   if (bad_paths.size() > 0) {
-    std::cerr << "These paths couldn't be opened: " << amm::vectorx(bad_paths).join(", ");
+    std::cerr << "These paths couldn't be opened: " << amm::VectorX(bad_paths).Join(", ");
     std::cerr << std::endl << "Proceeding..." << std::endl;
   }
   desktop_file_names_ = desktop_file_names.all();

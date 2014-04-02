@@ -21,7 +21,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "utils.h"
+#include "util.h"
 #include "stats.h"
 
 void
@@ -121,7 +121,7 @@ amm::stats::summary() const
   stream << short_summary();
 
   if (total_unparsed_files() > 0) {
-    stream << "List of unparsed files: " << amm::vectorx(unparsed_files_).join(", ") << std::endl;
+    stream << "List of unparsed files: " << amm::VectorX(unparsed_files_).Join(", ") << std::endl;
   }
 
   return stream.str();
@@ -134,15 +134,15 @@ amm::stats::long_summary()
   stream << summary();
 
   if (total_suppressed_files() > 0) {
-    stream << "List of suppressed files: " << amm::vectorx(suppressed_files_).join(", ") << std::endl;
+    stream << "List of suppressed files: " << amm::VectorX(suppressed_files_).Join(", ") << std::endl;
   }
 
   if (total_unclassified_files() > 0) {
-    stream << "List of unclassified files: " << amm::vectorx(unclassified_files_).join(", ") << std::endl;
+    stream << "List of unclassified files: " << amm::VectorX(unclassified_files_).Join(", ") << std::endl;
   }
 
   if (unhandled_classifications_.size() > 0) {
-    stream << "List of unhandled classifications: " << amm::vectorx(unhandled_classifications()).join(", ") << std::endl;
+    stream << "List of unhandled classifications: " << amm::VectorX(unhandled_classifications()).Join(", ") << std::endl;
   }
 
   return stream.str();

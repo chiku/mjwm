@@ -78,7 +78,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = mjwm$(EXEEXT)
-check_PROGRAMS = mjwm_utils_test$(EXEEXT) \
+check_PROGRAMS = mjwm_util_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) mjwm_subcategory_test$(EXEEXT) \
 	mjwm_stats_test$(EXEEXT) mjwm_menu_test$(EXEEXT) \
 	mjwm_desktop_file_names_test$(EXEEXT) \
@@ -107,7 +107,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" \
 	"$(DESTDIR)$(mjwmdir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mjwm_OBJECTS = src/utils.$(OBJEXT) src/desktop_file.$(OBJEXT) \
+am_mjwm_OBJECTS = src/util.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
 	src/menu.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
 	src/icon_service.$(OBJEXT) src/desktop_file_names.$(OBJEXT) \
@@ -115,48 +115,48 @@ am_mjwm_OBJECTS = src/utils.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
-am_mjwm_command_line_options_test_OBJECTS = src/utils.$(OBJEXT) \
+am_mjwm_command_line_options_test_OBJECTS = src/util.$(OBJEXT) \
 	src/command_line_options.$(OBJEXT) \
 	test/command_line_options_test.$(OBJEXT)
 mjwm_command_line_options_test_OBJECTS =  \
 	$(am_mjwm_command_line_options_test_OBJECTS)
 mjwm_command_line_options_test_LDADD = $(LDADD)
-am_mjwm_desktop_file_names_test_OBJECTS = src/utils.$(OBJEXT) \
+am_mjwm_desktop_file_names_test_OBJECTS = src/util.$(OBJEXT) \
 	src/desktop_file_names.$(OBJEXT) \
 	test/desktop_file_names_test.$(OBJEXT)
 mjwm_desktop_file_names_test_OBJECTS =  \
 	$(am_mjwm_desktop_file_names_test_OBJECTS)
 mjwm_desktop_file_names_test_LDADD = $(LDADD)
-am_mjwm_desktop_file_test_OBJECTS = src/utils.$(OBJEXT) \
+am_mjwm_desktop_file_test_OBJECTS = src/util.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) test/desktop_file_test.$(OBJEXT)
 mjwm_desktop_file_test_OBJECTS = $(am_mjwm_desktop_file_test_OBJECTS)
 mjwm_desktop_file_test_LDADD = $(LDADD)
-am_mjwm_jwm_transformer_test_OBJECTS = src/utils.$(OBJEXT) \
+am_mjwm_jwm_transformer_test_OBJECTS = src/util.$(OBJEXT) \
 	src/representation.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
 	test/jwm/transformer_test.$(OBJEXT)
 mjwm_jwm_transformer_test_OBJECTS =  \
 	$(am_mjwm_jwm_transformer_test_OBJECTS)
 mjwm_jwm_transformer_test_LDADD = $(LDADD)
-am_mjwm_menu_test_OBJECTS = src/utils.$(OBJEXT) \
+am_mjwm_menu_test_OBJECTS = src/util.$(OBJEXT) \
 	src/icon_service.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
 	src/jwm/transformer.$(OBJEXT) src/stats.$(OBJEXT) \
 	src/menu.$(OBJEXT) test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
-am_mjwm_stats_test_OBJECTS = src/utils.$(OBJEXT) src/stats.$(OBJEXT) \
+am_mjwm_stats_test_OBJECTS = src/util.$(OBJEXT) src/stats.$(OBJEXT) \
 	test/stats_test.$(OBJEXT)
 mjwm_stats_test_OBJECTS = $(am_mjwm_stats_test_OBJECTS)
 mjwm_stats_test_LDADD = $(LDADD)
-am_mjwm_subcategory_test_OBJECTS = src/utils.$(OBJEXT) \
+am_mjwm_subcategory_test_OBJECTS = src/util.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/subcategory.$(OBJEXT) \
 	test/subcategory_test.$(OBJEXT)
 mjwm_subcategory_test_OBJECTS = $(am_mjwm_subcategory_test_OBJECTS)
 mjwm_subcategory_test_LDADD = $(LDADD)
-am_mjwm_utils_test_OBJECTS = src/utils.$(OBJEXT) \
-	test/utils_test.$(OBJEXT)
-mjwm_utils_test_OBJECTS = $(am_mjwm_utils_test_OBJECTS)
-mjwm_utils_test_LDADD = $(LDADD)
+am_mjwm_util_test_OBJECTS = src/util.$(OBJEXT) \
+	test/util_test.$(OBJEXT)
+mjwm_util_test_OBJECTS = $(am_mjwm_util_test_OBJECTS)
+mjwm_util_test_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -191,14 +191,14 @@ SOURCES = $(mjwm_SOURCES) $(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
-	$(mjwm_utils_test_SOURCES)
+	$(mjwm_util_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
-	$(mjwm_utils_test_SOURCES)
+	$(mjwm_util_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -539,7 +539,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
-mjwm_SOURCES = src/utils.cpp \
+mjwm_SOURCES = src/util.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
                src/representation.cpp \
@@ -556,27 +556,27 @@ mjwmdir = $(datadir)/mjwm
 mjwm_DATA = data/default.mjwm data/puppy.mjwm
 man1_MANS = doc/mjwm.1
 TESTS = $(check_PROGRAMS)
-mjwm_utils_test_SOURCES = src/utils.cpp \
-                          test/utils_test.cpp
+mjwm_util_test_SOURCES = src/util.cpp \
+                         test/util_test.cpp
 
-mjwm_desktop_file_test_SOURCES = src/utils.cpp \
+mjwm_desktop_file_test_SOURCES = src/util.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
 
-mjwm_desktop_file_names_test_SOURCES = src/utils.cpp \
+mjwm_desktop_file_names_test_SOURCES = src/util.cpp \
                                        src/desktop_file_names.cpp \
                                        test/desktop_file_names_test.cpp
 
-mjwm_subcategory_test_SOURCES = src/utils.cpp \
+mjwm_subcategory_test_SOURCES = src/util.cpp \
                                 src/desktop_file.cpp \
                                 src/subcategory.cpp \
                                 test/subcategory_test.cpp
 
-mjwm_stats_test_SOURCES = src/utils.cpp \
+mjwm_stats_test_SOURCES = src/util.cpp \
                           src/stats.cpp \
                           test/stats_test.cpp
 
-mjwm_menu_test_SOURCES = src/utils.cpp \
+mjwm_menu_test_SOURCES = src/util.cpp \
                          src/icon_service.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
@@ -586,12 +586,12 @@ mjwm_menu_test_SOURCES = src/utils.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 
-mjwm_jwm_transformer_test_SOURCES = src/utils.cpp \
+mjwm_jwm_transformer_test_SOURCES = src/util.cpp \
                                     src/representation.cpp \
                                     src/jwm/transformer.cpp \
                                     test/jwm/transformer_test.cpp
 
-mjwm_command_line_options_test_SOURCES = src/utils.cpp \
+mjwm_command_line_options_test_SOURCES = src/util.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp
 
@@ -700,7 +700,7 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/utils.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/util.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/desktop_file.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/subcategory.$(OBJEXT): src/$(am__dirstamp) \
@@ -784,12 +784,12 @@ test/subcategory_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_subcategory_test$(EXEEXT): $(mjwm_subcategory_test_OBJECTS) $(mjwm_subcategory_test_DEPENDENCIES) $(EXTRA_mjwm_subcategory_test_DEPENDENCIES) 
 	@rm -f mjwm_subcategory_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_subcategory_test_OBJECTS) $(mjwm_subcategory_test_LDADD) $(LIBS)
-test/utils_test.$(OBJEXT): test/$(am__dirstamp) \
+test/util_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
-mjwm_utils_test$(EXEEXT): $(mjwm_utils_test_OBJECTS) $(mjwm_utils_test_DEPENDENCIES) $(EXTRA_mjwm_utils_test_DEPENDENCIES) 
-	@rm -f mjwm_utils_test$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_utils_test_OBJECTS) $(mjwm_utils_test_LDADD) $(LIBS)
+mjwm_util_test$(EXEEXT): $(mjwm_util_test_OBJECTS) $(mjwm_util_test_DEPENDENCIES) $(EXTRA_mjwm_util_test_DEPENDENCIES) 
+	@rm -f mjwm_util_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_util_test_OBJECTS) $(mjwm_util_test_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -811,7 +811,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/representation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stats.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/utils.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/util.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/jwm/$(DEPDIR)/transformer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_names_test.Po@am__quote@
@@ -819,7 +819,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/utils_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/util_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/jwm/$(DEPDIR)/transformer_test.Po@am__quote@
 
 .cpp.o:
@@ -1100,9 +1100,9 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
-mjwm_utils_test.log: mjwm_utils_test$(EXEEXT)
-	@p='mjwm_utils_test$(EXEEXT)'; \
-	b='mjwm_utils_test'; \
+mjwm_util_test.log: mjwm_util_test$(EXEEXT)
+	@p='mjwm_util_test$(EXEEXT)'; \
+	b='mjwm_util_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

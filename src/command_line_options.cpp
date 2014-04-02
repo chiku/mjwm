@@ -20,7 +20,7 @@
 #include <vector>
 #include <getopt.h>
 
-#include "utils.h"
+#include "util.h"
 #include "command_line_options.h"
 
 amm::command_line_options::command_line_options()
@@ -70,11 +70,11 @@ amm::command_line_options::parse(int argc, char* const* argv)
         break;
 
       case 'i':
-        input_directory_names_ = amm::stringx(optarg).split(":");
+        input_directory_names_ = amm::StringX(optarg).Split(":");
         break;
 
       case 's':
-        input_directory_names_ = amm::stringx(optarg).split(":");
+        input_directory_names_ = amm::StringX(optarg).Split(":");
         deprecations_.push_back("-s is deprecated. Please use -i instead.");
         break;
 
