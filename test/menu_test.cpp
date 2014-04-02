@@ -84,7 +84,7 @@ namespace amm
       menu menu;
 
       menu.load_custom_categories(lines);
-      std::vector<amm::subcategory> subcategories = menu.subcategories();
+      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
       QUNIT_IS_EQUAL(2, subcategories.size());
       QUNIT_IS_EQUAL("Accessories", subcategories[0].display_name());
@@ -98,7 +98,7 @@ namespace amm
       menu menu;
 
       menu.load_custom_categories(lines);
-      std::vector<amm::subcategory> subcategories = menu.subcategories();
+      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
       QUNIT_IS_EQUAL(1, subcategories.size());
 
@@ -117,7 +117,7 @@ namespace amm
       menu menu;
 
       menu.load_custom_categories(lines);
-      std::vector<amm::subcategory> subcategories = menu.subcategories();
+      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
       QUNIT_IS_EQUAL(1, subcategories.size());
       QUNIT_IS_EQUAL("Games", subcategories[0].display_name());
@@ -131,7 +131,7 @@ namespace amm
       menu menu;
 
       menu.load_custom_categories(lines);
-      std::vector<amm::subcategory> subcategories = menu.subcategories();
+      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
       QUNIT_IS_EQUAL(0, subcategories.size());
     }
@@ -143,7 +143,7 @@ namespace amm
       menu menu;
 
       menu.load_custom_categories(lines);
-      std::vector<amm::subcategory> subcategories = menu.subcategories();
+      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
       QUNIT_IS_EQUAL(1, subcategories.size());
 
@@ -161,7 +161,7 @@ namespace amm
       menu menu;
 
       menu.load_custom_categories(lines);
-      std::vector<amm::subcategory> subcategories = menu.subcategories();
+      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
       QUNIT_IS_EQUAL(0, subcategories.size());
     }
@@ -281,8 +281,8 @@ namespace amm
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
       menu menu;
-      amm::icon_service icon_service;
-      icon_service.register_extension(".xpm");
+      amm::IconService icon_service;
+      icon_service.set_extension(".xpm");
       menu.register_icon_service(icon_service);
 
       menu.populate(files);

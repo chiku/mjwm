@@ -48,26 +48,26 @@ static amm::DesktopFile sakura_desktop_file()
 
 SCENARIO("amm::subcategory", "[subcategory]") {
   GIVEN("A subcategory") {
-    amm::subcategory subcategory("Accessories", "accessories", "Utilities");
+    amm::Subcategory subcategory("Accessories", "accessories", "Utilities");
 
     WHEN("without desktop-files") {
       THEN("it has no entries") {
-        REQUIRE(!subcategory.has_entries());
+        REQUIRE(!subcategory.HasEntries());
       }
     }
 
     WHEN("with one desktop-file") {
-      subcategory.add_desktop_file(mousepad_desktop_file());
+      subcategory.AddDesktopFile(mousepad_desktop_file());
       THEN("it has entries") {
-        REQUIRE(subcategory.has_entries());
+        REQUIRE(subcategory.HasEntries());
       }
     }
 
     WHEN("with two desktop-file") {
-      subcategory.add_desktop_file(sakura_desktop_file());
-      subcategory.add_desktop_file(mousepad_desktop_file());
+      subcategory.AddDesktopFile(sakura_desktop_file());
+      subcategory.AddDesktopFile(mousepad_desktop_file());
       WHEN("sorted") {
-        subcategory.sort_desktop_files();
+        subcategory.SortDesktopFiles();
         THEN("its entries in alphabetical order by name") {
           std::vector<amm::DesktopFile> desktop_files = subcategory.desktop_files();
           REQUIRE(desktop_files.size() == 2);

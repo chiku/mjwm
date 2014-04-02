@@ -20,14 +20,8 @@
 
 #include "icon_service.h"
 
-void
-amm::icon_service::register_extension(std::string extension)
-{
-  extension_ = extension;
-}
-
 std::string
-amm::icon_service::resolved_name(std::string icon_name) const
+amm::IconService::ResolvedName(std::string icon_name) const
 {
   return icon_name + extension_;
 }

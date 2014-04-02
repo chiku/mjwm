@@ -37,9 +37,9 @@ namespace amm
 
 		amm::stats stats_;
 
-		amm::icon_service icon_service_;
-		std::vector<amm::subcategory> subcategories_;
-		amm::subcategory unclassified_subcategory_;
+		amm::IconService icon_service_;
+		std::vector<amm::Subcategory> subcategories_;
+		amm::Subcategory unclassified_subcategory_;
 
 		void classify(amm::DesktopFile entry, std::string file_name);
 		void create_default_categories();
@@ -47,11 +47,11 @@ namespace amm
 	public:
 		menu();
 
-		std::vector<amm::subcategory> subcategories() const;
+		std::vector<amm::Subcategory> subcategories() const;
 		amm::stats stats() const;
 
 		void load_custom_categories(std::vector<std::string> lines);
-		void register_icon_service(amm::icon_service icon_service);
+		void register_icon_service(amm::IconService icon_service);
 		void populate(std::vector<std::string> desktop_file_names);
 		void sort();
 		std::vector<amm::representation::base*> representations() const;

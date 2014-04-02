@@ -25,14 +25,15 @@ namespace amm
 {
 	// Understands the way to search for the full path to a icon file
 	// Currently it returns the name of icon with an optional extension
-	class icon_service
+	class IconService
 	{
 	private:
 		std::string extension_;
 
 	public:
-		void register_extension(std::string extension);
-		std::string resolved_name(std::string icon_name) const;
+		void set_extension(std::string extension) { extension_ = extension; }
+
+		std::string ResolvedName(std::string icon_name) const;
 	};
 }
 

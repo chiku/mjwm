@@ -28,7 +28,7 @@
 namespace amm
 {
 	// Understands a collection of desktop files belonging to the same category
-	class subcategory
+	class Subcategory
 	{
 	private:
 		std::string display_name_;
@@ -37,18 +37,18 @@ namespace amm
 		std::vector<amm::DesktopFile> desktop_files_;
 
 	public:
-		subcategory();
-		subcategory(std::string display_name, std::string icon_name, std::string classification_name);
-		subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
+		Subcategory();
+		Subcategory(std::string display_name, std::string icon_name, std::string classification_name);
+		Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
 
-		std::string display_name() const;
-		std::vector<std::string> classification_names() const;
-		std::string icon_name() const;
-		std::vector<amm::DesktopFile> desktop_files() const;
-		bool has_entries() const;
+		std::string display_name() const { return display_name_; }
+		std::vector<std::string> classification_names() const { return classification_names_; }
+		std::string icon_name() const { return icon_name_; }
+		std::vector<amm::DesktopFile> desktop_files() const { return desktop_files_; }
 
-		void add_desktop_file(amm::DesktopFile desktop_file);
-		void sort_desktop_files();
+		bool HasEntries() const;
+		void AddDesktopFile(amm::DesktopFile desktop_file);
+		void SortDesktopFiles();
 	};
 }
 

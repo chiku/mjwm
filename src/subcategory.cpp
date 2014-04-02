@@ -23,63 +23,39 @@
 #include "desktop_file.h"
 #include "subcategory.h"
 
-amm::subcategory::subcategory()
+amm::Subcategory::Subcategory()
 {
 }
 
 // TODO : one of these constructors should not be used / re-implemented in terms of the other
-amm::subcategory::subcategory(std::string display_name, std::string icon_name, std::string classification_name)
+amm::Subcategory::Subcategory(std::string display_name, std::string icon_name, std::string classification_name)
 {
   display_name_ = display_name;
   icon_name_ = icon_name;
   classification_names_.push_back(classification_name);
 }
 
-amm::subcategory::subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names)
+amm::Subcategory::Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names)
 {
   display_name_ = display_name;
   icon_name_ = icon_name;
   classification_names_ = classification_names;
 }
 
-std::string
-amm::subcategory::display_name() const
-{
-  return display_name_;
-}
-
-std::vector<std::string>
-amm::subcategory::classification_names() const
-{
-  return classification_names_;
-}
-
-std::string
-amm::subcategory::icon_name() const
-{
-  return icon_name_;
-}
-
-std::vector<amm::DesktopFile>
-amm::subcategory::desktop_files() const
-{
-  return desktop_files_;
-}
-
 bool
-amm::subcategory::has_entries() const
+amm::Subcategory::HasEntries() const
 {
   return desktop_files().size() > 0;
 }
 
 void
-amm::subcategory::add_desktop_file(amm::DesktopFile desktop_file)
+amm::Subcategory::AddDesktopFile(amm::DesktopFile desktop_file)
 {
   desktop_files_.push_back(desktop_file);
 }
 
 void
-amm::subcategory::sort_desktop_files()
+amm::Subcategory::SortDesktopFiles()
 {
   std::sort(desktop_files_.begin(), desktop_files_.end());
 }

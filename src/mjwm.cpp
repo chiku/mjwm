@@ -99,8 +99,8 @@ amm::Main::ReadCategories()
 void
 amm::Main::RegisterIconService()
 {
-  amm::icon_service icon_service;
-  icon_service.register_extension(command_line_options_.icon_extension());
+  amm::IconService icon_service;
+  icon_service.set_extension(command_line_options_.icon_extension());
   menu_.register_icon_service(icon_service);
 }
 
