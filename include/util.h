@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_UTIL_H
-#define AMM_UTIL_H
+#ifndef AMM_UTIL_H_
+#define AMM_UTIL_H_
 
 #include <string>
 #include <vector>
@@ -52,4 +52,4 @@ namespace amm
 	};
 }
 
-#endif
+#endif // AMM_UTIL_H_

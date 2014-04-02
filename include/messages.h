@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_MESSAGES_H
-#define AMM_MESSAGES_H
+#ifndef AMM_MESSAGES_H_
+#define AMM_MESSAGES_H_
 
 #include <string>
 #include <vector>
@@ -36,4 +36,4 @@ namespace amm
 	}
 }
 
-#endif
+#endif // AMM_MESSAGES_H_

@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_STATS_H
-#define AMM_STATS_H
+#ifndef AMM_STATS_H_
+#define AMM_STATS_H_
 
 #include <string>
 #include <vector>
@@ -55,4 +55,4 @@ namespace amm
 	};
 }
 
-#endif
+#endif // AMM_STATS_H_

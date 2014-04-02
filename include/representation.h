@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_REPRESENTATION_H
-#define AMM_REPRESENTATION_H
+#ifndef AMM_REPRESENTATION_H_
+#define AMM_REPRESENTATION_H_
 
 #include <string>
 
@@ -94,4 +94,4 @@ namespace amm
 	};
 }
 
-#endif
+#endif // AMM_REPRESENTATION_H_

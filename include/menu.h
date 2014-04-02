@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_MENU_H
-#define AMM_MENU_H
+#ifndef AMM_MENU_H_
+#define AMM_MENU_H_
 
 #include <string>
 #include <vector>
@@ -58,4 +58,4 @@ namespace amm
 	};
 }
 
-#endif
+#endif // AMM_MENU_H_

@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_DESKTOP_FILE_H
-#define AMM_DESKTOP_FILE_H
+#ifndef AMM_DESKTOP_FILE_H_
+#define AMM_DESKTOP_FILE_H_
 
 #include <string>
 #include <vector>
@@ -55,4 +55,4 @@ namespace amm
 	};
 }
 
-#endif
+#endif // AMM_DESKTOP_FILE_H_

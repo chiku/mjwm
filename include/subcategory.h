@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SUBCATEGORY_H
-#define AMM_SUBCATEGORY_H
+#ifndef AMM_SUBCATEGORY_H_
+#define AMM_SUBCATEGORY_H_
 
 #include <iostream>
 #include <string>
@@ -52,4 +52,4 @@ namespace amm
 	};
 }
 
-#endif
+#endif // AMM_SUBCATEGORY_H_
