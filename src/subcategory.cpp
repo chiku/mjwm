@@ -60,7 +60,7 @@ amm::subcategory::icon_name() const
   return icon_name_;
 }
 
-std::vector<amm::desktop_file>
+std::vector<amm::DesktopFile>
 amm::subcategory::desktop_files() const
 {
   return desktop_files_;
@@ -73,7 +73,7 @@ amm::subcategory::has_entries() const
 }
 
 void
-amm::subcategory::add_desktop_file(amm::desktop_file desktop_file)
+amm::subcategory::add_desktop_file(amm::DesktopFile desktop_file)
 {
   desktop_files_.push_back(desktop_file);
 }

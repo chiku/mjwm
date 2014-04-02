@@ -23,7 +23,7 @@
 #include "util.h"
 #include "command_line_options.h"
 
-amm::command_line_options::command_line_options()
+amm::CommandLineOptions::CommandLineOptions()
 {
   is_help_ = false;
   is_version_ = false;
@@ -31,7 +31,7 @@ amm::command_line_options::command_line_options()
 }
 
 bool
-amm::command_line_options::parse(int argc, char* const* argv)
+amm::CommandLineOptions::Parse(int argc, char* const* argv)
 {
   optind = 1; // Allow getopt_long() to be called multiple times
   // http://pubs.opengroup.org/onlinepubs/009696799/functions/getopt.html
@@ -107,46 +107,4 @@ amm::command_line_options::parse(int argc, char* const* argv)
   }
 
   return parsed;
-}
-
-bool
-amm::command_line_options::is_help() const
-{
-  return is_help_;
-}
-
-bool
-amm::command_line_options::is_version() const
-{
-  return is_version_;
-}
-
-std::string
-amm::command_line_options::output_file_name() const
-{
-  return output_file_name_;
-}
-
-std::vector<std::string>
-amm::command_line_options::input_directory_names() const
-{
-  return input_directory_names_;
-}
-
-std::string
-amm::command_line_options::category_file_name() const
-{
-  return category_file_name_;
-}
-
-std::string
-amm::command_line_options::icon_extension() const
-{
-  return icon_extension_;
-}
-
-std::vector<std::string>
-amm::command_line_options::deprecations() const
-{
-  return deprecations_;
 }

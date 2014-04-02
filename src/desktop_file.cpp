@@ -29,82 +29,52 @@ static const std::string ICON       = "Icon";
 static const std::string CATEGORIES = "Categories";
 static const std::string NO_DISPLAY = "NoDisplay";
 
-amm::desktop_file::desktop_file()
+amm::DesktopFile::DesktopFile()
 {
   display_ = true;
 }
 
-std::string
-amm::desktop_file::name() const
-{
-  return name_;
-}
-
-std::string
-amm::desktop_file::icon() const
-{
-  return icon_;
-}
-
-std::string
-amm::desktop_file::executable() const
-{
-  return executable_;
-}
-
-std::vector<std::string>
-amm::desktop_file::categories() const
-{
-  return categories_;
-}
-
 bool
-amm::desktop_file::display() const
-{
-  return display_;
-}
-
-bool
-amm::desktop_file::operator < (const amm::desktop_file &other) const
+amm::DesktopFile::operator < (const amm::DesktopFile &other) const
 {
   return name_ < other.name_;
 }
 
 bool
-amm::desktop_file::operator > (const amm::desktop_file &other) const
+amm::DesktopFile::operator > (const amm::DesktopFile &other) const
 {
   return name_ > other.name_;
 }
 
 bool
-amm::desktop_file::operator == (const amm::desktop_file &other) const
+amm::DesktopFile::operator == (const amm::DesktopFile &other) const
 {
   return name_ == other.name_;
 }
 
 bool
-amm::desktop_file::operator != (const amm::desktop_file &other) const
+amm::DesktopFile::operator != (const amm::DesktopFile &other) const
 {
   return name_ != other.name_;
 }
 
 bool
-amm::desktop_file::is_valid() const
+amm::DesktopFile::IsValid() const
 {
   return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
 }
 
 bool
-amm::desktop_file::is_a(std::string type) const
+amm::DesktopFile::IsA(std::string type) const
 {
   return std::binary_search(categories_.begin(), categories_.end(), type);
 }
 
 bool
-amm::desktop_file::is_any_of(std::vector<std::string> types) const
+amm::DesktopFile::IsAnyOf(std::vector<std::string> types) const
 {
   for (std::vector<std::string>::const_iterator type = types.begin(); type != types.end(); ++type) {
-    if (is_a(*type)) {
+    if (IsA(*type)) {
       return true;
     }
   };
@@ -112,7 +82,7 @@ amm::desktop_file::is_any_of(std::vector<std::string> types) const
 }
 
 void
-amm::desktop_file::populate(std::string line)
+amm::DesktopFile::Populate(std::string line)
 {
   if (line[0] == '\0') {
     return;

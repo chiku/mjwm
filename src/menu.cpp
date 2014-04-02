@@ -87,16 +87,16 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
   std::vector<std::string>::const_iterator name;
   for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
     std::string line;
-    amm::desktop_file desktop_file;
+    amm::DesktopFile desktop_file;
     std::ifstream file(name->c_str());
 
     if (file.good()) {
       while (std::getline(file, line)) {
-        desktop_file.populate(line);
+        desktop_file.Populate(line);
       }
       if (!desktop_file.display()) {
         stats_.add_suppressed_file(*name);
-      } else if (desktop_file.is_valid()) {
+      } else if (desktop_file.IsValid()) {
         classify(desktop_file, *name);
       } else {
         stats_.add_unparsed_file(*name);
@@ -111,13 +111,13 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
 
 // TODO : desktop file should store which file it was created from
 void
-amm::menu::classify(amm::desktop_file desktop_file, std::string desktop_file_name)
+amm::menu::classify(amm::DesktopFile desktop_file, std::string desktop_file_name)
 {
   bool classified = false;
 
   std::vector<amm::subcategory>::iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
-    if (desktop_file.is_any_of(subcategory->classification_names())) {
+    if (desktop_file.IsAnyOf(subcategory->classification_names())) {
       classified = true;
       subcategory->add_desktop_file(desktop_file);
     }
@@ -166,8 +166,8 @@ amm::menu::representations() const
       amm::representation::subcategory_start *start = new amm::representation::subcategory_start(subcategory->display_name(), icon_service_.resolved_name(subcategory->icon_name()));
       representations.push_back(start);
 
-      std::vector<amm::desktop_file> desktop_files = subcategory->desktop_files();
-      std::vector<amm::desktop_file>::const_iterator desktop_file;
+      std::vector<amm::DesktopFile> desktop_files = subcategory->desktop_files();
+      std::vector<amm::DesktopFile>::const_iterator desktop_file;
       for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
         amm::representation::menu_entry *entry = new amm::representation::menu_entry(desktop_file->name(), icon_service_.resolved_name(desktop_file->icon()), desktop_file->executable());
         representations.push_back(entry);

@@ -34,29 +34,29 @@
 
 namespace amm
 {
-  class main
+  class Main
   {
   private:
-    amm::command_line_options command_line_options_;
+    amm::CommandLineOptions command_line_options_;
     amm::menu menu_;
     std::vector<std::string> desktop_file_names_;
 
   public:
-    void load_command_line_option(int argc, char **argv);
-    void register_icon_service();
-    void read_categories();
-    void read_desktop_files();
-    void populate();
-    void write_output_file();
-    void print_summary();
+    void LoadCommandLineOption(int argc, char **argv);
+    void RegisterIconService();
+    void ReadCategories();
+    void ReadDesktopFiles();
+    void Populate();
+    void WriteOutputFile();
+    void PrintSummary();
   };
 }
 
 void
-amm::main::load_command_line_option(int argc, char **argv)
+amm::Main::LoadCommandLineOption(int argc, char **argv)
 {
-  command_line_options_ = amm::command_line_options();
-  if (!command_line_options_.parse(argc, argv)) {
+  command_line_options_ = amm::CommandLineOptions();
+  if (!command_line_options_.Parse(argc, argv)) {
     std::cerr << amm::messages::option_error();
     exit(2);
   }
@@ -75,7 +75,7 @@ amm::main::load_command_line_option(int argc, char **argv)
 }
 
 void
-amm::main::read_categories()
+amm::Main::ReadCategories()
 {
   std::string category_file_name = command_line_options_.category_file_name();
   std::vector<std::string> category_lines;
@@ -97,7 +97,7 @@ amm::main::read_categories()
 }
 
 void
-amm::main::register_icon_service()
+amm::Main::RegisterIconService()
 {
   amm::icon_service icon_service;
   icon_service.register_extension(command_line_options_.icon_extension());
@@ -105,7 +105,7 @@ amm::main::register_icon_service()
 }
 
 void
-amm::main::read_desktop_files()
+amm::Main::ReadDesktopFiles()
 {
   std::vector<std::string> input_directory_names = command_line_options_.input_directory_names();
 
@@ -122,7 +122,7 @@ amm::main::read_desktop_files()
 }
 
 void
-amm::main::populate()
+amm::Main::Populate()
 {
   menu_.populate(desktop_file_names_);
   if (menu_.stats().total_parsed_files() == 0) {
@@ -133,7 +133,7 @@ amm::main::populate()
 }
 
 void
-amm::main::write_output_file()
+amm::Main::WriteOutputFile()
 {
   std::string output_file_name = command_line_options_.output_file_name();
   std::ofstream output_file(output_file_name.c_str());
@@ -159,19 +159,19 @@ amm::main::write_output_file()
 }
 
 void
-amm::main::print_summary()
+amm::Main::PrintSummary()
 {
   std::cout << menu_.stats().summary();
 }
 
 int main(int argc, char *argv[])
 {
-  amm::main operation;
-  operation.load_command_line_option(argc, argv);
-  operation.register_icon_service();
-  operation.read_categories();
-  operation.read_desktop_files();
-  operation.populate();
-  operation.write_output_file();
-  operation.print_summary();
+  amm::Main operation;
+  operation.LoadCommandLineOption(argc, argv);
+  operation.RegisterIconService();
+  operation.ReadCategories();
+  operation.ReadDesktopFiles();
+  operation.Populate();
+  operation.WriteOutputFile();
+  operation.PrintSummary();
 }

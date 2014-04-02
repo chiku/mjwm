@@ -34,7 +34,7 @@ namespace amm
 		std::string display_name_;
 		std::vector<std::string> classification_names_;
 		std::string icon_name_;
-		std::vector<amm::desktop_file> desktop_files_;
+		std::vector<amm::DesktopFile> desktop_files_;
 
 	public:
 		subcategory();
@@ -44,10 +44,10 @@ namespace amm
 		std::string display_name() const;
 		std::vector<std::string> classification_names() const;
 		std::string icon_name() const;
-		std::vector<amm::desktop_file> desktop_files() const;
+		std::vector<amm::DesktopFile> desktop_files() const;
 		bool has_entries() const;
 
-		void add_desktop_file(amm::desktop_file desktop_file);
+		void add_desktop_file(amm::DesktopFile desktop_file);
 		void sort_desktop_files();
 	};
 }

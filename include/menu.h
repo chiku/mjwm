@@ -41,7 +41,7 @@ namespace amm
 		std::vector<amm::subcategory> subcategories_;
 		amm::subcategory unclassified_subcategory_;
 
-		void classify(amm::desktop_file entry, std::string file_name);
+		void classify(amm::DesktopFile entry, std::string file_name);
 		void create_default_categories();
 
 	public:

@@ -26,23 +26,23 @@
 #include "desktop_file.h"
 #include "subcategory.h"
 
-static amm::desktop_file mousepad_desktop_file()
+static amm::DesktopFile mousepad_desktop_file()
 {
-  amm::desktop_file entry;
-  entry.populate("Name=Mousepad");
-  entry.populate("Icon=accessories-text-editor");
-  entry.populate("Exec=mousepad %F");
-  entry.populate("Categories=Application;Utility;TextEditor;GTK;");
+  amm::DesktopFile entry;
+  entry.Populate("Name=Mousepad");
+  entry.Populate("Icon=accessories-text-editor");
+  entry.Populate("Exec=mousepad %F");
+  entry.Populate("Categories=Application;Utility;TextEditor;GTK;");
   return entry;
 }
 
-static amm::desktop_file sakura_desktop_file()
+static amm::DesktopFile sakura_desktop_file()
 {
-  amm::desktop_file entry;
-  entry.populate("Name=Sakura");
-  entry.populate("Icon=terminal-tango");
-  entry.populate("Exec=sakura");
-  entry.populate("Categories=GTK;Utility;TerminalEmulator;System;");
+  amm::DesktopFile entry;
+  entry.Populate("Name=Sakura");
+  entry.Populate("Icon=terminal-tango");
+  entry.Populate("Exec=sakura");
+  entry.Populate("Categories=GTK;Utility;TerminalEmulator;System;");
   return entry;
 }
 
@@ -69,7 +69,7 @@ SCENARIO("amm::subcategory", "[subcategory]") {
       WHEN("sorted") {
         subcategory.sort_desktop_files();
         THEN("its entries in alphabetical order by name") {
-          std::vector<amm::desktop_file> desktop_files = subcategory.desktop_files();
+          std::vector<amm::DesktopFile> desktop_files = subcategory.desktop_files();
           REQUIRE(desktop_files.size() == 2);
           REQUIRE(desktop_files[0].name() == "Mousepad");
           REQUIRE(desktop_files[1].name() == "Sakura");

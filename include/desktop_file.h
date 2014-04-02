@@ -25,7 +25,7 @@
 namespace amm
 {
 	// Understands the representation of a FreeDesktop .desktop file
-	class desktop_file
+	class DesktopFile
 	{
 	private:
 		std::string name_;
@@ -35,23 +35,23 @@ namespace amm
 		bool display_;
 
 	public:
-		desktop_file();
+		DesktopFile();
 
-		std::string name() const;
-		std::string icon() const;
-		std::string executable() const;
-		std::vector<std::string> categories() const;
-		bool display() const;
+		std::string name() const { return name_; }
+		std::string icon() const { return icon_; }
+		std::string executable() const { return executable_; }
+		std::vector<std::string> categories() const { return categories_; }
+		bool display() const { return display_; }
 
-		bool operator < (const amm::desktop_file &other) const;
-		bool operator > (const amm::desktop_file &other) const;
-		bool operator == (const amm::desktop_file &other) const;
-		bool operator != (const amm::desktop_file &other) const;
+		bool operator < (const amm::DesktopFile &other) const;
+		bool operator > (const amm::DesktopFile &other) const;
+		bool operator == (const amm::DesktopFile &other) const;
+		bool operator != (const amm::DesktopFile &other) const;
 
-		bool is_valid() const;
-		bool is_a(std::string type) const;
-		bool is_any_of(std::vector<std::string> types) const;
-		void populate(std::string line);
+		bool IsValid() const;
+		bool IsA(std::string type) const;
+		bool IsAnyOf(std::vector<std::string> types) const;
+		void Populate(std::string line);
 	};
 }
 
