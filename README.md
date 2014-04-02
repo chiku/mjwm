@@ -52,6 +52,8 @@ Optional arguments:
 
 Deprecated optional arguments:
   -s [DIRECTORIES]           Same as -i
+  -h                         Same as --help
+  -v                         Same as --version
 ```
 
 Usage
