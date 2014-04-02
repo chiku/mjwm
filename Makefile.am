@@ -11,7 +11,7 @@ mjwm_SOURCES = src/util.cpp \
                src/menu.cpp \
                src/jwm/transformer.cpp \
                src/icon_service.cpp \
-               src/desktop_file_names.cpp \
+               src/file_search_service.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
                src/stats.cpp \
@@ -22,7 +22,7 @@ check_PROGRAMS = mjwm_util_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
-                 mjwm_desktop_file_names_test \
+                 mjwm_file_search_service_test \
                  mjwm_jwm_transformer_test \
                  mjwm_command_line_options_test
 
@@ -37,9 +37,9 @@ mjwm_util_test_SOURCES = src/util.cpp \
 mjwm_desktop_file_test_SOURCES = src/util.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
-mjwm_desktop_file_names_test_SOURCES = src/util.cpp \
-                                       src/desktop_file_names.cpp \
-                                       test/desktop_file_names_test.cpp
+mjwm_file_search_service_test_SOURCES = src/util.cpp \
+                                        src/file_search_service.cpp \
+                                        test/file_search_service_test.cpp
 mjwm_subcategory_test_SOURCES = src/util.cpp \
                                 src/desktop_file.cpp \
                                 src/subcategory.cpp \

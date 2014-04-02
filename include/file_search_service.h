@@ -16,8 +16,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_DESKTOP_FILE_NAMES_H_
-#define AMM_DESKTOP_FILE_NAMES_H_
+#ifndef AMM_FILE_SEARCH_SERVICE_H_
+#define AMM_FILE_SEARCH_SERVICE_H_
 
 #include <string>
 #include <vector>
@@ -25,10 +25,8 @@
 
 namespace amm
 {
-	const std::string DESKTOP_EXTENSION = ".desktop";
-
 	// Understands search for .desktop files
-	class desktop_file_names
+	class FileSearchService
 	{
 	private:
 		std::vector<std::string> directory_names_;
@@ -36,19 +34,19 @@ namespace amm
 		std::vector<std::string> bad_paths_;
 		bool capture_bad_paths_;
 
-		void populate(DIR* directory, std::string directory_name);
+		void Populate(DIR* directory, std::string directory_name);
 
 	public:
-		desktop_file_names();
+		FileSearchService();
 
-		void register_directories_with_default_fallback(std::vector<std::string> directory_names);
-		void register_default_directories();
-		void register_directories(std::vector<std::string> directory_names);
-		void resolve();
+		void RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names);
+		void RegisterDefaultDirectories();
+		void Resolve();
 
-		std::vector<std::string> all() const;
-		std::vector<std::string> bad_paths() const;
+		void set_directory_names(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
+		std::vector<std::string> desktop_file_names() const { return desktop_file_names_; }
+		std::vector<std::string> bad_paths() const { return bad_paths_; }
 	};
 }
 
-#endif // AMM_DESKTOP_FILE_NAMES_H_
+#endif // AMM_FILE_SEARCH_SERVICE_H_

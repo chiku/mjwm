@@ -23,79 +23,79 @@
 
 #include "QUnit.hpp"
 
-#include "desktop_file_names.h"
+#include "file_search_service.h"
 
 namespace amm
 {
   // Verifies search for .desktop files
-  class desktop_file_names_test
+  class FileSearchServiceTest
   {
     QUnit::UnitTest qunit;
 
-    void test_desktop_file_names_gives_back_files_with_extension_desktop()
+    void test_file_search_service_gives_back_files_with_extension_desktop()
     {
       std::vector<std::string> directory_names;
       directory_names.push_back("test/fixtures/");
-      amm::desktop_file_names desktop_file_names;
-      desktop_file_names.register_directories(directory_names);
-      desktop_file_names.resolve();
+      amm::FileSearchService file_search_service;
+      file_search_service.set_directory_names(directory_names);
+      file_search_service.Resolve();
 
-      std::vector<std::string> file_names = desktop_file_names.all();
+      std::vector<std::string> file_names = file_search_service.desktop_file_names();
 
       assert_files_are_present_in_list(file_names);
     }
 
-    void test_desktop_file_names_ignores_repeated_input_directories()
+    void test_file_search_service_ignores_repeated_input_directories()
     {
       std::vector<std::string> directory_names;
       directory_names.push_back("test/fixtures");
       directory_names.push_back("test/fixtures/");
-      amm::desktop_file_names desktop_file_names;
-      desktop_file_names.register_directories(directory_names);
-      desktop_file_names.resolve();
+      amm::FileSearchService file_search_service;
+      file_search_service.set_directory_names(directory_names);
+      file_search_service.Resolve();
 
-      std::vector<std::string> file_names = desktop_file_names.all();
+      std::vector<std::string> file_names = file_search_service.desktop_file_names();
 
       QUNIT_IS_EQUAL(6, file_names.size());
     }
 
-    void test_desktop_file_names_need_not_end_with_a_slash()
+    void test_file_search_service_need_not_end_with_a_slash()
     {
       std::vector<std::string> directory_names;
       directory_names.push_back("test/fixtures");
-      amm::desktop_file_names desktop_file_names;
-      desktop_file_names.register_directories(directory_names);
-      desktop_file_names.resolve();
+      amm::FileSearchService file_search_service;
+      file_search_service.set_directory_names(directory_names);
+      file_search_service.Resolve();
 
-      std::vector<std::string> file_names = desktop_file_names.all();
+      std::vector<std::string> file_names = file_search_service.desktop_file_names();
 
       assert_files_are_present_in_list(file_names);
     }
 
-    void test_desktop_file_names_gives_back_files_when_one_directory_is_missing()
+    void test_file_search_service_gives_back_files_when_one_directory_is_missing()
     {
       std::vector<std::string> directory_names;
       directory_names.push_back("test/fixtures");
       directory_names.push_back("test/does-not-exist");
-      amm::desktop_file_names desktop_file_names;
-      desktop_file_names.register_directories(directory_names);
-      desktop_file_names.resolve();
+      amm::FileSearchService file_search_service;
+      file_search_service.set_directory_names(directory_names);
+      file_search_service.Resolve();
 
-      std::vector<std::string> file_names = desktop_file_names.all();
+      std::vector<std::string> file_names = file_search_service.desktop_file_names();
 
       assert_files_are_present_in_list(file_names);
     }
 
-    void test_desktop_file_names_tracks_bad_paths_it_couldnt_open()
+    void test_file_search_service_tracks_bad_paths_it_couldnt_open()
     {
       std::vector<std::string> directory_names;
       directory_names.push_back("test/fixtures");
       directory_names.push_back("test/does-not-exist");
-      amm::desktop_file_names desktop_file_names;
-      desktop_file_names.register_directories(directory_names);
-      desktop_file_names.resolve();
+      amm::FileSearchService file_search_service;
+      file_search_service.set_directory_names(directory_names);
+      file_search_service.Resolve();
 
-      std::vector<std::string> bad_paths = desktop_file_names.bad_paths();
+      std::vector<std::string> bad_paths = file_search_service.bad_paths();
 
       QUNIT_IS_EQUAL(1, bad_paths.size());
       QUNIT_IS_EQUAL("test/does-not-exist/",bad_paths[0]);
@@ -119,15 +119,15 @@ namespace amm
     }
 
   public:
-    desktop_file_names_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
+    FileSearchServiceTest(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
 
     int run()
     {
-      test_desktop_file_names_gives_back_files_with_extension_desktop();
-      test_desktop_file_names_ignores_repeated_input_directories();
-      test_desktop_file_names_need_not_end_with_a_slash();
-      test_desktop_file_names_gives_back_files_when_one_directory_is_missing();
-      test_desktop_file_names_tracks_bad_paths_it_couldnt_open();
+      test_file_search_service_gives_back_files_with_extension_desktop();
+      test_file_search_service_ignores_repeated_input_directories();
+      test_file_search_service_need_not_end_with_a_slash();
+      test_file_search_service_gives_back_files_when_one_directory_is_missing();
+      test_file_search_service_tracks_bad_paths_it_couldnt_open();
       return qunit.errors();
     }
 
@@ -136,5 +136,5 @@ namespace amm
 
 int main()
 {
-  return amm::desktop_file_names_test(std::cerr, QUnit::normal).run();
+  return amm::FileSearchServiceTest(std::cerr, QUnit::normal).run();
 }

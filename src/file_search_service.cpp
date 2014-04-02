@@ -22,7 +22,9 @@
 #include <dirent.h>
 
 #include "util.h"
-#include "desktop_file_names.h"
+#include "file_search_service.h"
+
+static const std::string DESKTOP_EXTENSION = ".desktop";
 
 static std::string
 xdg_data_dirs()
@@ -51,29 +53,24 @@ xdg_data_home()
   return "";
 }
 
-amm::desktop_file_names::desktop_file_names()
+amm::FileSearchService::FileSearchService()
 {
   capture_bad_paths_ = true;
 }
 
 void
-amm::desktop_file_names::register_directories_with_default_fallback(std::vector<std::string> directory_names)
+amm::FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names)
 {
   if (directory_names.size() > 0) {
-    register_directories(directory_names);
+    set_directory_names(directory_names);
   } else {
-    register_default_directories();
+    RegisterDefaultDirectories();
   }
 }
 
+// TODO : express in terms of set_directory_names()
 void
-amm::desktop_file_names::register_directories(std::vector<std::string> directory_names)
-{
-  directory_names_ = directory_names;
-}
-
-void
-amm::desktop_file_names::register_default_directories()
+amm::FileSearchService::RegisterDefaultDirectories()
 {
   std::vector<std::string> directory_bases = amm::StringX(xdg_data_dirs()).Split(":");
   directory_bases.push_back(xdg_data_home());
@@ -87,7 +84,7 @@ amm::desktop_file_names::register_default_directories()
 }
 
 void
-amm::desktop_file_names::resolve()
+amm::FileSearchService::Resolve()
 {
   desktop_file_names_.clear();
   bad_paths_.clear();
@@ -100,7 +97,7 @@ amm::desktop_file_names::resolve()
     DIR *directory = opendir(name->c_str());
 
     if (directory) {
-      populate(directory, *name);
+      Populate(directory, *name);
       closedir(directory);
     } else if (capture_bad_paths_) {
       bad_paths_.push_back(*name);
@@ -109,7 +106,7 @@ amm::desktop_file_names::resolve()
 }
 
 void
-amm::desktop_file_names::populate(DIR* directory, std::string directory_name)
+amm::FileSearchService::Populate(DIR* directory, std::string directory_name)
 {
   dirent *directory_entry;
 
@@ -119,16 +116,4 @@ amm::desktop_file_names::populate(DIR* directory, std::string directory_name)
       desktop_file_names_.push_back(directory_name + file_name);
     }
   }
-}
-
-std::vector<std::string>
-amm::desktop_file_names::all() const
-{
-  return desktop_file_names_;
-}
-
-std::vector<std::string>
-amm::desktop_file_names::bad_paths() const
-{
-  return bad_paths_;
 }

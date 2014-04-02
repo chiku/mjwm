@@ -81,7 +81,7 @@ bin_PROGRAMS = mjwm$(EXEEXT)
 check_PROGRAMS = mjwm_util_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) mjwm_subcategory_test$(EXEEXT) \
 	mjwm_stats_test$(EXEEXT) mjwm_menu_test$(EXEEXT) \
-	mjwm_desktop_file_names_test$(EXEEXT) \
+	mjwm_file_search_service_test$(EXEEXT) \
 	mjwm_jwm_transformer_test$(EXEEXT) \
 	mjwm_command_line_options_test$(EXEEXT)
 subdir = .
@@ -110,7 +110,7 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/util.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
 	src/menu.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
-	src/icon_service.$(OBJEXT) src/desktop_file_names.$(OBJEXT) \
+	src/icon_service.$(OBJEXT) src/file_search_service.$(OBJEXT) \
 	src/messages.$(OBJEXT) src/command_line_options.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
@@ -121,16 +121,16 @@ am_mjwm_command_line_options_test_OBJECTS = src/util.$(OBJEXT) \
 mjwm_command_line_options_test_OBJECTS =  \
 	$(am_mjwm_command_line_options_test_OBJECTS)
 mjwm_command_line_options_test_LDADD = $(LDADD)
-am_mjwm_desktop_file_names_test_OBJECTS = src/util.$(OBJEXT) \
-	src/desktop_file_names.$(OBJEXT) \
-	test/desktop_file_names_test.$(OBJEXT)
-mjwm_desktop_file_names_test_OBJECTS =  \
-	$(am_mjwm_desktop_file_names_test_OBJECTS)
-mjwm_desktop_file_names_test_LDADD = $(LDADD)
 am_mjwm_desktop_file_test_OBJECTS = src/util.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) test/desktop_file_test.$(OBJEXT)
 mjwm_desktop_file_test_OBJECTS = $(am_mjwm_desktop_file_test_OBJECTS)
 mjwm_desktop_file_test_LDADD = $(LDADD)
+am_mjwm_file_search_service_test_OBJECTS = src/util.$(OBJEXT) \
+	src/file_search_service.$(OBJEXT) \
+	test/file_search_service_test.$(OBJEXT)
+mjwm_file_search_service_test_OBJECTS =  \
+	$(am_mjwm_file_search_service_test_OBJECTS)
+mjwm_file_search_service_test_LDADD = $(LDADD)
 am_mjwm_jwm_transformer_test_OBJECTS = src/util.$(OBJEXT) \
 	src/representation.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
 	test/jwm/transformer_test.$(OBJEXT)
@@ -187,15 +187,15 @@ am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
 SOURCES = $(mjwm_SOURCES) $(mjwm_command_line_options_test_SOURCES) \
-	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
+	$(mjwm_file_search_service_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
 	$(mjwm_util_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_test_SOURCES) \
-	$(mjwm_desktop_file_names_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
+	$(mjwm_file_search_service_test_SOURCES) \
 	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
 	$(mjwm_util_test_SOURCES)
@@ -546,7 +546,7 @@ mjwm_SOURCES = src/util.cpp \
                src/menu.cpp \
                src/jwm/transformer.cpp \
                src/icon_service.cpp \
-               src/desktop_file_names.cpp \
+               src/file_search_service.cpp \
                src/messages.cpp \
                src/command_line_options.cpp \
                src/stats.cpp \
@@ -563,9 +563,9 @@ mjwm_desktop_file_test_SOURCES = src/util.cpp \
                                  src/desktop_file.cpp \
                                  test/desktop_file_test.cpp
 
-mjwm_desktop_file_names_test_SOURCES = src/util.cpp \
-                                       src/desktop_file_names.cpp \
-                                       test/desktop_file_names_test.cpp
+mjwm_file_search_service_test_SOURCES = src/util.cpp \
+                                        src/file_search_service.cpp \
+                                        test/file_search_service_test.cpp
 
 mjwm_subcategory_test_SOURCES = src/util.cpp \
                                 src/desktop_file.cpp \
@@ -718,7 +718,7 @@ src/jwm/transformer.$(OBJEXT): src/jwm/$(am__dirstamp) \
 	src/jwm/$(DEPDIR)/$(am__dirstamp)
 src/icon_service.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/desktop_file_names.$(OBJEXT): src/$(am__dirstamp) \
+src/file_search_service.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -742,18 +742,18 @@ test/command_line_options_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_command_line_options_test$(EXEEXT): $(mjwm_command_line_options_test_OBJECTS) $(mjwm_command_line_options_test_DEPENDENCIES) $(EXTRA_mjwm_command_line_options_test_DEPENDENCIES) 
 	@rm -f mjwm_command_line_options_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_command_line_options_test_OBJECTS) $(mjwm_command_line_options_test_LDADD) $(LIBS)
-test/desktop_file_names_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-
-mjwm_desktop_file_names_test$(EXEEXT): $(mjwm_desktop_file_names_test_OBJECTS) $(mjwm_desktop_file_names_test_DEPENDENCIES) $(EXTRA_mjwm_desktop_file_names_test_DEPENDENCIES) 
-	@rm -f mjwm_desktop_file_names_test$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_desktop_file_names_test_OBJECTS) $(mjwm_desktop_file_names_test_LDADD) $(LIBS)
 test/desktop_file_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
 mjwm_desktop_file_test$(EXEEXT): $(mjwm_desktop_file_test_OBJECTS) $(mjwm_desktop_file_test_DEPENDENCIES) $(EXTRA_mjwm_desktop_file_test_DEPENDENCIES) 
 	@rm -f mjwm_desktop_file_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_desktop_file_test_OBJECTS) $(mjwm_desktop_file_test_LDADD) $(LIBS)
+test/file_search_service_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_file_search_service_test$(EXEEXT): $(mjwm_file_search_service_test_OBJECTS) $(mjwm_file_search_service_test_DEPENDENCIES) $(EXTRA_mjwm_file_search_service_test_DEPENDENCIES) 
+	@rm -f mjwm_file_search_service_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_file_search_service_test_OBJECTS) $(mjwm_file_search_service_test_LDADD) $(LIBS)
 test/jwm/$(am__dirstamp):
 	@$(MKDIR_P) test/jwm
 	@: > test/jwm/$(am__dirstamp)
@@ -803,7 +803,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/command_line_options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file_names.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/file_search_service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/icon_service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
@@ -814,8 +814,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/util.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/jwm/$(DEPDIR)/transformer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_names_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/file_search_service_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
@@ -1135,9 +1135,9 @@ mjwm_menu_test.log: mjwm_menu_test$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-mjwm_desktop_file_names_test.log: mjwm_desktop_file_names_test$(EXEEXT)
-	@p='mjwm_desktop_file_names_test$(EXEEXT)'; \
-	b='mjwm_desktop_file_names_test'; \
+mjwm_file_search_service_test.log: mjwm_file_search_service_test$(EXEEXT)
+	@p='mjwm_file_search_service_test$(EXEEXT)'; \
+	b='mjwm_file_search_service_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

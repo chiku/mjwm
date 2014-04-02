@@ -26,7 +26,7 @@
 #include "messages.h"
 #include "command_line_options.h"
 #include "icon_service.h"
-#include "desktop_file_names.h"
+#include "file_search_service.h"
 #include "representation.h"
 #include "stats.h"
 #include "menu.h"
@@ -109,16 +109,16 @@ amm::Main::ReadDesktopFiles()
 {
   std::vector<std::string> input_directory_names = command_line_options_.input_directory_names();
 
-  amm::desktop_file_names desktop_file_names;
-  desktop_file_names.register_directories_with_default_fallback(input_directory_names);
-  desktop_file_names.resolve();
+  amm::FileSearchService service;
+  service.RegisterDirectoriesWithDefaultFallback(input_directory_names);
+  service.Resolve();
 
-  std::vector<std::string> bad_paths = desktop_file_names.bad_paths();
+  std::vector<std::string> bad_paths = service.bad_paths();
   if (bad_paths.size() > 0) {
     std::cerr << "These paths couldn't be opened: " << amm::VectorX(bad_paths).Join(", ");
     std::cerr << std::endl << "Proceeding..." << std::endl;
   }
-  desktop_file_names_ = desktop_file_names.all();
+  desktop_file_names_ = service.desktop_file_names();
 }
 
 void
