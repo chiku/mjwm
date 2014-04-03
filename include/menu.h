@@ -35,7 +35,7 @@ namespace amm
 	private:
 		std::vector<std::string> desktop_file_names_;
 
-		amm::stats stats_;
+		amm::Stats stats_;
 
 		amm::IconService icon_service_;
 		std::vector<amm::Subcategory> subcategories_;
@@ -48,7 +48,7 @@ namespace amm
 		menu();
 
 		std::vector<amm::Subcategory> subcategories() const;
-		amm::stats stats() const;
+		amm::Stats stats() const;
 
 		void load_custom_categories(std::vector<std::string> lines);
 		void register_icon_service(amm::IconService icon_service);

@@ -25,7 +25,7 @@
 namespace amm
 {
 	// Understands the summary of populating a menu
-	class stats
+	class Stats
 	{
 	private:
 		std::vector<std::string> classified_files_;
@@ -35,23 +35,23 @@ namespace amm
 		std::vector<std::string> unhandled_classifications_;
 
 	public:
-		void add_classified_file(std::string file);
-		void add_unclassified_file(std::string file);
-		void add_suppressed_file(std::string file);
-		void add_unparsed_file(std::string file);
-		void add_unhandled_classifications(std::vector<std::string> classifications);
+		void AddClassifiedFile(std::string file) { classified_files_.push_back(file); }
+		void AddUnclassifiedFile(std::string file) { unclassified_files_.push_back(file); }
+		void AddSuppressedFile(std::string file) { suppressed_files_.push_back(file); }
+		void AddUnparsedFile(std::string file) { unparsed_files_.push_back(file); }
+		void AddUnhandledClassifications(std::vector<std::string> classifications);
 
-		size_t total_files() const;
-		size_t total_parsed_files() const;
-		size_t total_unclassified_files() const;
-		size_t total_suppressed_files() const;
-		size_t total_unparsed_files() const;
-		std::vector<std::string> unparsed_files() const;
-		std::vector<std::string> unhandled_classifications();
+		size_t TotalFiles() const;
+		size_t TotalParsedFiles() const;
+		size_t TotalUnclassifiedFiles() const;
+		size_t TotalSuppressedFiles() const;
+		size_t TotalUnparsedFiles() const;
+		std::vector<std::string> UnparsedFiles() const;
+		std::vector<std::string> UnhandledClassifications();
 
-		std::string short_summary() const;
-		std::string summary() const;
-		std::string long_summary();
+		std::string ShortSummary() const;
+		std::string Summary() const;
+		std::string LongSummary();
 	};
 }
 

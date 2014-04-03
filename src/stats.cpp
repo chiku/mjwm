@@ -25,73 +25,49 @@
 #include "stats.h"
 
 void
-amm::stats::add_classified_file(std::string file)
-{
-  classified_files_.push_back(file);
-}
-
-void
-amm::stats::add_unclassified_file(std::string file)
-{
-  unclassified_files_.push_back(file);
-}
-
-void
-amm::stats::add_suppressed_file(std::string file)
-{
-  suppressed_files_.push_back(file);
-}
-
-void
-amm::stats::add_unparsed_file(std::string file)
-{
-  unparsed_files_.push_back(file);
-}
-
-void
-amm::stats::add_unhandled_classifications(std::vector<std::string> classifications)
+amm::Stats::AddUnhandledClassifications(std::vector<std::string> classifications)
 {
   unhandled_classifications_.insert(unhandled_classifications_.begin(), classifications.begin(), classifications.end());
 }
 
 size_t
-amm::stats::total_files() const
+amm::Stats::TotalFiles() const
 {
   return classified_files_.size() + unclassified_files_.size() + suppressed_files_.size() + unparsed_files_.size();
 }
 
 size_t
-amm::stats::total_parsed_files() const
+amm::Stats::TotalParsedFiles() const
 {
   return classified_files_.size() + unclassified_files_.size();
 }
 
 size_t
-amm::stats::total_unclassified_files() const
+amm::Stats::TotalUnclassifiedFiles() const
 {
   return unclassified_files_.size();
 }
 
 size_t
-amm::stats::total_suppressed_files() const
+amm::Stats::TotalSuppressedFiles() const
 {
   return suppressed_files_.size();
 }
 
 size_t
-amm::stats::total_unparsed_files() const
+amm::Stats::TotalUnparsedFiles() const
 {
   return unparsed_files_.size();
 }
 
 std::vector<std::string>
-amm::stats::unparsed_files() const
+amm::Stats::UnparsedFiles() const
 {
   return unparsed_files_;
 }
 
 std::vector<std::string>
-amm::stats::unhandled_classifications()
+amm::Stats::UnhandledClassifications()
 {
   if (unhandled_classifications_.size() > 1) {
     std::sort(unhandled_classifications_.begin(), unhandled_classifications_.end());
@@ -103,24 +79,24 @@ amm::stats::unhandled_classifications()
 }
 
 std::string
-amm::stats::short_summary() const
+amm::Stats::ShortSummary() const
 {
   std::stringstream stream;
-  stream << "Total desktop files: " << total_files() << std::endl;
-  stream << "Parsed desktop files: " << total_parsed_files() << std::endl;
-  stream << "Unparsed desktop files: " << total_unparsed_files() << std::endl;
-  stream << "Suppressed desktop files (NoDisplay): " << total_suppressed_files() << std::endl;
-  stream << "Unclassified desktop files: " << total_unclassified_files() << std::endl;
+  stream << "Total desktop files: " << TotalFiles() << std::endl;
+  stream << "Parsed desktop files: " << TotalParsedFiles() << std::endl;
+  stream << "Unparsed desktop files: " << TotalUnparsedFiles() << std::endl;
+  stream << "Suppressed desktop files (NoDisplay): " << TotalSuppressedFiles() << std::endl;
+  stream << "Unclassified desktop files: " << TotalUnclassifiedFiles() << std::endl;
   return stream.str();
 }
 
 std::string
-amm::stats::summary() const
+amm::Stats::Summary() const
 {
   std::stringstream stream;
-  stream << short_summary();
+  stream << ShortSummary();
 
-  if (total_unparsed_files() > 0) {
+  if (TotalUnparsedFiles() > 0) {
     stream << "List of unparsed files: " << amm::VectorX(unparsed_files_).Join(", ") << std::endl;
   }
 
@@ -128,21 +104,21 @@ amm::stats::summary() const
 }
 
 std::string
-amm::stats::long_summary()
+amm::Stats::LongSummary()
 {
   std::stringstream stream;
-  stream << summary();
+  stream << Summary();
 
-  if (total_suppressed_files() > 0) {
+  if (TotalSuppressedFiles() > 0) {
     stream << "List of suppressed files: " << amm::VectorX(suppressed_files_).Join(", ") << std::endl;
   }
 
-  if (total_unclassified_files() > 0) {
+  if (TotalUnclassifiedFiles() > 0) {
     stream << "List of unclassified files: " << amm::VectorX(unclassified_files_).Join(", ") << std::endl;
   }
 
   if (unhandled_classifications_.size() > 0) {
-    stream << "List of unhandled classifications: " << amm::VectorX(unhandled_classifications()).Join(", ") << std::endl;
+    stream << "List of unhandled classifications: " << amm::VectorX(UnhandledClassifications()).Join(", ") << std::endl;
   }
 
   return stream.str();

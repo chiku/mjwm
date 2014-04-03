@@ -95,11 +95,11 @@ amm::menu::populate(std::vector<std::string> desktop_file_names)
         desktop_file.Populate(line);
       }
       if (!desktop_file.display()) {
-        stats_.add_suppressed_file(*name);
+        stats_.AddSuppressedFile(*name);
       } else if (desktop_file.IsValid()) {
         classify(desktop_file, *name);
       } else {
-        stats_.add_unparsed_file(*name);
+        stats_.AddUnparsedFile(*name);
       }
 
       file.close();
@@ -124,11 +124,11 @@ amm::menu::classify(amm::DesktopFile desktop_file, std::string desktop_file_name
   }
 
   if (classified) {
-    stats_.add_classified_file(desktop_file_name);
+    stats_.AddClassifiedFile(desktop_file_name);
   } else {
     unclassified_subcategory_.AddDesktopFile(desktop_file);
-    stats_.add_unclassified_file(desktop_file_name);
-    stats_.add_unhandled_classifications(desktop_file.categories());
+    stats_.AddUnclassifiedFile(desktop_file_name);
+    stats_.AddUnhandledClassifications(desktop_file.categories());
   }
 }
 
@@ -138,7 +138,7 @@ amm::menu::subcategories() const
   return subcategories_;
 }
 
-amm::stats
+amm::Stats
 amm::menu::stats() const
 {
   return stats_;

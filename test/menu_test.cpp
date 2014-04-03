@@ -181,10 +181,10 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
       menu.populate(files);
-      amm::stats stats = menu.stats();
+      amm::Stats stats = menu.stats();
 
       THEN("it holds the number of files parsed sucessfully") {
-        REQUIRE(stats.total_parsed_files() == 2);
+        REQUIRE(stats.TotalParsedFiles() == 2);
       }
     }
 
@@ -193,14 +193,14 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "unclassified.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
       menu.populate(files);
-      amm::stats stats = menu.stats();
+      amm::Stats stats = menu.stats();
 
       THEN("it holds the number of unclassified files") {
-        REQUIRE(stats.total_unclassified_files() == 1);
+        REQUIRE(stats.TotalUnclassifiedFiles() == 1);
       }
 
       THEN("it holds the categories that weren't handled") {
-        std::vector<std::string> unhandled_classifications = stats.unhandled_classifications();
+        std::vector<std::string> unhandled_classifications = stats.UnhandledClassifications();
 
         REQUIRE(unhandled_classifications.size() == 1);
         REQUIRE(unhandled_classifications[0] == "GTK");
@@ -212,10 +212,10 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "mousepad.desktop");
       files.push_back(fixtures_directory + "suppressed.desktop");
       menu.populate(files);
-      amm::stats stats = menu.stats();
+      amm::Stats stats = menu.stats();
 
       THEN("it holds the number of suppressed files") {
-        REQUIRE(stats.total_suppressed_files() == 1);
+        REQUIRE(stats.TotalSuppressedFiles() == 1);
       }
     }
 
@@ -224,10 +224,10 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "missing.desktop");
       menu.populate(files);
-      amm::stats stats = menu.stats();
+      amm::Stats stats = menu.stats();
 
       THEN("it holds the a list of unparsed files") {
-        std::vector<std::string> unparsed_files = stats.unparsed_files();
+        std::vector<std::string> unparsed_files = stats.UnparsedFiles();
 
         REQUIRE(unparsed_files.size() == 1);
         REQUIRE(unparsed_files[0] == fixtures_directory + "missing.desktop");
@@ -240,10 +240,10 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "suppressedinvalid.desktop");
       files.push_back(fixtures_directory + "missing.desktop");
       menu.populate(files);
-      amm::stats stats = menu.stats();
+      amm::Stats stats = menu.stats();
 
       THEN("missing entries excludes suppressed files") {
-        std::vector<std::string> unparsed_files = stats.unparsed_files();
+        std::vector<std::string> unparsed_files = stats.UnparsedFiles();
 
         REQUIRE(unparsed_files.size() == 1);
         REQUIRE(unparsed_files[0] == fixtures_directory + "missing.desktop");

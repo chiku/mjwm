@@ -125,7 +125,7 @@ void
 amm::Main::Populate()
 {
   menu_.populate(desktop_file_names_);
-  if (menu_.stats().total_parsed_files() == 0) {
+  if (menu_.stats().TotalParsedFiles() == 0) {
     std::cerr << amm::messages::no_valid_desktop_files() << std::endl;
     exit(1);
   }
@@ -161,7 +161,7 @@ amm::Main::WriteOutputFile()
 void
 amm::Main::PrintSummary()
 {
-  std::cout << menu_.stats().summary();
+  std::cout << menu_.stats().Summary();
 }
 
 int main(int argc, char *argv[])
