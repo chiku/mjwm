@@ -16,328 +16,297 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define CATCH_CONFIG_MAIN
+
 #include <iostream>
 #include <string>
 #include <sstream>
 
+#include "catch.hpp"
 #include "QUnit.hpp"
 
 #include "menu.h"
 #include "representation.h"
 #include "transformer.h"
 
-namespace amm
+static const std::string fixtures_directory = "test/fixtures/";
+
+class TestTransformer : public amm::transformer::base
 {
-  namespace transformer
+  std::string transform(amm::representation::menu_start *entry)
   {
-    class test : public base
-    {
-      std::string transform(amm::representation::menu_start *entry)
-      {
-        std::stringstream stream;
-        stream << "Menu start--> name: " << entry->name();
-        return stream.str();
-      }
-
-      std::string transform(amm::representation::menu_end *entry)
-      {
-        std::stringstream stream;
-        stream << "Menu end--> name: " << entry->name();
-        return stream.str();
-      }
-
-      std::string transform(amm::representation::subcategory_start *entry)
-      {
-        std::stringstream stream;
-        stream << "Subsection start--> name: " << entry->name() << " icon: " << entry->icon();
-        return stream.str();
-      }
-
-      std::string transform(amm::representation::subcategory_end *entry)
-      {
-        std::stringstream stream;
-        stream << "Subsection end--> name: " << entry->name();
-        return stream.str();
-      }
-
-      std::string transform(amm::representation::menu_entry *entry)
-      {
-        std::stringstream stream;
-        stream << "Program--> name: " << entry->name() << " icon: " << entry->icon() << " executable: " << entry->executable();
-        return stream.str();
-      }
-    };
+    std::stringstream stream;
+    stream << "Menu start--> name: " << entry->name();
+    return stream.str();
   }
 
-  const std::string fixtures_directory = "test/fixtures/";
-
-  // Verifies a collection of desktop files divided in subcategories
-  class menu_test
+  std::string transform(amm::representation::menu_end *entry)
   {
-    QUnit::UnitTest qunit;
+    std::stringstream stream;
+    stream << "Menu end--> name: " << entry->name();
+    return stream.str();
+  }
 
-    void test_menu_loads_categories_from_colon_separated_lines()
-    {
+  std::string transform(amm::representation::subcategory_start *entry)
+  {
+    std::stringstream stream;
+    stream << "Subsection start--> name: " << entry->name() << " icon: " << entry->icon();
+    return stream.str();
+  }
+
+  std::string transform(amm::representation::subcategory_end *entry)
+  {
+    std::stringstream stream;
+    stream << "Subsection end--> name: " << entry->name();
+    return stream.str();
+  }
+
+  std::string transform(amm::representation::menu_entry *entry)
+  {
+    std::stringstream stream;
+    stream << "Program--> name: " << entry->name() << " icon: " << entry->icon() << " executable: " << entry->executable();
+    return stream.str();
+  }
+};
+
+static void clear_memory(std::vector<amm::representation::base*> representations)
+{
+  for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+    delete *iter;
+  }
+}
+
+
+SCENARIO("amm::Menu custom categories", "[menu]") {
+  GIVEN("A menu") {
+    amm::menu menu;
+
+    WHEN("loaded with custom categories") {
       std::vector<std::string> lines;
       lines.push_back("Accessories:accessories:Utility");
       lines.push_back("Games:games:Game");
-      menu menu;
-
       menu.load_custom_categories(lines);
-      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
-      QUNIT_IS_EQUAL(2, subcategories.size());
-      QUNIT_IS_EQUAL("Accessories", subcategories[0].display_name());
-      QUNIT_IS_EQUAL("Games", subcategories[1].display_name());
+      THEN("it stores them in its subcategories") {
+        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+
+        REQUIRE(subcategories.size() == 2);
+        REQUIRE(subcategories[0].display_name() == "Accessories");
+        REQUIRE(subcategories[1].display_name() == "Games");
+      }
     }
 
-    void test_menu_associates_multiple_categories_with_same_display_name_when_more_than_three_tokens_are_present()
-    {
-      std::vector<std::string> lines;
-      lines.push_back("Games:games:Game:Fun");
-      menu menu;
-
-      menu.load_custom_categories(lines);
-      std::vector<amm::Subcategory> subcategories = menu.subcategories();
-
-      QUNIT_IS_EQUAL(1, subcategories.size());
-
-      std::vector<std::string> classification_names = subcategories[0].classification_names();
-      QUNIT_IS_EQUAL(2, classification_names.size());
-      QUNIT_IS_EQUAL("Game", classification_names[0]);
-      QUNIT_IS_EQUAL("Fun", classification_names[1]);
-    }
-
-    void test_menu_loads_categories_ignores_comments()
-    {
+    WHEN("given a line beginning with '#'") {
       std::vector<std::string> lines;
       lines.push_back("# Comments");
-      lines.push_back("Games:Game:games");
       lines.push_back("#More:comment:here");
-      menu menu;
-
       menu.load_custom_categories(lines);
-      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
-      QUNIT_IS_EQUAL(1, subcategories.size());
-      QUNIT_IS_EQUAL("Games", subcategories[0].display_name());
+      THEN("it ignores it the lines begenning with '#'") {
+        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+
+        REQUIRE(subcategories.size() == 0);
+      }
     }
 
-    void test_menu_loads_categories_ignores_entries_without_three_tokens()
-    {
+    WHEN("given a line with less than three tokens") {
       std::vector<std::string> lines;
       lines.push_back("Accessories::Accessories");
       lines.push_back("Game:Games");
-      menu menu;
-
       menu.load_custom_categories(lines);
-      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
-      QUNIT_IS_EQUAL(0, subcategories.size());
+      THEN("it ignores the lines") {
+        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+
+        REQUIRE(subcategories.size() == 0);
+      }
     }
 
-    void test_menu_load_categories_skips_missing_classification_names()
-    {
+
+    WHEN("loaded with custom categories with more than three tokens") {
+      std::vector<std::string> lines;
+      lines.push_back("Games:games:Game:Fun");
+      menu.load_custom_categories(lines);
+
+      THEN("it has multiple classifications in its subcategories") {
+        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+
+        REQUIRE(subcategories.size() == 1);
+        REQUIRE(subcategories[0].display_name() == "Games");
+
+        std::vector<std::string> classification_names = subcategories[0].classification_names();
+        REQUIRE(classification_names.size() == 2);
+        REQUIRE(classification_names[0] == "Game");
+        REQUIRE(classification_names[1] == "Fun");
+      }
+    }
+
+    WHEN("given a line with more than three tokens but with some classification names as empty") {
       std::vector<std::string> lines;
       lines.push_back("Games:games:Game::Fun::Frolic");
-      menu menu;
-
       menu.load_custom_categories(lines);
-      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
-      QUNIT_IS_EQUAL(1, subcategories.size());
+      THEN("it ignores the missing classification names") {
+        std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
-      std::vector<std::string> classification_names = subcategories[0].classification_names();
-      QUNIT_IS_EQUAL(3, classification_names.size());
-      QUNIT_IS_EQUAL("Game", classification_names[0]);
-      QUNIT_IS_EQUAL("Fun", classification_names[1]);
-      QUNIT_IS_EQUAL("Frolic", classification_names[2]);
+        REQUIRE(subcategories.size() == 1);
+
+        std::vector<std::string> classification_names = subcategories[0].classification_names();
+        REQUIRE(classification_names.size() == 3);
+        REQUIRE(classification_names[0] == "Game");
+        REQUIRE(classification_names[1] == "Fun");
+        REQUIRE(classification_names[2] == "Frolic");
+      }
     }
 
-    void test_menu_load_categories_skips_categories_without_one_category_name()
-    {
+    WHEN("given a line without a single classification name") {
       std::vector<std::string> lines;
       lines.push_back("Games:games:::");
-      menu menu;
-
       menu.load_custom_categories(lines);
-      std::vector<amm::Subcategory> subcategories = menu.subcategories();
 
-      QUNIT_IS_EQUAL(0, subcategories.size());
+      THEN("it ignores the lines with missing classification names") {
+        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+
+        REQUIRE(subcategories.size() == 0);
+      }
     }
+  }
+}
 
-    void test_menu_stats_successfully_parsed_desktop_files()
-    {
+SCENARIO("amm::Menu statistics", "[menu]") {
+  GIVEN("A menu") {
+    amm::menu menu;
+
+    WHEN("successfully parsed") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
-      menu menu;
-
       menu.populate(files);
       amm::stats stats = menu.stats();
 
-      QUNIT_IS_EQUAL(2, stats.total_parsed_files());
+      THEN("it holds the number of files parsed sucessfully") {
+        REQUIRE(stats.total_parsed_files() == 2);
+      }
     }
 
-    void test_menu_stats_successfully_parsed_unclassified_desktop_files()
-    {
+    WHEN("parsing an unclassified desktop file") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "unclassified.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
-      menu menu;
-
       menu.populate(files);
       amm::stats stats = menu.stats();
 
-      QUNIT_IS_EQUAL(1, stats.total_unclassified_files());
+      THEN("it holds the number of unclassified files") {
+        REQUIRE(stats.total_unclassified_files() == 1);
+      }
+
+      THEN("it holds the categories that weren't handled") {
+        std::vector<std::string> unhandled_classifications = stats.unhandled_classifications();
+
+        REQUIRE(unhandled_classifications.size() == 1);
+        REQUIRE(unhandled_classifications[0] == "GTK");
+      }
     }
 
-    void test_menu_stats_suppressed_desktop_files()
-    {
+    WHEN("parsing a file suppressed with 'NoDisplay=true'") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "mousepad.desktop");
       files.push_back(fixtures_directory + "suppressed.desktop");
-      menu menu;
-
       menu.populate(files);
       amm::stats stats = menu.stats();
 
-      QUNIT_IS_EQUAL(1, stats.total_suppressed_files());
+      THEN("it holds the number of suppressed files") {
+        REQUIRE(stats.total_suppressed_files() == 1);
+      }
     }
 
-    void test_menu_stats_unparsed_desktop_files()
-    {
+    WHEN("parsing a file with missing entries") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "missing.desktop");
-      menu menu;
-
       menu.populate(files);
       amm::stats stats = menu.stats();
-      std::vector<std::string> unparsed_files = stats.unparsed_files();
 
-      QUNIT_IS_EQUAL(1, unparsed_files.size());
-      QUNIT_IS_EQUAL(fixtures_directory + "missing.desktop", unparsed_files[0]);
+      THEN("it holds the a list of unparsed files") {
+        std::vector<std::string> unparsed_files = stats.unparsed_files();
+
+        REQUIRE(unparsed_files.size() == 1);
+        REQUIRE(unparsed_files[0] == fixtures_directory + "missing.desktop");
+      }
     }
 
-    void test_menu_stats_unparsed_desktop_files_exclude_suppressed_files()
-    {
+    WHEN("parsing a file with missing and suppressed entries") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "suppressed.desktop");
       files.push_back(fixtures_directory + "suppressedinvalid.desktop");
       files.push_back(fixtures_directory + "missing.desktop");
-      menu menu;
-
       menu.populate(files);
       amm::stats stats = menu.stats();
-      std::vector<std::string> unparsed_files = stats.unparsed_files();
 
-      QUNIT_IS_EQUAL(1, unparsed_files.size());
-      QUNIT_IS_EQUAL(fixtures_directory + "missing.desktop", unparsed_files[0]);
+      THEN("missing entries excludes suppressed files") {
+        std::vector<std::string> unparsed_files = stats.unparsed_files();
+
+        REQUIRE(unparsed_files.size() == 1);
+        REQUIRE(unparsed_files[0] == fixtures_directory + "missing.desktop");
+      }
     }
+  }
+}
 
-    void test_menu_stats_the_catagories_that_werent_handled()
-    {
-      std::vector<std::string> files;
-      files.push_back(fixtures_directory + "unclassified.desktop");
-      files.push_back(fixtures_directory + "mousepad.desktop");
-      menu menu;
+SCENARIO("amm::Menu representations", "[menu]") {
+  GIVEN("A menu") {
+    amm::menu menu;
 
-      menu.populate(files);
-      amm::stats stats = menu.stats();
-      std::vector<std::string> unhandled_classifications = stats.unhandled_classifications();
-
-      QUNIT_IS_EQUAL(1, unhandled_classifications.size());
-      QUNIT_IS_EQUAL("GTK", unhandled_classifications[0]);
-    }
-
-    void test_menu_is_transformed_to_a_collection_of_representations()
-    {
+    WHEN("transformed to a representations") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
-      menu menu;
 
       menu.populate(files);
       std::vector<amm::representation::base*> representations = menu.representations();
-      amm::transformer::test test_transformer;
+      TestTransformer test_transformer;
 
-      QUNIT_IS_EQUAL(8, representations.size());
-      QUNIT_IS_EQUAL("Menu start--> name: Menu start", representations[0]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection start--> name: Accessories icon: accessories", representations[1]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Program--> name: Mousepad icon: accessories-text-editor executable: mousepad %F", representations[2]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection end--> name: Accessories end", representations[3]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection start--> name: Multimedia icon: multimedia", representations[4]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U", representations[5]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection end--> name: Multimedia end", representations[6]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Menu end--> name: Menu end", representations[7]->visit(test_transformer));
+      THEN("it stores menu start, subcategory start, menu entry, subcategory end and menu end") {
+        REQUIRE(representations.size() == 8);
+        REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
+        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: accessories");
+        REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor executable: mousepad %F");
+        REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
+        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: multimedia");
+        REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U");
+        REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
+        REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
 
-      clear_memory(representations);
+        clear_memory(representations);
+      }
     }
 
-    void test_menu_appends_icon_extension_when_available()
-    {
+    WHEN("transformed to a representations with icon service") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
-      menu menu;
+
       amm::IconService icon_service;
       icon_service.set_extension(".xpm");
       menu.register_icon_service(icon_service);
 
       menu.populate(files);
       std::vector<amm::representation::base*> representations = menu.representations();
-      amm::transformer::test test_transformer;
+      TestTransformer test_transformer;
 
-      QUNIT_IS_EQUAL(8, representations.size());
-      QUNIT_IS_EQUAL("Menu start--> name: Menu start", representations[0]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection start--> name: Accessories icon: accessories.xpm", representations[1]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Program--> name: Mousepad icon: accessories-text-editor.xpm executable: mousepad %F", representations[2]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection end--> name: Accessories end", representations[3]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection start--> name: Multimedia icon: multimedia.xpm", representations[4]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Program--> name: VLC media player icon: vlc.xpm executable: /usr/bin/vlc --started-from-file %U", representations[5]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Subsection end--> name: Multimedia end", representations[6]->visit(test_transformer));
-      QUNIT_IS_EQUAL("Menu end--> name: Menu end", representations[7]->visit(test_transformer));
+      THEN("it adds the icon name to icons for subcategory and menu-entry") {
+        REQUIRE(representations.size() == 8);
+        REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
+        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: accessories.xpm");
+        REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor.xpm executable: mousepad %F");
+        REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
+        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: multimedia.xpm");
+        REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc.xpm executable: /usr/bin/vlc --started-from-file %U");
+        REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
+        REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
 
-      clear_memory(representations);
-    }
-
-    void clear_memory(std::vector<amm::representation::base*> representations)
-    {
-      for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
-        delete *iter;
+        clear_memory(representations);
       }
     }
-
-
-  public:
-    menu_test(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
-
-    int run()
-    {
-      test_menu_loads_categories_from_colon_separated_lines();
-      test_menu_associates_multiple_categories_with_same_display_name_when_more_than_three_tokens_are_present();
-      test_menu_loads_categories_ignores_comments();
-      test_menu_loads_categories_ignores_entries_without_three_tokens();
-      test_menu_load_categories_skips_missing_classification_names();
-      test_menu_load_categories_skips_categories_without_one_category_name();
-
-      test_menu_stats_successfully_parsed_desktop_files();
-      test_menu_stats_successfully_parsed_unclassified_desktop_files();
-      test_menu_stats_suppressed_desktop_files();
-      test_menu_stats_unparsed_desktop_files();
-      test_menu_stats_unparsed_desktop_files_exclude_suppressed_files();
-      test_menu_stats_the_catagories_that_werent_handled();
-
-      test_menu_is_transformed_to_a_collection_of_representations();
-      test_menu_appends_icon_extension_when_available();
-      return qunit.errors();
-    }
-  };
-}
-
-
-int main()
-{
-  return amm::menu_test(std::cerr, QUnit::normal).run();
+  }
 }
