@@ -16,272 +16,242 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define CATCH_CONFIG_MAIN
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cstring>
 
+#include "catch.hpp"
 #include "QUnit.hpp"
 
 #include "command_line_options.h"
 
-namespace amm
-{
-  // Verifies parsing of user specified options supplied to the program
-  class CommandLineOptionsTest
-  {
-    QUnit::UnitTest qunit;
 
-    void test_CommandLineOptions_are_not_deprecated_by_default()
-    {
-      amm::CommandLineOptions options;
+SCENARIO("amm::CommandLineOptions.Parse() default", "[commandlineoptions]") {
+  GIVEN("command line options") {
+    amm::CommandLineOptions options;
+
+    WHEN("parsing default") {
       char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
+      bool parse_result = options.Parse(1, argv);
 
-      std::vector<std::string> deprecations = options.deprecations();
+      THEN("it has no deprecations") {
+        REQUIRE(options.deprecations().size() == 0);
+      }
 
-      QUNIT_IS_EQUAL(0, deprecations.size());
+      THEN("it is true") {
+        REQUIRE(parse_result == true);
+      }
+
+      THEN("it help flag is off") {
+        REQUIRE(!options.is_help());
+      }
+
+      THEN("its version flag is off") {
+        REQUIRE(!options.is_version());
+      }
+
+      THEN("its output-file is 'automenu'") {
+        REQUIRE(options.output_file_name() == "./automenu");
+      }
+
+      THEN("its input-directories is empty") {
+        REQUIRE(options.input_directory_names().size() == 0);
+      }
+
+      THEN("its category file is empty") {
+        REQUIRE(options.category_file_name() == "");
+      }
+
+      THEN("its icon-extenstion is empty") {
+        REQUIRE(options.icon_extension() == "");
+      }
     }
-    void test_CommandLineOptions_parse_returns_true_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      QUNIT_IS_TRUE(options.Parse(1, argv));
-    }
+  }
+}
 
-    void test_CommandLineOptions_turns_off_help_flag_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
+SCENARIO("amm::CommandLineOptions.Parse() flags", "[commandlineoptions]") {
+  GIVEN("command line options") {
+    amm::CommandLineOptions options;
 
-      QUNIT_IS_FALSE(options.is_help());
-    }
-    void test_CommandLineOptions_turns_on_help_flag_on_help_option()
-    {
-      amm::CommandLineOptions options;
+    WHEN("parsing --help") {
       char* argv[] = {strdup("amm"), strdup("--help"), 0};
       options.Parse(2, argv);
 
-      QUNIT_IS_TRUE(options.is_help());
+      THEN("its help flag is on") {
+        REQUIRE(options.is_help());
+      }
     }
-    void test_CommandLineOptions_turns_on_help_flag_with_deprecation_on_h_option()
-    {
-      amm::CommandLineOptions options;
+
+    WHEN("parsing -h") {
       char* argv[] = {strdup("amm"), strdup("-h"), 0};
       options.Parse(2, argv);
-      std::vector<std::string> deprecations = options.deprecations();
 
-      QUNIT_IS_TRUE(options.is_help());
-      QUNIT_IS_EQUAL(1, deprecations.size());
-      QUNIT_IS_EQUAL("-h is deprecated. Please use --help instead.", deprecations[0]);
+      THEN("it help flag is on") {
+        REQUIRE(options.is_help());
+      }
+
+      THEN("it has deprecations") {
+        std::vector<std::string> deprecations = options.deprecations();
+        REQUIRE(deprecations.size() == 1);
+        REQUIRE(deprecations[0] == "-h is deprecated. Please use --help instead.");
+      }
     }
 
-    void test_CommandLineOptions_turns_off_version_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
-
-      QUNIT_IS_FALSE(options.is_version());
-    }
-    void test_CommandLineOptions_turns_on_version_flag_on_version_option()
-    {
-      amm::CommandLineOptions options;
+    WHEN("parsing --version") {
       char* argv[] = {strdup("amm"), strdup("--version"), 0};
       options.Parse(2, argv);
 
-      QUNIT_IS_TRUE(options.is_version());
+      THEN("its version flag is on") {
+        REQUIRE(options.is_version());
+      }
     }
-    void test_CommandLineOptions_turns_on_version_flag_with_deprecation_on_v_option()
-    {
-      amm::CommandLineOptions options;
+
+    WHEN("parsing -v") {
       char* argv[] = {strdup("amm"), strdup("-v"), 0};
       options.Parse(2, argv);
-      std::vector<std::string> deprecations = options.deprecations();
 
-      QUNIT_IS_TRUE(options.is_version());
-      QUNIT_IS_EQUAL(1, deprecations.size());
-      QUNIT_IS_EQUAL("-v is deprecated. Please use --version instead.", deprecations[0]);
+      THEN("it version flag is on") {
+        REQUIRE(options.is_version());
+      }
+
+      THEN("it has deprecations") {
+        std::vector<std::string> deprecations = options.deprecations();
+        REQUIRE(deprecations.size() == 1);
+        REQUIRE(deprecations[0] == "-v is deprecated. Please use --version instead.");
+      }
     }
 
-    void test_CommandLineOptions_sets_output_file_name_to_automenu_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
-
-      QUNIT_IS_EQUAL("./automenu", options.output_file_name());
-    }
-    void test_CommandLineOptions_sets_output_file_name_to_argument_passed_with_output_file_option()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("--output-file"), strdup("menu.out"), 0};
-      options.Parse(3, argv);
-
-      QUNIT_IS_EQUAL("menu.out", options.output_file_name());
-    }
-    void test_CommandLineOptions_sets_output_file_name_to_argument_passed_with_o_option()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("-o"), strdup("jwm.menu"), 0};
-      options.Parse(3, argv);
-
-      QUNIT_IS_EQUAL("jwm.menu", options.output_file_name());
-    }
-
-    void test_CommandLineOptions_sets_input_directory_names_to_empty_vector_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
-      std::vector<std::string> input_directory_names = options.input_directory_names();
-
-      QUNIT_IS_EQUAL(0, input_directory_names.size());
-    }
-    void test_CommandLineOptions_sets_input_directory_names_to_argument_passed_with_input_directory_option()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("--input-directory"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-      options.Parse(3, argv);
-      std::vector<std::string> input_directory_names = options.input_directory_names();
-
-      QUNIT_IS_EQUAL(2, input_directory_names.size());
-      QUNIT_IS_EQUAL("/usr/share/applications", input_directory_names[0]);
-      QUNIT_IS_EQUAL("/usr/local/share/applications", input_directory_names[1]);
-    }
-    void test_CommandLineOptions_sets_input_directory_names_to_argument_passed_with_i_option()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("-i"), strdup("/usr/share/applications"), 0};
-      options.Parse(3, argv);
-      std::vector<std::string> input_directory_names = options.input_directory_names();
-
-      QUNIT_IS_EQUAL(1, input_directory_names.size());
-      QUNIT_IS_EQUAL("/usr/share/applications", input_directory_names[0]);
-    }
-    void test_CommandLineOptions_sets_input_directory_names_to_argument_passed_with_deprecation_with_s_option()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("-s"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-      options.Parse(3, argv);
-      std::vector<std::string> input_directory_names = options.input_directory_names();
-      std::vector<std::string> deprecations = options.deprecations();
-
-      QUNIT_IS_EQUAL(2, input_directory_names.size());
-      QUNIT_IS_EQUAL("/usr/share/applications", input_directory_names[0]);
-      QUNIT_IS_EQUAL("/usr/local/share/applications", input_directory_names[1]);
-
-      QUNIT_IS_EQUAL(1, deprecations.size());
-      QUNIT_IS_EQUAL("-s is deprecated. Please use -i instead.", deprecations[0]);
-    }
-
-    void test_CommandLineOptions_sets_icon_extension_to_empty_string_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
-
-      QUNIT_IS_EQUAL("", options.icon_extension());
-    }
-    void test_CommandLineOptions_sets_icon_extension_on_append_png_flag()
-    {
-      amm::CommandLineOptions options;
+    WHEN("parsing --append-png") {
       char* argv[] = {strdup("amm"), strdup("--append-png"), 0};
       options.Parse(2, argv);
 
-      QUNIT_IS_EQUAL(".png", options.icon_extension());
+      THEN("it icon-extenstion is '.png'") {
+        REQUIRE(options.icon_extension() == ".png");
+      }
     }
-    void test_CommandLineOptions_sets_icon_extension_on_a_flag()
-    {
-      amm::CommandLineOptions options;
+
+    WHEN("parsing -a") {
       char* argv[] = {strdup("amm"), strdup("-a"), 0};
       options.Parse(2, argv);
 
-      QUNIT_IS_EQUAL(".png", options.icon_extension());
+      THEN("it icon-extenstion is '.png'") {
+        REQUIRE(options.icon_extension() == ".png");
+      }
+    }
+  }
+}
+
+SCENARIO("amm::CommandLineOptions.Parse() options", "[commandlineoptions]") {
+  GIVEN("command line options") {
+    amm::CommandLineOptions options;
+
+    WHEN("parsing --output-file") {
+      char* argv[] = {strdup("amm"), strdup("--output-file"), strdup("menu.out"), 0};
+      options.Parse(3, argv);
+
+      THEN("its output-file is set to the given value") {
+        REQUIRE(options.output_file_name() == "menu.out");
+      }
     }
 
-    void test_CommandLineOptions_sets_category_file_name_to_empty_string_by_default()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), 0};
-      options.Parse(1, argv);
+    WHEN("parsing -o") {
+      char* argv[] = {strdup("amm"), strdup("-o"), strdup("menu.out"), 0};
+      options.Parse(3, argv);
 
-      QUNIT_IS_EQUAL("", options.category_file_name());
+      THEN("its output-file is set to the given value") {
+        REQUIRE(options.output_file_name() == "menu.out");
+      }
     }
-    void test_CommandLineOptions_sets_category_file_name_to_argument_passed_with_category_file_option()
-    {
-      amm::CommandLineOptions options;
+
+    WHEN("parsing --input-directory") {
+      char* argv[] = {strdup("amm"), strdup("--input-directory"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
+      options.Parse(3, argv);
+
+      THEN("its input-directories is set to the given values") {
+        std::vector<std::string> input_directory_names = options.input_directory_names();
+
+        REQUIRE(input_directory_names.size() == 2);
+        REQUIRE(input_directory_names[0] == "/usr/share/applications");
+        REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
+      }
+    }
+
+    WHEN("parsing -i") {
+      char* argv[] = {strdup("amm"), strdup("-i"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
+      options.Parse(3, argv);
+
+      THEN("its input-directories is set to the given values") {
+        std::vector<std::string> input_directory_names = options.input_directory_names();
+
+        REQUIRE(input_directory_names.size() == 2);
+        REQUIRE(input_directory_names[0] == "/usr/share/applications");
+        REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
+      }
+    }
+
+    WHEN("parsing -s") {
+      char* argv[] = {strdup("amm"), strdup("-s"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
+      options.Parse(3, argv);
+
+      THEN("its input-directories is set to the given values") {
+        std::vector<std::string> input_directory_names = options.input_directory_names();
+
+        REQUIRE(input_directory_names.size() == 2);
+        REQUIRE(input_directory_names[0] == "/usr/share/applications");
+        REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
+      }
+
+      THEN("it has deprecations") {
+        std::vector<std::string> deprecations = options.deprecations();
+        REQUIRE(deprecations.size() == 1);
+        REQUIRE(deprecations[0] == "-s is deprecated. Please use -i instead.");
+      }
+    }
+
+    WHEN("parsing --category-file") {
       char* argv[] = {strdup("amm"), strdup("--category-file"), strdup("default.mjwm"), 0};
       options.Parse(3, argv);
 
-      QUNIT_IS_EQUAL("default.mjwm", options.category_file_name());
+      THEN("its category-file is set to the given value") {
+        REQUIRE(options.category_file_name() == "default.mjwm");
+      }
     }
-    void test_CommandLineOptions_sets_category_file_name_to_argument_passed_with_c_option()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("-c"), strdup("puppy.mjwm"), 0};
+
+    WHEN("parsing -c") {
+      char* argv[] = {strdup("amm"), strdup("-c"), strdup("default.mjwm"), 0};
       options.Parse(3, argv);
 
-      QUNIT_IS_EQUAL("puppy.mjwm", options.category_file_name());
+      THEN("its category-file is set to the given value") {
+        REQUIRE(options.category_file_name() == "default.mjwm");
+      }
     }
-
-    void test_CommandLineOptions_returns_false_on_parse_failure()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("--bad-option"), strdup("puppy.mjwm"), 0};
-      QUNIT_IS_FALSE(options.Parse(3, argv));
-    }
-    void test_CommandLineOptions_returns_false_on_missing_mandatory_argument()
-    {
-      amm::CommandLineOptions options;
-      char* argv[] = {strdup("amm"), strdup("-c"), 0};
-      QUNIT_IS_FALSE(options.Parse(2, argv));
-    }
-
-  public:
-    CommandLineOptionsTest(std::ostream &out, int verbose_level) : qunit(out, verbose_level) {}
-
-    int run()
-    {
-      test_CommandLineOptions_are_not_deprecated_by_default();
-      test_CommandLineOptions_parse_returns_true_by_default();
-
-      test_CommandLineOptions_turns_off_help_flag_by_default();
-      test_CommandLineOptions_turns_on_help_flag_on_help_option();
-      test_CommandLineOptions_turns_on_help_flag_with_deprecation_on_h_option();
-
-      test_CommandLineOptions_turns_off_version_by_default();
-      test_CommandLineOptions_turns_on_version_flag_on_version_option();
-      test_CommandLineOptions_turns_on_version_flag_with_deprecation_on_v_option();
-
-      test_CommandLineOptions_sets_output_file_name_to_automenu_by_default();
-      test_CommandLineOptions_sets_output_file_name_to_argument_passed_with_output_file_option();
-      test_CommandLineOptions_sets_output_file_name_to_argument_passed_with_o_option();
-
-      test_CommandLineOptions_sets_input_directory_names_to_empty_vector_by_default();
-      test_CommandLineOptions_sets_input_directory_names_to_argument_passed_with_input_directory_option();
-      test_CommandLineOptions_sets_input_directory_names_to_argument_passed_with_i_option();
-      test_CommandLineOptions_sets_input_directory_names_to_argument_passed_with_deprecation_with_s_option();
-
-      test_CommandLineOptions_sets_category_file_name_to_empty_string_by_default();
-      test_CommandLineOptions_sets_category_file_name_to_argument_passed_with_category_file_option();
-      test_CommandLineOptions_sets_category_file_name_to_argument_passed_with_c_option();
-
-      test_CommandLineOptions_sets_icon_extension_to_empty_string_by_default();
-      test_CommandLineOptions_sets_icon_extension_on_a_flag();
-      test_CommandLineOptions_sets_icon_extension_on_append_png_flag();
-
-      test_CommandLineOptions_returns_false_on_parse_failure();
-      test_CommandLineOptions_returns_false_on_missing_mandatory_argument();
-
-      return qunit.errors();
-    }
-
-  };
+  }
 }
 
-int main()
-{
-  return amm::CommandLineOptionsTest(std::cerr, QUnit::normal).run();
+
+SCENARIO("amm::CommandLineOptions.Parse() failure", "[commandlineoptions]") {
+  GIVEN("command line options") {
+    amm::CommandLineOptions options;
+
+    WHEN("parsing a bad option") {
+      char* argv[] = {strdup("amm"), strdup("--bad-option"), strdup("default.mjwm"), 0};
+      bool parse_result = options.Parse(3, argv);
+
+      THEN("it is false") {
+        REQUIRE(parse_result == false);
+      }
+    }
+
+    WHEN("parsing a missing mandatory option") {
+      char* argv[] = {strdup("amm"), strdup("-c"), 0};
+      bool parse_result = options.Parse(2, argv);
+
+      THEN("it is false") {
+        REQUIRE(parse_result == false);
+      }
+    }
+  }
 }
