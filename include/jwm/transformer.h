@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_JWM_TRANSFORMER_H_
-#define AMM_JWM_TRANSFORMER_H_
+#ifndef AMM_TRANSFORMER_JWM_H_
+#define AMM_TRANSFORMER_JWM_H_
 
 #include <string>
 
@@ -41,4 +41,4 @@ namespace amm
   }
 }
 
-#endif // AMM_JWM_TRANSFORMER_H_
+#endif // AMM_TRANSFORMER_JWM_H_
