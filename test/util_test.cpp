@@ -23,7 +23,6 @@
 #include <vector>
 
 #include "catch.hpp"
-#include "QUnit.hpp"
 
 #include "util.h"
 

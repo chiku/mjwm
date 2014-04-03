@@ -24,7 +24,6 @@
 #include <cstring>
 
 #include "catch.hpp"
-#include "QUnit.hpp"
 
 #include "command_line_options.h"
 

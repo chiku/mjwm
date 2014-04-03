@@ -23,7 +23,6 @@
 #include <string>
 
 #include "catch.hpp"
-#include "QUnit.hpp"
 
 #include "desktop_file.h"
 

@@ -23,7 +23,6 @@
 #include <sstream>
 
 #include "catch.hpp"
-#include "QUnit.hpp"
 
 #include "menu.h"
 #include "representation.h"
