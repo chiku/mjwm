@@ -29,7 +29,7 @@ namespace amm
   namespace transformer
   {
     // Understands the conversion of representation into a JWM menu
-    class jwm : public base
+    class jwm : public TransformerInterface
     {
     public:
       virtual std::string transform(amm::representation::menu_start *entry);

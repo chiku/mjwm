@@ -30,7 +30,7 @@
 
 static const std::string fixtures_directory = "test/fixtures/";
 
-class TestTransformer : public amm::transformer::base
+class TestTransformer : public amm::TransformerInterface
 {
   std::string transform(amm::representation::menu_start *entry)
   {

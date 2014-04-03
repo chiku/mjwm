@@ -28,7 +28,7 @@ amm::representation::menu_start::name()
   return "Menu start";
 }
 std::string
-amm::representation::menu_start::visit(amm::transformer::base &transformer)
+amm::representation::menu_start::visit(amm::TransformerInterface &transformer)
 {
   return transformer.transform(this);
 }
@@ -41,7 +41,7 @@ amm::representation::menu_end::name()
   return "Menu end";
 }
 std::string
-amm::representation::menu_end::visit(amm::transformer::base &transformer)
+amm::representation::menu_end::visit(amm::TransformerInterface &transformer)
 {
   return transformer.transform(this);
 }
@@ -64,7 +64,7 @@ amm::representation::subcategory_start::icon()
   return icon_;
 }
 std::string
-amm::representation::subcategory_start::visit(amm::transformer::base &transformer)
+amm::representation::subcategory_start::visit(amm::TransformerInterface &transformer)
 {
   return transformer.transform(this);
 }
@@ -82,7 +82,7 @@ amm::representation::subcategory_end::name()
   return name_ + " end";
 }
 std::string
-amm::representation::subcategory_end::visit(amm::transformer::base &transformer)
+amm::representation::subcategory_end::visit(amm::TransformerInterface &transformer)
 {
   return transformer.transform(this);
 }
@@ -111,7 +111,7 @@ amm::representation::menu_entry::executable()
   return executable_;
 }
 std::string
-amm::representation::menu_entry::visit(amm::transformer::base &transformer)
+amm::representation::menu_entry::visit(amm::TransformerInterface &transformer)
 {
   return transformer.transform(this);
 }
