@@ -18,20 +18,21 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "jwm/transformer.h"
+
 #include <iostream>
 
 #include "../catch.hpp"
-
 #include "representation.h"
-#include "jwm/transformer.h"
 
+namespace amm {
 
-SCENARIO("amm::transformer::Jwm", "[transformerjwm]") {
+SCENARIO("transformer::Jwm", "[transformerjwm]") {
   GIVEN("A JWM transformer") {
-    amm::transformer::jwm jwm_transformer;
+    transformer::jwm jwm_transformer;
 
     WHEN("transforming a menu-start representation") {
-      amm::representation::menu_start menu_start;
+      representation::menu_start menu_start;
       std::string result = jwm_transformer.transform(&menu_start);
 
       THEN("it gives static message") {
@@ -40,7 +41,7 @@ SCENARIO("amm::transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a menu-end representation") {
-      amm::representation::menu_end menu_end;
+      representation::menu_end menu_end;
       std::string result = jwm_transformer.transform(&menu_end);
 
       THEN("it gives static message") {
@@ -49,7 +50,7 @@ SCENARIO("amm::transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a subcategory-start representation") {
-      amm::representation::subcategory_start subcategory_start("Application", "application.png");
+      representation::subcategory_start subcategory_start("Application", "application.png");
       std::string result = jwm_transformer.transform(&subcategory_start);
 
       THEN("it includes the subcategory name and icon") {
@@ -57,14 +58,14 @@ SCENARIO("amm::transformer::Jwm", "[transformerjwm]") {
       }
 
       THEN("it XML excapes the name") {
-        amm::representation::subcategory_start subcategory_start("Fun & Games", "games.png");
+        representation::subcategory_start subcategory_start("Fun & Games", "games.png");
         std::string result = jwm_transformer.transform(&subcategory_start);
         REQUIRE(result == "    <Menu label=\"Fun &amp; Games\" icon=\"games.png\">");
       }
     }
 
     WHEN("transforming a subcategory-end representation") {
-      amm::representation::subcategory_end subcategory_end("Application");
+      representation::subcategory_end subcategory_end("Application");
       std::string result = jwm_transformer.transform(&subcategory_end);
 
       THEN("it includes the subcategory names in XML comments") {
@@ -73,7 +74,7 @@ SCENARIO("amm::transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a menu-entry representation") {
-      amm::representation::menu_entry menu_entry("Application", "application.png", "/usr/bin/application");
+      representation::menu_entry menu_entry("Application", "application.png", "/usr/bin/application");
       std::string result = jwm_transformer.transform(&menu_entry);
 
       THEN("it gives static message") {
@@ -81,16 +82,18 @@ SCENARIO("amm::transformer::Jwm", "[transformerjwm]") {
       }
 
       THEN("it XML excapes the name") {
-        amm::representation::menu_entry menu_entry("Shoot & Run", "shooter.png", "/usr/bin/shooter");
+        representation::menu_entry menu_entry("Shoot & Run", "shooter.png", "/usr/bin/shooter");
         std::string result = jwm_transformer.transform(&menu_entry);
         REQUIRE(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\">/usr/bin/shooter</Program>");
       }
 
       THEN("it removes field codes from the executable") {
-        amm::representation::menu_entry menu_entry("Mousepad", "application-text-editor", "mousepad %F");
+        representation::menu_entry menu_entry("Mousepad", "application-text-editor", "mousepad %F");
         std::string result = jwm_transformer.transform(&menu_entry);
         REQUIRE(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\">mousepad</Program>");
       }
     }
   }
 }
+
+} // namespace amm

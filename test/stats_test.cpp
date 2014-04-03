@@ -18,17 +18,18 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "stats.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "catch.hpp"
 
-#include "stats.h"
+namespace amm {
 
-static amm::Stats PopulatedStats()
-{
-  amm::Stats stats;
+static Stats PopulatedStats() {
+  Stats stats;
   stats.AddClassifiedFile("VLC");
   stats.AddClassifiedFile("Mousepad");
   stats.AddClassifiedFile("Firefox");
@@ -39,8 +40,7 @@ static amm::Stats PopulatedStats()
   return stats;
 }
 
-static std::vector<std::string> UnhandledClassificationFirstSet()
-{
+static std::vector<std::string> UnhandledClassificationFirstSet() {
   std::vector<std::string> classifications;
   classifications.push_back("Calculator");
   classifications.push_back("Player");
@@ -48,8 +48,7 @@ static std::vector<std::string> UnhandledClassificationFirstSet()
   return classifications;
 }
 
-static std::vector<std::string> UnhandledClassificationSecondSet()
-{
+static std::vector<std::string> UnhandledClassificationSecondSet() {
   std::vector<std::string> classifications;
   classifications.push_back("Browser");
   classifications.push_back("Player");
@@ -58,8 +57,7 @@ static std::vector<std::string> UnhandledClassificationSecondSet()
   return classifications;
 }
 
-static std::string ExpectedEmptySummary()
-{
+static std::string ExpectedEmptySummary() {
   return "Total desktop files: 0\n"
          "Parsed desktop files: 0\n"
          "Unparsed desktop files: 0\n"
@@ -67,8 +65,7 @@ static std::string ExpectedEmptySummary()
          "Unclassified desktop files: 0\n";
 }
 
-static std::string ExpectedShortSummaryWithValues()
-{
+static std::string ExpectedShortSummaryWithValues() {
   return "Total desktop files: 7\n"
          "Parsed desktop files: 5\n"
          "Unparsed desktop files: 1\n"
@@ -76,9 +73,9 @@ static std::string ExpectedShortSummaryWithValues()
          "Unclassified desktop files: 2\n";
 }
 
-SCENARIO("amm::Stats totals", "[stats]") {
+SCENARIO("Stats totals", "[stats]") {
   GIVEN("A stat") {
-    amm::Stats stats;
+    Stats stats;
 
     WHEN("created") {
       THEN("it has no total files")        { REQUIRE(stats.TotalFiles() == 0); }
@@ -143,12 +140,12 @@ SCENARIO("amm::Stats totals", "[stats]") {
 }
 
 
-SCENARIO("amm::Stats summaries", "[stats]") {
+SCENARIO("Stats summaries", "[stats]") {
   GIVEN("A stat") {
-    amm::Stats stats;
+    Stats stats;
 
     WHEN("different types of files are added") {
-      amm::Stats stats = PopulatedStats();
+      Stats stats = PopulatedStats();
 
       THEN("short summary includes counts") {
         REQUIRE(stats.ShortSummary() == ExpectedShortSummaryWithValues());
@@ -170,7 +167,7 @@ SCENARIO("amm::Stats summaries", "[stats]") {
     }
 
     WHEN("unhandled classifications are added") {
-      amm::Stats stats = PopulatedStats();
+      Stats stats = PopulatedStats();
       stats.AddUnhandledClassifications(UnhandledClassificationFirstSet());
       stats.AddUnhandledClassifications(UnhandledClassificationSecondSet());
 
@@ -185,3 +182,5 @@ SCENARIO("amm::Stats summaries", "[stats]") {
     }
   }
 }
+
+} // namespace amm

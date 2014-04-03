@@ -22,33 +22,31 @@
 #include <string>
 #include <vector>
 
-namespace amm
-{
-  // Understands parsing of user specified options supplied to the program
-  class CommandLineOptions
-  {
-  private:
-    bool is_help_;
-    bool is_version_;
-    std::string output_file_name_;
-    std::vector<std::string> input_directory_names_;
-    std::string category_file_name_;
-    std::string icon_extension_;
-    std::vector<std::string> deprecations_;
+namespace amm {
+// Understands parsing of user specified options supplied to the program
+class CommandLineOptions {
+ public:
+  CommandLineOptions();
 
-  public:
-    CommandLineOptions();
+  bool Parse(int agrc, char *const *argv);
 
-    bool Parse(int agrc, char *const *argv);
+  bool is_help() const { return is_help_; }
+  bool is_version() const { return is_version_; }
+  std::string output_file_name() const { return output_file_name_; }
+  std::vector<std::string> input_directory_names() const { return input_directory_names_; }
+  std::string category_file_name() const { return category_file_name_; }
+  std::string icon_extension() const { return icon_extension_; }
+  std::vector<std::string> deprecations() const { return deprecations_; }
 
-    bool is_help() const { return is_help_; }
-    bool is_version() const { return is_version_; }
-    std::string output_file_name() const { return output_file_name_; }
-    std::vector<std::string> input_directory_names() const { return input_directory_names_; }
-    std::string category_file_name() const { return category_file_name_; }
-    std::string icon_extension() const { return icon_extension_; }
-    std::vector<std::string> deprecations() const { return deprecations_; }
-  };
-}
+ private:
+  bool is_help_;
+  bool is_version_;
+  std::string output_file_name_;
+  std::vector<std::string> input_directory_names_;
+  std::string category_file_name_;
+  std::string icon_extension_;
+  std::vector<std::string> deprecations_;
+};
+} // namespace amm
 
 #endif // AMM_COMMAND_LINE_OPTIONS_H_

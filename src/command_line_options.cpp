@@ -16,23 +16,23 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string>
-#include <vector>
-#include <getopt.h>
-
-#include "util.h"
 #include "command_line_options.h"
 
-amm::CommandLineOptions::CommandLineOptions()
-{
+#include <getopt.h>
+#include <string>
+#include <vector>
+
+#include "util.h"
+
+namespace amm {
+
+CommandLineOptions::CommandLineOptions() {
   is_help_ = false;
   is_version_ = false;
   output_file_name_ = "./automenu";
 }
 
-bool
-amm::CommandLineOptions::Parse(int argc, char* const* argv)
-{
+bool CommandLineOptions::Parse(int argc, char* const* argv) {
   optind = 1; // Allow getopt_long() to be called multiple times
   // http://pubs.opengroup.org/onlinepubs/009696799/functions/getopt.html
 
@@ -41,8 +41,7 @@ amm::CommandLineOptions::Parse(int argc, char* const* argv)
   int help_flag = 0;
   int version_flag = 0;
   const char* short_options = "o:i:s:c:ahv";
-  const option long_options[] =
-  {
+  const option long_options[] = {
     {"help",            no_argument,       &help_flag   ,  1 },
     {"version",         no_argument,       &version_flag,  1 },
     {"output-file",     required_argument, 0,             'o'},
@@ -70,11 +69,11 @@ amm::CommandLineOptions::Parse(int argc, char* const* argv)
         break;
 
       case 'i':
-        input_directory_names_ = amm::StringX(optarg).Split(":");
+        input_directory_names_ = StringX(optarg).Split(":");
         break;
 
       case 's':
-        input_directory_names_ = amm::StringX(optarg).Split(":");
+        input_directory_names_ = StringX(optarg).Split(":");
         deprecations_.push_back("-s is deprecated. Please use -i instead.");
         break;
 
@@ -108,3 +107,5 @@ amm::CommandLineOptions::Parse(int argc, char* const* argv)
 
   return parsed;
 }
+
+} // namespace amm

@@ -18,17 +18,19 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "util.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
 
 #include "catch.hpp"
 
-#include "util.h"
+namespace amm {
 
-SCENARIO("amm::StringX", "[stringx]") {
+SCENARIO("StringX", "[stringx]") {
   GIVEN("A stringx with content") {
-    amm::StringX stringx("vlc.desktop");
+    StringX stringx("vlc.desktop");
 
     WHEN("it has a sub-string at the end") {
       THEN("it ends with the substring") {
@@ -46,7 +48,7 @@ SCENARIO("amm::StringX", "[stringx]") {
   }
 
   GIVEN("A stringx without a terminating delimeters") {
-    amm::StringX stringx("AudioVideo;GTK");
+    StringX stringx("AudioVideo;GTK");
 
     WHEN("it is terminated with the delimeter") {
       std::string result = stringx.TerminateWith(";");
@@ -66,7 +68,7 @@ SCENARIO("amm::StringX", "[stringx]") {
   }
 
   GIVEN("A stringx with a terminating delimeters") {
-    amm::StringX stringx("AudioVideo;GTK;");
+    StringX stringx("AudioVideo;GTK;");
 
     WHEN("it is terminated with the delimeter") {
       std::string result = stringx.TerminateWith(";");
@@ -86,7 +88,7 @@ SCENARIO("amm::StringX", "[stringx]") {
   }
 
   GIVEN("A empty stringx") {
-    amm::StringX stringx("");
+    StringX stringx("");
 
     WHEN("it is terminated with the delimeter") {
       std::string result = stringx.TerminateWith(";");
@@ -97,7 +99,7 @@ SCENARIO("amm::StringX", "[stringx]") {
   }
 
   GIVEN("A stringx with XML tags") {
-    amm::StringX stringx("Icon=<\'foo\' & \"bar\">");
+    StringX stringx("Icon=<\'foo\' & \"bar\">");
 
     WHEN("it is XML encoded") {
       std::string result = stringx.Encode();
@@ -108,7 +110,7 @@ SCENARIO("amm::StringX", "[stringx]") {
   }
 
   GIVEN("A stringx with whitespaces at extremes") {
-    amm::StringX stringx(" \taccessories-text-editor \t\n");
+    StringX stringx(" \taccessories-text-editor \t\n");
 
     WHEN("it is trimmed") {
       std::string result = stringx.Trim();
@@ -120,13 +122,13 @@ SCENARIO("amm::StringX", "[stringx]") {
 }
 
 
-SCENARIO("amm::VectorX", "[vectorx]") {
+SCENARIO("VectorX", "[vectorx]") {
   GIVEN("A VectorX with more than one item") {
     std::vector<std::string> vector;
     vector.push_back("foo");
     vector.push_back("bar");
     vector.push_back("baz");
-    amm::VectorX vectorx(vector);
+    VectorX vectorx(vector);
 
     WHEN("joined with a delimeter") {
       std::string result = vectorx.Join("; ");
@@ -139,7 +141,7 @@ SCENARIO("amm::VectorX", "[vectorx]") {
   GIVEN("A vectorx with one item") {
     std::vector<std::string> vector;
     vector.push_back("foo");
-    amm::VectorX vectorx(vector);
+    VectorX vectorx(vector);
 
     WHEN("joined with a delimeter") {
       std::string result = vectorx.Join("; ");
@@ -154,7 +156,7 @@ SCENARIO("amm::VectorX", "[vectorx]") {
     vector.push_back("foo/");
     vector.push_back("bar");
     vector.push_back("baz/");
-    amm::VectorX vectorx(vector);
+    VectorX vectorx(vector);
 
     WHEN("terminated with the delimeter") {
       std::vector<std::string> result = vectorx.TerminateWith("/");
@@ -174,7 +176,7 @@ SCENARIO("amm::VectorX", "[vectorx]") {
       vector.push_back("foo");
       vector.push_back("bar");
       vector.push_back("bar");
-      amm::VectorX vectorx(vector);
+      VectorX vectorx(vector);
 
     WHEN("unique") {
       std::vector<std::string> result = vectorx.Unique();
@@ -186,3 +188,5 @@ SCENARIO("amm::VectorX", "[vectorx]") {
     }
   }
 }
+
+} // namespace amm

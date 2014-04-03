@@ -18,17 +18,18 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "subcategory.h"
+
 #include <iostream>
 #include <vector>
 
 #include "catch.hpp"
-
 #include "desktop_file.h"
-#include "subcategory.h"
 
-static amm::DesktopFile mousepad_desktop_file()
-{
-  amm::DesktopFile entry;
+namespace amm {
+
+static DesktopFile mousepad_desktop_file() {
+  DesktopFile entry;
   entry.Populate("Name=Mousepad");
   entry.Populate("Icon=accessories-text-editor");
   entry.Populate("Exec=mousepad %F");
@@ -36,9 +37,8 @@ static amm::DesktopFile mousepad_desktop_file()
   return entry;
 }
 
-static amm::DesktopFile sakura_desktop_file()
-{
-  amm::DesktopFile entry;
+static DesktopFile sakura_desktop_file() {
+  DesktopFile entry;
   entry.Populate("Name=Sakura");
   entry.Populate("Icon=terminal-tango");
   entry.Populate("Exec=sakura");
@@ -46,9 +46,9 @@ static amm::DesktopFile sakura_desktop_file()
   return entry;
 }
 
-SCENARIO("amm::subcategory", "[subcategory]") {
+SCENARIO("subcategory", "[subcategory]") {
   GIVEN("A subcategory") {
-    amm::Subcategory subcategory("Accessories", "accessories", "Utilities");
+    Subcategory subcategory("Accessories", "accessories", "Utilities");
 
     WHEN("without desktop-files") {
       THEN("it has no entries") {
@@ -69,7 +69,7 @@ SCENARIO("amm::subcategory", "[subcategory]") {
       WHEN("sorted") {
         subcategory.SortDesktopFiles();
         THEN("its entries in alphabetical order by name") {
-          std::vector<amm::DesktopFile> desktop_files = subcategory.desktop_files();
+          std::vector<DesktopFile> desktop_files = subcategory.desktop_files();
           REQUIRE(desktop_files.size() == 2);
           REQUIRE(desktop_files[0].name() == "Mousepad");
           REQUIRE(desktop_files[1].name() == "Sakura");
@@ -78,3 +78,5 @@ SCENARIO("amm::subcategory", "[subcategory]") {
     }
   }
 }
+
+} // namespace amm

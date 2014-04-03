@@ -18,6 +18,8 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "file_search_service.h"
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,15 +27,13 @@
 
 #include "catch.hpp"
 
-#include "file_search_service.h"
+namespace amm {
 
-static bool present_in(std::string item, std::vector<std::string> list)
-{
+static bool present_in(std::string item, std::vector<std::string> list) {
   return std::find(list.begin(), list.end(), item) != list.end();
 }
 
-static void assert_files_are_present_in_list(std::vector<std::string> file_names)
-{
+static void assert_files_are_present_in_list(std::vector<std::string> file_names) {
   REQUIRE(file_names.size() == 6);
 
   REQUIRE(present_in("test/fixtures/missing.desktop", file_names));
@@ -45,11 +45,11 @@ static void assert_files_are_present_in_list(std::vector<std::string> file_names
 }
 
 
-SCENARIO("amm::FileSearchService", "[filesearchservice]") {
+SCENARIO("FileSearchService", "[filesearchservice]") {
   GIVEN("A file search service with one directory") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/");
-    amm::FileSearchService service;
+    FileSearchService service;
     service.set_directory_names(directory_names);
 
     WHEN("resolved") {
@@ -65,7 +65,7 @@ SCENARIO("amm::FileSearchService", "[filesearchservice]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/");
     directory_names.push_back("test/fixtures");
-    amm::FileSearchService service;
+    FileSearchService service;
     service.set_directory_names(directory_names);
 
     WHEN("resolved") {
@@ -81,7 +81,7 @@ SCENARIO("amm::FileSearchService", "[filesearchservice]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures");
     directory_names.push_back("test/does-not-exist");
-    amm::FileSearchService service;
+    FileSearchService service;
     service.set_directory_names(directory_names);
 
     WHEN("resolved") {
@@ -99,3 +99,5 @@ SCENARIO("amm::FileSearchService", "[filesearchservice]") {
     }
   }
 }
+
+} // namespace amm

@@ -18,18 +18,19 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "desktop_file.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
 
 #include "catch.hpp"
 
-#include "desktop_file.h"
+namespace amm {
 
-
-SCENARIO("amm::DesktopFile.Populate()", "[desktopfile]") {
+SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    amm::DesktopFile entry;
+    DesktopFile entry;
 
     WHEN("populated") {
       entry.Populate("Name=Mousepad\n");
@@ -78,7 +79,7 @@ SCENARIO("amm::DesktopFile.Populate()", "[desktopfile]") {
     }
 
     WHEN("populated with missing entry") {
-      amm::DesktopFile missing_entry;
+      DesktopFile missing_entry;
       entry.Populate("Categories=");
       entry.Populate("Executable=");
       THEN("entries are empty") {
@@ -88,7 +89,7 @@ SCENARIO("amm::DesktopFile.Populate()", "[desktopfile]") {
     }
 
     WHEN("populated with entry line") {
-      amm::DesktopFile entry;
+      DesktopFile entry;
       entry.Populate("");
       THEN("entries are empty") {
         REQUIRE(entry.categories().size() == 0);
@@ -99,18 +100,18 @@ SCENARIO("amm::DesktopFile.Populate()", "[desktopfile]") {
 }
 
 
-SCENARIO("amm::DesktopFile comparisons", "[desktopfile]") {
+SCENARIO("DesktopFile comparisons", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    amm::DesktopFile entry;
+    DesktopFile entry;
     entry.Populate("Name=Mousepad");
 
     WHEN("compared to another desktop-file") {
-      amm::DesktopFile other_entry;
+      DesktopFile other_entry;
 
       WHEN("the other desktop-file has an alphabetically greater name") {
         other_entry.Populate("Name=VLC");
 
-        amm::DesktopFile greater_entry;
+        DesktopFile greater_entry;
         THEN("the desktop file is lesser than the other desktop file") {
           REQUIRE(entry < other_entry);
           REQUIRE(!(other_entry < entry));
@@ -148,10 +149,10 @@ SCENARIO("amm::DesktopFile comparisons", "[desktopfile]") {
 }
 
 
-SCENARIO("amm::DesktopFile validity", "[desktopfile]") {
+SCENARIO("DesktopFile validity", "[desktopfile]") {
   GIVEN("A desktop-file") {
     WHEN("it has a name, an icon and an executable") {
-      amm::DesktopFile entry;
+      DesktopFile entry;
       entry.Populate("Name=Mousepad");
       entry.Populate("Icon=accessories-text-editor\n");
       entry.Populate("Exec=mousepad %F\n");
@@ -161,7 +162,7 @@ SCENARIO("amm::DesktopFile validity", "[desktopfile]") {
     }
 
     WHEN("it has a no name") {
-      amm::DesktopFile entry;
+      DesktopFile entry;
       entry.Populate("Icon=accessories-text-editor\n");
       entry.Populate("Exec=mousepad %F\n");
       THEN("it is not valid") {
@@ -170,7 +171,7 @@ SCENARIO("amm::DesktopFile validity", "[desktopfile]") {
     }
 
     WHEN("it has no icon") {
-      amm::DesktopFile entry;
+      DesktopFile entry;
       entry.Populate("Name=Mousepad");
       entry.Populate("Exec=mousepad %F\n");
       THEN("it is not valid") {
@@ -179,7 +180,7 @@ SCENARIO("amm::DesktopFile validity", "[desktopfile]") {
     }
 
     WHEN("it has no executable") {
-      amm::DesktopFile entry;
+      DesktopFile entry;
       entry.Populate("Name=Mousepad");
       entry.Populate("Icon=accessories-text-editor\n");
       THEN("it is not valid") {
@@ -189,9 +190,9 @@ SCENARIO("amm::DesktopFile validity", "[desktopfile]") {
   }
 }
 
-SCENARIO("amm::DesktopFile classifications", "[desktopfile]") {
+SCENARIO("DesktopFile classifications", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    amm::DesktopFile entry;
+    DesktopFile entry;
 
     WHEN("it has one of the categories as AudioVideo") {
       entry.Populate("Categories=AudioVideo;Audio;Player;GTK;\n");
@@ -228,3 +229,5 @@ SCENARIO("amm::DesktopFile classifications", "[desktopfile]") {
     }
   }
 }
+
+} // namespace amm

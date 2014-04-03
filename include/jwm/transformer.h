@@ -24,21 +24,19 @@
 #include "representation.h"
 #include "transformer.h"
 
-namespace amm
-{
-  namespace transformer
-  {
-    // Understands the conversion of representation into a JWM menu
-    class jwm : public TransformerInterface
-    {
-    public:
-      virtual std::string transform(amm::representation::menu_start *entry);
-      virtual std::string transform(amm::representation::menu_end *entry);
-      virtual std::string transform(amm::representation::subcategory_start *entry);
-      virtual std::string transform(amm::representation::subcategory_end *entry);
-      virtual std::string transform(amm::representation::menu_entry *entry);
-    };
-  }
-}
+namespace amm {
+namespace transformer {
+// Understands the conversion of representation into a JWM menu
+// TODO : move to file transformer/jwm
+class jwm : public TransformerInterface {
+ public:
+  virtual std::string transform(representation::menu_start *entry);
+  virtual std::string transform(representation::menu_end *entry);
+  virtual std::string transform(representation::subcategory_start *entry);
+  virtual std::string transform(representation::subcategory_end *entry);
+  virtual std::string transform(representation::menu_entry *entry);
+};
+} // namespace transformer
+} // namespace amm
 
 #endif // AMM_TRANSFORMER_JWM_H_

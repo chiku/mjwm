@@ -23,75 +23,67 @@
 
 #include "transformer.h"
 
-namespace amm
-{
-	namespace representation
-	{
-		class base
-		{
-		public:
-			virtual std::string name() = 0;
-			virtual std::string visit(amm::TransformerInterface &transformer) = 0;
-			virtual ~base();
-		};
+namespace amm {
+namespace representation {
+class base {
+public:
+  virtual std::string name() = 0;
+  virtual std::string visit(TransformerInterface &transformer) = 0;
+  virtual ~base();
+};
 
-		class menu_start : public base
-		{
-		public:
-			virtual std::string name();
-			virtual std::string visit(amm::TransformerInterface &transformer);
-			virtual ~menu_start();
-		};
+class menu_start : public base {
+ public:
+  virtual std::string name();
+  virtual std::string visit(TransformerInterface &transformer);
+  virtual ~menu_start();
+};
 
-		class menu_end : public base
-		{
-		public:
-			virtual std::string name();
-			virtual std::string visit(amm::TransformerInterface &transformer);
-			virtual ~menu_end();
-		};
+class menu_end : public base {
+ public:
+  virtual std::string name();
+  virtual std::string visit(TransformerInterface &transformer);
+  virtual ~menu_end();
+};
 
 
-		class subcategory_start : public base
-		{
-		private:
-			std::string name_;
-			std::string icon_;
-		public:
-			subcategory_start(std::string name, std::string icon);
-			virtual std::string name();
-			virtual std::string icon();
-			virtual std::string visit(amm::TransformerInterface &transformer);
-			virtual ~subcategory_start();
-		};
+class subcategory_start : public base {
+ public:
+  subcategory_start(std::string name, std::string icon);
+  virtual std::string name();
+  virtual std::string icon();
+  virtual std::string visit(TransformerInterface &transformer);
+  virtual ~subcategory_start();
+ private:
+  std::string name_;
+  std::string icon_;
+};
 
-		class subcategory_end : public base
-		{
-		private:
-			std::string name_;
-		public:
-			subcategory_end(std::string name);
-			virtual std::string name();
-			virtual std::string visit(amm::TransformerInterface &transformer);
-			virtual ~subcategory_end();
-		};
+class subcategory_end : public base {
+ public:
+  subcategory_end(std::string name);
+  virtual std::string name();
+  virtual std::string visit(TransformerInterface &transformer);
+  virtual ~subcategory_end();
+ private:
+  std::string name_;
+};
 
 
-		class menu_entry : public base
-		{
-		private:
-			std::string name_;
-			std::string icon_;
-			std::string executable_;
-		public:
-			menu_entry(std::string name, std::string icon, std::string executable);
-			virtual std::string name();
-			virtual std::string icon();
-			virtual std::string executable();
-			virtual std::string visit(amm::TransformerInterface &transformer);
-			virtual ~menu_entry();
-		};
-	};
-}
+class menu_entry : public base {
+ public:
+  menu_entry(std::string name, std::string icon, std::string executable);
+  virtual std::string name();
+  virtual std::string icon();
+  virtual std::string executable();
+  virtual std::string visit(TransformerInterface &transformer);
+  virtual ~menu_entry();
+ private:
+  std::string name_;
+  std::string icon_;
+  std::string executable_;
+};
+} // namespace representation
+} // namespace amm
 
 #endif // AMM_REPRESENTATION_H_

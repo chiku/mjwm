@@ -18,67 +18,63 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "menu.h"
+
 #include <iostream>
 #include <string>
 #include <sstream>
 
 #include "catch.hpp"
-
-#include "menu.h"
 #include "representation.h"
 #include "transformer.h"
 
+namespace amm {
+
 static const std::string fixtures_directory = "test/fixtures/";
 
-class TestTransformer : public amm::TransformerInterface
-{
-  std::string transform(amm::representation::menu_start *entry)
-  {
+class TestTransformer : public TransformerInterface {
+ public:
+  std::string transform(representation::menu_start *entry) {
     std::stringstream stream;
     stream << "Menu start--> name: " << entry->name();
     return stream.str();
   }
 
-  std::string transform(amm::representation::menu_end *entry)
-  {
+  std::string transform(representation::menu_end *entry) {
     std::stringstream stream;
     stream << "Menu end--> name: " << entry->name();
     return stream.str();
   }
 
-  std::string transform(amm::representation::subcategory_start *entry)
-  {
+  std::string transform(representation::subcategory_start *entry) {
     std::stringstream stream;
     stream << "Subsection start--> name: " << entry->name() << " icon: " << entry->icon();
     return stream.str();
   }
 
-  std::string transform(amm::representation::subcategory_end *entry)
-  {
+  std::string transform(representation::subcategory_end *entry) {
     std::stringstream stream;
     stream << "Subsection end--> name: " << entry->name();
     return stream.str();
   }
 
-  std::string transform(amm::representation::menu_entry *entry)
-  {
+  std::string transform(representation::menu_entry *entry) {
     std::stringstream stream;
     stream << "Program--> name: " << entry->name() << " icon: " << entry->icon() << " executable: " << entry->executable();
     return stream.str();
   }
 };
 
-static void clear_memory(std::vector<amm::representation::base*> representations)
-{
-  for (std::vector<amm::representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+static void clear_memory(std::vector<representation::base*> representations) {
+  for (std::vector<representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
     delete *iter;
   }
 }
 
 
-SCENARIO("amm::Menu custom categories", "[menu]") {
+SCENARIO("Menu custom categories", "[menu]") {
   GIVEN("A menu") {
-    amm::menu menu;
+    menu menu;
 
     WHEN("loaded with custom categories") {
       std::vector<std::string> lines;
@@ -87,7 +83,7 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
       menu.load_custom_categories(lines);
 
       THEN("it stores them in its subcategories") {
-        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+        std::vector<Subcategory> subcategories = menu.subcategories();
 
         REQUIRE(subcategories.size() == 2);
         REQUIRE(subcategories[0].display_name() == "Accessories");
@@ -102,7 +98,7 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
       menu.load_custom_categories(lines);
 
       THEN("it ignores it the lines begenning with '#'") {
-        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+        std::vector<Subcategory> subcategories = menu.subcategories();
 
         REQUIRE(subcategories.size() == 0);
       }
@@ -115,7 +111,7 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
       menu.load_custom_categories(lines);
 
       THEN("it ignores the lines") {
-        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+        std::vector<Subcategory> subcategories = menu.subcategories();
 
         REQUIRE(subcategories.size() == 0);
       }
@@ -128,7 +124,7 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
       menu.load_custom_categories(lines);
 
       THEN("it has multiple classifications in its subcategories") {
-        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+        std::vector<Subcategory> subcategories = menu.subcategories();
 
         REQUIRE(subcategories.size() == 1);
         REQUIRE(subcategories[0].display_name() == "Games");
@@ -146,7 +142,7 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
       menu.load_custom_categories(lines);
 
       THEN("it ignores the missing classification names") {
-        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+        std::vector<Subcategory> subcategories = menu.subcategories();
 
         REQUIRE(subcategories.size() == 1);
 
@@ -164,7 +160,7 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
       menu.load_custom_categories(lines);
 
       THEN("it ignores the lines with missing classification names") {
-        std::vector<amm::Subcategory> subcategories = menu.subcategories();
+        std::vector<Subcategory> subcategories = menu.subcategories();
 
         REQUIRE(subcategories.size() == 0);
       }
@@ -172,16 +168,16 @@ SCENARIO("amm::Menu custom categories", "[menu]") {
   }
 }
 
-SCENARIO("amm::Menu statistics", "[menu]") {
+SCENARIO("Menu statistics", "[menu]") {
   GIVEN("A menu") {
-    amm::menu menu;
+    menu menu;
 
     WHEN("successfully parsed") {
       std::vector<std::string> files;
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
       menu.populate(files);
-      amm::Stats stats = menu.stats();
+      Stats stats = menu.stats();
 
       THEN("it holds the number of files parsed sucessfully") {
         REQUIRE(stats.TotalParsedFiles() == 2);
@@ -193,7 +189,7 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "unclassified.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
       menu.populate(files);
-      amm::Stats stats = menu.stats();
+      Stats stats = menu.stats();
 
       THEN("it holds the number of unclassified files") {
         REQUIRE(stats.TotalUnclassifiedFiles() == 1);
@@ -212,7 +208,7 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "mousepad.desktop");
       files.push_back(fixtures_directory + "suppressed.desktop");
       menu.populate(files);
-      amm::Stats stats = menu.stats();
+      Stats stats = menu.stats();
 
       THEN("it holds the number of suppressed files") {
         REQUIRE(stats.TotalSuppressedFiles() == 1);
@@ -224,7 +220,7 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "missing.desktop");
       menu.populate(files);
-      amm::Stats stats = menu.stats();
+      Stats stats = menu.stats();
 
       THEN("it holds the a list of unparsed files") {
         std::vector<std::string> unparsed_files = stats.UnparsedFiles();
@@ -240,7 +236,7 @@ SCENARIO("amm::Menu statistics", "[menu]") {
       files.push_back(fixtures_directory + "suppressedinvalid.desktop");
       files.push_back(fixtures_directory + "missing.desktop");
       menu.populate(files);
-      amm::Stats stats = menu.stats();
+      Stats stats = menu.stats();
 
       THEN("missing entries excludes suppressed files") {
         std::vector<std::string> unparsed_files = stats.UnparsedFiles();
@@ -252,9 +248,9 @@ SCENARIO("amm::Menu statistics", "[menu]") {
   }
 }
 
-SCENARIO("amm::Menu representations", "[menu]") {
+SCENARIO("Menu representations", "[menu]") {
   GIVEN("A menu") {
-    amm::menu menu;
+    menu menu;
 
     WHEN("transformed to a representations") {
       std::vector<std::string> files;
@@ -262,7 +258,7 @@ SCENARIO("amm::Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "mousepad.desktop");
 
       menu.populate(files);
-      std::vector<amm::representation::base*> representations = menu.representations();
+      std::vector<representation::base*> representations = menu.representations();
       TestTransformer test_transformer;
 
       THEN("it stores menu start, subcategory start, menu entry, subcategory end and menu end") {
@@ -285,12 +281,12 @@ SCENARIO("amm::Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
 
-      amm::IconService icon_service;
+      IconService icon_service;
       icon_service.set_extension(".xpm");
       menu.register_icon_service(icon_service);
 
       menu.populate(files);
-      std::vector<amm::representation::base*> representations = menu.representations();
+      std::vector<representation::base*> representations = menu.representations();
       TestTransformer test_transformer;
 
       THEN("it adds the icon name to icons for subcategory and menu-entry") {
@@ -309,3 +305,5 @@ SCENARIO("amm::Menu representations", "[menu]") {
     }
   }
 }
+
+} // namespace amm

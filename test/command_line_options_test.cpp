@@ -18,19 +18,20 @@
 
 #define CATCH_CONFIG_MAIN
 
+#include "command_line_options.h"
+
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cstring>
 
 #include "catch.hpp"
 
-#include "command_line_options.h"
+namespace amm {
 
-
-SCENARIO("amm::CommandLineOptions.Parse() default", "[commandlineoptions]") {
+SCENARIO("CommandLineOptions.Parse() default", "[commandlineoptions]") {
   GIVEN("command line options") {
-    amm::CommandLineOptions options;
+    CommandLineOptions options;
 
     WHEN("parsing default") {
       char* argv[] = {strdup("amm"), 0};
@@ -71,9 +72,9 @@ SCENARIO("amm::CommandLineOptions.Parse() default", "[commandlineoptions]") {
   }
 }
 
-SCENARIO("amm::CommandLineOptions.Parse() flags", "[commandlineoptions]") {
+SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
   GIVEN("command line options") {
-    amm::CommandLineOptions options;
+    CommandLineOptions options;
 
     WHEN("parsing --help") {
       char* argv[] = {strdup("amm"), strdup("--help"), 0};
@@ -143,9 +144,9 @@ SCENARIO("amm::CommandLineOptions.Parse() flags", "[commandlineoptions]") {
   }
 }
 
-SCENARIO("amm::CommandLineOptions.Parse() options", "[commandlineoptions]") {
+SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
   GIVEN("command line options") {
-    amm::CommandLineOptions options;
+    CommandLineOptions options;
 
     WHEN("parsing --output-file") {
       char* argv[] = {strdup("amm"), strdup("--output-file"), strdup("menu.out"), 0};
@@ -231,9 +232,9 @@ SCENARIO("amm::CommandLineOptions.Parse() options", "[commandlineoptions]") {
 }
 
 
-SCENARIO("amm::CommandLineOptions.Parse() failure", "[commandlineoptions]") {
+SCENARIO("CommandLineOptions.Parse() failure", "[commandlineoptions]") {
   GIVEN("command line options") {
-    amm::CommandLineOptions options;
+    CommandLineOptions options;
 
     WHEN("parsing a bad option") {
       char* argv[] = {strdup("amm"), strdup("--bad-option"), strdup("default.mjwm"), 0};
@@ -254,3 +255,5 @@ SCENARIO("amm::CommandLineOptions.Parse() failure", "[commandlineoptions]") {
     }
   }
 }
+
+} // namespace amm

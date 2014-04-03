@@ -16,12 +16,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "desktop_file.h"
+
 #include <string>
 #include <vector>
 #include <algorithm>
 
 #include "util.h"
-#include "desktop_file.h"
+
+namespace amm {
 
 static const std::string NAME       = "Name";
 static const std::string EXECUTABLE = "Exec";
@@ -29,50 +32,35 @@ static const std::string ICON       = "Icon";
 static const std::string CATEGORIES = "Categories";
 static const std::string NO_DISPLAY = "NoDisplay";
 
-amm::DesktopFile::DesktopFile()
-{
+DesktopFile::DesktopFile() {
   display_ = true;
 }
 
-bool
-amm::DesktopFile::operator < (const amm::DesktopFile &other) const
-{
+bool DesktopFile::operator < (const DesktopFile &other) const {
   return name_ < other.name_;
 }
 
-bool
-amm::DesktopFile::operator > (const amm::DesktopFile &other) const
-{
+bool DesktopFile::operator > (const DesktopFile &other) const {
   return name_ > other.name_;
 }
 
-bool
-amm::DesktopFile::operator == (const amm::DesktopFile &other) const
-{
+bool DesktopFile::operator == (const DesktopFile &other) const {
   return name_ == other.name_;
 }
 
-bool
-amm::DesktopFile::operator != (const amm::DesktopFile &other) const
-{
+bool DesktopFile::operator != (const DesktopFile &other) const {
   return name_ != other.name_;
 }
 
-bool
-amm::DesktopFile::IsValid() const
-{
+bool DesktopFile::IsValid() const {
   return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
 }
 
-bool
-amm::DesktopFile::IsA(std::string type) const
-{
+bool DesktopFile::IsA(std::string type) const {
   return std::binary_search(categories_.begin(), categories_.end(), type);
 }
 
-bool
-amm::DesktopFile::IsAnyOf(std::vector<std::string> types) const
-{
+bool DesktopFile::IsAnyOf(std::vector<std::string> types) const {
   for (std::vector<std::string>::const_iterator type = types.begin(); type != types.end(); ++type) {
     if (IsA(*type)) {
       return true;
@@ -81,9 +69,7 @@ amm::DesktopFile::IsAnyOf(std::vector<std::string> types) const
   return false;
 }
 
-void
-amm::DesktopFile::Populate(std::string line)
-{
+void DesktopFile::Populate(std::string line) {
   if (line[0] == '\0') {
     return;
   }
@@ -93,19 +79,21 @@ amm::DesktopFile::Populate(std::string line)
   std::string first_part = line.substr(0, location);
   std::string second_part = line.substr(location + delim.length(), line.length());
 
-  std::string trimmed_first_part = amm::StringX(first_part).Trim();
+  std::string trimmed_first_part = StringX(first_part).Trim();
 
   if (trimmed_first_part == NAME) {
-    name_ = amm::StringX(second_part).Trim();
+    name_ = StringX(second_part).Trim();
   } else if (trimmed_first_part == ICON) {
-    icon_ = amm::StringX(second_part).Trim();
+    icon_ = StringX(second_part).Trim();
   } else if (trimmed_first_part == EXECUTABLE) {
-    executable_ = amm::StringX(second_part).Trim();
+    executable_ = StringX(second_part).Trim();
   } else if (trimmed_first_part == CATEGORIES) {
-    categories_ = amm::StringX(amm::StringX(second_part).Trim()).Split(";");
+    categories_ = StringX(StringX(second_part).Trim()).Split(";");
     std::sort(categories_.begin(), categories_.end());
   } else if (trimmed_first_part == NO_DISPLAY) {
-    std::string trimmed_second_part = amm::StringX(second_part).Trim();
+    std::string trimmed_second_part = StringX(second_part).Trim();
     display_ = (trimmed_second_part != "true" && trimmed_second_part != "1");
   }
 }
+
+} // namespace amm

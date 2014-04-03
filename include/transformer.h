@@ -34,11 +34,11 @@ namespace representation {
 
 class TransformerInterface {
   public:
-    virtual std::string transform(amm::representation::menu_start *entry) = 0;
-    virtual std::string transform(amm::representation::menu_end *entry) = 0;
-    virtual std::string transform(amm::representation::subcategory_start *entry) = 0;
-    virtual std::string transform(amm::representation::subcategory_end *entry) = 0;
-    virtual std::string transform(amm::representation::menu_entry *entry) = 0;
+    virtual std::string transform(representation::menu_start *entry) = 0;
+    virtual std::string transform(representation::menu_end *entry) = 0;
+    virtual std::string transform(representation::subcategory_start *entry) = 0;
+    virtual std::string transform(representation::subcategory_end *entry) = 0;
+    virtual std::string transform(representation::menu_entry *entry) = 0;
   };
 } // namespace amm
 

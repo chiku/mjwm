@@ -16,19 +16,20 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "file_search_service.h"
+
+#include <dirent.h>
+#include <cstdlib>
 #include <string>
 #include <vector>
-#include <cstdlib>
-#include <dirent.h>
 
 #include "util.h"
-#include "file_search_service.h"
+
+namespace amm {
 
 static const std::string DESKTOP_EXTENSION = ".desktop";
 
-static std::string
-xdg_data_dirs()
-{
+static std::string xdg_data_dirs() {
   char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
   if (xdg_data_dirs != NULL) {
     return xdg_data_dirs;
@@ -37,9 +38,7 @@ xdg_data_dirs()
   return "/usr/local/share:/usr/share";
 }
 
-static std::string
-xdg_data_home()
-{
+static std::string xdg_data_home() {
   char *xdg_data_home = std::getenv("XDG_DATA_HOME");
   if (xdg_data_home != NULL) {
     return xdg_data_home;
@@ -53,14 +52,11 @@ xdg_data_home()
   return "";
 }
 
-amm::FileSearchService::FileSearchService()
-{
+FileSearchService::FileSearchService() {
   capture_bad_paths_ = true;
 }
 
-void
-amm::FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names)
-{
+void FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names) {
   if (directory_names.size() > 0) {
     set_directory_names(directory_names);
   } else {
@@ -69,28 +65,24 @@ amm::FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::
 }
 
 // TODO : express in terms of set_directory_names()
-void
-amm::FileSearchService::RegisterDefaultDirectories()
-{
-  std::vector<std::string> directory_bases = amm::StringX(xdg_data_dirs()).Split(":");
+void FileSearchService::RegisterDefaultDirectories() {
+  std::vector<std::string> directory_bases = StringX(xdg_data_dirs()).Split(":");
   directory_bases.push_back(xdg_data_home());
 
   for (std::vector<std::string>::const_iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-    std::string directory = amm::StringX(*iter).TerminateWith("/") + "applications";
+    std::string directory = StringX(*iter).TerminateWith("/") + "applications";
     directory_names_.push_back(directory);
   }
 
   capture_bad_paths_ = false;
 }
 
-void
-amm::FileSearchService::Resolve()
-{
+void FileSearchService::Resolve() {
   desktop_file_names_.clear();
   bad_paths_.clear();
 
-  std::vector<std::string> terminated_directory_names = amm::VectorX(directory_names_).TerminateWith("/");
-  std::vector<std::string> unique_directory_names = amm::VectorX(terminated_directory_names).Unique();
+  std::vector<std::string> terminated_directory_names = VectorX(directory_names_).TerminateWith("/");
+  std::vector<std::string> unique_directory_names = VectorX(terminated_directory_names).Unique();
 
   std::vector<std::string>::const_iterator name;
   for (name = unique_directory_names.begin(); name != unique_directory_names.end(); ++name) {
@@ -105,15 +97,15 @@ amm::FileSearchService::Resolve()
   }
 }
 
-void
-amm::FileSearchService::Populate(DIR* directory, std::string directory_name)
-{
+void FileSearchService::Populate(DIR* directory, std::string directory_name) {
   dirent *directory_entry;
 
   while((directory_entry = readdir(directory)) != NULL) {
     std::string file_name = directory_entry->d_name;
-    if (amm::StringX(file_name).EndsWith(DESKTOP_EXTENSION)) {
+    if (StringX(file_name).EndsWith(DESKTOP_EXTENSION)) {
       desktop_file_names_.push_back(directory_name + file_name);
     }
   }
 }
+
+} // namespace amm

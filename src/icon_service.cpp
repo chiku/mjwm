@@ -16,12 +16,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string>
-
 #include "icon_service.h"
 
-std::string
-amm::IconService::ResolvedName(std::string icon_name) const
-{
+#include <string>
+
+namespace amm {
+
+std::string IconService::ResolvedName(std::string icon_name) const {
   return icon_name + extension_;
 }
+
+} // namespace amm
