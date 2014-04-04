@@ -22,37 +22,37 @@
 #include <string>
 #include <vector>
 
-#include "icon_service.h"
-#include "subcategory.h"
-#include "representation.h"
 #include "stats.h"
+#include "subcategory.h"
+#include "icon_service.h"
+#include "representation.h"
 
 namespace amm {
 // Understands a collection of desktop files divided in subcategories
-class menu {
+class Menu {
  public:
-  menu();
+  Menu();
 
-  std::vector<Subcategory> subcategories() const;
-  Stats stats() const;
+  std::vector<Subcategory> Subcategories() const { return subcategories_; }
+  Stats Summary() const { return summary_; }
+  void RegisterIconService(IconService icon_service) { icon_service_ = icon_service; }
 
-  void load_custom_categories(std::vector<std::string> lines);
-  void register_icon_service(IconService icon_service);
-  void populate(std::vector<std::string> desktop_file_names);
-  void sort();
-  std::vector<representation::base*> representations() const;
+  void LoadCustomCategories(std::vector<std::string> lines);
+  void Populate(std::vector<std::string> desktop_file_names);
+  void Sort();
+  std::vector<representation::base*> Representations() const;
 
  private:
+  void Classify(DesktopFile entry, std::string file_name);
+  void CreateDefaultCategories();
+
   std::vector<std::string> desktop_file_names_;
 
-  Stats stats_;
+  Stats summary_;
 
   IconService icon_service_;
   std::vector<Subcategory> subcategories_;
   Subcategory unclassified_subcategory_;
-
-  void classify(DesktopFile entry, std::string file_name);
-  void create_default_categories();
 };
 } // namespace amm
 

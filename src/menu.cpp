@@ -29,13 +29,13 @@
 
 namespace amm {
 
-menu::menu() {
+Menu::Menu() {
   unclassified_subcategory_ = Subcategory("Others", "others", "Others");
 
-  create_default_categories();
+  CreateDefaultCategories();
 }
 
-void menu::create_default_categories() {
+void Menu::CreateDefaultCategories() {
   subcategories_.clear();
 
   subcategories_.push_back(Subcategory("Settings",    "settings",    "Settings"   ));
@@ -51,7 +51,7 @@ void menu::create_default_categories() {
   subcategories_.push_back(Subcategory("System",      "system",      "System"     ));
 }
 
-void menu::load_custom_categories(std::vector<std::string> lines) {
+void Menu::LoadCustomCategories(std::vector<std::string> lines) {
   subcategories_.clear();
 
   for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
@@ -73,11 +73,7 @@ void menu::load_custom_categories(std::vector<std::string> lines) {
   }
 }
 
-void menu::register_icon_service(IconService icon_service) {
-  icon_service_ = icon_service;
-}
-
-void menu::populate(std::vector<std::string> desktop_file_names) {
+void Menu::Populate(std::vector<std::string> desktop_file_names) {
   std::vector<std::string>::const_iterator name;
   for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
     std::string line;
@@ -89,11 +85,11 @@ void menu::populate(std::vector<std::string> desktop_file_names) {
         desktop_file.Populate(line);
       }
       if (!desktop_file.Display()) {
-        stats_.AddSuppressedFile(*name);
+        summary_.AddSuppressedFile(*name);
       } else if (desktop_file.IsValid()) {
-        classify(desktop_file, *name);
+        Classify(desktop_file, *name);
       } else {
-        stats_.AddUnparsedFile(*name);
+        summary_.AddUnparsedFile(*name);
       }
 
       file.close();
@@ -104,7 +100,7 @@ void menu::populate(std::vector<std::string> desktop_file_names) {
 }
 
 // TODO : desktop file should store which file it was created from
-void menu::classify(DesktopFile desktop_file, std::string desktop_file_name) {
+void Menu::Classify(DesktopFile desktop_file, std::string desktop_file_name) {
   bool classified = false;
 
   std::vector<Subcategory>::iterator subcategory;
@@ -116,30 +112,22 @@ void menu::classify(DesktopFile desktop_file, std::string desktop_file_name) {
   }
 
   if (classified) {
-    stats_.AddClassifiedFile(desktop_file_name);
+    summary_.AddClassifiedFile(desktop_file_name);
   } else {
     unclassified_subcategory_.AddDesktopFile(desktop_file);
-    stats_.AddUnclassifiedFile(desktop_file_name);
-    stats_.AddUnhandledClassifications(desktop_file.Categories());
+    summary_.AddUnclassifiedFile(desktop_file_name);
+    summary_.AddUnhandledClassifications(desktop_file.Categories());
   }
 }
 
-std::vector<Subcategory> menu::subcategories() const {
-  return subcategories_;
-}
-
-Stats menu::stats() const {
-  return stats_;
-}
-
-void menu::sort() {
+void Menu::Sort() {
   std::vector<Subcategory>::iterator group;
   for (group = subcategories_.begin(); group != subcategories_.end(); ++group) {
     group->SortDesktopFiles();
   }
 }
 
-std::vector<representation::base*> menu::representations() const {
+std::vector<representation::base*> Menu::Representations() const {
   std::vector<representation::base*> representations;
   representation::MenuStart *menu_start = new representation::MenuStart;
   representations.push_back(menu_start);
