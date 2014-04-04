@@ -39,46 +39,46 @@ static std::string remove_field_code(std::string input) {
   return VectorX(result).Join(" ");
 }
 
-std::string Jwm::Transform(const representation::MenuStart *entry) const {
+std::string Jwm::Transform(const representation::MenuStart &entry) const {
   std::stringstream stream;
   stream << "<JWM>"
          << std::endl
-         << "<!--" << entry->name() << "-->";
+         << "<!--" << entry.name() << "-->";
   return stream.str();
 }
 
-std::string Jwm::Transform(const representation::MenuEnd *entry) const {
+std::string Jwm::Transform(const representation::MenuEnd &entry) const {
   std::stringstream stream;
-  stream << "<!--" << entry->name() << "-->"
+  stream << "<!--" << entry.name() << "-->"
          << std::endl
          << "</JWM>";
   return stream.str();
 }
 
-std::string Jwm::Transform(const representation::SubcategoryStart *entry) const {
+std::string Jwm::Transform(const representation::SubcategoryStart &entry) const {
   std::stringstream stream;
   stream << "    <Menu "
-         << "label=\"" << StringX(entry->name()).Encode()
-         << "\" icon=\"" << entry->icon()
+         << "label=\"" << StringX(entry.name()).Encode()
+         << "\" icon=\"" << entry.icon()
          << "\">";
   return stream.str();
 }
 
-std::string Jwm::Transform(const representation::SubcategoryEnd *entry) const {
+std::string Jwm::Transform(const representation::SubcategoryEnd &entry) const {
   std::stringstream stream;
-  stream << "    <!--" << entry->name() << "-->"
+  stream << "    <!--" << entry.name() << "-->"
          << std::endl
          << "    </Menu>";
   return stream.str();
 }
 
-std::string Jwm::Transform(const representation::Program *entry) const {
+std::string Jwm::Transform(const representation::Program &entry) const {
   std::stringstream stream;
   stream << "        <Program "
-         << "label=\"" << StringX(entry->name()).Encode()
-         << "\" icon=\"" << StringX(entry->icon()).Encode()
+         << "label=\"" << StringX(entry.name()).Encode()
+         << "\" icon=\"" << StringX(entry.icon()).Encode()
          << "\">"
-         << remove_field_code(entry->executable())
+         << remove_field_code(entry.executable())
          << "</Program>";
   return stream.str();
 }

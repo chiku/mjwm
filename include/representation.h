@@ -37,7 +37,7 @@ class MenuStart : public RepresentationInterface {
  public:
   virtual std::string name() const { return "Menu start"; }
   virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(this);
+    return transformer.Transform(*this);
   }
   virtual ~MenuStart() {}
 };
@@ -46,7 +46,7 @@ class MenuEnd : public RepresentationInterface {
  public:
   virtual std::string name() const { return "Menu end"; }
   virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(this);
+    return transformer.Transform(*this);
   }
   virtual ~MenuEnd() {}
 };
@@ -61,7 +61,7 @@ class SubcategoryStart : public RepresentationInterface {
   virtual std::string name() const { return name_; }
   virtual std::string icon() const { return icon_; }
   virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(this);
+    return transformer.Transform(*this);
   }
   virtual ~SubcategoryStart() {}
  private:
@@ -76,7 +76,7 @@ class SubcategoryEnd : public RepresentationInterface {
   }
   virtual std::string name() const { return name_ + " end"; }
   virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(this);
+    return transformer.Transform(*this);
   }
   virtual ~SubcategoryEnd() {}
  private:
@@ -95,7 +95,7 @@ class Program : public RepresentationInterface {
   virtual std::string icon() const { return icon_; }
   virtual std::string executable() const { return executable_; }
   virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(this);
+    return transformer.Transform(*this);
   }
   virtual ~Program() {}
  private:
