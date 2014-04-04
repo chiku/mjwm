@@ -92,7 +92,7 @@ void Main::ReadCategories() {
 
 void Main::RegisterIconService() {
   IconService icon_service;
-  icon_service.set_extension(command_line_options_.IconExtension());
+  icon_service.RegisterExtension(command_line_options_.IconExtension());
   menu_.register_icon_service(icon_service);
 }
 

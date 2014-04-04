@@ -282,7 +282,7 @@ SCENARIO("Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "mousepad.desktop");
 
       IconService icon_service;
-      icon_service.set_extension(".xpm");
+      icon_service.RegisterExtension(".xpm");
       menu.register_icon_service(icon_service);
 
       menu.populate(files);
