@@ -71,8 +71,8 @@ SCENARIO("subcategory", "[subcategory]") {
         THEN("its entries in alphabetical order by name") {
           std::vector<DesktopFile> desktop_files = subcategory.desktop_files();
           REQUIRE(desktop_files.size() == 2);
-          REQUIRE(desktop_files[0].name() == "Mousepad");
-          REQUIRE(desktop_files[1].name() == "Sakura");
+          REQUIRE(desktop_files[0].Name() == "Mousepad");
+          REQUIRE(desktop_files[1].Name() == "Sakura");
         }
       }
     }

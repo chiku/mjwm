@@ -25,21 +25,14 @@
 namespace amm {
 // Understands the representation of a FreeDesktop .desktop file
 class DesktopFile {
- private:
-  std::string name_;
-  std::string executable_;
-  std::string icon_;
-  std::vector<std::string> categories_;
-  bool display_;
-
  public:
   DesktopFile();
 
-  std::string name() const { return name_; }
-  std::string icon() const { return icon_; }
-  std::string executable() const { return executable_; }
-  std::vector<std::string> categories() const { return categories_; }
-  bool display() const { return display_; }
+  std::string Name() const { return name_; }
+  std::string Icon() const { return icon_; }
+  std::string Executable() const { return executable_; }
+  std::vector<std::string> Categories() const { return categories_; }
+  bool Display() const { return display_; }
 
   bool operator < (const DesktopFile &other) const;
   bool operator > (const DesktopFile &other) const;
@@ -50,6 +43,13 @@ class DesktopFile {
   bool IsA(std::string type) const;
   bool IsAnyOf(std::vector<std::string> types) const;
   void Populate(std::string line);
+
+ private:
+  std::string name_;
+  std::string executable_;
+  std::string icon_;
+  std::vector<std::string> categories_;
+  bool display_;
 };
 } // namespace amm
 

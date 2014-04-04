@@ -88,7 +88,7 @@ void menu::populate(std::vector<std::string> desktop_file_names) {
       while (std::getline(file, line)) {
         desktop_file.Populate(line);
       }
-      if (!desktop_file.display()) {
+      if (!desktop_file.Display()) {
         stats_.AddSuppressedFile(*name);
       } else if (desktop_file.IsValid()) {
         classify(desktop_file, *name);
@@ -120,7 +120,7 @@ void menu::classify(DesktopFile desktop_file, std::string desktop_file_name) {
   } else {
     unclassified_subcategory_.AddDesktopFile(desktop_file);
     stats_.AddUnclassifiedFile(desktop_file_name);
-    stats_.AddUnhandledClassifications(desktop_file.categories());
+    stats_.AddUnhandledClassifications(desktop_file.Categories());
   }
 }
 
@@ -153,7 +153,7 @@ std::vector<representation::base*> menu::representations() const {
       std::vector<DesktopFile> desktop_files = subcategory->desktop_files();
       std::vector<DesktopFile>::const_iterator desktop_file;
       for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
-        representation::Program *entry = new representation::Program(desktop_file->name(), icon_service_.ResolvedName(desktop_file->icon()), desktop_file->executable());
+        representation::Program *entry = new representation::Program(desktop_file->Name(), icon_service_.ResolvedName(desktop_file->Icon()), desktop_file->Executable());
         representations.push_back(entry);
       }
 

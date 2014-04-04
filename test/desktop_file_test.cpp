@@ -39,19 +39,19 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
       entry.Populate("Categories=Application;Utility;TextEditor;GTK;\n");
 
       THEN("it has a name") {
-        REQUIRE(entry.name() == "Mousepad");
+        REQUIRE(entry.Name() == "Mousepad");
       }
 
       THEN("it has an icon") {
-        REQUIRE(entry.icon() == "accessories-text-editor");
+        REQUIRE(entry.Icon() == "accessories-text-editor");
       }
 
       THEN("it has an executable") {
-        REQUIRE(entry.executable() == "mousepad %F");
+        REQUIRE(entry.Executable() == "mousepad %F");
       }
 
       THEN("it has categories") {
-        std::vector<std::string> categories = entry.categories();
+        std::vector<std::string> categories = entry.Categories();
         REQUIRE(categories.size() == 4);
         REQUIRE(categories[0] == "Application");
         REQUIRE(categories[1] == "GTK");
@@ -60,20 +60,20 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
       }
 
       THEN("it knows that it will displayed by default") {
-        REQUIRE(entry.display());
+        REQUIRE(entry.Display());
       }
 
       WHEN("NoDisplay is set to true") {
         entry.Populate("NoDisplay=true");
         THEN("it is not marked as displayed") {
-          REQUIRE(!entry.display());
+          REQUIRE(!entry.Display());
         }
       }
 
       WHEN("NoDisplay is set to 1") {
         entry.Populate("NoDisplay=1");
         THEN("it is not marked as displayed") {
-          REQUIRE(!entry.display());
+          REQUIRE(!entry.Display());
         }
       }
     }
@@ -83,8 +83,8 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
       entry.Populate("Categories=");
       entry.Populate("Executable=");
       THEN("entries are empty") {
-        // REQUIRE(entry.categories().size() == 0); // TODO : Fixme
-        REQUIRE(entry.executable() == "");
+        // REQUIRE(entry.Categories().size() == 0); // TODO : Fixme
+        REQUIRE(entry.Executable() == "");
       }
     }
 
@@ -92,8 +92,8 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
       DesktopFile entry;
       entry.Populate("");
       THEN("entries are empty") {
-        REQUIRE(entry.categories().size() == 0);
-        REQUIRE(entry.executable() == "");
+        REQUIRE(entry.Categories().size() == 0);
+        REQUIRE(entry.Executable() == "");
       }
     }
   }
