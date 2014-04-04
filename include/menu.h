@@ -40,7 +40,7 @@ class Menu {
   void LoadCustomCategories(std::vector<std::string> lines);
   void Populate(std::vector<std::string> desktop_file_names);
   void Sort();
-  std::vector<representation::base*> Representations() const;
+  std::vector<RepresentationInterface*> Representations() const;
 
  private:
   void Classify(DesktopFile entry, std::string file_name);

@@ -22,7 +22,10 @@
 #include <string>
 #include <vector>
 
+// TODO : split into two files. /usr/include/utils.h (from cdparanoia) already exists
+
 namespace amm {
+// TODO : move methods with single use to their usage points
 class StringX {
  public:
   StringX(std::string string);
@@ -35,6 +38,7 @@ class StringX {
   std::string string_;
 };
 
+// TODO : move methods with single use to their usage points
 class VectorX {
  public:
   VectorX(std::vector<std::string> vector);

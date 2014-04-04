@@ -24,22 +24,23 @@
 #include "transformer.h"
 
 namespace amm {
-namespace representation {
-class base {
+
+class RepresentationInterface {
 public:
   virtual std::string name() = 0;
   virtual std::string visit(TransformerInterface &transformer) = 0;
-  virtual ~base();
+  virtual ~RepresentationInterface() {}
 };
 
-class MenuStart : public base {
+namespace representation {
+class MenuStart : public RepresentationInterface {
  public:
   virtual std::string name();
   virtual std::string visit(TransformerInterface &transformer);
   virtual ~MenuStart();
 };
 
-class MenuEnd : public base {
+class MenuEnd : public RepresentationInterface {
  public:
   virtual std::string name();
   virtual std::string visit(TransformerInterface &transformer);
@@ -47,7 +48,7 @@ class MenuEnd : public base {
 };
 
 
-class SubcategoryStart : public base {
+class SubcategoryStart : public RepresentationInterface {
  public:
   SubcategoryStart(std::string name, std::string icon);
   virtual std::string name();
@@ -59,7 +60,7 @@ class SubcategoryStart : public base {
   std::string icon_;
 };
 
-class SubcategoryEnd : public base {
+class SubcategoryEnd : public RepresentationInterface {
  public:
   SubcategoryEnd(std::string name);
   virtual std::string name();
@@ -70,7 +71,7 @@ class SubcategoryEnd : public base {
 };
 
 
-class Program : public base {
+class Program : public RepresentationInterface {
  public:
   Program(std::string name, std::string icon, std::string executable);
   virtual std::string name();

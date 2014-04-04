@@ -20,9 +20,7 @@
 
 #include "representation.h"
 
-// TODO : rename base to interface
 // TODO : inline this implementation file
-amm::representation::base::~base() {}
 
 std::string
 amm::representation::MenuStart::name()

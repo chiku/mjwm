@@ -65,8 +65,8 @@ class TestTransformer : public TransformerInterface {
   }
 };
 
-static void clear_memory(std::vector<representation::base*> representations) {
-  for (std::vector<representation::base*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+static void clear_memory(std::vector<RepresentationInterface*> representations) {
+  for (std::vector<RepresentationInterface*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
     delete *iter;
   }
 }
@@ -258,7 +258,7 @@ SCENARIO("Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "mousepad.desktop");
 
       menu.Populate(files);
-      std::vector<representation::base*> representations = menu.Representations();
+      std::vector<RepresentationInterface*> representations = menu.Representations();
       TestTransformer test_transformer;
 
       THEN("it stores menu start, subcategory start, menu entry, subcategory end and menu end") {
@@ -286,7 +286,7 @@ SCENARIO("Menu representations", "[menu]") {
       menu.RegisterIconService(icon_service);
 
       menu.Populate(files);
-      std::vector<representation::base*> representations = menu.Representations();
+      std::vector<RepresentationInterface*> representations = menu.Representations();
       TestTransformer test_transformer;
 
       THEN("it adds the icon name to icons for subcategory and menu-entry") {
