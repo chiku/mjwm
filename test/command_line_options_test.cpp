@@ -38,7 +38,7 @@ SCENARIO("CommandLineOptions.Parse() default", "[commandlineoptions]") {
       bool parse_result = options.Parse(1, argv);
 
       THEN("it has no deprecations") {
-        REQUIRE(options.deprecations().size() == 0);
+        REQUIRE(options.Deprecations().size() == 0);
       }
 
       THEN("it is true") {
@@ -46,27 +46,27 @@ SCENARIO("CommandLineOptions.Parse() default", "[commandlineoptions]") {
       }
 
       THEN("it help flag is off") {
-        REQUIRE(!options.is_help());
+        REQUIRE(!options.IsHelp());
       }
 
       THEN("its version flag is off") {
-        REQUIRE(!options.is_version());
+        REQUIRE(!options.IsVersion());
       }
 
       THEN("its output-file is 'automenu'") {
-        REQUIRE(options.output_file_name() == "./automenu");
+        REQUIRE(options.OutputFileName() == "./automenu");
       }
 
       THEN("its input-directories is empty") {
-        REQUIRE(options.input_directory_names().size() == 0);
+        REQUIRE(options.InputDirectoryNames().size() == 0);
       }
 
       THEN("its category file is empty") {
-        REQUIRE(options.category_file_name() == "");
+        REQUIRE(options.CategoryFileName() == "");
       }
 
       THEN("its icon-extenstion is empty") {
-        REQUIRE(options.icon_extension() == "");
+        REQUIRE(options.IconExtension() == "");
       }
     }
   }
@@ -81,7 +81,7 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       options.Parse(2, argv);
 
       THEN("its help flag is on") {
-        REQUIRE(options.is_help());
+        REQUIRE(options.IsHelp());
       }
     }
 
@@ -90,11 +90,11 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       options.Parse(2, argv);
 
       THEN("it help flag is on") {
-        REQUIRE(options.is_help());
+        REQUIRE(options.IsHelp());
       }
 
       THEN("it has deprecations") {
-        std::vector<std::string> deprecations = options.deprecations();
+        std::vector<std::string> deprecations = options.Deprecations();
         REQUIRE(deprecations.size() == 1);
         REQUIRE(deprecations[0] == "-h is deprecated. Please use --help instead.");
       }
@@ -105,7 +105,7 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       options.Parse(2, argv);
 
       THEN("its version flag is on") {
-        REQUIRE(options.is_version());
+        REQUIRE(options.IsVersion());
       }
     }
 
@@ -114,11 +114,11 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       options.Parse(2, argv);
 
       THEN("it version flag is on") {
-        REQUIRE(options.is_version());
+        REQUIRE(options.IsVersion());
       }
 
       THEN("it has deprecations") {
-        std::vector<std::string> deprecations = options.deprecations();
+        std::vector<std::string> deprecations = options.Deprecations();
         REQUIRE(deprecations.size() == 1);
         REQUIRE(deprecations[0] == "-v is deprecated. Please use --version instead.");
       }
@@ -129,7 +129,7 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       options.Parse(2, argv);
 
       THEN("it icon-extenstion is '.png'") {
-        REQUIRE(options.icon_extension() == ".png");
+        REQUIRE(options.IconExtension() == ".png");
       }
     }
 
@@ -138,7 +138,7 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       options.Parse(2, argv);
 
       THEN("it icon-extenstion is '.png'") {
-        REQUIRE(options.icon_extension() == ".png");
+        REQUIRE(options.IconExtension() == ".png");
       }
     }
   }
@@ -153,7 +153,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its output-file is set to the given value") {
-        REQUIRE(options.output_file_name() == "menu.out");
+        REQUIRE(options.OutputFileName() == "menu.out");
       }
     }
 
@@ -162,7 +162,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its output-file is set to the given value") {
-        REQUIRE(options.output_file_name() == "menu.out");
+        REQUIRE(options.OutputFileName() == "menu.out");
       }
     }
 
@@ -171,7 +171,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its input-directories is set to the given values") {
-        std::vector<std::string> input_directory_names = options.input_directory_names();
+        std::vector<std::string> input_directory_names = options.InputDirectoryNames();
 
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
@@ -184,7 +184,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its input-directories is set to the given values") {
-        std::vector<std::string> input_directory_names = options.input_directory_names();
+        std::vector<std::string> input_directory_names = options.InputDirectoryNames();
 
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
@@ -197,7 +197,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its input-directories is set to the given values") {
-        std::vector<std::string> input_directory_names = options.input_directory_names();
+        std::vector<std::string> input_directory_names = options.InputDirectoryNames();
 
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
@@ -205,7 +205,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       }
 
       THEN("it has deprecations") {
-        std::vector<std::string> deprecations = options.deprecations();
+        std::vector<std::string> deprecations = options.Deprecations();
         REQUIRE(deprecations.size() == 1);
         REQUIRE(deprecations[0] == "-s is deprecated. Please use -i instead.");
       }
@@ -216,7 +216,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its category-file is set to the given value") {
-        REQUIRE(options.category_file_name() == "default.mjwm");
+        REQUIRE(options.CategoryFileName() == "default.mjwm");
       }
     }
 
@@ -225,7 +225,7 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
       options.Parse(3, argv);
 
       THEN("its category-file is set to the given value") {
-        REQUIRE(options.category_file_name() == "default.mjwm");
+        REQUIRE(options.CategoryFileName() == "default.mjwm");
       }
     }
   }

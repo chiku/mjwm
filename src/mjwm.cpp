@@ -56,22 +56,22 @@ void Main::LoadCommandLineOption(int argc, char **argv) {
     std::cerr << messages::option_error();
     exit(2);
   }
-  std::vector<std::string> deprecations = command_line_options_.deprecations();
+  std::vector<std::string> deprecations = command_line_options_.Deprecations();
   if (deprecations.size() > 0) {
     std::cerr << VectorX(deprecations).Join("\n") << std::endl << "Proceeding..." << std::endl;
   }
-  if (command_line_options_.is_help()) {
+  if (command_line_options_.IsHelp()) {
     std::cout << messages::help() << std::endl;
     exit(0);
   }
-  if (command_line_options_.is_version()) {
+  if (command_line_options_.IsVersion()) {
     std::cout << messages::version() << std::endl;
     exit(0);
   }
 }
 
 void Main::ReadCategories() {
-  std::string category_file_name = command_line_options_.category_file_name();
+  std::string category_file_name = command_line_options_.CategoryFileName();
   std::vector<std::string> category_lines;
 
   if (category_file_name != "") {
@@ -92,12 +92,12 @@ void Main::ReadCategories() {
 
 void Main::RegisterIconService() {
   IconService icon_service;
-  icon_service.set_extension(command_line_options_.icon_extension());
+  icon_service.set_extension(command_line_options_.IconExtension());
   menu_.register_icon_service(icon_service);
 }
 
 void Main::ReadDesktopFiles() {
-  std::vector<std::string> input_directory_names = command_line_options_.input_directory_names();
+  std::vector<std::string> input_directory_names = command_line_options_.InputDirectoryNames();
 
   FileSearchService service;
   service.RegisterDirectoriesWithDefaultFallback(input_directory_names);
@@ -121,7 +121,7 @@ void Main::Populate() {
 }
 
 void Main::WriteOutputFile() {
-  std::string output_file_name = command_line_options_.output_file_name();
+  std::string output_file_name = command_line_options_.OutputFileName();
   std::ofstream output_file(output_file_name.c_str());
   if (!output_file.good()) {
     std::cerr << messages::bad_output_file(output_file_name) << std::endl;

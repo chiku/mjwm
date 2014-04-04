@@ -28,15 +28,15 @@ class CommandLineOptions {
  public:
   CommandLineOptions();
 
-  bool Parse(int agrc, char *const *argv);
+  bool Parse(int argc, char *const *argv);
 
-  bool is_help() const { return is_help_; }
-  bool is_version() const { return is_version_; }
-  std::string output_file_name() const { return output_file_name_; }
-  std::vector<std::string> input_directory_names() const { return input_directory_names_; }
-  std::string category_file_name() const { return category_file_name_; }
-  std::string icon_extension() const { return icon_extension_; }
-  std::vector<std::string> deprecations() const { return deprecations_; }
+  bool IsHelp() const { return is_help_; }
+  bool IsVersion() const { return is_version_; }
+  std::string OutputFileName() const { return output_file_name_; }
+  std::vector<std::string> InputDirectoryNames() const { return input_directory_names_; }
+  std::string CategoryFileName() const { return category_file_name_; }
+  std::string IconExtension() const { return icon_extension_; }
+  std::vector<std::string> Deprecations() const { return deprecations_; }
 
  private:
   bool is_help_;
