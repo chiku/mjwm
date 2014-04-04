@@ -45,7 +45,7 @@ amm::Subcategory::Subcategory(std::string display_name, std::string icon_name, s
 bool
 amm::Subcategory::HasEntries() const
 {
-  return desktop_files().size() > 0;
+  return DesktopFiles().size() > 0;
 }
 
 void

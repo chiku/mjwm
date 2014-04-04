@@ -105,7 +105,7 @@ void Menu::Classify(DesktopFile desktop_file, std::string desktop_file_name) {
 
   std::vector<Subcategory>::iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
-    if (desktop_file.IsAnyOf(subcategory->classification_names())) {
+    if (desktop_file.IsAnyOf(subcategory->ClassificationNames())) {
       classified = true;
       subcategory->AddDesktopFile(desktop_file);
     }
@@ -135,17 +135,17 @@ std::vector<representation::base*> Menu::Representations() const {
   std::vector<Subcategory>::const_iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
     if (subcategory->HasEntries()) {
-      representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->display_name(), icon_service_.ResolvedName(subcategory->icon_name()));
+      representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_service_.ResolvedName(subcategory->IconName()));
       representations.push_back(start);
 
-      std::vector<DesktopFile> desktop_files = subcategory->desktop_files();
+      std::vector<DesktopFile> desktop_files = subcategory->DesktopFiles();
       std::vector<DesktopFile>::const_iterator desktop_file;
       for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
         representation::Program *entry = new representation::Program(desktop_file->Name(), icon_service_.ResolvedName(desktop_file->Icon()), desktop_file->Executable());
         representations.push_back(entry);
       }
 
-      representation::SubcategoryEnd *end = new representation::SubcategoryEnd(subcategory->display_name());
+      representation::SubcategoryEnd *end = new representation::SubcategoryEnd(subcategory->DisplayName());
       representations.push_back(end);
     }
   }

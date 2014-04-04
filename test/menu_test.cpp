@@ -86,8 +86,8 @@ SCENARIO("Menu custom categories", "[menu]") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 2);
-        REQUIRE(subcategories[0].display_name() == "Accessories");
-        REQUIRE(subcategories[1].display_name() == "Games");
+        REQUIRE(subcategories[0].DisplayName() == "Accessories");
+        REQUIRE(subcategories[1].DisplayName() == "Games");
       }
     }
 
@@ -127,9 +127,9 @@ SCENARIO("Menu custom categories", "[menu]") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 1);
-        REQUIRE(subcategories[0].display_name() == "Games");
+        REQUIRE(subcategories[0].DisplayName() == "Games");
 
-        std::vector<std::string> classification_names = subcategories[0].classification_names();
+        std::vector<std::string> classification_names = subcategories[0].ClassificationNames();
         REQUIRE(classification_names.size() == 2);
         REQUIRE(classification_names[0] == "Game");
         REQUIRE(classification_names[1] == "Fun");
@@ -146,7 +146,7 @@ SCENARIO("Menu custom categories", "[menu]") {
 
         REQUIRE(subcategories.size() == 1);
 
-        std::vector<std::string> classification_names = subcategories[0].classification_names();
+        std::vector<std::string> classification_names = subcategories[0].ClassificationNames();
         REQUIRE(classification_names.size() == 3);
         REQUIRE(classification_names[0] == "Game");
         REQUIRE(classification_names[1] == "Fun");
