@@ -27,14 +27,13 @@
 namespace amm {
 namespace transformer {
 // Understands the conversion of representation into a JWM menu
-// TODO : move to file transformer/jwm
-class jwm : public TransformerInterface {
+class Jwm : public TransformerInterface {
  public:
-  virtual std::string transform(representation::menu_start *entry);
-  virtual std::string transform(representation::menu_end *entry);
-  virtual std::string transform(representation::subcategory_start *entry);
-  virtual std::string transform(representation::subcategory_end *entry);
-  virtual std::string transform(representation::menu_entry *entry);
+  virtual std::string Transform(representation::MenuStart *entry);
+  virtual std::string Transform(representation::MenuEnd *entry);
+  virtual std::string Transform(representation::SubcategoryStart *entry);
+  virtual std::string Transform(representation::SubcategoryEnd *entry);
+  virtual std::string Transform(representation::Program *entry);
 };
 } // namespace transformer
 } // namespace amm

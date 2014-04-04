@@ -18,7 +18,7 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "jwm/transformer.h"
+#include "transformer/jwm.h"
 
 #include <iostream>
 
@@ -29,11 +29,11 @@ namespace amm {
 
 SCENARIO("transformer::Jwm", "[transformerjwm]") {
   GIVEN("A JWM transformer") {
-    transformer::jwm jwm_transformer;
+    transformer::Jwm jwm_transformer;
 
     WHEN("transforming a menu-start representation") {
-      representation::menu_start menu_start;
-      std::string result = jwm_transformer.transform(&menu_start);
+      representation::MenuStart menu_start;
+      std::string result = jwm_transformer.Transform(&menu_start);
 
       THEN("it gives static message") {
         REQUIRE(result == "<JWM>\n<!--Menu start-->");
@@ -41,8 +41,8 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a menu-end representation") {
-      representation::menu_end menu_end;
-      std::string result = jwm_transformer.transform(&menu_end);
+      representation::MenuEnd menu_end;
+      std::string result = jwm_transformer.Transform(&menu_end);
 
       THEN("it gives static message") {
         REQUIRE(result == "<!--Menu end-->\n</JWM>");
@@ -50,23 +50,23 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a subcategory-start representation") {
-      representation::subcategory_start subcategory_start("Application", "application.png");
-      std::string result = jwm_transformer.transform(&subcategory_start);
+      representation::SubcategoryStart subcategory_start("Application", "application.png");
+      std::string result = jwm_transformer.Transform(&subcategory_start);
 
       THEN("it includes the subcategory name and icon") {
         REQUIRE(result == "    <Menu label=\"Application\" icon=\"application.png\">");
       }
 
       THEN("it XML excapes the name") {
-        representation::subcategory_start subcategory_start("Fun & Games", "games.png");
-        std::string result = jwm_transformer.transform(&subcategory_start);
+        representation::SubcategoryStart subcategory_start("Fun & Games", "games.png");
+        std::string result = jwm_transformer.Transform(&subcategory_start);
         REQUIRE(result == "    <Menu label=\"Fun &amp; Games\" icon=\"games.png\">");
       }
     }
 
     WHEN("transforming a subcategory-end representation") {
-      representation::subcategory_end subcategory_end("Application");
-      std::string result = jwm_transformer.transform(&subcategory_end);
+      representation::SubcategoryEnd subcategory_end("Application");
+      std::string result = jwm_transformer.Transform(&subcategory_end);
 
       THEN("it includes the subcategory names in XML comments") {
         REQUIRE(result == "    <!--Application end-->\n    </Menu>");
@@ -74,22 +74,22 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a menu-entry representation") {
-      representation::menu_entry menu_entry("Application", "application.png", "/usr/bin/application");
-      std::string result = jwm_transformer.transform(&menu_entry);
+      representation::Program program("Application", "application.png", "/usr/bin/application");
+      std::string result = jwm_transformer.Transform(&program);
 
       THEN("it gives static message") {
         REQUIRE(result == "        <Program label=\"Application\" icon=\"application.png\">/usr/bin/application</Program>");
       }
 
       THEN("it XML excapes the name") {
-        representation::menu_entry menu_entry("Shoot & Run", "shooter.png", "/usr/bin/shooter");
-        std::string result = jwm_transformer.transform(&menu_entry);
+        representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter");
+        std::string result = jwm_transformer.Transform(&program);
         REQUIRE(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\">/usr/bin/shooter</Program>");
       }
 
       THEN("it removes field codes from the executable") {
-        representation::menu_entry menu_entry("Mousepad", "application-text-editor", "mousepad %F");
-        std::string result = jwm_transformer.transform(&menu_entry);
+        representation::Program program("Mousepad", "application-text-editor", "mousepad %F");
+        std::string result = jwm_transformer.Transform(&program);
         REQUIRE(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\">mousepad</Program>");
       }
     }

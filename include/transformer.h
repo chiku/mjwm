@@ -25,20 +25,23 @@
 
 namespace amm {
 namespace representation {
-  class menu_start;
-  class menu_end;
-  class subcategory_start;
-  class subcategory_end;
-  class menu_entry;
+  // Forward declare classes to break circular dependency between amm::representation::* and amm::transformer::*
+  class MenuStart;
+  class MenuEnd;
+  class SubcategoryStart;
+  class SubcategoryEnd;
+  class Program;
 } // namespace representation
+
+// TODO : rename file to transformer_interface.h to match the class name
 
 class TransformerInterface {
   public:
-    virtual std::string transform(representation::menu_start *entry) = 0;
-    virtual std::string transform(representation::menu_end *entry) = 0;
-    virtual std::string transform(representation::subcategory_start *entry) = 0;
-    virtual std::string transform(representation::subcategory_end *entry) = 0;
-    virtual std::string transform(representation::menu_entry *entry) = 0;
+    virtual std::string Transform(representation::MenuStart *entry) = 0;
+    virtual std::string Transform(representation::MenuEnd *entry) = 0;
+    virtual std::string Transform(representation::SubcategoryStart *entry) = 0;
+    virtual std::string Transform(representation::SubcategoryEnd *entry) = 0;
+    virtual std::string Transform(representation::Program *entry) = 0;
   };
 } // namespace amm
 

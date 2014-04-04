@@ -82,7 +82,7 @@ check_PROGRAMS = mjwm_util_test$(EXEEXT) \
 	mjwm_desktop_file_test$(EXEEXT) mjwm_subcategory_test$(EXEEXT) \
 	mjwm_stats_test$(EXEEXT) mjwm_menu_test$(EXEEXT) \
 	mjwm_file_search_service_test$(EXEEXT) \
-	mjwm_jwm_transformer_test$(EXEEXT) \
+	mjwm_transformer_jwm_test$(EXEEXT) \
 	mjwm_command_line_options_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
@@ -109,7 +109,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/util.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
-	src/menu.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
+	src/menu.$(OBJEXT) src/transformer/jwm.$(OBJEXT) \
 	src/icon_service.$(OBJEXT) src/file_search_service.$(OBJEXT) \
 	src/messages.$(OBJEXT) src/command_line_options.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/mjwm.$(OBJEXT)
@@ -131,16 +131,10 @@ am_mjwm_file_search_service_test_OBJECTS = src/util.$(OBJEXT) \
 mjwm_file_search_service_test_OBJECTS =  \
 	$(am_mjwm_file_search_service_test_OBJECTS)
 mjwm_file_search_service_test_LDADD = $(LDADD)
-am_mjwm_jwm_transformer_test_OBJECTS = src/util.$(OBJEXT) \
-	src/representation.$(OBJEXT) src/jwm/transformer.$(OBJEXT) \
-	test/jwm/transformer_test.$(OBJEXT)
-mjwm_jwm_transformer_test_OBJECTS =  \
-	$(am_mjwm_jwm_transformer_test_OBJECTS)
-mjwm_jwm_transformer_test_LDADD = $(LDADD)
 am_mjwm_menu_test_OBJECTS = src/util.$(OBJEXT) \
 	src/icon_service.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
-	src/jwm/transformer.$(OBJEXT) src/stats.$(OBJEXT) \
+	src/transformer/jwm.$(OBJEXT) src/stats.$(OBJEXT) \
 	src/menu.$(OBJEXT) test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
@@ -153,6 +147,12 @@ am_mjwm_subcategory_test_OBJECTS = src/util.$(OBJEXT) \
 	test/subcategory_test.$(OBJEXT)
 mjwm_subcategory_test_OBJECTS = $(am_mjwm_subcategory_test_OBJECTS)
 mjwm_subcategory_test_LDADD = $(LDADD)
+am_mjwm_transformer_jwm_test_OBJECTS = src/util.$(OBJEXT) \
+	src/representation.$(OBJEXT) src/transformer/jwm.$(OBJEXT) \
+	test/transformer/jwm_test.$(OBJEXT)
+mjwm_transformer_jwm_test_OBJECTS =  \
+	$(am_mjwm_transformer_jwm_test_OBJECTS)
+mjwm_transformer_jwm_test_LDADD = $(LDADD)
 am_mjwm_util_test_OBJECTS = src/util.$(OBJEXT) \
 	test/util_test.$(OBJEXT)
 mjwm_util_test_OBJECTS = $(am_mjwm_util_test_OBJECTS)
@@ -189,16 +189,16 @@ am__v_CXXLD_1 =
 SOURCES = $(mjwm_SOURCES) $(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_file_search_service_test_SOURCES) \
-	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
-	$(mjwm_stats_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
-	$(mjwm_util_test_SOURCES)
+	$(mjwm_menu_test_SOURCES) $(mjwm_stats_test_SOURCES) \
+	$(mjwm_subcategory_test_SOURCES) \
+	$(mjwm_transformer_jwm_test_SOURCES) $(mjwm_util_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) \
 	$(mjwm_file_search_service_test_SOURCES) \
-	$(mjwm_jwm_transformer_test_SOURCES) $(mjwm_menu_test_SOURCES) \
-	$(mjwm_stats_test_SOURCES) $(mjwm_subcategory_test_SOURCES) \
-	$(mjwm_util_test_SOURCES)
+	$(mjwm_menu_test_SOURCES) $(mjwm_stats_test_SOURCES) \
+	$(mjwm_subcategory_test_SOURCES) \
+	$(mjwm_transformer_jwm_test_SOURCES) $(mjwm_util_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -544,7 +544,7 @@ mjwm_SOURCES = src/util.cpp \
                src/subcategory.cpp \
                src/representation.cpp \
                src/menu.cpp \
-               src/jwm/transformer.cpp \
+               src/transformer/jwm.cc \
                src/icon_service.cpp \
                src/file_search_service.cpp \
                src/messages.cpp \
@@ -581,15 +581,15 @@ mjwm_menu_test_SOURCES = src/util.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
-                         src/jwm/transformer.cpp \
+                         src/transformer/jwm.cc \
                          src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 
-mjwm_jwm_transformer_test_SOURCES = src/util.cpp \
+mjwm_transformer_jwm_test_SOURCES = src/util.cpp \
                                     src/representation.cpp \
-                                    src/jwm/transformer.cpp \
-                                    test/jwm/transformer_test.cpp
+                                    src/transformer/jwm.cc \
+                                    test/transformer/jwm_test.cc
 
 mjwm_command_line_options_test_SOURCES = src/util.cpp \
                                          src/command_line_options.cpp \
@@ -599,7 +599,7 @@ all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
-.SUFFIXES: .cpp .log .o .obj .test .test$(EXEEXT) .trs
+.SUFFIXES: .cc .cpp .log .o .obj .test .test$(EXEEXT) .trs
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -708,14 +708,14 @@ src/subcategory.$(OBJEXT): src/$(am__dirstamp) \
 src/representation.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/menu.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/jwm/$(am__dirstamp):
-	@$(MKDIR_P) src/jwm
-	@: > src/jwm/$(am__dirstamp)
-src/jwm/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/jwm/$(DEPDIR)
-	@: > src/jwm/$(DEPDIR)/$(am__dirstamp)
-src/jwm/transformer.$(OBJEXT): src/jwm/$(am__dirstamp) \
-	src/jwm/$(DEPDIR)/$(am__dirstamp)
+src/transformer/$(am__dirstamp):
+	@$(MKDIR_P) src/transformer
+	@: > src/transformer/$(am__dirstamp)
+src/transformer/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/transformer/$(DEPDIR)
+	@: > src/transformer/$(DEPDIR)/$(am__dirstamp)
+src/transformer/jwm.$(OBJEXT): src/transformer/$(am__dirstamp) \
+	src/transformer/$(DEPDIR)/$(am__dirstamp)
 src/icon_service.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/file_search_service.$(OBJEXT): src/$(am__dirstamp) \
@@ -754,18 +754,6 @@ test/file_search_service_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_file_search_service_test$(EXEEXT): $(mjwm_file_search_service_test_OBJECTS) $(mjwm_file_search_service_test_DEPENDENCIES) $(EXTRA_mjwm_file_search_service_test_DEPENDENCIES) 
 	@rm -f mjwm_file_search_service_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_file_search_service_test_OBJECTS) $(mjwm_file_search_service_test_LDADD) $(LIBS)
-test/jwm/$(am__dirstamp):
-	@$(MKDIR_P) test/jwm
-	@: > test/jwm/$(am__dirstamp)
-test/jwm/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) test/jwm/$(DEPDIR)
-	@: > test/jwm/$(DEPDIR)/$(am__dirstamp)
-test/jwm/transformer_test.$(OBJEXT): test/jwm/$(am__dirstamp) \
-	test/jwm/$(DEPDIR)/$(am__dirstamp)
-
-mjwm_jwm_transformer_test$(EXEEXT): $(mjwm_jwm_transformer_test_OBJECTS) $(mjwm_jwm_transformer_test_DEPENDENCIES) $(EXTRA_mjwm_jwm_transformer_test_DEPENDENCIES) 
-	@rm -f mjwm_jwm_transformer_test$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_jwm_transformer_test_OBJECTS) $(mjwm_jwm_transformer_test_LDADD) $(LIBS)
 test/menu_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -784,6 +772,18 @@ test/subcategory_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_subcategory_test$(EXEEXT): $(mjwm_subcategory_test_OBJECTS) $(mjwm_subcategory_test_DEPENDENCIES) $(EXTRA_mjwm_subcategory_test_DEPENDENCIES) 
 	@rm -f mjwm_subcategory_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_subcategory_test_OBJECTS) $(mjwm_subcategory_test_LDADD) $(LIBS)
+test/transformer/$(am__dirstamp):
+	@$(MKDIR_P) test/transformer
+	@: > test/transformer/$(am__dirstamp)
+test/transformer/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) test/transformer/$(DEPDIR)
+	@: > test/transformer/$(DEPDIR)/$(am__dirstamp)
+test/transformer/jwm_test.$(OBJEXT): test/transformer/$(am__dirstamp) \
+	test/transformer/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_transformer_jwm_test$(EXEEXT): $(mjwm_transformer_jwm_test_OBJECTS) $(mjwm_transformer_jwm_test_DEPENDENCIES) $(EXTRA_mjwm_transformer_jwm_test_DEPENDENCIES) 
+	@rm -f mjwm_transformer_jwm_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_transformer_jwm_test_OBJECTS) $(mjwm_transformer_jwm_test_LDADD) $(LIBS)
 test/util_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -794,9 +794,9 @@ mjwm_util_test$(EXEEXT): $(mjwm_util_test_OBJECTS) $(mjwm_util_test_DEPENDENCIES
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f src/*.$(OBJEXT)
-	-rm -f src/jwm/*.$(OBJEXT)
+	-rm -f src/transformer/*.$(OBJEXT)
 	-rm -f test/*.$(OBJEXT)
-	-rm -f test/jwm/*.$(OBJEXT)
+	-rm -f test/transformer/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -812,7 +812,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stats.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/util.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/jwm/$(DEPDIR)/transformer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/jwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/file_search_service_test.Po@am__quote@
@@ -820,7 +820,23 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/util_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/jwm/$(DEPDIR)/transformer_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/transformer/$(DEPDIR)/jwm_test.Po@am__quote@
+
+.cc.o:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
+
+.cc.obj:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -1142,9 +1158,9 @@ mjwm_file_search_service_test.log: mjwm_file_search_service_test$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-mjwm_jwm_transformer_test.log: mjwm_jwm_transformer_test$(EXEEXT)
-	@p='mjwm_jwm_transformer_test$(EXEEXT)'; \
-	b='mjwm_jwm_transformer_test'; \
+mjwm_transformer_jwm_test.log: mjwm_transformer_jwm_test$(EXEEXT)
+	@p='mjwm_transformer_jwm_test$(EXEEXT)'; \
+	b='mjwm_transformer_jwm_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1374,12 +1390,12 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
-	-rm -f src/jwm/$(DEPDIR)/$(am__dirstamp)
-	-rm -f src/jwm/$(am__dirstamp)
+	-rm -f src/transformer/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/transformer/$(am__dirstamp)
 	-rm -f test/$(DEPDIR)/$(am__dirstamp)
 	-rm -f test/$(am__dirstamp)
-	-rm -f test/jwm/$(DEPDIR)/$(am__dirstamp)
-	-rm -f test/jwm/$(am__dirstamp)
+	-rm -f test/transformer/$(DEPDIR)/$(am__dirstamp)
+	-rm -f test/transformer/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -1391,7 +1407,7 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/jwm/$(DEPDIR) test/$(DEPDIR) test/jwm/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/transformer/$(DEPDIR) test/$(DEPDIR) test/transformer/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -1439,7 +1455,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/jwm/$(DEPDIR) test/$(DEPDIR) test/jwm/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/transformer/$(DEPDIR) test/$(DEPDIR) test/transformer/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

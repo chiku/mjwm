@@ -21,13 +21,16 @@
 #include <vector>
 
 #include "util.h"
-#include "jwm/transformer.h"
+#include "transformer/jwm.h"
+
+namespace amm {
+namespace transformer {
 
 static std::string
 remove_field_code(std::string input)
 {
   std::vector<std::string> result;
-  std::vector<std::string> tokens = amm::StringX(input).Split(" ");
+  std::vector<std::string> tokens = StringX(input).Split(" ");
 
   for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
     if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
@@ -35,12 +38,10 @@ remove_field_code(std::string input)
     }
   }
 
-  return amm::VectorX(result).Join(" ");
+  return VectorX(result).Join(" ");
 }
 
-std::string
-amm::transformer::jwm::transform(amm::representation::menu_start *entry)
-{
+std::string Jwm::Transform(representation::MenuStart *entry) {
   std::stringstream stream;
   stream << "<JWM>"
          << std::endl
@@ -48,9 +49,7 @@ amm::transformer::jwm::transform(amm::representation::menu_start *entry)
   return stream.str();
 }
 
-std::string
-amm::transformer::jwm::transform(amm::representation::menu_end *entry)
-{
+std::string Jwm::Transform(representation::MenuEnd *entry) {
   std::stringstream stream;
   stream << "<!--" << entry->name() << "-->"
          << std::endl
@@ -58,20 +57,16 @@ amm::transformer::jwm::transform(amm::representation::menu_end *entry)
   return stream.str();
 }
 
-std::string
-amm::transformer::jwm::transform(amm::representation::subcategory_start *entry)
-{
+std::string Jwm::Transform(representation::SubcategoryStart *entry) {
   std::stringstream stream;
   stream << "    <Menu "
-         << "label=\"" << amm::StringX(entry->name()).Encode()
+         << "label=\"" << StringX(entry->name()).Encode()
          << "\" icon=\"" << entry->icon()
          << "\">";
   return stream.str();
 }
 
-std::string
-amm::transformer::jwm::transform(amm::representation::subcategory_end *entry)
-{
+std::string Jwm::Transform(representation::SubcategoryEnd *entry) {
   std::stringstream stream;
   stream << "    <!--" << entry->name() << "-->"
          << std::endl
@@ -79,15 +74,16 @@ amm::transformer::jwm::transform(amm::representation::subcategory_end *entry)
   return stream.str();
 }
 
-std::string
-amm::transformer::jwm::transform(amm::representation::menu_entry *entry)
-{
+std::string Jwm::Transform(representation::Program *entry) {
   std::stringstream stream;
   stream << "        <Program "
-         << "label=\"" << amm::StringX(entry->name()).Encode()
-         << "\" icon=\"" << amm::StringX(entry->icon()).Encode()
+         << "label=\"" << StringX(entry->name()).Encode()
+         << "\" icon=\"" << StringX(entry->icon()).Encode()
          << "\">"
          << remove_field_code(entry->executable())
          << "</Program>";
   return stream.str();
 }
+
+} // namespace transformer
+} // namespace amm

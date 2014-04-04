@@ -20,99 +20,101 @@
 
 #include "representation.h"
 
+// TODO : rename base to interface
+// TODO : inline this implementation file
 amm::representation::base::~base() {}
 
 std::string
-amm::representation::menu_start::name()
+amm::representation::MenuStart::name()
 {
   return "Menu start";
 }
 std::string
-amm::representation::menu_start::visit(amm::TransformerInterface &transformer)
+amm::representation::MenuStart::visit(amm::TransformerInterface &transformer)
 {
-  return transformer.transform(this);
+  return transformer.Transform(this);
 }
-amm::representation::menu_start::~menu_start() {}
+amm::representation::MenuStart::~MenuStart() {}
 
 
 std::string
-amm::representation::menu_end::name()
+amm::representation::MenuEnd::name()
 {
   return "Menu end";
 }
 std::string
-amm::representation::menu_end::visit(amm::TransformerInterface &transformer)
+amm::representation::MenuEnd::visit(amm::TransformerInterface &transformer)
 {
-  return transformer.transform(this);
+  return transformer.Transform(this);
 }
-amm::representation::menu_end::~menu_end() {}
+amm::representation::MenuEnd::~MenuEnd() {}
 
 
-amm::representation::subcategory_start::subcategory_start(std::string name, std::string icon)
+amm::representation::SubcategoryStart::SubcategoryStart(std::string name, std::string icon)
 {
   name_ = name;
   icon_ = icon;
 }
 std::string
-amm::representation::subcategory_start::name()
+amm::representation::SubcategoryStart::name()
 {
   return name_;
 }
 std::string
-amm::representation::subcategory_start::icon()
+amm::representation::SubcategoryStart::icon()
 {
   return icon_;
 }
 std::string
-amm::representation::subcategory_start::visit(amm::TransformerInterface &transformer)
+amm::representation::SubcategoryStart::visit(amm::TransformerInterface &transformer)
 {
-  return transformer.transform(this);
+  return transformer.Transform(this);
 }
-amm::representation::subcategory_start::~subcategory_start() {}
+amm::representation::SubcategoryStart::~SubcategoryStart() {}
 
 
-amm::representation::subcategory_end::subcategory_end(std::string name)
+amm::representation::SubcategoryEnd::SubcategoryEnd(std::string name)
 {
   name_ = name;
 }
 
 std::string
-amm::representation::subcategory_end::name()
+amm::representation::SubcategoryEnd::name()
 {
   return name_ + " end";
 }
 std::string
-amm::representation::subcategory_end::visit(amm::TransformerInterface &transformer)
+amm::representation::SubcategoryEnd::visit(amm::TransformerInterface &transformer)
 {
-  return transformer.transform(this);
+  return transformer.Transform(this);
 }
-amm::representation::subcategory_end::~subcategory_end() {}
+amm::representation::SubcategoryEnd::~SubcategoryEnd() {}
 
 
-amm::representation::menu_entry::menu_entry(std::string name, std::string icon, std::string executable)
+amm::representation::Program::Program(std::string name, std::string icon, std::string executable)
 {
   name_ = name;
   icon_ = icon;
   executable_ = executable;
 }
 std::string
-amm::representation::menu_entry::name()
+amm::representation::Program::name()
 {
   return name_;
 }
 std::string
-amm::representation::menu_entry::icon()
+amm::representation::Program::icon()
 {
   return icon_;
 }
 std::string
-amm::representation::menu_entry::executable()
+amm::representation::Program::executable()
 {
   return executable_;
 }
 std::string
-amm::representation::menu_entry::visit(amm::TransformerInterface &transformer)
+amm::representation::Program::visit(amm::TransformerInterface &transformer)
 {
-  return transformer.transform(this);
+  return transformer.Transform(this);
 }
-amm::representation::menu_entry::~menu_entry() {}
+amm::representation::Program::~Program() {}

@@ -32,52 +32,52 @@ public:
   virtual ~base();
 };
 
-class menu_start : public base {
+class MenuStart : public base {
  public:
   virtual std::string name();
   virtual std::string visit(TransformerInterface &transformer);
-  virtual ~menu_start();
+  virtual ~MenuStart();
 };
 
-class menu_end : public base {
+class MenuEnd : public base {
  public:
   virtual std::string name();
   virtual std::string visit(TransformerInterface &transformer);
-  virtual ~menu_end();
+  virtual ~MenuEnd();
 };
 
 
-class subcategory_start : public base {
+class SubcategoryStart : public base {
  public:
-  subcategory_start(std::string name, std::string icon);
+  SubcategoryStart(std::string name, std::string icon);
   virtual std::string name();
   virtual std::string icon();
   virtual std::string visit(TransformerInterface &transformer);
-  virtual ~subcategory_start();
+  virtual ~SubcategoryStart();
  private:
   std::string name_;
   std::string icon_;
 };
 
-class subcategory_end : public base {
+class SubcategoryEnd : public base {
  public:
-  subcategory_end(std::string name);
+  SubcategoryEnd(std::string name);
   virtual std::string name();
   virtual std::string visit(TransformerInterface &transformer);
-  virtual ~subcategory_end();
+  virtual ~SubcategoryEnd();
  private:
   std::string name_;
 };
 
 
-class menu_entry : public base {
+class Program : public base {
  public:
-  menu_entry(std::string name, std::string icon, std::string executable);
+  Program(std::string name, std::string icon, std::string executable);
   virtual std::string name();
   virtual std::string icon();
   virtual std::string executable();
   virtual std::string visit(TransformerInterface &transformer);
-  virtual ~menu_entry();
+  virtual ~Program();
  private:
   std::string name_;
   std::string icon_;

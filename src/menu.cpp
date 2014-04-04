@@ -141,28 +141,28 @@ void menu::sort() {
 
 std::vector<representation::base*> menu::representations() const {
   std::vector<representation::base*> representations;
-  representation::menu_start *menu_start = new representation::menu_start;
+  representation::MenuStart *menu_start = new representation::MenuStart;
   representations.push_back(menu_start);
 
   std::vector<Subcategory>::const_iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
     if (subcategory->HasEntries()) {
-      representation::subcategory_start *start = new representation::subcategory_start(subcategory->display_name(), icon_service_.ResolvedName(subcategory->icon_name()));
+      representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->display_name(), icon_service_.ResolvedName(subcategory->icon_name()));
       representations.push_back(start);
 
       std::vector<DesktopFile> desktop_files = subcategory->desktop_files();
       std::vector<DesktopFile>::const_iterator desktop_file;
       for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
-        representation::menu_entry *entry = new representation::menu_entry(desktop_file->name(), icon_service_.ResolvedName(desktop_file->icon()), desktop_file->executable());
+        representation::Program *entry = new representation::Program(desktop_file->name(), icon_service_.ResolvedName(desktop_file->icon()), desktop_file->executable());
         representations.push_back(entry);
       }
 
-      representation::subcategory_end *end = new representation::subcategory_end(subcategory->display_name());
+      representation::SubcategoryEnd *end = new representation::SubcategoryEnd(subcategory->display_name());
       representations.push_back(end);
     }
   }
 
-  representation::menu_end *menu_end = new representation::menu_end;
+  representation::MenuEnd *menu_end = new representation::MenuEnd;
   representations.push_back(menu_end);
   return representations;
 }

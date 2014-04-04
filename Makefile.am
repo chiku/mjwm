@@ -9,7 +9,7 @@ mjwm_SOURCES = src/util.cpp \
                src/subcategory.cpp \
                src/representation.cpp \
                src/menu.cpp \
-               src/jwm/transformer.cpp \
+               src/transformer/jwm.cc \
                src/icon_service.cpp \
                src/file_search_service.cpp \
                src/messages.cpp \
@@ -23,7 +23,7 @@ check_PROGRAMS = mjwm_util_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
                  mjwm_file_search_service_test \
-                 mjwm_jwm_transformer_test \
+                 mjwm_transformer_jwm_test \
                  mjwm_command_line_options_test
 
 mjwmdir=$(datadir)/mjwm
@@ -52,14 +52,14 @@ mjwm_menu_test_SOURCES = src/util.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
                          src/representation.cpp \
-                         src/jwm/transformer.cpp \
+                         src/transformer/jwm.cc \
                          src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
-mjwm_jwm_transformer_test_SOURCES = src/util.cpp \
+mjwm_transformer_jwm_test_SOURCES = src/util.cpp \
                                     src/representation.cpp \
-                                    src/jwm/transformer.cpp \
-                                    test/jwm/transformer_test.cpp
+                                    src/transformer/jwm.cc \
+                                    test/transformer/jwm_test.cc
 mjwm_command_line_options_test_SOURCES = src/util.cpp \
                                          src/command_line_options.cpp \
                                          test/command_line_options_test.cpp

@@ -34,7 +34,7 @@ run mjwm_subcategory_test
 run mjwm_stats_test
 run mjwm_menu_test
 run mjwm_file_search_service_test
-run mjwm_jwm_transformer_test
+run mjwm_transformer_jwm_test
 run mjwm_command_line_options_test
 
 echo "Suites run: $suites"
