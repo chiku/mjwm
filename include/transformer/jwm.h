@@ -29,11 +29,11 @@ namespace transformer {
 // Understands the conversion of representation into a JWM menu
 class Jwm : public TransformerInterface {
  public:
-  virtual std::string Transform(representation::MenuStart *entry);
-  virtual std::string Transform(representation::MenuEnd *entry);
-  virtual std::string Transform(representation::SubcategoryStart *entry);
-  virtual std::string Transform(representation::SubcategoryEnd *entry);
-  virtual std::string Transform(representation::Program *entry);
+  virtual std::string Transform(const representation::MenuStart *entry) const;
+  virtual std::string Transform(const representation::MenuEnd *entry) const;
+  virtual std::string Transform(const representation::SubcategoryStart *entry) const;
+  virtual std::string Transform(const representation::SubcategoryEnd *entry) const;
+  virtual std::string Transform(const representation::Program *entry) const;
 };
 } // namespace transformer
 } // namespace amm

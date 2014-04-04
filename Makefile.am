@@ -7,7 +7,6 @@ bin_PROGRAMS = mjwm
 mjwm_SOURCES = src/util.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
-               src/representation.cpp \
                src/menu.cpp \
                src/transformer/jwm.cc \
                src/icon_service.cpp \
@@ -51,13 +50,11 @@ mjwm_menu_test_SOURCES = src/util.cpp \
                          src/icon_service.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
-                         src/representation.cpp \
                          src/transformer/jwm.cc \
                          src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 mjwm_transformer_jwm_test_SOURCES = src/util.cpp \
-                                    src/representation.cpp \
                                     src/transformer/jwm.cc \
                                     test/transformer/jwm_test.cc
 mjwm_command_line_options_test_SOURCES = src/util.cpp \

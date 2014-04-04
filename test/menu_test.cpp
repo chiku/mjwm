@@ -34,31 +34,31 @@ static const std::string fixtures_directory = "test/fixtures/";
 
 class TestTransformer : public TransformerInterface {
  public:
-  std::string Transform(representation::MenuStart *entry) {
+  std::string Transform(const representation::MenuStart *entry) const {
     std::stringstream stream;
     stream << "Menu start--> name: " << entry->name();
     return stream.str();
   }
 
-  std::string Transform(representation::MenuEnd *entry) {
+  std::string Transform(const representation::MenuEnd *entry) const {
     std::stringstream stream;
     stream << "Menu end--> name: " << entry->name();
     return stream.str();
   }
 
-  std::string Transform(representation::SubcategoryStart *entry) {
+  std::string Transform(const representation::SubcategoryStart *entry) const {
     std::stringstream stream;
     stream << "Subsection start--> name: " << entry->name() << " icon: " << entry->icon();
     return stream.str();
   }
 
-  std::string Transform(representation::SubcategoryEnd *entry) {
+  std::string Transform(const representation::SubcategoryEnd *entry) const {
     std::stringstream stream;
     stream << "Subsection end--> name: " << entry->name();
     return stream.str();
   }
 
-  std::string Transform(representation::Program *entry) {
+  std::string Transform(const representation::Program *entry) const {
     std::stringstream stream;
     stream << "Program--> name: " << entry->name() << " icon: " << entry->icon() << " executable: " << entry->executable();
     return stream.str();

@@ -26,9 +26,7 @@
 namespace amm {
 namespace transformer {
 
-static std::string
-remove_field_code(std::string input)
-{
+static std::string remove_field_code(std::string input) {
   std::vector<std::string> result;
   std::vector<std::string> tokens = StringX(input).Split(" ");
 
@@ -41,7 +39,7 @@ remove_field_code(std::string input)
   return VectorX(result).Join(" ");
 }
 
-std::string Jwm::Transform(representation::MenuStart *entry) {
+std::string Jwm::Transform(const representation::MenuStart *entry) const {
   std::stringstream stream;
   stream << "<JWM>"
          << std::endl
@@ -49,7 +47,7 @@ std::string Jwm::Transform(representation::MenuStart *entry) {
   return stream.str();
 }
 
-std::string Jwm::Transform(representation::MenuEnd *entry) {
+std::string Jwm::Transform(const representation::MenuEnd *entry) const {
   std::stringstream stream;
   stream << "<!--" << entry->name() << "-->"
          << std::endl
@@ -57,7 +55,7 @@ std::string Jwm::Transform(representation::MenuEnd *entry) {
   return stream.str();
 }
 
-std::string Jwm::Transform(representation::SubcategoryStart *entry) {
+std::string Jwm::Transform(const representation::SubcategoryStart *entry) const {
   std::stringstream stream;
   stream << "    <Menu "
          << "label=\"" << StringX(entry->name()).Encode()
@@ -66,7 +64,7 @@ std::string Jwm::Transform(representation::SubcategoryStart *entry) {
   return stream.str();
 }
 
-std::string Jwm::Transform(representation::SubcategoryEnd *entry) {
+std::string Jwm::Transform(const representation::SubcategoryEnd *entry) const {
   std::stringstream stream;
   stream << "    <!--" << entry->name() << "-->"
          << std::endl
@@ -74,7 +72,7 @@ std::string Jwm::Transform(representation::SubcategoryEnd *entry) {
   return stream.str();
 }
 
-std::string Jwm::Transform(representation::Program *entry) {
+std::string Jwm::Transform(const representation::Program *entry) const {
   std::stringstream stream;
   stream << "        <Program "
          << "label=\"" << StringX(entry->name()).Encode()

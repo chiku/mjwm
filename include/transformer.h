@@ -36,13 +36,14 @@ namespace representation {
 // TODO : rename file to transformer_interface.h to match the class name
 
 class TransformerInterface {
-  public:
-    virtual std::string Transform(representation::MenuStart *entry) = 0;
-    virtual std::string Transform(representation::MenuEnd *entry) = 0;
-    virtual std::string Transform(representation::SubcategoryStart *entry) = 0;
-    virtual std::string Transform(representation::SubcategoryEnd *entry) = 0;
-    virtual std::string Transform(representation::Program *entry) = 0;
-  };
+ public:
+  // TODO : these Transform functions should use a reference instead of a pointer
+  virtual std::string Transform(const representation::MenuStart *entry) const = 0;
+  virtual std::string Transform(const representation::MenuEnd *entry) const = 0;
+  virtual std::string Transform(const representation::SubcategoryStart *entry) const = 0;
+  virtual std::string Transform(const representation::SubcategoryEnd *entry) const = 0;
+  virtual std::string Transform(const representation::Program *entry) const = 0;
+};
 } // namespace amm
 
 #endif // AMM_TRANSFORMER_H_

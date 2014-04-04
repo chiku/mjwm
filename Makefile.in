@@ -108,11 +108,11 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" \
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/util.$(OBJEXT) src/desktop_file.$(OBJEXT) \
-	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
-	src/menu.$(OBJEXT) src/transformer/jwm.$(OBJEXT) \
-	src/icon_service.$(OBJEXT) src/file_search_service.$(OBJEXT) \
-	src/messages.$(OBJEXT) src/command_line_options.$(OBJEXT) \
-	src/stats.$(OBJEXT) src/mjwm.$(OBJEXT)
+	src/subcategory.$(OBJEXT) src/menu.$(OBJEXT) \
+	src/transformer/jwm.$(OBJEXT) src/icon_service.$(OBJEXT) \
+	src/file_search_service.$(OBJEXT) src/messages.$(OBJEXT) \
+	src/command_line_options.$(OBJEXT) src/stats.$(OBJEXT) \
+	src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_command_line_options_test_OBJECTS = src/util.$(OBJEXT) \
@@ -133,9 +133,9 @@ mjwm_file_search_service_test_OBJECTS =  \
 mjwm_file_search_service_test_LDADD = $(LDADD)
 am_mjwm_menu_test_OBJECTS = src/util.$(OBJEXT) \
 	src/icon_service.$(OBJEXT) src/desktop_file.$(OBJEXT) \
-	src/subcategory.$(OBJEXT) src/representation.$(OBJEXT) \
-	src/transformer/jwm.$(OBJEXT) src/stats.$(OBJEXT) \
-	src/menu.$(OBJEXT) test/menu_test.$(OBJEXT)
+	src/subcategory.$(OBJEXT) src/transformer/jwm.$(OBJEXT) \
+	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
+	test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
 am_mjwm_stats_test_OBJECTS = src/util.$(OBJEXT) src/stats.$(OBJEXT) \
@@ -148,7 +148,7 @@ am_mjwm_subcategory_test_OBJECTS = src/util.$(OBJEXT) \
 mjwm_subcategory_test_OBJECTS = $(am_mjwm_subcategory_test_OBJECTS)
 mjwm_subcategory_test_LDADD = $(LDADD)
 am_mjwm_transformer_jwm_test_OBJECTS = src/util.$(OBJEXT) \
-	src/representation.$(OBJEXT) src/transformer/jwm.$(OBJEXT) \
+	src/transformer/jwm.$(OBJEXT) \
 	test/transformer/jwm_test.$(OBJEXT)
 mjwm_transformer_jwm_test_OBJECTS =  \
 	$(am_mjwm_transformer_jwm_test_OBJECTS)
@@ -542,7 +542,6 @@ AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 mjwm_SOURCES = src/util.cpp \
                src/desktop_file.cpp \
                src/subcategory.cpp \
-               src/representation.cpp \
                src/menu.cpp \
                src/transformer/jwm.cc \
                src/icon_service.cpp \
@@ -580,14 +579,12 @@ mjwm_menu_test_SOURCES = src/util.cpp \
                          src/icon_service.cpp \
                          src/desktop_file.cpp \
                          src/subcategory.cpp \
-                         src/representation.cpp \
                          src/transformer/jwm.cc \
                          src/stats.cpp \
                          src/menu.cpp \
                          test/menu_test.cpp
 
 mjwm_transformer_jwm_test_SOURCES = src/util.cpp \
-                                    src/representation.cpp \
                                     src/transformer/jwm.cc \
                                     test/transformer/jwm_test.cc
 
@@ -705,8 +702,6 @@ src/desktop_file.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/subcategory.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/representation.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/menu.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/transformer/$(am__dirstamp):
 	@$(MKDIR_P) src/transformer
@@ -808,7 +803,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/representation.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stats.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/util.Po@am__quote@

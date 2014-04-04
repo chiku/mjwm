@@ -27,34 +27,43 @@ namespace amm {
 
 class RepresentationInterface {
 public:
-  virtual std::string name() = 0;
-  virtual std::string visit(TransformerInterface &transformer) = 0;
+  virtual std::string name() const = 0;
+  virtual std::string visit(TransformerInterface &transformer) const = 0;
   virtual ~RepresentationInterface() {}
 };
 
 namespace representation {
 class MenuStart : public RepresentationInterface {
  public:
-  virtual std::string name();
-  virtual std::string visit(TransformerInterface &transformer);
-  virtual ~MenuStart();
+  virtual std::string name() const { return "Menu start"; }
+  virtual std::string visit(TransformerInterface &transformer) const {
+    return transformer.Transform(this);
+  }
+  virtual ~MenuStart() {}
 };
 
 class MenuEnd : public RepresentationInterface {
  public:
-  virtual std::string name();
-  virtual std::string visit(TransformerInterface &transformer);
-  virtual ~MenuEnd();
+  virtual std::string name() const { return "Menu end"; }
+  virtual std::string visit(TransformerInterface &transformer) const {
+    return transformer.Transform(this);
+  }
+  virtual ~MenuEnd() {}
 };
 
 
 class SubcategoryStart : public RepresentationInterface {
  public:
-  SubcategoryStart(std::string name, std::string icon);
-  virtual std::string name();
-  virtual std::string icon();
-  virtual std::string visit(TransformerInterface &transformer);
-  virtual ~SubcategoryStart();
+  SubcategoryStart(std::string name, std::string icon) {
+    name_ = name;
+    icon_ = icon;
+  }
+  virtual std::string name() const { return name_; }
+  virtual std::string icon() const { return icon_; }
+  virtual std::string visit(TransformerInterface &transformer) const {
+    return transformer.Transform(this);
+  }
+  virtual ~SubcategoryStart() {}
  private:
   std::string name_;
   std::string icon_;
@@ -62,10 +71,14 @@ class SubcategoryStart : public RepresentationInterface {
 
 class SubcategoryEnd : public RepresentationInterface {
  public:
-  SubcategoryEnd(std::string name);
-  virtual std::string name();
-  virtual std::string visit(TransformerInterface &transformer);
-  virtual ~SubcategoryEnd();
+  SubcategoryEnd(std::string name) {
+    name_ = name;
+  }
+  virtual std::string name() const { return name_ + " end"; }
+  virtual std::string visit(TransformerInterface &transformer) const {
+    return transformer.Transform(this);
+  }
+  virtual ~SubcategoryEnd() {}
  private:
   std::string name_;
 };
@@ -73,12 +86,18 @@ class SubcategoryEnd : public RepresentationInterface {
 
 class Program : public RepresentationInterface {
  public:
-  Program(std::string name, std::string icon, std::string executable);
-  virtual std::string name();
-  virtual std::string icon();
-  virtual std::string executable();
-  virtual std::string visit(TransformerInterface &transformer);
-  virtual ~Program();
+  Program(std::string name, std::string icon, std::string executable) {
+    name_ = name;
+    icon_ = icon;
+    executable_ = executable;
+  }
+  virtual std::string name() const { return name_; }
+  virtual std::string icon() const { return icon_; }
+  virtual std::string executable() const { return executable_; }
+  virtual std::string visit(TransformerInterface &transformer) const {
+    return transformer.Transform(this);
+  }
+  virtual ~Program() {}
  private:
   std::string name_;
   std::string icon_;
