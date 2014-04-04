@@ -119,7 +119,7 @@ Running tests
 VERBOSE=true make check
 ```
 
-_mjwm uses [QUnit](http://sourceforge.net/projects/qunit) for unit tests. QUnit is released under public domain._
+_mjwm uses [Catch](https://github.com/philsquared/Catch) for unit tests. Catch is released under Boost Software License._
 
 Exit codes
 ----------
