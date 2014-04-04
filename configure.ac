@@ -7,7 +7,7 @@ AC_LANG(C++)
 # Silent by default
 AM_SILENT_RULES([yes])
 
-AC_CONFIG_SRCDIR([src/mjwm.cpp])
+AC_CONFIG_SRCDIR([src/mjwm.cc])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([parallel-tests color-tests])
@@ -17,7 +17,7 @@ AC_PROG_CXX
 AC_PROG_INSTALL
 
 # Checks for header files.
-AC_CHECK_HEADERS([iostream fstream string sstream vector algorithm cstdlib cstring ctime dirent.h getopt.h])
+AC_CHECK_HEADERS([cstdlib cstring ctime dirent.h getopt.h iostream fstream string sstream vector algorithm])
 
 # Checks for library functions.
 AC_CHECK_FUNCS([mjwm])

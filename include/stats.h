@@ -41,7 +41,7 @@ class Stats {
   std::vector<std::string> UnhandledClassifications();
 
   std::string ShortSummary() const;
-  std::string Summary() const; // TODO : rename to NormalSummary
+  std::string NormalSummary() const;
   std::string LongSummary();
 
  private:

@@ -29,7 +29,7 @@ namespace amm {
 // Understands a collection of desktop files belonging to the same category
 class Subcategory {
  public:
-  Subcategory();
+  Subcategory() {}
   Subcategory(std::string display_name, std::string icon_name, std::string classification_name);
   Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
 

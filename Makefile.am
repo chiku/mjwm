@@ -4,17 +4,17 @@ AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 
 bin_PROGRAMS = mjwm
-mjwm_SOURCES = src/util.cpp \
-               src/desktop_file.cpp \
-               src/subcategory.cpp \
-               src/menu.cpp \
+mjwm_SOURCES = src/util.cc \
+               src/desktop_file.cc \
+               src/subcategory.cc \
+               src/menu.cc \
                src/transformer/jwm.cc \
-               src/icon_service.cpp \
-               src/file_search_service.cpp \
-               src/messages.cpp \
-               src/command_line_options.cpp \
-               src/stats.cpp \
-               src/mjwm.cpp
+               src/icon_service.cc \
+               src/file_search_service.cc \
+               src/messages.cc \
+               src/command_line_options.cc \
+               src/stats.cc \
+               src/mjwm.cc
 
 check_PROGRAMS = mjwm_util_test \
                  mjwm_desktop_file_test \
@@ -31,32 +31,32 @@ man1_MANS = doc/mjwm.1
 
 TESTS = $(check_PROGRAMS)
 
-mjwm_util_test_SOURCES = src/util.cpp \
-                         test/util_test.cpp
-mjwm_desktop_file_test_SOURCES = src/util.cpp \
-                                 src/desktop_file.cpp \
-                                 test/desktop_file_test.cpp
-mjwm_file_search_service_test_SOURCES = src/util.cpp \
-                                        src/file_search_service.cpp \
-                                        test/file_search_service_test.cpp
-mjwm_subcategory_test_SOURCES = src/util.cpp \
-                                src/desktop_file.cpp \
-                                src/subcategory.cpp \
-                                test/subcategory_test.cpp
-mjwm_stats_test_SOURCES = src/util.cpp \
-                          src/stats.cpp \
-                          test/stats_test.cpp
-mjwm_menu_test_SOURCES = src/util.cpp \
-                         src/icon_service.cpp \
-                         src/desktop_file.cpp \
-                         src/subcategory.cpp \
+mjwm_util_test_SOURCES = src/util.cc \
+                         test/util_test.cc
+mjwm_desktop_file_test_SOURCES = src/util.cc \
+                                 src/desktop_file.cc \
+                                 test/desktop_file_test.cc
+mjwm_file_search_service_test_SOURCES = src/util.cc \
+                                        src/file_search_service.cc \
+                                        test/file_search_service_test.cc
+mjwm_subcategory_test_SOURCES = src/util.cc \
+                                src/desktop_file.cc \
+                                src/subcategory.cc \
+                                test/subcategory_test.cc
+mjwm_stats_test_SOURCES = src/util.cc \
+                          src/stats.cc \
+                          test/stats_test.cc
+mjwm_menu_test_SOURCES = src/util.cc \
+                         src/icon_service.cc \
+                         src/desktop_file.cc \
+                         src/subcategory.cc \
                          src/transformer/jwm.cc \
-                         src/stats.cpp \
-                         src/menu.cpp \
-                         test/menu_test.cpp
-mjwm_transformer_jwm_test_SOURCES = src/util.cpp \
+                         src/stats.cc \
+                         src/menu.cc \
+                         test/menu_test.cc
+mjwm_transformer_jwm_test_SOURCES = src/util.cc \
                                     src/transformer/jwm.cc \
                                     test/transformer/jwm_test.cc
-mjwm_command_line_options_test_SOURCES = src/util.cpp \
-                                         src/command_line_options.cpp \
-                                         test/command_line_options_test.cpp
+mjwm_command_line_options_test_SOURCES = src/util.cc \
+                                         src/command_line_options.cc \
+                                         test/command_line_options_test.cc

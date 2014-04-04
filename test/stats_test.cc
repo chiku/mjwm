@@ -89,7 +89,7 @@ SCENARIO("Stats totals", "[stats]") {
       }
 
       THEN("is has no counts in summary") {
-        REQUIRE(stats.Summary() == ExpectedEmptySummary());
+        REQUIRE(stats.NormalSummary() == ExpectedEmptySummary());
       }
 
       THEN("is has no counts in long summary") {
@@ -154,7 +154,7 @@ SCENARIO("Stats summaries", "[stats]") {
       THEN("summary includes short summary and a list of unparsed files") {
         std::string expected_summary = ExpectedShortSummaryWithValues() +
                                        "List of unparsed files: daemon\n";
-        REQUIRE(stats.Summary() == expected_summary);
+        REQUIRE(stats.NormalSummary() == expected_summary);
       }
 
       THEN("long summary includes summary and lists of suppressed and unclassified files") {

@@ -145,7 +145,7 @@ void Main::WriteOutputFile() {
 }
 
 void Main::PrintSummary() {
-  std::cout << menu_.Summary().Summary();
+  std::cout << menu_.Summary().NormalSummary();
 }
 
 } // namespace amm

@@ -585,7 +585,7 @@ PACKAGE_STRING='mjwm 2.4.0'
 PACKAGE_BUGREPORT='https://github.com/chiku/mjwm/issues'
 PACKAGE_URL=''
 
-ac_unique_file="src/mjwm.cpp"
+ac_unique_file="src/mjwm.cc"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -3857,7 +3857,7 @@ fi
 done
 
 
-for ac_header in iostream fstream string sstream vector algorithm cstdlib cstring ctime dirent.h getopt.h
+for ac_header in cstdlib cstring ctime dirent.h getopt.h iostream fstream string sstream vector algorithm
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_cxx_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
