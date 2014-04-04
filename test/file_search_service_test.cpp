@@ -50,13 +50,13 @@ SCENARIO("FileSearchService", "[filesearchservice]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/");
     FileSearchService service;
-    service.set_directory_names(directory_names);
+    service.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
       service.Resolve();
 
       THEN("it has a list of files with extension 'desktop' inside the directory") {
-        assert_files_are_present_in_list(service.desktop_file_names());
+        assert_files_are_present_in_list(service.DesktopFileNames());
       }
     }
   }
@@ -66,13 +66,13 @@ SCENARIO("FileSearchService", "[filesearchservice]") {
     directory_names.push_back("test/fixtures/");
     directory_names.push_back("test/fixtures");
     FileSearchService service;
-    service.set_directory_names(directory_names);
+    service.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
       service.Resolve();
 
       THEN("it ignores duplicates") {
-        assert_files_are_present_in_list(service.desktop_file_names());
+        assert_files_are_present_in_list(service.DesktopFileNames());
       }
     }
   }
@@ -82,17 +82,17 @@ SCENARIO("FileSearchService", "[filesearchservice]") {
     directory_names.push_back("test/fixtures");
     directory_names.push_back("test/does-not-exist");
     FileSearchService service;
-    service.set_directory_names(directory_names);
+    service.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
       service.Resolve();
 
       THEN("it has a list of files with extension 'desktop' in the directory that exists") {
-        assert_files_are_present_in_list(service.desktop_file_names());
+        assert_files_are_present_in_list(service.DesktopFileNames());
       }
 
       THEN("it tracks the directory that doesn't exist") {
-        std::vector<std::string> bad_paths = service.bad_paths();
+        std::vector<std::string> bad_paths = service.BadPaths();
         REQUIRE(bad_paths.size() == 1);
         REQUIRE(bad_paths[0] == "test/does-not-exist/");
       }

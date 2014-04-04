@@ -33,9 +33,9 @@ class FileSearchService {
   void RegisterDefaultDirectories();
   void Resolve();
 
-  void set_directory_names(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
-  std::vector<std::string> desktop_file_names() const { return desktop_file_names_; }
-  std::vector<std::string> bad_paths() const { return bad_paths_; }
+  void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
+  std::vector<std::string> DesktopFileNames() const { return desktop_file_names_; }
+  std::vector<std::string> BadPaths() const { return bad_paths_; }
 
  private:
   std::vector<std::string> directory_names_;

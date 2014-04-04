@@ -58,7 +58,7 @@ FileSearchService::FileSearchService() {
 
 void FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names) {
   if (directory_names.size() > 0) {
-    set_directory_names(directory_names);
+    RegisterDirectories(directory_names);
   } else {
     RegisterDefaultDirectories();
   }

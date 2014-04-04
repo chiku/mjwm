@@ -103,12 +103,12 @@ void Main::ReadDesktopFiles() {
   service.RegisterDirectoriesWithDefaultFallback(input_directory_names);
   service.Resolve();
 
-  std::vector<std::string> bad_paths = service.bad_paths();
+  std::vector<std::string> bad_paths = service.BadPaths();
   if (bad_paths.size() > 0) {
     std::cerr << "These paths couldn't be opened: " << VectorX(bad_paths).Join(", ");
     std::cerr << std::endl << "Proceeding..." << std::endl;
   }
-  desktop_file_names_ = service.desktop_file_names();
+  desktop_file_names_ = service.DesktopFileNames();
 }
 
 void Main::Populate() {
