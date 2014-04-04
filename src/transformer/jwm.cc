@@ -20,7 +20,8 @@
 #include <sstream>
 #include <vector>
 
-#include "util.h"
+#include "stringx.h"
+#include "vectorx.h"
 #include "transformer/jwm.h"
 
 namespace amm {

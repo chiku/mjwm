@@ -16,38 +16,24 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_UTIL_H_
-#define AMM_UTIL_H_
+#ifndef AMM_STRING_H_
+#define AMM_STRING_H_
 
 #include <string>
 #include <vector>
-
-// TODO : split into two files. /usr/include/utils.h (from cdparanoia) already exists
 
 namespace amm {
 // TODO : move methods with single use to their usage points
 class StringX {
  public:
   StringX(std::string string);
-  bool EndsWith(const std::string delimiter) const;
-  std::string TerminateWith(const std::string end);
-  std::string Encode() const;
-  std::string Trim() const;
-  std::vector<std::string> Split(const std::string delimiter) const;
+  bool EndsWith(const std::string delimiter) const; // FSS
+  std::string TerminateWith(const std::string end); // FSS
+  std::string Encode() const; // Transformer::JWM
+  std::string Trim() const; // DesktopFile
+  std::vector<std::string> Split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
  private:
   std::string string_;
-};
-
-// TODO : move methods with single use to their usage points
-class VectorX {
- public:
-  VectorX(std::vector<std::string> vector);
-
-  std::string Join(std::string delimiter) const;
-  std::vector<std::string> TerminateWith(std::string delimiter) const;
-  std::vector<std::string> Unique() const;
- private:
-  std::vector<std::string> vector_;
 };
 } // namespace amm
 

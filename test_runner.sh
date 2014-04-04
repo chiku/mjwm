@@ -28,7 +28,8 @@ run() {
 	./$1
 }
 
-run mjwm_util_test
+run mjwm_stringx_test
+run mjwm_vectorx_test
 run mjwm_desktop_file_test
 run mjwm_subcategory_test
 run mjwm_stats_test

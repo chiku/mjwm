@@ -23,7 +23,8 @@
 #include <string>
 #include <vector>
 
-#include "util.h"
+#include "stringx.h"
+#include "vectorx.h"
 
 namespace amm {
 

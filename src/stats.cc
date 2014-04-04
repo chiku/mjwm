@@ -23,7 +23,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "util.h"
+#include "vectorx.h"
 
 namespace amm {
 
