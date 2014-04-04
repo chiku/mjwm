@@ -61,11 +61,11 @@ void Main::LoadCommandLineOption(int argc, char **argv) {
     std::cerr << VectorX(deprecations).Join("\n") << std::endl << "Proceeding..." << std::endl;
   }
   if (command_line_options_.IsHelp()) {
-    std::cout << messages::Help() << std::endl;
+    std::cout << messages::Help();
     exit(0);
   }
   if (command_line_options_.IsVersion()) {
-    std::cout << messages::Version() << std::endl;
+    std::cout << messages::Version();
     exit(0);
   }
 }

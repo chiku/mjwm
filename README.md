@@ -49,11 +49,6 @@ Optional arguments:
  -c, --category-file         External category file
      --help                  Show this help
      --version               Show version information
-
-Deprecated optional arguments:
-  -s [DIRECTORIES]           Same as -i
-  -h                         Same as --help
-  -v                         Same as --version
 ```
 
 Usage

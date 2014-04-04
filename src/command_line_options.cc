@@ -72,27 +72,12 @@ bool CommandLineOptions::Parse(int argc, char* const* argv) {
         input_directory_names_ = StringX(optarg).Split(":");
         break;
 
-      case 's':
-        input_directory_names_ = StringX(optarg).Split(":");
-        deprecations_.push_back("-s is deprecated. Please use -i instead.");
-        break;
-
       case 'c':
         category_file_name_ = optarg;
         break;
 
       case 'a':
         icon_extension_ = ".png";
-        break;
-
-      case 'h':
-        is_help_ = true;
-        deprecations_.push_back("-h is deprecated. Please use --help instead.");
-        break;
-
-      case 'v':
-        is_version_ = true;
-        deprecations_.push_back("-v is deprecated. Please use --version instead.");
         break;
 
       case '?':

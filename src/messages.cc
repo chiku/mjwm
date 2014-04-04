@@ -51,15 +51,9 @@ std::string Help() {
   stream << "     --help                  Show this help" << std::endl;
   stream << "     --version               Show version information" << std::endl;
   stream << std::endl;
-  stream << "Deprecated optional arguments:" << std::endl;
-  stream << "  -s [DIRECTORIES]           Same as -i" << std::endl;
-  stream << "  -h                         Same as --help" << std::endl;
-  stream << "  -v                         Same as --version" << std::endl;
-  stream << std::endl;
 
   stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
   stream << "More information at http://github.com/chiku/mjwm" << std::endl;
-  stream << std::endl;
 
   return stream.str();
 }

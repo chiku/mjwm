@@ -85,42 +85,12 @@ SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
       }
     }
 
-    WHEN("parsing -h") {
-      char* argv[] = {strdup("amm"), strdup("-h"), 0};
-      options.Parse(2, argv);
-
-      THEN("it help flag is on") {
-        REQUIRE(options.IsHelp());
-      }
-
-      THEN("it has deprecations") {
-        std::vector<std::string> deprecations = options.Deprecations();
-        REQUIRE(deprecations.size() == 1);
-        REQUIRE(deprecations[0] == "-h is deprecated. Please use --help instead.");
-      }
-    }
-
     WHEN("parsing --version") {
       char* argv[] = {strdup("amm"), strdup("--version"), 0};
       options.Parse(2, argv);
 
       THEN("its version flag is on") {
         REQUIRE(options.IsVersion());
-      }
-    }
-
-    WHEN("parsing -v") {
-      char* argv[] = {strdup("amm"), strdup("-v"), 0};
-      options.Parse(2, argv);
-
-      THEN("it version flag is on") {
-        REQUIRE(options.IsVersion());
-      }
-
-      THEN("it has deprecations") {
-        std::vector<std::string> deprecations = options.Deprecations();
-        REQUIRE(deprecations.size() == 1);
-        REQUIRE(deprecations[0] == "-v is deprecated. Please use --version instead.");
       }
     }
 
@@ -189,25 +159,6 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
         REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
-      }
-    }
-
-    WHEN("parsing -s") {
-      char* argv[] = {strdup("amm"), strdup("-s"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-      options.Parse(3, argv);
-
-      THEN("its input-directories is set to the given values") {
-        std::vector<std::string> input_directory_names = options.InputDirectoryNames();
-
-        REQUIRE(input_directory_names.size() == 2);
-        REQUIRE(input_directory_names[0] == "/usr/share/applications");
-        REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
-      }
-
-      THEN("it has deprecations") {
-        std::vector<std::string> deprecations = options.Deprecations();
-        REQUIRE(deprecations.size() == 1);
-        REQUIRE(deprecations[0] == "-s is deprecated. Please use -i instead.");
       }
     }
 
