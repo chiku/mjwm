@@ -21,7 +21,7 @@
 
 #include <string>
 
-#include "transformer.h"
+#include "transformer_interface.h"
 
 namespace amm {
 

@@ -22,7 +22,7 @@
 #include <string>
 
 #include "representation.h"
-#include "transformer.h"
+#include "transformer_interface.h"
 
 namespace amm {
 namespace transformer {

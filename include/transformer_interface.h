@@ -33,8 +33,6 @@ namespace representation {
   class Program;
 } // namespace representation
 
-// TODO : rename file to transformer_interface.h to match the class name
-
 class TransformerInterface {
  public:
   // TODO : these Transform functions should use a reference instead of a pointer

@@ -26,7 +26,7 @@
 
 #include "catch.hpp"
 #include "representation.h"
-#include "transformer.h"
+#include "transformer_interface.h"
 
 namespace amm {
 
