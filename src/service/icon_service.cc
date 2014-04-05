@@ -19,14 +19,27 @@
 #include "service/icon_service.h"
 
 #include <string>
+#include <vector>
 
 #include "stringx.h"
 
 namespace amm {
 namespace service {
 
+IconService::IconService() {
+  registered_extensions_.push_back(".png");
+  registered_extensions_.push_back(".svg");
+  registered_extensions_.push_back(".xpm");
+}
+
 std::string IconService::ResolvedName(std::string icon_name) const {
-  return StringX(icon_name).TerminateWith(extension_);
+  bool append_extension = true;
+  for (std::vector<std::string>::const_iterator iter = registered_extensions_.begin(); iter != registered_extensions_.end() && append_extension; ++iter) {
+    if (StringX(icon_name).EndsWith(*iter)) {
+      append_extension = false;
+    }
+  }
+  return append_extension ? icon_name + extension_ : icon_name;
 }
 
 } // namespace service

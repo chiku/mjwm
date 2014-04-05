@@ -20,6 +20,7 @@
 #define AMM_SERVICE_ICON_SERVICE_H_
 
 #include <string>
+#include <vector>
 
 namespace amm {
 namespace service {
@@ -27,12 +28,13 @@ namespace service {
 // Currently it returns the name of icon with an optional extension
 class IconService {
  public:
+  IconService();
   void RegisterExtension(std::string extension) { extension_ = extension; }
   std::string ResolvedName(std::string icon_name) const;
 
  private:
   std::string extension_;
-
+  std::vector<std::string> registered_extensions_;
 };
 } // namespace service
 } // namespace amm

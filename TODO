@@ -1,4 +1,3 @@
-* Avoid double extensions (.png, .xpm)
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
 * Cleanup commmand_line_options error test - see if parsing can be done using vanilla C++

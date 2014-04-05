@@ -5,6 +5,7 @@ Current
 * Increased conformance to Google C++ style-guide, http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml
 * Drops deprecated command-line arguments [-s, -h and -v]
 * Fixes a bug that caused desktop file entries in $XDG_DATA_HOME to be ignored
+* Don't duplicate extensions .png, .svg & .xpm when -a or --append-png command-line option is specified [#4]
 
 v2.4.0
 ------

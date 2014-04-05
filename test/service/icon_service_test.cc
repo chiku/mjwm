@@ -53,11 +53,27 @@ SCENARIO("IconService default", "[iconservice]") {
       }
     }
 
-    WHEN("resolving a name with extension same as the registered extension") {
+    WHEN("resolving a name with .png extension") {
       std::string result = service.ResolvedName("mousepad.png");
 
       THEN("it doesn't duplicate the extension") {
         REQUIRE(result == "mousepad.png");
+      }
+    }
+
+    WHEN("resolving a name with .svg extension") {
+      std::string result = service.ResolvedName("mousepad.svg");
+
+      THEN("it doesn't append the extension") {
+        REQUIRE(result == "mousepad.svg");
+      }
+    }
+
+    WHEN("resolving a name with .xpm extension") {
+      std::string result = service.ResolvedName("mousepad.xpm");
+
+      THEN("it doesn't append the extension") {
+        REQUIRE(result == "mousepad.xpm");
       }
     }
   }
