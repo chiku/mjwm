@@ -98,11 +98,20 @@ SCENARIO("CommandLineOptionsParser.Parse() flags", "[commandlineoptions]") {
       }
     }
 
+    WHEN("parsing --iconize") {
+      char* argv[] = {strdup("amm"), strdup("--iconize"), 0};
+      AmmOptions options = parser.Parse(2, argv);
+
+      THEN("its iconize flag is on") {
+        REQUIRE(options.is_iconize);
+      }
+    }
+
     WHEN("parsing --append-png") {
       char* argv[] = {strdup("amm"), strdup("--append-png"), 0};
       AmmOptions options = parser.Parse(2, argv);
 
-      THEN("it icon-extenstion is '.png'") {
+      THEN("its icon-extenstion is '.png'") {
         REQUIRE(options.icon_extension == ".png");
       }
     }
@@ -111,7 +120,7 @@ SCENARIO("CommandLineOptionsParser.Parse() flags", "[commandlineoptions]") {
       char* argv[] = {strdup("amm"), strdup("-a"), 0};
       AmmOptions options = parser.Parse(2, argv);
 
-      THEN("it icon-extenstion is '.png'") {
+      THEN("its icon-extenstion is '.png'") {
         REQUIRE(options.icon_extension == ".png");
       }
     }

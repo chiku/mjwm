@@ -34,10 +34,12 @@ AmmOptions CommandLineOptionsParser::Parse(int argc, char* const* argv) {
   int option_index = 0;
   int help_flag = 0;
   int version_flag = 0;
+  int iconize_flag = 0;
   const char* short_options = "o:i:s:c:ahv";
   const option long_options[] = {
     {"help",            no_argument,       &help_flag   ,  1 },
     {"version",         no_argument,       &version_flag,  1 },
+    {"iconize",         no_argument,       &iconize_flag,  1 },
     {"output-file",     required_argument, 0,             'o'},
     {"input-directory", required_argument, 0,             'i'},
     {"category-file",   required_argument, 0,             'c'},
@@ -58,6 +60,9 @@ AmmOptions CommandLineOptionsParser::Parse(int argc, char* const* argv) {
         }
         if (version_flag == 1) {
           amm_options.is_version = true;
+        }
+        if (iconize_flag == 1) {
+          amm_options.is_iconize = true;
         }
         break;
 
