@@ -36,7 +36,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       std::string result = jwm_transformer.Transform(menu_start);
 
       THEN("it gives static message") {
-        REQUIRE(result == "<JWM>\n<!--Menu start-->");
+        REQUIRE(result == "<JWM>\n    <!--Menu start-->");
       }
     }
 
@@ -45,7 +45,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       std::string result = jwm_transformer.Transform(menu_end);
 
       THEN("it gives static message") {
-        REQUIRE(result == "<!--Menu end-->\n</JWM>");
+        REQUIRE(result == "    <!--Menu end-->\n</JWM>");
       }
     }
 
@@ -69,7 +69,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       std::string result = jwm_transformer.Transform(subcategory_end);
 
       THEN("it includes the subcategory names in XML comments") {
-        REQUIRE(result == "    <!--Application end-->\n    </Menu>");
+        REQUIRE(result == "        <!--Application end-->\n    </Menu>");
       }
     }
 

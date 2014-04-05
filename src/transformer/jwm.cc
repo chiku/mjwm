@@ -44,13 +44,13 @@ std::string Jwm::Transform(const representation::MenuStart &entry) const {
   std::stringstream stream;
   stream << "<JWM>"
          << std::endl
-         << "<!--" << entry.name() << "-->";
+         << "    <!--" << entry.name() << "-->";
   return stream.str();
 }
 
 std::string Jwm::Transform(const representation::MenuEnd &entry) const {
   std::stringstream stream;
-  stream << "<!--" << entry.name() << "-->"
+  stream << "    <!--" << entry.name() << "-->"
          << std::endl
          << "</JWM>";
   return stream.str();
@@ -67,7 +67,7 @@ std::string Jwm::Transform(const representation::SubcategoryStart &entry) const 
 
 std::string Jwm::Transform(const representation::SubcategoryEnd &entry) const {
   std::stringstream stream;
-  stream << "    <!--" << entry.name() << "-->"
+  stream << "        <!--" << entry.name() << "-->"
          << std::endl
          << "    </Menu>";
   return stream.str();
