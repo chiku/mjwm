@@ -179,7 +179,7 @@ SCENARIO("Menu statistics", "[menu]") {
       menu.Populate(files);
       Stats summary = menu.Summary();
 
-      THEN("it holds the number of files parsed sucessfully") {
+      THEN("it holds the number of total files") {
         REQUIRE(summary.TotalParsedFiles() == 2);
       }
     }

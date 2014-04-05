@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Whaaw! Media Player
+GenericName=Media Player
+Comment=Play an audio or video file.
+Exec=whaawmp %u
+Terminal=False
+Type=Application
+Icon=whaawmp
+Categories=AudioVideo;Audio;Video;Player;GTK

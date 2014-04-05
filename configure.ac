@@ -17,7 +17,7 @@ AC_PROG_CXX
 AC_PROG_INSTALL
 
 # Checks for header files.
-AC_CHECK_HEADERS([cstdlib cstring ctime dirent.h getopt.h iostream fstream string sstream vector algorithm])
+AC_CHECK_HEADERS([dirent.h getopt.h limits.h cstdlib cstring ctime iostream fstream string sstream vector algorithm])
 
 # Checks for library functions.
 AC_CHECK_FUNCS([mjwm])

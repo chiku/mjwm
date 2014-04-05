@@ -100,7 +100,7 @@ void Main::ReadDesktopFiles() {
   std::vector<std::string> input_directory_names = command_line_options_.InputDirectoryNames();
 
   FileSearchService service;
-  service.RegisterDirectoriesWithDefaultFallback(input_directory_names);
+  service.RegisterDirectoriesWithFallback(input_directory_names);
   service.Resolve();
 
   std::vector<std::string> bad_paths = service.BadPaths();

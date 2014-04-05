@@ -34,7 +34,7 @@ static bool present_in(std::string item, std::vector<std::string> list) {
 }
 
 static void assert_files_are_present_in_list(std::vector<std::string> file_names) {
-  REQUIRE(file_names.size() == 6);
+  REQUIRE(file_names.size() == 8);
 
   REQUIRE(present_in("test/fixtures/missing.desktop", file_names));
   REQUIRE(present_in("test/fixtures/mousepad.desktop", file_names));
@@ -42,6 +42,8 @@ static void assert_files_are_present_in_list(std::vector<std::string> file_names
   REQUIRE(present_in("test/fixtures/vlc.desktop", file_names));
   REQUIRE(present_in("test/fixtures/suppressed.desktop", file_names));
   REQUIRE(present_in("test/fixtures/suppressedinvalid.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/nested/xfburn.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/nested/deepnested/whaawmp.desktop", file_names));
 }
 
 

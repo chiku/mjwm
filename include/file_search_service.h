@@ -19,7 +19,6 @@
 #ifndef AMM_FILE_SEARCH_SERVICE_H_
 #define AMM_FILE_SEARCH_SERVICE_H_
 
-#include <dirent.h>
 #include <string>
 #include <vector>
 
@@ -29,8 +28,7 @@ class FileSearchService {
  public:
   FileSearchService();
 
-  void RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names);
-  void RegisterDefaultDirectories();
+  void RegisterDirectoriesWithFallback(std::vector<std::string> directory_names);
   void Resolve();
 
   void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
@@ -38,7 +36,7 @@ class FileSearchService {
   std::vector<std::string> BadPaths() const { return bad_paths_; }
 
  private:
-  void Populate(DIR* directory, std::string directory_name);
+  void Populate(std::string directory_name);
 
   std::vector<std::string> directory_names_;
   std::vector<std::string> desktop_file_names_;

@@ -19,6 +19,7 @@
 #include "file_search_service.h"
 
 #include <dirent.h>
+#include <limits.h>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -28,84 +29,90 @@
 
 namespace amm {
 
-static const std::string DESKTOP_EXTENSION = ".desktop";
+static const std::string kDesktopExtension = ".desktop";
+static const std::string kApplications = "applications";
 
-static std::string xdg_data_dirs() {
-  char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
-  if (xdg_data_dirs != NULL) {
-    return xdg_data_dirs;
+static void AppendXdgDataHome(std::vector<std::string> *output) {
+  char *xdg_data_home = std::getenv("XDG_DATA_HOME");
+  char *home = std::getenv("HOME");
+
+  if (xdg_data_home != NULL) {
+    output->push_back(StringX(xdg_data_home).TerminateWith("/"));
+  } else if (home != NULL) {
+    output->push_back(std::string(home) + "/.local/share/");
   }
-
-  return "/usr/local/share:/usr/share";
 }
 
-static std::string xdg_data_home() {
-  char *xdg_data_home = std::getenv("XDG_DATA_HOME");
-  if (xdg_data_home != NULL) {
-    return xdg_data_home;
+static void AppendXdgDataDirs(std::vector<std::string> *output) {
+  char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
+  if (xdg_data_dirs != NULL) {
+    std::vector<std::string> directories = StringX(xdg_data_dirs).Split(":");
+    for (std::vector<std::string>::const_iterator directory = directories.begin(); directory != directories.end(); ++directory) {
+      output->push_back(StringX(*directory).TerminateWith("/"));
+    }
+  } else {
+    output->push_back("/usr/local/share/");
+    output->push_back("/usr/share/");
+  }
+}
+
+static std::vector<std::string> DefaultDirectories() {
+  std::vector<std::string> directory_bases;
+  AppendXdgDataHome(&directory_bases);
+  AppendXdgDataDirs(&directory_bases);
+
+  std::vector<std::string> directory_names;
+  for (std::vector<std::string>::const_iterator base = directory_bases.begin(); base != directory_bases.end(); ++base) {
+    directory_names.push_back(std::string(*base) + kApplications);
   }
 
-  char *home = std::getenv("HOME");
-  if (home != NULL) {
-    return std::string(home) + "/.local/share/applications";
-  }
-
-  return "";
+  return directory_names;
 }
 
 FileSearchService::FileSearchService() {
   capture_bad_paths_ = true;
 }
 
-void FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::string> directory_names) {
-  if (directory_names.size() > 0) {
-    RegisterDirectories(directory_names);
-  } else {
-    RegisterDefaultDirectories();
+void FileSearchService::RegisterDirectoriesWithFallback(std::vector<std::string> directory_names) {
+  if (directory_names.size() <= 0) {
+    capture_bad_paths_ = false;
+    directory_names = DefaultDirectories();
   }
-}
-
-// TODO : express in terms of RegisterDirectories()
-void FileSearchService::RegisterDefaultDirectories() {
-  std::vector<std::string> directory_bases = StringX(xdg_data_dirs()).Split(":");
-  directory_bases.push_back(xdg_data_home());
-
-  for (std::vector<std::string>::const_iterator iter = directory_bases.begin(); iter != directory_bases.end(); ++iter) {
-    std::string directory = StringX(*iter).TerminateWith("/") + "applications";
-    directory_names_.push_back(directory);
-  }
-
-  capture_bad_paths_ = false;
+  RegisterDirectories(directory_names);
 }
 
 void FileSearchService::Resolve() {
   desktop_file_names_.clear();
   bad_paths_.clear();
 
-  std::vector<std::string> terminated_directory_names = VectorX(directory_names_).TerminateWith("/");
-  std::vector<std::string> unique_directory_names = VectorX(terminated_directory_names).Unique();
+  std::vector<std::string> terminated_names = VectorX(directory_names_).TerminateWith("/");
+  std::vector<std::string> unique_names = VectorX(terminated_names).Unique();
 
-  std::vector<std::string>::const_iterator name;
-  for (name = unique_directory_names.begin(); name != unique_directory_names.end(); ++name) {
-    DIR *directory = opendir(name->c_str());
-
-    if (directory) {
-      Populate(directory, *name);
-      closedir(directory);
-    } else if (capture_bad_paths_) {
-      bad_paths_.push_back(*name);
-    }
+  for (std::vector<std::string>::const_iterator name = unique_names.begin(); name != unique_names.end(); ++name) {
+    Populate(*name);
   }
 }
 
-void FileSearchService::Populate(DIR* directory, std::string directory_name) {
-  dirent *directory_entry;
+void FileSearchService::Populate(std::string directory_name) {
+  DIR *directory = opendir(directory_name.c_str());
 
-  while((directory_entry = readdir(directory)) != NULL) {
-    std::string file_name = directory_entry->d_name;
-    if (StringX(file_name).EndsWith(DESKTOP_EXTENSION)) {
-      desktop_file_names_.push_back(directory_name + file_name);
+  if (directory) {
+    dirent *entry;
+    while((entry = readdir(directory)) != NULL) {
+      std::string entry_name = entry->d_name;
+      std::string full_path = StringX(directory_name).TerminateWith("/") + entry_name;
+
+      if (StringX(entry_name).EndsWith(kDesktopExtension)) {
+        desktop_file_names_.push_back(full_path);
+      }
+
+      if ((entry->d_type & DT_DIR) && entry_name != ".." && entry_name != "." && full_path.size() <= PATH_MAX) {
+        FileSearchService::Populate(full_path);
+      }
     }
+    closedir(directory);
+  } else if (capture_bad_paths_) {
+    bad_paths_.push_back(directory_name);
   }
 }
 
