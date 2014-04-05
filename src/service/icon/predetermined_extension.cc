@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "service/icon_service.h"
+#include "service/icon/predetermined_extension.h"
 
 #include <string>
 #include <vector>
@@ -25,14 +25,16 @@
 
 namespace amm {
 namespace service {
+namespace icon {
 
-IconService::IconService() {
+PredeterminedExtension::PredeterminedExtension(std::string extension) {
+  extension_ = extension;
   registered_extensions_.push_back(".png");
   registered_extensions_.push_back(".svg");
   registered_extensions_.push_back(".xpm");
 }
 
-std::string IconService::ResolvedName(std::string icon_name) const {
+std::string PredeterminedExtension::ResolvedName(std::string icon_name) const {
   bool append_extension = true;
   for (std::vector<std::string>::const_iterator iter = registered_extensions_.begin(); iter != registered_extensions_.end() && append_extension; ++iter) {
     if (StringX(icon_name).EndsWith(*iter)) {
@@ -42,5 +44,6 @@ std::string IconService::ResolvedName(std::string icon_name) const {
   return append_extension ? icon_name + extension_ : icon_name;
 }
 
+} // namespace icon
 } // namespace service
 } // namespace amm

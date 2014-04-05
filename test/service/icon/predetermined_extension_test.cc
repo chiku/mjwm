@@ -19,31 +19,19 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "service/icon_service.h"
+#include "service/icon/predetermined_extension.h"
 
 #include <string>
 
-#include "../catch.hpp"
+#include "../../catch.hpp"
 
 namespace amm {
 namespace service {
+namespace icon {
 
-SCENARIO("IconService default", "[iconservice]") {
-  GIVEN("An icon service without extension") {
-    IconService service;
-
-    WHEN("resolving a name") {
-      std::string result = service.ResolvedName("mousepad");
-
-      THEN("it gives back the name") {
-        REQUIRE(result == "mousepad");
-      }
-    }
-  }
-
+SCENARIO("icon::PredeterminedExtension default", "[iconservice]") {
   GIVEN("An icon service with extension") {
-    IconService service;
-    service.RegisterExtension(".png");
+    PredeterminedExtension service(".png");
 
     WHEN("resolving a name without extension") {
       std::string result = service.ResolvedName("mousepad");
@@ -79,5 +67,6 @@ SCENARIO("IconService default", "[iconservice]") {
   }
 }
 
+} // namespace icon
 } // namespace service
 } // namespace amm

@@ -23,15 +23,16 @@
 #include <vector>
 
 #include "stringx.h"
-#include "service/icon_service.h"
+#include "service/icon_service_interface.h"
+#include "service/icon/mirror.h"
 #include "desktop_file.h"
 #include "subcategory.h"
 
 namespace amm {
 
 Menu::Menu() {
+  icon_service_ = new service::icon::Mirror; // TODO : GC
   unclassified_subcategory_ = Subcategory("Others", "others", "Others");
-
   CreateDefaultCategories();
 }
 
@@ -135,13 +136,15 @@ std::vector<RepresentationInterface*> Menu::Representations() const {
   std::vector<Subcategory>::const_iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
     if (subcategory->HasEntries()) {
-      representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_service_.ResolvedName(subcategory->IconName()));
+      std::string icon_name = icon_service_->ResolvedName(subcategory->IconName());
+      representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_name);
       representations.push_back(start);
 
       std::vector<DesktopFile> desktop_files = subcategory->DesktopFiles();
       std::vector<DesktopFile>::const_iterator desktop_file;
       for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
-        representation::Program *entry = new representation::Program(desktop_file->Name(), icon_service_.ResolvedName(desktop_file->Icon()), desktop_file->Executable());
+        std::string icon_name = icon_service_->ResolvedName(desktop_file->Icon());
+        representation::Program *entry = new representation::Program(desktop_file->Name(), icon_name, desktop_file->Executable());
         representations.push_back(entry);
       }
 

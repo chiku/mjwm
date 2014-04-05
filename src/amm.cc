@@ -28,7 +28,8 @@
 #include "messages.h"
 #include "amm_options.h"
 #include "command_line_options_parser.h"
-#include "service/icon_service.h"
+#include "service/icon_service_interface.h"
+#include "service/icon/predetermined_extension.h"
 #include "service/file_search_service.h"
 #include "representation.h"
 #include "stats.h"
@@ -78,9 +79,8 @@ void Amm::ReadCategories() {
 }
 
 void Amm::RegisterIconService() {
-  service::IconService icon_service;
-  icon_service.RegisterExtension(options_.icon_extension);
-  menu_.RegisterIconService(icon_service);
+  service::IconServiceInterface *icon_service = new service::icon::PredeterminedExtension(options_.icon_extension); // TODO : GC
+  menu_.RegisterIconService(*icon_service);
 }
 
 void Amm::ReadDesktopFiles() {

@@ -11,7 +11,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
-               src/service/icon_service.cc \
+               src/service/icon/predetermined_extension.cc \
                src/service/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
@@ -24,8 +24,8 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
-                 mjwm_icon_service_test \
-                 mjwm_file_search_service_test \
+                 mjwm_service_icon_predetermined_extension_test \
+                 mjwm_service_file_search_service_test \
                  mjwm_transformer_jwm_test \
                  mjwm_command_line_options_parser_test
 
@@ -61,7 +61,6 @@ mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/desktop_file.cc \
                          src/subcategory.cc \
                          src/stats.cc \
-                         src/service/icon_service.cc \
                          src/menu.cc \
                          test/menu_test.cc
 
@@ -70,14 +69,13 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
                                     src/transformer/jwm.cc \
                                     test/transformer/jwm_test.cc
 
-mjwm_icon_service_test_SOURCES = src/stringx.cc \
-                                 src/service/icon_service.cc \
-                                 test/service/icon_service_test.cc
-
-mjwm_file_search_service_test_SOURCES = src/stringx.cc \
-                                        src/vectorx.cc \
-                                        src/service/file_search_service.cc \
-                                        test/service/file_search_service_test.cc
+mjwm_service_icon_predetermined_extension_test_SOURCES = src/stringx.cc \
+                                                         src/service/icon/predetermined_extension.cc \
+                                                         test/service/icon/predetermined_extension_test.cc
+mjwm_service_file_search_service_test_SOURCES = src/stringx.cc \
+                                                src/vectorx.cc \
+                                                src/service/file_search_service.cc \
+                                                test/service/file_search_service_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \

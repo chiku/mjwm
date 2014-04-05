@@ -24,7 +24,8 @@
 
 #include "stats.h"
 #include "subcategory.h"
-#include "service/icon_service.h"
+#include "service/icon_service_interface.h"
+#include "service/icon/mirror.h"
 #include "representation.h"
 
 namespace amm {
@@ -35,7 +36,7 @@ class Menu {
 
   std::vector<Subcategory> Subcategories() const { return subcategories_; }
   Stats Summary() const { return summary_; }
-  void RegisterIconService(service::IconService icon_service) { icon_service_ = icon_service; }
+  void RegisterIconService(service::IconServiceInterface &icon_service) { icon_service_ = &icon_service; }
 
   void LoadCustomCategories(std::vector<std::string> lines);
   void Populate(std::vector<std::string> desktop_file_names);
@@ -50,7 +51,7 @@ class Menu {
 
   Stats summary_;
 
-  service::IconService icon_service_;
+  service::IconServiceInterface *icon_service_;
   std::vector<Subcategory> subcategories_;
   Subcategory unclassified_subcategory_;
 };

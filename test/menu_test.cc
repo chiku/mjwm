@@ -22,11 +22,11 @@
 
 #include <iostream>
 #include <string>
-#include <sstream>
 
 #include "catch.hpp"
 #include "representation.h"
 #include "transformer_interface.h"
+#include "service/icon_service_interface.h"
 
 namespace amm {
 
@@ -35,33 +35,30 @@ static const std::string fixtures_directory = "test/fixtures/";
 class TestTransformer : public TransformerInterface {
  public:
   std::string Transform(const representation::MenuStart &entry) const {
-    std::stringstream stream;
-    stream << "Menu start--> name: " << entry.name();
-    return stream.str();
+    return "Menu start--> name: " + entry.name();
   }
 
   std::string Transform(const representation::MenuEnd &entry) const {
-    std::stringstream stream;
-    stream << "Menu end--> name: " << entry.name();
-    return stream.str();
+    return "Menu end--> name: " + entry.name();
   }
 
   std::string Transform(const representation::SubcategoryStart &entry) const {
-    std::stringstream stream;
-    stream << "Subsection start--> name: " << entry.name() << " icon: " << entry.icon();
-    return stream.str();
+    return "Subsection start--> name: " + entry.name() + " icon: " + entry.icon();
   }
 
   std::string Transform(const representation::SubcategoryEnd &entry) const {
-    std::stringstream stream;
-    stream << "Subsection end--> name: " << entry.name();
-    return stream.str();
+    return "Subsection end--> name: " + entry.name();
   }
 
   std::string Transform(const representation::Program &entry) const {
-    std::stringstream stream;
-    stream << "Program--> name: " << entry.name() << " icon: " << entry.icon() << " executable: " << entry.executable();
-    return stream.str();
+    return "Program--> name: " + entry.name() + " icon: " + entry.icon() + " executable: " + entry.executable();
+  }
+};
+
+class TestIconService : public service::IconServiceInterface {
+ public:
+  std::string ResolvedName(std::string name) const {
+    return name + ".always";
   }
 };
 
@@ -281,8 +278,7 @@ SCENARIO("Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
 
-      service::IconService icon_service;
-      icon_service.RegisterExtension(".xpm");
+      TestIconService icon_service;
       menu.RegisterIconService(icon_service);
 
       menu.Populate(files);
@@ -292,11 +288,11 @@ SCENARIO("Menu representations", "[menu]") {
       THEN("it adds the icon name to icons for subcategory and menu-entry") {
         REQUIRE(representations.size() == 8);
         REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
-        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: accessories.xpm");
-        REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor.xpm executable: mousepad %F");
+        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: accessories.always");
+        REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor.always executable: mousepad %F");
         REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
-        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: multimedia.xpm");
-        REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc.xpm executable: /usr/bin/vlc --started-from-file %U");
+        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: multimedia.always");
+        REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc.always executable: /usr/bin/vlc --started-from-file %U");
         REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
         REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
 
