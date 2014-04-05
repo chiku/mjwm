@@ -113,6 +113,7 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
 	src/transformer/jwm.$(OBJEXT) \
 	src/service/icon/predetermined_extension.$(OBJEXT) \
+	src/service/icon/scan.$(OBJEXT) \
 	src/service/file_search_service.$(OBJEXT) \
 	src/messages.$(OBJEXT) \
 	src/command_line_options_parser.$(OBJEXT) src/amm.$(OBJEXT) \
@@ -569,6 +570,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
                src/service/icon/predetermined_extension.cc \
+               src/service/icon/scan.cc \
                src/service/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
@@ -758,6 +760,8 @@ src/service/icon/$(DEPDIR)/$(am__dirstamp):
 src/service/icon/predetermined_extension.$(OBJEXT):  \
 	src/service/icon/$(am__dirstamp) \
 	src/service/icon/$(DEPDIR)/$(am__dirstamp)
+src/service/icon/scan.$(OBJEXT): src/service/icon/$(am__dirstamp) \
+	src/service/icon/$(DEPDIR)/$(am__dirstamp)
 src/service/$(am__dirstamp):
 	@$(MKDIR_P) src/service
 	@: > src/service/$(am__dirstamp)
@@ -890,6 +894,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/file_search_service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/icon/$(DEPDIR)/predetermined_extension.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/service/icon/$(DEPDIR)/scan.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/jwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_parser_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@

@@ -12,6 +12,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
                src/service/icon/predetermined_extension.cc \
+               src/service/icon/scan.cc \
                src/service/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \

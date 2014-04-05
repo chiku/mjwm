@@ -30,6 +30,7 @@
 #include "command_line_options_parser.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/predetermined_extension.h"
+#include "service/icon/scan.h"
 #include "service/file_search_service.h"
 #include "representation.h"
 #include "stats.h"
@@ -79,8 +80,14 @@ void Amm::ReadCategories() {
 }
 
 void Amm::RegisterIconService() {
-  service::IconServiceInterface *icon_service = new service::icon::PredeterminedExtension(options_.icon_extension); // TODO : GC
-  menu_.RegisterIconService(*icon_service);
+  if (options_.icon_extension != "") {
+    service::IconServiceInterface *icon_service = new service::icon::PredeterminedExtension(options_.icon_extension); // TODO : GC
+    menu_.RegisterIconService(*icon_service);
+  }
+  if (options_.is_iconize) {
+    service::IconServiceInterface *icon_service = new service::icon::Scan(); // TODO : GC
+    menu_.RegisterIconService(*icon_service);
+  }
 }
 
 void Amm::ReadDesktopFiles() {
