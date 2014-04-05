@@ -28,6 +28,7 @@
 #include "../catch.hpp"
 
 namespace amm {
+namespace service {
 
 static bool present_in(std::string item, std::vector<std::string> list) {
   return std::find(list.begin(), list.end(), item) != list.end();
@@ -102,4 +103,5 @@ SCENARIO("FileSearchService", "[filesearchservice]") {
   }
 }
 
+} // namespace service
 } // namespace amm

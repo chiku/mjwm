@@ -28,6 +28,7 @@
 #include "vectorx.h"
 
 namespace amm {
+namespace service {
 
 static const std::string kDesktopExtension = ".desktop";
 static const std::string kApplications = "applications";
@@ -116,4 +117,5 @@ void FileSearchService::Populate(std::string directory_name) {
   }
 }
 
+} // namespace service
 } // namespace amm

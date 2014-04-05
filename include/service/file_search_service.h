@@ -16,13 +16,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_FILE_SEARCH_SERVICE_H_
-#define AMM_FILE_SEARCH_SERVICE_H_
+#ifndef AMM_SERVICE_FILE_SEARCH_SERVICE_H_
+#define AMM_SERVICE_FILE_SEARCH_SERVICE_H_
 
 #include <string>
 #include <vector>
 
 namespace amm {
+namespace service {
 // Understands search for .desktop files
 class FileSearchService {
  public:
@@ -43,6 +44,7 @@ class FileSearchService {
   std::vector<std::string> bad_paths_;
   bool capture_bad_paths_;
 };
-}
+} // namespace service
+} // namespace amm
 
-#endif // AMM_FILE_SEARCH_SERVICE_H_
+#endif // AMM_SERVICE_FILE_SEARCH_SERVICE_H_

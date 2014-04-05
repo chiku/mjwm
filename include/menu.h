@@ -35,7 +35,7 @@ class Menu {
 
   std::vector<Subcategory> Subcategories() const { return subcategories_; }
   Stats Summary() const { return summary_; }
-  void RegisterIconService(IconService icon_service) { icon_service_ = icon_service; }
+  void RegisterIconService(service::IconService icon_service) { icon_service_ = icon_service; }
 
   void LoadCustomCategories(std::vector<std::string> lines);
   void Populate(std::vector<std::string> desktop_file_names);
@@ -50,7 +50,7 @@ class Menu {
 
   Stats summary_;
 
-  IconService icon_service_;
+  service::IconService icon_service_;
   std::vector<Subcategory> subcategories_;
   Subcategory unclassified_subcategory_;
 };

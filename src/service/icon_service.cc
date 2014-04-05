@@ -23,9 +23,11 @@
 #include "stringx.h"
 
 namespace amm {
+namespace service {
 
 std::string IconService::ResolvedName(std::string icon_name) const {
   return StringX(icon_name).TerminateWith(extension_);
 }
 
+} // namespace service
 } // namespace amm

@@ -281,7 +281,7 @@ SCENARIO("Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
 
-      IconService icon_service;
+      service::IconService icon_service;
       icon_service.RegisterExtension(".xpm");
       menu.RegisterIconService(icon_service);
 

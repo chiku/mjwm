@@ -92,7 +92,7 @@ void Main::ReadCategories() {
 }
 
 void Main::RegisterIconService() {
-  IconService icon_service;
+  service::IconService icon_service;
   icon_service.RegisterExtension(options_.icon_extension);
   menu_.RegisterIconService(icon_service);
 }
@@ -100,7 +100,7 @@ void Main::RegisterIconService() {
 void Main::ReadDesktopFiles() {
   std::vector<std::string> input_directory_names = options_.input_directory_names;
 
-  FileSearchService service;
+  service::FileSearchService service;
   service.RegisterDirectoriesWithFallback(input_directory_names);
   service.Resolve();
 

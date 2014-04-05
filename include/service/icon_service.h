@@ -16,23 +16,25 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_ICON_SERVICE_H_
-#define AMM_ICON_SERVICE_H_
+#ifndef AMM_SERVICE_ICON_SERVICE_H_
+#define AMM_SERVICE_ICON_SERVICE_H_
 
 #include <string>
 
 namespace amm {
+namespace service {
 // Understands the way to search for the full path to a icon file
 // Currently it returns the name of icon with an optional extension
 class IconService {
-public:
+ public:
   void RegisterExtension(std::string extension) { extension_ = extension; }
   std::string ResolvedName(std::string icon_name) const;
 
-private:
+ private:
   std::string extension_;
 
 };
+} // namespace service
 } // namespace amm
 
-#endif // AMM_ICON_SERVICE_H_
+#endif // AMM_SERVICE_ICON_SERVICE_H_

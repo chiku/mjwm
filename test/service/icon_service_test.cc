@@ -26,6 +26,7 @@
 #include "../catch.hpp"
 
 namespace amm {
+namespace service {
 
 SCENARIO("IconService default", "[iconservice]") {
   GIVEN("An icon service without extension") {
@@ -52,7 +53,7 @@ SCENARIO("IconService default", "[iconservice]") {
       }
     }
 
-    WHEN("resolving a name with extension") {
+    WHEN("resolving a name with extension same as the registered extension") {
       std::string result = service.ResolvedName("mousepad.png");
 
       THEN("it doesn't duplicate the extension") {
@@ -62,4 +63,5 @@ SCENARIO("IconService default", "[iconservice]") {
   }
 }
 
+} // namespace service
 } // namespace amm
