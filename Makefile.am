@@ -8,13 +8,13 @@ mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
                src/desktop_file.cc \
                src/subcategory.cc \
+               src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
                src/icon_service.cc \
                src/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
-               src/stats.cc \
                src/mjwm.cc
 
 check_PROGRAMS = mjwm_stringx_test \
@@ -23,6 +23,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
+                 mjwm_icon_service_test \
                  mjwm_file_search_service_test \
                  mjwm_transformer_jwm_test \
                  mjwm_command_line_options_parser_test
@@ -43,11 +44,6 @@ mjwm_vectorx_test_SOURCES = src/stringx.cc \
 mjwm_desktop_file_test_SOURCES = src/stringx.cc \
                                  src/desktop_file.cc \
                                  test/desktop_file_test.cc
-
-mjwm_file_search_service_test_SOURCES = src/stringx.cc \
-                                        src/vectorx.cc \
-                                        src/file_search_service.cc \
-                                        test/file_search_service_test.cc
 
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
                                 src/desktop_file.cc \
@@ -72,6 +68,15 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
                                     src/vectorx.cc \
                                     src/transformer/jwm.cc \
                                     test/transformer/jwm_test.cc
+
+mjwm_icon_service_test_SOURCES = src/stringx.cc \
+                                 src/icon_service.cc \
+                                 test/icon_service_test.cc
+
+mjwm_file_search_service_test_SOURCES = src/stringx.cc \
+                                        src/vectorx.cc \
+                                        src/file_search_service.cc \
+                                        test/file_search_service_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \

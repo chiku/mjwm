@@ -20,10 +20,12 @@
 
 #include <string>
 
+#include "stringx.h"
+
 namespace amm {
 
 std::string IconService::ResolvedName(std::string icon_name) const {
-  return icon_name + extension_;
+  return StringX(icon_name).TerminateWith(extension_);
 }
 
 } // namespace amm
