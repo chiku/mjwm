@@ -24,7 +24,7 @@
 
 #include "stats.h"
 #include "subcategory.h"
-#include "icon_service.h"
+#include "service/icon_service.h"
 #include "representation.h"
 
 namespace amm {

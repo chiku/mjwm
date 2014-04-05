@@ -111,8 +111,10 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/subcategory.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
-	src/transformer/jwm.$(OBJEXT) src/icon_service.$(OBJEXT) \
-	src/file_search_service.$(OBJEXT) src/messages.$(OBJEXT) \
+	src/transformer/jwm.$(OBJEXT) \
+	src/service/icon_service.$(OBJEXT) \
+	src/service/file_search_service.$(OBJEXT) \
+	src/messages.$(OBJEXT) \
 	src/command_line_options_parser.$(OBJEXT) src/mjwm.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
@@ -128,19 +130,21 @@ am_mjwm_desktop_file_test_OBJECTS = src/stringx.$(OBJEXT) \
 mjwm_desktop_file_test_OBJECTS = $(am_mjwm_desktop_file_test_OBJECTS)
 mjwm_desktop_file_test_LDADD = $(LDADD)
 am_mjwm_file_search_service_test_OBJECTS = src/stringx.$(OBJEXT) \
-	src/vectorx.$(OBJEXT) src/file_search_service.$(OBJEXT) \
-	test/file_search_service_test.$(OBJEXT)
+	src/vectorx.$(OBJEXT) \
+	src/service/file_search_service.$(OBJEXT) \
+	test/service/file_search_service_test.$(OBJEXT)
 mjwm_file_search_service_test_OBJECTS =  \
 	$(am_mjwm_file_search_service_test_OBJECTS)
 mjwm_file_search_service_test_LDADD = $(LDADD)
 am_mjwm_icon_service_test_OBJECTS = src/stringx.$(OBJEXT) \
-	src/icon_service.$(OBJEXT) test/icon_service_test.$(OBJEXT)
+	src/service/icon_service.$(OBJEXT) \
+	test/service/icon_service_test.$(OBJEXT)
 mjwm_icon_service_test_OBJECTS = $(am_mjwm_icon_service_test_OBJECTS)
 mjwm_icon_service_test_LDADD = $(LDADD)
 am_mjwm_menu_test_OBJECTS = src/stringx.$(OBJEXT) \
 	src/vectorx.$(OBJEXT) src/desktop_file.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/stats.$(OBJEXT) \
-	src/icon_service.$(OBJEXT) src/menu.$(OBJEXT) \
+	src/service/icon_service.$(OBJEXT) src/menu.$(OBJEXT) \
 	test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
@@ -562,8 +566,8 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
-               src/icon_service.cc \
-               src/file_search_service.cc \
+               src/service/icon_service.cc \
+               src/service/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
                src/mjwm.cc
@@ -598,7 +602,7 @@ mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/desktop_file.cc \
                          src/subcategory.cc \
                          src/stats.cc \
-                         src/icon_service.cc \
+                         src/service/icon_service.cc \
                          src/menu.cc \
                          test/menu_test.cc
 
@@ -608,13 +612,13 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
                                     test/transformer/jwm_test.cc
 
 mjwm_icon_service_test_SOURCES = src/stringx.cc \
-                                 src/icon_service.cc \
-                                 test/icon_service_test.cc
+                                 src/service/icon_service.cc \
+                                 test/service/icon_service_test.cc
 
 mjwm_file_search_service_test_SOURCES = src/stringx.cc \
                                         src/vectorx.cc \
-                                        src/file_search_service.cc \
-                                        test/file_search_service_test.cc
+                                        src/service/file_search_service.cc \
+                                        test/service/file_search_service_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \
@@ -743,10 +747,17 @@ src/transformer/$(DEPDIR)/$(am__dirstamp):
 	@: > src/transformer/$(DEPDIR)/$(am__dirstamp)
 src/transformer/jwm.$(OBJEXT): src/transformer/$(am__dirstamp) \
 	src/transformer/$(DEPDIR)/$(am__dirstamp)
-src/icon_service.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/file_search_service.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
+src/service/$(am__dirstamp):
+	@$(MKDIR_P) src/service
+	@: > src/service/$(am__dirstamp)
+src/service/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/service/$(DEPDIR)
+	@: > src/service/$(DEPDIR)/$(am__dirstamp)
+src/service/icon_service.$(OBJEXT): src/service/$(am__dirstamp) \
+	src/service/$(DEPDIR)/$(am__dirstamp)
+src/service/file_search_service.$(OBJEXT):  \
+	src/service/$(am__dirstamp) \
+	src/service/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/command_line_options_parser.$(OBJEXT): src/$(am__dirstamp) \
@@ -774,14 +785,22 @@ test/desktop_file_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_desktop_file_test$(EXEEXT): $(mjwm_desktop_file_test_OBJECTS) $(mjwm_desktop_file_test_DEPENDENCIES) $(EXTRA_mjwm_desktop_file_test_DEPENDENCIES) 
 	@rm -f mjwm_desktop_file_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_desktop_file_test_OBJECTS) $(mjwm_desktop_file_test_LDADD) $(LIBS)
-test/file_search_service_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
+test/service/$(am__dirstamp):
+	@$(MKDIR_P) test/service
+	@: > test/service/$(am__dirstamp)
+test/service/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) test/service/$(DEPDIR)
+	@: > test/service/$(DEPDIR)/$(am__dirstamp)
+test/service/file_search_service_test.$(OBJEXT):  \
+	test/service/$(am__dirstamp) \
+	test/service/$(DEPDIR)/$(am__dirstamp)
 
 mjwm_file_search_service_test$(EXEEXT): $(mjwm_file_search_service_test_OBJECTS) $(mjwm_file_search_service_test_DEPENDENCIES) $(EXTRA_mjwm_file_search_service_test_DEPENDENCIES) 
 	@rm -f mjwm_file_search_service_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_file_search_service_test_OBJECTS) $(mjwm_file_search_service_test_LDADD) $(LIBS)
-test/icon_service_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
+test/service/icon_service_test.$(OBJEXT):  \
+	test/service/$(am__dirstamp) \
+	test/service/$(DEPDIR)/$(am__dirstamp)
 
 mjwm_icon_service_test$(EXEEXT): $(mjwm_icon_service_test_OBJECTS) $(mjwm_icon_service_test_DEPENDENCIES) $(EXTRA_mjwm_icon_service_test_DEPENDENCIES) 
 	@rm -f mjwm_icon_service_test$(EXEEXT)
@@ -832,8 +851,10 @@ mjwm_vectorx_test$(EXEEXT): $(mjwm_vectorx_test_OBJECTS) $(mjwm_vectorx_test_DEP
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f src/*.$(OBJEXT)
+	-rm -f src/service/*.$(OBJEXT)
 	-rm -f src/transformer/*.$(OBJEXT)
 	-rm -f test/*.$(OBJEXT)
+	-rm -f test/service/*.$(OBJEXT)
 	-rm -f test/transformer/*.$(OBJEXT)
 
 distclean-compile:
@@ -841,8 +862,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/command_line_options_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_file.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/file_search_service.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/icon_service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm.Po@am__quote@
@@ -850,16 +869,18 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stringx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/file_search_service.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/icon_service.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/jwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_parser_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_file_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/file_search_service_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/icon_service_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stringx_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/vectorx_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/service/$(DEPDIR)/file_search_service_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/service/$(DEPDIR)/icon_service_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/transformer/$(DEPDIR)/jwm_test.Po@am__quote@
 
 .cc.o:
@@ -1428,10 +1449,14 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/$(am__dirstamp)
+	-rm -f src/service/$(DEPDIR)/$(am__dirstamp)
+	-rm -f src/service/$(am__dirstamp)
 	-rm -f src/transformer/$(DEPDIR)/$(am__dirstamp)
 	-rm -f src/transformer/$(am__dirstamp)
 	-rm -f test/$(DEPDIR)/$(am__dirstamp)
 	-rm -f test/$(am__dirstamp)
+	-rm -f test/service/$(DEPDIR)/$(am__dirstamp)
+	-rm -f test/service/$(am__dirstamp)
 	-rm -f test/transformer/$(DEPDIR)/$(am__dirstamp)
 	-rm -f test/transformer/$(am__dirstamp)
 
@@ -1445,7 +1470,7 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/transformer/$(DEPDIR) test/$(DEPDIR) test/transformer/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/service/$(DEPDIR) src/transformer/$(DEPDIR) test/$(DEPDIR) test/service/$(DEPDIR) test/transformer/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -1493,7 +1518,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/transformer/$(DEPDIR) test/$(DEPDIR) test/transformer/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/service/$(DEPDIR) src/transformer/$(DEPDIR) test/$(DEPDIR) test/service/$(DEPDIR) test/transformer/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

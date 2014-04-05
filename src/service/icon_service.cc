@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "icon_service.h"
+#include "service/icon_service.h"
 
 #include <string>
 

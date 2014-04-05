@@ -11,8 +11,8 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
-               src/icon_service.cc \
-               src/file_search_service.cc \
+               src/service/icon_service.cc \
+               src/service/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
                src/mjwm.cc
@@ -60,7 +60,7 @@ mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/desktop_file.cc \
                          src/subcategory.cc \
                          src/stats.cc \
-                         src/icon_service.cc \
+                         src/service/icon_service.cc \
                          src/menu.cc \
                          test/menu_test.cc
 
@@ -70,13 +70,13 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
                                     test/transformer/jwm_test.cc
 
 mjwm_icon_service_test_SOURCES = src/stringx.cc \
-                                 src/icon_service.cc \
-                                 test/icon_service_test.cc
+                                 src/service/icon_service.cc \
+                                 test/service/icon_service_test.cc
 
 mjwm_file_search_service_test_SOURCES = src/stringx.cc \
                                         src/vectorx.cc \
-                                        src/file_search_service.cc \
-                                        test/file_search_service_test.cc
+                                        src/service/file_search_service.cc \
+                                        test/service/file_search_service_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \

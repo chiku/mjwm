@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "file_search_service.h"
+#include "service/file_search_service.h"
 
 #include <dirent.h>
 #include <limits.h>

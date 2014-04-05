@@ -23,7 +23,7 @@
 #include <vector>
 
 #include "stringx.h"
-#include "icon_service.h"
+#include "service/icon_service.h"
 #include "desktop_file.h"
 #include "subcategory.h"
 

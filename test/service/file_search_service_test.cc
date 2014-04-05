@@ -18,14 +18,14 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "file_search_service.h"
+#include "service/file_search_service.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
 
-#include "catch.hpp"
+#include "../catch.hpp"
 
 namespace amm {
 

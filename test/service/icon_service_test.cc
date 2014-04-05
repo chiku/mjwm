@@ -19,11 +19,11 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "icon_service.h"
+#include "service/icon_service.h"
 
 #include <string>
 
-#include "catch.hpp"
+#include "../catch.hpp"
 
 namespace amm {
 
