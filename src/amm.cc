@@ -16,11 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "amm.h"
+
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <cstdlib>
 
 #include "vectorx.h"
 #include "messages.h"
@@ -35,23 +37,7 @@
 
 namespace amm {
 
-class Main {
- public:
-  void LoadCommandLineOption(int argc, char **argv);
-  void RegisterIconService();
-  void ReadCategories();
-  void ReadDesktopFiles();
-  void Populate();
-  void WriteOutputFile();
-  void PrintSummary();
-
- private:
-  AmmOptions options_;
-  Menu menu_;
-  std::vector<std::string> desktop_file_names_;
-};
-
-void Main::LoadCommandLineOption(int argc, char **argv) {
+void Amm::LoadCommandLineOption(int argc, char **argv) {
   options_ = CommandLineOptionsParser().Parse(argc, argv);
   if (!options_.is_parsed) {
     std::cerr << messages::OptionError();
@@ -59,7 +45,7 @@ void Main::LoadCommandLineOption(int argc, char **argv) {
   }
   std::vector<std::string> deprecations = options_.deprecations;
   if (deprecations.size() > 0) {
-    std::cerr << VectorX(deprecations).Join("\n") << std::endl << "Proceeding..." << std::endl;
+    std::cerr << VectorX(deprecations).Join("\n") << "\tProceeding..." << std::endl;
   }
   if (options_.is_help) {
     std::cout << messages::Help();
@@ -71,7 +57,7 @@ void Main::LoadCommandLineOption(int argc, char **argv) {
   }
 }
 
-void Main::ReadCategories() {
+void Amm::ReadCategories() {
   std::string category_file_name = options_.category_file_name;
   std::vector<std::string> category_lines;
 
@@ -91,13 +77,13 @@ void Main::ReadCategories() {
   }
 }
 
-void Main::RegisterIconService() {
+void Amm::RegisterIconService() {
   service::IconService icon_service;
   icon_service.RegisterExtension(options_.icon_extension);
   menu_.RegisterIconService(icon_service);
 }
 
-void Main::ReadDesktopFiles() {
+void Amm::ReadDesktopFiles() {
   std::vector<std::string> input_directory_names = options_.input_directory_names;
 
   service::FileSearchService service;
@@ -112,7 +98,7 @@ void Main::ReadDesktopFiles() {
   desktop_file_names_ = service.DesktopFileNames();
 }
 
-void Main::Populate() {
+void Amm::Populate() {
   menu_.Populate(desktop_file_names_);
   if (menu_.Summary().TotalParsedFiles() == 0) {
     std::cerr << messages::NoValidDesktopFiles() << std::endl;
@@ -121,7 +107,7 @@ void Main::Populate() {
   menu_.Sort();
 }
 
-void Main::WriteOutputFile() {
+void Amm::WriteOutputFile() {
   std::string output_file_name = options_.output_file_name;
   std::ofstream output_file(output_file_name.c_str());
   if (!output_file.good()) {
@@ -145,20 +131,8 @@ void Main::WriteOutputFile() {
   output_file.close();
 }
 
-void Main::PrintSummary() {
+void Amm::PrintSummary() {
   std::cout << menu_.Summary().NormalSummary();
 }
 
 } // namespace amm
-
-
-int main(int argc, char *argv[]) {
-  amm::Main operation;
-  operation.LoadCommandLineOption(argc, argv);
-  operation.RegisterIconService();
-  operation.ReadCategories();
-  operation.ReadDesktopFiles();
-  operation.Populate();
-  operation.WriteOutputFile();
-  operation.PrintSummary();
-}

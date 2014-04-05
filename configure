@@ -585,7 +585,7 @@ PACKAGE_STRING='mjwm 2.4.0'
 PACKAGE_BUGREPORT='https://github.com/chiku/mjwm/issues'
 PACKAGE_URL=''
 
-ac_unique_file="src/mjwm.cc"
+ac_unique_file="src/main.cc"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>

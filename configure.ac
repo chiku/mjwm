@@ -7,7 +7,7 @@ AC_LANG(C++)
 # Silent by default
 AM_SILENT_RULES([yes])
 
-AC_CONFIG_SRCDIR([src/mjwm.cc])
+AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([parallel-tests color-tests])

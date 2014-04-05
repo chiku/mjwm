@@ -15,7 +15,8 @@ mjwm_SOURCES = src/stringx.cc \
                src/service/file_search_service.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
-               src/mjwm.cc
+               src/amm.cc \
+               src/main.cc
 
 check_PROGRAMS = mjwm_stringx_test \
                  mjwm_vectorx_test \
