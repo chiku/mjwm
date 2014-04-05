@@ -24,7 +24,8 @@
 
 #include "vectorx.h"
 #include "messages.h"
-#include "command_line_options.h"
+#include "amm_options.h"
+#include "command_line_options_parser.h"
 #include "icon_service.h"
 #include "file_search_service.h"
 #include "representation.h"
@@ -45,33 +46,33 @@ class Main {
   void PrintSummary();
 
  private:
-  CommandLineOptions command_line_options_;
+  AmmOptions options_;
   Menu menu_;
   std::vector<std::string> desktop_file_names_;
 };
 
 void Main::LoadCommandLineOption(int argc, char **argv) {
-  command_line_options_ = CommandLineOptions();
-  if (!command_line_options_.Parse(argc, argv)) {
+  options_ = CommandLineOptionsParser().Parse(argc, argv);
+  if (!options_.is_parsed) {
     std::cerr << messages::OptionError();
     exit(2);
   }
-  std::vector<std::string> deprecations = command_line_options_.Deprecations();
+  std::vector<std::string> deprecations = options_.deprecations;
   if (deprecations.size() > 0) {
     std::cerr << VectorX(deprecations).Join("\n") << std::endl << "Proceeding..." << std::endl;
   }
-  if (command_line_options_.IsHelp()) {
+  if (options_.is_help) {
     std::cout << messages::Help();
     exit(0);
   }
-  if (command_line_options_.IsVersion()) {
+  if (options_.is_version) {
     std::cout << messages::Version();
     exit(0);
   }
 }
 
 void Main::ReadCategories() {
-  std::string category_file_name = command_line_options_.CategoryFileName();
+  std::string category_file_name = options_.category_file_name;
   std::vector<std::string> category_lines;
 
   if (category_file_name != "") {
@@ -92,12 +93,12 @@ void Main::ReadCategories() {
 
 void Main::RegisterIconService() {
   IconService icon_service;
-  icon_service.RegisterExtension(command_line_options_.IconExtension());
+  icon_service.RegisterExtension(options_.icon_extension);
   menu_.RegisterIconService(icon_service);
 }
 
 void Main::ReadDesktopFiles() {
-  std::vector<std::string> input_directory_names = command_line_options_.InputDirectoryNames();
+  std::vector<std::string> input_directory_names = options_.input_directory_names;
 
   FileSearchService service;
   service.RegisterDirectoriesWithFallback(input_directory_names);
@@ -121,7 +122,7 @@ void Main::Populate() {
 }
 
 void Main::WriteOutputFile() {
-  std::string output_file_name = command_line_options_.OutputFileName();
+  std::string output_file_name = options_.output_file_name;
   std::ofstream output_file(output_file_name.c_str());
   if (!output_file.good()) {
     std::cerr << messages::BadOutputFile(output_file_name) << std::endl;

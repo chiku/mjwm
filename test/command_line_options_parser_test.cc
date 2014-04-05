@@ -18,7 +18,7 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "command_line_options.h"
+#include "command_line_options_parser.h"
 
 #include <cstring>
 #include <iostream>
@@ -29,119 +29,123 @@
 
 namespace amm {
 
-SCENARIO("CommandLineOptions.Parse() default", "[commandlineoptions]") {
+SCENARIO("CommandLineOptionsParser.Parse() default", "[commandlineoptions]") {
   GIVEN("command line options") {
-    CommandLineOptions options;
+    CommandLineOptionsParser parser;
 
     WHEN("parsing default") {
       char* argv[] = {strdup("amm"), 0};
-      bool parse_result = options.Parse(1, argv);
+      AmmOptions options = parser.Parse(1, argv);
+
+      THEN("it is successfully parsed") {
+        REQUIRE(options.is_parsed == true);
+      }
 
       THEN("it has no deprecations") {
-        REQUIRE(options.Deprecations().size() == 0);
+        REQUIRE(options.deprecations.size() == 0);
       }
 
-      THEN("it is true") {
-        REQUIRE(parse_result == true);
-      }
-
-      THEN("it help flag is off") {
-        REQUIRE(!options.IsHelp());
+      THEN("its help flag is off") {
+        REQUIRE(!options.is_help);
       }
 
       THEN("its version flag is off") {
-        REQUIRE(!options.IsVersion());
+        REQUIRE(!options.is_version);
+      }
+
+      THEN("its iconize flag is off") {
+        REQUIRE(!options.is_iconize);
       }
 
       THEN("its output-file is 'automenu'") {
-        REQUIRE(options.OutputFileName() == "./automenu");
+        REQUIRE(options.output_file_name == "./automenu");
       }
 
       THEN("its input-directories is empty") {
-        REQUIRE(options.InputDirectoryNames().size() == 0);
+        REQUIRE(options.input_directory_names.size() == 0);
       }
 
       THEN("its category file is empty") {
-        REQUIRE(options.CategoryFileName() == "");
+        REQUIRE(options.category_file_name == "");
       }
 
       THEN("its icon-extenstion is empty") {
-        REQUIRE(options.IconExtension() == "");
+        REQUIRE(options.icon_extension == "");
       }
     }
   }
 }
 
-SCENARIO("CommandLineOptions.Parse() flags", "[commandlineoptions]") {
+SCENARIO("CommandLineOptionsParser.Parse() flags", "[commandlineoptions]") {
   GIVEN("command line options") {
-    CommandLineOptions options;
+    CommandLineOptionsParser parser;
 
     WHEN("parsing --help") {
       char* argv[] = {strdup("amm"), strdup("--help"), 0};
-      options.Parse(2, argv);
+      AmmOptions options = parser.Parse(2, argv);
 
       THEN("its help flag is on") {
-        REQUIRE(options.IsHelp());
+        REQUIRE(options.is_help);
       }
     }
 
     WHEN("parsing --version") {
       char* argv[] = {strdup("amm"), strdup("--version"), 0};
-      options.Parse(2, argv);
+      AmmOptions options = parser.Parse(2, argv);
 
       THEN("its version flag is on") {
-        REQUIRE(options.IsVersion());
+        REQUIRE(options.is_version);
       }
     }
 
     WHEN("parsing --append-png") {
       char* argv[] = {strdup("amm"), strdup("--append-png"), 0};
-      options.Parse(2, argv);
+      AmmOptions options = parser.Parse(2, argv);
 
       THEN("it icon-extenstion is '.png'") {
-        REQUIRE(options.IconExtension() == ".png");
+        REQUIRE(options.icon_extension == ".png");
       }
     }
 
     WHEN("parsing -a") {
       char* argv[] = {strdup("amm"), strdup("-a"), 0};
-      options.Parse(2, argv);
+      AmmOptions options = parser.Parse(2, argv);
 
       THEN("it icon-extenstion is '.png'") {
-        REQUIRE(options.IconExtension() == ".png");
+        REQUIRE(options.icon_extension == ".png");
       }
     }
   }
 }
 
-SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
+SCENARIO("CommandLineOptionsParser.Parse() options", "[commandlineoptions]") {
   GIVEN("command line options") {
-    CommandLineOptions options;
+    CommandLineOptionsParser parser;
 
     WHEN("parsing --output-file") {
       char* argv[] = {strdup("amm"), strdup("--output-file"), strdup("menu.out"), 0};
-      options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
       THEN("its output-file is set to the given value") {
-        REQUIRE(options.OutputFileName() == "menu.out");
+        REQUIRE(options.output_file_name == "menu.out");
       }
     }
 
     WHEN("parsing -o") {
       char* argv[] = {strdup("amm"), strdup("-o"), strdup("menu.out"), 0};
-      options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
       THEN("its output-file is set to the given value") {
-        REQUIRE(options.OutputFileName() == "menu.out");
+        REQUIRE(options.output_file_name == "menu.out");
       }
     }
 
     WHEN("parsing --input-directory") {
       char* argv[] = {strdup("amm"), strdup("--input-directory"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-      options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
       THEN("its input-directories is set to the given values") {
-        std::vector<std::string> input_directory_names = options.InputDirectoryNames();
+        std::vector<std::string> input_directory_names = options.input_directory_names;
 
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
@@ -151,10 +155,10 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
 
     WHEN("parsing -i") {
       char* argv[] = {strdup("amm"), strdup("-i"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-      options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
       THEN("its input-directories is set to the given values") {
-        std::vector<std::string> input_directory_names = options.InputDirectoryNames();
+        std::vector<std::string> input_directory_names = options.input_directory_names;
 
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
@@ -164,44 +168,44 @@ SCENARIO("CommandLineOptions.Parse() options", "[commandlineoptions]") {
 
     WHEN("parsing --category-file") {
       char* argv[] = {strdup("amm"), strdup("--category-file"), strdup("default.mjwm"), 0};
-      options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
       THEN("its category-file is set to the given value") {
-        REQUIRE(options.CategoryFileName() == "default.mjwm");
+        REQUIRE(options.category_file_name == "default.mjwm");
       }
     }
 
     WHEN("parsing -c") {
       char* argv[] = {strdup("amm"), strdup("-c"), strdup("default.mjwm"), 0};
-      options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
       THEN("its category-file is set to the given value") {
-        REQUIRE(options.CategoryFileName() == "default.mjwm");
+        REQUIRE(options.category_file_name == "default.mjwm");
       }
     }
   }
 }
 
 
-SCENARIO("CommandLineOptions.Parse() failure", "[commandlineoptions]") {
+SCENARIO("CommandLineOptionsParser.Parse() failure", "[commandlineoptions]") {
   GIVEN("command line options") {
-    CommandLineOptions options;
+    CommandLineOptionsParser parser;
 
     WHEN("parsing a bad option") {
       char* argv[] = {strdup("amm"), strdup("--bad-option"), strdup("default.mjwm"), 0};
-      bool parse_result = options.Parse(3, argv);
+      AmmOptions options = parser.Parse(3, argv);
 
-      THEN("it is false") {
-        REQUIRE(parse_result == false);
+      THEN("it is not parsed") {
+        REQUIRE(options.is_parsed == false);
       }
     }
 
     WHEN("parsing a missing mandatory option") {
       char* argv[] = {strdup("amm"), strdup("-c"), 0};
-      bool parse_result = options.Parse(2, argv);
+      AmmOptions options = parser.Parse(2, argv);
 
-      THEN("it is false") {
-        REQUIRE(parse_result == false);
+      THEN("it is not parsed") {
+        REQUIRE(options.is_parsed == false);
       }
     }
   }

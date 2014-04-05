@@ -16,27 +16,21 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "command_line_options.h"
+#include "command_line_options_parser.h"
 
 #include <getopt.h>
 #include <string>
 #include <vector>
 
 #include "stringx.h"
+#include "amm_options.h"
 
 namespace amm {
 
-CommandLineOptions::CommandLineOptions() {
-  is_help_ = false;
-  is_version_ = false;
-  output_file_name_ = "./automenu";
-}
-
-bool CommandLineOptions::Parse(int argc, char* const* argv) {
+AmmOptions CommandLineOptionsParser::Parse(int argc, char* const* argv) {
   optind = 1; // Allow getopt_long() to be called multiple times
   // http://pubs.opengroup.org/onlinepubs/009696799/functions/getopt.html
 
-  bool parsed = true;
   int option_index = 0;
   int help_flag = 0;
   int version_flag = 0;
@@ -53,44 +47,47 @@ bool CommandLineOptions::Parse(int argc, char* const* argv) {
 
   int chosen_option;
 
+  AmmOptions amm_options;
+  amm_options.is_parsed = true;
+
   while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
     switch (chosen_option) {
       case 0:
         if (help_flag == 1) {
-          is_help_ = true;
+          amm_options.is_help = true;
         }
         if (version_flag == 1) {
-          is_version_ = true;
+          amm_options.is_version = true;
         }
         break;
 
       case 'o':
-        output_file_name_ = optarg;
+        amm_options.output_file_name = optarg;
         break;
 
       case 'i':
-        input_directory_names_ = StringX(optarg).Split(":");
+        amm_options.input_directory_names = StringX(optarg).Split(":");
         break;
 
       case 'c':
-        category_file_name_ = optarg;
+        amm_options.category_file_name = optarg;
         break;
 
       case 'a':
-        icon_extension_ = ".png";
+        amm_options.icon_extension = ".png";
         break;
 
       case '?':
-        parsed = false;
+        amm_options.is_parsed = false;
         break;
 
       default:
-        parsed = false;
+        amm_options.is_parsed = false;
         break;
     }
   }
 
-  return parsed;
+  return amm_options;
 }
 
 } // namespace amm

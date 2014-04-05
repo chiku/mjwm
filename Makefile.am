@@ -13,7 +13,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/icon_service.cc \
                src/file_search_service.cc \
                src/messages.cc \
-               src/command_line_options.cc \
+               src/command_line_options_parser.cc \
                src/stats.cc \
                src/mjwm.cc
 
@@ -25,7 +25,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_menu_test \
                  mjwm_file_search_service_test \
                  mjwm_transformer_jwm_test \
-                 mjwm_command_line_options_test
+                 mjwm_command_line_options_parser_test
 
 mjwmdir=$(datadir)/mjwm
 mjwm_DATA = data/default.mjwm data/puppy.mjwm
@@ -73,6 +73,6 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
                                     src/transformer/jwm.cc \
                                     test/transformer/jwm_test.cc
 
-mjwm_command_line_options_test_SOURCES = src/stringx.cc \
-                                         src/command_line_options.cc \
-                                         test/command_line_options_test.cc
+mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
+                                                src/command_line_options_parser.cc \
+                                                test/command_line_options_parser_test.cc
