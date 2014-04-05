@@ -1,4 +1,4 @@
-# All lines that begin with hash are comments
+# Comments begin with a hash
 
 # Colon terminated list
 # Put each entry on a separate line
@@ -8,7 +8,13 @@
 
 # These names are case-sensitive
 
-#Category name in menu:Icon name in menu entry:Category name as it appears in desktop files
+# The format is
+#<subcategory name that appears in menu>:<icon name>:<category names that desktop filesbelong to separated by colon>
+
+# mousepad.desktop file defines its categories as
+# Categories=Application;Utility;TextEditor;GTK;
+#Editors:mousepad.png:TextEditor
+# will add an entry for Mousepad under Editors subcategory
 Settings:settings:Settings
 Accessories:accessories:Utility
 Development:development:Development
@@ -20,3 +26,7 @@ Multimedia:multimedia:AudioVideo
 Office:office:Office
 Science:science:Science
 System:system:System
+
+# You can add multiple category names to a subcategory. The desktop entries would be merged in the final menu.
+
+# You can repeat category names. The desktop files with the same category name would appear in each of the categories.
