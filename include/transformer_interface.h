@@ -35,7 +35,6 @@ namespace representation {
 
 class TransformerInterface {
  public:
-  // TODO : these Transform functions should use a reference instead of a pointer
   virtual std::string Transform(const representation::MenuStart &entry) const = 0;
   virtual std::string Transform(const representation::MenuEnd &entry) const = 0;
   virtual std::string Transform(const representation::SubcategoryStart &entry) const = 0;

@@ -65,7 +65,7 @@ void FileSearchService::RegisterDirectoriesWithDefaultFallback(std::vector<std::
   }
 }
 
-// TODO : express in terms of set_directory_names()
+// TODO : express in terms of RegisterDirectories()
 void FileSearchService::RegisterDefaultDirectories() {
   std::vector<std::string> directory_bases = StringX(xdg_data_dirs()).Split(":");
   directory_bases.push_back(xdg_data_home());
