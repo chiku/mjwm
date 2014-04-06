@@ -20,7 +20,6 @@
 
 #include "desktop_file.h"
 
-#include <iostream>
 #include <vector>
 #include <string>
 

@@ -20,7 +20,6 @@
 
 #include "vectorx.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 

@@ -20,7 +20,6 @@
 
 #include "subcategory.h"
 
-#include <iostream>
 #include <vector>
 
 #include "catch.hpp"

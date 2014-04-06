@@ -20,8 +20,6 @@
 
 #include "transformer/jwm.h"
 
-#include <iostream>
-
 #include "../catch.hpp"
 #include "representation.h"
 

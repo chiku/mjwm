@@ -20,8 +20,8 @@
 
 #include "menu.h"
 
-#include <iostream>
 #include <string>
+#include <vector>
 
 #include "catch.hpp"
 #include "representation.h"

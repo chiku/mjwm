@@ -20,7 +20,6 @@
 
 #include "service/file_search_service.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
