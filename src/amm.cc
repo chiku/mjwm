@@ -31,7 +31,7 @@
 #include "service/icon_service_interface.h"
 #include "service/icon/predetermined_extension.h"
 #include "service/icon/scan.h"
-#include "service/file_search_service.h"
+#include "service/file_search.h"
 #include "representation.h"
 #include "stats.h"
 #include "menu.h"
@@ -93,7 +93,7 @@ void Amm::RegisterIconService() {
 void Amm::ReadDesktopFiles() {
   std::vector<std::string> input_directory_names = options_.input_directory_names;
 
-  service::FileSearchService service;
+  service::FileSearch service;
   service.RegisterDirectoriesWithFallback(input_directory_names);
   service.Resolve();
 

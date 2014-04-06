@@ -13,7 +13,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/transformer/jwm.cc \
                src/service/icon/predetermined_extension.cc \
                src/service/icon/scan.cc \
-               src/service/file_search_service.cc \
+               src/service/file_search.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
                src/amm.cc \
@@ -26,7 +26,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
                  mjwm_service_icon_predetermined_extension_test \
-                 mjwm_service_file_search_service_test \
+                 mjwm_service_file_search_test \
                  mjwm_transformer_jwm_test \
                  mjwm_command_line_options_parser_test
 
@@ -73,10 +73,10 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
 mjwm_service_icon_predetermined_extension_test_SOURCES = src/stringx.cc \
                                                          src/service/icon/predetermined_extension.cc \
                                                          test/service/icon/predetermined_extension_test.cc
-mjwm_service_file_search_service_test_SOURCES = src/stringx.cc \
-                                                src/vectorx.cc \
-                                                src/service/file_search_service.cc \
-                                                test/service/file_search_service_test.cc
+mjwm_service_file_search_test_SOURCES = src/stringx.cc \
+                                        src/vectorx.cc \
+                                        src/service/file_search.cc \
+                                        test/service/file_search_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \

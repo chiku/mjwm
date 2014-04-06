@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "service/file_search_service.h"
+#include "service/file_search.h"
 
 #include <dirent.h>
 #include <limits.h>
@@ -70,11 +70,11 @@ static std::vector<std::string> DefaultDirectories() {
   return directory_names;
 }
 
-FileSearchService::FileSearchService() {
+FileSearch::FileSearch() {
   capture_bad_paths_ = true;
 }
 
-void FileSearchService::RegisterDirectoriesWithFallback(std::vector<std::string> directory_names) {
+void FileSearch::RegisterDirectoriesWithFallback(std::vector<std::string> directory_names) {
   if (directory_names.size() <= 0) {
     capture_bad_paths_ = false;
     directory_names = DefaultDirectories();
@@ -82,7 +82,7 @@ void FileSearchService::RegisterDirectoriesWithFallback(std::vector<std::string>
   RegisterDirectories(directory_names);
 }
 
-void FileSearchService::Resolve() {
+void FileSearch::Resolve() {
   desktop_file_names_.clear();
   bad_paths_.clear();
 
@@ -94,7 +94,7 @@ void FileSearchService::Resolve() {
   }
 }
 
-void FileSearchService::Populate(std::string directory_name) {
+void FileSearch::Populate(std::string directory_name) {
   DIR *directory = opendir(directory_name.c_str());
 
   if (directory) {
@@ -108,7 +108,7 @@ void FileSearchService::Populate(std::string directory_name) {
       }
 
       if ((entry->d_type & DT_DIR) && entry_name != ".." && entry_name != "." && full_path.size() <= PATH_MAX) {
-        FileSearchService::Populate(full_path);
+        FileSearch::Populate(full_path);
       }
     }
     closedir(directory);

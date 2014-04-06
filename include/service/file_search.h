@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_FILE_SEARCH_SERVICE_H_
-#define AMM_SERVICE_FILE_SEARCH_SERVICE_H_
+#ifndef AMM_SERVICE_FILE_SEARCH_H_
+#define AMM_SERVICE_FILE_SEARCH_H_
 
 #include <string>
 #include <vector>
@@ -25,9 +25,9 @@
 namespace amm {
 namespace service {
 // Understands search for .desktop files
-class FileSearchService {
+class FileSearch {
  public:
-  FileSearchService();
+  FileSearch();
 
   void RegisterDirectoriesWithFallback(std::vector<std::string> directory_names);
   void Resolve();
@@ -47,4 +47,4 @@ class FileSearchService {
 } // namespace service
 } // namespace amm
 
-#endif // AMM_SERVICE_FILE_SEARCH_SERVICE_H_
+#endif // AMM_SERVICE_FILE_SEARCH_H_

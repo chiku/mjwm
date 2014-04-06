@@ -18,7 +18,7 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "service/file_search_service.h"
+#include "service/file_search.h"
 
 #include <string>
 #include <vector>
@@ -47,11 +47,11 @@ static void assert_files_are_present_in_list(std::vector<std::string> file_names
 }
 
 
-SCENARIO("FileSearchService", "[filesearchservice]") {
+SCENARIO("service::FileSearch", "[filesearch]") {
   GIVEN("A file search service with one directory") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/");
-    FileSearchService service;
+    FileSearch service;
     service.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
@@ -67,7 +67,7 @@ SCENARIO("FileSearchService", "[filesearchservice]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/");
     directory_names.push_back("test/fixtures");
-    FileSearchService service;
+    FileSearch service;
     service.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
@@ -83,7 +83,7 @@ SCENARIO("FileSearchService", "[filesearchservice]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures");
     directory_names.push_back("test/does-not-exist");
-    FileSearchService service;
+    FileSearch service;
     service.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
