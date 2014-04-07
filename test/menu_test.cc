@@ -261,10 +261,10 @@ SCENARIO("Menu representations", "[menu]") {
       THEN("it stores menu start, subcategory start, menu entry, subcategory end and menu end") {
         REQUIRE(representations.size() == 8);
         REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
-        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: accessories");
+        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories");
         REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor executable: mousepad %F");
         REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
-        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: multimedia");
+        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia");
         REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U");
         REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
         REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
@@ -288,10 +288,10 @@ SCENARIO("Menu representations", "[menu]") {
       THEN("it adds the icon name to icons for subcategory and menu-entry") {
         REQUIRE(representations.size() == 8);
         REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
-        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: accessories.always");
+        REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories.always");
         REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor.always executable: mousepad %F");
         REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
-        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: multimedia.always");
+        REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia.always");
         REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc.always executable: /usr/bin/vlc --started-from-file %U");
         REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
         REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");

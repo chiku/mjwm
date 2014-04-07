@@ -49,8 +49,10 @@ Scan::Scan() {
     Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/");
     Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/apps/48/");
     Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/actions/48/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/categories/48/");
     Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/apps/");
     Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/actions/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/categories/");
   }
   Scan::RegisterLookupDirectory("/usr/share/pixmaps/");
 }

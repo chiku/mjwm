@@ -32,24 +32,24 @@ namespace amm {
 
 Menu::Menu() {
   icon_service_ = new service::icon::Mirror; // TODO : GC
-  unclassified_subcategory_ = Subcategory("Others", "others", "Others");
+  unclassified_subcategory_ = Subcategory("Others", "applications-others", "Others");
   CreateDefaultCategories();
 }
 
 void Menu::CreateDefaultCategories() {
   subcategories_.clear();
 
-  subcategories_.push_back(Subcategory("Settings",    "settings",    "Settings"   ));
-  subcategories_.push_back(Subcategory("Accessories", "accessories", "Utility"    ));
-  subcategories_.push_back(Subcategory("Development", "development", "Development"));
-  subcategories_.push_back(Subcategory("Education",   "education",   "Education"  ));
-  subcategories_.push_back(Subcategory("Games",       "games",       "Game"       ));
-  subcategories_.push_back(Subcategory("Graphics",    "graphics",    "Graphics"   ));
-  subcategories_.push_back(Subcategory("Internet",    "internet",    "Network"    ));
-  subcategories_.push_back(Subcategory("Multimedia",  "multimedia",  "AudioVideo" ));
-  subcategories_.push_back(Subcategory("Office",      "office",      "Office"     ));
-  subcategories_.push_back(Subcategory("Science",     "science",     "Science"    ));
-  subcategories_.push_back(Subcategory("System",      "system",      "System"     ));
+  subcategories_.push_back(Subcategory("Settings",    "gnome-settings",           "Settings"   ));
+  subcategories_.push_back(Subcategory("Accessories", "applications-accessories", "Utility"    ));
+  subcategories_.push_back(Subcategory("Development", "applications-development", "Development"));
+  subcategories_.push_back(Subcategory("Education",   "applications-science",     "Education"  ));
+  subcategories_.push_back(Subcategory("Games",       "applications-games",       "Game"       ));
+  subcategories_.push_back(Subcategory("Graphics",    "applications-graphics",    "Graphics"   ));
+  subcategories_.push_back(Subcategory("Internet",    "applications-internet",    "Network"    ));
+  subcategories_.push_back(Subcategory("Multimedia",  "applications-multimedia",  "AudioVideo" ));
+  subcategories_.push_back(Subcategory("Office",      "applications-office",      "Office"     ));
+  subcategories_.push_back(Subcategory("Science",     "applications-science",     "Science"    ));
+  subcategories_.push_back(Subcategory("System",      "applications-system",      "System"     ));
 }
 
 void Menu::LoadCustomCategories(std::vector<std::string> lines) {
