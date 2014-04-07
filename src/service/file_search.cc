@@ -40,7 +40,7 @@ static std::vector<std::string> DefaultDirectories() {
 
   std::vector<std::string> directory_names;
   for (std::vector<std::string>::const_iterator base = directory_bases.begin(); base != directory_bases.end(); ++base) {
-    directory_names.push_back(std::string(*base) + kApplications);
+    directory_names.push_back(StringX(*base).TerminateWith("/") + kApplications);
   }
 
   return directory_names;
