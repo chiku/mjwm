@@ -47,6 +47,9 @@ std::string Help() {
   stream << "                               List is separated by colons" << std::endl;
   stream << "                               [Default: applications directories under " << std::endl;
   stream << "                                $XDG_DATA_DIRS & $XDG_DATA_DIRS]" << std::endl;
+  stream << " -c, --category-file [FILE]" << std::endl;
+  stream << "                               External category file. Overrides built in categories." << std::endl;
+  stream << "                               Please look at default.mjwm to write your own category files." << std::endl;
   stream << " -a, --append-png            Add '.png' to all icon file names" << std::endl;
   stream << "     --help                  Show this help" << std::endl;
   stream << "     --version               Show version information" << std::endl;
