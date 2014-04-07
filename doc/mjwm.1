@@ -6,8 +6,9 @@ mjwm \- create menu for JWM
 .SH SYNOPSIS
 .B mjwm
 [\fB\-o\fR \fIOUTPUT FILE\fR]
-[\fB\-i\fR \fIINPUT DIRECTORIES\fR]
+[\fB\-i\fR \fIINPUT DIRECTORY\fR]
 [\fB\-c\fR \fICATEGORY FILE\fR]
+[\fB\-\-iconize\fR]
 
 .SH DESCRIPTION
 .B mjwm
@@ -25,16 +26,21 @@ Default is ./automenu.
 .LP
 
 .TP
-.BR \-i ", " \-\-input\-directories =\fIDIRECTORIES\fR
-The directories to scan for .desktop files. Multiple directories must be separated by colons.
+.BR \-i ", " \-\-input\-directory =\fIDIRECTORY\fR
+Directory to scan for .desktop files. Multiple directories, if provided, must be separated by colons.
 Default is $XDG_DATA_DIRS/applications:$XDG_DATA_HOME/applications.
-/usr/local/share/applications:/usr/share/applications is used if $XDG_DATA_DIRS is missing.
-$HOME/.local/share/applications is used if $XDG_DATA_HOME is missing.
+/usr/local/share:/usr/share is used in place of an undefined $XDG_DATA_DIRS.
+$HOME/.local/share is used in place of an undefined $XDG_DATA_HOME.
 
 .TP
 .BR \-c ", " \-\-category\-file =\fIFILE\fR
-External category file.
-Overrides built in categories. Please look at default.mjwm to write your own category files.
+Use an external category file.
+This overrides built in categories. Please look at default.mjwm to write your own category files.
+
+.TP
+.BR \-\-iconize
+Search for icon files by name in $HOME, $XDG_DATA_DIRS/icons and /usr/share/pixmaps.
+Icon file names would be absolute paths to icons in the specified directories.
 
 .TP
 .BR \-\-help
@@ -67,4 +73,9 @@ Generate menu entries for files inside multiple directories /usr/local/share/app
 .TP
 Use categories from as an external file
 .BR mjwm \ \-c\ data/default.mjwm
+.LP
+
+.TP
+Create menu entries with absolute path names to icons files
+.BR mjwm \ \-\-iconize
 .LP

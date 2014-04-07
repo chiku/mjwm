@@ -39,16 +39,22 @@ Options
 Usage: mjwm [options]
 
 Optional arguments:
- -o, --output-file [FILE]    Outfile file [Default: ./automenu]
- -i, --input-directories [DIRECTORIES]
-                             Directories to scan for '.desktop' files
-                               List is separated by colons
-                               [Default: applications directories under
-                                $XDG_DATA_DIRS & $XDG_DATA_DIRS]
- -c, --category-file         External category file. Overrides built in categories.
-                               Please look at default.mjwm to write your own category files.
-     --help                  Show this help
-     --version               Show version information
+  -o, --output-file [FILE]    Outfile file [Default: ./automenu]
+  -i, --input-directory [DIRECTORY]
+                              Directory to scan for '.desktop' files
+                                Multiple directories, if provided,
+                                must be separated by colons.
+                                [Default: applications directories under
+                                 $XDG_DATA_DIRS & $XDG_DATA_DIRS]
+  -c, --category-file [FILE]  Use an external category file. Overrides the built
+                                  in categories. Please look at default.mjwm to
+                                  write your own category files.
+      --iconize                 Search for icon files by name in $HOME,
+                                  $XDG_DATA_DIRS/icons, and /usr/share/pixmaps.
+                                  Icon file names would be absolute paths to icons
+                                  in the specified directories.
+      --help                  Show this help
+      --version               Show version information
 ```
 
 Usage
@@ -96,9 +102,9 @@ Generate menu entries for files inside multiple directories /usr/local/share/app
 mjwm -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
 ```
 
-Create menu entries with icons having a "png" extension
+Create menu entries with absolute path names to icons files
 ``` script
-mjwm -a
+mjwm --iconize
 ```
 
 Use categories from as an external file
