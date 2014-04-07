@@ -105,24 +105,6 @@ SCENARIO("CommandLineOptionsParser.Parse() flags", "[commandlineoptions]") {
         REQUIRE(options.is_iconize);
       }
     }
-
-    WHEN("parsing --append-png") {
-      char* argv[] = {strdup("amm"), strdup("--append-png"), 0};
-      AmmOptions options = parser.Parse(2, argv);
-
-      THEN("its icon-extenstion is '.png'") {
-        REQUIRE(options.icon_extension == ".png");
-      }
-    }
-
-    WHEN("parsing -a") {
-      char* argv[] = {strdup("amm"), strdup("-a"), 0};
-      AmmOptions options = parser.Parse(2, argv);
-
-      THEN("its icon-extenstion is '.png'") {
-        REQUIRE(options.icon_extension == ".png");
-      }
-    }
   }
 }
 

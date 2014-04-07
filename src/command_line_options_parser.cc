@@ -79,7 +79,6 @@ AmmOptions CommandLineOptionsParser::Parse(int argc, char* const* argv) {
         break;
 
       case 'a':
-        amm_options.icon_extension = ".png";
         break;
 
       case '?':
