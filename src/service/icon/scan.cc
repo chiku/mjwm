@@ -43,16 +43,16 @@ Scan::Scan() {
   std::vector<std::string> xdg_data_dirs = environment_variable.XdgDataDirectories();
 
   if (home != "") {
-    Scan::RegisterLookupDirectory(home + "./icons/");
+    Scan::RegisterLookupDirectory(StringX(home).TerminateWith("/") + "./icons/");
   }
   for (std::vector<std::string>::const_iterator dir = xdg_data_dirs.begin(); dir != xdg_data_dirs.end(); ++dir) {
-    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/");
-    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/Faenza/apps/48/");
-    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/Faenza/actions/48/");
-    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/hicolor/48x48/apps/");
-    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/hicolor/48x48/actions/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/apps/48/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/actions/48/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/apps/");
+    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/actions/");
   }
-  Scan::RegisterLookupDirectory("/usr/share/pixmaps");
+  Scan::RegisterLookupDirectory("/usr/share/pixmaps/");
 }
 
 void Scan::RegisterLookupDirectory(std::string path) {
