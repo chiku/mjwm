@@ -67,10 +67,6 @@ SCENARIO("CommandLineOptionsParser.Parse() default", "[commandlineoptions]") {
       THEN("its category file is empty") {
         REQUIRE(options.category_file_name == "");
       }
-
-      THEN("its icon-extenstion is empty") {
-        REQUIRE(options.icon_extension == "");
-      }
     }
   }
 }
