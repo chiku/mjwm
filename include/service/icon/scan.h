@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "service/icon_service_interface.h"
+#include "service/environment_variable.h"
 
 namespace amm {
 namespace service {
@@ -34,11 +35,13 @@ class Scan : public IconServiceInterface {
   std::string ResolvedName(std::string icon_name) const;
 
  private:
+  void RegisterLookupDirectory(std::string path);
   std::vector<std::string> ViableExtensions(std::string icon_name) const;
   std::string SearchedFileName(std::string icon_name) const;
   bool ShouldAppendExtension(std::string icon_name) const;
   std::vector<std::string> registered_extensions_;
   std::vector<std::string> search_locations_;
+  EnvironmentVariable environment_variable;
 };
 } // namespace icon
 } // namespace service

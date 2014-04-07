@@ -23,14 +23,15 @@
 #include <vector>
 
 #include "stringx.h"
+#include "service/environment_variable.h"
 
 namespace amm {
 namespace service {
 namespace icon {
 
 static bool DoesPathExist(std::string path) {
-  struct stat buffer;
-  return stat(path.c_str(), &buffer) == 0;
+  struct stat st;
+  return stat(path.c_str(), &st) == 0;
 }
 
 Scan::Scan() {
@@ -38,14 +39,28 @@ Scan::Scan() {
   registered_extensions_.push_back(".svg");
   registered_extensions_.push_back(".xpm");
 
-  // search_locations_.push_back("HOME");
-  search_locations_.push_back("/usr/share/local/icons");
-  search_locations_.push_back("/usr/share/icons/hicolor/48x48/apps");
-  search_locations_.push_back("/usr/share/icons/hicolor/48x48/actions");
-  search_locations_.push_back("/usr/share/icons/Faenza/apps/48");
-  search_locations_.push_back("/usr/share/icons/Faenza/actions/48");
-  search_locations_.push_back("/usr/share/icons");
-  search_locations_.push_back("/usr/share/pixmaps");
+  std::string home = environment_variable.Home();
+  std::vector<std::string> xdg_data_dirs = environment_variable.XdgDataDirectories();
+
+  if (home != "") {
+    Scan::RegisterLookupDirectory(home + "./icons/");
+  }
+  for (std::vector<std::string>::const_iterator dir = xdg_data_dirs.begin(); dir != xdg_data_dirs.end(); ++dir) {
+    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/");
+    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/Faenza/apps/48/");
+    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/Faenza/actions/48/");
+    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/hicolor/48x48/apps/");
+    Scan::RegisterLookupDirectory(std::string(*dir) + "icons/hicolor/48x48/actions/");
+  }
+  Scan::RegisterLookupDirectory("/usr/share/pixmaps");
+}
+
+void Scan::RegisterLookupDirectory(std::string path) {
+  struct stat st;
+  int result = stat(path.c_str(), &st);
+  if (result == 0 && S_ISDIR(st.st_mode)) {
+    search_locations_.push_back(path);
+  }
 }
 
 std::string Scan::ResolvedName(std::string icon_name) const {
@@ -57,7 +72,7 @@ std::string Scan::SearchedFileName(std::string icon_name) const {
 
   for (std::vector<std::string>::const_iterator location = search_locations_.begin(); location != search_locations_.end(); ++location) {
     for (std::vector<std::string>::const_iterator extension = extensions.begin(); extension != extensions.end(); ++extension) {
-      std::string full_name = StringX(*location).TerminateWith("/") + icon_name + *extension;
+      std::string full_name = (*location) + icon_name + (*extension);
       if (DoesPathExist(full_name)) {
         return full_name;
       }
