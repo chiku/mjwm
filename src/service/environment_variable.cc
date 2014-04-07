@@ -24,6 +24,9 @@
 
 #include "stringx.h"
 
+
+#include <iostream>
+
 namespace amm {
 namespace service {
 
@@ -42,19 +45,14 @@ EnvironmentVariable::EnvironmentVariable() {
 
   char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
   if (xdg_data_dirs != NULL) {
-    xdg_data_dirs_ = "/usr/share/local/:/usr/share/";
+    xdg_data_dirs_ = xdg_data_dirs;
+  } else {
+    xdg_data_dirs_ = "/usr/local/share/:/usr/share/";
   }
 }
 
 std::vector<std::string> EnvironmentVariable::XdgDataDirectories() const {
-  std::vector<std::string> directories = StringX(xdg_data_dirs_).Split(":");
-  std::vector<std::string> output;
-
-  for (std::vector<std::string>::const_iterator directory = directories.begin(); directory != directories.end(); ++directory) {
-    output.push_back(StringX(*directory).TerminateWith("/"));
-  }
-
-  return output;
+  return StringX(xdg_data_dirs_).Split(":");
 }
 
 std::vector<std::string> EnvironmentVariable::ApplicationBaseDirectories() const {
