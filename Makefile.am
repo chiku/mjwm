@@ -11,6 +11,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
+               src/service/environment_variable.cc \
                src/service/icon/predetermined_extension.cc \
                src/service/icon/scan.cc \
                src/service/file_search.cc \
@@ -75,6 +76,7 @@ mjwm_service_icon_predetermined_extension_test_SOURCES = src/stringx.cc \
                                                          test/service/icon/predetermined_extension_test.cc
 mjwm_service_file_search_test_SOURCES = src/stringx.cc \
                                         src/vectorx.cc \
+                                        src/service/environment_variable.cc \
                                         src/service/file_search.cc \
                                         test/service/file_search_test.cc
 

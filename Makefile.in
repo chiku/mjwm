@@ -112,6 +112,7 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/desktop_file.$(OBJEXT) src/subcategory.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
 	src/transformer/jwm.$(OBJEXT) \
+	src/service/environment_variable.$(OBJEXT) \
 	src/service/icon/predetermined_extension.$(OBJEXT) \
 	src/service/icon/scan.$(OBJEXT) \
 	src/service/file_search.$(OBJEXT) src/messages.$(OBJEXT) \
@@ -137,7 +138,9 @@ am_mjwm_menu_test_OBJECTS = src/stringx.$(OBJEXT) \
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
 am_mjwm_service_file_search_test_OBJECTS = src/stringx.$(OBJEXT) \
-	src/vectorx.$(OBJEXT) src/service/file_search.$(OBJEXT) \
+	src/vectorx.$(OBJEXT) \
+	src/service/environment_variable.$(OBJEXT) \
+	src/service/file_search.$(OBJEXT) \
 	test/service/file_search_test.$(OBJEXT)
 mjwm_service_file_search_test_OBJECTS =  \
 	$(am_mjwm_service_file_search_test_OBJECTS)
@@ -567,6 +570,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
+               src/service/environment_variable.cc \
                src/service/icon/predetermined_extension.cc \
                src/service/icon/scan.cc \
                src/service/file_search.cc \
@@ -619,6 +623,7 @@ mjwm_service_icon_predetermined_extension_test_SOURCES = src/stringx.cc \
 
 mjwm_service_file_search_test_SOURCES = src/stringx.cc \
                                         src/vectorx.cc \
+                                        src/service/environment_variable.cc \
                                         src/service/file_search.cc \
                                         test/service/file_search_test.cc
 
@@ -749,6 +754,15 @@ src/transformer/$(DEPDIR)/$(am__dirstamp):
 	@: > src/transformer/$(DEPDIR)/$(am__dirstamp)
 src/transformer/jwm.$(OBJEXT): src/transformer/$(am__dirstamp) \
 	src/transformer/$(DEPDIR)/$(am__dirstamp)
+src/service/$(am__dirstamp):
+	@$(MKDIR_P) src/service
+	@: > src/service/$(am__dirstamp)
+src/service/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/service/$(DEPDIR)
+	@: > src/service/$(DEPDIR)/$(am__dirstamp)
+src/service/environment_variable.$(OBJEXT):  \
+	src/service/$(am__dirstamp) \
+	src/service/$(DEPDIR)/$(am__dirstamp)
 src/service/icon/$(am__dirstamp):
 	@$(MKDIR_P) src/service/icon
 	@: > src/service/icon/$(am__dirstamp)
@@ -760,12 +774,6 @@ src/service/icon/predetermined_extension.$(OBJEXT):  \
 	src/service/icon/$(DEPDIR)/$(am__dirstamp)
 src/service/icon/scan.$(OBJEXT): src/service/icon/$(am__dirstamp) \
 	src/service/icon/$(DEPDIR)/$(am__dirstamp)
-src/service/$(am__dirstamp):
-	@$(MKDIR_P) src/service
-	@: > src/service/$(am__dirstamp)
-src/service/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/service/$(DEPDIR)
-	@: > src/service/$(DEPDIR)/$(am__dirstamp)
 src/service/file_search.$(OBJEXT): src/service/$(am__dirstamp) \
 	src/service/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
@@ -888,6 +896,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stringx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/environment_variable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/file_search.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/icon/$(DEPDIR)/predetermined_extension.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/icon/$(DEPDIR)/scan.Po@am__quote@

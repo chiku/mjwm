@@ -26,6 +26,7 @@
 
 #include "stringx.h"
 #include "vectorx.h"
+#include "service/environment_variable.h"
 
 namespace amm {
 namespace service {
@@ -33,34 +34,9 @@ namespace service {
 static const std::string kDesktopExtension = ".desktop";
 static const std::string kApplications = "applications";
 
-static void AppendXdgDataHome(std::vector<std::string> *output) {
-  char *xdg_data_home = std::getenv("XDG_DATA_HOME");
-  char *home = std::getenv("HOME");
-
-  if (xdg_data_home != NULL) {
-    output->push_back(StringX(xdg_data_home).TerminateWith("/"));
-  } else if (home != NULL) {
-    output->push_back(std::string(home) + "/.local/share/");
-  }
-}
-
-static void AppendXdgDataDirs(std::vector<std::string> *output) {
-  char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");
-  if (xdg_data_dirs != NULL) {
-    std::vector<std::string> directories = StringX(xdg_data_dirs).Split(":");
-    for (std::vector<std::string>::const_iterator directory = directories.begin(); directory != directories.end(); ++directory) {
-      output->push_back(StringX(*directory).TerminateWith("/"));
-    }
-  } else {
-    output->push_back("/usr/local/share/");
-    output->push_back("/usr/share/");
-  }
-}
-
 static std::vector<std::string> DefaultDirectories() {
-  std::vector<std::string> directory_bases;
-  AppendXdgDataHome(&directory_bases);
-  AppendXdgDataDirs(&directory_bases);
+  EnvironmentVariable environment_variable;
+  std::vector<std::string> directory_bases = environment_variable.ApplicationBaseDirectories();
 
   std::vector<std::string> directory_names;
   for (std::vector<std::string>::const_iterator base = directory_bases.begin(); base != directory_bases.end(); ++base) {
