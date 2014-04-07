@@ -34,7 +34,6 @@ run mjwm_desktop_file_test
 run mjwm_subcategory_test
 run mjwm_stats_test
 run mjwm_menu_test
-run mjwm_service_icon_predetermined_extension_test
 run mjwm_service_file_search_test
 run mjwm_transformer_jwm_test
 run mjwm_command_line_options_parser_test
