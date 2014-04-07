@@ -50,7 +50,6 @@ std::string Help() {
   stream << " -c, --category-file [FILE]" << std::endl;
   stream << "                               External category file. Overrides built in categories." << std::endl;
   stream << "                               Please look at default.mjwm to write your own category files." << std::endl;
-  stream << " -a, --append-png            Add '.png' to all icon file names" << std::endl;
   stream << "     --help                  Show this help" << std::endl;
   stream << "     --version               Show version information" << std::endl;
   stream << std::endl;

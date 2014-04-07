@@ -47,7 +47,6 @@ Optional arguments:
                                 $XDG_DATA_DIRS & $XDG_DATA_DIRS]
  -c, --category-file         External category file. Overrides built in categories.
                                Please look at default.mjwm to write your own category files.
- -a, --append-png            Add '.png' to all icon file names
      --help                  Show this help
      --version               Show version information
 ```
