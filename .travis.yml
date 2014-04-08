@@ -5,8 +5,8 @@ compiler:
 script:
   - ./autogen.sh
   - ./configure --prefix /tmp/mjwm
-  - make
-  - make check
+  - make -j4
+  - make check -j4
   - make install-strip
   - ls -halR /tmp/mjwm
   - ./test_runner.sh
