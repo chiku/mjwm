@@ -7,8 +7,10 @@ script:
   - ./configure --prefix /tmp/mjwm
   - make -j4
   - make check -j4
+  - ./test_runner.sh
   - make install-strip
   - ls -halR /tmp/mjwm
-  - ./test_runner.sh
-  - time /tmp/mjwm/bin/mjwm
-  - cat automenu
+  - time /tmp/mjwm/bin/mjwm -o automenu.default
+  - cat automenu.default
+  - time /tmp/mjwm/bin/mjwm --iconize  -o automenu.iconize
+  - cat automenu.iconize
