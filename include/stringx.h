@@ -26,7 +26,8 @@ namespace amm {
 // TODO : move methods with single use to their usage points
 class StringX {
  public:
-  StringX(std::string string);
+  explicit StringX(std::string string);
+
   bool EndsWith(const std::string delimiter) const; // FSS
   std::string TerminateWith(const std::string end); // FSS
   std::string Encode() const; // Transformer::JWM

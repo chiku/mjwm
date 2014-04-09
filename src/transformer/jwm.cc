@@ -27,7 +27,7 @@
 namespace amm {
 namespace transformer {
 
-static std::string remove_field_code(std::string input) {
+static std::string RemoveFieldCode(std::string input) {
   std::vector<std::string> result;
   std::vector<std::string> tokens = StringX(input).Split(" ");
 
@@ -79,7 +79,7 @@ std::string Jwm::Transform(const representation::Program &entry) const {
          << "label=\"" << StringX(entry.name()).Encode()
          << "\" icon=\"" << StringX(entry.icon()).Encode()
          << "\">"
-         << remove_field_code(entry.executable())
+         << RemoveFieldCode(entry.executable())
          << "</Program>";
   return stream.str();
 }

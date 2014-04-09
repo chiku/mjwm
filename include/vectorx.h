@@ -27,7 +27,7 @@ namespace amm {
 
 class VectorX {
  public:
-  VectorX(std::vector<std::string> vector);
+  explicit VectorX(std::vector<std::string> vector);
 
   std::string Join(std::string delimiter) const; // Transformer::Jwm, FSS, Stats, mjwm
   std::vector<std::string> TerminateWith(std::string delimiter) const; //StringX

@@ -71,7 +71,7 @@ class SubcategoryStart : public RepresentationInterface {
 
 class SubcategoryEnd : public RepresentationInterface {
  public:
-  SubcategoryEnd(std::string name) {
+  explicit SubcategoryEnd(std::string name) {
     name_ = name;
   }
   virtual std::string name() const { return name_ + " end"; }
