@@ -41,23 +41,21 @@ std::string Help() {
   stream << std::endl;
 
   stream << "Optional arguments:" << std::endl;
-  stream << " -o, --output-file [FILE]    Outfile file [Default: ./automenu]" << std::endl;
-  stream << " -i, --input-directory [DIRECTORY]" << std::endl;
-  stream << "                             Directory to scan for '.desktop' files" << std::endl;
-  stream << "                               Multiple directories, if provided," << std::endl;
-  stream << "                               must be separated by colons" << std::endl;
-  stream << "                               [Default: applications directories under " << std::endl;
-  stream << "                                $XDG_DATA_DIRS & $XDG_DATA_DIRS]" << std::endl;
-  stream << " -c, --category-file [FILE]  Use an external category file. Overrides the built" << std::endl;
-  stream << "                                 in categories. Please look at default.mjwm to" << std::endl;
-  stream << "                                 write your own category files." << std::endl;
-  stream << "     --iconize                 Search for icon files by name in $HOME," << std::endl;
-  stream << "                                 $XDG_DATA_DIRS/icons, and /usr/share/pixmaps. " << std::endl;
-  stream << "                                 Icon file names would be absolute paths to icons" << std::endl;
-  stream << "                                 in the specified directories." << std::endl;
-
-  stream << "     --help                  Show this help" << std::endl;
-  stream << "     --version               Show version information" << std::endl;
+  stream << "  -o, --output-file [FILE]    Outfile file [Default: ./automenu]" << std::endl;
+  stream << "  -i, --input-directory [DIRECTORY]" << std::endl;
+  stream << "                              Directory to scan for '.desktop' files. Multiple" << std::endl;
+  stream << "                                directories, if provided, must be separated by" << std::endl;
+  stream << "                                colons. [Default: applications directories" << std::endl;
+  stream << "                                under $XDG_DATA_DIRS & $XDG_DATA_DIRS]" << std::endl;
+  stream << "  -c, --category-file [FILE]  Use an external category file. Overrides the" << std::endl;
+  stream << "                                built in categories. Please look at" << std::endl;
+  stream << "                                default.mjwm to write your own category files." << std::endl;
+  stream << "      --iconize               Search for icon files by name in $HOME," << std::endl;
+  stream << "                                $XDG_DATA_DIRS/icons, and /usr/share/pixmaps." << std::endl;
+  stream << "                                Icon file names would be absolute paths to" << std::endl;
+  stream << "                                icons in the specified directories." << std::endl;
+  stream << "      --help                  Show this help" << std::endl;
+  stream << "      --version               Show version information" << std::endl;
   stream << std::endl;
 
   stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
