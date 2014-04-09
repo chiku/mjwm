@@ -2,6 +2,7 @@ mjwm
 ====
 
 [![Build Status](https://travis-ci.org/chiku/mjwm.png?branch=master)](https://travis-ci.org/chiku/mjwm)
+[![Build Status](https://drone.io/github.com/chiku/mjwm/status.png)](https://drone.io/github.com/chiku/mjwm/latest)
 
 Overview
 --------
