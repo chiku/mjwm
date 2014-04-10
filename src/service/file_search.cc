@@ -19,10 +19,10 @@
 #include "service/file_search.h"
 
 #include <dirent.h>
-#include <limits.h>
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <limits>
 
 #include "stringx.h"
 #include "vectorx.h"

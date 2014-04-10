@@ -16,12 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "subcategory.h"
+
 #include <string>
 #include <vector>
 #include <algorithm>
 
 #include "desktop_file.h"
-#include "subcategory.h"
 
 namespace amm {
 

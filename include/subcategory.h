@@ -19,7 +19,6 @@
 #ifndef AMM_SUBCATEGORY_H_
 #define AMM_SUBCATEGORY_H_
 
-#include <iostream>
 #include <string>
 #include <vector>
 

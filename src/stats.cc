@@ -19,8 +19,8 @@
 #include "stats.h"
 
 #include <string>
-#include <sstream>
 #include <vector>
+#include <sstream>
 #include <algorithm>
 
 #include "vectorx.h"
