@@ -96,6 +96,17 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
         REQUIRE(entry.Executable() == "");
       }
     }
+
+    WHEN("encountering a header that isn't Desktop Entry") {
+      DesktopFile entry;
+      entry.Populate("[Desktop Entry]");
+      entry.Populate("Name=LibreOffice Draw");
+      entry.Populate("[Desktop Action NewDocument]");
+      entry.Populate("Name=New Drawing");
+      THEN("it stops further assignments") {
+        REQUIRE(entry.Name() == "LibreOffice Draw");
+      }
+    }
   }
 }
 

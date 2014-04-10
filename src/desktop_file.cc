@@ -27,14 +27,9 @@
 
 namespace amm {
 
-static const std::string NAME       = "Name";
-static const std::string EXECUTABLE = "Exec";
-static const std::string ICON       = "Icon";
-static const std::string CATEGORIES = "Categories";
-static const std::string NO_DISPLAY = "NoDisplay";
-
 DesktopFile::DesktopFile() {
   display_ = true;
+  populate_under_desktop_entry_ = true;
 }
 
 bool DesktopFile::operator < (const DesktopFile &other) const {
@@ -72,18 +67,27 @@ bool DesktopFile::IsAnyOf(std::vector<std::string> types) const {
 
 void DesktopFile::Populate(std::string line_raw) {
   DesktopFileLine line = DesktopFileLine(line_raw);
-  std::string categories_raw, display_raw;
 
-  line.AssignWhenPresent(NAME, &name_);
-  line.AssignWhenPresent(ICON, &icon_);
-  line.AssignWhenPresent(EXECUTABLE, &executable_);
+  if (line.IsDeclaration() && line.Declaration() != "Desktop Entry") {
+    populate_under_desktop_entry_ = false;
+  }
 
-  if (line.AssignWhenPresent(CATEGORIES, &categories_raw) != "") {
+  if (!populate_under_desktop_entry_) {
+    return;
+  }
+
+  line.AssignWhenPresent("Name", &name_);
+  line.AssignWhenPresent("Icon", &icon_);
+  line.AssignWhenPresent("Exec", &executable_);
+
+  std::string categories_raw;
+  if (line.AssignWhenPresent("Categories", &categories_raw) != "") {
     categories_ = StringX(categories_raw).Split(";");
     std::sort(categories_.begin(), categories_.end());
   }
 
-  if (line.AssignWhenPresent(NO_DISPLAY, &display_raw) != "") {
+  std::string display_raw;
+  if (line.AssignWhenPresent("NoDisplay", &display_raw) != "") {
     display_ = display_raw != "true" && display_raw != "1";
   }
 }

@@ -50,6 +50,7 @@ class DesktopFile {
   std::string icon_;
   std::vector<std::string> categories_;
   bool display_;
+  bool populate_under_desktop_entry_;
 };
 } // namespace amm
 
