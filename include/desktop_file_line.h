@@ -20,9 +20,6 @@
 #define AMM_DESKTOP_FILE_LINE_H_
 
 #include <string>
-#include <iostream>
-
-#include "stringx.h"
 
 namespace amm {
 // Understands a line in a FreeDesktop .desktop file
@@ -34,7 +31,7 @@ class DesktopFileLine {
   bool IsDeclaration() const;
   bool IsAssignment() const;
   std::string Declaration() const;
-  std::string AssignmentFor(std::string key) const;
+  std::string AssignWhenPresent(std::string key, std::string *slot) const;
 
  private:
   std::string content_;

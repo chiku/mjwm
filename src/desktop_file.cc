@@ -72,23 +72,19 @@ bool DesktopFile::IsAnyOf(std::vector<std::string> types) const {
 
 void DesktopFile::Populate(std::string line_raw) {
   DesktopFileLine line = DesktopFileLine(line_raw);
+  std::string categories_raw, display_raw;
 
-  if (line.AssignmentFor(NAME) != "") {
-    name_ = line.AssignmentFor(NAME);
-  }
-  if (line.AssignmentFor(ICON) != "") {
-    icon_ = line.AssignmentFor(ICON);
-  }
-  if (line.AssignmentFor(EXECUTABLE) != "") {
-    executable_ = line.AssignmentFor(EXECUTABLE);
-  }
-  if (line.AssignmentFor(CATEGORIES) != "") {
-    categories_ = StringX(line.AssignmentFor(CATEGORIES)).Split(";");
+  line.AssignWhenPresent(NAME, &name_);
+  line.AssignWhenPresent(ICON, &icon_);
+  line.AssignWhenPresent(EXECUTABLE, &executable_);
+
+  if (line.AssignWhenPresent(CATEGORIES, &categories_raw) != "") {
+    categories_ = StringX(categories_raw).Split(";");
     std::sort(categories_.begin(), categories_.end());
   }
-  if (line.AssignmentFor(NO_DISPLAY) != "") {
-    std::string value = line.AssignmentFor(NO_DISPLAY);
-    display_ = (value != "true" && value != "1");
+
+  if (line.AssignWhenPresent(NO_DISPLAY, &display_raw) != "") {
+    display_ = display_raw != "true" && display_raw != "1";
   }
 }
 

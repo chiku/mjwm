@@ -51,16 +51,17 @@ std::string DesktopFileLine::Declaration() const {
 
   std::string::size_type start = content_.find("[") + 1;
   std::string::size_type end = content_.find("]");
-  std::cout << start << " " << end <<"\n";
   return content_.substr(start, end - start);
 }
 
-std::string DesktopFileLine::AssignmentFor(std::string key) const {
+std::string DesktopFileLine::AssignWhenPresent(std::string key, std::string *slot) const {
   if (!IsAssignment() || StringX(content_.substr(0, assignment_delim_location_)).Trim() != key) {
     return "";
   }
 
-  return StringX(content_.substr(assignment_delim_location_ + 1, content_.length())).Trim();
+  std::string result = StringX(content_.substr(assignment_delim_location_ + 1, content_.length())).Trim();
+  *slot = result;
+  return result;
 }
 
 } // namespace amm

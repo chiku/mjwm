@@ -37,7 +37,11 @@ SCENARIO("DesktopFileLine for Comments", "[desktopfileline]") {
       THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
       THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
       THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
-      THEN("it has no assignment") { REQUIRE(line.AssignmentFor("Name") == ""); }
+      THEN("it has no assignment") {
+        std::string name = "old";
+        REQUIRE(line.AssignWhenPresent("Name", &name) == "");
+        REQUIRE(name == "old");
+      }
     }
   }
 }
@@ -54,7 +58,11 @@ SCENARIO("DesktopFileLine for Declarations", "[desktopfileline]") {
 
       THEN("it is not a comment") { REQUIRE(!line.IsComment()); }
       THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
-      THEN("it has no assignment") { REQUIRE(line.AssignmentFor("Name") == ""); }
+      THEN("it has no assignment") {
+        std::string name = "old";
+        REQUIRE(line.AssignWhenPresent("Name", &name) == "");
+        REQUIRE(name == "old");
+      }
     }
 
     WHEN("it has spaces around after a declaration") {
@@ -75,15 +83,19 @@ SCENARIO("DesktopFileLine for Assignments", "[desktopfileline]") {
       DesktopFileLine line("Name=VLC");
 
       THEN("it is an assignment") { REQUIRE(line.IsAssignment()); }
-      WHEN("asked by the same key") {
-        THEN("it has a value") {
-          REQUIRE(line.AssignmentFor("Name") == "VLC");
+      WHEN("asked by the same key for assignment") {
+        THEN("it sets the value") {
+          std::string name = "old";
+          REQUIRE(line.AssignWhenPresent("Name", &name) == "VLC");
+          REQUIRE(name == "VLC");
         }
       }
 
       WHEN("asked by a different key") {
-        THEN("it doesn't have a value") {
-          REQUIRE(line.AssignmentFor("Icon") == "");
+        THEN("it doesn't set a value") {
+          std::string icon = "old";
+          REQUIRE(line.AssignWhenPresent("Icon", &icon) == "");
+          REQUIRE(icon == "old");
         }
       }
 
@@ -95,7 +107,9 @@ SCENARIO("DesktopFileLine for Assignments", "[desktopfileline]") {
     WHEN("it has spaces surrounding the tokens") {
       DesktopFileLine line("\t Name = VLC \n\n");
       THEN("the spaces are ignored") {
-        REQUIRE(line.AssignmentFor("Name") == "VLC");
+        std::string name = "old";
+        REQUIRE(line.AssignWhenPresent("Name", &name) == "VLC");
+        REQUIRE(name == "VLC");
       }
     }
   }
