@@ -23,6 +23,7 @@
 #include <algorithm>
 
 #include "stringx.h"
+#include "desktop_file_line.h"
 
 namespace amm {
 
@@ -69,30 +70,25 @@ bool DesktopFile::IsAnyOf(std::vector<std::string> types) const {
   return false;
 }
 
-void DesktopFile::Populate(std::string line) {
-  if (line[0] == '\0') {
-    return;
+void DesktopFile::Populate(std::string line_raw) {
+  DesktopFileLine line = DesktopFileLine(line_raw);
+
+  if (line.AssignmentFor(NAME) != "") {
+    name_ = line.AssignmentFor(NAME);
   }
-
-  std::string delim = "=";
-  size_t location = line.find(delim);
-  std::string first_part = line.substr(0, location);
-  std::string second_part = line.substr(location + delim.length(), line.length());
-
-  std::string trimmed_first_part = StringX(first_part).Trim();
-
-  if (trimmed_first_part == NAME) {
-    name_ = StringX(second_part).Trim();
-  } else if (trimmed_first_part == ICON) {
-    icon_ = StringX(second_part).Trim();
-  } else if (trimmed_first_part == EXECUTABLE) {
-    executable_ = StringX(second_part).Trim();
-  } else if (trimmed_first_part == CATEGORIES) {
-    categories_ = StringX(StringX(second_part).Trim()).Split(";");
+  if (line.AssignmentFor(ICON) != "") {
+    icon_ = line.AssignmentFor(ICON);
+  }
+  if (line.AssignmentFor(EXECUTABLE) != "") {
+    executable_ = line.AssignmentFor(EXECUTABLE);
+  }
+  if (line.AssignmentFor(CATEGORIES) != "") {
+    categories_ = StringX(line.AssignmentFor(CATEGORIES)).Split(";");
     std::sort(categories_.begin(), categories_.end());
-  } else if (trimmed_first_part == NO_DISPLAY) {
-    std::string trimmed_second_part = StringX(second_part).Trim();
-    display_ = (trimmed_second_part != "true" && trimmed_second_part != "1");
+  }
+  if (line.AssignmentFor(NO_DISPLAY) != "") {
+    std::string value = line.AssignmentFor(NO_DISPLAY);
+    display_ = (value != "true" && value != "1");
   }
 }
 

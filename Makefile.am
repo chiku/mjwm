@@ -7,6 +7,7 @@ AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 bin_PROGRAMS = mjwm
 mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
+               src/desktop_file_line.cc \
                src/desktop_file.cc \
                src/subcategory.cc \
                src/stats.cc \
@@ -22,6 +23,7 @@ mjwm_SOURCES = src/stringx.cc \
 
 check_PROGRAMS = mjwm_stringx_test \
                  mjwm_vectorx_test \
+                 mjwm_desktop_file_line_test \
                  mjwm_desktop_file_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
@@ -43,11 +45,17 @@ mjwm_vectorx_test_SOURCES = src/stringx.cc \
                             src/vectorx.cc \
                             test/vectorx_test.cc
 
+mjwm_desktop_file_line_test_SOURCES = src/stringx.cc \
+                                      src/desktop_file_line.cc \
+                                      test/desktop_file_line_test.cc
+
 mjwm_desktop_file_test_SOURCES = src/stringx.cc \
+                                 src/desktop_file_line.cc \
                                  src/desktop_file.cc \
                                  test/desktop_file_test.cc
 
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
+                                src/desktop_file_line.cc \
                                 src/desktop_file.cc \
                                 src/subcategory.cc \
                                 test/subcategory_test.cc
@@ -59,6 +67,7 @@ mjwm_stats_test_SOURCES = src/stringx.cc \
 
 mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/vectorx.cc \
+                         src/desktop_file_line.cc \
                          src/desktop_file.cc \
                          src/subcategory.cc \
                          src/stats.cc \
