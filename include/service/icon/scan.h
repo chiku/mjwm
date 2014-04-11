@@ -32,6 +32,8 @@ namespace icon {
 class Scan : public IconServiceInterface {
  public:
   Scan();
+  virtual ~Scan() {}
+
   std::string ResolvedName(std::string icon_name) const;
 
  private:

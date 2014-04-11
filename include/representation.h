@@ -27,28 +27,28 @@ namespace amm {
 
 class RepresentationInterface {
 public:
+  virtual ~RepresentationInterface() {}
   virtual std::string name() const = 0;
   virtual std::string visit(TransformerInterface &transformer) const = 0;
-  virtual ~RepresentationInterface() {}
 };
 
 namespace representation {
 class MenuStart : public RepresentationInterface {
  public:
+  virtual ~MenuStart() {}
   virtual std::string name() const { return "Menu start"; }
   virtual std::string visit(TransformerInterface &transformer) const {
     return transformer.Transform(*this);
   }
-  virtual ~MenuStart() {}
 };
 
 class MenuEnd : public RepresentationInterface {
  public:
+  virtual ~MenuEnd() {}
   virtual std::string name() const { return "Menu end"; }
   virtual std::string visit(TransformerInterface &transformer) const {
     return transformer.Transform(*this);
   }
-  virtual ~MenuEnd() {}
 };
 
 
@@ -58,12 +58,12 @@ class SubcategoryStart : public RepresentationInterface {
     name_ = name;
     icon_ = icon;
   }
+  virtual ~SubcategoryStart() {}
   virtual std::string name() const { return name_; }
   virtual std::string icon() const { return icon_; }
   virtual std::string visit(TransformerInterface &transformer) const {
     return transformer.Transform(*this);
   }
-  virtual ~SubcategoryStart() {}
  private:
   std::string name_;
   std::string icon_;
@@ -74,11 +74,11 @@ class SubcategoryEnd : public RepresentationInterface {
   explicit SubcategoryEnd(std::string name) {
     name_ = name;
   }
+  virtual ~SubcategoryEnd() {}
   virtual std::string name() const { return name_ + " end"; }
   virtual std::string visit(TransformerInterface &transformer) const {
     return transformer.Transform(*this);
   }
-  virtual ~SubcategoryEnd() {}
  private:
   std::string name_;
 };
@@ -91,13 +91,13 @@ class Program : public RepresentationInterface {
     icon_ = icon;
     executable_ = executable;
   }
+  virtual ~Program() {}
   virtual std::string name() const { return name_; }
   virtual std::string icon() const { return icon_; }
   virtual std::string executable() const { return executable_; }
   virtual std::string visit(TransformerInterface &transformer) const {
     return transformer.Transform(*this);
   }
-  virtual ~Program() {}
  private:
   std::string name_;
   std::string icon_;

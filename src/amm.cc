@@ -80,7 +80,7 @@ void Amm::ReadCategories() {
 
 void Amm::RegisterIconService() {
   if (options_.is_iconize) {
-    service::IconServiceInterface *icon_service = new service::icon::Scan(); // TODO : GC
+    service::IconServiceInterface *icon_service = new service::icon::Scan();
     menu_.RegisterIconService(*icon_service);
   }
 }

@@ -31,9 +31,18 @@
 namespace amm {
 
 Menu::Menu() {
-  icon_service_ = new service::icon::Mirror; // TODO : GC
+  icon_service_ = new service::icon::Mirror;
   unclassified_subcategory_ = Subcategory("Others", "applications-others", "Others");
   CreateDefaultCategories();
+}
+
+Menu::~Menu() {
+  delete icon_service_;
+}
+
+void Menu::RegisterIconService(service::IconServiceInterface &icon_service) {
+  delete icon_service_;
+  icon_service_ = &icon_service;
 }
 
 void Menu::CreateDefaultCategories() {

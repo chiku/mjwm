@@ -278,8 +278,8 @@ SCENARIO("Menu representations", "[menu]") {
       files.push_back(fixtures_directory + "vlc.desktop");
       files.push_back(fixtures_directory + "mousepad.desktop");
 
-      TestIconService icon_service;
-      menu.RegisterIconService(icon_service);
+      TestIconService *icon_service = new TestIconService;
+      menu.RegisterIconService(*icon_service);
 
       menu.Populate(files);
       std::vector<RepresentationInterface*> representations = menu.Representations();

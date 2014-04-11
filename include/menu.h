@@ -33,10 +33,11 @@ namespace amm {
 class Menu {
  public:
   Menu();
+  ~Menu();
 
+  void RegisterIconService(service::IconServiceInterface &icon_service);
   std::vector<Subcategory> Subcategories() const { return subcategories_; }
   Stats Summary() const { return summary_; }
-  void RegisterIconService(service::IconServiceInterface &icon_service) { icon_service_ = &icon_service; }
 
   void LoadCustomCategories(std::vector<std::string> lines);
   void Populate(std::vector<std::string> desktop_file_names);

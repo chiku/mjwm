@@ -30,6 +30,7 @@ namespace icon {
 // Understands returning the input file-name as the output
 class Mirror : public IconServiceInterface {
  public:
+  virtual ~Mirror() {}
   std::string ResolvedName(std::string icon_name) const { return icon_name; }
 
  private:

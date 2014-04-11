@@ -28,6 +28,7 @@ namespace service {
 // Currently it returns the name of icon with an optional extension
 class IconServiceInterface {
  public:
+  virtual ~IconServiceInterface() {}
   virtual std::string ResolvedName(std::string icon_name) const = 0;
 };
 } // namespace service
