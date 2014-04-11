@@ -17,6 +17,10 @@ mjwm
 
 # Test output
 *.output
+coverage/
+*.gcda
+*.gcno
+*coverage.info
 
 # Program output
 automenu
