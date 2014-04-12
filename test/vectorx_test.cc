@@ -56,6 +56,18 @@ SCENARIO("VectorX", "[vectorx]") {
     }
   }
 
+  GIVEN("A vectorx with no items") {
+    std::vector<std::string> vector;
+    VectorX vectorx(vector);
+
+    WHEN("joined with a delimeter") {
+      std::string result = vectorx.Join("; ");
+      THEN("it returns in an empty string") {
+        REQUIRE(result == "");
+      }
+    }
+  }
+
   GIVEN("A vectorx with some items ending in a delimeter") {
     std::vector<std::string> vector;
     vector.push_back("foo/");
