@@ -245,6 +245,50 @@ SCENARIO("Menu statistics", "[menu]") {
   }
 }
 
+SCENARIO("Menu sort", "[menu]") {
+  GIVEN("A menu") {
+    std::vector<std::string> lines;
+    lines.push_back("Multimedia:multimedia:AudioVideo");
+    lines.push_back("Utilities:utilities:Utility");
+
+    std::vector<std::string> files;
+    files.push_back(fixtures_directory + "vlc.desktop");
+    files.push_back(fixtures_directory + "nested/xfburn.desktop");
+    files.push_back(fixtures_directory + "nested/deepnested/whaawmp.desktop");
+    files.push_back(fixtures_directory + "mousepad.desktop");
+
+    Menu menu;
+    menu.LoadCustomCategories(lines);
+    menu.Populate(files);
+
+    WHEN("sorted") {
+      menu.Sort();
+
+      THEN("it sorts the individual entries inside subcategories") {
+        std::vector<Subcategory> subcategories = menu.Subcategories();
+        REQUIRE(subcategories.size() == 3);
+
+        REQUIRE(subcategories[0].DisplayName() == "Multimedia");
+        std::vector<DesktopFile> multimedia_files = subcategories[0].DesktopFiles();
+        REQUIRE(multimedia_files.size() == 3);
+        REQUIRE(multimedia_files[0].Name() == "VLC media player");
+        REQUIRE(multimedia_files[1].Name() == "Whaaw! Media Player");
+        REQUIRE(multimedia_files[2].Name() == "Xfburn");
+
+        REQUIRE(subcategories[1].DisplayName() == "Utilities");
+        std::vector<DesktopFile> utility_files = subcategories[1].DesktopFiles();
+        REQUIRE(utility_files.size() == 2);
+        REQUIRE(utility_files[0].Name() == "Mousepad");
+        REQUIRE(utility_files[1].Name() == "Xfburn");
+
+        REQUIRE(subcategories[2].DisplayName() == "Others");
+        std::vector<DesktopFile> other_files = subcategories[2].DesktopFiles();
+        REQUIRE(other_files.size() == 0);
+      }
+    }
+  }
+}
+
 SCENARIO("Menu representations", "[menu]") {
   GIVEN("A menu") {
     Menu menu;
