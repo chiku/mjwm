@@ -38,6 +38,7 @@ run mjwm_menu_test
 run mjwm_service_file_search_test
 run mjwm_transformer_jwm_test
 run mjwm_command_line_options_parser_test
+run mjwm_service_environment_variable_test
 
 echo "Suites run: $suites"
 

@@ -37,7 +37,7 @@ EnvironmentVariable::EnvironmentVariable() {
   if (xdg_data_home != NULL) {
     xdg_data_home_ = xdg_data_home;
   } else if (home_ != "") {
-    xdg_data_home_ = home_ + "./local/share";
+    xdg_data_home_ = home_ + "/.local/share";
   }
 
   char *xdg_data_dirs = std::getenv("XDG_DATA_DIRS");

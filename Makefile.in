@@ -84,6 +84,7 @@ check_PROGRAMS = mjwm_stringx_test$(EXEEXT) mjwm_vectorx_test$(EXEEXT) \
 	mjwm_stats_test$(EXEEXT) mjwm_menu_test$(EXEEXT) \
 	mjwm_service_file_search_test$(EXEEXT) \
 	mjwm_transformer_jwm_test$(EXEEXT) \
+	mjwm_service_environment_variable_test$(EXEEXT) \
 	mjwm_command_line_options_parser_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
@@ -144,6 +145,13 @@ am_mjwm_menu_test_OBJECTS = src/stringx.$(OBJEXT) \
 	test/menu_test.$(OBJEXT)
 mjwm_menu_test_OBJECTS = $(am_mjwm_menu_test_OBJECTS)
 mjwm_menu_test_LDADD = $(LDADD)
+am_mjwm_service_environment_variable_test_OBJECTS =  \
+	src/stringx.$(OBJEXT) \
+	src/service/environment_variable.$(OBJEXT) \
+	test/service/environment_variable_test.$(OBJEXT)
+mjwm_service_environment_variable_test_OBJECTS =  \
+	$(am_mjwm_service_environment_variable_test_OBJECTS)
+mjwm_service_environment_variable_test_LDADD = $(LDADD)
 am_mjwm_service_file_search_test_OBJECTS = src/stringx.$(OBJEXT) \
 	src/vectorx.$(OBJEXT) \
 	src/service/environment_variable.$(OBJEXT) \
@@ -209,6 +217,7 @@ SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_parser_test_SOURCES) \
 	$(mjwm_desktop_file_line_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) $(mjwm_menu_test_SOURCES) \
+	$(mjwm_service_environment_variable_test_SOURCES) \
 	$(mjwm_service_file_search_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
 	$(mjwm_subcategory_test_SOURCES) \
@@ -218,6 +227,7 @@ DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_parser_test_SOURCES) \
 	$(mjwm_desktop_file_line_test_SOURCES) \
 	$(mjwm_desktop_file_test_SOURCES) $(mjwm_menu_test_SOURCES) \
+	$(mjwm_service_environment_variable_test_SOURCES) \
 	$(mjwm_service_file_search_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
 	$(mjwm_subcategory_test_SOURCES) \
@@ -632,6 +642,10 @@ mjwm_service_file_search_test_SOURCES = src/stringx.cc \
                                         src/service/file_search.cc \
                                         test/service/file_search_test.cc
 
+mjwm_service_environment_variable_test_SOURCES = src/stringx.cc \
+                                                 src/service/environment_variable.cc \
+                                                 test/service/environment_variable_test.cc
+
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \
                                                 test/command_line_options_parser_test.cc
@@ -826,6 +840,13 @@ test/service/$(am__dirstamp):
 test/service/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/service/$(DEPDIR)
 	@: > test/service/$(DEPDIR)/$(am__dirstamp)
+test/service/environment_variable_test.$(OBJEXT):  \
+	test/service/$(am__dirstamp) \
+	test/service/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_service_environment_variable_test$(EXEEXT): $(mjwm_service_environment_variable_test_OBJECTS) $(mjwm_service_environment_variable_test_DEPENDENCIES) $(EXTRA_mjwm_service_environment_variable_test_DEPENDENCIES) 
+	@rm -f mjwm_service_environment_variable_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_service_environment_variable_test_OBJECTS) $(mjwm_service_environment_variable_test_LDADD) $(LIBS)
 test/service/file_search_test.$(OBJEXT): test/service/$(am__dirstamp) \
 	test/service/$(DEPDIR)/$(am__dirstamp)
 
@@ -905,6 +926,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stringx_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/vectorx_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/service/$(DEPDIR)/environment_variable_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/service/$(DEPDIR)/file_search_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/transformer/$(DEPDIR)/jwm_test.Po@am__quote@
 
@@ -1245,6 +1267,13 @@ mjwm_service_file_search_test.log: mjwm_service_file_search_test$(EXEEXT)
 mjwm_transformer_jwm_test.log: mjwm_transformer_jwm_test$(EXEEXT)
 	@p='mjwm_transformer_jwm_test$(EXEEXT)'; \
 	b='mjwm_transformer_jwm_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_service_environment_variable_test.log: mjwm_service_environment_variable_test$(EXEEXT)
+	@p='mjwm_service_environment_variable_test$(EXEEXT)'; \
+	b='mjwm_service_environment_variable_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

@@ -30,6 +30,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_menu_test \
                  mjwm_service_file_search_test \
                  mjwm_transformer_jwm_test \
+                 mjwm_service_environment_variable_test \
                  mjwm_command_line_options_parser_test
 
 mjwmdir=$(datadir)/mjwm
@@ -85,6 +86,10 @@ mjwm_service_file_search_test_SOURCES = src/stringx.cc \
                                         src/service/environment_variable.cc \
                                         src/service/file_search.cc \
                                         test/service/file_search_test.cc
+
+mjwm_service_environment_variable_test_SOURCES = src/stringx.cc \
+                                                 src/service/environment_variable.cc \
+                                                 test/service/environment_variable_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \
