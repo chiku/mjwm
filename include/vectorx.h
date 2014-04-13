@@ -33,7 +33,7 @@ class VectorX {
   std::vector<std::string> TerminateWith(std::string delimiter) const; //StringX
   std::vector<std::string> Unique() const; // FSS
  private:
-  std::vector<std::string> vector_;
+  const std::vector<std::string> vector_;
 };
 } // namespace amm
 

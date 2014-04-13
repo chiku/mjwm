@@ -62,8 +62,8 @@ class SubcategoryStart : public RepresentationInterface {
     return transformer.Transform(*this);
   }
  private:
-  std::string name_;
-  std::string icon_;
+  const std::string name_;
+  const std::string icon_;
 };
 
 class SubcategoryEnd : public RepresentationInterface {
@@ -75,7 +75,7 @@ class SubcategoryEnd : public RepresentationInterface {
     return transformer.Transform(*this);
   }
  private:
-  std::string name_;
+  const std::string name_;
 };
 
 
@@ -90,9 +90,9 @@ class Program : public RepresentationInterface {
     return transformer.Transform(*this);
   }
  private:
-  std::string name_;
-  std::string icon_;
-  std::string executable_;
+  const std::string name_;
+  const std::string icon_;
+  const std::string executable_;
 };
 } // namespace representation
 } // namespace amm

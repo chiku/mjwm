@@ -34,9 +34,9 @@ class DesktopFileLine {
   std::string AssignWhenPresent(std::string key, std::string *slot) const;
 
  private:
-  std::string content_;
-  std::string::size_type content_length_;
-  std::string::size_type assignment_delim_location_;
+  const std::string content_;
+  const std::string::size_type content_length_;
+  const std::string::size_type assignment_delim_location_;
 };
 } // namespace amm
 

@@ -34,7 +34,7 @@ class StringX {
   std::string Trim() const; // DesktopFile
   std::vector<std::string> Split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
  private:
-  std::string string_;
+  const std::string string_;
 };
 } // namespace amm
 
