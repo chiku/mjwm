@@ -2,15 +2,17 @@ language: cpp
 compiler:
   - gcc
   - clang
+before_install:
+  - sudo apt-get install lcov
+  - sudo pip install cpp-coveralls
 script:
   - ./autogen.sh
   - ./configure --prefix /tmp/mjwm
-  - make -j4
   - make check -j4
   - ./test_runner.sh
-  - make install-strip
-  - ls -halR /tmp/mjwm
-  - time /tmp/mjwm/bin/mjwm -o automenu.default
-  - cat automenu.default
-  - time /tmp/mjwm/bin/mjwm --iconize  -o automenu.iconize
-  - cat automenu.iconize
+  - make install-strip && ls -halR /tmp/mjwm
+  - time /tmp/mjwm/bin/mjwm -o automenu.default && cat automenu.default
+  - time /tmp/mjwm/bin/mjwm --iconize -o automenu.iconize && cat automenu.iconize
+  - ./coverage.sh
+after_success:
+  - coveralls --exclude test

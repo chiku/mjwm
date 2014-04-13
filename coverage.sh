@@ -7,6 +7,11 @@ validate() {
     echo "Please install lcov"
     exit 1
   fi
+  if [ $CXX != "g++" ]
+  then
+    echo "Can't generate coverage if compiler is not g++"
+    exit 0
+  fi
 }
 
 reconfigure_with_coverage_support() {

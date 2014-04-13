@@ -573,7 +573,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 
-# AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra -fno-exceptions -fno-rtti -fno-threadsafe-statics -ffast-math
+# AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra -fno-exceptions -fno-rtti -fno-threadsafe-statics -ffast-math -flto
 AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
