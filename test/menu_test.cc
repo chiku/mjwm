@@ -30,7 +30,7 @@
 
 namespace amm {
 
-static const std::string fixtures_directory = "test/fixtures/";
+static const std::string kapplicationFixturesDirectory = "test/fixtures/applications/";
 
 class TestTransformer : public TransformerInterface {
  public:
@@ -171,8 +171,8 @@ SCENARIO("Menu statistics", "[menu]") {
 
     WHEN("successfully parsed") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "vlc.desktop");
-      files.push_back(fixtures_directory + "mousepad.desktop");
+      files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
+      files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
       menu.Populate(files);
       Stats summary = menu.Summary();
 
@@ -183,8 +183,8 @@ SCENARIO("Menu statistics", "[menu]") {
 
     WHEN("parsing an unclassified desktop file") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "unclassified.desktop");
-      files.push_back(fixtures_directory + "mousepad.desktop");
+      files.push_back(kapplicationFixturesDirectory + "unclassified.desktop");
+      files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
       menu.Populate(files);
       Stats summary = menu.Summary();
 
@@ -202,8 +202,8 @@ SCENARIO("Menu statistics", "[menu]") {
 
     WHEN("parsing a file suppressed with 'NoDisplay=true'") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "mousepad.desktop");
-      files.push_back(fixtures_directory + "suppressed.desktop");
+      files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
+      files.push_back(kapplicationFixturesDirectory + "suppressed.desktop");
       menu.Populate(files);
       Stats summary = menu.Summary();
 
@@ -214,8 +214,8 @@ SCENARIO("Menu statistics", "[menu]") {
 
     WHEN("parsing a file with missing entries") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "vlc.desktop");
-      files.push_back(fixtures_directory + "missing.desktop");
+      files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
+      files.push_back(kapplicationFixturesDirectory + "missing.desktop");
       menu.Populate(files);
       Stats summary = menu.Summary();
 
@@ -223,15 +223,15 @@ SCENARIO("Menu statistics", "[menu]") {
         std::vector<std::string> unparsed_files = summary.UnparsedFiles();
 
         REQUIRE(unparsed_files.size() == 1);
-        REQUIRE(unparsed_files[0] == fixtures_directory + "missing.desktop");
+        REQUIRE(unparsed_files[0] == kapplicationFixturesDirectory + "missing.desktop");
       }
     }
 
     WHEN("parsing a file with missing and suppressed entries") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "suppressed.desktop");
-      files.push_back(fixtures_directory + "suppressedinvalid.desktop");
-      files.push_back(fixtures_directory + "missing.desktop");
+      files.push_back(kapplicationFixturesDirectory + "suppressed.desktop");
+      files.push_back(kapplicationFixturesDirectory + "suppressedinvalid.desktop");
+      files.push_back(kapplicationFixturesDirectory + "missing.desktop");
       menu.Populate(files);
       Stats summary = menu.Summary();
 
@@ -239,7 +239,7 @@ SCENARIO("Menu statistics", "[menu]") {
         std::vector<std::string> unparsed_files = summary.UnparsedFiles();
 
         REQUIRE(unparsed_files.size() == 1);
-        REQUIRE(unparsed_files[0] == fixtures_directory + "missing.desktop");
+        REQUIRE(unparsed_files[0] == kapplicationFixturesDirectory + "missing.desktop");
       }
     }
   }
@@ -252,10 +252,10 @@ SCENARIO("Menu sort", "[menu]") {
     lines.push_back("Utilities:utilities:Utility");
 
     std::vector<std::string> files;
-    files.push_back(fixtures_directory + "vlc.desktop");
-    files.push_back(fixtures_directory + "nested/xfburn.desktop");
-    files.push_back(fixtures_directory + "nested/deepnested/whaawmp.desktop");
-    files.push_back(fixtures_directory + "mousepad.desktop");
+    files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
+    files.push_back(kapplicationFixturesDirectory + "nested/xfburn.desktop");
+    files.push_back(kapplicationFixturesDirectory + "nested/deepnested/whaawmp.desktop");
+    files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
 
     Menu menu;
     menu.LoadCustomCategories(lines);
@@ -295,8 +295,8 @@ SCENARIO("Menu representations", "[menu]") {
 
     WHEN("transformed to a representations") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "vlc.desktop");
-      files.push_back(fixtures_directory + "mousepad.desktop");
+      files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
+      files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
 
       menu.Populate(files);
       std::vector<RepresentationInterface*> representations = menu.Representations();
@@ -319,8 +319,8 @@ SCENARIO("Menu representations", "[menu]") {
 
     WHEN("transformed to a representations with icon service") {
       std::vector<std::string> files;
-      files.push_back(fixtures_directory + "vlc.desktop");
-      files.push_back(fixtures_directory + "mousepad.desktop");
+      files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
+      files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
 
       TestIconService *icon_service = new TestIconService;
       menu.RegisterIconService(*icon_service);

@@ -36,21 +36,21 @@ static bool present_in(std::string item, std::vector<std::string> list) {
 static void assert_files_are_present_in_list(std::vector<std::string> file_names) {
   REQUIRE(file_names.size() == 8);
 
-  REQUIRE(present_in("test/fixtures/missing.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/mousepad.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/unclassified.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/vlc.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/suppressed.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/suppressedinvalid.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/nested/xfburn.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/nested/deepnested/whaawmp.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/missing.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/mousepad.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/unclassified.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/vlc.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/suppressed.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/suppressedinvalid.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/nested/xfburn.desktop", file_names));
+  REQUIRE(present_in("test/fixtures/applications/nested/deepnested/whaawmp.desktop", file_names));
 }
 
 
 SCENARIO("service::FileSearch", "[filesearch]") {
   GIVEN("A file search service with one directory") {
     std::vector<std::string> directory_names;
-    directory_names.push_back("test/fixtures/");
+    directory_names.push_back("test/fixtures/applications/");
     FileSearch service;
     service.RegisterDirectories(directory_names);
 
@@ -65,8 +65,8 @@ SCENARIO("service::FileSearch", "[filesearch]") {
 
   GIVEN("A file search service with repeated directory") {
     std::vector<std::string> directory_names;
-    directory_names.push_back("test/fixtures/");
-    directory_names.push_back("test/fixtures");
+    directory_names.push_back("test/fixtures/applications/");
+    directory_names.push_back("test/fixtures/applications");
     FileSearch service;
     service.RegisterDirectories(directory_names);
 
@@ -81,8 +81,8 @@ SCENARIO("service::FileSearch", "[filesearch]") {
 
   GIVEN("A file search service with one existing directory and one missing directory") {
     std::vector<std::string> directory_names;
-    directory_names.push_back("test/fixtures");
-    directory_names.push_back("test/does-not-exist");
+    directory_names.push_back("test/fixtures/applications");
+    directory_names.push_back("test/does-not-exist/applications");
     FileSearch service;
     service.RegisterDirectories(directory_names);
 
@@ -96,7 +96,7 @@ SCENARIO("service::FileSearch", "[filesearch]") {
       THEN("it tracks the directory that doesn't exist") {
         std::vector<std::string> bad_paths = service.BadPaths();
         REQUIRE(bad_paths.size() == 1);
-        REQUIRE(bad_paths[0] == "test/does-not-exist/");
+        REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
       }
     }
   }

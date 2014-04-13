@@ -32,14 +32,15 @@ namespace service {
 
 SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
   GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
-    EnvironmentVariable env_vars;
+    EnvironmentVariable environment_variable;
 
     setenv("XDG_DATA_HOME", "/data/home", 1);
     setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
 
+
     WHEN("XDG data directories is asked") {
       THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {
-        std::vector<std::string> directories = env_vars.XdgDataDirectories();
+        std::vector<std::string> directories = environment_variable.XdgDataDirectories();
         REQUIRE(directories.size() == 2);
         REQUIRE(directories[0] == "/data/dir1");
         REQUIRE(directories[1] == "/data/dir2/");
@@ -48,7 +49,7 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
 
     WHEN("base directories for 'applications' subdirectory is asked") {
       THEN("it is a list of directories pointed to by XDG_DATA_HOME, XDG_DATA_DIRS") {
-        std::vector<std::string> directories = env_vars.ApplicationBaseDirectories();
+        std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
         REQUIRE(directories.size() == 3);
         REQUIRE(directories[0] == "/data/home");
         REQUIRE(directories[1] == "/data/dir1");
@@ -58,7 +59,7 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
   }
 
   GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
-    EnvironmentVariable env_vars;
+    EnvironmentVariable environment_variable;
 
     setenv("HOME", "/home", 1);
     unsetenv("XDG_DATA_HOME");
@@ -66,7 +67,7 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
 
     WHEN("base directories for 'applications' subdirectory is asked") {
       THEN("it is a list of directories pointed to by $HOME/.local/share, /usr/local/share:/usr/share") {
-        std::vector<std::string> directories = env_vars.ApplicationBaseDirectories();
+        std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
         REQUIRE(directories.size() == 3);
         REQUIRE(directories[0] == "/home/.local/share");
         REQUIRE(directories[1] == "/usr/local/share");
@@ -76,7 +77,7 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
   }
 
   GIVEN("XDG_DATA_HOME is unset and HOME is unset") {
-    EnvironmentVariable env_vars;
+    EnvironmentVariable environment_variable;
 
     unsetenv("HOME");
     unsetenv("XDG_DATA_HOME");
@@ -84,7 +85,7 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
 
     WHEN("base directories for 'applications' subdirectory is asked") {
       THEN("it is a list of directories pointed to by /usr/local/share:/usr/share") {
-        std::vector<std::string> directories = env_vars.ApplicationBaseDirectories();
+        std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
         REQUIRE(directories.size() == 2);
         REQUIRE(directories[0] == "/usr/local/share");
         REQUIRE(directories[1] == "/usr/share");
