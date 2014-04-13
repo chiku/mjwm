@@ -37,6 +37,11 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
     setenv("XDG_DATA_HOME", "/data/home", 1);
     setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
 
+    WHEN("XDG data home is asked") {
+      THEN("it is the directory pointed to by XDG_DATA_HOME") {
+        REQUIRE(environment_variable.XdgDataHome() == "/data/home");
+      }
+    }
 
     WHEN("XDG data directories is asked") {
       THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {

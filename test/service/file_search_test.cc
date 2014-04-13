@@ -47,7 +47,7 @@ static void assert_files_are_present_in_list(std::vector<std::string> file_names
 }
 
 
-SCENARIO("service::FileSearch", "[filesearch]") {
+SCENARIO("service::FileSearch custom directories", "[filesearch]") {
   GIVEN("A file search service with one directory") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/applications/");
@@ -97,6 +97,32 @@ SCENARIO("service::FileSearch", "[filesearch]") {
         std::vector<std::string> bad_paths = service.BadPaths();
         REQUIRE(bad_paths.size() == 1);
         REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
+      }
+    }
+  }
+}
+
+SCENARIO("service::FileSearch default directories", "[filesearch]") {
+  GIVEN("XDG_DATA_DIRS points to a existing directory and a missing directory") {
+    unsetenv("HOME");
+    unsetenv("XDG_DATA_HOME");
+    setenv("XDG_DATA_DIRS", "test/fixtures:test/does-not-exist", 1);
+
+    GIVEN("A default file search service") {
+      std::vector<std::string> directory_names;
+      FileSearch service;
+      service.RegisterDirectoriesWithFallback(directory_names);
+
+      WHEN("resolved") {
+        service.Resolve();
+
+        THEN("it has a list of files with extension 'desktop' inside the directory") {
+          assert_files_are_present_in_list(service.DesktopFileNames());
+        }
+
+        THEN("it doesn't track the absent directory") {
+          REQUIRE(service.BadPaths().size() == 0);
+        }
       }
     }
   }
