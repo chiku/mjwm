@@ -46,9 +46,7 @@ static std::vector<std::string> DefaultDirectories() {
   return directory_names;
 }
 
-FileSearch::FileSearch() {
-  capture_bad_paths_ = true;
-}
+FileSearch::FileSearch() : capture_bad_paths_(true) {}
 
 void FileSearch::RegisterDirectoriesWithFallback(std::vector<std::string> directory_names) {
   if (directory_names.size() <= 0) {

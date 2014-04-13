@@ -41,6 +41,7 @@ class Scan : public IconServiceInterface {
   std::vector<std::string> ViableExtensions(std::string icon_name) const;
   std::string SearchedFileName(std::string icon_name) const;
   bool ShouldAppendExtension(std::string icon_name) const;
+
   std::vector<std::string> registered_extensions_;
   std::vector<std::string> search_locations_;
   EnvironmentVariable environment_variable;

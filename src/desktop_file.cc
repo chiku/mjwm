@@ -27,10 +27,7 @@
 
 namespace amm {
 
-DesktopFile::DesktopFile() {
-  display_ = true;
-  populate_under_desktop_entry_ = true;
-}
+DesktopFile::DesktopFile() : display_(true), populate_under_desktop_entry_(true) { }
 
 bool DesktopFile::operator < (const DesktopFile &other) const {
   return name_ < other.name_;

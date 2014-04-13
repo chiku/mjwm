@@ -33,8 +33,8 @@ class Subcategory {
   Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
 
   std::string DisplayName() const { return display_name_; }
-  std::vector<std::string> ClassificationNames() const { return classification_names_; }
   std::string IconName() const { return icon_name_; }
+  std::vector<std::string> ClassificationNames() const { return classification_names_; }
   std::vector<DesktopFile> DesktopFiles() const { return desktop_files_; }
 
   bool HasEntries() const;
@@ -43,8 +43,8 @@ class Subcategory {
 
  private:
   std::string display_name_;
-  std::vector<std::string> classification_names_;
   std::string icon_name_;
+  std::vector<std::string> classification_names_;
   std::vector<DesktopFile> desktop_files_;
 };
 } // namespace amm

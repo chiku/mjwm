@@ -24,13 +24,7 @@
 
 namespace amm {
 struct AmmOptions {
-  AmmOptions() {
-    is_parsed = false;
-    is_help = false;
-    is_version = false;
-    is_iconize = false;
-    output_file_name = "./automenu";
-  }
+  AmmOptions() : is_parsed(false), is_help(false), is_version(false), is_iconize(false), output_file_name("./automenu") {}
 
   bool is_parsed;
   bool is_help;

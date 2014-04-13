@@ -48,13 +48,11 @@ class Menu {
   void Classify(DesktopFile entry, std::string file_name);
   void CreateDefaultCategories();
 
-  std::vector<std::string> desktop_file_names_;
-
-  Stats summary_;
-
   service::IconServiceInterface *icon_service_;
-  std::vector<Subcategory> subcategories_;
   Subcategory unclassified_subcategory_;
+  std::vector<Subcategory> subcategories_;
+  std::vector<std::string> desktop_file_names_;
+  Stats summary_;
 };
 } // namespace amm
 

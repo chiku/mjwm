@@ -30,9 +30,8 @@
 
 namespace amm {
 
-Menu::Menu() {
-  icon_service_ = new service::icon::Mirror;
-  unclassified_subcategory_ = Subcategory("Others", "applications-others", "Others");
+Menu::Menu() : icon_service_(new service::icon::Mirror),
+    unclassified_subcategory_(Subcategory("Others", "applications-others", "Others")) {
   CreateDefaultCategories();
 }
 

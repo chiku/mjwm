@@ -54,10 +54,7 @@ class MenuEnd : public RepresentationInterface {
 
 class SubcategoryStart : public RepresentationInterface {
  public:
-  SubcategoryStart(std::string name, std::string icon) {
-    name_ = name;
-    icon_ = icon;
-  }
+  SubcategoryStart(std::string name, std::string icon) : name_(name), icon_(icon) {}
   virtual ~SubcategoryStart() {}
   virtual std::string name() const { return name_; }
   virtual std::string icon() const { return icon_; }
@@ -71,9 +68,7 @@ class SubcategoryStart : public RepresentationInterface {
 
 class SubcategoryEnd : public RepresentationInterface {
  public:
-  explicit SubcategoryEnd(std::string name) {
-    name_ = name;
-  }
+  explicit SubcategoryEnd(std::string name) : name_(name) {}
   virtual ~SubcategoryEnd() {}
   virtual std::string name() const { return name_ + " end"; }
   virtual std::string visit(TransformerInterface &transformer) const {
@@ -86,11 +81,7 @@ class SubcategoryEnd : public RepresentationInterface {
 
 class Program : public RepresentationInterface {
  public:
-  Program(std::string name, std::string icon, std::string executable) {
-    name_ = name;
-    icon_ = icon;
-    executable_ = executable;
-  }
+  Program(std::string name, std::string icon, std::string executable) : name_(name), icon_(icon), executable_(executable) {}
   virtual ~Program() {}
   virtual std::string name() const { return name_; }
   virtual std::string icon() const { return icon_; }

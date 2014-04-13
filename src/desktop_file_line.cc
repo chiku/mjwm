@@ -26,11 +26,10 @@ namespace amm {
 
 const std::string kAssignmentDelim = "=";
 
-DesktopFileLine::DesktopFileLine(std::string content) {
-  content_ = StringX(content).Trim();
-  content_length_ = content_.size();
-  assignment_delim_location_ = content_.find(kAssignmentDelim);
-}
+DesktopFileLine::DesktopFileLine(std::string content) :
+    content_(StringX(content).Trim()),
+    content_length_(content_.size()),
+    assignment_delim_location_(content_.find(kAssignmentDelim)) {}
 
 bool DesktopFileLine::IsComment() const {
   return content_[0] == '#';
