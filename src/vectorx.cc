@@ -38,11 +38,11 @@ std::string VectorX::Join(std::string delimeter) const {
   }
 
   if (vector_size >= 2) {
-    for (size_t i = 0; i < vector_size - 1; ++i) {
-      stream << vector_[i] << delimeter;
+    for (std::vector<std::string>::const_iterator iterator = vector_.begin(); iterator != vector_.end()-1; ++iterator) {
+      stream << *iterator << delimeter;
     }
   }
-  stream << vector_[vector_size - 1];
+  stream << vector_.back();
 
   return stream.str();
 }

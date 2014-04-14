@@ -68,14 +68,13 @@ void Menu::LoadCustomCategories(std::vector<std::string> lines) {
       std::vector<std::string> tokens = StringX(*line).Split(":");
       if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "") {
         std::vector<std::string> classification_names;
-        for (size_t i = 2; i < tokens.size(); ++i) {
-          if (tokens[i] != "") {
-            classification_names.push_back(tokens[i]);
+        for (std::vector<std::string>::const_iterator token = tokens.begin()+2; token != tokens.end(); ++token) {
+          if (*token != "") {
+            classification_names.push_back(*token);
           }
         }
         if (classification_names.size() > 0) {
-          Subcategory subcategory(tokens[0], tokens[1], classification_names);
-          subcategories_.push_back(subcategory);
+          subcategories_.push_back(Subcategory(tokens[0], tokens[1], classification_names));
         }
       }
     }

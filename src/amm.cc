@@ -126,11 +126,11 @@ void Amm::WriteOutputFile() {
     output_file << (*representation)->visit(jwm_transformer) << std::endl;
   }
 
+  output_file.close();
+
   for (std::vector<RepresentationInterface*>::iterator representation = representations.begin(); representation != representations.end(); ++representation) {
     delete *representation;
   }
-
-  output_file.close();
 }
 
 void Amm::PrintSummary() {
