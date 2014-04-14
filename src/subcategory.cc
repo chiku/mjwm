@@ -44,6 +44,8 @@ void Subcategory::AddDesktopFile(DesktopFile desktop_file) {
 
 void Subcategory::SortDesktopFiles() {
   std::sort(desktop_files_.begin(), desktop_files_.end());
+  std::vector<amm::DesktopFile>::iterator it = std::unique(desktop_files_.begin(), desktop_files_.end());
+  desktop_files_.resize(std::distance(desktop_files_.begin(), it));
 }
 
 } // namespace amm

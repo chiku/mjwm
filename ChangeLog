@@ -9,6 +9,7 @@ Current
 * Recursively scan inside sub-directories of $XDG_DATA_HOME & $XDG_DATA_DIRS for desktop files [#29]
 * Search for icons (png, svg, xpm) in $HOME/.icons, $XDG_DATA_DIRS/icons & /usr/share/pixmaps when command-line option --iconize is specified [#35]
 * Desktop files that couldn't be open are reported as unparsed [#37]
+* Suppress duplicate entries in a single subcategory [#14]
 
 v2.4.0
 ------

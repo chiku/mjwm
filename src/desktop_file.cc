@@ -37,6 +37,7 @@ bool DesktopFile::operator > (const DesktopFile &other) const {
   return name_ > other.name_;
 }
 
+// TODO : uniqueness should depend on name and executable
 bool DesktopFile::operator == (const DesktopFile &other) const {
   return name_ == other.name_;
 }

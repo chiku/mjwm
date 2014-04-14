@@ -75,6 +75,21 @@ SCENARIO("subcategory", "[subcategory]") {
         }
       }
     }
+
+    WHEN("with a repeated desktop file") {
+      subcategory.AddDesktopFile(sakura_desktop_file());
+      subcategory.AddDesktopFile(mousepad_desktop_file());
+      subcategory.AddDesktopFile(sakura_desktop_file());
+      WHEN("sorted") {
+        subcategory.SortDesktopFiles();
+        THEN("it doesn't repeat entries") {
+          std::vector<DesktopFile> desktop_files = subcategory.DesktopFiles();
+          REQUIRE(desktop_files.size() == 2);
+          REQUIRE(desktop_files[0].Name() == "Mousepad");
+          REQUIRE(desktop_files[1].Name() == "Sakura");
+        }
+      }
+    }
   }
 }
 
