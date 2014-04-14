@@ -21,8 +21,6 @@
 
 #include <string>
 
-#include "representation.h"
-
 namespace amm {
 namespace representation {
   // Forward declare classes to break circular dependency between amm::representation::* and amm::transformer::*

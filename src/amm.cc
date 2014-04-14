@@ -31,7 +31,6 @@
 #include "service/icon_service_interface.h"
 #include "service/icon/scan.h"
 #include "service/file_search.h"
-#include "representation.h"
 #include "stats.h"
 #include "menu.h"
 #include "transformer/jwm.h"

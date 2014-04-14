@@ -27,6 +27,11 @@
 #include "service/icon/mirror.h"
 #include "desktop_file.h"
 #include "subcategory.h"
+#include "representation/menu_start.h"
+#include "representation/menu_end.h"
+#include "representation/subcategory_start.h"
+#include "representation/subcategory_end.h"
+#include "representation/program.h"
 
 namespace amm {
 

@@ -21,7 +21,11 @@
 #include "transformer/jwm.h"
 
 #include "../catch.hpp"
-#include "representation.h"
+#include "representation/menu_start.h"
+#include "representation/menu_end.h"
+#include "representation/subcategory_start.h"
+#include "representation/subcategory_end.h"
+#include "representation/program.h"
 
 namespace amm {
 

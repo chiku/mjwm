@@ -24,7 +24,11 @@
 #include <vector>
 
 #include "catch.hpp"
-#include "representation.h"
+#include "representation/menu_start.h"
+#include "representation/menu_end.h"
+#include "representation/subcategory_start.h"
+#include "representation/subcategory_end.h"
+#include "representation/program.h"
 #include "transformer_interface.h"
 #include "service/icon_service_interface.h"
 

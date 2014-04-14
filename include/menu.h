@@ -26,7 +26,7 @@
 #include "subcategory.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/mirror.h"
-#include "representation.h"
+#include "representation_interface.h"
 
 namespace amm {
 // Understands a collection of desktop files divided in subcategories
