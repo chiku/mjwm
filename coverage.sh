@@ -37,7 +37,6 @@ cleanup() {
 }
 
 set -e
-trap "cleanup" SIGTERM
 
 validate
 cleanup
@@ -45,3 +44,4 @@ rm -rf coverage
 reconfigure_with_coverage_support
 generate_coverage_output
 generate_html_report
+cleanup
