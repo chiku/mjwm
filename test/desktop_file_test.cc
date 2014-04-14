@@ -115,6 +115,7 @@ SCENARIO("DesktopFile comparisons", "[desktopfile]") {
   GIVEN("A desktop-file") {
     DesktopFile entry;
     entry.Populate("Name=Mousepad");
+    entry.Populate("Exec=mousepad");
 
     WHEN("compared to another desktop-file") {
       DesktopFile other_entry;
@@ -138,8 +139,9 @@ SCENARIO("DesktopFile comparisons", "[desktopfile]") {
         }
       }
 
-      WHEN("the other desktop-file has same name") {
+      WHEN("the other desktop-file has same name and executable") {
         other_entry.Populate("Name=Mousepad");
+        other_entry.Populate("Exec=mousepad");
 
         THEN("the desktop file is equal to the other desktop file") {
           REQUIRE(entry == other_entry);
@@ -149,6 +151,17 @@ SCENARIO("DesktopFile comparisons", "[desktopfile]") {
 
       WHEN("the other desktop-file has a different name") {
         other_entry.Populate("Name=VLC");
+        other_entry.Populate("Exec=mousepad");
+
+        THEN("the desktop file is not equal to the other desktop file") {
+          REQUIRE(entry != other_entry);
+          REQUIRE(!(other_entry == entry));
+        }
+      }
+
+      WHEN("the other desktop-file has a different executable") {
+        other_entry.Populate("Name=Mousepad");
+        other_entry.Populate("Exec=vlc");
 
         THEN("the desktop file is not equal to the other desktop file") {
           REQUIRE(entry != other_entry);
