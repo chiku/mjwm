@@ -82,33 +82,49 @@ void Menu::LoadCustomCategories(std::vector<std::string> lines) {
 }
 
 void Menu::Populate(std::vector<std::string> desktop_file_names) {
-  std::vector<std::string>::const_iterator name;
-  for (name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
-    std::string line;
-    DesktopFile desktop_file;
-    std::ifstream file(name->c_str());
-
-    if (file.good()) {
-      while (std::getline(file, line)) {
-        desktop_file.Populate(line);
-      }
-      if (!desktop_file.Display()) {
-        summary_.AddSuppressedFile(*name);
-      } else if (desktop_file.IsValid()) {
-        Classify(desktop_file, *name);
-      } else {
-        summary_.AddUnparsedFile(*name);
-      }
-
-      file.close();
-    }
+  for (std::vector<std::string>::const_iterator name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
+    AddDesktopFile(*name);
   }
 
   subcategories_.push_back(unclassified_subcategory_);
 }
 
-// TODO : desktop file should store which file it was created from
-void Menu::Classify(DesktopFile desktop_file, std::string desktop_file_name) {
+void Menu::AddDesktopFile(std::string desktop_file_name) {
+  std::ifstream file(desktop_file_name.c_str());
+
+  if (!file.good()) {
+    summary_.AddUnparsedFile(desktop_file_name);
+    return;
+  }
+
+  DesktopFile desktop_file;
+  std::string line;
+  while (std::getline(file, line)) {
+    desktop_file.Populate(line);
+  }
+  file.close();
+
+  if (!desktop_file.Display()) {
+    summary_.AddSuppressedFile(desktop_file_name);
+    return;
+  }
+
+  if (!desktop_file.IsValid()) {
+    summary_.AddUnparsedFile(desktop_file_name);
+    return;
+  }
+
+  bool classified = Classify(desktop_file);
+  if (classified) {
+    summary_.AddClassifiedFile(desktop_file_name);
+  } else {
+    unclassified_subcategory_.AddDesktopFile(desktop_file);
+    summary_.AddUnclassifiedFile(desktop_file_name);
+    summary_.AddUnhandledClassifications(desktop_file.Categories());
+  }
+}
+
+bool Menu::Classify(DesktopFile desktop_file) {
   bool classified = false;
 
   std::vector<Subcategory>::iterator subcategory;
@@ -119,13 +135,7 @@ void Menu::Classify(DesktopFile desktop_file, std::string desktop_file_name) {
     }
   }
 
-  if (classified) {
-    summary_.AddClassifiedFile(desktop_file_name);
-  } else {
-    unclassified_subcategory_.AddDesktopFile(desktop_file);
-    summary_.AddUnclassifiedFile(desktop_file_name);
-    summary_.AddUnhandledClassifications(desktop_file.Categories());
-  }
+  return classified;
 }
 
 void Menu::Sort() {
