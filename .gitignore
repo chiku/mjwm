@@ -21,6 +21,7 @@ coverage/
 *.gcda
 *.gcno
 *coverage.info
+*.gcov
 
 # Program output
 automenu

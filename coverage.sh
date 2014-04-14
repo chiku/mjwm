@@ -37,7 +37,7 @@ cleanup() {
 }
 
 set -e
-trap "cleanup" SIGINT SIGTERM
+trap "cleanup" SIGTERM
 
 validate
 cleanup
