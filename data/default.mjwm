@@ -15,17 +15,18 @@
 # Categories=Application;Utility;TextEditor;GTK;
 #Editors:mousepad.png:TextEditor
 # will add an entry for Mousepad under Editors subcategory
-Settings:settings:Settings
-Accessories:accessories:Utility
-Development:development:Development
-Education:education:Education
-Games:games:Game
-Graphics:graphics:Graphics
-Internet:internet:Network
-Multimedia:multimedia:AudioVideo
-Office:office:Office
-Science:science:Science
-System:system:System
+
+Settings:gnome-settings:Settings
+Accessories:applications-accessories:Utility
+Development:applications-development:
+Education:applications-science:Education
+Games:applications-games:Game
+Graphics:applications-graphics:Graphics
+Internet:applications-internet:Network
+Multimedia:applications-multimedia:AudioVideo
+Office:applications-office:Office
+Science:applications-science:Science
+System:applications-system:System
 
 # You can add multiple category names to a subcategory. The desktop entries would be merged in the final menu.
 
