@@ -28,6 +28,8 @@
 namespace amm {
 class Amm {
  public:
+  Amm();
+  ~Amm();
   void LoadCommandLineOption(int argc, char **argv);
   void RegisterIconService();
   void ReadCategories();
@@ -37,7 +39,7 @@ class Amm {
   void PrintSummary();
 
  private:
-  AmmOptions options_;
+  AmmOptions *options_;
   Menu menu_;
   std::vector<std::string> desktop_file_names_;
 };

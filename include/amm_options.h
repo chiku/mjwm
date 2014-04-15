@@ -22,9 +22,14 @@
 #include <string>
 #include <vector>
 
+#include "stringx.h"
+#include "service/environment_variable.h"
+
 namespace amm {
 struct AmmOptions {
-  AmmOptions() : is_parsed(false), is_help(false), is_version(false), is_iconize(false), output_file_name("./automenu") {}
+  AmmOptions(std::string home) : is_parsed(false), is_help(false), is_version(false), is_iconize(false) {
+    output_file_name = StringX(home).TerminateWith("/") + (".jwmrc-mjwm");
+  }
 
   bool is_parsed;
   bool is_help;

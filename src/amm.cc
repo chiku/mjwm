@@ -28,6 +28,7 @@
 #include "messages.h"
 #include "amm_options.h"
 #include "command_line_options_parser.h"
+#include "service/environment_variable.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/scan.h"
 #include "service/file_search.h"
@@ -37,28 +38,37 @@
 
 namespace amm {
 
+Amm::Amm() {
+  service::EnvironmentVariable environment_variable;
+  options_ = new AmmOptions(environment_variable.Home());
+}
+
+Amm::~Amm() {
+  delete options_;
+}
+
 void Amm::LoadCommandLineOption(int argc, char **argv) {
-  options_ = CommandLineOptionsParser().Parse(argc, argv);
-  if (!options_.is_parsed) {
+  CommandLineOptionsParser().Parse(argc, argv, options_);
+  if (!options_->is_parsed) {
     std::cerr << messages::OptionError();
     exit(2);
   }
-  std::vector<std::string> deprecations = options_.deprecations;
+  std::vector<std::string> deprecations = options_->deprecations;
   if (deprecations.size() > 0) {
     std::cerr << VectorX(deprecations).Join("\n") << "\tProceeding..." << std::endl;
   }
-  if (options_.is_help) {
+  if (options_->is_help) {
     std::cout << messages::Help();
     exit(0);
   }
-  if (options_.is_version) {
+  if (options_->is_version) {
     std::cout << messages::Version();
     exit(0);
   }
 }
 
 void Amm::ReadCategories() {
-  std::string category_file_name = options_.category_file_name;
+  std::string category_file_name = options_->category_file_name;
   std::vector<std::string> category_lines;
 
   if (category_file_name != "") {
@@ -78,14 +88,14 @@ void Amm::ReadCategories() {
 }
 
 void Amm::RegisterIconService() {
-  if (options_.is_iconize) {
+  if (options_->is_iconize) {
     service::IconServiceInterface *icon_service = new service::icon::Scan();
     menu_.RegisterIconService(*icon_service);
   }
 }
 
 void Amm::ReadDesktopFiles() {
-  std::vector<std::string> input_directory_names = options_.input_directory_names;
+  std::vector<std::string> input_directory_names = options_->input_directory_names;
 
   service::FileSearch service;
   service.RegisterDirectoriesWithFallback(input_directory_names);
@@ -109,7 +119,7 @@ void Amm::Populate() {
 }
 
 void Amm::WriteOutputFile() {
-  std::string output_file_name = options_.output_file_name;
+  std::string output_file_name = options_->output_file_name;
   std::ofstream output_file(output_file_name.c_str());
   if (!output_file.good()) {
     std::cerr << messages::BadOutputFile(output_file_name) << std::endl;
@@ -134,6 +144,7 @@ void Amm::WriteOutputFile() {
 
 void Amm::PrintSummary() {
   std::cout << menu_.Summary().NormalSummary();
+  std::cout << "Created " << options_->output_file_name << std::endl;
 }
 
 } // namespace amm

@@ -25,7 +25,7 @@ namespace amm {
 // Understands parsing of user specified options supplied to the program
 class CommandLineOptionsParser {
  public:
-  AmmOptions Parse(int argc, char *const *argv);
+  void Parse(int argc, char *const *argv, AmmOptions *amm_options_);
 };
 } // namespace amm
 

@@ -1,5 +1,4 @@
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
 * Cleanup commmand_line_options error test - see if parsing can be done using vanilla C++
-* DEPRECATE - default output file should be $HOME/.jwmrc-mjwm
 * Provide user option to choose summary (short, normal, long) type to display
