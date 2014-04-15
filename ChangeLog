@@ -1,11 +1,12 @@
-Current
--------
+v3.0.0
+------
 
 * Ignore desktop files that are marked NoDisplay=true [#31]
 * Increased conformance to Google C++ style-guide, http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml
+* Migrate tests to catch
 * Drops deprecated command-line arguments [-s, -h and -v]
 * Fixes a bug that caused desktop file entries in $XDG_DATA_HOME to be ignored
-* Don't duplicate extensions .png, .svg & .xpm when -a or --append-png command-line option is specified [#4]
+* Drop -a and --append-png command-line options
 * Recursively scan inside sub-directories of $XDG_DATA_HOME & $XDG_DATA_DIRS for desktop files [#29]
 * Search for icons (png, svg, xpm) in $HOME/.icons, $XDG_DATA_DIRS/icons & /usr/share/pixmaps when command-line option --iconize is specified [#35]
 * Desktop files that couldn't be open are reported as unparsed [#37]

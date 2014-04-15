@@ -1,6 +1,18 @@
 mjwm NEWS - User visible changes. 2014-03-21
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
+version 3.0.0 - Chirantan Mitra, 2014-04-16
+
+* Drop deprecated command-line arguments [-s, -h and -v]
+* Drop -a and --append-png command-line arguments
+* Default output file is $HOME/.jwmrc-mjwm
+* Recursively scan inside sub-directories of $XDG_DATA_HOME & $XDG_DATA_DIRS for desktop files [#29]
+* Search for icons (png, svg, xpm) in $HOME/.icons, $XDG_DATA_DIRS/icons & /usr/share/pixmaps when command-line option --iconize is specified [#35]
+* [BUG] Ignore desktop files that are marked NoDisplay=true [#31]
+* [BUG] Don't ignore desktop file entries in $XDG_DATA_HOME
+* [BUG] Desktop files that couldn't be open are reported as unparsed [#37]
+* [BUG] Suppress duplicate entries in a single subcategory [#14]
+
 version 2.4.0 - Chirantan Mitra, 2014-03-30
 
 * Accept user provided categories as a colon terminated file. Includes default.mjwm & a puppy linux specific puppy.mjwm files [#30]
