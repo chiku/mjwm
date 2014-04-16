@@ -31,10 +31,6 @@ DesktopFileLine::DesktopFileLine(std::string content) :
     content_length_(content_.size()),
     assignment_delim_location_(content_.find(kAssignmentDelim)) {}
 
-bool DesktopFileLine::IsComment() const {
-  return content_[0] == '#';
-}
-
 bool DesktopFileLine::IsDeclaration() const {
   return content_[0] == '[' && content_[content_.length() - 1] == ']';
 }

@@ -32,7 +32,6 @@ SCENARIO("DesktopFileLine for Comments", "[desktopfileline]") {
     WHEN("starting with a '#'") {
       DesktopFileLine line("# Comment line");
 
-      THEN("it is a comment") { REQUIRE(line.IsComment()); }
 
       THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
       THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
@@ -56,7 +55,6 @@ SCENARIO("DesktopFileLine for Declarations", "[desktopfileline]") {
         REQUIRE(line.Declaration() == "Desktop Entry");
       }
 
-      THEN("it is not a comment") { REQUIRE(!line.IsComment()); }
       THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
       THEN("it has no assignment") {
         std::string name = "old";
@@ -99,7 +97,6 @@ SCENARIO("DesktopFileLine for Assignments", "[desktopfileline]") {
         }
       }
 
-      THEN("it is not a comment") { REQUIRE(!line.IsComment()); }
       THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
       THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
     }
