@@ -94,7 +94,7 @@ void Amm::RegisterIconService() {
   }
 }
 
-void Amm::ReadDesktopFiles() {
+void Amm::ReadDesktopEntryFiles() {
   std::vector<std::string> input_directory_names = options_->input_directory_names;
 
   service::FileSearch service;
@@ -106,13 +106,13 @@ void Amm::ReadDesktopFiles() {
     std::cerr << "These paths couldn't be opened: " << VectorX(bad_paths).Join(", ");
     std::cerr << std::endl << "Proceeding..." << std::endl;
   }
-  desktop_file_names_ = service.DesktopFileNames();
+  desktop_entry_file_names_ = service.DesktopEntryFileNames();
 }
 
 void Amm::Populate() {
-  menu_.Populate(desktop_file_names_);
+  menu_.Populate(desktop_entry_file_names_);
   if (menu_.Summary().TotalParsedFiles() == 0) {
-    std::cerr << messages::NoValidDesktopFiles() << std::endl;
+    std::cerr << messages::NoValidDesktopEntryFiles() << std::endl;
     exit(1);
   }
   menu_.Sort();

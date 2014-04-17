@@ -18,7 +18,7 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "desktop_file.h"
+#include "desktop_entry.h"
 
 #include <vector>
 #include <string>
@@ -27,9 +27,9 @@
 
 namespace amm {
 
-SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
+SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    DesktopFile entry;
+    DesktopEntry entry;
 
     WHEN("populated") {
       entry.Populate("Name=Mousepad\n");
@@ -78,7 +78,7 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
     }
 
     WHEN("populated with missing entry") {
-      DesktopFile missing_entry;
+      DesktopEntry missing_entry;
       entry.Populate("Categories=");
       entry.Populate("Executable=");
       THEN("entries are empty") {
@@ -89,7 +89,7 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
     }
 
     WHEN("populated with entry line") {
-      DesktopFile entry;
+      DesktopEntry entry;
       entry.Populate("");
       THEN("entries are empty") {
         REQUIRE(entry.Categories().size() == 0);
@@ -98,7 +98,7 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
     }
 
     WHEN("encountering a header that isn't Desktop Entry") {
-      DesktopFile entry;
+      DesktopEntry entry;
       entry.Populate("[Desktop Entry]");
       entry.Populate("Name=LibreOffice Draw");
       entry.Populate("[Desktop Action NewDocument]");
@@ -111,19 +111,19 @@ SCENARIO("DesktopFile.Populate()", "[desktopfile]") {
 }
 
 
-SCENARIO("DesktopFile comparisons", "[desktopfile]") {
+SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    DesktopFile entry;
+    DesktopEntry entry;
     entry.Populate("Name=Mousepad");
     entry.Populate("Exec=mousepad");
 
     WHEN("compared to another desktop-file") {
-      DesktopFile other_entry;
+      DesktopEntry other_entry;
 
       WHEN("the other desktop-file has an alphabetically greater name") {
         other_entry.Populate("Name=VLC");
 
-        DesktopFile greater_entry;
+        DesktopEntry greater_entry;
         THEN("the desktop file is lesser than the other desktop file") {
           REQUIRE(entry < other_entry);
           REQUIRE(!(other_entry < entry));
@@ -173,10 +173,10 @@ SCENARIO("DesktopFile comparisons", "[desktopfile]") {
 }
 
 
-SCENARIO("DesktopFile validity", "[desktopfile]") {
+SCENARIO("DesktopEntry validity", "[desktopfile]") {
   GIVEN("A desktop-file") {
     WHEN("it has a name, an icon and an executable") {
-      DesktopFile entry;
+      DesktopEntry entry;
       entry.Populate("Name=Mousepad");
       entry.Populate("Icon=accessories-text-editor\n");
       entry.Populate("Exec=mousepad %F\n");
@@ -186,7 +186,7 @@ SCENARIO("DesktopFile validity", "[desktopfile]") {
     }
 
     WHEN("it has a no name") {
-      DesktopFile entry;
+      DesktopEntry entry;
       entry.Populate("Icon=accessories-text-editor\n");
       entry.Populate("Exec=mousepad %F\n");
       THEN("it is not valid") {
@@ -195,7 +195,7 @@ SCENARIO("DesktopFile validity", "[desktopfile]") {
     }
 
     WHEN("it has no icon") {
-      DesktopFile entry;
+      DesktopEntry entry;
       entry.Populate("Name=Mousepad");
       entry.Populate("Exec=mousepad %F\n");
       THEN("it is not valid") {
@@ -204,7 +204,7 @@ SCENARIO("DesktopFile validity", "[desktopfile]") {
     }
 
     WHEN("it has no executable") {
-      DesktopFile entry;
+      DesktopEntry entry;
       entry.Populate("Name=Mousepad");
       entry.Populate("Icon=accessories-text-editor\n");
       THEN("it is not valid") {
@@ -214,9 +214,9 @@ SCENARIO("DesktopFile validity", "[desktopfile]") {
   }
 }
 
-SCENARIO("DesktopFile classifications", "[desktopfile]") {
+SCENARIO("DesktopEntry classifications", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    DesktopFile entry;
+    DesktopEntry entry;
 
     WHEN("it has one of the categories as AudioVideo") {
       entry.Populate("Categories=AudioVideo;Audio;Player;GTK;\n");

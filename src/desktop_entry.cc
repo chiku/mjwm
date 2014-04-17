@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "desktop_file.h"
+#include "desktop_entry.h"
 
 #include <string>
 #include <vector>
@@ -27,33 +27,33 @@
 
 namespace amm {
 
-DesktopFile::DesktopFile() : display_(true), populate_under_desktop_entry_(true) { }
+DesktopEntry::DesktopEntry() : display_(true), populate_under_desktop_entry_(true) { }
 
-bool DesktopFile::operator < (const DesktopFile &other) const {
+bool DesktopEntry::operator < (const DesktopEntry &other) const {
   return name_ < other.name_;
 }
 
-bool DesktopFile::operator > (const DesktopFile &other) const {
+bool DesktopEntry::operator > (const DesktopEntry &other) const {
   return name_ > other.name_;
 }
 
-bool DesktopFile::operator == (const DesktopFile &other) const {
+bool DesktopEntry::operator == (const DesktopEntry &other) const {
   return name_ == other.name_ && executable_ == other.executable_;
 }
 
-bool DesktopFile::operator != (const DesktopFile &other) const {
+bool DesktopEntry::operator != (const DesktopEntry &other) const {
   return !(*this == other);
 }
 
-bool DesktopFile::IsValid() const {
+bool DesktopEntry::IsValid() const {
   return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
 }
 
-bool DesktopFile::IsA(std::string type) const {
+bool DesktopEntry::IsA(std::string type) const {
   return std::binary_search(categories_.begin(), categories_.end(), type);
 }
 
-bool DesktopFile::IsAnyOf(std::vector<std::string> types) const {
+bool DesktopEntry::IsAnyOf(std::vector<std::string> types) const {
   for (std::vector<std::string>::const_iterator type = types.begin(); type != types.end(); ++type) {
     if (IsA(*type)) {
       return true;
@@ -62,7 +62,7 @@ bool DesktopFile::IsAnyOf(std::vector<std::string> types) const {
   return false;
 }
 
-void DesktopFile::Populate(std::string line_raw) {
+void DesktopEntry::Populate(std::string line_raw) {
   DesktopFileLine line = DesktopFileLine(line_raw);
 
   if (line.IsDeclaration() && line.Declaration() != "Desktop Entry") {

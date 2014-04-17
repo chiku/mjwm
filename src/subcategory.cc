@@ -22,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "desktop_file.h"
+#include "desktop_entry.h"
 
 namespace amm {
 
@@ -35,17 +35,17 @@ Subcategory::Subcategory(std::string display_name, std::string icon_name, std::v
    display_name_(display_name), icon_name_(icon_name), classification_names_(classification_names) {}
 
 bool Subcategory::HasEntries() const {
-  return DesktopFiles().size() > 0;
+  return DesktopEntries().size() > 0;
 }
 
-void Subcategory::AddDesktopFile(DesktopFile desktop_file) {
-  desktop_files_.push_back(desktop_file);
+void Subcategory::AddDesktopEntry(DesktopEntry desktop_entry) {
+  desktop_entries_.push_back(desktop_entry);
 }
 
-void Subcategory::SortDesktopFiles() {
-  std::sort(desktop_files_.begin(), desktop_files_.end());
-  std::vector<amm::DesktopFile>::iterator it = std::unique(desktop_files_.begin(), desktop_files_.end());
-  desktop_files_.resize(std::distance(desktop_files_.begin(), it));
+void Subcategory::SortDesktopEntries() {
+  std::sort(desktop_entries_.begin(), desktop_entries_.end());
+  std::vector<amm::DesktopEntry>::iterator it = std::unique(desktop_entries_.begin(), desktop_entries_.end());
+  desktop_entries_.resize(std::distance(desktop_entries_.begin(), it));
 }
 
 } // namespace amm

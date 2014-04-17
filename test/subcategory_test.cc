@@ -23,12 +23,12 @@
 #include <vector>
 
 #include "catch.hpp"
-#include "desktop_file.h"
+#include "desktop_entry.h"
 
 namespace amm {
 
-static DesktopFile mousepad_desktop_file() {
-  DesktopFile entry;
+static DesktopEntry mousepad_desktop_entry() {
+  DesktopEntry entry;
   entry.Populate("Name=Mousepad");
   entry.Populate("Icon=accessories-text-editor");
   entry.Populate("Exec=mousepad %F");
@@ -36,8 +36,8 @@ static DesktopFile mousepad_desktop_file() {
   return entry;
 }
 
-static DesktopFile sakura_desktop_file() {
-  DesktopFile entry;
+static DesktopEntry sakura_desktop_entry() {
+  DesktopEntry entry;
   entry.Populate("Name=Sakura");
   entry.Populate("Icon=terminal-tango");
   entry.Populate("Exec=sakura");
@@ -56,37 +56,37 @@ SCENARIO("subcategory", "[subcategory]") {
     }
 
     WHEN("with one desktop-file") {
-      subcategory.AddDesktopFile(mousepad_desktop_file());
+      subcategory.AddDesktopEntry(mousepad_desktop_entry());
       THEN("it has entries") {
         REQUIRE(subcategory.HasEntries());
       }
     }
 
     WHEN("with two desktop-file") {
-      subcategory.AddDesktopFile(sakura_desktop_file());
-      subcategory.AddDesktopFile(mousepad_desktop_file());
+      subcategory.AddDesktopEntry(sakura_desktop_entry());
+      subcategory.AddDesktopEntry(mousepad_desktop_entry());
       WHEN("sorted") {
-        subcategory.SortDesktopFiles();
+        subcategory.SortDesktopEntries();
         THEN("its entries in alphabetical order by name") {
-          std::vector<DesktopFile> desktop_files = subcategory.DesktopFiles();
-          REQUIRE(desktop_files.size() == 2);
-          REQUIRE(desktop_files[0].Name() == "Mousepad");
-          REQUIRE(desktop_files[1].Name() == "Sakura");
+          std::vector<DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+          REQUIRE(desktop_entries.size() == 2);
+          REQUIRE(desktop_entries[0].Name() == "Mousepad");
+          REQUIRE(desktop_entries[1].Name() == "Sakura");
         }
       }
     }
 
     WHEN("with a repeated desktop file") {
-      subcategory.AddDesktopFile(sakura_desktop_file());
-      subcategory.AddDesktopFile(mousepad_desktop_file());
-      subcategory.AddDesktopFile(sakura_desktop_file());
+      subcategory.AddDesktopEntry(sakura_desktop_entry());
+      subcategory.AddDesktopEntry(mousepad_desktop_entry());
+      subcategory.AddDesktopEntry(sakura_desktop_entry());
       WHEN("sorted") {
-        subcategory.SortDesktopFiles();
+        subcategory.SortDesktopEntries();
         THEN("it doesn't repeat entries") {
-          std::vector<DesktopFile> desktop_files = subcategory.DesktopFiles();
-          REQUIRE(desktop_files.size() == 2);
-          REQUIRE(desktop_files[0].Name() == "Mousepad");
-          REQUIRE(desktop_files[1].Name() == "Sakura");
+          std::vector<DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+          REQUIRE(desktop_entries.size() == 2);
+          REQUIRE(desktop_entries[0].Name() == "Mousepad");
+          REQUIRE(desktop_entries[1].Name() == "Sakura");
         }
       }
     }

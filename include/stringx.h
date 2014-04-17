@@ -31,7 +31,7 @@ class StringX {
   bool EndsWith(const std::string delimiter) const; // FSS
   std::string TerminateWith(const std::string end); // FSS
   std::string Encode() const; // Transformer::JWM
-  std::string Trim() const; // DesktopFile
+  std::string Trim() const; // DesktopEntry
   std::vector<std::string> Split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
  private:
   const std::string string_;

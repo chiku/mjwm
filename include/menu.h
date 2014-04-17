@@ -45,8 +45,8 @@ class Menu {
   std::vector<RepresentationInterface*> Representations() const;
 
  private:
-  void AddDesktopFile(std::string desktop_file_name);
-  bool Classify(DesktopFile entry);
+  void AddDesktopEntry(std::string desktop_entry_name);
+  bool Classify(DesktopEntry entry);
   void CreateDefaultCategories();
 
   service::IconServiceInterface *icon_service_;

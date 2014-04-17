@@ -58,7 +58,7 @@ SCENARIO("service::FileSearch custom directories", "[filesearch]") {
       service.Resolve();
 
       THEN("it has a list of files with extension 'desktop' inside the directory") {
-        assert_files_are_present_in_list(service.DesktopFileNames());
+        assert_files_are_present_in_list(service.DesktopEntryFileNames());
       }
     }
   }
@@ -74,7 +74,7 @@ SCENARIO("service::FileSearch custom directories", "[filesearch]") {
       service.Resolve();
 
       THEN("it ignores duplicates") {
-        assert_files_are_present_in_list(service.DesktopFileNames());
+        assert_files_are_present_in_list(service.DesktopEntryFileNames());
       }
     }
   }
@@ -90,7 +90,7 @@ SCENARIO("service::FileSearch custom directories", "[filesearch]") {
       service.Resolve();
 
       THEN("it has a list of files with extension 'desktop' in the directory that exists") {
-        assert_files_are_present_in_list(service.DesktopFileNames());
+        assert_files_are_present_in_list(service.DesktopEntryFileNames());
       }
 
       THEN("it tracks the directory that doesn't exist") {
@@ -117,7 +117,7 @@ SCENARIO("service::FileSearch default directories", "[filesearch]") {
         service.Resolve();
 
         THEN("it has a list of files with extension 'desktop' inside the directory") {
-          assert_files_are_present_in_list(service.DesktopFileNames());
+          assert_files_are_present_in_list(service.DesktopEntryFileNames());
         }
 
         THEN("it doesn't track the absent directory") {

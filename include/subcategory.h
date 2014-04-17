@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-#include "desktop_file.h"
+#include "desktop_entry.h"
 
 namespace amm {
 // Understands a collection of desktop files belonging to the same category
@@ -35,17 +35,17 @@ class Subcategory {
   std::string DisplayName() const { return display_name_; }
   std::string IconName() const { return icon_name_; }
   std::vector<std::string> ClassificationNames() const { return classification_names_; }
-  std::vector<DesktopFile> DesktopFiles() const { return desktop_files_; }
+  std::vector<DesktopEntry> DesktopEntries() const { return desktop_entries_; }
 
   bool HasEntries() const;
-  void AddDesktopFile(DesktopFile desktop_file);
-  void SortDesktopFiles();
+  void AddDesktopEntry(DesktopEntry desktop_file);
+  void SortDesktopEntries();
 
  private:
   std::string display_name_;
   std::string icon_name_;
   std::vector<std::string> classification_names_;
-  std::vector<DesktopFile> desktop_files_;
+  std::vector<DesktopEntry> desktop_entries_;
 };
 } // namespace amm
 

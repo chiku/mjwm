@@ -33,7 +33,7 @@ class FileSearch {
   void Resolve();
 
   void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
-  std::vector<std::string> DesktopFileNames() const { return desktop_file_names_; }
+  std::vector<std::string> DesktopEntryFileNames() const { return desktop_file_names_; }
   std::vector<std::string> BadPaths() const { return bad_paths_; }
 
  private:

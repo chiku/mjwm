@@ -16,17 +16,17 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_DESKTOP_FILE_H_
-#define AMM_DESKTOP_FILE_H_
+#ifndef AMM_DESKTOP_ENTRY_H_
+#define AMM_DESKTOP_ENTRY_H_
 
 #include <string>
 #include <vector>
 
 namespace amm {
 // Understands the representation of a FreeDesktop .desktop file
-class DesktopFile {
+class DesktopEntry {
  public:
-  DesktopFile();
+  DesktopEntry();
 
   std::string Name() const { return name_; }
   std::string Icon() const { return icon_; }
@@ -34,10 +34,10 @@ class DesktopFile {
   std::vector<std::string> Categories() const { return categories_; }
   bool Display() const { return display_; }
 
-  bool operator < (const DesktopFile &other) const;
-  bool operator > (const DesktopFile &other) const;
-  bool operator == (const DesktopFile &other) const;
-  bool operator != (const DesktopFile &other) const;
+  bool operator < (const DesktopEntry &other) const;
+  bool operator > (const DesktopEntry &other) const;
+  bool operator == (const DesktopEntry &other) const;
+  bool operator != (const DesktopEntry &other) const;
 
   bool IsValid() const;
   bool IsA(std::string type) const;
@@ -52,6 +52,7 @@ class DesktopFile {
   bool display_;
   bool populate_under_desktop_entry_;
 };
+
 } // namespace amm
 
-#endif // AMM_DESKTOP_FILE_H_
+#endif // AMM_DESKTOP_ENTRY_H_

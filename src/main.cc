@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   amm.LoadCommandLineOption(argc, argv);
   amm.RegisterIconService();
   amm.ReadCategories();
-  amm.ReadDesktopFiles();
+  amm.ReadDesktopEntryFiles();
   amm.Populate();
   amm.WriteOutputFile();
   amm.PrintSummary();

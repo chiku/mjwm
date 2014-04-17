@@ -25,7 +25,7 @@
 #include "stringx.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/mirror.h"
-#include "desktop_file.h"
+#include "desktop_entry.h"
 #include "subcategory.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
@@ -86,57 +86,57 @@ void Menu::LoadCustomCategories(std::vector<std::string> lines) {
   }
 }
 
-void Menu::Populate(std::vector<std::string> desktop_file_names) {
-  for (std::vector<std::string>::const_iterator name = desktop_file_names.begin(); name != desktop_file_names.end(); ++name) {
-    AddDesktopFile(*name);
+void Menu::Populate(std::vector<std::string> entry_names) {
+  for (std::vector<std::string>::const_iterator name = entry_names.begin(); name != entry_names.end(); ++name) {
+    AddDesktopEntry(*name);
   }
 
   subcategories_.push_back(unclassified_subcategory_);
 }
 
-void Menu::AddDesktopFile(std::string desktop_file_name) {
-  std::ifstream file(desktop_file_name.c_str());
+void Menu::AddDesktopEntry(std::string entry_name) {
+  std::ifstream file(entry_name.c_str());
 
   if (!file.good()) {
-    summary_.AddUnparsedFile(desktop_file_name);
+    summary_.AddUnparsedFile(entry_name);
     return;
   }
 
-  DesktopFile desktop_file;
+  DesktopEntry entry;
   std::string line;
   while (std::getline(file, line)) {
-    desktop_file.Populate(line);
+    entry.Populate(line);
   }
   file.close();
 
-  if (!desktop_file.Display()) {
-    summary_.AddSuppressedFile(desktop_file_name);
+  if (!entry.Display()) {
+    summary_.AddSuppressedFile(entry_name);
     return;
   }
 
-  if (!desktop_file.IsValid()) {
-    summary_.AddUnparsedFile(desktop_file_name);
+  if (!entry.IsValid()) {
+    summary_.AddUnparsedFile(entry_name);
     return;
   }
 
-  bool classified = Classify(desktop_file);
+  bool classified = Classify(entry);
   if (classified) {
-    summary_.AddClassifiedFile(desktop_file_name);
+    summary_.AddClassifiedFile(entry_name);
   } else {
-    unclassified_subcategory_.AddDesktopFile(desktop_file);
-    summary_.AddUnclassifiedFile(desktop_file_name);
-    summary_.AddUnhandledClassifications(desktop_file.Categories());
+    unclassified_subcategory_.AddDesktopEntry(entry);
+    summary_.AddUnclassifiedFile(entry_name);
+    summary_.AddUnhandledClassifications(entry.Categories());
   }
 }
 
-bool Menu::Classify(DesktopFile desktop_file) {
+bool Menu::Classify(DesktopEntry entry) {
   bool classified = false;
 
   std::vector<Subcategory>::iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
-    if (desktop_file.IsAnyOf(subcategory->ClassificationNames())) {
+    if (entry.IsAnyOf(subcategory->ClassificationNames())) {
       classified = true;
-      subcategory->AddDesktopFile(desktop_file);
+      subcategory->AddDesktopEntry(entry);
     }
   }
 
@@ -146,7 +146,7 @@ bool Menu::Classify(DesktopFile desktop_file) {
 void Menu::Sort() {
   std::vector<Subcategory>::iterator group;
   for (group = subcategories_.begin(); group != subcategories_.end(); ++group) {
-    group->SortDesktopFiles();
+    group->SortDesktopEntries();
   }
 }
 
@@ -162,12 +162,11 @@ std::vector<RepresentationInterface*> Menu::Representations() const {
       representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_name);
       representations.push_back(start);
 
-      std::vector<DesktopFile> desktop_files = subcategory->DesktopFiles();
-      std::vector<DesktopFile>::const_iterator desktop_file;
-      for (desktop_file = desktop_files.begin(); desktop_file != desktop_files.end(); ++desktop_file) {
-        std::string icon_name = icon_service_->ResolvedName(desktop_file->Icon());
-        representation::Program *entry = new representation::Program(desktop_file->Name(), icon_name, desktop_file->Executable());
-        representations.push_back(entry);
+      std::vector<DesktopEntry> entries = subcategory->DesktopEntries();
+      for (std::vector<DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+        std::string icon_name = icon_service_->ResolvedName(entry->Icon());
+        representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable());
+        representations.push_back(program);
       }
 
       representation::SubcategoryEnd *end = new representation::SubcategoryEnd(subcategory->DisplayName());
