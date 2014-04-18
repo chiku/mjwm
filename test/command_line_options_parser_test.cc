@@ -68,6 +68,10 @@ SCENARIO("CommandLineOptionsParser.Parse() default", "[commandlineoptions]") {
       THEN("its category file is empty") {
         REQUIRE(options.category_file_name == "");
       }
+
+      THEN("its summary style is normal") {
+        REQUIRE(options.summary_type == "normal");
+      }
     }
   }
 }
@@ -170,6 +174,15 @@ SCENARIO("CommandLineOptionsParser.Parse() options", "[commandlineoptions]") {
 
       THEN("its category-file is set to the given value") {
         REQUIRE(options.category_file_name == "default.mjwm");
+      }
+    }
+
+    WHEN("parsing --summary long") {
+      char* argv[] = {strdup("amm"), strdup("--summary"), strdup("long"), 0};
+      parser.Parse(3, argv, &options);
+
+      THEN("its summary is set to long") {
+        REQUIRE(options.summary_type == "long");
       }
     }
   }

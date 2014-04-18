@@ -65,6 +65,10 @@ void Amm::LoadCommandLineOption(int argc, char **argv) {
     std::cout << messages::Version();
     exit(0);
   }
+  if (options_->summary_type != "short" && options_->summary_type != "normal" && options_->summary_type != "long") {
+    std::cout << messages::BadSummaryType(options_->summary_type);
+    exit(2);
+  }
 }
 
 void Amm::ReadCategories() {
@@ -143,7 +147,15 @@ void Amm::WriteOutputFile() {
 }
 
 void Amm::PrintSummary() {
-  std::cout << menu_.Summary().NormalSummary();
+  if (options_->summary_type == "normal") {
+    std::cout << menu_.Summary().NormalSummary();
+  }
+  if (options_->summary_type == "short") {
+    std::cout << menu_.Summary().ShortSummary();
+  }
+  if (options_->summary_type == "long") {
+    std::cout << menu_.Summary().LongSummary();
+  }
   std::cout << "Created " << options_->output_file_name << std::endl;
 }
 

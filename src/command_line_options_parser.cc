@@ -43,6 +43,7 @@ void CommandLineOptionsParser::Parse(int argc, char* const* argv, AmmOptions *am
     {"output-file",     required_argument, 0,             'o'},
     {"input-directory", required_argument, 0,             'i'},
     {"category-file",   required_argument, 0,             'c'},
+    {"summary",         required_argument, 0,              0 },
     {0,                 0,                 0,              0 },
   };
 
@@ -51,38 +52,27 @@ void CommandLineOptionsParser::Parse(int argc, char* const* argv, AmmOptions *am
   amm_options->is_parsed = true;
 
   while ((chosen_option = getopt_long(argc, argv, short_options, long_options, &option_index)) != -1) {
-    switch (chosen_option) {
-      case 0:
-        if (help_flag == 1) {
-          amm_options->is_help = true;
-        }
-        if (version_flag == 1) {
-          amm_options->is_version = true;
-        }
-        if (iconize_flag == 1) {
-          amm_options->is_iconize = true;
-        }
-        break;
-
-      case 'o':
-        amm_options->output_file_name = optarg;
-        break;
-
-      case 'i':
-        amm_options->input_directory_names = StringX(optarg).Split(":");
-        break;
-
-      case 'c':
-        amm_options->category_file_name = optarg;
-        break;
-
-      case '?':
-        amm_options->is_parsed = false;
-        break;
-
-      default:
-        amm_options->is_parsed = false;
-        break;
+    if (chosen_option == 0) {
+      if (help_flag == 1) {
+        amm_options->is_help = true;
+      }
+      if (version_flag == 1) {
+        amm_options->is_version = true;
+      }
+      if (iconize_flag == 1) {
+        amm_options->is_iconize = true;
+      }
+      if (long_options[option_index].name == "summary") {
+        amm_options->summary_type = optarg;
+      }
+    } else if (chosen_option == 'o') {
+      amm_options->output_file_name = optarg;
+    } else if (chosen_option == 'i') {
+      amm_options->input_directory_names = StringX(optarg).Split(":");
+    } else if (chosen_option == 'c') {
+      amm_options->category_file_name = optarg;
+    } else {
+      amm_options->is_parsed = false;
     }
   }
 }
