@@ -35,7 +35,7 @@ void CommandLineOptionsParser::Parse(int argc, char* const* argv, AmmOptions *am
   int help_flag = 0;
   int version_flag = 0;
   int iconize_flag = 0;
-  const char* short_options = "o:i:s:c:";
+  const char* short_options = "o:i:c:";
   const option long_options[] = {
     {"help",            no_argument,       &help_flag   ,  1 },
     {"version",         no_argument,       &version_flag,  1 },
