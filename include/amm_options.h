@@ -23,7 +23,6 @@
 #include <vector>
 
 #include "stringx.h"
-#include "service/environment_variable.h"
 
 namespace amm {
 struct AmmOptions {
