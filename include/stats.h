@@ -40,9 +40,7 @@ class Stats {
   std::vector<std::string> UnparsedFiles() const;
   std::vector<std::string> UnhandledClassifications();
 
-  std::string ShortSummary() const;
-  std::string NormalSummary() const;
-  std::string LongSummary();
+  std::string Details(std::string summary_type);
 
  private:
   std::vector<std::string> classified_files_;

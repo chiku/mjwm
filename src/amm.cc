@@ -147,15 +147,7 @@ void Amm::WriteOutputFile() {
 }
 
 void Amm::PrintSummary() {
-  if (options_->summary_type == "normal") {
-    std::cout << menu_.Summary().NormalSummary();
-  }
-  if (options_->summary_type == "short") {
-    std::cout << menu_.Summary().ShortSummary();
-  }
-  if (options_->summary_type == "long") {
-    std::cout << menu_.Summary().LongSummary();
-  }
+  std::cout << menu_.Summary().Details(options_->summary_type);
   std::cout << "Created " << options_->output_file_name << std::endl;
 }
 

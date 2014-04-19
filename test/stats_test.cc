@@ -56,7 +56,7 @@ static std::vector<std::string> UnhandledClassificationSecondSet() {
   return classifications;
 }
 
-static std::string ExpectedEmptySummary() {
+static std::string ExpectedEmptydetails() {
   return "Total desktop files: 0\n"
          "Parsed desktop files: 0\n"
          "Unparsed desktop files: 0\n"
@@ -64,7 +64,7 @@ static std::string ExpectedEmptySummary() {
          "Unclassified desktop files: 0\n";
 }
 
-static std::string ExpectedShortSummaryWithValues() {
+static std::string ExpectedShortdetailsWithValues() {
   return "Total desktop files: 7\n"
          "Parsed desktop files: 5\n"
          "Unparsed desktop files: 1\n"
@@ -83,16 +83,16 @@ SCENARIO("Stats totals", "[stats]") {
       THEN("it has no suppressed files")   { REQUIRE(stats.TotalSuppressedFiles() == 0); }
       THEN("it has no unparsed files")     { REQUIRE(stats.TotalUnparsedFiles() == 0); }
 
-      THEN("is has no counts in short summary") {
-        REQUIRE(stats.ShortSummary() == ExpectedEmptySummary());
+      THEN("is has no counts in short details") {
+        REQUIRE(stats.Details("short") == ExpectedEmptydetails());
       }
 
-      THEN("is has no counts in summary") {
-        REQUIRE(stats.NormalSummary() == ExpectedEmptySummary());
+      THEN("is has no counts in details") {
+        REQUIRE(stats.Details("normal") == ExpectedEmptydetails());
       }
 
-      THEN("is has no counts in long summary") {
-        REQUIRE(stats.LongSummary() == ExpectedEmptySummary());
+      THEN("is has no counts in long details") {
+        REQUIRE(stats.Details("long") == ExpectedEmptydetails());
       }
     }
 
@@ -146,22 +146,22 @@ SCENARIO("Stats summaries", "[stats]") {
     WHEN("different types of files are added") {
       Stats stats = PopulatedStats();
 
-      THEN("short summary includes counts") {
-        REQUIRE(stats.ShortSummary() == ExpectedShortSummaryWithValues());
+      THEN("short details includes counts") {
+        REQUIRE(stats.Details("short") == ExpectedShortdetailsWithValues());
       }
 
-      THEN("summary includes short summary and a list of unparsed files") {
-        std::string expected_summary = ExpectedShortSummaryWithValues() +
+      THEN("details includes short details and a list of unparsed files") {
+        std::string expected_details = ExpectedShortdetailsWithValues() +
                                        "List of unparsed files: daemon\n";
-        REQUIRE(stats.NormalSummary() == expected_summary);
+        REQUIRE(stats.Details("normal") == expected_details);
       }
 
-      THEN("long summary includes summary and lists of suppressed and unclassified files") {
-        std::string expected_summary = ExpectedShortSummaryWithValues() +
+      THEN("long details includes details and lists of suppressed and unclassified files") {
+        std::string expected_details = ExpectedShortdetailsWithValues() +
                                        "List of unparsed files: daemon\n"
                                        "List of suppressed files: mplayer\n"
                                        "List of unclassified files: htop, NEdit\n";
-        REQUIRE(stats.LongSummary() == expected_summary);
+        REQUIRE(stats.Details("long") == expected_details);
       }
     }
 
@@ -170,13 +170,13 @@ SCENARIO("Stats summaries", "[stats]") {
       stats.AddUnhandledClassifications(UnhandledClassificationFirstSet());
       stats.AddUnhandledClassifications(UnhandledClassificationSecondSet());
 
-      THEN("long summary includes the unhandled classifications") {
-        std::string expected_summary = ExpectedShortSummaryWithValues() +
+      THEN("long details includes the unhandled classifications") {
+        std::string expected_details = ExpectedShortdetailsWithValues() +
                                        "List of unparsed files: daemon\n"
                                        "List of suppressed files: mplayer\n"
                                        "List of unclassified files: htop, NEdit\n"
                                        "List of unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n";
-        REQUIRE(stats.LongSummary() == expected_summary);
+        REQUIRE(stats.Details("long") == expected_details);
       }
     }
   }

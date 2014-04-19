@@ -65,41 +65,32 @@ std::vector<std::string> Stats::UnhandledClassifications() {
   return unhandled_classifications_;
 }
 
-std::string Stats::ShortSummary() const {
+std::string Stats::Details(std::string summary_type) {
   std::stringstream stream;
   stream << "Total desktop files: " << TotalFiles() << std::endl;
   stream << "Parsed desktop files: " << TotalParsedFiles() << std::endl;
   stream << "Unparsed desktop files: " << TotalUnparsedFiles() << std::endl;
   stream << "Suppressed desktop files (NoDisplay): " << TotalSuppressedFiles() << std::endl;
   stream << "Unclassified desktop files: " << TotalUnclassifiedFiles() << std::endl;
-  return stream.str();
-}
 
-std::string Stats::NormalSummary() const {
-  std::stringstream stream;
-  stream << ShortSummary();
-
-  if (TotalUnparsedFiles() > 0) {
-    stream << "List of unparsed files: " << VectorX(unparsed_files_).Join(", ") << std::endl;
+  if (summary_type == "normal" || summary_type == "long") {
+    if (TotalUnparsedFiles() > 0) {
+      stream << "List of unparsed files: " << VectorX(unparsed_files_).Join(", ") << std::endl;
+    }
   }
 
-  return stream.str();
-}
+  if (summary_type == "long") {
+    if (TotalSuppressedFiles() > 0) {
+      stream << "List of suppressed files: " << VectorX(suppressed_files_).Join(", ") << std::endl;
+    }
 
-std::string Stats::LongSummary() {
-  std::stringstream stream;
-  stream << NormalSummary();
+    if (TotalUnclassifiedFiles() > 0) {
+      stream << "List of unclassified files: " << VectorX(unclassified_files_).Join(", ") << std::endl;
+    }
 
-  if (TotalSuppressedFiles() > 0) {
-    stream << "List of suppressed files: " << VectorX(suppressed_files_).Join(", ") << std::endl;
-  }
-
-  if (TotalUnclassifiedFiles() > 0) {
-    stream << "List of unclassified files: " << VectorX(unclassified_files_).Join(", ") << std::endl;
-  }
-
-  if (unhandled_classifications_.size() > 0) {
-    stream << "List of unhandled classifications: " << VectorX(UnhandledClassifications()).Join(", ") << std::endl;
+    if (unhandled_classifications_.size() > 0) {
+      stream << "List of unhandled classifications: " << VectorX(UnhandledClassifications()).Join(", ") << std::endl;
+    }
   }
 
   return stream.str();
