@@ -62,7 +62,7 @@ void CommandLineOptionsParser::Parse(int argc, char* const* argv, AmmOptions *am
       if (iconize_flag == 1) {
         amm_options->is_iconize = true;
       }
-      if (long_options[option_index].name == "summary") {
+      if (std::string(long_options[option_index].name) == "summary") {
         amm_options->summary_type = optarg;
       }
     } else if (chosen_option == 'o') {
