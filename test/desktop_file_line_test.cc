@@ -32,7 +32,6 @@ SCENARIO("DesktopFileLine for Comments", "[desktopfileline]") {
     WHEN("starting with a '#'") {
       DesktopFileLine line("# Comment line");
 
-
       THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
       THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
       THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }

@@ -27,7 +27,6 @@ class DesktopFileLine {
  public:
   explicit DesktopFileLine(std::string content);
 
-  bool IsComment() const;
   bool IsDeclaration() const;
   bool IsAssignment() const;
   std::string Declaration() const;
