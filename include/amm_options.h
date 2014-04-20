@@ -26,7 +26,7 @@
 
 namespace amm {
 struct AmmOptions {
-  AmmOptions(std::string home) : is_parsed(false), is_help(false), is_version(false), is_iconize(false), summary_type("normal") {
+  explicit AmmOptions(std::string home) : is_parsed(false), is_help(false), is_version(false), is_iconize(false), summary_type("normal") {
     output_file_name = StringX(home).TerminateWith("/") + (".jwmrc-mjwm");
   }
 
