@@ -12,7 +12,7 @@ mjwm \- create menu for JWM
 
 .SH DESCRIPTION
 .B mjwm
-creates JWM menu from FreeDesktop files inside XDG application directories
+creates JWM menu from FreeDesktop files present in XDG application directories
 
 Include the generated file in the rootmenu section of your ~/.jwmrc.
 For more information visit http://github.com/chiku/mjwm.
@@ -29,18 +29,18 @@ Default is ./automenu.
 .BR \-i ", " \-\-input\-directory =\fIDIRECTORY\fR
 Directory to scan for .desktop files. Multiple directories, if provided, must be separated by colons.
 Default is $XDG_DATA_DIRS/applications:$XDG_DATA_HOME/applications.
-/usr/local/share:/usr/share is used in place of an undefined $XDG_DATA_DIRS.
-$HOME/.local/share is used in place of an undefined $XDG_DATA_HOME.
+/usr/local/share:/usr/share if $XDG_DATA_DIRS is not set.
+$HOME/.local/share is used if $XDG_DATA_HOME is not set.
 
 .TP
 .BR \-c ", " \-\-category\-file =\fIFILE\fR
 Use an external category file.
-This overrides built in categories. Please look at default.mjwm to write your own category files.
+This overrides the built in categories. Please look at default.mjwm to write your own category file.
 
 .TP
 .BR \-\-iconize
-Search for icon files by name in $HOME, $XDG_DATA_DIRS/icons and /usr/share/pixmaps.
-Icon file names would be absolute paths to icons in the specified directories.
+Search for icons by name in $HOME, $XDG_DATA_DIRS/icons and /usr/share/pixmaps.
+The icon references in the generated menu would be absolute paths to icons in the specified directories.
 
 .TP
 .BR \-\-help
@@ -54,24 +54,24 @@ Show version information.
 .B Exit Status:
 0      if OK,
 
-1      if files could not be accesses (e.g., cannot write output file),
+1      if files could not be accesses (e.g., could not write output file),
 
-2      if command-line arguments are incorrect.
+2      if the command-line arguments are incorrect.
 .LP 
 
 
 .SH EXAMPLES
 
 .TP
-Generate menu entries for files inside /usr/local/share/applications
+Generate menu entries for files in /usr/local/share/applications
 .BR mjwm \ \-i\ /usr/local/share/applications
 
 .TP
-Generate menu entries for files inside multiple directories /usr/local/share/applications, /usr/share/applications and ~/.local/share/applications
+Generate menu entries from files in multiple directories /usr/local/share/applications, /usr/share/applications and ~/.local/share/applications
 .BR mjwm \ \-i\ /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
 
 .TP
-Use categories from as an external file
+Use categories from an external file
 .BR mjwm \ \-c\ data/default.mjwm
 .LP
 
