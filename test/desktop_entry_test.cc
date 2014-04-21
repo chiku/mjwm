@@ -83,7 +83,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
       entry.Populate("Executable=");
       THEN("entries are empty") {
         std::vector<std::string> categories = entry.Categories();
-        REQUIRE(categories.size() == 0);
+        REQUIRE(categories.empty());
         REQUIRE(entry.Executable() == "");
       }
     }
