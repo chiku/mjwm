@@ -9,7 +9,7 @@
 # These names are case-sensitive
 
 # The format is
-#<subcategory name that appears in menu>:<icon name>:<category names that desktop filesbelong to separated by colon>
+#<subcategory name that appears in menu>:<icon name>:<category names that desktop files belong to separated by colon>
 
 # mousepad.desktop file defines its categories as
 # Categories=Application;Utility;TextEditor;GTK;
