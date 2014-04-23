@@ -28,7 +28,7 @@ Installation from source
 * From the root of the application run
 ```script
 ./autogen.sh
-./configure --prefix=/usr # Install mjwm to /usr, when prefix is not mentioned installs to /usr/local
+./configure --prefix=/usr
 make
 sudo make install
 ```
