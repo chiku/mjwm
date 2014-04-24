@@ -36,7 +36,7 @@ EnvironmentVariable::EnvironmentVariable() {
   char *xdg_data_home = std::getenv("XDG_DATA_HOME");
   if (xdg_data_home != NULL) {
     xdg_data_home_ = xdg_data_home;
-  } else if (home_ != "") {
+  } else {
     xdg_data_home_ = home_ + "/.local/share";
   }
 
@@ -55,9 +55,7 @@ std::vector<std::string> EnvironmentVariable::XdgDataDirectories() const {
 std::vector<std::string> EnvironmentVariable::ApplicationBaseDirectories() const {
   std::vector<std::string> directory_bases;
   std::string xdg_data_home = EnvironmentVariable::XdgDataHome();
-  if (xdg_data_home != "") {
-    directory_bases.push_back(xdg_data_home);
-  }
+  directory_bases.push_back(xdg_data_home);
 
   std::vector<std::string> xdg_data_dirs = EnvironmentVariable::XdgDataDirectories();
   for (std::vector<std::string>::const_iterator directory = xdg_data_dirs.begin(); directory != xdg_data_dirs.end(); ++directory) {

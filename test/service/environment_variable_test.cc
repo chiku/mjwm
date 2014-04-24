@@ -80,23 +80,6 @@ SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
       }
     }
   }
-
-  GIVEN("XDG_DATA_HOME is unset and HOME is unset") {
-    EnvironmentVariable environment_variable;
-
-    unsetenv("HOME");
-    unsetenv("XDG_DATA_HOME");
-    unsetenv("XDG_DATA_DIRS");
-
-    WHEN("base directories for 'applications' subdirectory is asked") {
-      THEN("it is a list of directories pointed to by /usr/local/share:/usr/share") {
-        std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
-        REQUIRE(directories.size() == 2);
-        REQUIRE(directories[0] == "/usr/local/share");
-        REQUIRE(directories[1] == "/usr/share");
-      }
-    }
-  }
 }
 
 } // namespace service
