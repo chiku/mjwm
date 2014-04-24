@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include "service/environment_variable.h"
 #include "amm_options.h"
 #include "menu.h"
 
@@ -30,6 +31,7 @@ class Amm {
  public:
   Amm();
   ~Amm();
+  void ValidateEnvironment();
   void LoadCommandLineOption(int argc, char **argv);
   void RegisterIconService();
   void ReadCategories();
@@ -39,6 +41,7 @@ class Amm {
   void PrintSummary();
 
  private:
+  service::EnvironmentVariable environment_variable_;
   AmmOptions *options_;
   Menu menu_;
   std::vector<std::string> desktop_entry_file_names_;

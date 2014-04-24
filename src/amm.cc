@@ -39,12 +39,18 @@
 namespace amm {
 
 Amm::Amm() {
-  service::EnvironmentVariable environment_variable;
-  options_ = new AmmOptions(environment_variable.Home());
+  options_ = new AmmOptions(environment_variable_.Home());
 }
 
 Amm::~Amm() {
   delete options_;
+}
+
+void Amm::ValidateEnvironment() {
+  if (environment_variable_.Home() == "") {
+    std::cerr << messages::HomeNotSet() << std::endl;
+    exit(2);
+  }
 }
 
 void Amm::LoadCommandLineOption(int argc, char **argv) {

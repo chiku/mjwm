@@ -70,6 +70,12 @@ std::string Version() {
   return stream.str();
 }
 
+std::string HomeNotSet() {
+  std::stringstream stream;
+  stream << "$HOME is not set. Please set $HOME to a proper value and rerun." << std::endl;
+  return stream.str();
+}
+
 std::string OptionError() {
   std::stringstream stream;
   stream << "Please run "<< PACKAGE << " --help to see options" << std::endl;

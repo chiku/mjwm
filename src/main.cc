@@ -20,6 +20,7 @@
 
 int main(int argc, char *argv[]) {
   amm::Amm amm;
+  amm.ValidateEnvironment();
   amm.LoadCommandLineOption(argc, argv);
   amm.RegisterIconService();
   amm.ReadCategories();
