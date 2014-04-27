@@ -62,10 +62,10 @@ Usage
 
 * Run the script
 ``` script
-mjwm -o $HOME/.mjwm-entries -a
+mjwm
 ```
 
-* Edit your $HOME/.jwmrc file. Add an Include $HOME/.mjwm-entries line inside RootMenu.
+* Edit your $HOME/.jwmrc file. Add an Include $HOME/.jwmrc-mjwm line inside RootMenu.
 ``` xml
 <JWM>
   <!-- SNIP SNIP -->
@@ -73,7 +73,7 @@ mjwm -o $HOME/.mjwm-entries -a
   <RootMenu onroot="12">
       <!-- Other Menu Entries -->
 
-      <Include>$HOME/.mjwm-entries</Include>
+      <Include>$HOME/.jwmrc-mjwm</Include>
 
       <!-- Other Menu Entries -->
   </RootMenu>
