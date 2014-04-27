@@ -44,8 +44,8 @@ Optional arguments:
   -i, --input-directory [DIRECTORY]
                               Directory to scan for '.desktop' files. Multiple
                                 directories, if provided, must be separated by
-                                colons. [Default: applications directories
-                                under $XDG_DATA_DIRS & $XDG_DATA_DIRS]
+                                colons. [Default: application directories
+                                under $XDG_DATA_HOME & $XDG_DATA_DIRS]
   -c, --category-file [FILE]  Use an external category file. Overrides the
                                 built in categories. Please look at
                                 default.mjwm to write your own category files.

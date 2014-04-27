@@ -45,8 +45,8 @@ std::string Help() {
   stream << "  -i, --input-directory [DIRECTORY]" << std::endl;
   stream << "                              Directory to scan for '.desktop' files. Multiple" << std::endl;
   stream << "                                directories, if provided, must be separated by" << std::endl;
-  stream << "                                colons. [Default: applications directories" << std::endl;
-  stream << "                                under $XDG_DATA_DIRS & $XDG_DATA_DIRS]" << std::endl;
+  stream << "                                colons. [Default: application directories" << std::endl;
+  stream << "                                under $XDG_DATA_HOME & $XDG_DATA_DIRS]" << std::endl;
   stream << "  -c, --category-file [FILE]  Use an external category file. Overrides the" << std::endl;
   stream << "                                built in categories. Please look at" << std::endl;
   stream << "                                default.mjwm to write your own category files." << std::endl;
