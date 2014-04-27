@@ -3,6 +3,7 @@ Current
 
 * Provide option to chose summary type from short, normal (default) and long
 * Fail the application if $HOME is not set [#38]
+* Trailing whitespaces in a custom category file are ignored
 
 v3.0.0
 ------

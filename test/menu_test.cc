@@ -92,6 +92,21 @@ SCENARIO("Menu custom categories", "[menu]") {
       }
     }
 
+    WHEN("loaded with custom categories with trailing whitespaces") {
+      std::vector<std::string> lines;
+      lines.push_back("Accessories:accessories:Utility ");
+      menu.LoadCustomCategories(lines);
+
+      THEN("it ignores shitepaces in subcategories") {
+        std::vector<Subcategory> subcategories = menu.Subcategories();
+
+        REQUIRE(subcategories.size() == 1);
+        std::vector<std::string> classification_names = subcategories[0].ClassificationNames();
+        REQUIRE(classification_names.size() == 1);
+        REQUIRE(classification_names[0] == "Utility");
+      }
+    }
+
     WHEN("given a line beginning with '#'") {
       std::vector<std::string> lines;
       lines.push_back("# Comments");

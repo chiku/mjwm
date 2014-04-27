@@ -70,7 +70,7 @@ void Menu::LoadCustomCategories(std::vector<std::string> lines) {
 
   for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
     if ((*line)[0] != '#') {
-      std::vector<std::string> tokens = StringX(*line).Split(":");
+      std::vector<std::string> tokens = StringX(StringX(*line).Trim()).Split(":");
       if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "") {
         std::vector<std::string> classification_names;
         for (std::vector<std::string>::const_iterator token = tokens.begin()+2; token != tokens.end(); ++token) {

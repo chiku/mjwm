@@ -30,6 +30,7 @@
 
 namespace amm {
 // Understands a collection of desktop files divided in subcategories
+// TODO : Split amm::Menu
 class Menu {
  public:
   Menu();
