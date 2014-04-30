@@ -23,6 +23,8 @@ mjwm_SOURCES = src/stringx.cc \
 
 check_PROGRAMS = mjwm_stringx_test \
                  mjwm_vectorx_test \
+                 mjwm_xdg_entry_line_test \
+                 mjwm_xdg_entry_test \
                  mjwm_desktop_file_line_test \
                  mjwm_desktop_entry_test \
                  mjwm_subcategory_test \
@@ -45,6 +47,15 @@ mjwm_stringx_test_SOURCES = src/stringx.cc \
 mjwm_vectorx_test_SOURCES = src/stringx.cc \
                             src/vectorx.cc \
                             test/vectorx_test.cc
+
+mjwm_xdg_entry_line_test_SOURCES = src/stringx.cc \
+                                   src/xdg/entry_line.cc \
+                                   test/xdg/entry_line_test.cc
+
+mjwm_xdg_entry_test_SOURCES = src/stringx.cc \
+                              src/xdg/entry_line.cc \
+                              src/xdg/entry.cc \
+                              test/xdg/entry_test.cc
 
 mjwm_desktop_file_line_test_SOURCES = src/stringx.cc \
                                       src/desktop_file_line.cc \
