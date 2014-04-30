@@ -22,6 +22,7 @@
 #include "xdg/entry.h"
 
 namespace amm {
+namespace xdg {
 
 std::vector<std::string> SingleSectionEntry() {
   std::vector<std::string> lines;
@@ -39,6 +40,40 @@ std::vector<std::string> SingleSectionEntry() {
   return lines;
 }
 
+std::vector<std::string> MultipleSectionsEntry() {
+  std::vector<std::string> lines;
+  lines.push_back("[Desktop Entry]");
+  lines.push_back("Version=1.0");
+  lines.push_back("Type=Application");
+  lines.push_back("Name=Xfburn");
+  lines.push_back("Comment=CD and DVD burning application");
+  lines.push_back("");
+  lines.push_back("Exec=xfburn");
+  lines.push_back("TryExec=xfburn");
+  lines.push_back("Icon=media-cdrom");
+  lines.push_back("MimeType=application/x-cd-image;");
+  lines.push_back("Terminal=false");
+  lines.push_back("Categories=X-XFCE;GTK;DiscBurning;Archiving;AudioVideo;Utility;");
+  lines.push_back("StartupNotify=true");
+  lines.push_back("");
+  lines.push_back("Actions=BurnImage;");
+  lines.push_back("");
+  lines.push_back("[Desktop Action BurnImage]");
+  lines.push_back("Icon=media-cdrom");
+  lines.push_back("Exec=xfburn -i %f");
+  lines.push_back("Name=Burn Image (xfburn)");
+  return lines;
+}
+
+std::vector<std::string> NoDeclaration() {
+  std::vector<std::string> lines;
+  lines.push_back("Name=VLC media player");
+  lines.push_back("Exec=/usr/bin/vlc --started-from-file %U");
+  lines.push_back("Icon=vlc");
+  lines.push_back("Categories=AudioVideo;Player;Recorder;");
+  return lines;
+}
+
 SCENARIO("xdg::Entry", "[XDGentry]") {
   GIVEN("An XDG file with one section") {
     xdg::Entry entry(SingleSectionEntry());
@@ -46,7 +81,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
     WHEN("when parsed") {
       entry.Parse();
 
-      THEN("it exposes values under section and key") {
+      THEN("it exposes values under the section for all key") {
         REQUIRE(entry.Under("Desktop Entry", "Version"    ) == "1.0");
         REQUIRE(entry.Under("Desktop Entry", "Name"       ) == "VLC media player");
         REQUIRE(entry.Under("Desktop Entry", "GenericName") == "Media player");
@@ -60,6 +95,53 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
       }
     }
   }
+
+  GIVEN("An XDG file with multiple section") {
+    xdg::Entry entry(MultipleSectionsEntry());
+
+    WHEN("when parsed") {
+      entry.Parse();
+
+      THEN("it exposes values under all sections and keys") {
+        REQUIRE(entry.Under("Desktop Entry", "Version"       ) == "1.0");
+        REQUIRE(entry.Under("Desktop Entry", "Type"          ) == "Application");
+        REQUIRE(entry.Under("Desktop Entry", "Name"          ) == "Xfburn");
+        REQUIRE(entry.Under("Desktop Entry", "Comment"       ) == "CD and DVD burning application");
+        REQUIRE(entry.Under("Desktop Entry", "Exec"          ) == "xfburn");
+        REQUIRE(entry.Under("Desktop Entry", "TryExec"       ) == "xfburn");
+        REQUIRE(entry.Under("Desktop Entry", "Icon"          ) == "media-cdrom");
+        REQUIRE(entry.Under("Desktop Entry", "MimeType"      ) == "application/x-cd-image;");
+        REQUIRE(entry.Under("Desktop Entry", "Terminal"      ) == "false");
+        REQUIRE(entry.Under("Desktop Entry", "Categories"    ) == "X-XFCE;GTK;DiscBurning;Archiving;AudioVideo;Utility;");
+        REQUIRE(entry.Under("Desktop Entry", "StartupNotify" ) == "true");
+        REQUIRE(entry.Under("Desktop Entry", "Actions"       ) == "BurnImage;");
+
+        REQUIRE(entry.Under("Desktop Action BurnImage", "Icon") == "media-cdrom");
+        REQUIRE(entry.Under("Desktop Action BurnImage", "Exec") == "xfburn -i %f");
+        REQUIRE(entry.Under("Desktop Action BurnImage", "Name") == "Burn Image (xfburn)");
+      }
+
+      THEN("it doesn't duplicate keys and values in lower sections") {
+        REQUIRE(entry.Under("Desktop Action BurnImage", "TryExec") == "");
+      }
+    }
+  }
+
+  GIVEN("An XDG file without a section") {
+    xdg::Entry entry(NoDeclaration());
+
+    WHEN("when parsed") {
+      entry.Parse();
+
+      THEN("it exposes values under all keys under an empty senction") {
+        REQUIRE(entry.Under("", "Name"      ) == "VLC media player");
+        REQUIRE(entry.Under("", "Exec"      ) == "/usr/bin/vlc --started-from-file %U");
+        REQUIRE(entry.Under("", "Icon"      ) == "vlc");
+        REQUIRE(entry.Under("", "Categories") == "AudioVideo;Player;Recorder;");
+      }
+    }
+  }
 }
 
+} // namespace xdg
 } // namespace amm

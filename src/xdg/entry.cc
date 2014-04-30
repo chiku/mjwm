@@ -29,12 +29,19 @@ namespace xdg {
 
 void Entry::Parse() {
   std::map< std::string, std::string > entry;
-  EntryLine section(lines_[0]);
-  for (std::vector<std::string>::iterator iter = lines_.begin() + 1; iter != lines_.end(); ++iter) {
+  std::string current_section = "";
+
+  for (std::vector<std::string>::iterator iter = lines_.begin(); iter != lines_.end(); ++iter) {
     EntryLine line(*iter);
-    entry[line.Key()] = line.Value();
+    if (line.IsDeclaration()) {
+      result_[current_section] = entry;
+      entry.clear();
+      current_section = line.Declaration();
+    } else if (line.IsAssignment()) {
+      entry[line.Key()] = line.Value();
+    }
   }
-  result_[section.Declaration()] = entry;
+  result_[current_section] = entry;
 }
 
 std::string Entry::Under(std::string section, std::string key) {
