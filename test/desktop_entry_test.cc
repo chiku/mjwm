@@ -32,10 +32,13 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
     DesktopEntry entry;
 
     WHEN("populated") {
-      entry.Populate("Name=Mousepad\n");
-      entry.Populate("Icon=accessories-text-editor\n");
-      entry.Populate("Exec=mousepad %F\n");
-      entry.Populate("Categories=Application;Utility;TextEditor;GTK;\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Name=Mousepad\n");
+      lines.push_back("Icon=accessories-text-editor\n");
+      lines.push_back("Exec=mousepad %F\n");
+      lines.push_back("Categories=Application;Utility;TextEditor;GTK;\n");
+      DesktopEntry entry(lines);
 
       THEN("it has a name") {
         REQUIRE(entry.Name() == "Mousepad");
@@ -63,48 +66,23 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
       }
 
       WHEN("NoDisplay is set to true") {
-        entry.Populate("NoDisplay=true");
+        std::vector<std::string> lines;
+        lines.push_back("[Desktop Entry]\n");
+        lines.push_back("NoDisplay=true\n");
+        DesktopEntry entry(lines);
         THEN("it is not marked as displayed") {
           REQUIRE(!entry.Display());
         }
       }
 
       WHEN("NoDisplay is set to 1") {
-        entry.Populate("NoDisplay=1");
+        std::vector<std::string> lines;
+        lines.push_back("[Desktop Entry]\n");
+        lines.push_back("NoDisplay=1\n");
+        DesktopEntry entry(lines);
         THEN("it is not marked as displayed") {
           REQUIRE(!entry.Display());
         }
-      }
-    }
-
-    WHEN("populated with missing entry") {
-      DesktopEntry missing_entry;
-      entry.Populate("Categories=");
-      entry.Populate("Executable=");
-      THEN("entries are empty") {
-        std::vector<std::string> categories = entry.Categories();
-        REQUIRE(categories.empty());
-        REQUIRE(entry.Executable() == "");
-      }
-    }
-
-    WHEN("populated with entry line") {
-      DesktopEntry entry;
-      entry.Populate("");
-      THEN("entries are empty") {
-        REQUIRE(entry.Categories().size() == 0);
-        REQUIRE(entry.Executable() == "");
-      }
-    }
-
-    WHEN("encountering a header that isn't Desktop Entry") {
-      DesktopEntry entry;
-      entry.Populate("[Desktop Entry]");
-      entry.Populate("Name=LibreOffice Draw");
-      entry.Populate("[Desktop Action NewDocument]");
-      entry.Populate("Name=New Drawing");
-      THEN("it stops further assignments") {
-        REQUIRE(entry.Name() == "LibreOffice Draw");
       }
     }
   }
@@ -113,17 +91,19 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
 
 SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    DesktopEntry entry;
-    entry.Populate("Name=Mousepad");
-    entry.Populate("Exec=mousepad");
+    std::vector<std::string> lines;
+    lines.push_back("[Desktop Entry]\n");
+    lines.push_back("Name=Mousepad");
+    lines.push_back("Exec=mousepad");
+    DesktopEntry entry(lines);
 
     WHEN("compared to another desktop-file") {
-      DesktopEntry other_entry;
-
       WHEN("the other desktop-file has an alphabetically greater name") {
-        other_entry.Populate("Name=VLC");
+        std::vector<std::string> other_lines;
+        other_lines.push_back("[Desktop Entry]\n");
+        other_lines.push_back("Name=VLC");
+        DesktopEntry other_entry(other_lines);
 
-        DesktopEntry greater_entry;
         THEN("the desktop file is lesser than the other desktop file") {
           REQUIRE(entry < other_entry);
           REQUIRE(!(other_entry < entry));
@@ -131,7 +111,10 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
       }
 
       WHEN("the other desktop-file has an alphabetically lesser name") {
-        other_entry.Populate("Name=GParted");
+        std::vector<std::string> other_lines;
+        other_lines.push_back("[Desktop Entry]\n");
+        other_lines.push_back("Name=GParted");
+        DesktopEntry other_entry(other_lines);
 
         THEN("the desktop file is greater than the other desktop file") {
           REQUIRE(entry > other_entry);
@@ -140,8 +123,11 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
       }
 
       WHEN("the other desktop-file has same name and executable") {
-        other_entry.Populate("Name=Mousepad");
-        other_entry.Populate("Exec=mousepad");
+        std::vector<std::string> other_lines;
+        other_lines.push_back("[Desktop Entry]\n");
+        other_lines.push_back("Name=Mousepad");
+        other_lines.push_back("Exec=mousepad");
+        DesktopEntry other_entry(other_lines);
 
         THEN("the desktop file is equal to the other desktop file") {
           REQUIRE(entry == other_entry);
@@ -150,8 +136,11 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
       }
 
       WHEN("the other desktop-file has a different name") {
-        other_entry.Populate("Name=VLC");
-        other_entry.Populate("Exec=mousepad");
+        std::vector<std::string> other_lines;
+        other_lines.push_back("[Desktop Entry]\n");
+        other_lines.push_back("Name=VLC Server");
+        other_lines.push_back("Exec=vlc");
+        DesktopEntry other_entry(other_lines);
 
         THEN("the desktop file is not equal to the other desktop file") {
           REQUIRE(entry != other_entry);
@@ -160,8 +149,11 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
       }
 
       WHEN("the other desktop-file has a different executable") {
-        other_entry.Populate("Name=Mousepad");
-        other_entry.Populate("Exec=vlc");
+        std::vector<std::string> other_lines;
+        other_lines.push_back("[Desktop Entry]\n");
+        other_lines.push_back("Name=VLC");
+        other_lines.push_back("Exec=svlc");
+        DesktopEntry other_entry(other_lines);
 
         THEN("the desktop file is not equal to the other desktop file") {
           REQUIRE(entry != other_entry);
@@ -176,37 +168,46 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
 SCENARIO("DesktopEntry validity", "[desktopfile]") {
   GIVEN("A desktop-file") {
     WHEN("it has a name, an icon and an executable") {
-      DesktopEntry entry;
-      entry.Populate("Name=Mousepad");
-      entry.Populate("Icon=accessories-text-editor\n");
-      entry.Populate("Exec=mousepad %F\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Name=Mousepad\n");
+      lines.push_back("Icon=accessories-text-editor\n");
+      lines.push_back("Exec=mousepad %F\n");
+      DesktopEntry entry(lines);
+
       THEN("it is valid") {
         REQUIRE(entry.IsValid());
       }
     }
 
     WHEN("it has a no name") {
-      DesktopEntry entry;
-      entry.Populate("Icon=accessories-text-editor\n");
-      entry.Populate("Exec=mousepad %F\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Icon=accessories-text-editor\n");
+      lines.push_back("Exec=mousepad %F\n");
+      DesktopEntry entry(lines);
       THEN("it is not valid") {
         REQUIRE(!entry.IsValid());
       }
     }
 
     WHEN("it has no icon") {
-      DesktopEntry entry;
-      entry.Populate("Name=Mousepad");
-      entry.Populate("Exec=mousepad %F\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Name=Mousepad\n");
+      lines.push_back("Exec=mousepad %F\n");
+      DesktopEntry entry(lines);
       THEN("it is not valid") {
         REQUIRE(!entry.IsValid());
       }
     }
 
     WHEN("it has no executable") {
-      DesktopEntry entry;
-      entry.Populate("Name=Mousepad");
-      entry.Populate("Icon=accessories-text-editor\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Name=Mousepad\n");
+      lines.push_back("Icon=accessories-text-editor\n");
+      DesktopEntry entry(lines);
       THEN("it is not valid") {
         REQUIRE(!entry.IsValid());
       }
@@ -216,24 +217,31 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
 
 SCENARIO("DesktopEntry classifications", "[desktopfile]") {
   GIVEN("A desktop-file") {
-    DesktopEntry entry;
-
     WHEN("it has one of the categories as AudioVideo") {
-      entry.Populate("Categories=AudioVideo;Audio;Player;GTK;\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Categories=AudioVideo;Audio;Player;GTK;\n");
+      DesktopEntry entry(lines);
       THEN("it is an AudioVideo") {
         REQUIRE(entry.IsA("AudioVideo"));
       }
     }
 
     WHEN("it has none of the categories as AudioVideo") {
-      entry.Populate("Categories=Audio;Video;Player;GTK;\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Categories=Audio;Video;Player;GTK;\n");
+      DesktopEntry entry(lines);
       THEN("it is not as AudioVideo") {
         REQUIRE(!entry.IsA("AudioVideo"));
       }
     }
 
     WHEN("it has one of the categories as AudioVideo") {
-      entry.Populate("Categories=AudioVideo;Audio;Player;GTK;\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Categories=AudioVideo;Audio;Player;GTK;\n");
+      DesktopEntry entry(lines);
       THEN("it is any of AudioVideo and Multimedia") {
         std::vector<std::string> classifications;
         classifications.push_back("AudioVideo");
@@ -243,7 +251,10 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
     }
 
     WHEN("it has none of the categories as AudioVideo") {
-      entry.Populate("Categories=Audio;Video;Player;GTK;\n");
+      std::vector<std::string> lines;
+      lines.push_back("[Desktop Entry]\n");
+      lines.push_back("Categories=Audio;Video;Player;GTK;\n");
+      DesktopEntry entry(lines);
       THEN("it is not any of AudioVideo and Multimedia") {
         std::vector<std::string> classifications;
         classifications.push_back("AudioVideo");

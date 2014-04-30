@@ -23,11 +23,22 @@
 #include <algorithm>
 
 #include "stringx.h"
+#include "xdg/entry.h"
 #include "desktop_file_line.h"
 
 namespace amm {
 
-DesktopEntry::DesktopEntry() : display_(true), populate_under_desktop_entry_(true) { }
+DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true) {
+  xdg::Entry xdg_entry(lines);
+  xdg_entry.Parse();
+  name_ = xdg_entry.Under("Desktop Entry", "Name");
+  icon_ = xdg_entry.Under("Desktop Entry", "Icon");
+  executable_ = xdg_entry.Under("Desktop Entry", "Exec");
+  categories_ = StringX(xdg_entry.Under("Desktop Entry", "Categories")).Split(";");
+  std::string display_raw = xdg_entry.Under("Desktop Entry", "NoDisplay");
+  display_ = display_raw != "true" && display_raw != "1";
+  std::sort(categories_.begin(), categories_.end());
+}
 
 bool DesktopEntry::operator < (const DesktopEntry &other) const {
   return name_ < other.name_;
@@ -60,33 +71,6 @@ bool DesktopEntry::IsAnyOf(std::vector<std::string> types) const {
     }
   };
   return false;
-}
-
-void DesktopEntry::Populate(std::string line_raw) {
-  DesktopFileLine line = DesktopFileLine(line_raw);
-
-  if (line.IsDeclaration() && line.Declaration() != "Desktop Entry") {
-    populate_under_desktop_entry_ = false;
-  }
-
-  if (!populate_under_desktop_entry_) {
-    return;
-  }
-
-  line.AssignWhenPresent("Name", &name_);
-  line.AssignWhenPresent("Icon", &icon_);
-  line.AssignWhenPresent("Exec", &executable_);
-
-  std::string categories_raw;
-  if (line.AssignWhenPresent("Categories", &categories_raw) != "") {
-    categories_ = StringX(categories_raw).Split(";");
-    std::sort(categories_.begin(), categories_.end());
-  }
-
-  std::string display_raw;
-  if (line.AssignWhenPresent("NoDisplay", &display_raw) != "") {
-    display_ = display_raw != "true" && display_raw != "1";
-  }
 }
 
 } // namespace amm

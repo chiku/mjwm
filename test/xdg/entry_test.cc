@@ -74,6 +74,26 @@ std::vector<std::string> NoDeclaration() {
   return lines;
 }
 
+std::vector<std::string> WithWhiteSpaces() {
+  std::vector<std::string> lines;
+  lines.push_back(" [Desktop Entry] ");
+  lines.push_back(" Name = VLC media player ");
+  lines.push_back("Exec=/usr/bin/vlc --started-from-file %U\n\n");
+  lines.push_back(" Icon=vlc");
+  lines.push_back("Categories =AudioVideo;Player;Recorder;\n");
+  return lines;
+}
+
+std::vector<std::string> MissingAssignment() {
+  std::vector<std::string> lines;
+  lines.push_back("[Desktop Entry]");
+  lines.push_back("Name=VLC media player");
+  lines.push_back("Exec=");
+  lines.push_back("=vlc");
+  lines.push_back("Categories=");
+  return lines;
+}
+
 SCENARIO("xdg::Entry", "[XDGentry]") {
   GIVEN("An XDG file with one section") {
     xdg::Entry entry(SingleSectionEntry());
@@ -92,6 +112,34 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
         REQUIRE(entry.Under("Desktop Entry", "Terminal"   ) == "false");
         REQUIRE(entry.Under("Desktop Entry", "Type"       ) == "Application");
         REQUIRE(entry.Under("Desktop Entry", "Categories" ) == "AudioVideo;Player;Recorder;");
+      }
+    }
+  }
+
+  GIVEN("An XDG file with entries that contain whitespaces") {
+    xdg::Entry entry(WithWhiteSpaces());
+
+    WHEN("when parsed") {
+      entry.Parse();
+
+      THEN("it exposes values under the section for all key") {
+        REQUIRE(entry.Under("Desktop Entry", "Name"      ) == "VLC media player");
+        REQUIRE(entry.Under("Desktop Entry", "Exec"      ) == "/usr/bin/vlc --started-from-file %U");
+        REQUIRE(entry.Under("Desktop Entry", "Icon"      ) == "vlc");
+        REQUIRE(entry.Under("Desktop Entry", "Categories") == "AudioVideo;Player;Recorder;");
+      }
+    }
+  }
+
+  GIVEN("An XDG file with entries that is missing values") {
+    xdg::Entry entry(MissingAssignment());
+
+    WHEN("when parsed") {
+      entry.Parse();
+
+      THEN("it has empty values for missing entries") {
+        REQUIRE(entry.Under("Desktop Entry", "Exec"      ) == "");
+        REQUIRE(entry.Under("Desktop Entry", "Categories") == "");
       }
     }
   }

@@ -102,12 +102,13 @@ void Menu::AddDesktopEntry(std::string entry_name) {
     return;
   }
 
-  DesktopEntry entry;
+  std::vector<std::string> lines;
   std::string line;
   while (std::getline(file, line)) {
-    entry.Populate(line);
+    lines.push_back(line);
   }
   file.close();
+  DesktopEntry entry(lines);
 
   if (!entry.Display()) {
     summary_.AddSuppressedFile(entry_name);

@@ -20,6 +20,7 @@
 
 #include "subcategory.h"
 
+#include <string>
 #include <vector>
 
 #include "catch.hpp"
@@ -28,21 +29,23 @@
 namespace amm {
 
 static DesktopEntry mousepad_desktop_entry() {
-  DesktopEntry entry;
-  entry.Populate("Name=Mousepad");
-  entry.Populate("Icon=accessories-text-editor");
-  entry.Populate("Exec=mousepad %F");
-  entry.Populate("Categories=Application;Utility;TextEditor;GTK;");
-  return entry;
+  std::vector<std::string> lines;
+  lines.push_back("[Desktop Entry]");
+  lines.push_back("Name=Mousepad");
+  lines.push_back("Icon=accessories-text-editor");
+  lines.push_back("Exec=mousepad %F");
+  lines.push_back("Categories=Application;Utility;TextEditor;GTK;");
+  return DesktopEntry(lines);
 }
 
 static DesktopEntry sakura_desktop_entry() {
-  DesktopEntry entry;
-  entry.Populate("Name=Sakura");
-  entry.Populate("Icon=terminal-tango");
-  entry.Populate("Exec=sakura");
-  entry.Populate("Categories=GTK;Utility;TerminalEmulator;System;");
-  return entry;
+  std::vector<std::string> lines;
+  lines.push_back("[Desktop Entry]");
+  lines.push_back("Name=Sakura");
+  lines.push_back("Icon=terminal-tango");
+  lines.push_back("Exec=sakura");
+  lines.push_back("Categories=GTK;Utility;TerminalEmulator;System;");
+  return DesktopEntry(lines);
 }
 
 SCENARIO("subcategory", "[subcategory]") {

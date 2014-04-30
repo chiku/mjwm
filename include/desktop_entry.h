@@ -26,7 +26,8 @@ namespace amm {
 // Understands the representation of a FreeDesktop .desktop file
 class DesktopEntry {
  public:
-  DesktopEntry();
+  DesktopEntry() { }
+  DesktopEntry(std::vector<std::string> lines);
 
   std::string Name() const { return name_; }
   std::string Icon() const { return icon_; }
@@ -42,7 +43,6 @@ class DesktopEntry {
   bool IsValid() const;
   bool IsA(std::string type) const;
   bool IsAnyOf(std::vector<std::string> types) const;
-  void Populate(std::string line);
 
  private:
   std::string name_;
@@ -50,7 +50,6 @@ class DesktopEntry {
   std::string icon_;
   std::vector<std::string> categories_;
   bool display_;
-  bool populate_under_desktop_entry_;
 };
 
 } // namespace amm

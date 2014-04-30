@@ -111,6 +111,7 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" \
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
 am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
+	src/xdg/entry_line.$(OBJEXT) src/xdg/entry.$(OBJEXT) \
 	src/desktop_file_line.$(OBJEXT) src/desktop_entry.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) src/stats.$(OBJEXT) \
 	src/menu.$(OBJEXT) src/transformer/jwm.$(OBJEXT) \
@@ -129,7 +130,8 @@ mjwm_command_line_options_parser_test_OBJECTS =  \
 	$(am_mjwm_command_line_options_parser_test_OBJECTS)
 mjwm_command_line_options_parser_test_LDADD = $(LDADD)
 am_mjwm_desktop_entry_test_OBJECTS = src/stringx.$(OBJEXT) \
-	src/desktop_file_line.$(OBJEXT) src/desktop_entry.$(OBJEXT) \
+	src/desktop_file_line.$(OBJEXT) src/xdg/entry_line.$(OBJEXT) \
+	src/xdg/entry.$(OBJEXT) src/desktop_entry.$(OBJEXT) \
 	test/desktop_entry_test.$(OBJEXT)
 mjwm_desktop_entry_test_OBJECTS =  \
 	$(am_mjwm_desktop_entry_test_OBJECTS)
@@ -141,7 +143,8 @@ mjwm_desktop_file_line_test_OBJECTS =  \
 	$(am_mjwm_desktop_file_line_test_OBJECTS)
 mjwm_desktop_file_line_test_LDADD = $(LDADD)
 am_mjwm_menu_test_OBJECTS = src/stringx.$(OBJEXT) \
-	src/vectorx.$(OBJEXT) src/desktop_file_line.$(OBJEXT) \
+	src/vectorx.$(OBJEXT) src/xdg/entry_line.$(OBJEXT) \
+	src/xdg/entry.$(OBJEXT) src/desktop_file_line.$(OBJEXT) \
 	src/desktop_entry.$(OBJEXT) src/subcategory.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
 	test/menu_test.$(OBJEXT)
@@ -172,6 +175,7 @@ am_mjwm_stringx_test_OBJECTS = src/stringx.$(OBJEXT) \
 mjwm_stringx_test_OBJECTS = $(am_mjwm_stringx_test_OBJECTS)
 mjwm_stringx_test_LDADD = $(LDADD)
 am_mjwm_subcategory_test_OBJECTS = src/stringx.$(OBJEXT) \
+	src/xdg/entry_line.$(OBJEXT) src/xdg/entry.$(OBJEXT) \
 	src/desktop_file_line.$(OBJEXT) src/desktop_entry.$(OBJEXT) \
 	src/subcategory.$(OBJEXT) test/subcategory_test.$(OBJEXT)
 mjwm_subcategory_test_OBJECTS = $(am_mjwm_subcategory_test_OBJECTS)
@@ -596,6 +600,8 @@ AUTOMAKE_OPTIONS = subdir-objects
 AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
+               src/xdg/entry_line.cc \
+               src/xdg/entry.cc \
                src/desktop_file_line.cc \
                src/desktop_entry.cc \
                src/subcategory.cc \
@@ -636,10 +642,14 @@ mjwm_desktop_file_line_test_SOURCES = src/stringx.cc \
 
 mjwm_desktop_entry_test_SOURCES = src/stringx.cc \
                                   src/desktop_file_line.cc \
+                                  src/xdg/entry_line.cc \
+                                  src/xdg/entry.cc \
                                   src/desktop_entry.cc \
                                   test/desktop_entry_test.cc
 
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
+                                src/xdg/entry_line.cc \
+                                src/xdg/entry.cc \
                                 src/desktop_file_line.cc \
                                 src/desktop_entry.cc \
                                 src/subcategory.cc \
@@ -652,6 +662,8 @@ mjwm_stats_test_SOURCES = src/stringx.cc \
 
 mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/vectorx.cc \
+                         src/xdg/entry_line.cc \
+                         src/xdg/entry.cc \
                          src/desktop_file_line.cc \
                          src/desktop_entry.cc \
                          src/subcategory.cc \
@@ -787,6 +799,16 @@ src/stringx.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/vectorx.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/xdg/$(am__dirstamp):
+	@$(MKDIR_P) src/xdg
+	@: > src/xdg/$(am__dirstamp)
+src/xdg/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) src/xdg/$(DEPDIR)
+	@: > src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/xdg/entry_line.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/xdg/entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
 src/desktop_file_line.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/desktop_entry.$(OBJEXT): src/$(am__dirstamp) \
@@ -917,14 +939,6 @@ test/vectorx_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_vectorx_test$(EXEEXT): $(mjwm_vectorx_test_OBJECTS) $(mjwm_vectorx_test_DEPENDENCIES) $(EXTRA_mjwm_vectorx_test_DEPENDENCIES) 
 	@rm -f mjwm_vectorx_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_vectorx_test_OBJECTS) $(mjwm_vectorx_test_LDADD) $(LIBS)
-src/xdg/$(am__dirstamp):
-	@$(MKDIR_P) src/xdg
-	@: > src/xdg/$(am__dirstamp)
-src/xdg/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) src/xdg/$(DEPDIR)
-	@: > src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/xdg/entry_line.$(OBJEXT): src/xdg/$(am__dirstamp) \
-	src/xdg/$(DEPDIR)/$(am__dirstamp)
 test/xdg/$(am__dirstamp):
 	@$(MKDIR_P) test/xdg
 	@: > test/xdg/$(am__dirstamp)
@@ -937,8 +951,6 @@ test/xdg/entry_line_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
 mjwm_xdg_entry_line_test$(EXEEXT): $(mjwm_xdg_entry_line_test_OBJECTS) $(mjwm_xdg_entry_line_test_DEPENDENCIES) $(EXTRA_mjwm_xdg_entry_line_test_DEPENDENCIES) 
 	@rm -f mjwm_xdg_entry_line_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_xdg_entry_line_test_OBJECTS) $(mjwm_xdg_entry_line_test_LDADD) $(LIBS)
-src/xdg/entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
-	src/xdg/$(DEPDIR)/$(am__dirstamp)
 test/xdg/entry_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
 	test/xdg/$(DEPDIR)/$(am__dirstamp)
 
