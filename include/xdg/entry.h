@@ -26,6 +26,7 @@
 namespace amm {
 namespace xdg {
 
+// Understands INI style files for configuring desktop environments as per FreeDesktop guidelines
 class Entry {
  public:
   Entry(std::vector<std::string> lines) { lines_ = lines; }

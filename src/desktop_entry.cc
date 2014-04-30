@@ -24,7 +24,6 @@
 
 #include "stringx.h"
 #include "xdg/entry.h"
-#include "desktop_file_line.h"
 
 namespace amm {
 

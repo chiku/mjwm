@@ -24,6 +24,7 @@
 namespace amm {
 namespace xdg {
 
+// Understands a line of XDG style INI files
 class EntryLine {
  public:
   EntryLine(std::string content);

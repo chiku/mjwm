@@ -9,7 +9,6 @@ mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
                src/xdg/entry_line.cc \
                src/xdg/entry.cc \
-               src/desktop_file_line.cc \
                src/desktop_entry.cc \
                src/subcategory.cc \
                src/stats.cc \
@@ -27,7 +26,6 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_vectorx_test \
                  mjwm_xdg_entry_line_test \
                  mjwm_xdg_entry_test \
-                 mjwm_desktop_file_line_test \
                  mjwm_desktop_entry_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
@@ -59,12 +57,7 @@ mjwm_xdg_entry_test_SOURCES = src/stringx.cc \
                               src/xdg/entry.cc \
                               test/xdg/entry_test.cc
 
-mjwm_desktop_file_line_test_SOURCES = src/stringx.cc \
-                                      src/desktop_file_line.cc \
-                                      test/desktop_file_line_test.cc
-
 mjwm_desktop_entry_test_SOURCES = src/stringx.cc \
-                                  src/desktop_file_line.cc \
                                   src/xdg/entry_line.cc \
                                   src/xdg/entry.cc \
                                   src/desktop_entry.cc \
@@ -73,7 +66,6 @@ mjwm_desktop_entry_test_SOURCES = src/stringx.cc \
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
                                 src/xdg/entry_line.cc \
                                 src/xdg/entry.cc \
-                                src/desktop_file_line.cc \
                                 src/desktop_entry.cc \
                                 src/subcategory.cc \
                                 test/subcategory_test.cc
@@ -87,7 +79,6 @@ mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/vectorx.cc \
                          src/xdg/entry_line.cc \
                          src/xdg/entry.cc \
-                         src/desktop_file_line.cc \
                          src/desktop_entry.cc \
                          src/subcategory.cc \
                          src/stats.cc \
