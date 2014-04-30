@@ -30,6 +30,9 @@
 /* Define to 1 if you have the <limits> header file. */
 #undef HAVE_LIMITS
 
+/* Define to 1 if you have the <map> header file. */
+#undef HAVE_MAP
+
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
