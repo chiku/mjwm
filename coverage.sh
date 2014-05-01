@@ -1,33 +1,41 @@
 #!/bin/sh
 
 validate() {
+  cover="0"
+
+  if [ $CXX != "g++" ]
+  then
+    echo ">>> Won't generate coverage: compiler is not g++ <<<"
+    return
+  fi
   which lcov > /dev/null 2>&1
   if [ $? != 0 ]
   then
-    echo "Please install lcov"
-    exit 1
+    echo ">>> Won't generate coverage: lcov is missing <<<"
+    return
   fi
-  if [ $CXX != "g++" ]
-  then
-    echo "Can't generate coverage if compiler is not g++"
-    exit 0
-  fi
+
+  cover="1"
 }
 
-reconfigure_with_coverage_support() {
-  CXXFLAGS="-g -O0 --coverage" CFLAGS="-g -O0 --coverage" LDFLAGS="--coverage" ./configure --disable-shared
+reconfigure() {
+  ./autogen.sh
+  CXXFLAGS="-g -O0 --coverage" CFLAGS="-g -O0 --coverage" LDFLAGS="--coverage" ./configure --prefix /tmp/mjwm
 }
 
-generate_coverage_output() {
+build_with_test_run() {
   make clean
-  make -j8
-  make check -j8
+  make -j4
+  make check -j4
 }
 
 generate_html_report() {
-  lcov --capture --directory src --output-file coverage.info
-  lcov --remove coverage.info "/usr*" --output-file filtered.coverage.info
-  genhtml filtered.coverage.info --num-spaces 4 --output-directory coverage
+  if [ $cover -eq "1" ]
+  then
+    lcov --capture --directory src --output-file coverage.info
+    lcov --remove coverage.info "/usr*" --output-file filtered.coverage.info
+    genhtml filtered.coverage.info --num-spaces 4 --output-directory coverage
+  fi
 }
 
 cleanup() {
@@ -41,7 +49,7 @@ set -e
 validate
 cleanup
 rm -rf coverage
-reconfigure_with_coverage_support
-generate_coverage_output
+reconfigure
+build_with_test_run
 generate_html_report
 cleanup
