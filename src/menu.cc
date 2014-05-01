@@ -25,7 +25,7 @@
 #include "stringx.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/mirror.h"
-#include "desktop_entry.h"
+#include "xdg/desktop_entry.h"
 #include "subcategory.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
@@ -108,7 +108,7 @@ void Menu::AddDesktopEntry(std::string entry_name) {
     lines.push_back(line);
   }
   file.close();
-  DesktopEntry entry(lines);
+  xdg::DesktopEntry entry(lines);
 
   if (!entry.Display()) {
     summary_.AddSuppressedFile(entry_name);
@@ -130,7 +130,7 @@ void Menu::AddDesktopEntry(std::string entry_name) {
   }
 }
 
-bool Menu::Classify(DesktopEntry entry) {
+bool Menu::Classify(xdg::DesktopEntry entry) {
   bool classified = false;
 
   std::vector<Subcategory>::iterator subcategory;
@@ -163,8 +163,8 @@ std::vector<RepresentationInterface*> Menu::Representations() const {
       representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_name);
       representations.push_back(start);
 
-      std::vector<DesktopEntry> entries = subcategory->DesktopEntries();
-      for (std::vector<DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+      std::vector<xdg::DesktopEntry> entries = subcategory->DesktopEntries();
+      for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
         std::string icon_name = icon_service_->ResolvedName(entry->Icon());
         representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable());
         representations.push_back(program);

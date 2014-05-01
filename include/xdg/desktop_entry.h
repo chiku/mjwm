@@ -23,6 +23,8 @@
 #include <vector>
 
 namespace amm {
+namespace xdg {
+
 // Understands the representation of a FreeDesktop .desktop file
 class DesktopEntry {
  public:
@@ -52,6 +54,7 @@ class DesktopEntry {
   bool display_;
 };
 
+} // namespace xdg
 } // namespace amm
 
 #endif // AMM_DESKTOP_ENTRY_H_

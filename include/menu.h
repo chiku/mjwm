@@ -47,7 +47,7 @@ class Menu {
 
  private:
   void AddDesktopEntry(std::string desktop_entry_name);
-  bool Classify(DesktopEntry entry);
+  bool Classify(xdg::DesktopEntry entry);
   void CreateDefaultCategories();
 
   service::IconServiceInterface *icon_service_;

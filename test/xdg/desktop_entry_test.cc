@@ -18,14 +18,15 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "desktop_entry.h"
+#include "xdg/desktop_entry.h"
 
 #include <vector>
 #include <string>
 
-#include "catch.hpp"
+#include "../catch.hpp"
 
 namespace amm {
+namespace xdg {
 
 SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
   GIVEN("A desktop-file") {
@@ -265,4 +266,5 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
   }
 }
 
+} // namespace xdg
 } // namespace amm

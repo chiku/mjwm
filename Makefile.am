@@ -9,7 +9,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
                src/xdg/entry_line.cc \
                src/xdg/entry.cc \
-               src/desktop_entry.cc \
+               src/xdg/desktop_entry.cc \
                src/subcategory.cc \
                src/stats.cc \
                src/menu.cc \
@@ -26,7 +26,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_vectorx_test \
                  mjwm_xdg_entry_line_test \
                  mjwm_xdg_entry_test \
-                 mjwm_desktop_entry_test \
+                 mjwm_xdg_desktop_entry_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
@@ -57,16 +57,16 @@ mjwm_xdg_entry_test_SOURCES = src/stringx.cc \
                               src/xdg/entry.cc \
                               test/xdg/entry_test.cc
 
-mjwm_desktop_entry_test_SOURCES = src/stringx.cc \
-                                  src/xdg/entry_line.cc \
-                                  src/xdg/entry.cc \
-                                  src/desktop_entry.cc \
-                                  test/desktop_entry_test.cc
+mjwm_xdg_desktop_entry_test_SOURCES = src/stringx.cc \
+                                      src/xdg/entry_line.cc \
+                                      src/xdg/entry.cc \
+                                      src/xdg/desktop_entry.cc \
+                                      test/xdg/desktop_entry_test.cc
 
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
                                 src/xdg/entry_line.cc \
                                 src/xdg/entry.cc \
-                                src/desktop_entry.cc \
+                                src/xdg/desktop_entry.cc \
                                 src/subcategory.cc \
                                 test/subcategory_test.cc
 
@@ -79,7 +79,7 @@ mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/vectorx.cc \
                          src/xdg/entry_line.cc \
                          src/xdg/entry.cc \
-                         src/desktop_entry.cc \
+                         src/xdg/desktop_entry.cc \
                          src/subcategory.cc \
                          src/stats.cc \
                          src/menu.cc \

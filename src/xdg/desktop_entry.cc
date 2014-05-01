@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "desktop_entry.h"
+#include "xdg/desktop_entry.h"
 
 #include <string>
 #include <vector>
@@ -26,9 +26,10 @@
 #include "xdg/entry.h"
 
 namespace amm {
+namespace xdg {
 
 DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true) {
-  xdg::Entry xdg_entry(lines);
+  Entry xdg_entry(lines);
   xdg_entry.Parse();
   name_ = xdg_entry.Under("Desktop Entry", "Name");
   icon_ = xdg_entry.Under("Desktop Entry", "Icon");
@@ -72,4 +73,5 @@ bool DesktopEntry::IsAnyOf(std::vector<std::string> types) const {
   return false;
 }
 
+} // namespace xdg
 } // namespace amm

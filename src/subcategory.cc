@@ -22,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "desktop_entry.h"
+#include "xdg/desktop_entry.h"
 
 namespace amm {
 
@@ -38,13 +38,13 @@ bool Subcategory::HasEntries() const {
   return DesktopEntries().size() > 0;
 }
 
-void Subcategory::AddDesktopEntry(DesktopEntry desktop_entry) {
+void Subcategory::AddDesktopEntry(xdg::DesktopEntry desktop_entry) {
   desktop_entries_.push_back(desktop_entry);
 }
 
 void Subcategory::SortDesktopEntries() {
   std::sort(desktop_entries_.begin(), desktop_entries_.end());
-  std::vector<amm::DesktopEntry>::iterator it = std::unique(desktop_entries_.begin(), desktop_entries_.end());
+  std::vector<xdg::DesktopEntry>::iterator it = std::unique(desktop_entries_.begin(), desktop_entries_.end());
   desktop_entries_.resize(std::distance(desktop_entries_.begin(), it));
 }
 

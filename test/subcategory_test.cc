@@ -24,28 +24,28 @@
 #include <vector>
 
 #include "catch.hpp"
-#include "desktop_entry.h"
+#include "xdg/desktop_entry.h"
 
 namespace amm {
 
-static DesktopEntry mousepad_desktop_entry() {
+static xdg::DesktopEntry mousepad_desktop_entry() {
   std::vector<std::string> lines;
   lines.push_back("[Desktop Entry]");
   lines.push_back("Name=Mousepad");
   lines.push_back("Icon=accessories-text-editor");
   lines.push_back("Exec=mousepad %F");
   lines.push_back("Categories=Application;Utility;TextEditor;GTK;");
-  return DesktopEntry(lines);
+  return xdg::DesktopEntry(lines);
 }
 
-static DesktopEntry sakura_desktop_entry() {
+static xdg::DesktopEntry sakura_desktop_entry() {
   std::vector<std::string> lines;
   lines.push_back("[Desktop Entry]");
   lines.push_back("Name=Sakura");
   lines.push_back("Icon=terminal-tango");
   lines.push_back("Exec=sakura");
   lines.push_back("Categories=GTK;Utility;TerminalEmulator;System;");
-  return DesktopEntry(lines);
+  return xdg::DesktopEntry(lines);
 }
 
 SCENARIO("subcategory", "[subcategory]") {
@@ -71,7 +71,7 @@ SCENARIO("subcategory", "[subcategory]") {
       WHEN("sorted") {
         subcategory.SortDesktopEntries();
         THEN("its entries in alphabetical order by name") {
-          std::vector<DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+          std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
           REQUIRE(desktop_entries.size() == 2);
           REQUIRE(desktop_entries[0].Name() == "Mousepad");
           REQUIRE(desktop_entries[1].Name() == "Sakura");
@@ -86,7 +86,7 @@ SCENARIO("subcategory", "[subcategory]") {
       WHEN("sorted") {
         subcategory.SortDesktopEntries();
         THEN("it doesn't repeat entries") {
-          std::vector<DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+          std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
           REQUIRE(desktop_entries.size() == 2);
           REQUIRE(desktop_entries[0].Name() == "Mousepad");
           REQUIRE(desktop_entries[1].Name() == "Sakura");
