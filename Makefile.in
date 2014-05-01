@@ -81,6 +81,7 @@ bin_PROGRAMS = mjwm$(EXEEXT)
 check_PROGRAMS = mjwm_stringx_test$(EXEEXT) mjwm_vectorx_test$(EXEEXT) \
 	mjwm_xdg_entry_line_test$(EXEEXT) mjwm_xdg_entry_test$(EXEEXT) \
 	mjwm_xdg_desktop_entry_test$(EXEEXT) \
+	mjwm_xdg_icon_theme_test$(EXEEXT) \
 	mjwm_subcategory_test$(EXEEXT) mjwm_stats_test$(EXEEXT) \
 	mjwm_menu_test$(EXEEXT) mjwm_service_file_search_test$(EXEEXT) \
 	mjwm_transformer_jwm_test$(EXEEXT) \
@@ -193,6 +194,13 @@ am_mjwm_xdg_entry_test_OBJECTS = src/stringx.$(OBJEXT) \
 	test/xdg/entry_test.$(OBJEXT)
 mjwm_xdg_entry_test_OBJECTS = $(am_mjwm_xdg_entry_test_OBJECTS)
 mjwm_xdg_entry_test_LDADD = $(LDADD)
+am_mjwm_xdg_icon_theme_test_OBJECTS = src/stringx.$(OBJEXT) \
+	src/xdg/entry_line.$(OBJEXT) src/xdg/entry.$(OBJEXT) \
+	src/xdg/icon_theme.$(OBJEXT) \
+	test/xdg/icon_theme_test.$(OBJEXT)
+mjwm_xdg_icon_theme_test_OBJECTS =  \
+	$(am_mjwm_xdg_icon_theme_test_OBJECTS)
+mjwm_xdg_icon_theme_test_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -233,7 +241,8 @@ SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_vectorx_test_SOURCES) \
 	$(mjwm_xdg_desktop_entry_test_SOURCES) \
 	$(mjwm_xdg_entry_line_test_SOURCES) \
-	$(mjwm_xdg_entry_test_SOURCES)
+	$(mjwm_xdg_entry_test_SOURCES) \
+	$(mjwm_xdg_icon_theme_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_parser_test_SOURCES) \
 	$(mjwm_menu_test_SOURCES) \
@@ -245,7 +254,8 @@ DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_vectorx_test_SOURCES) \
 	$(mjwm_xdg_desktop_entry_test_SOURCES) \
 	$(mjwm_xdg_entry_line_test_SOURCES) \
-	$(mjwm_xdg_entry_test_SOURCES)
+	$(mjwm_xdg_entry_test_SOURCES) \
+	$(mjwm_xdg_icon_theme_test_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -631,6 +641,12 @@ mjwm_xdg_desktop_entry_test_SOURCES = src/stringx.cc \
                                       src/xdg/desktop_entry.cc \
                                       test/xdg/desktop_entry_test.cc
 
+mjwm_xdg_icon_theme_test_SOURCES = src/stringx.cc \
+                                   src/xdg/entry_line.cc \
+                                   src/xdg/entry.cc \
+                                   src/xdg/icon_theme.cc \
+                                   test/xdg/icon_theme_test.cc
+
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
                                 src/xdg/entry_line.cc \
                                 src/xdg/entry.cc \
@@ -931,6 +947,14 @@ test/xdg/entry_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
 mjwm_xdg_entry_test$(EXEEXT): $(mjwm_xdg_entry_test_OBJECTS) $(mjwm_xdg_entry_test_DEPENDENCIES) $(EXTRA_mjwm_xdg_entry_test_DEPENDENCIES) 
 	@rm -f mjwm_xdg_entry_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_xdg_entry_test_OBJECTS) $(mjwm_xdg_entry_test_LDADD) $(LIBS)
+src/xdg/icon_theme.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
+test/xdg/icon_theme_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
+	test/xdg/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_xdg_icon_theme_test$(EXEEXT): $(mjwm_xdg_icon_theme_test_OBJECTS) $(mjwm_xdg_icon_theme_test_DEPENDENCIES) $(EXTRA_mjwm_xdg_icon_theme_test_DEPENDENCIES) 
+	@rm -f mjwm_xdg_icon_theme_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_xdg_icon_theme_test_OBJECTS) $(mjwm_xdg_icon_theme_test_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -963,6 +987,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/desktop_entry.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/entry.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/entry_line.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/icon_theme.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_parser_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
@@ -975,6 +1000,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/desktop_entry_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/entry_line_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/entry_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/icon_theme_test.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -1285,6 +1311,13 @@ mjwm_xdg_entry_test.log: mjwm_xdg_entry_test$(EXEEXT)
 mjwm_xdg_desktop_entry_test.log: mjwm_xdg_desktop_entry_test$(EXEEXT)
 	@p='mjwm_xdg_desktop_entry_test$(EXEEXT)'; \
 	b='mjwm_xdg_desktop_entry_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_xdg_icon_theme_test.log: mjwm_xdg_icon_theme_test$(EXEEXT)
+	@p='mjwm_xdg_icon_theme_test$(EXEEXT)'; \
+	b='mjwm_xdg_icon_theme_test'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

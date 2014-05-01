@@ -24,7 +24,7 @@
 namespace amm {
 namespace xdg {
 
-std::vector<std::string> SingleSectionEntry() {
+std::vector<std::string> SingleSectionEntryLines() {
   std::vector<std::string> lines;
   lines.push_back("[Desktop Entry]");
   lines.push_back("Version=1.0");
@@ -65,7 +65,7 @@ std::vector<std::string> MultipleSectionsEntry() {
   return lines;
 }
 
-std::vector<std::string> NoDeclaration() {
+std::vector<std::string> NoDeclarationLines() {
   std::vector<std::string> lines;
   lines.push_back("Name=VLC media player");
   lines.push_back("Exec=/usr/bin/vlc --started-from-file %U");
@@ -74,7 +74,7 @@ std::vector<std::string> NoDeclaration() {
   return lines;
 }
 
-std::vector<std::string> WithWhiteSpaces() {
+std::vector<std::string> SingleSectionWithWhiteSpacesLines() {
   std::vector<std::string> lines;
   lines.push_back(" [Desktop Entry] ");
   lines.push_back(" Name = VLC media player ");
@@ -84,7 +84,7 @@ std::vector<std::string> WithWhiteSpaces() {
   return lines;
 }
 
-std::vector<std::string> MissingAssignment() {
+std::vector<std::string> SinleSectionWithMissingAssignmentLines() {
   std::vector<std::string> lines;
   lines.push_back("[Desktop Entry]");
   lines.push_back("Name=VLC media player");
@@ -96,7 +96,7 @@ std::vector<std::string> MissingAssignment() {
 
 SCENARIO("xdg::Entry", "[XDGentry]") {
   GIVEN("An XDG file with one section") {
-    xdg::Entry entry(SingleSectionEntry());
+    xdg::Entry entry(SingleSectionEntryLines());
 
     WHEN("when parsed") {
       entry.Parse();
@@ -117,7 +117,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
   }
 
   GIVEN("An XDG file with entries that contain whitespaces") {
-    xdg::Entry entry(WithWhiteSpaces());
+    xdg::Entry entry(SingleSectionWithWhiteSpacesLines());
 
     WHEN("when parsed") {
       entry.Parse();
@@ -132,7 +132,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
   }
 
   GIVEN("An XDG file with entries that is missing values") {
-    xdg::Entry entry(MissingAssignment());
+    xdg::Entry entry(SinleSectionWithMissingAssignmentLines());
 
     WHEN("when parsed") {
       entry.Parse();
@@ -176,7 +176,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
   }
 
   GIVEN("An XDG file without a section") {
-    xdg::Entry entry(NoDeclaration());
+    xdg::Entry entry(NoDeclarationLines());
 
     WHEN("when parsed") {
       entry.Parse();

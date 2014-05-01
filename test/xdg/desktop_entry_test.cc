@@ -32,7 +32,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
   GIVEN("A desktop-file") {
     DesktopEntry entry;
 
-    WHEN("populated") {
+    WHEN("created") {
       std::vector<std::string> lines;
       lines.push_back("[Desktop Entry]\n");
       lines.push_back("Name=Mousepad\n");

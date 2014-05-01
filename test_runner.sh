@@ -33,6 +33,7 @@ run mjwm_vectorx_test
 run mjwm_xdg_entry_test
 run mjwm_xdg_entry_line_test
 run mjwm_xdg_desktop_entry_test
+run mjwm_xdg_icon_theme_test
 run mjwm_subcategory_test
 run mjwm_stats_test
 run mjwm_menu_test
