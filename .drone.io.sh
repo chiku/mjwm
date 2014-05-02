@@ -2,14 +2,15 @@
 
 set -e
 
+export CFLAGS="-m32 -Os -Wall -Wextra"
+export CXXFLAGS="-m32 -Os -Wall -Wextra"
+export LDFLAGS="-m32 -Os -Wall -Wextra"
+export VERBOSE=1
+
 reduce_binary_script=$(readlink -f $(dirname $0)/reduce.sh)
 
 sudo apt-get update
 sudo apt-get install g++-multilib upx
-
-export CFLAGS="-Os -Wall -Wextra"
-export CXXFLAGS="-Os -Wall -Wextra"
-export LDFLAGS="-Os -Wall -Wextra"
 
 ./autogen.sh
 ./configure --prefix $HOME/mjwm-install/usr/local
@@ -31,5 +32,6 @@ ls -l
 tar -cvzf mjwm.tar.gz usr
 popd
 cp $HOME/mjwm-install/mjwm.tar.gz mjwm-$mjwm_version.tar.gz
+cp $HOME/mjwm-install/usr/local/bin/mjwm mjwm-$mjwm_version
 
 rm -r $HOME/mjwm-install

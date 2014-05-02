@@ -1,5 +1,5 @@
-Current
--------
+v3.1.0-pre
+----------
 
 * Provide option to chose summary type from short, normal (default) and long
 * Fail the application if $HOME is not set [#38]
