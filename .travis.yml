@@ -7,10 +7,8 @@ before_install:
   - # sudo pip install cpp-coveralls
 script:
   - ./autogen.sh
-  - ./configure --prefix /tmp/mjwm
-  - make check -j4
+  - ./coverage.sh
   - ./test_runner.sh
   - make install-strip && ls -halR /tmp/mjwm
   - time /tmp/mjwm/bin/mjwm -o automenu.default && cat automenu.default
   - time /tmp/mjwm/bin/mjwm --iconize -o automenu.iconize && cat automenu.iconize
-  - ./coverage.sh
