@@ -31,12 +31,24 @@ crunch_binary() {
 }
 
 artifact() {
+  mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
   pushd $install_base_dir
   tar -cvzf mjwm.tar.gz usr
   popd
-  mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
   cp $install_base_dir/mjwm.tar.gz mjwm-$mjwm_version.tar.gz
   cp $install_dir/bin/mjwm mjwm-$mjwm_version
+}
+
+puppytize() {
+  mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
+  pushd $install_dir
+  echo "mjwm-${mjwm_version}-i686|mjwm|${mjwm_version}-i686||Utility|${size}K|mjwm-${mjwm_version}-i686.pet||Create JWM menu|Slackware|14.0||" > pet.specs
+  pushd $install_base_dir
+  tar -cvzf mjwm.pet usr
+  md5sum mjwm.pet | cut -d' ' -f1 >> mjwm.pet
+  popd
+  popd
+  cp $install_base_dir/mjwm.pet mjwm-$mjwm_version.pet
 }
 
 cleanup() {
@@ -50,4 +62,5 @@ install_prerequisites
 build
 crunch_binary
 artifact
+puppytize
 cleanup
