@@ -41,12 +41,11 @@ artifact() {
 
 puppytize() {
   mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
-  pushd $install_dir
-  echo "mjwm-${mjwm_version}-i686|mjwm|${mjwm_version}-i686||Utility|${size}K|mjwm-${mjwm_version}-i686.pet||Create JWM menu|Slackware|14.0||" > pet.specs
+  size=$(ls -lah $install_dir/bin/mjwm | awk '{ print $5}')
   pushd $install_base_dir
+  echo "mjwm-${mjwm_version}-i686|mjwm|${mjwm_version}-i686||Utility|${size}||mjwm-${mjwm_version}-i686.pet||Create JWM menu|Slackware|14.0||" > pet.specs
   tar -cvzf mjwm.pet usr
   md5sum mjwm.pet | cut -d' ' -f1 >> mjwm.pet
-  popd
   popd
   cp $install_base_dir/mjwm.pet mjwm-$mjwm_version.pet
 }
