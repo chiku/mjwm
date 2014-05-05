@@ -37,13 +37,23 @@ IconTheme::IconTheme(std::vector<std::string> lines) {
 
   std::vector<std::string> directory_names = StringX(xdg_entry.Under("Icon Theme", "Directories")).Split(",");
   for (std::vector<std::string>::const_iterator name = directory_names.begin(); name != directory_names.end(); ++name) {
+    std::string type = xdg_entry.Under(*name, "Type");
+    std::string size = xdg_entry.Under(*name, "Size");
+    std::string maxsize = xdg_entry.Under(*name, "MaxSize");
+    std::string minsize = xdg_entry.Under(*name, "MinSize");
+    std::string threshold = xdg_entry.Under(*name, "Threshold");
+    type = type == "" ? "Threshold" : type;
+    maxsize = maxsize == "" ? size : maxsize;
+    minsize = minsize == "" ? size : minsize;
+    threshold = threshold == "" ? "2" : threshold;
+
     directories_.push_back(IconSubdirectory(
       *name,
-      xdg_entry.Under(*name, "Type"),
-      atoi(xdg_entry.Under(*name, "Size").c_str()),
-      atoi(xdg_entry.Under(*name, "MaxSize").c_str()),
-      atoi(xdg_entry.Under(*name, "MinSize").c_str()),
-      atoi(xdg_entry.Under(*name, "Threshold").c_str())
+      type,
+      atoi(size.c_str()),
+      atoi(maxsize.c_str()),
+      atoi(minsize.c_str()),
+      atoi(threshold.c_str())
     ));
   }
 }

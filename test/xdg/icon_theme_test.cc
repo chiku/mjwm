@@ -53,6 +53,15 @@ std::vector<std::string> SubdirectoryLinesForScalableApps() {
   return lines;
 }
 
+std::vector<std::string> SubdirectoryLinesFor32x32Apps() {
+  std::vector<std::string> lines;
+  lines.push_back("[32x32/apps]");
+  lines.push_back("Size=32");
+  lines.push_back("Context=Applications");
+  lines.push_back("");
+  return lines;
+}
+
 
   // lines.push_back("[scalable/mimetypes]");
   // lines.push_back("Size=48");
@@ -131,6 +140,36 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
 
       THEN("the sub-directory has a threshold") {
         REQUIRE(scalable_apps.Threshold() == 208);
+      }
+    }
+  }
+
+  GIVEN("An Icon Theme with sub-directories") {
+    IconTheme icon_theme(Join(BirchIconThemeLines(), SubdirectoryLinesFor32x32Apps()));
+    std::vector<IconSubdirectory> directories = icon_theme.Directories();
+    IconSubdirectory scalable_apps = directories[2];
+
+    WHEN("the sub-directory doesn't have a Type") {
+      THEN("the type defaults to Threshold") {
+        REQUIRE(scalable_apps.Type() == "Threshold");
+      }
+    }
+
+    WHEN("the sub-directory doesn't have a maximum size") {
+      THEN("the maximum size defaults to its size") {
+        REQUIRE(scalable_apps.MaxSize() == scalable_apps.Size());
+      }
+    }
+
+    WHEN("the sub-directory doesn't have a minimum size") {
+      THEN("the minimum size defaults to its size") {
+        REQUIRE(scalable_apps.MinSize() == scalable_apps.Size());
+      }
+    }
+
+    WHEN("the sub-directory doesn't have a threshold") {
+      THEN("the threshold defaults to 2") {
+        REQUIRE(scalable_apps.Threshold() == 2);
       }
     }
   }
