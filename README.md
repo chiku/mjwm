@@ -65,7 +65,7 @@ Usage
 mjwm
 ```
 
-* Edit your $HOME/.jwmrc file. Add an Include $HOME/.jwmrc-mjwm line inside RootMenu.
+* Edit your ```$HOME/.jwmrc file```. Add an ```<Include>$HOME/.jwmrc-mjwm</Include>``` line inside ```RootMenu```.
 ``` xml
 <JWM>
   <!-- SNIP SNIP -->
