@@ -2,9 +2,9 @@
 
 set_environment() {
   export VERBOSE=1
-  export CFLAGS="-Os -Wall -Wextra"
-  export CXXFLAGS="-Os -Wall -Wextra"
-  export LDFLAGS="-Os -Wall -Wextra"
+  export CFLAGS="-m32 -Os -Wall -Wextra"
+  export CXXFLAGS="-m32 -Os -Wall -Wextra"
+  export LDFLAGS="-m32 -Os -Wall -Wextra"
   install_base_dir="$HOME/mjwm-install"
   install_dir="$install_base_dir/usr/local"
 }
@@ -41,7 +41,7 @@ artifact() {
 
 puppytize() {
   mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
-  size=$(ls -lah $install_dir/bin/mjwm | awk '{ print $5}')
+  size=$(ls -lah $install_dir/bin/mjwm | awk '{print $5}')
   pushd $install_base_dir
   echo "mjwm-${mjwm_version}-i686|mjwm|${mjwm_version}-i686||Utility|${size}||mjwm-${mjwm_version}-i686.pet||Create JWM menu|Slackware|14.0||" > pet.specs
   tar -cvzf mjwm.pet usr
