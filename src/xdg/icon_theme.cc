@@ -42,10 +42,19 @@ IconTheme::IconTheme(std::vector<std::string> lines) {
     std::string maxsize = xdg_entry.Under(*name, "MaxSize");
     std::string minsize = xdg_entry.Under(*name, "MinSize");
     std::string threshold = xdg_entry.Under(*name, "Threshold");
-    type = type == "" ? "Threshold" : type;
-    maxsize = maxsize == "" ? size : maxsize;
-    minsize = minsize == "" ? size : minsize;
-    threshold = threshold == "" ? "2" : threshold;
+
+    if (type == "") {
+      type = "Threshold";
+    }
+    if (maxsize == "") {
+      maxsize = size;
+    }
+    if (minsize == "") {
+      minsize = size;
+    }
+    if (threshold == "") {
+      threshold = "2";
+    }
 
     directories_.push_back(IconSubdirectory(
       *name,
