@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_ICON_SCAN_H_
-#define AMM_SERVICE_ICON_SCAN_H_
+#ifndef AMM_SERVICE_ICON_NAIVE_SCAN_H_
+#define AMM_SERVICE_ICON_NAIVE_SCAN_H_
 
 #include <string>
 #include <vector>
@@ -29,10 +29,10 @@ namespace amm {
 namespace service {
 namespace icon {
 // Understands returning icon file-name based on a file-system search
-class Scan : public IconServiceInterface {
+class NaiveScan : public IconServiceInterface {
  public:
-  Scan();
-  virtual ~Scan() {}
+  NaiveScan();
+  virtual ~NaiveScan() {}
 
   std::string ResolvedName(std::string icon_name) const;
 
@@ -50,4 +50,4 @@ class Scan : public IconServiceInterface {
 } // namespace service
 } // namespace amm
 
-#endif // AMM_SERVICE_ICON_SCAN_H_
+#endif // AMM_SERVICE_ICON_NAIVE_SCAN_H_

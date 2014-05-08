@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "service/icon/scan.h"
+#include "service/icon/naive_scan.h"
 
 #include <sys/stat.h>
 #include <string>
@@ -34,7 +34,7 @@ static bool DoesPathExist(std::string path) {
   return stat(path.c_str(), &st) == 0;
 }
 
-Scan::Scan() {
+NaiveScan::NaiveScan() {
   registered_extensions_.push_back(".png");
   registered_extensions_.push_back(".svg");
   registered_extensions_.push_back(".xpm");
@@ -42,22 +42,22 @@ Scan::Scan() {
   std::string home = environment_variable.Home();
   std::vector<std::string> xdg_data_dirs = environment_variable.XdgDataDirectories();
 
-  Scan::RegisterLookupDirectory(StringX(home).TerminateWith("/") + "./icons/");
+  NaiveScan::RegisterLookupDirectory(StringX(home).TerminateWith("/") + "./icons/");
   for (std::vector<std::string>::const_iterator dir = xdg_data_dirs.begin(); dir != xdg_data_dirs.end(); ++dir) {
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/");
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/apps/48/");
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/actions/48/");
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/categories/48/");
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/apps/");
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/actions/");
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/categories/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/apps/48/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/actions/48/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/Faenza/categories/48/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/apps/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/actions/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "icons/hicolor/48x48/categories/");
   }
   for (std::vector<std::string>::const_iterator dir = xdg_data_dirs.begin(); dir != xdg_data_dirs.end(); ++dir) {
-    Scan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "pixmaps/");
+    NaiveScan::RegisterLookupDirectory(StringX(*dir).TerminateWith("/") + "pixmaps/");
   }
 }
 
-void Scan::RegisterLookupDirectory(std::string path) {
+void NaiveScan::RegisterLookupDirectory(std::string path) {
   struct stat st;
   int result = stat(path.c_str(), &st);
   if (result == 0 && S_ISDIR(st.st_mode)) {
@@ -65,11 +65,11 @@ void Scan::RegisterLookupDirectory(std::string path) {
   }
 }
 
-std::string Scan::ResolvedName(std::string icon_name) const {
+std::string NaiveScan::ResolvedName(std::string icon_name) const {
   return DoesPathExist(icon_name) ? icon_name : SearchedFileName(icon_name);
 }
 
-std::string Scan::SearchedFileName(std::string icon_name) const {
+std::string NaiveScan::SearchedFileName(std::string icon_name) const {
   std::vector<std::string> extensions = ViableExtensions(icon_name);
 
   for (std::vector<std::string>::const_iterator location = search_locations_.begin(); location != search_locations_.end(); ++location) {
@@ -84,7 +84,7 @@ std::string Scan::SearchedFileName(std::string icon_name) const {
   return icon_name;
 }
 
-std::vector<std::string> Scan::ViableExtensions(std::string icon_name) const {
+std::vector<std::string> NaiveScan::ViableExtensions(std::string icon_name) const {
   std::vector<std::string> extensions;
   if (ShouldAppendExtension(icon_name)) {
     extensions = registered_extensions_;
@@ -95,7 +95,7 @@ std::vector<std::string> Scan::ViableExtensions(std::string icon_name) const {
   return extensions;
 }
 
-bool Scan::ShouldAppendExtension(std::string icon_name) const {
+bool NaiveScan::ShouldAppendExtension(std::string icon_name) const {
   for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
     if (StringX(icon_name).EndsWith(*extension)) {
       return false;

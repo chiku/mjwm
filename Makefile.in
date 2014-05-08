@@ -116,7 +116,7 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
 	src/transformer/jwm.$(OBJEXT) \
 	src/service/environment_variable.$(OBJEXT) \
-	src/service/icon/scan.$(OBJEXT) \
+	src/service/icon/naive_scan.$(OBJEXT) \
 	src/service/file_search.$(OBJEXT) src/messages.$(OBJEXT) \
 	src/command_line_options_parser.$(OBJEXT) src/amm.$(OBJEXT) \
 	src/main.$(OBJEXT)
@@ -608,7 +608,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
                src/service/environment_variable.cc \
-               src/service/icon/scan.cc \
+               src/service/icon/naive_scan.cc \
                src/service/file_search.cc \
                src/messages.cc \
                src/command_line_options_parser.cc \
@@ -836,7 +836,8 @@ src/service/icon/$(am__dirstamp):
 src/service/icon/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/service/icon/$(DEPDIR)
 	@: > src/service/icon/$(DEPDIR)/$(am__dirstamp)
-src/service/icon/scan.$(OBJEXT): src/service/icon/$(am__dirstamp) \
+src/service/icon/naive_scan.$(OBJEXT):  \
+	src/service/icon/$(am__dirstamp) \
 	src/service/icon/$(DEPDIR)/$(am__dirstamp)
 src/service/file_search.$(OBJEXT): src/service/$(am__dirstamp) \
 	src/service/$(DEPDIR)/$(am__dirstamp)
@@ -982,7 +983,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/environment_variable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/service/$(DEPDIR)/file_search.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/service/icon/$(DEPDIR)/scan.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/service/icon/$(DEPDIR)/naive_scan.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/jwm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/desktop_entry.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/entry.Po@am__quote@

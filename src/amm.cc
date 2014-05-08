@@ -30,7 +30,7 @@
 #include "command_line_options_parser.h"
 #include "service/environment_variable.h"
 #include "service/icon_service_interface.h"
-#include "service/icon/scan.h"
+#include "service/icon/naive_scan.h"
 #include "service/file_search.h"
 #include "stats.h"
 #include "menu.h"
@@ -99,7 +99,7 @@ void Amm::ReadCategories() {
 
 void Amm::RegisterIconService() {
   if (options_->is_iconize) {
-    service::IconServiceInterface *icon_service = new service::icon::Scan();
+    service::IconServiceInterface *icon_service = new service::icon::NaiveScan();
     menu_.RegisterIconService(*icon_service);
   }
 }
