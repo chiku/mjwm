@@ -30,7 +30,6 @@ namespace xdg {
 // Understands the representation of a FreeDesktop .desktop file
 class IconTheme {
  public:
-  IconTheme() { }
   explicit IconTheme(std::vector<std::string> lines);
 
   std::string Name() const { return name_; }
