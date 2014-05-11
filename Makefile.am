@@ -28,6 +28,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_xdg_entry_test \
                  mjwm_xdg_desktop_entry_test \
                  mjwm_xdg_icon_theme_test \
+                 mjwm_xdg_icon_subdirectory_test \
                  mjwm_subcategory_test \
                  mjwm_stats_test \
                  mjwm_menu_test \
@@ -69,6 +70,9 @@ mjwm_xdg_icon_theme_test_SOURCES = src/stringx.cc \
                                    src/xdg/entry.cc \
                                    src/xdg/icon_theme.cc \
                                    test/xdg/icon_theme_test.cc
+
+mjwm_xdg_icon_subdirectory_test_SOURCES = src/xdg/icon_subdirectory.cc \
+                                          test/xdg/icon_subdirectory_test.cc
 
 mjwm_subcategory_test_SOURCES = src/stringx.cc \
                                 src/xdg/entry_line.cc \

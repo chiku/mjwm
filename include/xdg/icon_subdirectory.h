@@ -43,6 +43,8 @@ class IconSubdirectory {
   int MaxSize() { return max_size_; }
   int MinSize() { return min_size_; }
   int Threshold() { return threshold_; }
+  bool Matches(int required_size);
+  int Distance(int required_size);
 
  private:
   std::string name_;
