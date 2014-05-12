@@ -80,7 +80,7 @@ std::vector<std::string> StringX::Split(const std::string delimeter) const {
   size_t start = 0U;
   size_t end = raw.find(delimeter);
 
-  while (end != std::string::npos) {
+  while (end != std::string::npos && end != 0) {
     result.push_back(raw.substr(start, end - start));
     start = end + delimeter_length;
     end = raw.find(delimeter, start);

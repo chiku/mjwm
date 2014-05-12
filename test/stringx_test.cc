@@ -95,6 +95,13 @@ SCENARIO("StringX", "[stringx]") {
         REQUIRE(result == ";");
       }
     }
+
+    WHEN("split") {
+      std::vector<std::string> result = stringx.Split(";");
+      THEN("it is empty") {
+        REQUIRE(result.empty());
+      }
+    }
   }
 
   GIVEN("A stringx with XML tags") {

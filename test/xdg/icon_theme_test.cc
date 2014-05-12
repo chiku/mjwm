@@ -62,30 +62,6 @@ std::vector<std::string> SubdirectoryLinesFor32x32Apps() {
   return lines;
 }
 
-
-  // lines.push_back("[scalable/mimetypes]");
-  // lines.push_back("Size=48");
-  // lines.push_back("Type=Scalable");
-  // lines.push_back("MinSize=1");
-  // lines.push_back("MaxSize=256");
-  // lines.push_back("Context=MimeTypes");
-  // lines.push_back("");
-  // lines.push_back("[32x32/apps]");
-  // lines.push_back("Size=32");
-  // lines.push_back("Type=Fixed");
-  // lines.push_back("Context=Applications");
-  // lines.push_back("");
-  // lines.push_back("[48x48/apps]");
-  // lines.push_back("Size=48");
-  // lines.push_back("Type=Fixed");
-  // lines.push_back("Context=Applications");
-  // lines.push_back("");
-  // lines.push_back("[48x48/mimetypes]");
-  // lines.push_back("Size=48");
-  // lines.push_back("Type=Fixed");
-  // lines.push_back("Context=MimeTypes");
-
-
 std::vector<std::string> Join(std::vector<std::string> first, std::vector<std::string> second) {
   first.insert(first.end(), second.begin(), second.end());
   return first;
