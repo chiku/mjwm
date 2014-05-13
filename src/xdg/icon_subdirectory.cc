@@ -24,6 +24,23 @@
 namespace amm {
 namespace xdg {
 
+IconSubdirectory& IconSubdirectory::Name(std::string name) {
+  name_ = name;
+  return *this;
+}
+
+IconSubdirectory& IconSubdirectory::Type(std::string type) {
+  type_ = type;
+  return *this;
+}
+
+IconSubdirectory& IconSubdirectory::Size(int size) {
+  size_ = size;
+  max_size_ = size;
+  min_size_ = size;
+  return *this;
+}
+
 bool IconSubdirectory::Matches(int required_size) {
   if (type_ == "Fixed") {
     return size_ == required_size;

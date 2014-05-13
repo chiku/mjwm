@@ -29,7 +29,8 @@ namespace xdg {
 
 SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   GIVEN("A fixed subdirectory") {
-    IconSubdirectory fixed("fixed", "Fixed", 24, 24, 24, 0);
+    IconSubdirectory fixed;
+    fixed.Name("fixed").Type("Fixed").Size(24);
 
     WHEN("required size equals the size") {
       int size = 24;

@@ -46,6 +46,10 @@ class IconSubdirectory {
   bool Matches(int required_size);
   int Distance(int required_size);
 
+  IconSubdirectory& Name(std::string name);
+  IconSubdirectory& Type(std::string type);
+  IconSubdirectory& Size(int size);
+
  private:
   std::string name_;
   std::string type_;
