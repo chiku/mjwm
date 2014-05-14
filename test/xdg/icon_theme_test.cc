@@ -125,12 +125,6 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
     std::vector<IconSubdirectory> directories = icon_theme.Directories();
     IconSubdirectory scalable_apps = directories[2];
 
-    WHEN("the sub-directory doesn't have a Type") {
-      THEN("the type defaults to Threshold") {
-        REQUIRE(scalable_apps.Type() == "Threshold");
-      }
-    }
-
     WHEN("the sub-directory doesn't have a minimum size") {
       THEN("the minimum size defaults to its size") {
         REQUIRE(scalable_apps.MinSize() == scalable_apps.Size());

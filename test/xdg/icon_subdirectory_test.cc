@@ -29,17 +29,39 @@ namespace xdg {
 
 SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   GIVEN("A subdirectory") {
-    IconSubdirectory subdir = IconSubdirectory("fixed", "Fixed", "24");
+    IconSubdirectory subdir = IconSubdirectory("subdirectory", "24");
 
-    WHEN("without explicit maximum size") {
+    WHEN("without optional values") {
+      THEN("its type is Threshold") {
+        REQUIRE(subdir.Type() == "Threshold");
+      }
+
       THEN("its maximum size equals its size") {
         REQUIRE(subdir.MaxSize() == 24);
+      }
+
+      THEN("its minimum size equals its size") {
+        REQUIRE(subdir.MinSize() == 24);
+      }
+    }
+  }
+
+  GIVEN("A subdirectory") {
+    IconSubdirectory subdir = IconSubdirectory("subdirectory", "24").Type("").MaxSize("").MinSize("").Threshold("");
+
+    WHEN("when optional values are set to empty") {
+      THEN("its maximum size is retained") {
+        REQUIRE(subdir.MaxSize() == 24);
+      }
+
+      THEN("its type is retained") {
+        REQUIRE(subdir.Type() == "Threshold");
       }
     }
   }
 
   GIVEN("A fixed subdirectory") {
-    IconSubdirectory fixed = IconSubdirectory("fixed", "Fixed", "24");
+    IconSubdirectory fixed = IconSubdirectory("fixed", "24").Type("Fixed");
 
     WHEN("required size equals the size") {
       int size = 24;
@@ -76,7 +98,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("A scalable subdirectory") {
-    IconSubdirectory scalable = IconSubdirectory("scaled", "Scaled", "24").MaxSize("256").MinSize("2");
+    IconSubdirectory scalable = IconSubdirectory("scaled", "24").Type("Scaled").MaxSize("256").MinSize("2");
 
     WHEN("required size is between the minimum size and size") {
       THEN("it matches the required size") {
@@ -116,7 +138,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("A threshold subdirectory") {
-    IconSubdirectory threshold = IconSubdirectory("scaled", "Scaled", "24").Threshold("10").MaxSize("34").MinSize("14");
+    IconSubdirectory threshold = IconSubdirectory("threshold", "24").Type("Threshold").Threshold("10").MaxSize("34").MinSize("14");
 
     WHEN("it is between threshold around the size") {
       THEN("it matches the required size") {
@@ -156,7 +178,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("An invalid subdirectory") {
-    IconSubdirectory invalid("invalid", "Invalid", "24");
+    IconSubdirectory invalid = IconSubdirectory("invalid", "24").Type("Invalid");
 
     WHEN("matched for a size") {
       THEN("it never satisfied") {

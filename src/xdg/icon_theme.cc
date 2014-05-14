@@ -53,7 +53,8 @@ IconTheme::IconTheme(std::vector<std::string> lines) {
       threshold = "2";
     }
 
-    IconSubdirectory icon_subdirectory = IconSubdirectory(*name, type, size)
+    IconSubdirectory icon_subdirectory = IconSubdirectory(*name, size)
+      .Type(type)
       .MaxSize(maxsize)
       .MinSize(minsize)
       .Threshold(threshold);

@@ -28,11 +28,19 @@ static int StringToInt(std::string str) {
   return atoi(str.c_str());
 }
 
-IconSubdirectory::IconSubdirectory(std::string name, std::string type, std::string size) : name_(name), type_(type) {
+IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(name) {
   size_ = StringToInt(size);
+  type_ = "Threshold";
   max_size_ = size_;
   min_size_ = size_;
   threshold_ = 0;
+}
+
+IconSubdirectory& IconSubdirectory::Type(std::string type) {
+  if (type != "") {
+    type_ = type;
+  }
+  return *this;
 }
 
 IconSubdirectory& IconSubdirectory::MaxSize(std::string max_size) {
