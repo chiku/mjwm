@@ -56,12 +56,11 @@ IconTheme::IconTheme(std::vector<std::string> lines) {
       threshold = "2";
     }
 
-    directories_.push_back(
-      IconSubdirectory(*name, type, atoi(size.c_str()))
-        .MaxSize(atoi(maxsize.c_str()))
-        .MinSize(atoi(minsize.c_str()))
-        .Threshold(atoi(threshold.c_str()))
-    );
+    IconSubdirectory icon_subdirectory = IconSubdirectory(*name, type, size)
+      .MaxSize(maxsize)
+      .MinSize(minsize)
+      .Threshold(threshold);
+    directories_.push_back(icon_subdirectory);
   }
 }
 

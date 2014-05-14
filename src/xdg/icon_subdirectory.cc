@@ -24,21 +24,29 @@
 namespace amm {
 namespace xdg {
 
-IconSubdirectory::IconSubdirectory(std::string name, std::string type, int size)
-    : name_(name), type_(type), size_(size), max_size_(size), min_size_(size), threshold_(0) { }
+static int StringToInt(std::string str) {
+  return atoi(str.c_str());
+}
 
-IconSubdirectory& IconSubdirectory::MaxSize(int max_size) {
-  max_size_ = max_size;
+IconSubdirectory::IconSubdirectory(std::string name, std::string type, std::string size) : name_(name), type_(type) {
+  size_ = StringToInt(size);
+  max_size_ = size_;
+  min_size_ = size_;
+  threshold_ = 0;
+}
+
+IconSubdirectory& IconSubdirectory::MaxSize(std::string max_size) {
+  max_size_ = StringToInt(max_size);
   return *this;
 }
 
-IconSubdirectory& IconSubdirectory::MinSize(int min_size) {
-  min_size_ = min_size;
+IconSubdirectory& IconSubdirectory::MinSize(std::string min_size) {
+  min_size_ = StringToInt(min_size);
   return *this;
 }
 
-IconSubdirectory& IconSubdirectory::Threshold(int threshold) {
-  threshold_ = threshold;
+IconSubdirectory& IconSubdirectory::Threshold(std::string threshold) {
+  threshold_ = StringToInt(threshold);
   return *this;
 }
 
