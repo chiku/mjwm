@@ -68,6 +68,7 @@ mjwm_xdg_desktop_entry_test_SOURCES = src/stringx.cc \
 mjwm_xdg_icon_theme_test_SOURCES = src/stringx.cc \
                                    src/xdg/entry_line.cc \
                                    src/xdg/entry.cc \
+                                   src/xdg/icon_subdirectory.cc \
                                    src/xdg/icon_theme.cc \
                                    test/xdg/icon_theme_test.cc
 

@@ -27,15 +27,7 @@ namespace xdg {
 // Understands the representation of a FreeDesktop .desktop file
 class IconSubdirectory {
  public:
-  IconSubdirectory() { }
-  IconSubdirectory(
-    std::string name,
-    std::string type,
-    int size,
-    int max_size,
-    int min_size,
-    int threshold
-  ) : name_(name), type_(type), size_(size), max_size_(max_size), min_size_(min_size), threshold_(threshold) { }
+  IconSubdirectory(std::string name, std::string type, int size);
 
   std::string Name() { return name_; }
   int Size() { return size_; }
@@ -46,9 +38,9 @@ class IconSubdirectory {
   bool Matches(int required_size);
   int Distance(int required_size);
 
-  IconSubdirectory& Name(std::string name);
-  IconSubdirectory& Type(std::string type);
-  IconSubdirectory& Size(int size);
+  IconSubdirectory& MaxSize(int max_size);
+  IconSubdirectory& MinSize(int min_size);
+  IconSubdirectory& Threshold(int threshold);
 
  private:
   std::string name_;

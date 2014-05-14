@@ -29,8 +29,7 @@ namespace xdg {
 
 SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   GIVEN("A fixed subdirectory") {
-    IconSubdirectory fixed;
-    fixed.Name("fixed").Type("Fixed").Size(24);
+    IconSubdirectory fixed = IconSubdirectory("fixed", "Fixed", 24);
 
     WHEN("required size equals the size") {
       int size = 24;
@@ -67,7 +66,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("A scalable subdirectory") {
-    IconSubdirectory scalable("scaled", "Scaled", 24, 256, 2, 0);
+    IconSubdirectory scalable = IconSubdirectory("scaled", "Scaled", 24).MaxSize(256).MinSize(2);
 
     WHEN("required size is between the minimum size and size") {
       THEN("it matches the required size") {
@@ -107,59 +106,61 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("A threshold subdirectory") {
-    IconSubdirectory scalable("threshold", "Threshold", 24, 34, 14, 10);
+    IconSubdirectory threshold = IconSubdirectory("scaled", "Scaled", 24).Threshold(10).MaxSize(34).MinSize(14);
+
+    // IconSubdirectory threshold("threshold", "Threshold", 24, 34, 14, 10);
 
     WHEN("it is between threshold around the size") {
       THEN("it matches the required size") {
-        REQUIRE(scalable.Matches(14));
-        REQUIRE(scalable.Matches(24));
-        REQUIRE(scalable.Matches(34));
+        REQUIRE(threshold.Matches(14));
+        REQUIRE(threshold.Matches(24));
+        REQUIRE(threshold.Matches(34));
       }
 
       THEN("it distance from the required size is zero") {
-        REQUIRE(scalable.Distance(14) == 0);
-        REQUIRE(scalable.Distance(24) == 0);
-        REQUIRE(scalable.Distance(34) == 0);
+        REQUIRE(threshold.Distance(14) == 0);
+        REQUIRE(threshold.Distance(24) == 0);
+        REQUIRE(threshold.Distance(34) == 0);
       }
     }
 
     WHEN("required size is lesser than the inner threshold size") {
       int size = 13;
       THEN("is doesn't match the required size") {
-        REQUIRE(!scalable.Matches(13));
+        REQUIRE(!threshold.Matches(13));
       }
 
       THEN("its distance is the difference of the required size the minimum size") {
-        REQUIRE(scalable.Distance(size) == 1);
+        REQUIRE(threshold.Distance(size) == 1);
       }
     }
 
     WHEN("required size is greater than the outer threshold size") {
       int size = 35;
       THEN("is doesn't match the required size") {
-        REQUIRE(!scalable.Matches(size));
+        REQUIRE(!threshold.Matches(size));
       }
 
       THEN("its distance is the difference of the required size the maximum size") {
-        REQUIRE(scalable.Distance(size) == 1);
+        REQUIRE(threshold.Distance(size) == 1);
       }
     }
   }
 
   GIVEN("An invalid subdirectory") {
-    IconSubdirectory scalable("invalid", "Invalid", 24, 0, 100, 100);
+    IconSubdirectory invalid("invalid", "Invalid", 24);
 
     WHEN("matched for a size") {
       THEN("it never satisfied") {
-        REQUIRE(!scalable.Matches(24));
-        REQUIRE(!scalable.Matches(0));
-        REQUIRE(!scalable.Matches(100));
+        REQUIRE(!invalid.Matches(24));
+        REQUIRE(!invalid.Matches(0));
+        REQUIRE(!invalid.Matches(100));
       }
 
       THEN("it is at a huge distanve") {
-        REQUIRE(scalable.Distance(24) == INT_MAX);
-        REQUIRE(scalable.Distance(0) == INT_MAX);
-        REQUIRE(scalable.Distance(100) == INT_MAX);
+        REQUIRE(invalid.Distance(24) == INT_MAX);
+        REQUIRE(invalid.Distance(0) == INT_MAX);
+        REQUIRE(invalid.Distance(100) == INT_MAX);
       }
     }
   }

@@ -203,6 +203,7 @@ mjwm_xdg_icon_subdirectory_test_OBJECTS =  \
 mjwm_xdg_icon_subdirectory_test_LDADD = $(LDADD)
 am_mjwm_xdg_icon_theme_test_OBJECTS = src/stringx.$(OBJEXT) \
 	src/xdg/entry_line.$(OBJEXT) src/xdg/entry.$(OBJEXT) \
+	src/xdg/icon_subdirectory.$(OBJEXT) \
 	src/xdg/icon_theme.$(OBJEXT) \
 	test/xdg/icon_theme_test.$(OBJEXT)
 mjwm_xdg_icon_theme_test_OBJECTS =  \
@@ -653,6 +654,7 @@ mjwm_xdg_desktop_entry_test_SOURCES = src/stringx.cc \
 mjwm_xdg_icon_theme_test_SOURCES = src/stringx.cc \
                                    src/xdg/entry_line.cc \
                                    src/xdg/entry.cc \
+                                   src/xdg/icon_subdirectory.cc \
                                    src/xdg/icon_theme.cc \
                                    test/xdg/icon_theme_test.cc
 

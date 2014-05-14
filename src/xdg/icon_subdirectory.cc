@@ -24,20 +24,21 @@
 namespace amm {
 namespace xdg {
 
-IconSubdirectory& IconSubdirectory::Name(std::string name) {
-  name_ = name;
+IconSubdirectory::IconSubdirectory(std::string name, std::string type, int size)
+    : name_(name), type_(type), size_(size), max_size_(size), min_size_(size), threshold_(0) { }
+
+IconSubdirectory& IconSubdirectory::MaxSize(int max_size) {
+  max_size_ = max_size;
   return *this;
 }
 
-IconSubdirectory& IconSubdirectory::Type(std::string type) {
-  type_ = type;
+IconSubdirectory& IconSubdirectory::MinSize(int min_size) {
+  min_size_ = min_size;
   return *this;
 }
 
-IconSubdirectory& IconSubdirectory::Size(int size) {
-  size_ = size;
-  max_size_ = size;
-  min_size_ = size;
+IconSubdirectory& IconSubdirectory::Threshold(int threshold) {
+  threshold_ = threshold;
   return *this;
 }
 
