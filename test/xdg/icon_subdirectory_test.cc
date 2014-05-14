@@ -43,6 +43,10 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
       THEN("its minimum size equals its size") {
         REQUIRE(subdir.MinSize() == 24);
       }
+
+      THEN("its threshold equals 2") {
+        REQUIRE(subdir.Threshold() == 2);
+      }
     }
   }
 
@@ -50,12 +54,20 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
     IconSubdirectory subdir = IconSubdirectory("subdirectory", "24").Type("").MaxSize("").MinSize("").Threshold("");
 
     WHEN("when optional values are set to empty") {
+      THEN("its type is retained") {
+        REQUIRE(subdir.Type() == "Threshold");
+      }
+
       THEN("its maximum size is retained") {
         REQUIRE(subdir.MaxSize() == 24);
       }
 
-      THEN("its type is retained") {
-        REQUIRE(subdir.Type() == "Threshold");
+      THEN("its minimum size is retained") {
+        REQUIRE(subdir.MinSize() == 24);
+      }
+
+      THEN("its threshold is retained") {
+        REQUIRE(subdir.Threshold() == 2);
       }
     }
   }

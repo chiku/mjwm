@@ -53,15 +53,6 @@ std::vector<std::string> SubdirectoryLinesForScalableApps() {
   return lines;
 }
 
-std::vector<std::string> SubdirectoryLinesFor32x32Apps() {
-  std::vector<std::string> lines;
-  lines.push_back("[32x32/apps]");
-  lines.push_back("Size=32");
-  lines.push_back("Context=Applications");
-  lines.push_back("");
-  return lines;
-}
-
 std::vector<std::string> Join(std::vector<std::string> first, std::vector<std::string> second) {
   first.insert(first.end(), second.begin(), second.end());
   return first;
@@ -119,25 +110,6 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
       }
     }
   }
-
-  GIVEN("An Icon Theme with sub-directories") {
-    IconTheme icon_theme(Join(BirchIconThemeLines(), SubdirectoryLinesFor32x32Apps()));
-    std::vector<IconSubdirectory> directories = icon_theme.Directories();
-    IconSubdirectory scalable_apps = directories[2];
-
-    WHEN("the sub-directory doesn't have a minimum size") {
-      THEN("the minimum size defaults to its size") {
-        REQUIRE(scalable_apps.MinSize() == scalable_apps.Size());
-      }
-    }
-
-    WHEN("the sub-directory doesn't have a threshold") {
-      THEN("the threshold defaults to 2") {
-        REQUIRE(scalable_apps.Threshold() == 2);
-      }
-    }
-  }
-
 }
 
 } // namespace xdg

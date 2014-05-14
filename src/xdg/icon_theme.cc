@@ -43,16 +43,6 @@ IconTheme::IconTheme(std::vector<std::string> lines) {
     std::string minsize = xdg_entry.Under(*name, "MinSize");
     std::string threshold = xdg_entry.Under(*name, "Threshold");
 
-    if (type == "") {
-      type = "Threshold";
-    }
-    if (minsize == "") {
-      minsize = size;
-    }
-    if (threshold == "") {
-      threshold = "2";
-    }
-
     IconSubdirectory icon_subdirectory = IconSubdirectory(*name, size)
       .Type(type)
       .MaxSize(maxsize)

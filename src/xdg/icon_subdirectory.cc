@@ -33,7 +33,7 @@ IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(n
   type_ = "Threshold";
   max_size_ = size_;
   min_size_ = size_;
-  threshold_ = 0;
+  threshold_ = 2;
 }
 
 IconSubdirectory& IconSubdirectory::Type(std::string type) {
@@ -51,12 +51,16 @@ IconSubdirectory& IconSubdirectory::MaxSize(std::string max_size) {
 }
 
 IconSubdirectory& IconSubdirectory::MinSize(std::string min_size) {
-  min_size_ = StringToInt(min_size);
+  if (min_size != "") {
+    min_size_ = StringToInt(min_size);
+  }
   return *this;
 }
 
 IconSubdirectory& IconSubdirectory::Threshold(std::string threshold) {
-  threshold_ = StringToInt(threshold);
+  if (threshold != "") {
+    threshold_ = StringToInt(threshold);
+  }
   return *this;
 }
 
