@@ -98,7 +98,7 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
       }
 
       THEN("the sub-directory has a type") {
-        REQUIRE(scalable_apps.Type() == "Scalable");
+        REQUIRE(scalable_apps.Type() == SCALABLE);
       }
 
       THEN("the sub-directory has a maximum size") {

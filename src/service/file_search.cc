@@ -22,7 +22,6 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
-#include <limits>
 
 #include "stringx.h"
 #include "vectorx.h"

@@ -19,7 +19,9 @@
 #include "xdg/icon_subdirectory.h"
 
 #include <cstdlib>
-#include <climits>
+#include <string>
+#include <limits>
+#include <algorithm>
 
 namespace amm {
 namespace xdg {
@@ -30,15 +32,22 @@ static int StringToInt(std::string str) {
 
 IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(name) {
   size_ = StringToInt(size);
-  type_ = "Threshold";
+  type_ = THRESHOLD;
   max_size_ = size_;
   min_size_ = size_;
   threshold_ = 2;
 }
 
 IconSubdirectory& IconSubdirectory::Type(std::string type) {
-  if (type != "") {
-    type_ = type;
+  std::transform(type.begin(), type.end(), type.begin(), ::tolower);
+  if (type == "fixed") {
+    type_ = FIXED;
+  } else if (type == "threshold" || type == "") {
+    type_ = THRESHOLD;
+  } else if (type == "scalable") {
+    type_ = SCALABLE;
+  } else {
+    type_ = INVALID;
   }
   return *this;
 }
@@ -65,13 +74,13 @@ IconSubdirectory& IconSubdirectory::Threshold(std::string threshold) {
 }
 
 bool IconSubdirectory::Matches(int required_size) {
-  if (type_ == "Fixed") {
+  if (type_ == FIXED) {
     return size_ == required_size;
   }
-  if (type_ == "Scaled") {
+  if (type_ == SCALABLE) {
     return (min_size_ <= required_size) && (required_size <= max_size_);
   }
-  if (type_ == "Threshold") {
+  if (type_ == THRESHOLD) {
     return (size_ - threshold_ <= required_size) && (required_size <= size_ + threshold_);
   }
 
@@ -79,10 +88,10 @@ bool IconSubdirectory::Matches(int required_size) {
 }
 
 int IconSubdirectory::Distance(int required_size) {
-  if (type_ == "Fixed") {
+  if (type_ == FIXED) {
     return abs(size_ - required_size);
   }
-  if (type_ == "Scaled") {
+  if (type_ == SCALABLE) {
     if (required_size < min_size_) {
       return min_size_ - required_size;
     }
@@ -91,7 +100,7 @@ int IconSubdirectory::Distance(int required_size) {
     }
     return 0;
   }
-  if (type_ == "Threshold") {
+  if (type_ == THRESHOLD) {
     if (required_size < size_ - threshold_) {
       return min_size_ - required_size;
     }
@@ -101,7 +110,7 @@ int IconSubdirectory::Distance(int required_size) {
     return 0;
   }
 
-  return INT_MAX;
+  return std::numeric_limits<int>::max();
 }
 
 } // namespace xdg

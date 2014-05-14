@@ -24,6 +24,13 @@
 namespace amm {
 namespace xdg {
 
+enum IconSubdirectoryType {
+  FIXED,
+  SCALABLE,
+  THRESHOLD,
+  INVALID
+};
+
 // Understands the representation of a FreeDesktop .desktop file
 class IconSubdirectory {
  public:
@@ -31,7 +38,7 @@ class IconSubdirectory {
 
   std::string Name() { return name_; }
   int Size() { return size_; }
-  std::string Type() { return type_; }
+  IconSubdirectoryType Type() { return type_; }
   int MaxSize() { return max_size_; }
   int MinSize() { return min_size_; }
   int Threshold() { return threshold_; }
@@ -45,7 +52,7 @@ class IconSubdirectory {
 
  private:
   std::string name_;
-  std::string type_;
+  IconSubdirectoryType type_;
   int size_;
   int max_size_;
   int min_size_;

@@ -33,7 +33,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
     WHEN("without optional values") {
       THEN("its type is Threshold") {
-        REQUIRE(subdir.Type() == "Threshold");
+        REQUIRE(subdir.Type() == THRESHOLD);
       }
 
       THEN("its maximum size equals its size") {
@@ -55,7 +55,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
     WHEN("when optional values are set to empty") {
       THEN("its type is retained") {
-        REQUIRE(subdir.Type() == "Threshold");
+        REQUIRE(subdir.Type() == THRESHOLD);
       }
 
       THEN("its maximum size is retained") {
@@ -77,6 +77,10 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
     WHEN("required size equals the size") {
       int size = 24;
+      THEN("its type is fixed") {
+        REQUIRE(fixed.Type() == FIXED);
+      }
+
       THEN("it matches the required size") {
         REQUIRE(fixed.Matches(size));
       }
@@ -110,9 +114,13 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("A scalable subdirectory") {
-    IconSubdirectory scalable = IconSubdirectory("scaled", "24").Type("Scaled").MaxSize("256").MinSize("2");
+    IconSubdirectory scalable = IconSubdirectory("scaled", "24").Type("Scalable").MaxSize("256").MinSize("2");
 
     WHEN("required size is between the minimum size and size") {
+      THEN("its type is scalable") {
+        REQUIRE(scalable.Type() == SCALABLE);
+      }
+
       THEN("it matches the required size") {
         REQUIRE(scalable.Matches(2));
         REQUIRE(scalable.Matches(24));
@@ -153,6 +161,10 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
     IconSubdirectory threshold = IconSubdirectory("threshold", "24").Type("Threshold").Threshold("10").MaxSize("34").MinSize("14");
 
     WHEN("it is between threshold around the size") {
+      THEN("its type is threshold") {
+        REQUIRE(threshold.Type() == THRESHOLD);
+      }
+
       THEN("it matches the required size") {
         REQUIRE(threshold.Matches(14));
         REQUIRE(threshold.Matches(24));
@@ -189,10 +201,24 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
     }
   }
 
+  GIVEN("An subdirectory with type in mixed case") {
+    IconSubdirectory mixed_type = IconSubdirectory("fixed", "24").Type("fIXeD");
+
+    WHEN("asked storing its type") {
+      THEN("it is converted to camel-case") {
+        REQUIRE(mixed_type.Type() == FIXED);
+      }
+    }
+  }
+
   GIVEN("An invalid subdirectory") {
     IconSubdirectory invalid = IconSubdirectory("invalid", "24").Type("Invalid");
 
     WHEN("matched for a size") {
+      THEN("its type is invalid") {
+        REQUIRE(invalid.Type() == INVALID);
+      }
+
       THEN("it never satisfied") {
         REQUIRE(!invalid.Matches(24));
         REQUIRE(!invalid.Matches(0));
