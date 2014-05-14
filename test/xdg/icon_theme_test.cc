@@ -131,12 +131,6 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
       }
     }
 
-    WHEN("the sub-directory doesn't have a maximum size") {
-      THEN("the maximum size defaults to its size") {
-        REQUIRE(scalable_apps.MaxSize() == scalable_apps.Size());
-      }
-    }
-
     WHEN("the sub-directory doesn't have a minimum size") {
       THEN("the minimum size defaults to its size") {
         REQUIRE(scalable_apps.MinSize() == scalable_apps.Size());

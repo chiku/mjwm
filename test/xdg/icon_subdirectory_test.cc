@@ -28,6 +28,16 @@ namespace amm {
 namespace xdg {
 
 SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
+  GIVEN("A subdirectory") {
+    IconSubdirectory subdir = IconSubdirectory("fixed", "Fixed", "24");
+
+    WHEN("without explicit maximum size") {
+      THEN("its maximum size equals its size") {
+        REQUIRE(subdir.MaxSize() == 24);
+      }
+    }
+  }
+
   GIVEN("A fixed subdirectory") {
     IconSubdirectory fixed = IconSubdirectory("fixed", "Fixed", "24");
 

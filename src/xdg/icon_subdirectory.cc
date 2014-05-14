@@ -36,7 +36,9 @@ IconSubdirectory::IconSubdirectory(std::string name, std::string type, std::stri
 }
 
 IconSubdirectory& IconSubdirectory::MaxSize(std::string max_size) {
-  max_size_ = StringToInt(max_size);
+  if (max_size != "") {
+    max_size_ = StringToInt(max_size);
+  }
   return *this;
 }
 

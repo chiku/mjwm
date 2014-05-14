@@ -46,9 +46,6 @@ IconTheme::IconTheme(std::vector<std::string> lines) {
     if (type == "") {
       type = "Threshold";
     }
-    if (maxsize == "") {
-      maxsize = size;
-    }
     if (minsize == "") {
       minsize = size;
     }
