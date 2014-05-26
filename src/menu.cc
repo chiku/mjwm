@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "stringx.h"
+#include "filex.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/mirror.h"
 #include "xdg/desktop_entry.h"
@@ -95,19 +96,11 @@ void Menu::Populate(std::vector<std::string> entry_names) {
 }
 
 void Menu::AddDesktopEntry(std::string entry_name) {
-  std::ifstream file(entry_name.c_str());
-
-  if (!file.good()) {
+  std::vector<std::string> lines;
+  if (!FileX(entry_name).Load(&lines)) {
     summary_.AddUnparsedFile(entry_name);
     return;
   }
-
-  std::vector<std::string> lines;
-  std::string line;
-  while (std::getline(file, line)) {
-    lines.push_back(line);
-  }
-  file.close();
   xdg::DesktopEntry entry(lines);
 
   if (!entry.Display()) {

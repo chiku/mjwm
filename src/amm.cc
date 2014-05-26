@@ -25,6 +25,7 @@
 #include <vector>
 
 #include "vectorx.h"
+#include "filex.h"
 #include "messages.h"
 #include "amm_options.h"
 #include "command_line_options_parser.h"
@@ -82,14 +83,8 @@ void Amm::ReadCategories() {
   std::vector<std::string> category_lines;
 
   if (category_file_name != "") {
-    std::ifstream category_file(category_file_name.c_str());
-    if (category_file.good()) {
-      std::string line;
-      while (std::getline(category_file, line)) {
-        category_lines.push_back(line);
-      }
+    if (FileX(category_file_name).Load(&category_lines)) {
       menu_.LoadCustomCategories(category_lines);
-      category_file.close();
     } else {
       std::cerr << messages::BadCategoryFile(category_file_name) << std::endl;
       exit(1);

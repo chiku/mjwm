@@ -7,6 +7,7 @@ AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
 bin_PROGRAMS = mjwm
 mjwm_SOURCES = src/stringx.cc \
                src/vectorx.cc \
+               src/filex.cc \
                src/xdg/entry_line.cc \
                src/xdg/entry.cc \
                src/xdg/desktop_entry.cc \
@@ -24,6 +25,7 @@ mjwm_SOURCES = src/stringx.cc \
 
 check_PROGRAMS = mjwm_stringx_test \
                  mjwm_vectorx_test \
+                 mjwm_filex_test \
                  mjwm_xdg_entry_line_test \
                  mjwm_xdg_entry_test \
                  mjwm_xdg_desktop_entry_test \
@@ -49,6 +51,9 @@ mjwm_stringx_test_SOURCES = src/stringx.cc \
 mjwm_vectorx_test_SOURCES = src/stringx.cc \
                             src/vectorx.cc \
                             test/vectorx_test.cc
+
+mjwm_filex_test_SOURCES = src/filex.cc \
+                          test/filex_test.cc
 
 mjwm_xdg_entry_line_test_SOURCES = src/stringx.cc \
                                    src/xdg/entry_line.cc \
@@ -89,6 +94,7 @@ mjwm_stats_test_SOURCES = src/stringx.cc \
 
 mjwm_menu_test_SOURCES = src/stringx.cc \
                          src/vectorx.cc \
+                         src/filex.cc \
                          src/xdg/entry_line.cc \
                          src/xdg/entry.cc \
                          src/xdg/desktop_entry.cc \
