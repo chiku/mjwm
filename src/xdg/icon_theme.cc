@@ -21,6 +21,7 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "stringx.h"
 #include "xdg/entry.h"
@@ -32,8 +33,15 @@ namespace xdg {
 IconTheme::IconTheme(std::vector<std::string> lines) {
   Entry xdg_entry(lines);
   xdg_entry.Parse();
+
   name_ = xdg_entry.Under("Icon Theme", "Name");
+  std::string lower_case_name = name_;
+  std::transform(lower_case_name.begin(), lower_case_name.end(), lower_case_name.begin(), ::tolower);
+
   parents_ = StringX(xdg_entry.Under("Icon Theme", "Inherits")).Split(",");
+  if (parents_.empty() && lower_case_name != "hicolor") {
+    parents_.push_back("Hicolor");
+  }
 
   std::vector<std::string> directory_names = StringX(xdg_entry.Under("Icon Theme", "Directories")).Split(",");
   for (std::vector<std::string>::const_iterator name = directory_names.begin(); name != directory_names.end(); ++name) {

@@ -28,15 +28,28 @@
 namespace amm {
 namespace xdg {
 
-std::vector<std::string> BirchIconThemeLines() {
+std::vector<std::string> HicolorThemeLines() {
+  std::vector<std::string> lines;
+  lines.push_back("[Icon Theme]");
+  lines.push_back("Name=Hicolor");
+  lines.push_back("Directories=48x48/apps,48x48/mimetypes,32x32/apps,scalable/apps,scalable/mimetypes");
+  return lines;
+}
+
+std::vector<std::string> BirchIconThemeLinesWihoutParent() {
   std::vector<std::string> lines;
   lines.push_back("[Icon Theme]");
   lines.push_back("Name=Birch");
   lines.push_back("Name[sv]=Björk");
   lines.push_back("Comment=Icon theme with a wooden look");
   lines.push_back("Comment[sv]=Träinspirerat ikontema");
-  lines.push_back("Inherits=wood,default");
   lines.push_back("Directories=48x48/apps,48x48/mimetypes,32x32/apps,scalable/apps,scalable/mimetypes");
+  return lines;
+}
+
+std::vector<std::string> BirchIconThemeLines() {
+  std::vector<std::string> lines = BirchIconThemeLinesWihoutParent();
+  lines.push_back("Inherits=wood,default");
   return lines;
 }
 
@@ -82,6 +95,25 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
         REQUIRE(directories[2].Name() == "32x32/apps");
         REQUIRE(directories[3].Name() == "scalable/apps");
         REQUIRE(directories[4].Name() == "scalable/mimetypes");
+      }
+    }
+
+    WHEN("without explicit parents") {
+      IconTheme icon_theme(BirchIconThemeLinesWihoutParent());
+
+      THEN("its parent is Hicolor") {
+        std::vector<std::string> parents = icon_theme.Parents();
+        REQUIRE(parents.size() == 1);
+        REQUIRE(parents[0] == "Hicolor");
+      }
+    }
+
+    WHEN("Hicolor") {
+      IconTheme icon_theme(HicolorThemeLines());
+
+      THEN("it has no parents") {
+        std::vector<std::string> parents = icon_theme.Parents();
+        REQUIRE(parents.empty());
       }
     }
   }
