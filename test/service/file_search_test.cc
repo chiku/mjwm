@@ -109,9 +109,8 @@ SCENARIO("service::FileSearch default directories", "[filesearch]") {
     setenv("XDG_DATA_DIRS", "test/fixtures:test/does-not-exist", 1);
 
     GIVEN("A default file search service") {
-      std::vector<std::string> directory_names;
       FileSearch service;
-      service.RegisterDirectoriesWithFallback(directory_names);
+      service.RegisterDefaultDirectories();
 
       WHEN("resolved") {
         service.Resolve();

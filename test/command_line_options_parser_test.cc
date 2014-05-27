@@ -57,6 +57,10 @@ SCENARIO("CommandLineOptionsParser.Parse() default", "[commandlineoptions]") {
         REQUIRE(!options.is_iconize);
       }
 
+      THEN("its retains its input directories") {
+        REQUIRE(!options.override_default_directories);
+      }
+
       THEN("its output file is '.jwmrc-mjwm' under $HOME") {
         REQUIRE(options.output_file_name == "/home/mjwm/.jwmrc-mjwm");
       }
@@ -143,6 +147,10 @@ SCENARIO("CommandLineOptionsParser.Parse() options", "[commandlineoptions]") {
         REQUIRE(input_directory_names.size() == 2);
         REQUIRE(input_directory_names[0] == "/usr/share/applications");
         REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
+      }
+
+      THEN("its marks that default directory are overridden") {
+        REQUIRE(options.override_default_directories);
       }
     }
 

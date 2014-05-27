@@ -68,6 +68,7 @@ void CommandLineOptionsParser::Parse(int argc, char* const* argv, AmmOptions *am
     } else if (chosen_option == 'o') {
       amm_options->output_file_name = optarg;
     } else if (chosen_option == 'i') {
+      amm_options->override_default_directories = true;
       amm_options->input_directory_names = StringX(optarg).Split(":");
     } else if (chosen_option == 'c') {
       amm_options->category_file_name = optarg;

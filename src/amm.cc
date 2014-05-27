@@ -103,7 +103,11 @@ void Amm::ReadDesktopEntryFiles() {
   std::vector<std::string> input_directory_names = options_->input_directory_names;
 
   service::FileSearch service;
-  service.RegisterDirectoriesWithFallback(input_directory_names);
+  if (options_->override_default_directories) {
+    service.RegisterDirectories(input_directory_names);
+  } else {
+    service.RegisterDefaultDirectories();
+  }
   service.Resolve();
 
   std::vector<std::string> bad_paths = service.BadPaths();

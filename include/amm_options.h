@@ -26,7 +26,13 @@
 
 namespace amm {
 struct AmmOptions {
-  explicit AmmOptions(std::string home) : is_parsed(false), is_help(false), is_version(false), is_iconize(false), summary_type("normal") {
+  explicit AmmOptions(std::string home) :
+      is_parsed(false),
+      is_help(false),
+      is_version(false),
+      is_iconize(false),
+      override_default_directories(false),
+      summary_type("normal") {
     output_file_name = StringX(home).TerminateWith("/") + (".jwmrc-mjwm");
   }
 
@@ -34,6 +40,7 @@ struct AmmOptions {
   bool is_help;
   bool is_version;
   bool is_iconize;
+  bool override_default_directories;
   std::string summary_type;
   std::string output_file_name;
   std::vector<std::string> input_directory_names;

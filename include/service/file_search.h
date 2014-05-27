@@ -28,11 +28,9 @@ namespace service {
 class FileSearch {
  public:
   FileSearch();
-
-  void RegisterDirectoriesWithFallback(std::vector<std::string> directory_names);
   void Resolve();
-
   void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
+  void RegisterDefaultDirectories();
   std::vector<std::string> DesktopEntryFileNames() const { return desktop_file_names_; }
   std::vector<std::string> BadPaths() const { return bad_paths_; }
 
