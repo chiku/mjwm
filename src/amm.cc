@@ -29,7 +29,7 @@
 #include "messages.h"
 #include "amm_options.h"
 #include "command_line_options_parser.h"
-#include "service/environment_variable.h"
+#include "environment_variable.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/naive_scan.h"
 #include "service/file_search.h"

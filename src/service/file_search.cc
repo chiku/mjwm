@@ -25,7 +25,7 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "service/environment_variable.h"
+#include "environment_variable.h"
 
 namespace amm {
 namespace service {

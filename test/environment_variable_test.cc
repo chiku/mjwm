@@ -18,19 +18,19 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "service/environment_variable.h"
+#include "environment_variable.h"
 
 #include <cstdlib>
 #include <string>
 #include <vector>
 
-#include "../catch.hpp"
+#include "catch.hpp"
 
 
 namespace amm {
 namespace service {
 
-SCENARIO("service::EnvironmentVariable", "[environmentvariable]") {
+SCENARIO("EnvironmentVariable", "[environmentvariable]") {
   GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
     EnvironmentVariable environment_variable;
 

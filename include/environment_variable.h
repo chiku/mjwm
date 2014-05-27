@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_ENVIRONMENT_VARIABLE_H_
-#define AMM_SERVICE_ENVIRONMENT_VARIABLE_H_
+#ifndef AMM_ENVIRONMENT_VARIABLE_H_
+#define AMM_ENVIRONMENT_VARIABLE_H_
 
 #include <string>
 #include <vector>
@@ -40,4 +40,4 @@ class EnvironmentVariable {
 } // namespace service
 } // namespace amm
 
-#endif // AMM_SERVICE_ENVIRONMENT_VARIABLE_H_
+#endif // AMM_ENVIRONMENT_VARIABLE_H_

@@ -15,7 +15,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
-               src/service/environment_variable.cc \
+               src/environment_variable.cc \
                src/service/icon/naive_scan.cc \
                src/service/file_search.cc \
                src/messages.cc \
@@ -111,13 +111,13 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
 
 mjwm_service_file_search_test_SOURCES = src/stringx.cc \
                                         src/vectorx.cc \
-                                        src/service/environment_variable.cc \
+                                        src/environment_variable.cc \
                                         src/service/file_search.cc \
                                         test/service/file_search_test.cc
 
 mjwm_service_environment_variable_test_SOURCES = src/stringx.cc \
-                                                 src/service/environment_variable.cc \
-                                                 test/service/environment_variable_test.cc
+                                                 src/environment_variable.cc \
+                                                 test/environment_variable_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \

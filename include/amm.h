@@ -22,7 +22,7 @@
 #include <string>
 #include <vector>
 
-#include "service/environment_variable.h"
+#include "environment_variable.h"
 #include "amm_options.h"
 #include "menu.h"
 
