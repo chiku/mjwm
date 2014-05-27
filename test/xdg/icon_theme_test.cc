@@ -36,7 +36,7 @@ std::vector<std::string> HicolorThemeLines() {
   return lines;
 }
 
-std::vector<std::string> BirchIconThemeLinesWihoutParent() {
+std::vector<std::string> BirchIconThemeLinesWithoutParent() {
   std::vector<std::string> lines;
   lines.push_back("[Icon Theme]");
   lines.push_back("Name=Birch");
@@ -48,7 +48,7 @@ std::vector<std::string> BirchIconThemeLinesWihoutParent() {
 }
 
 std::vector<std::string> BirchIconThemeLines() {
-  std::vector<std::string> lines = BirchIconThemeLinesWihoutParent();
+  std::vector<std::string> lines = BirchIconThemeLinesWithoutParent();
   lines.push_back("Inherits=wood,default");
   return lines;
 }
@@ -98,8 +98,25 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
       }
     }
 
+    WHEN("registered with its internal name") {
+      IconTheme icon_theme(BirchIconThemeLines());
+      icon_theme.InternalNameIs("birch");
+
+      THEN("it can be referred to by its internal name") {
+        REQUIRE(icon_theme.IsNamed("birch"));
+      }
+
+      THEN("it can be referred to by its display name") {
+        REQUIRE(icon_theme.IsNamed("Birch"));
+      }
+
+      THEN("it can't be referred to other names") {
+        REQUIRE(!icon_theme.IsNamed("Wood"));
+      }
+    }
+
     WHEN("without explicit parents") {
-      IconTheme icon_theme(BirchIconThemeLinesWihoutParent());
+      IconTheme icon_theme(BirchIconThemeLinesWithoutParent());
 
       THEN("its parent is Hicolor") {
         std::vector<std::string> parents = icon_theme.Parents();
