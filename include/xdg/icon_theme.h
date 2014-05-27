@@ -33,6 +33,7 @@ class IconTheme {
   explicit IconTheme(std::vector<std::string> lines);
 
   std::string Name() const { return name_; }
+  std::string InternalName() const { return internal_name_; }
   std::vector<std::string> Parents() const { return parents_; }
   std::vector<IconSubdirectory> Directories() const { return directories_; }
   void InternalNameIs(std::string internal_name) { internal_name_ = internal_name; }
