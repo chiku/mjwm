@@ -25,7 +25,6 @@
 #include "stringx.h"
 
 namespace amm {
-namespace service {
 
 EnvironmentVariable::EnvironmentVariable() {
   char *home = std::getenv("HOME");
@@ -64,5 +63,4 @@ std::vector<std::string> EnvironmentVariable::ApplicationBaseDirectories() const
   return directory_bases;
 }
 
-} // namespace service
 } // namespace amm

@@ -26,9 +26,7 @@
 
 #include "catch.hpp"
 
-
 namespace amm {
-namespace service {
 
 SCENARIO("EnvironmentVariable", "[environmentvariable]") {
   GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
@@ -82,5 +80,4 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
   }
 }
 
-} // namespace service
 } // namespace amm

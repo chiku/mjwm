@@ -23,7 +23,6 @@
 #include <vector>
 
 namespace amm {
-namespace service {
 class EnvironmentVariable {
  public:
   EnvironmentVariable();
@@ -37,7 +36,6 @@ class EnvironmentVariable {
   std::string xdg_data_home_;
   std::string xdg_data_dirs_;
 };
-} // namespace service
 } // namespace amm
 
 #endif // AMM_ENVIRONMENT_VARIABLE_H_
