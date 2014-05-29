@@ -22,7 +22,6 @@
 #include <string>
 #include <vector>
 
-#include "system_environment.h"
 #include "amm_options.h"
 #include "menu.h"
 
@@ -41,7 +40,7 @@ class Amm {
   void PrintSummary();
 
  private:
-  EnvironmentVariable environment_;
+  std::string home_;
   AmmOptions *options_;
   Menu menu_;
   std::vector<std::string> desktop_entry_file_names_;

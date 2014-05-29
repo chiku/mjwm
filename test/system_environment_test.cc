@@ -30,7 +30,7 @@ namespace amm {
 
 SCENARIO("SystemEnvironment", "[systemenvironment]") {
   GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
-    EnvironmentVariable environment;
+    SystemEnvironment environment;
 
     setenv("XDG_DATA_HOME", "/data/home", 1);
     setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
@@ -62,7 +62,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
   }
 
   GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
-    EnvironmentVariable environment;
+    SystemEnvironment environment;
 
     setenv("HOME", "/home", 1);
     unsetenv("XDG_DATA_HOME");

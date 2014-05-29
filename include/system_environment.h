@@ -23,9 +23,9 @@
 #include <vector>
 
 namespace amm {
-class EnvironmentVariable {
+class SystemEnvironment {
  public:
-  EnvironmentVariable();
+  SystemEnvironment();
   std::string Home() const { return home_; }
   std::string XdgDataHome() const { return xdg_data_home_; }
   std::vector<std::string> XdgDataDirectories() const;

@@ -30,7 +30,7 @@
 namespace amm {
 
 static std::vector<std::string> DefaultDirectories() {
-  EnvironmentVariable environment;
+  SystemEnvironment environment;
   return environment.ApplicationDirectories(); // TODO : filter directories that don't exist
 }
 

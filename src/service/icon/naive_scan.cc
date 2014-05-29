@@ -39,7 +39,7 @@ NaiveScan::NaiveScan() {
   registered_extensions_.push_back(".svg");
   registered_extensions_.push_back(".xpm");
 
-  EnvironmentVariable environment_;
+  SystemEnvironment environment_;
   std::string home = environment_.Home();
   std::vector<std::string> xdg_data_dirs = environment_.XdgDataDirectories();
 

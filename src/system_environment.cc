@@ -26,7 +26,7 @@
 
 namespace amm {
 
-EnvironmentVariable::EnvironmentVariable() {
+SystemEnvironment::SystemEnvironment() {
   char *home = std::getenv("HOME");
   if (home != NULL) {
     home_ = home;
@@ -47,11 +47,11 @@ EnvironmentVariable::EnvironmentVariable() {
   }
 }
 
-std::vector<std::string> EnvironmentVariable::XdgDataDirectories() const {
+std::vector<std::string> SystemEnvironment::XdgDataDirectories() const {
   return StringX(xdg_data_dirs_).Split(":");
 }
 
-std::vector<std::string> EnvironmentVariable::ApplicationDirectories() const {
+std::vector<std::string> SystemEnvironment::ApplicationDirectories() const {
   std::vector<std::string> directories;
   std::string home_application = StringX(XdgDataHome()).TerminateWith("/") + "applications";
   directories.push_back(home_application);
@@ -63,7 +63,7 @@ std::vector<std::string> EnvironmentVariable::ApplicationDirectories() const {
   return directories;
 }
 
-std::vector<std::string> EnvironmentVariable::IconThemeDirectories() const {
+std::vector<std::string> SystemEnvironment::IconThemeDirectories() const {
   std::vector<std::string> directories;
   std::string home_icon = StringX(Home()).TerminateWith("/") + ".icons";
   directories.push_back(home_icon);

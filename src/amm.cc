@@ -28,6 +28,7 @@
 #include "filex.h"
 #include "messages.h"
 #include "amm_options.h"
+#include "system_environment.h"
 #include "command_line_options_parser.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/naive_scan.h"
@@ -39,7 +40,9 @@
 namespace amm {
 
 Amm::Amm() {
-  options_ = new AmmOptions(environment_.Home());
+  SystemEnvironment environment;
+  home_ = environment.Home();
+  options_ = new AmmOptions(home_);
 }
 
 Amm::~Amm() {
@@ -47,7 +50,7 @@ Amm::~Amm() {
 }
 
 void Amm::ValidateEnvironment() {
-  if (environment_.Home() == "") {
+  if (home_ == "") {
     std::cerr << messages::HomeNotSet() << std::endl;
     exit(2);
   }
