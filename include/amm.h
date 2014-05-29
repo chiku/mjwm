@@ -41,7 +41,7 @@ class Amm {
   void PrintSummary();
 
  private:
-  EnvironmentVariable environment_variable_;
+  EnvironmentVariable environment_;
   AmmOptions *options_;
   Menu menu_;
   std::vector<std::string> desktop_entry_file_names_;

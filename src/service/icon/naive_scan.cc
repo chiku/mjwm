@@ -39,8 +39,9 @@ NaiveScan::NaiveScan() {
   registered_extensions_.push_back(".svg");
   registered_extensions_.push_back(".xpm");
 
-  std::string home = environment_variable.Home();
-  std::vector<std::string> xdg_data_dirs = environment_variable.XdgDataDirectories();
+  EnvironmentVariable environment_;
+  std::string home = environment_.Home();
+  std::vector<std::string> xdg_data_dirs = environment_.XdgDataDirectories();
 
   NaiveScan::RegisterLookupDirectory(StringX(home).TerminateWith("/") + "./icons/");
   for (std::vector<std::string>::const_iterator dir = xdg_data_dirs.begin(); dir != xdg_data_dirs.end(); ++dir) {

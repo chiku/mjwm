@@ -28,22 +28,22 @@
 
 namespace amm {
 
-SCENARIO("EnvironmentVariable", "[environmentvariable]") {
+SCENARIO("SystemEnvironment", "[systemenvironment]") {
   GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
-    EnvironmentVariable environment_variable;
+    EnvironmentVariable environment;
 
     setenv("XDG_DATA_HOME", "/data/home", 1);
     setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
 
     WHEN("XDG data home is asked") {
       THEN("it is the directory pointed to by XDG_DATA_HOME") {
-        REQUIRE(environment_variable.XdgDataHome() == "/data/home");
+        REQUIRE(environment.XdgDataHome() == "/data/home");
       }
     }
 
     WHEN("XDG data directories is asked") {
       THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {
-        std::vector<std::string> directories = environment_variable.XdgDataDirectories();
+        std::vector<std::string> directories = environment.XdgDataDirectories();
         REQUIRE(directories.size() == 2);
         REQUIRE(directories[0] == "/data/dir1");
         REQUIRE(directories[1] == "/data/dir2/");
@@ -52,7 +52,7 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
 
     WHEN("directories for 'applications' subdirectories is asked") {
       THEN("it is a list of directories pointed to by XDG_DATA_HOME/applications, XDG_DATA_DIRS/applications") {
-        std::vector<std::string> directories = environment_variable.ApplicationDirectories();
+        std::vector<std::string> directories = environment.ApplicationDirectories();
         REQUIRE(directories.size() == 3);
         REQUIRE(directories[0] == "/data/home/applications");
         REQUIRE(directories[1] == "/data/dir1/applications");
@@ -62,7 +62,7 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
   }
 
   GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
-    EnvironmentVariable environment_variable;
+    EnvironmentVariable environment;
 
     setenv("HOME", "/home", 1);
     unsetenv("XDG_DATA_HOME");
@@ -70,7 +70,7 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
 
     WHEN("directories for 'applications' subdirectories is asked") {
       THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
-        std::vector<std::string> directories = environment_variable.ApplicationDirectories();
+        std::vector<std::string> directories = environment.ApplicationDirectories();
         REQUIRE(directories.size() == 3);
         REQUIRE(directories[0] == "/home/.local/share/applications");
         REQUIRE(directories[1] == "/usr/local/share/applications");
@@ -80,7 +80,7 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
 
     WHEN("directories for icon themes is asked") {
       THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
-        std::vector<std::string> directories = environment_variable.IconThemeDirectories();
+        std::vector<std::string> directories = environment.IconThemeDirectories();
         REQUIRE(directories.size() == 4);
         REQUIRE(directories[0] == "/home/.icons");
         REQUIRE(directories[1] == "/usr/local/share/icons");

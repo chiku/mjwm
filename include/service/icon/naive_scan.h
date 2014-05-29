@@ -23,7 +23,6 @@
 #include <vector>
 
 #include "service/icon_service_interface.h"
-#include "system_environment.h"
 
 namespace amm {
 namespace service {
@@ -44,7 +43,6 @@ class NaiveScan : public IconServiceInterface {
 
   std::vector<std::string> registered_extensions_;
   std::vector<std::string> search_locations_;
-  EnvironmentVariable environment_variable;
 };
 } // namespace icon
 } // namespace service

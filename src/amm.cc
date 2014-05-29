@@ -39,7 +39,7 @@
 namespace amm {
 
 Amm::Amm() {
-  options_ = new AmmOptions(environment_variable_.Home());
+  options_ = new AmmOptions(environment_.Home());
 }
 
 Amm::~Amm() {
@@ -47,7 +47,7 @@ Amm::~Amm() {
 }
 
 void Amm::ValidateEnvironment() {
-  if (environment_variable_.Home() == "") {
+  if (environment_.Home() == "") {
     std::cerr << messages::HomeNotSet() << std::endl;
     exit(2);
   }
