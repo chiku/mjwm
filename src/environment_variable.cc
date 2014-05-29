@@ -51,16 +51,16 @@ std::vector<std::string> EnvironmentVariable::XdgDataDirectories() const {
   return StringX(xdg_data_dirs_).Split(":");
 }
 
-std::vector<std::string> EnvironmentVariable::ApplicationBaseDirectories() const {
-  std::vector<std::string> directory_bases;
-  std::string xdg_data_home = XdgDataHome();
-  directory_bases.push_back(xdg_data_home);
+std::vector<std::string> EnvironmentVariable::ApplicationDirectories() const {
+  std::vector<std::string> directories;
+  std::string home_application = StringX(XdgDataHome()).TerminateWith("/") + "applications";
+  directories.push_back(home_application);
 
-  std::vector<std::string> xdg_data_dirs = XdgDataDirectories();
-  for (std::vector<std::string>::const_iterator directory = xdg_data_dirs.begin(); directory != xdg_data_dirs.end(); ++directory) {
-    directory_bases.push_back(*directory);
+  std::vector<std::string> data_dir_applications = XdgDataDirectories();
+  for (std::vector<std::string>::const_iterator directory = data_dir_applications.begin(); directory != data_dir_applications.end(); ++directory) {
+    directories.push_back(StringX(*directory).TerminateWith("/") + "applications");
   }
-  return directory_bases;
+  return directories;
 }
 
 std::vector<std::string> EnvironmentVariable::IconThemeDirectories() const {

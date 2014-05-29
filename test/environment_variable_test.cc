@@ -50,13 +50,13 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
       }
     }
 
-    WHEN("base directories for 'applications' subdirectory is asked") {
-      THEN("it is a list of directories pointed to by XDG_DATA_HOME, XDG_DATA_DIRS") {
-        std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
+    WHEN("directories for 'applications' subdirectories is asked") {
+      THEN("it is a list of directories pointed to by XDG_DATA_HOME/applications, XDG_DATA_DIRS/applications") {
+        std::vector<std::string> directories = environment_variable.ApplicationDirectories();
         REQUIRE(directories.size() == 3);
-        REQUIRE(directories[0] == "/data/home");
-        REQUIRE(directories[1] == "/data/dir1");
-        REQUIRE(directories[2] == "/data/dir2/");
+        REQUIRE(directories[0] == "/data/home/applications");
+        REQUIRE(directories[1] == "/data/dir1/applications");
+        REQUIRE(directories[2] == "/data/dir2/applications");
       }
     }
   }
@@ -68,18 +68,18 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
     unsetenv("XDG_DATA_HOME");
     unsetenv("XDG_DATA_DIRS");
 
-    WHEN("base directories for 'applications' subdirectory is asked") {
-      THEN("it is a list of directories pointed to by $HOME/.local/share and /usr/local/share:/usr/share") {
-        std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
+    WHEN("directories for 'applications' subdirectories is asked") {
+      THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
+        std::vector<std::string> directories = environment_variable.ApplicationDirectories();
         REQUIRE(directories.size() == 3);
-        REQUIRE(directories[0] == "/home/.local/share");
-        REQUIRE(directories[1] == "/usr/local/share");
-        REQUIRE(directories[2] == "/usr/share");
+        REQUIRE(directories[0] == "/home/.local/share/applications");
+        REQUIRE(directories[1] == "/usr/local/share/applications");
+        REQUIRE(directories[2] == "/usr/share/applications");
       }
     }
 
     WHEN("directories for icon themes is asked") {
-      THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share:/usr/share and /usr/share/pixmaps") {
+      THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
         std::vector<std::string> directories = environment_variable.IconThemeDirectories();
         REQUIRE(directories.size() == 4);
         REQUIRE(directories[0] == "/home/.icons");

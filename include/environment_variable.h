@@ -29,7 +29,6 @@ class EnvironmentVariable {
   std::string Home() const { return home_; }
   std::string XdgDataHome() const { return xdg_data_home_; }
   std::vector<std::string> XdgDataDirectories() const;
-  std::vector<std::string> ApplicationBaseDirectories() const; // TODO : delete this method
   std::vector<std::string> ApplicationDirectories() const;
   std::vector<std::string> IconThemeDirectories() const;
 
