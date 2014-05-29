@@ -101,7 +101,7 @@ void Amm::RegisterIconService() {
 void Amm::ReadDesktopEntryFiles() {
   std::vector<std::string> input_directory_names = options_->input_directory_names;
 
-  service::FileSearch service;
+  DesktopEntryFileSearch service;
   if (options_->override_default_directories) {
     service.RegisterDirectories(input_directory_names);
   } else {

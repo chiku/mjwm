@@ -16,18 +16,17 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_FILE_SEARCH_H_
-#define AMM_SERVICE_FILE_SEARCH_H_
+#ifndef AMM_DESKTOP_ENTRY_FILE_SEARCH_H_
+#define AMM_DESKTOP_ENTRY_FILE_SEARCH_H_
 
 #include <string>
 #include <vector>
 
 namespace amm {
-namespace service {
 // Understands search for .desktop files
-class FileSearch {
+class DesktopEntryFileSearch {
  public:
-  FileSearch();
+  DesktopEntryFileSearch() : capture_bad_paths_(true) {}
   void Resolve();
   void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
   void RegisterDefaultDirectories();
@@ -42,7 +41,6 @@ class FileSearch {
   std::vector<std::string> bad_paths_;
   bool capture_bad_paths_;
 };
-} // namespace service
 } // namespace amm
 
-#endif // AMM_SERVICE_FILE_SEARCH_H_
+#endif // AMM_DESKTOP_ENTRY_FILE_SEARCH_H_

@@ -28,7 +28,6 @@
 #include "environment_variable.h"
 
 namespace amm {
-namespace service {
 
 static const std::string kDesktopExtension = ".desktop";
 static const std::string kApplications = "applications";
@@ -45,14 +44,12 @@ static std::vector<std::string> DefaultDirectories() {
   return directory_names;
 }
 
-FileSearch::FileSearch() : capture_bad_paths_(true) {}
-
-void FileSearch::RegisterDefaultDirectories() {
+void DesktopEntryFileSearch::RegisterDefaultDirectories() {
   capture_bad_paths_ = false;
   RegisterDirectories(DefaultDirectories());
 }
 
-void FileSearch::Resolve() {
+void DesktopEntryFileSearch::Resolve() {
   desktop_file_names_.clear();
   bad_paths_.clear();
 
@@ -64,7 +61,7 @@ void FileSearch::Resolve() {
   }
 }
 
-void FileSearch::Populate(std::string directory_name) {
+void DesktopEntryFileSearch::Populate(std::string directory_name) {
   DIR *directory = opendir(directory_name.c_str());
 
   if (directory) {
@@ -78,7 +75,7 @@ void FileSearch::Populate(std::string directory_name) {
       }
 
       if ((entry->d_type & DT_DIR) && entry_name != ".." && entry_name != "." && full_path.size() <= PATH_MAX) {
-        FileSearch::Populate(full_path);
+        Populate(full_path);
       }
     }
     closedir(directory);
@@ -87,5 +84,4 @@ void FileSearch::Populate(std::string directory_name) {
   }
 }
 
-} // namespace service
 } // namespace amm

@@ -27,7 +27,6 @@
 #include "catch.hpp"
 
 namespace amm {
-namespace service {
 
 static bool present_in(std::string item, std::vector<std::string> list) {
   return std::find(list.begin(), list.end(), item) != list.end();
@@ -47,18 +46,18 @@ static void assert_files_are_present_in_list(std::vector<std::string> file_names
 }
 
 
-SCENARIO("service::FileSearch custom directories", "[filesearch]") {
+SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
   GIVEN("A file search service with one directory") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/applications/");
-    FileSearch service;
-    service.RegisterDirectories(directory_names);
+    DesktopEntryFileSearch searcher;
+    searcher.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
-      service.Resolve();
+      searcher.Resolve();
 
       THEN("it has a list of files with extension 'desktop' inside the directory") {
-        assert_files_are_present_in_list(service.DesktopEntryFileNames());
+        assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
       }
     }
   }
@@ -67,14 +66,14 @@ SCENARIO("service::FileSearch custom directories", "[filesearch]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/applications/");
     directory_names.push_back("test/fixtures/applications");
-    FileSearch service;
-    service.RegisterDirectories(directory_names);
+    DesktopEntryFileSearch searcher;
+    searcher.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
-      service.Resolve();
+      searcher.Resolve();
 
       THEN("it ignores duplicates") {
-        assert_files_are_present_in_list(service.DesktopEntryFileNames());
+        assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
       }
     }
   }
@@ -83,18 +82,18 @@ SCENARIO("service::FileSearch custom directories", "[filesearch]") {
     std::vector<std::string> directory_names;
     directory_names.push_back("test/fixtures/applications");
     directory_names.push_back("test/does-not-exist/applications");
-    FileSearch service;
-    service.RegisterDirectories(directory_names);
+    DesktopEntryFileSearch searcher;
+    searcher.RegisterDirectories(directory_names);
 
     WHEN("resolved") {
-      service.Resolve();
+      searcher.Resolve();
 
       THEN("it has a list of files with extension 'desktop' in the directory that exists") {
-        assert_files_are_present_in_list(service.DesktopEntryFileNames());
+        assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
       }
 
       THEN("it tracks the directory that doesn't exist") {
-        std::vector<std::string> bad_paths = service.BadPaths();
+        std::vector<std::string> bad_paths = searcher.BadPaths();
         REQUIRE(bad_paths.size() == 1);
         REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
       }
@@ -102,30 +101,29 @@ SCENARIO("service::FileSearch custom directories", "[filesearch]") {
   }
 }
 
-SCENARIO("service::FileSearch default directories", "[filesearch]") {
+SCENARIO("DesktopEntryFileSearch default directories", "[filesearch]") {
   GIVEN("XDG_DATA_DIRS points to a existing directory and a missing directory") {
     unsetenv("HOME");
     unsetenv("XDG_DATA_HOME");
     setenv("XDG_DATA_DIRS", "test/fixtures:test/does-not-exist", 1);
 
     GIVEN("A default file search service") {
-      FileSearch service;
-      service.RegisterDefaultDirectories();
+      DesktopEntryFileSearch searcher;
+      searcher.RegisterDefaultDirectories();
 
       WHEN("resolved") {
-        service.Resolve();
+        searcher.Resolve();
 
         THEN("it has a list of files with extension 'desktop' inside the directory") {
-          assert_files_are_present_in_list(service.DesktopEntryFileNames());
+          assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
         }
 
         THEN("it doesn't track the absent directory") {
-          REQUIRE(service.BadPaths().size() == 0);
+          REQUIRE(searcher.BadPaths().size() == 0);
         }
       }
     }
   }
 }
 
-} // namespace service
 } // namespace amm
