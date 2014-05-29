@@ -34,8 +34,10 @@ static const std::string kApplications = "applications";
 
 static std::vector<std::string> DefaultDirectories() {
   EnvironmentVariable environment_variable;
+  // TODO : applications should be added already by environment_variable.ApplicationBaseDirectories()
   std::vector<std::string> directory_bases = environment_variable.ApplicationBaseDirectories();
 
+  // TODO : test existance of directories here
   std::vector<std::string> directory_names;
   for (std::vector<std::string>::const_iterator base = directory_bases.begin(); base != directory_bases.end(); ++base) {
     directory_names.push_back(StringX(*base).TerminateWith("/") + kApplications);

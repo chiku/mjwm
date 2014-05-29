@@ -53,14 +53,28 @@ std::vector<std::string> EnvironmentVariable::XdgDataDirectories() const {
 
 std::vector<std::string> EnvironmentVariable::ApplicationBaseDirectories() const {
   std::vector<std::string> directory_bases;
-  std::string xdg_data_home = EnvironmentVariable::XdgDataHome();
+  std::string xdg_data_home = XdgDataHome();
   directory_bases.push_back(xdg_data_home);
 
-  std::vector<std::string> xdg_data_dirs = EnvironmentVariable::XdgDataDirectories();
+  std::vector<std::string> xdg_data_dirs = XdgDataDirectories();
   for (std::vector<std::string>::const_iterator directory = xdg_data_dirs.begin(); directory != xdg_data_dirs.end(); ++directory) {
     directory_bases.push_back(*directory);
   }
   return directory_bases;
+}
+
+std::vector<std::string> EnvironmentVariable::IconThemeDirectories() const {
+  std::vector<std::string> directories;
+  std::string home_icon = StringX(Home()).TerminateWith("/") + ".icons";
+  directories.push_back(home_icon);
+
+  std::vector<std::string> xdg_data_dirs = XdgDataDirectories();
+  for (std::vector<std::string>::const_iterator directory = xdg_data_dirs.begin(); directory != xdg_data_dirs.end(); ++directory) {
+    directories.push_back(StringX(*directory).TerminateWith("/") + "icons");
+  }
+  directories.push_back("/usr/share/pixmaps");
+
+  return directories;
 }
 
 } // namespace amm

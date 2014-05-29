@@ -69,12 +69,23 @@ SCENARIO("EnvironmentVariable", "[environmentvariable]") {
     unsetenv("XDG_DATA_DIRS");
 
     WHEN("base directories for 'applications' subdirectory is asked") {
-      THEN("it is a list of directories pointed to by $HOME/.local/share, /usr/local/share:/usr/share") {
+      THEN("it is a list of directories pointed to by $HOME/.local/share and /usr/local/share:/usr/share") {
         std::vector<std::string> directories = environment_variable.ApplicationBaseDirectories();
         REQUIRE(directories.size() == 3);
         REQUIRE(directories[0] == "/home/.local/share");
         REQUIRE(directories[1] == "/usr/local/share");
         REQUIRE(directories[2] == "/usr/share");
+      }
+    }
+
+    WHEN("directories for icon themes is asked") {
+      THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share:/usr/share and /usr/share/pixmaps") {
+        std::vector<std::string> directories = environment_variable.IconThemeDirectories();
+        REQUIRE(directories.size() == 4);
+        REQUIRE(directories[0] == "/home/.icons");
+        REQUIRE(directories[1] == "/usr/local/share/icons");
+        REQUIRE(directories[2] == "/usr/share/icons");
+        REQUIRE(directories[3] == "/usr/share/pixmaps");
       }
     }
   }
