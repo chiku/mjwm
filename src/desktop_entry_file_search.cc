@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "service/file_search.h"
+#include "desktop_entry_file_search.h"
 
 #include <dirent.h>
 #include <cstdlib>
