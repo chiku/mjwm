@@ -23,7 +23,7 @@
 #include <vector>
 
 #include "service/icon_service_interface.h"
-#include "environment_variable.h"
+#include "system_environment.h"
 
 namespace amm {
 namespace service {

@@ -18,7 +18,7 @@
 
 #define CATCH_CONFIG_MAIN
 
-#include "environment_variable.h"
+#include "system_environment.h"
 
 #include <cstdlib>
 #include <string>

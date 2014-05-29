@@ -25,12 +25,9 @@
 
 #include "stringx.h"
 #include "vectorx.h"
-#include "environment_variable.h"
+#include "system_environment.h"
 
 namespace amm {
-
-static const std::string kDesktopExtension = ".desktop";
-static const std::string kApplications = "applications";
 
 static std::vector<std::string> DefaultDirectories() {
   EnvironmentVariable environment_variable;
@@ -63,7 +60,7 @@ void DesktopEntryFileSearch::Populate(std::string directory_name) {
       std::string entry_name = entry->d_name;
       std::string full_path = StringX(directory_name).TerminateWith("/") + entry_name;
 
-      if (StringX(entry_name).EndsWith(kDesktopExtension)) {
+      if (StringX(entry_name).EndsWith(".desktop")) {
         desktop_file_names_.push_back(full_path);
       }
 

@@ -23,7 +23,7 @@
 #include <vector>
 
 #include "stringx.h"
-#include "environment_variable.h"
+#include "system_environment.h"
 
 namespace amm {
 namespace service {

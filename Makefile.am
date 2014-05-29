@@ -15,7 +15,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/stats.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
-               src/environment_variable.cc \
+               src/system_environment.cc \
                src/service/icon/naive_scan.cc \
                src/desktop_entry_file_search.cc \
                src/messages.cc \
@@ -36,7 +36,7 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_menu_test \
                  mjwm_desktop_entry_file_search_test \
                  mjwm_transformer_jwm_test \
-                 mjwm_service_environment_variable_test \
+                 mjwm_service_system_environment_test \
                  mjwm_command_line_options_parser_test
 
 mjwmdir=$(datadir)/mjwm
@@ -111,13 +111,13 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
 
 mjwm_desktop_entry_file_search_test_SOURCES = src/stringx.cc \
                                               src/vectorx.cc \
-                                              src/environment_variable.cc \
+                                              src/system_environment.cc \
                                               src/desktop_entry_file_search.cc \
                                               test/desktop_entry_file_search_test.cc
 
-mjwm_service_environment_variable_test_SOURCES = src/stringx.cc \
-                                                 src/environment_variable.cc \
-                                                 test/environment_variable_test.cc
+mjwm_service_system_environment_test_SOURCES = src/stringx.cc \
+                                               src/system_environment.cc \
+                                               test/system_environment_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \

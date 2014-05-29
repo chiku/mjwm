@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "environment_variable.h"
+#include "system_environment.h"
 
 #include <cstdlib>
 #include <string>
