@@ -30,10 +30,10 @@ namespace amm {
 
 SCENARIO("SystemEnvironment", "[systemenvironment]") {
   GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
-    SystemEnvironment environment;
-
     setenv("XDG_DATA_HOME", "/data/home", 1);
     setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
+
+    SystemEnvironment environment;
 
     WHEN("XDG data home is asked") {
       THEN("it is the directory pointed to by XDG_DATA_HOME") {
@@ -62,13 +62,14 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
   }
 
   GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
-    SystemEnvironment environment;
-
     setenv("HOME", "/home", 1);
     unsetenv("XDG_DATA_HOME");
     unsetenv("XDG_DATA_DIRS");
 
+    SystemEnvironment environment;
+
     WHEN("directories for 'applications' subdirectories is asked") {
+
       THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
         std::vector<std::string> directories = environment.ApplicationDirectories();
         REQUIRE(directories.size() == 3);
