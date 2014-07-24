@@ -30,17 +30,19 @@ run() {
 
 run mjwm_stringx_test
 run mjwm_vectorx_test
-run mjwm_xdg_entry_test
+run mjwm_filex_test
 run mjwm_xdg_entry_line_test
+run mjwm_xdg_entry_test
 run mjwm_xdg_desktop_entry_test
 run mjwm_xdg_icon_theme_test
+run mjwm_xdg_icon_subdirectory_test
 run mjwm_subcategory_test
 run mjwm_stats_test
 run mjwm_menu_test
-run mjwm_service_file_search_test
+run mjwm_desktop_entry_file_search_test
 run mjwm_transformer_jwm_test
+run mjwm_service_system_environment_test
 run mjwm_command_line_options_parser_test
-run mjwm_service_environment_variable_test
 
 echo "Suites run: $suites"
 
