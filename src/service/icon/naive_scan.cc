@@ -18,21 +18,16 @@
 
 #include "service/icon/naive_scan.h"
 
-#include <sys/stat.h>
 #include <string>
 #include <vector>
 
 #include "stringx.h"
+#include "filex.h"
 #include "system_environment.h"
 
 namespace amm {
 namespace service {
 namespace icon {
-
-static bool DoesPathExist(std::string path) {
-  struct stat st;
-  return stat(path.c_str(), &st) == 0;
-}
 
 NaiveScan::NaiveScan() {
   registered_extensions_.push_back(".png");
@@ -59,15 +54,13 @@ NaiveScan::NaiveScan() {
 }
 
 void NaiveScan::RegisterLookupDirectory(std::string path) {
-  struct stat st;
-  int result = stat(path.c_str(), &st);
-  if (result == 0 && S_ISDIR(st.st_mode)) {
+  if (FileX(path).ExistsAsDirectory()) {
     search_locations_.push_back(path);
   }
 }
 
 std::string NaiveScan::ResolvedName(std::string icon_name) const {
-  return DoesPathExist(icon_name) ? icon_name : SearchedFileName(icon_name);
+  return FileX(icon_name).Exists() ? icon_name : SearchedFileName(icon_name);
 }
 
 std::string NaiveScan::SearchedFileName(std::string icon_name) const {
@@ -76,7 +69,7 @@ std::string NaiveScan::SearchedFileName(std::string icon_name) const {
   for (std::vector<std::string>::const_iterator location = search_locations_.begin(); location != search_locations_.end(); ++location) {
     for (std::vector<std::string>::const_iterator extension = extensions.begin(); extension != extensions.end(); ++extension) {
       std::string full_name = (*location) + icon_name + (*extension);
-      if (DoesPathExist(full_name)) {
+      if (FileX(full_name).Exists()) {
         return full_name;
       }
     }

@@ -28,6 +28,8 @@ class FileX {
  public:
   FileX(std::string name) : name_(name) { }
   bool Load(std::vector<std::string> *lines) const;
+  bool Exists() const;
+  bool ExistsAsDirectory() const;
 
  private:
   std::string name_;

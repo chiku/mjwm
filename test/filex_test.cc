@@ -29,7 +29,7 @@ namespace amm {
 
 SCENARIO("FileX", "[filex]") {
   GIVEN("A filex") {
-    WHEN("it points to a file that exists") {
+    WHEN("it points to an existing file") {
       FileX filex("test/fixtures/applications/vlc.desktop");
 
       THEN("it reads the content of the file") {
@@ -60,9 +60,29 @@ SCENARIO("FileX", "[filex]") {
         std::vector<std::string> lines;
         REQUIRE(filex.Load(&lines));
       }
+
+      THEN("it exists") {
+        REQUIRE(filex.Exists());
+      }
+
+      THEN("it isn't a directory") {
+        REQUIRE(!filex.ExistsAsDirectory());
+      }
     }
 
-    WHEN("it points to a file that doesn't exist") {
+    WHEN("it points to an existing directory") {
+      FileX dirx("test/fixtures/applications");
+
+      THEN("it exists") {
+        REQUIRE(dirx.Exists());
+      }
+
+      THEN("it is a directory") {
+        REQUIRE(dirx.ExistsAsDirectory());
+      }
+    }
+
+    WHEN("it points to a non-existing file") {
       FileX filex("test/fixtures/applications/does-not-exist.desktop");
 
       THEN("its lines are empty") {
@@ -82,6 +102,14 @@ SCENARIO("FileX", "[filex]") {
       THEN("it fails") {
         std::vector<std::string> lines;
         REQUIRE(!filex.Load(&lines));
+      }
+
+      THEN("it doesn't exist") {
+        REQUIRE(!filex.Exists());
+      }
+
+      THEN("it isn't a directory") {
+        REQUIRE(!filex.ExistsAsDirectory());
       }
     }
   }

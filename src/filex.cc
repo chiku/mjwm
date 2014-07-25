@@ -18,6 +18,7 @@
 
 #include "filex.h"
 
+#include <sys/stat.h>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -38,6 +39,17 @@ bool FileX::Load(std::vector<std::string> *lines) const {
   }
   file.close();
   return true;
+}
+
+bool FileX::Exists() const {
+  struct stat st;
+  return stat(name_.c_str(), &st) == 0;
+}
+
+bool FileX::ExistsAsDirectory() const {
+  struct stat st;
+  int result = stat(name_.c_str(), &st);
+  return result == 0 && S_ISDIR(st.st_mode);
 }
 
 } // namespace amm
