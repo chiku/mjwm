@@ -11,6 +11,8 @@ mjwm_SOURCES = src/stringx.cc \
                src/xdg/entry_line.cc \
                src/xdg/entry.cc \
                src/xdg/desktop_entry.cc \
+               src/xdg/icon_theme.cc \
+               src/xdg/icon_subdirectory.cc \
                src/subcategory.cc \
                src/stats.cc \
                src/menu.cc \
