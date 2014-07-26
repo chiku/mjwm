@@ -212,7 +212,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   }
 
   GIVEN("An invalid subdirectory") {
-    IconSubdirectory invalid = IconSubdirectory("invalid", "24").Type("Invalid");
+    IconSubdirectory invalid = IconSubdirectory();
 
     WHEN("matched for a size") {
       THEN("its type is invalid") {
@@ -225,7 +225,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         REQUIRE(!invalid.Matches(100));
       }
 
-      THEN("it is at a huge distanve") {
+      THEN("it is at a huge distance") {
         REQUIRE(invalid.Distance(24) == INT_MAX);
         REQUIRE(invalid.Distance(0) == INT_MAX);
         REQUIRE(invalid.Distance(100) == INT_MAX);

@@ -34,6 +34,7 @@ enum IconSubdirectoryType {
 // Understands the representation of a FreeDesktop .desktop file
 class IconSubdirectory {
  public:
+  IconSubdirectory();
   IconSubdirectory(std::string name, std::string size);
 
   std::string Name() { return name_; }

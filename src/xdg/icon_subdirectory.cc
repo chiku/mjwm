@@ -30,6 +30,10 @@ static int StringToInt(std::string str) {
   return atoi(str.c_str());
 }
 
+IconSubdirectory::IconSubdirectory() {
+  type_ = INVALID;
+}
+
 IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(name) {
   size_ = StringToInt(size);
   type_ = THRESHOLD;
