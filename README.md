@@ -53,6 +53,8 @@ Optional arguments:
                                 $XDG_DATA_DIRS/icons, and /usr/share/pixmaps.
                                 Icon file names would be absolute paths to
                                 icons in the specified directories.
+      --summary=type          The summary of the run. Acceptable values are
+                                short, normal and long. Defaults to normal.
       --help                  Show this help
       --version               Show version information
 ```

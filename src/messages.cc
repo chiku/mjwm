@@ -54,6 +54,8 @@ std::string Help() {
   stream << "                                $XDG_DATA_DIRS/icons, and /usr/share/pixmaps." << std::endl;
   stream << "                                Icon file names would be absolute paths to" << std::endl;
   stream << "                                icons in the specified directories." << std::endl;
+  stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
+  stream << "                                short, normal and long. Defaults to normal." << std::endl;
   stream << "      --help                  Show this help" << std::endl;
   stream << "      --version               Show version information" << std::endl;
   stream << std::endl;
