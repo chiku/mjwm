@@ -37,8 +37,8 @@ SCENARIO("CommandLineOptionsParser.Parse() default", "[commandlineoptions]") {
       char* argv[] = {strdup("amm"), 0};
       parser.Parse(1, argv, &options);
 
-      THEN("it is successfully parsed") {
-        REQUIRE(options.is_parsed == true);
+      THEN("it is a success") {
+        REQUIRE(options.is_parsed);
       }
 
       THEN("it has no deprecations") {
@@ -207,7 +207,7 @@ SCENARIO("CommandLineOptionsParser.Parse() failure", "[commandlineoptions]") {
       parser.Parse(3, argv, &options);
 
       THEN("it is not parsed") {
-        REQUIRE(options.is_parsed == false);
+        REQUIRE(!options.is_parsed);
       }
     }
 
@@ -216,7 +216,7 @@ SCENARIO("CommandLineOptionsParser.Parse() failure", "[commandlineoptions]") {
       parser.Parse(2, argv, &options);
 
       THEN("it is not parsed") {
-        REQUIRE(options.is_parsed == false);
+        REQUIRE(!options.is_parsed);
       }
     }
   }
