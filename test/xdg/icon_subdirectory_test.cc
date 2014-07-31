@@ -21,6 +21,7 @@
 #include "xdg/icon_subdirectory.h"
 
 #include <climits>
+#include <string>
 
 #include "../catch.hpp"
 
@@ -29,9 +30,10 @@ namespace xdg {
 
 SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   GIVEN("A subdirectory") {
-    IconSubdirectory subdir = IconSubdirectory("subdirectory", "24");
 
     WHEN("without optional values") {
+      IconSubdirectory subdir = IconSubdirectory("subdirectory", "24");
+
       THEN("its type is Threshold") {
         REQUIRE(subdir.Type() == THRESHOLD);
       }
@@ -48,12 +50,10 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         REQUIRE(subdir.Threshold() == 2);
       }
     }
-  }
-
-  GIVEN("A subdirectory") {
-    IconSubdirectory subdir = IconSubdirectory("subdirectory", "24").Type("").MaxSize("").MinSize("").Threshold("");
 
     WHEN("when optional values are set to empty") {
+      IconSubdirectory subdir = IconSubdirectory("subdirectory", "24").Type("").MaxSize("").MinSize("").Threshold("");
+
       THEN("its type is retained") {
         REQUIRE(subdir.Type() == THRESHOLD);
       }
@@ -68,6 +68,21 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
       THEN("its threshold is retained") {
         REQUIRE(subdir.Threshold() == 2);
+      }
+    }
+
+    WHEN("when assigned a location") {
+      IconSubdirectory subdir = IconSubdirectory("subdirectory", "24");
+      std::string firefox = "/usr/share/icons/hicolor/256x256/apps/firefox.png";
+      subdir.Location(firefox);
+
+      THEN("its location can be retrieved") {
+        REQUIRE(subdir.Location() == firefox);
+      }
+
+      THEN("it can't be reset to empty value") {
+        subdir.Location("");
+        REQUIRE(subdir.Location() == firefox);
       }
     }
   }

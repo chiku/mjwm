@@ -43,6 +43,7 @@ class IconSubdirectory {
   int MaxSize() { return max_size_; }
   int MinSize() { return min_size_; }
   int Threshold() { return threshold_; }
+  std::string Location() { return location_; }
   bool Matches(int required_size);
   int Distance(int required_size);
 
@@ -50,6 +51,7 @@ class IconSubdirectory {
   IconSubdirectory& MaxSize(std::string max_size);
   IconSubdirectory& MinSize(std::string min_size);
   IconSubdirectory& Threshold(std::string threshold);
+  IconSubdirectory& Location(std::string location);
 
  private:
   std::string name_;
@@ -58,6 +60,7 @@ class IconSubdirectory {
   int max_size_;
   int min_size_;
   int threshold_;
+  std::string location_;
 };
 
 } // namespace xdg

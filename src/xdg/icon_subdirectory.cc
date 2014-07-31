@@ -77,6 +77,13 @@ IconSubdirectory& IconSubdirectory::Threshold(std::string threshold) {
   return *this;
 }
 
+IconSubdirectory& IconSubdirectory::Location(std::string location) {
+  if (location != "") {
+    location_ = location;
+  }
+  return *this;
+}
+
 bool IconSubdirectory::Matches(int required_size) {
   if (type_ == FIXED) {
     return size_ == required_size;
