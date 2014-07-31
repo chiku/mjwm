@@ -32,6 +32,7 @@
 #include "command_line_options_parser.h"
 #include "service/icon_service_interface.h"
 #include "service/icon/naive_scan.h"
+#include "service/icon/xdg_scan.h"
 #include "desktop_entry_file_search.h"
 #include "stats.h"
 #include "menu.h"
