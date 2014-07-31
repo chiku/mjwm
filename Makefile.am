@@ -18,7 +18,6 @@ mjwm_SOURCES = src/stringx.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
                src/system_environment.cc \
-               src/service/icon/naive_scan.cc \
                src/service/icon/xdg_scan.cc \
                src/desktop_entry_file_search.cc \
                src/messages.cc \
