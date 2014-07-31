@@ -97,7 +97,7 @@ void Amm::ReadCategories() {
 
 void Amm::RegisterIconService() {
   if (options_->is_iconize) {
-    service::IconServiceInterface *icon_service = new service::icon::NaiveScan();
+    service::IconServiceInterface *icon_service = new service::icon::XdgScan(48, "Faenza");
     menu_.RegisterIconService(*icon_service);
   }
 }
