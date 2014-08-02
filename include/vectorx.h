@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_VECTOR_H_
-#define AMM_VECTOR_H_
+#ifndef AMM_VECTORX_H_
+#define AMM_VECTORX_H_
 
 #include <string>
 #include <vector>
@@ -37,4 +37,4 @@ class VectorX {
 };
 } // namespace amm
 
-#endif // AMM_UTIL_H_
+#endif // AMM_VECTORX_H_

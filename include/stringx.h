@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_STRING_H_
-#define AMM_STRING_H_
+#ifndef AMM_STRINGX_H_
+#define AMM_STRINGX_H_
 
 #include <string>
 #include <vector>
@@ -38,4 +38,4 @@ class StringX {
 };
 } // namespace amm
 
-#endif // AMM_UTIL_H_
+#endif // AMM_STRINGX_H_
