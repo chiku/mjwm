@@ -25,17 +25,8 @@
 #include "stringx.h"
 
 namespace amm {
-struct AmmOptions {
-  explicit AmmOptions(std::string home) :
-      is_parsed(false),
-      is_help(false),
-      is_version(false),
-      is_iconize(false),
-      override_default_directories(false),
-      summary_type("normal") {
-    output_file_name = StringX(home).TerminateWith("/") + (".jwmrc-mjwm");
-  }
 
+struct AmmOptions {
   bool is_parsed;
   bool is_help;
   bool is_version;
@@ -47,6 +38,9 @@ struct AmmOptions {
   std::string category_file_name;
   std::vector<std::string> deprecations;
 };
+
+AmmOptions DefaultAmmOptions(std::string home);
+
 } // namespace amm
 
 #endif // AMM_AMM_OPTIONS_H_

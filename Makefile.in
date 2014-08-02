@@ -122,12 +122,13 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/transformer/jwm.$(OBJEXT) src/system_environment.$(OBJEXT) \
 	src/service/icon/xdg_scan.$(OBJEXT) \
 	src/desktop_entry_file_search.$(OBJEXT) src/messages.$(OBJEXT) \
+	src/amm_options.$(OBJEXT) \
 	src/command_line_options_parser.$(OBJEXT) src/amm.$(OBJEXT) \
 	src/main.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
 am_mjwm_command_line_options_parser_test_OBJECTS =  \
-	src/stringx.$(OBJEXT) \
+	src/stringx.$(OBJEXT) src/amm_options.$(OBJEXT) \
 	src/command_line_options_parser.$(OBJEXT) \
 	test/command_line_options_parser_test.$(OBJEXT)
 mjwm_command_line_options_parser_test_OBJECTS =  \
@@ -631,6 +632,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/service/icon/xdg_scan.cc \
                src/desktop_entry_file_search.cc \
                src/messages.cc \
+               src/amm_options.cc \
                src/command_line_options_parser.cc \
                src/amm.cc \
                src/main.cc
@@ -713,6 +715,7 @@ mjwm_service_system_environment_test_SOURCES = src/stringx.cc \
                                                test/system_environment_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
+                                                src/amm_options.cc \
                                                 src/command_line_options_parser.cc \
                                                 test/command_line_options_parser_test.cc
 
@@ -868,6 +871,8 @@ src/desktop_entry_file_search.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/amm_options.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/command_line_options_parser.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/amm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
@@ -999,6 +1004,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/amm.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/amm_options.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/command_line_options_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_entry_file_search.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/filex.Po@am__quote@

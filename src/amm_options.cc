@@ -16,34 +16,23 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_AMM_H_
-#define AMM_AMM_H_
+#include "amm_options.h"
 
 #include <string>
-#include <vector>
-
-#include "amm_options.h"
-#include "system_environment.h"
-#include "menu.h"
+#include "stringx.h"
 
 namespace amm {
-class Amm {
- public:
-  void ValidateEnvironment();
-  void LoadCommandLineOption(int argc, char **argv);
-  void RegisterIconService();
-  void ReadCategories();
-  void ReadDesktopEntryFiles();
-  void Populate();
-  void WriteOutputFile();
-  void PrintSummary();
 
- private:
-  SystemEnvironment environment_;
-  AmmOptions options_;
-  Menu menu_;
-  std::vector<std::string> desktop_entry_file_names_;
-};
+AmmOptions DefaultAmmOptions(std::string home) {
+  AmmOptions amm_options;
+  amm_options.is_parsed = false;
+  amm_options.is_help = false;
+  amm_options.is_version = false;
+  amm_options.is_iconize = false;
+  amm_options.override_default_directories = false;
+  amm_options.summary_type = "normal";
+  amm_options.output_file_name = StringX(home).TerminateWith("/") + (".jwmrc-mjwm");
+  return amm_options;
+}
+
 } // namespace amm
-
-#endif // AMM_AMM_H_

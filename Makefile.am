@@ -21,6 +21,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/service/icon/xdg_scan.cc \
                src/desktop_entry_file_search.cc \
                src/messages.cc \
+               src/amm_options.cc \
                src/command_line_options_parser.cc \
                src/amm.cc \
                src/main.cc
@@ -122,5 +123,6 @@ mjwm_service_system_environment_test_SOURCES = src/stringx.cc \
                                                test/system_environment_test.cc
 
 mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
+                                                src/amm_options.cc \
                                                 src/command_line_options_parser.cc \
                                                 test/command_line_options_parser_test.cc
