@@ -40,7 +40,7 @@
 namespace amm {
 
 void Amm::ValidateEnvironment() {
-  if (environment_.Home() == "") {
+  if (!environment_.IsValid()) {
     std::cerr << messages::HomeNotSet() << std::endl;
     exit(2);
   }

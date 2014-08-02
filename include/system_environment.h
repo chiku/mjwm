@@ -26,6 +26,7 @@ namespace amm {
 class SystemEnvironment {
  public:
   SystemEnvironment();
+  bool IsValid() const { return Home() != ""; }
   std::string Home() const { return home_; }
   std::string XdgDataHome() const { return xdg_data_home_; }
   std::vector<std::string> XdgDataDirectories() const;
