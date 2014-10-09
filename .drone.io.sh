@@ -35,10 +35,6 @@ assign_properties() {
   mjwm_version=$($mjwm_binary_path --version | cut -d' ' -f2)
   mjwm_size=$(ls -lah $mjwm_binary_path | awk '{print $5}')
   mjwm_package_base_dir="mjwm-${mjwm_version}-i686"
-  echo $mjwm_binary_path
-  echo $mjwm_version
-  echo $mjwm_size
-  echo $mjwm_package_base_dir
 }
 
 prepackage() {
@@ -57,9 +53,10 @@ artifact() {
 
 puppytize() {
   pushd "$install_base_dir"
-  echo "${mjwm_package_base_dir}|mjwm|${mjwm_version}-i686||Utility|${mjwm_size}||${mjwm_package_base_dir}||Create JWM menu|Slackware|14.0||" > "${mjwm_package_base_dir}/pet.specs"
+  echo "${mjwm_package_base_dir}|mjwm|${mjwm_version}-i686||Utility|${mjwm_size}||${mjwm_package_base_dir}.pet||Create JWM menu|Slackware|14.0||" > "${mjwm_package_base_dir}/pet.specs"
   tar -cvzf mjwm.pet "${mjwm_package_base_dir}"
-  md5sum mjwm.pet | cut -d' ' -f1 >> mjwm.pet
+  checksum=$(md5sum mjwm.pet | cut -d' ' -f1)
+  echo -n "$checksum" >> mjwm.pet
   popd
   cp $install_base_dir/mjwm.pet mjwm-$mjwm_version.pet
 }
