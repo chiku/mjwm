@@ -5,7 +5,7 @@ set_environment() {
   export CFLAGS="-m32 -Os -Wall -Wextra"
   export CXXFLAGS="-m32 -Os -Wall -Wextra"
   export LDFLAGS="-m32 -Os -Wall -Wextra"
-  install_base_dir="$HOME/mjwm-install"
+  install_base_dir=`mktemp -d`
   install_dir="${install_base_dir}/usr/local"
   mjwm_binary_path="${install_dir}/bin/mjwm"
 }
