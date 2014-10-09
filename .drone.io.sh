@@ -44,7 +44,7 @@ puppytize() {
   size=$(ls -lah $install_dir/bin/mjwm | awk '{print $5}')
   pushd $install_base_dir
   echo "mjwm-${mjwm_version}-i686|mjwm|${mjwm_version}-i686||Utility|${size}||mjwm-${mjwm_version}-i686.pet||Create JWM menu|Slackware|14.0||" > pet.specs
-  tar -cvzf mjwm.pet usr
+  tar -cvzf mjwm.pet usr pet.specs
   md5sum mjwm.pet | cut -d' ' -f1 >> mjwm.pet
   popd
   cp $install_base_dir/mjwm.pet mjwm-$mjwm_version.pet
