@@ -6,7 +6,8 @@ set_environment() {
   export CXXFLAGS="-m32 -Os -Wall -Wextra"
   export LDFLAGS="-m32 -Os -Wall -Wextra"
   install_base_dir="$HOME/mjwm-install"
-  install_dir="$install_base_dir/usr/local"
+  install_dir="${install_base_dir}/usr/local"
+  mjwm_binary_path="${install_dir}/bin/mjwm"
 }
 
 install_prerequisites() {
@@ -16,7 +17,7 @@ install_prerequisites() {
 
 build() {
   ./autogen.sh
-  ./configure --prefix $install_dir
+  ./configure --prefix "$install_dir"
   make clean
   make -j4
   make check -j4
@@ -25,26 +26,39 @@ build() {
 
 crunch_binary() {
   reduce_binary_script=$(readlink -f $(dirname $0)/reduce.sh)
-  pushd $install_dir/bin
-  $reduce_binary_script
+  pushd "${install_dir}/bin"
+  "$reduce_binary_script"
   popd
+}
+
+assign_properties() {
+  mjwm_version=$($mjwm_binary_path --version | cut -d' ' -f2)
+  mjwm_size=$(ls -lah $mjwm_binary_path | awk '{print $5}')
+  mjwm_package_base_dir="mjwm-${mjwm_version}-i686"
+  echo $mjwm_binary_path
+  echo $mjwm_version
+  echo $mjwm_size
+  echo $mjwm_package_base_dir
+}
+
+prepackage() {
+  mkdir -p "${install_base_dir}/${mjwm_package_base_dir}/"
+  echo "${install_base_dir}/usr" "${install_base_dir}/${mjwm_package_base_dir}/"
+  mv "${install_base_dir}/usr" "${install_base_dir}/${mjwm_package_base_dir}/"
 }
 
 artifact() {
-  mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
-  pushd $install_base_dir
-  tar -cvzf mjwm.tar.gz usr
+  pushd "$install_base_dir"
+  tar -cvzf mjwm.tar.gz "${mjwm_package_base_dir}"
   popd
-  cp $install_base_dir/mjwm.tar.gz mjwm-$mjwm_version.tar.gz
-  cp $install_dir/bin/mjwm mjwm-$mjwm_version
+  cp "${install_base_dir}/mjwm.tar.gz" "mjwm-${mjwm_version}.tar.gz"
+  cp "${install_base_dir}/${mjwm_package_base_dir}/usr/local/bin/mjwm" "mjwm-${mjwm_version}"
 }
 
 puppytize() {
-  mjwm_version=$($install_dir/bin/mjwm --version | cut -d' ' -f2)
-  size=$(ls -lah $install_dir/bin/mjwm | awk '{print $5}')
-  pushd $install_base_dir
-  echo "mjwm-${mjwm_version}-i686|mjwm|${mjwm_version}-i686||Utility|${size}||mjwm-${mjwm_version}-i686.pet||Create JWM menu|Slackware|14.0||" > pet.specs
-  tar -cvzf mjwm.pet usr pet.specs
+  pushd "$install_base_dir"
+  echo "${mjwm_package_base_dir}|mjwm|${mjwm_version}-i686||Utility|${mjwm_size}||${mjwm_package_base_dir}||Create JWM menu|Slackware|14.0||" > "${mjwm_package_base_dir}/pet.specs"
+  tar -cvzf mjwm.pet "${mjwm_package_base_dir}"
   md5sum mjwm.pet | cut -d' ' -f1 >> mjwm.pet
   popd
   cp $install_base_dir/mjwm.pet mjwm-$mjwm_version.pet
@@ -54,12 +68,21 @@ cleanup() {
   rm -r $install_base_dir
 }
 
+run() {
+  command=$1
+  echo "--- Start $command ---"
+  $command
+  echo "--- End $command ---"
+}
+
 set -e
 
-set_environment
-install_prerequisites
-build
-crunch_binary
-artifact
-puppytize
-cleanup
+run set_environment
+run install_prerequisites
+run build
+run crunch_binary
+run assign_properties
+run prepackage
+run artifact
+run puppytize
+run cleanup
