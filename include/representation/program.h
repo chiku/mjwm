@@ -29,11 +29,12 @@ namespace representation {
 
 class Program : public RepresentationInterface {
  public:
-  Program(std::string name, std::string icon, std::string executable) : name_(name), icon_(icon), executable_(executable) {}
+  Program(std::string name, std::string icon, std::string executable, std::string comment) : name_(name), icon_(icon), executable_(executable), comment_(comment) {}
   virtual ~Program() {}
   virtual std::string name() const { return name_; }
   virtual std::string icon() const { return icon_; }
   virtual std::string executable() const { return executable_; }
+  virtual std::string comment() const { return comment_; }
   virtual std::string visit(TransformerInterface &transformer) const {
     return transformer.Transform(*this);
   }
@@ -41,6 +42,7 @@ class Program : public RepresentationInterface {
   const std::string name_;
   const std::string icon_;
   const std::string executable_;
+  const std::string comment_;
 };
 } // namespace representation
 } // namespace amm

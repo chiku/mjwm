@@ -76,7 +76,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
     }
 
     WHEN("transforming a menu-entry representation") {
-      representation::Program program("Application", "application.png", "/usr/bin/application");
+      representation::Program program("Application", "application.png", "/usr/bin/application", "Application uses");
       std::string result = jwm_transformer.Transform(program);
 
       THEN("it gives static message") {
@@ -84,13 +84,13 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       }
 
       THEN("it XML excapes the name") {
-        representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter");
+        representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter", "First person shooter game");
         std::string result = jwm_transformer.Transform(program);
         REQUIRE(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\">/usr/bin/shooter</Program>");
       }
 
       THEN("it removes field codes from the executable") {
-        representation::Program program("Mousepad", "application-text-editor", "mousepad %F");
+        representation::Program program("Mousepad", "application-text-editor", "mousepad %F", "Simple Text Editor");
         std::string result = jwm_transformer.Transform(program);
         REQUIRE(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\">mousepad</Program>");
       }

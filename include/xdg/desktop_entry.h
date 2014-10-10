@@ -35,6 +35,7 @@ class DesktopEntry {
   std::string Icon() const { return icon_; }
   std::string Executable() const { return executable_; }
   std::vector<std::string> Categories() const { return categories_; }
+  std::string Comment() const { return comment_; }
   bool Display() const { return display_; }
 
   bool operator < (const DesktopEntry &other) const;
@@ -51,6 +52,7 @@ class DesktopEntry {
   std::string executable_;
   std::string icon_;
   std::vector<std::string> categories_;
+  std::string comment_;
   bool display_;
 };
 

@@ -159,7 +159,7 @@ std::vector<RepresentationInterface*> Menu::Representations() const {
       std::vector<xdg::DesktopEntry> entries = subcategory->DesktopEntries();
       for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
         std::string icon_name = icon_service_->ResolvedName(entry->Icon());
-        representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable());
+        representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable(), entry->Comment());
         representations.push_back(program);
       }
 

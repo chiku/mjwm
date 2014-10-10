@@ -39,6 +39,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
       lines.push_back("Icon=accessories-text-editor\n");
       lines.push_back("Exec=mousepad %F\n");
       lines.push_back("Categories=Application;Utility;TextEditor;GTK;\n");
+      lines.push_back("Comment=Simple Text Editor\n");
       DesktopEntry entry(lines);
 
       THEN("it has a name") {
@@ -60,6 +61,10 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
         REQUIRE(categories[1] == "GTK");
         REQUIRE(categories[2] == "TextEditor");
         REQUIRE(categories[3] == "Utility");
+      }
+
+      THEN("it has a comment") {
+        REQUIRE(entry.Comment() == "Simple Text Editor");
       }
 
       THEN("it knows that it will displayed by default") {
