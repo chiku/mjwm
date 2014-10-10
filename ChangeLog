@@ -4,6 +4,9 @@ v3.1.0-pre
 * Provide option to chose summary type from short, normal (default) and long
 * Fail the application if $HOME is not set [#38]
 * Trailing whitespaces in a custom category file are ignored
+* Create puppet PET packages on drone.io (https://drone.io/github.com/chiku/mjwm/files)
+* Icon scan is XDG compliant (based on http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html) [#33]
+* Read comments from .desktop files. These would be used as tooltips once JWM supports them [#41]
 
 v3.0.0
 ------
@@ -13,12 +16,13 @@ v3.0.0
 * Migrate tests to catch
 * Drops deprecated command-line arguments [-s, -h and -v]
 * Fixes a bug that caused desktop file entries in $XDG_DATA_HOME to be ignored
-* Drop -a and --append-png command-line options
+* Drop -a and --append-png command-line options [#34]
 * Recursively scan inside sub-directories of $XDG_DATA_HOME & $XDG_DATA_DIRS for desktop files [#29]
 * Search for icons (png, svg, xpm) in $HOME/.icons, $XDG_DATA_DIRS/icons & /usr/share/pixmaps when command-line option --iconize is specified [#35]
 * Desktop files that couldn't be open are reported as unparsed [#37]
 * Suppress duplicate entries in a single subcategory [#14]
 * Default output file is $HOME/.jwmrc-mjwm
+* Ignore entries that aren't under [Deskop Entry] section [#25]
 
 v2.4.0
 ------
