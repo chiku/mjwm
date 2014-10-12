@@ -50,10 +50,11 @@ std::string Help() {
   stream << "  -c, --category-file [FILE]  Use an external category file. Overrides the" << std::endl;
   stream << "                                built in categories. Please look at" << std::endl;
   stream << "                                default.mjwm to write your own category files." << std::endl;
-  stream << "      --iconize               Search for icon files by name in $HOME," << std::endl;
+  stream << "      --iconize=[THEME]       Search for icon files by name in $HOME," << std::endl;
   stream << "                                $XDG_DATA_DIRS/icons, and /usr/share/pixmaps." << std::endl;
   stream << "                                Icon file names would be absolute paths to" << std::endl;
-  stream << "                                icons in the specified directories." << std::endl;
+  stream << "                                icons in the specified directories. Hicolor" << std::endl;
+  stream << "                                icon theme is used if no theme name is given." << std::endl;
   stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
   stream << "                                short, normal and long. Defaults to normal." << std::endl;
   stream << "      --help                  Show this help" << std::endl;

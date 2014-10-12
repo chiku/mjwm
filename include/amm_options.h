@@ -36,6 +36,7 @@ struct AmmOptions {
   std::string output_file_name;
   std::vector<std::string> input_directory_names;
   std::string category_file_name;
+  std::string icon_theme_name;
   std::vector<std::string> deprecations;
 };
 

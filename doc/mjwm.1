@@ -38,9 +38,10 @@ Use an external category file.
 This overrides the built in categories. Please look at default.mjwm to write your own category file.
 
 .TP
-.BR \-\-iconize
+.BR \-\-iconize, \-\-iconize =\fITHEME\fR
 Search for icons by name in $HOME, $XDG_DATA_DIRS/icons and /usr/share/pixmaps.
 The icon references in the generated menu would be absolute paths to icons in the specified directories.
+The given icon is searched for icons. If not specified the icon theme hicolor is searched.
 
 .TP
 .BR \-\-help
@@ -76,6 +77,11 @@ Use categories from an external file
 .LP
 
 .TP
-Create menu entries with absolute path names to icons files
+Create menu entries with absolute path names to Hicolor icons images
 .BR mjwm \ \-\-iconize
+.LP
+
+.TP
+Create menu entries with absolute path names to Faenza icons images
+.BR mjwm \ \-\-iconize=Faenza
 .LP

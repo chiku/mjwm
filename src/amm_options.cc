@@ -32,6 +32,7 @@ AmmOptions DefaultAmmOptions(std::string home) {
   amm_options.override_default_directories = false;
   amm_options.summary_type = "normal";
   amm_options.output_file_name = StringX(home).TerminateWith("/") + (".jwmrc-mjwm");
+  amm_options.icon_theme_name = "hicolor";
   return amm_options;
 }
 

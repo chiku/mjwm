@@ -49,10 +49,11 @@ Optional arguments:
   -c, --category-file [FILE]  Use an external category file. Overrides the
                                 built in categories. Please look at
                                 default.mjwm to write your own category files.
-      --iconize               Search for icon files by name in $HOME,
+      --iconize=[THEME]       Search for icon files by name in $HOME,
                                 $XDG_DATA_DIRS/icons, and /usr/share/pixmaps.
                                 Icon file names would be absolute paths to
-                                icons in the specified directories.
+                                icons in the specified directories. Hicolor
+                                icon theme is used if no theme name is given.
       --summary=type          The summary of the run. Acceptable values are
                                 short, normal and long. Defaults to normal.
       --help                  Show this help
@@ -103,9 +104,14 @@ Generate menu entries for files inside multiple directories /usr/local/share/app
 mjwm -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
 ```
 
-Create menu entries with absolute path names to icons files
+Create menu entries with absolute path names to icons images from Hicolor theme
 ``` script
 mjwm --iconize
+```
+
+Create menu entries with absolute path names to icons images from Faenza theme
+``` script
+mjwm --iconize=Faenza # the equals sign is needed
 ```
 
 Use categories from as an external file

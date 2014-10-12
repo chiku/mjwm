@@ -57,6 +57,10 @@ SCENARIO("CommandLineOptionsParser.Parse() default", "[commandlineoptions]") {
         REQUIRE(!options.is_iconize);
       }
 
+      THEN("its icon theme is hicolor") {
+        REQUIRE(options.icon_theme_name == "hicolor");
+      }
+
       THEN("its retains its input directories") {
         REQUIRE(!options.override_default_directories);
       }
@@ -109,6 +113,19 @@ SCENARIO("CommandLineOptionsParser.Parse() flags", "[commandlineoptions]") {
 
       THEN("its iconize flag is on") {
         REQUIRE(options.is_iconize);
+      }
+    }
+
+    WHEN("parsing --iconize=Faenza") {
+      char* argv[] = {strdup("amm"), strdup("--iconize=Faenza"), 0};
+      AmmOptions options = parser.Parse(2, argv, home);
+
+      THEN("its iconize flag is on") {
+        REQUIRE(options.is_iconize);
+      }
+
+      THEN("its icon theme is Faenza") {
+        REQUIRE(options.icon_theme_name == "Faenza");
       }
     }
   }
