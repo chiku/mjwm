@@ -16,39 +16,31 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_ICON_XDG_SCAN_H_
-#define AMM_SERVICE_ICON_XDG_SCAN_H_
+#ifndef AMM_QUALIFIED_ICON_THEME_H_
+#define AMM_QUALIFIED_ICON_THEME_H_
 
 #include <string>
 #include <vector>
 
+#include "system_environment.h"
 #include "xdg/icon_theme.h"
-#include "service/icon_service_interface.h"
 
 namespace amm {
-namespace service {
-namespace icon {
 
-// Understands returning icon file-name based on a file-system search
-class XdgScan : public IconServiceInterface {
+// Understands how an icon-theme exists out in the file-system
+class QualifiedIconTheme {
  public:
-  XdgScan(int size, std::string theme);
-  virtual ~XdgScan() {}
-  std::string ResolvedName(std::string icon_name) const;
+  QualifiedIconTheme(SystemEnvironment environment, std::string theme_name);
+  std::vector<std::string> ThemeSearchPaths() { return theme_search_paths_; }
+  std::vector<xdg::IconTheme> ParentThemes();
 
  private:
-  int size_;
-  std::vector<std::string> registered_extensions_;
+  std::string theme_name_;
   std::vector<std::string> theme_search_paths_;
-  std::vector<xdg::IconTheme> icon_themes_;
-
-  std::vector<xdg::IconSubdirectory> FindSearchLocations(std::string icon_name) const;
-  std::string NameInTheme(std::string icon_name) const;
-  std::string LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const;
-  std::string FallbackName(std::string icon_name) const;
+  xdg::IconTheme CurrentIconThemeFromName();
+  xdg::IconTheme IconThemeFromName(std::string theme_name);
 };
-} // namespace icon
-} // namespace service
-} // namespace amm
 
-#endif // AMM_SERVICE_ICON_XDG_SCAN_H_
+}
+
+#endif // AMM_QUALIFIED_ICON_THEME_H_

@@ -120,6 +120,7 @@ am_mjwm_OBJECTS = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/xdg/icon_subdirectory.$(OBJEXT) src/subcategory.$(OBJEXT) \
 	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
 	src/transformer/jwm.$(OBJEXT) src/system_environment.$(OBJEXT) \
+	src/qualified_icon_theme.$(OBJEXT) \
 	src/service/icon/xdg_scan.$(OBJEXT) \
 	src/desktop_entry_file_search.$(OBJEXT) src/messages.$(OBJEXT) \
 	src/amm_options.$(OBJEXT) \
@@ -629,6 +630,7 @@ mjwm_SOURCES = src/stringx.cc \
                src/menu.cc \
                src/transformer/jwm.cc \
                src/system_environment.cc \
+               src/qualified_icon_theme.cc \
                src/service/icon/xdg_scan.cc \
                src/desktop_entry_file_search.cc \
                src/messages.cc \
@@ -859,6 +861,8 @@ src/transformer/jwm.$(OBJEXT): src/transformer/$(am__dirstamp) \
 	src/transformer/$(DEPDIR)/$(am__dirstamp)
 src/system_environment.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/qualified_icon_theme.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/service/icon/$(am__dirstamp):
 	@$(MKDIR_P) src/service/icon
 	@: > src/service/icon/$(am__dirstamp)
@@ -1011,6 +1015,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/qualified_icon_theme.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stats.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stringx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@

@@ -18,7 +18,6 @@
 
 #include "service/icon/xdg_scan.h"
 
-#include <dirent.h>
 #include <climits>
 #include <string>
 #include <vector>
@@ -28,75 +27,20 @@
 #include "system_environment.h"
 #include "xdg/icon_subdirectory.h"
 #include "xdg/icon_theme.h"
+#include "qualified_icon_theme.h"
 
 namespace amm {
 namespace service {
 namespace icon {
 
-static std::vector<std::string> ThemeSearchPaths() {
+XdgScan::XdgScan(int size, std::string theme) : size_(size) {
   SystemEnvironment environment;
-  std::vector<std::string> theme_directories = environment.IconThemeDirectories();
-  std::vector<std::string> existing_theme_directories;
-
-  for (std::vector<std::string>::const_iterator dir = theme_directories.begin(); dir != theme_directories.end(); ++dir) {
-    if (FileX(*dir).Exists()) {
-      existing_theme_directories.push_back(*dir);
-    }
-  }
-
-  return existing_theme_directories;
-}
-
-static xdg::IconTheme IconThemeFromName(std::string theme_name) {
-  std::vector<std::string> paths = ThemeSearchPaths();
-
-  for (std::vector<std::string>::iterator path = paths.begin(); path != paths.end(); ++path) {
-    DIR *directory = opendir(path->c_str());
-
-    if (directory) {
-      dirent *entry;
-      while((entry = readdir(directory)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-          std::string full_path = StringX(*path).TerminateWith("/") + StringX(entry->d_name).TerminateWith("/") + "index.theme";
-
-          std::vector<std::string> lines;
-          if (FileX(full_path).Load(&lines)) {
-            xdg::IconTheme xdg_theme(lines);
-            xdg_theme.InternalNameIs(entry->d_name);
-            if (xdg_theme.IsNamed(theme_name)) {
-              return xdg_theme;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  std::vector<std::string> empty_lines;
-  return xdg::IconTheme(empty_lines);
-}
-
-
-static std::vector<xdg::IconTheme> IconThemesToSearchFromName(std::string theme) {
-  std::vector<xdg::IconTheme> icon_themes;
-
-  xdg::IconTheme icon_theme = IconThemeFromName(theme);
-  icon_themes.push_back(icon_theme);
-
-  std::vector<std::string> parent_themes = icon_theme.Parents();
-  for (std::vector<std::string>::iterator iter = parent_themes.begin(); iter != parent_themes.end(); ++iter) {
-    icon_themes.push_back(IconThemeFromName(*iter));
-  }
-
-  return icon_themes;
-}
-
-XdgScan::XdgScan(int size, std::string theme) : size_(size), theme_name_(theme) {
   registered_extensions_.push_back(".png");
   registered_extensions_.push_back(".svg");
   registered_extensions_.push_back(".xpm");
-  theme_search_paths_ = ThemeSearchPaths();
-  icon_themes_= IconThemesToSearchFromName(theme);
+  QualifiedIconTheme qualified_icon_theme = QualifiedIconTheme(environment, theme);
+  theme_search_paths_ = qualified_icon_theme.ThemeSearchPaths();
+  icon_themes_ = qualified_icon_theme.ParentThemes();
 }
 
 std::string XdgScan::ResolvedName(std::string icon_name) const {
