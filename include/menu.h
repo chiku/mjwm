@@ -24,8 +24,7 @@
 
 #include "stats.h"
 #include "subcategory.h"
-#include "service/icon_service_interface.h"
-#include "service/icon/mirror.h"
+#include "icon_search/icon_search_interface.h"
 #include "representation_interface.h"
 
 namespace amm {
@@ -36,7 +35,7 @@ class Menu {
   Menu();
   ~Menu();
 
-  void RegisterIconService(service::IconServiceInterface &icon_service);
+  void RegisterIconService(icon_search::IconSearchInterface &icon_searcher);
   std::vector<Subcategory> Subcategories() const { return subcategories_; }
   Stats Summary() const { return summary_; }
 
@@ -50,7 +49,7 @@ class Menu {
   bool Classify(xdg::DesktopEntry entry);
   void CreateDefaultCategories();
 
-  service::IconServiceInterface *icon_service_;
+  icon_search::IconSearchInterface *icon_searcher_;
   Subcategory unclassified_subcategory_;
   std::vector<Subcategory> subcategories_;
   std::vector<std::string> desktop_file_names_;

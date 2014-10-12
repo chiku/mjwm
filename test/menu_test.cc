@@ -30,7 +30,7 @@
 #include "representation/subcategory_end.h"
 #include "representation/program.h"
 #include "transformer_interface.h"
-#include "service/icon_service_interface.h"
+#include "icon_search/icon_search_interface.h"
 
 namespace amm {
 
@@ -59,7 +59,7 @@ class TestTransformer : public TransformerInterface {
   }
 };
 
-class TestIconService : public service::IconServiceInterface {
+class TestIconSearch : public icon_search::IconSearchInterface {
  public:
   std::string ResolvedName(std::string name) const {
     return name + ".always";
@@ -341,8 +341,8 @@ SCENARIO("Menu representations", "[menu]") {
       files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
       files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
 
-      TestIconService *icon_service = new TestIconService;
-      menu.RegisterIconService(*icon_service);
+      TestIconSearch *icon_searcher = new TestIconSearch;
+      menu.RegisterIconService(*icon_searcher);
 
       menu.Populate(files);
       std::vector<RepresentationInterface*> representations = menu.Representations();

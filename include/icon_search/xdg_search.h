@@ -16,24 +16,22 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_ICON_XDG_SCAN_H_
-#define AMM_SERVICE_ICON_XDG_SCAN_H_
+#ifndef AMM_ICON_SEARCH_XDG_SEARCH_H_
+#define AMM_ICON_SEARCH_XDG_SEARCH_H_
 
 #include <string>
 #include <vector>
 
 #include "xdg/icon_theme.h"
-#include "service/icon_service_interface.h"
+#include "icon_search/icon_search_interface.h"
 
 namespace amm {
-namespace service {
-namespace icon {
+namespace icon_search {
 
-// Understands returning icon file-name based on a file-system search
-class XdgScan : public IconServiceInterface {
+// Understands returning icon file-name based on a file-system search based on XDG standards
+class XdgSearch : public IconSearchInterface {
  public:
-  XdgScan(int size, std::string theme);
-  virtual ~XdgScan() {}
+  XdgSearch(int size, std::string theme);
   std::string ResolvedName(std::string icon_name) const;
 
  private:
@@ -47,8 +45,7 @@ class XdgScan : public IconServiceInterface {
   std::string LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const;
   std::string FallbackName(std::string icon_name) const;
 };
-} // namespace icon
-} // namespace service
+} // namespace icon_search
 } // namespace amm
 
-#endif // AMM_SERVICE_ICON_XDG_SCAN_H_
+#endif // AMM_ICON_SEARCH_XDG_SEARCH_H_

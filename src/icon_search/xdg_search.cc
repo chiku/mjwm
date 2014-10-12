@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "service/icon/xdg_scan.h"
+#include "icon_search/xdg_search.h"
 
 #include <climits>
 #include <string>
@@ -30,10 +30,9 @@
 #include "qualified_icon_theme.h"
 
 namespace amm {
-namespace service {
-namespace icon {
+namespace icon_search {
 
-XdgScan::XdgScan(int size, std::string theme) : size_(size) {
+XdgSearch::XdgSearch(int size, std::string theme) : size_(size) {
   SystemEnvironment environment;
   registered_extensions_.push_back(".png");
   registered_extensions_.push_back(".svg");
@@ -43,7 +42,7 @@ XdgScan::XdgScan(int size, std::string theme) : size_(size) {
   icon_themes_ = qualified_icon_theme.ParentThemes();
 }
 
-std::string XdgScan::ResolvedName(std::string icon_name) const {
+std::string XdgSearch::ResolvedName(std::string icon_name) const {
   std::string file_name = NameInTheme(icon_name);
   if (file_name != "") {
     return file_name;
@@ -57,14 +56,14 @@ std::string XdgScan::ResolvedName(std::string icon_name) const {
   return icon_name;
 }
 
-std::string XdgScan::NameInTheme(std::string icon_name) const {
+std::string XdgSearch::NameInTheme(std::string icon_name) const {
   std::vector<xdg::IconSubdirectory> search_locations = FindSearchLocations(icon_name);
   std::string file_name = LookupBySize(search_locations);
 
   return file_name;
 }
 
-std::vector<xdg::IconSubdirectory> XdgScan::FindSearchLocations(std::string icon_name) const {
+std::vector<xdg::IconSubdirectory> XdgSearch::FindSearchLocations(std::string icon_name) const {
   std::vector<xdg::IconSubdirectory> search_locations;
 
   for (std::vector<xdg::IconTheme>::const_iterator icon_theme = icon_themes_.begin(); icon_theme != icon_themes_.end(); ++icon_theme) {
@@ -85,7 +84,7 @@ std::vector<xdg::IconSubdirectory> XdgScan::FindSearchLocations(std::string icon
   return search_locations;
 }
 
-std::string XdgScan::LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const {
+std::string XdgSearch::LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const {
   for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
     if (subdir->Matches(size_)) {
       return subdir->Location();
@@ -105,7 +104,7 @@ std::string XdgScan::LookupBySize(std::vector<xdg::IconSubdirectory> search_loca
   return closest_file_name;
 }
 
-std::string XdgScan::FallbackName(std::string icon_name) const {
+std::string XdgSearch::FallbackName(std::string icon_name) const {
   for (std::vector<std::string>::const_iterator directory = theme_search_paths_.begin(); directory != theme_search_paths_.end(); ++directory) {
     for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
       std::string file_name = amm::StringX(amm::StringX(*directory).TerminateWith("/") + icon_name).TerminateWith(*extension);
@@ -119,6 +118,5 @@ std::string XdgScan::FallbackName(std::string icon_name) const {
 }
 
 
-} // namespace icon
-} // namespace service
+} // namespace icon_search
 } // namespace amm

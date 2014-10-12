@@ -30,8 +30,8 @@
 #include "amm_options.h"
 #include "system_environment.h"
 #include "command_line_options_parser.h"
-#include "service/icon_service_interface.h"
-#include "service/icon/xdg_scan.h"
+#include "icon_search/icon_search_interface.h"
+#include "icon_search/xdg_search.h"
 #include "desktop_entry_file_search.h"
 #include "stats.h"
 #include "menu.h"
@@ -86,8 +86,8 @@ void Amm::ReadCategories() {
 
 void Amm::RegisterIconService() {
   if (options_.is_iconize) {
-    service::IconServiceInterface *icon_service = new service::icon::XdgScan(48, options_.icon_theme_name);
-    menu_.RegisterIconService(*icon_service);
+    icon_search::IconSearchInterface *icon_searcher = new icon_search::XdgSearch(48, options_.icon_theme_name);
+    menu_.RegisterIconService(*icon_searcher);
   }
 }
 

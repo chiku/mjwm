@@ -16,22 +16,24 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SERVICE_ICON_SERVICE_INTERFACE_H_
-#define AMM_SERVICE_ICON_SERVICE_INTERFACE_H_
+#ifndef AMM_ICON_SEARCH_MIRROR_SEARCH_H_
+#define AMM_ICON_SEARCH_MIRROR_SEARCH_H_
 
 #include <string>
 #include <vector>
 
+#include "icon_search/icon_search_interface.h"
+
 namespace amm {
-namespace service {
-// Understands the way to search for the full path to a icon file
-// Currently it returns the name of icon with an optional extension
-class IconServiceInterface {
+namespace icon_search {
+// Understands returning the input file-name as the output
+class MirrorSearch : public IconSearchInterface {
  public:
-  virtual ~IconServiceInterface() {}
-  virtual std::string ResolvedName(std::string icon_name) const = 0;
+  std::string ResolvedName(std::string icon_name) const { return icon_name; }
+
+ private:
 };
-} // namespace service
+} // namespace icon_search
 } // namespace amm
 
-#endif // AMM_SERVICE_ICON_SERVICE_INTERFACE_H_
+#endif // AMM_ICON_SEARCH_MIRROR_SEARCH_H_

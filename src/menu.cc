@@ -23,8 +23,8 @@
 
 #include "stringx.h"
 #include "filex.h"
-#include "service/icon_service_interface.h"
-#include "service/icon/mirror.h"
+#include "icon_search/icon_search_interface.h"
+#include "icon_search/mirror_search.h"
 #include "xdg/desktop_entry.h"
 #include "subcategory.h"
 #include "representation/menu_start.h"
@@ -35,18 +35,18 @@
 
 namespace amm {
 
-Menu::Menu() : icon_service_(new service::icon::Mirror),
+Menu::Menu() : icon_searcher_(new icon_search::MirrorSearch),
     unclassified_subcategory_(Subcategory("Others", "applications-others", "Others")) {
   CreateDefaultCategories();
 }
 
 Menu::~Menu() {
-  delete icon_service_;
+  delete icon_searcher_;
 }
 
-void Menu::RegisterIconService(service::IconServiceInterface &icon_service) {
-  delete icon_service_;
-  icon_service_ = &icon_service;
+void Menu::RegisterIconService(icon_search::IconSearchInterface &icon_searcher) {
+  delete icon_searcher_;
+  icon_searcher_ = &icon_searcher;
 }
 
 void Menu::CreateDefaultCategories() {
@@ -151,13 +151,13 @@ std::vector<RepresentationInterface*> Menu::Representations() const {
   std::vector<Subcategory>::const_iterator subcategory;
   for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
     if (subcategory->HasEntries()) {
-      std::string icon_name = icon_service_->ResolvedName(subcategory->IconName());
+      std::string icon_name = icon_searcher_->ResolvedName(subcategory->IconName());
       representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_name);
       representations.push_back(start);
 
       std::vector<xdg::DesktopEntry> entries = subcategory->DesktopEntries();
       for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
-        std::string icon_name = icon_service_->ResolvedName(entry->Icon());
+        std::string icon_name = icon_searcher_->ResolvedName(entry->Icon());
         representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable(), entry->Comment());
         representations.push_back(program);
       }
