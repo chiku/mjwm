@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>mjwm by chiku</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>mjwm</h1>
+        <p>mjwm creates JWM application menu from (freedesktop) desktop files</p>
+        <p class="view"><a href="https://github.com/chiku/mjwm">View the Project on GitHub <small>chiku/mjwm</small></a></p>
+        <ul>
+          <li><a href="https://github.com/chiku/mjwm/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/chiku/mjwm/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/chiku/mjwm">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="mjwm" class="anchor" href="#mjwm"><span class="octicon octicon-link"></span></a>mjwm</h1>
+
+<p><a href="https://travis-ci.org/chiku/mjwm"><img src="https://travis-ci.org/chiku/mjwm.png?branch=master" alt="Build Status"></a>
+<a href="https://drone.io/github.com/chiku/mjwm/latest"><img src="https://drone.io/github.com/chiku/mjwm/status.png" alt="Build Status"></a></p>
+
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>mjwm creates JWM's menu from (freedesktop) desktop files. Include the generated file in the rootmenu section of your ~/.jwmrc</p>
+
+<p>Read more about JWM (Joe's Window Manager) at <a href="http://joewing.net/projects/jwm">http://joewing.net/projects/jwm</a></p>
+
+<p>mjwm is based on mjm by insmyic <a href="mailto:gminsm@gmail.com">gminsm@gmail.com</a> <a href="http://sourceforge.net/projects/mjm">http://sourceforge.net/projects/mjm</a></p>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>The application runs on a POSIX system with a C++ runtime.</p>
+
+<p>For compiling the aplication you need make, automake, autoconf and a recent C++ compiler. This application has compiled fine with g++ 4.6, g++ 4.8 and clang++ 3.3.</p>
+
+<h2>
+<a name="installation-from-source" class="anchor" href="#installation-from-source"><span class="octicon octicon-link"></span></a>Installation from source</h2>
+
+<ul>
+<li><p>Clone the repository</p></li>
+<li><p>From the root of the application run</p></li>
+</ul>
+
+<pre lang="script"><code>./autogen.sh
+./configure --prefix=/usr
+make
+sudo make install
+</code></pre>
+
+<h2>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<pre lang="script"><code>Usage: mjwm [options]
+
+Optional arguments:
+  -o, --output-file [FILE]    Outfile file [Default: ./automenu]
+  -i, --input-directory [DIRECTORY]
+                              Directory to scan for '.desktop' files. Multiple
+                                directories, if provided, must be separated by
+                                colons. [Default: application directories
+                                under $XDG_DATA_HOME &amp; $XDG_DATA_DIRS]
+  -c, --category-file [FILE]  Use an external category file. Overrides the
+                                built in categories. Please look at
+                                default.mjwm to write your own category files.
+      --iconize=[THEME]       Search for icon files by name in $HOME,
+                                $XDG_DATA_DIRS/icons, and /usr/share/pixmaps.
+                                Icon file names would be absolute paths to
+                                icons in the specified directories. Hicolor
+                                icon theme is used if no theme name is given.
+      --summary=type          The summary of the run. Acceptable values are
+                                short, normal and long. Defaults to normal.
+      --help                  Show this help
+      --version               Show version information
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<ul>
+<li>Run the script</li>
+</ul>
+
+<pre lang="script"><code>mjwm
+</code></pre>
+
+<ul>
+<li>Edit your <code>$HOME/.jwmrc file</code>. Add an <code>&lt;Include&gt;$HOME/.jwmrc-mjwm&lt;/Include&gt;</code> line inside <code>RootMenu</code>.</li>
+</ul>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;JWM&gt;</span>
+  <span class="c">&lt;!-- SNIP SNIP --&gt;</span>
+
+  <span class="nt">&lt;RootMenu</span> <span class="na">onroot=</span><span class="s">"12"</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- Other Menu Entries --&gt;</span>
+
+      <span class="nt">&lt;Include&gt;</span>$HOME/.jwmrc-mjwm<span class="nt">&lt;/Include&gt;</span>
+
+      <span class="c">&lt;!-- Other Menu Entries --&gt;</span>
+  <span class="nt">&lt;/RootMenu&gt;</span>
+
+  <span class="c">&lt;!-- SNIP SNIP --&gt;</span>
+<span class="nt">&lt;/JWM&gt;</span>
+</pre></div>
+
+<ul>
+<li>Reload JWM</li>
+</ul>
+
+<pre lang="script"><code>jwm -reload
+</code></pre>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>Generate menu entries for files inside /usr/local/share/applications</p>
+
+<pre lang="script"><code>mjwm -i /usr/local/share/applications
+</code></pre>
+
+<p>Generate menu entries for files inside multiple directories /usr/local/share/applications, /usr/share/applications
+&amp; ~/.local/share/applications</p>
+
+<pre lang="script"><code>mjwm -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
+</code></pre>
+
+<p>Create menu entries with absolute path names to icons images from Hicolor theme</p>
+
+<pre lang="script"><code>mjwm --iconize
+</code></pre>
+
+<p>Create menu entries with absolute path names to icons images from Faenza theme</p>
+
+<pre lang="script"><code>mjwm --iconize=Faenza # the equals sign is needed
+</code></pre>
+
+<p>Use categories from as an external file
+Look at data/default.mjwm to create your own category file</p>
+
+<pre lang="script"><code>mjwm -c data/default.mjwm
+</code></pre>
+
+<h2>
+<a name="running-tests" class="anchor" href="#running-tests"><span class="octicon octicon-link"></span></a>Running tests</h2>
+
+<ul>
+<li><p>Clone the repository</p></li>
+<li><p>From the root of the application run</p></li>
+</ul>
+
+<pre lang="script"><code>./autogen.sh
+./configure
+VERBOSE=true make check
+</code></pre>
+
+<p><em>mjwm uses <a href="https://github.com/philsquared/Catch">Catch</a> for unit tests. Catch is released under Boost Software License.</em></p>
+
+<h2>
+<a name="exit-codes" class="anchor" href="#exit-codes"><span class="octicon octicon-link"></span></a>Exit codes</h2>
+
+<ul>
+<li>0 - All okay</li>
+<li>1 - Couldn't access file for read or write (e.g. couldn't create output file)</li>
+<li>2 - Invalid command line arguments</li>
+</ul>
+
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ul>
+<li>Fork the project.</li>
+<li>Make your feature addition or bug fix.</li>
+<li>Add tests for it. This is important so I don't break it in a future version unintentionally.</li>
+<li>Commit, but do not mess with the VERSION. If you want to have your own version, that is fine but bump the version in a commit by itself in another branch so I can ignore it when I pull.</li>
+<li>Send me a pull request.</li>
+</ul>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This tool is released under the GPLv3 license. Please refer to COPYING for license information.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/chiku">chiku</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
