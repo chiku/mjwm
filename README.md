@@ -95,7 +95,6 @@ Examples
 Generate menu entries for files inside /usr/local/share/applications
 ``` script
 mjwm -i /usr/local/share/applications
-# mjwm -i /usr/local/share/applications/ # works as well
 ```
 
 Generate menu entries for files inside multiple directories /usr/local/share/applications, /usr/share/applications
