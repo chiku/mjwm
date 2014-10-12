@@ -7,6 +7,7 @@ v3.1.0-pre
 * Create puppet PET packages on drone.io (https://drone.io/github.com/chiku/mjwm/files)
 * Icon scan is XDG compliant (based on http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html) [#33]
 * Read comments from .desktop files. These would be used as tooltips once JWM supports them [#41]
+* Allow the user to specify the name of the icon theme to use [#36]
 
 v3.0.0
 ------
