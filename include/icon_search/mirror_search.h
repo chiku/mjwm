@@ -30,8 +30,6 @@ namespace icon_search {
 class MirrorSearch : public IconSearchInterface {
  public:
   std::string ResolvedName(std::string icon_name) const { return icon_name; }
-
- private:
 };
 } // namespace icon_search
 } // namespace amm
