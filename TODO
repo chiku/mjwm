@@ -1,4 +1,3 @@
 * Cleanup Makefile.am & configure.ac
 * Update jwmrc when supplied option
 * Cleanup commmand_line_options error test - see if parsing can be done using vanilla C++
-* Separate out parsing desktop entry files from menu and desktop entry. Reuse the logic to parse icon theme files
