@@ -8,6 +8,7 @@ v3.1.0-pre
 * Icon scan is XDG compliant (based on http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html) [#33]
 * Read comments from .desktop files. These would be used as tooltips once JWM supports them [#41]
 * Allow the user to specify the name of the icon theme to use [#36]
+* Cache the icon searches for performance
 
 v3.0.0
 ------

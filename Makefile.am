@@ -41,7 +41,8 @@ check_PROGRAMS = mjwm_stringx_test \
                  mjwm_desktop_entry_file_search_test \
                  mjwm_transformer_jwm_test \
                  mjwm_service_system_environment_test \
-                 mjwm_command_line_options_parser_test
+                 mjwm_command_line_options_parser_test \
+                 mjwm_icon_search_caching_search_test
 
 mjwmdir=$(datadir)/mjwm
 mjwm_DATA = data/default.mjwm data/puppy.mjwm
@@ -127,3 +128,5 @@ mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/amm_options.cc \
                                                 src/command_line_options_parser.cc \
                                                 test/command_line_options_parser_test.cc
+
+mjwm_icon_search_caching_search_test_SOURCES = test/icon_search/caching_search_test.cc

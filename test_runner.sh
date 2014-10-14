@@ -43,6 +43,7 @@ run mjwm_desktop_entry_file_search_test
 run mjwm_transformer_jwm_test
 run mjwm_service_system_environment_test
 run mjwm_command_line_options_parser_test
+run mjwm_icon_search_caching_search_test
 
 echo "Suites run: $suites"
 

@@ -32,6 +32,7 @@
 #include "command_line_options_parser.h"
 #include "icon_search/icon_search_interface.h"
 #include "icon_search/xdg_search.h"
+#include "icon_search/caching_search.h"
 #include "desktop_entry_file_search.h"
 #include "stats.h"
 #include "menu.h"
@@ -86,7 +87,8 @@ void Amm::ReadCategories() {
 
 void Amm::RegisterIconService() {
   if (options_.is_iconize) {
-    icon_search::IconSearchInterface *icon_searcher = new icon_search::XdgSearch(48, options_.icon_theme_name);
+    icon_search::IconSearchInterface *actual_searcher = new icon_search::XdgSearch(48, options_.icon_theme_name);
+    icon_search::IconSearchInterface *icon_searcher = new icon_search::CachingSearch(*actual_searcher);
     menu_.RegisterIconService(*icon_searcher);
   }
 }

@@ -89,7 +89,8 @@ check_PROGRAMS = mjwm_stringx_test$(EXEEXT) mjwm_vectorx_test$(EXEEXT) \
 	mjwm_desktop_entry_file_search_test$(EXEEXT) \
 	mjwm_transformer_jwm_test$(EXEEXT) \
 	mjwm_service_system_environment_test$(EXEEXT) \
-	mjwm_command_line_options_parser_test$(EXEEXT)
+	mjwm_command_line_options_parser_test$(EXEEXT) \
+	mjwm_icon_search_caching_search_test$(EXEEXT)
 subdir = .
 DIST_COMMON = INSTALL NEWS README AUTHORS ChangeLog \
 	$(srcdir)/Makefile.in $(srcdir)/Makefile.am \
@@ -147,6 +148,11 @@ am_mjwm_filex_test_OBJECTS = src/filex.$(OBJEXT) \
 	test/filex_test.$(OBJEXT)
 mjwm_filex_test_OBJECTS = $(am_mjwm_filex_test_OBJECTS)
 mjwm_filex_test_LDADD = $(LDADD)
+am_mjwm_icon_search_caching_search_test_OBJECTS =  \
+	test/icon_search/caching_search_test.$(OBJEXT)
+mjwm_icon_search_caching_search_test_OBJECTS =  \
+	$(am_mjwm_icon_search_caching_search_test_OBJECTS)
+mjwm_icon_search_caching_search_test_LDADD = $(LDADD)
 am_mjwm_menu_test_OBJECTS = src/stringx.$(OBJEXT) \
 	src/vectorx.$(OBJEXT) src/filex.$(OBJEXT) \
 	src/xdg/entry_line.$(OBJEXT) src/xdg/entry.$(OBJEXT) \
@@ -250,7 +256,9 @@ am__v_CXXLD_1 =
 SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_parser_test_SOURCES) \
 	$(mjwm_desktop_entry_file_search_test_SOURCES) \
-	$(mjwm_filex_test_SOURCES) $(mjwm_menu_test_SOURCES) \
+	$(mjwm_filex_test_SOURCES) \
+	$(mjwm_icon_search_caching_search_test_SOURCES) \
+	$(mjwm_menu_test_SOURCES) \
 	$(mjwm_service_system_environment_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
 	$(mjwm_subcategory_test_SOURCES) \
@@ -264,7 +272,9 @@ SOURCES = $(mjwm_SOURCES) \
 DIST_SOURCES = $(mjwm_SOURCES) \
 	$(mjwm_command_line_options_parser_test_SOURCES) \
 	$(mjwm_desktop_entry_file_search_test_SOURCES) \
-	$(mjwm_filex_test_SOURCES) $(mjwm_menu_test_SOURCES) \
+	$(mjwm_filex_test_SOURCES) \
+	$(mjwm_icon_search_caching_search_test_SOURCES) \
+	$(mjwm_menu_test_SOURCES) \
 	$(mjwm_service_system_environment_test_SOURCES) \
 	$(mjwm_stats_test_SOURCES) $(mjwm_stringx_test_SOURCES) \
 	$(mjwm_subcategory_test_SOURCES) \
@@ -721,6 +731,7 @@ mjwm_command_line_options_parser_test_SOURCES = src/stringx.cc \
                                                 src/command_line_options_parser.cc \
                                                 test/command_line_options_parser_test.cc
 
+mjwm_icon_search_caching_search_test_SOURCES = test/icon_search/caching_search_test.cc
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -909,6 +920,19 @@ test/filex_test.$(OBJEXT): test/$(am__dirstamp) \
 mjwm_filex_test$(EXEEXT): $(mjwm_filex_test_OBJECTS) $(mjwm_filex_test_DEPENDENCIES) $(EXTRA_mjwm_filex_test_DEPENDENCIES) 
 	@rm -f mjwm_filex_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_filex_test_OBJECTS) $(mjwm_filex_test_LDADD) $(LIBS)
+test/icon_search/$(am__dirstamp):
+	@$(MKDIR_P) test/icon_search
+	@: > test/icon_search/$(am__dirstamp)
+test/icon_search/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) test/icon_search/$(DEPDIR)
+	@: > test/icon_search/$(DEPDIR)/$(am__dirstamp)
+test/icon_search/caching_search_test.$(OBJEXT):  \
+	test/icon_search/$(am__dirstamp) \
+	test/icon_search/$(DEPDIR)/$(am__dirstamp)
+
+mjwm_icon_search_caching_search_test$(EXEEXT): $(mjwm_icon_search_caching_search_test_OBJECTS) $(mjwm_icon_search_caching_search_test_DEPENDENCIES) $(EXTRA_mjwm_icon_search_caching_search_test_DEPENDENCIES) 
+	@rm -f mjwm_icon_search_caching_search_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_icon_search_caching_search_test_OBJECTS) $(mjwm_icon_search_caching_search_test_LDADD) $(LIBS)
 test/menu_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
@@ -1001,6 +1025,7 @@ mostlyclean-compile:
 	-rm -f src/transformer/*.$(OBJEXT)
 	-rm -f src/xdg/*.$(OBJEXT)
 	-rm -f test/*.$(OBJEXT)
+	-rm -f test/icon_search/*.$(OBJEXT)
 	-rm -f test/transformer/*.$(OBJEXT)
 	-rm -f test/xdg/*.$(OBJEXT)
 
@@ -1037,6 +1062,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/system_environment_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/vectorx_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/icon_search/$(DEPDIR)/caching_search_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/transformer/$(DEPDIR)/jwm_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/desktop_entry_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/entry_line_test.Po@am__quote@
@@ -1427,6 +1453,13 @@ mjwm_command_line_options_parser_test.log: mjwm_command_line_options_parser_test
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+mjwm_icon_search_caching_search_test.log: mjwm_icon_search_caching_search_test$(EXEEXT)
+	@p='mjwm_icon_search_caching_search_test$(EXEEXT)'; \
+	b='mjwm_icon_search_caching_search_test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1653,6 +1686,8 @@ distclean-generic:
 	-rm -f src/xdg/$(am__dirstamp)
 	-rm -f test/$(DEPDIR)/$(am__dirstamp)
 	-rm -f test/$(am__dirstamp)
+	-rm -f test/icon_search/$(DEPDIR)/$(am__dirstamp)
+	-rm -f test/icon_search/$(am__dirstamp)
 	-rm -f test/transformer/$(DEPDIR)/$(am__dirstamp)
 	-rm -f test/transformer/$(am__dirstamp)
 	-rm -f test/xdg/$(DEPDIR)/$(am__dirstamp)
@@ -1668,7 +1703,7 @@ clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf src/$(DEPDIR) src/icon_search/$(DEPDIR) src/transformer/$(DEPDIR) src/xdg/$(DEPDIR) test/$(DEPDIR) test/transformer/$(DEPDIR) test/xdg/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/icon_search/$(DEPDIR) src/transformer/$(DEPDIR) src/xdg/$(DEPDIR) test/$(DEPDIR) test/icon_search/$(DEPDIR) test/transformer/$(DEPDIR) test/xdg/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -1716,7 +1751,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf src/$(DEPDIR) src/icon_search/$(DEPDIR) src/transformer/$(DEPDIR) src/xdg/$(DEPDIR) test/$(DEPDIR) test/transformer/$(DEPDIR) test/xdg/$(DEPDIR)
+	-rm -rf src/$(DEPDIR) src/icon_search/$(DEPDIR) src/transformer/$(DEPDIR) src/xdg/$(DEPDIR) test/$(DEPDIR) test/icon_search/$(DEPDIR) test/transformer/$(DEPDIR) test/xdg/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
