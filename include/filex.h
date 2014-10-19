@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_FILE_H_
-#define AMM_FILE_H_
+#ifndef AMM_FILEX_H_
+#define AMM_FILEX_H_
 
 #include <string>
 #include <vector>
@@ -37,4 +37,4 @@ class FileX {
 
 } // namespace amm
 
-#endif // AMM_FILE_H_
+#endif // AMM_FILEX_H_
