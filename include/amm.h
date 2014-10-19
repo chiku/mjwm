@@ -25,10 +25,13 @@
 #include "amm_options.h"
 #include "system_environment.h"
 #include "menu.h"
+#include "icon_search/icon_search_interface.h"
 
 namespace amm {
 class Amm {
  public:
+  Amm();
+  ~Amm();
   void ValidateEnvironment();
   void LoadCommandLineOption(int argc, char **argv);
   void RegisterIconService();
@@ -43,6 +46,7 @@ class Amm {
   AmmOptions options_;
   Menu menu_;
   std::vector<std::string> desktop_entry_file_names_;
+  icon_search::IconSearchInterface *actual_searcher_;
 };
 } // namespace amm
 

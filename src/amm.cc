@@ -40,6 +40,17 @@
 
 namespace amm {
 
+Amm::Amm() {
+  actual_searcher_ = NULL;
+}
+
+Amm::~Amm() {
+  if (actual_searcher_ != NULL) {
+    delete actual_searcher_;
+    actual_searcher_ = NULL;
+  }
+}
+
 void Amm::ValidateEnvironment() {
   if (!environment_.IsValid()) {
     std::cerr << messages::HomeNotSet() << std::endl;
@@ -87,8 +98,8 @@ void Amm::ReadCategories() {
 
 void Amm::RegisterIconService() {
   if (options_.is_iconize) {
-    icon_search::IconSearchInterface *actual_searcher = new icon_search::XdgSearch(48, options_.icon_theme_name);
-    icon_search::IconSearchInterface *icon_searcher = new icon_search::CachingSearch(*actual_searcher);
+    actual_searcher_ = new icon_search::XdgSearch(48, options_.icon_theme_name);
+    icon_search::IconSearchInterface *icon_searcher = new icon_search::CachingSearch(*actual_searcher_);
     menu_.RegisterIconService(*icon_searcher);
   }
 }
