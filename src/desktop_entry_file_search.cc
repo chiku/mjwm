@@ -30,8 +30,14 @@
 namespace amm {
 
 static std::vector<std::string> DefaultDirectories() {
-  SystemEnvironment environment;
-  return environment.ApplicationDirectories(); // TODO : filter directories that don't exist
+  std::vector<std::string> existing_directories;
+  std::vector<std::string> directories = SystemEnvironment().ApplicationDirectories();
+  for (std::vector<std::string>::iterator directory = directories.begin(); directory != directories.end(); ++directory) {
+    if (DirectoryX(*directory).IsValid()) {
+      existing_directories.push_back(*directory);
+    }
+  }
+  return existing_directories;
 }
 
 void DesktopEntryFileSearch::RegisterDefaultDirectories() {
