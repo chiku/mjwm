@@ -29,64 +29,64 @@ namespace amm {
 namespace xdg {
 
 SCENARIO("EntryLine for Comments", "[desktopfileline]") {
-  GIVEN("A line in a desktop-file") {
-    WHEN("starting with a '#'") {
-      EntryLine line("# Comment line");
+	GIVEN("A line in a desktop-file") {
+		WHEN("starting with a '#'") {
+			EntryLine line("# Comment line");
 
-      THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
-      THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
-      THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
-      THEN("it has no key") { REQUIRE(line.Key() == ""); }
-      THEN("it has no value") { REQUIRE(line.Value() == ""); }
-    }
-  }
+			THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
+			THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
+			THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
+			THEN("it has no key") { REQUIRE(line.Key() == ""); }
+			THEN("it has no value") { REQUIRE(line.Value() == ""); }
+		}
+	}
 }
 
 SCENARIO("EntryLine for Declarations", "[desktopfileline]") {
-  GIVEN("A line in a desktop-file") {
-    WHEN("starting with a '[' and ending with ']'") {
-      EntryLine line("[Desktop Entry]");
+	GIVEN("A line in a desktop-file") {
+		WHEN("starting with a '[' and ending with ']'") {
+			EntryLine line("[Desktop Entry]");
 
-      THEN("it is a declaration") { REQUIRE(line.IsDeclaration()); }
-      THEN("the inner content is the declaration") { REQUIRE(line.Declaration() == "Desktop Entry"); }
-      THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
-      THEN("it has no key") { REQUIRE(line.Key() == ""); }
-      THEN("it has no value") { REQUIRE(line.Value() == ""); }
-    }
+			THEN("it is a declaration") { REQUIRE(line.IsDeclaration()); }
+			THEN("the inner content is the declaration") { REQUIRE(line.Declaration() == "Desktop Entry"); }
+			THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
+			THEN("it has no key") { REQUIRE(line.Key() == ""); }
+			THEN("it has no value") { REQUIRE(line.Value() == ""); }
+		}
 
-    WHEN("it has spaces around after a declaration") {
-      EntryLine line(" [Desktop Entry] ");
-      THEN("the spaces are ignored") { REQUIRE(line.Declaration() == "Desktop Entry"); }
-    }
+		WHEN("it has spaces around after a declaration") {
+			EntryLine line(" [Desktop Entry] ");
+			THEN("the spaces are ignored") { REQUIRE(line.Declaration() == "Desktop Entry"); }
+		}
 
-    WHEN("starting with a '[' but not ending with ']'") {
-      EntryLine line("[Desktop Entry");
-      THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
-    }
-  }
+		WHEN("starting with a '[' but not ending with ']'") {
+			EntryLine line("[Desktop Entry");
+			THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
+		}
+	}
 }
 
 SCENARIO("EntryLine for Assignments", "[desktopfileline]") {
-  GIVEN("A line in a desktop-file") {
-    WHEN("it has an '=' in the middle") {
-      EntryLine line("Name=VLC");
+	GIVEN("A line in a desktop-file") {
+		WHEN("it has an '=' in the middle") {
+			EntryLine line("Name=VLC");
 
-      THEN("it is an assignment") { REQUIRE(line.IsAssignment()); }
-      THEN("it has a key") { REQUIRE(line.Key() == "Name"); }
-      THEN("it has a value") { REQUIRE(line.Value() == "VLC"); }
+			THEN("it is an assignment") { REQUIRE(line.IsAssignment()); }
+			THEN("it has a key") { REQUIRE(line.Key() == "Name"); }
+			THEN("it has a value") { REQUIRE(line.Value() == "VLC"); }
 
-      THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
-      THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
-    }
+			THEN("it is not a declaration") { REQUIRE(!line.IsDeclaration()); }
+			THEN("it has no declarations") { REQUIRE(line.Declaration() == ""); }
+		}
 
-    WHEN("it has spaces surrounding the tokens") {
-      EntryLine line("\t Name = VLC \n\n");
-      THEN("the spaces are ignored") {
-        REQUIRE(line.Key() == "Name");
-        REQUIRE(line.Value() == "VLC");
-      }
-    }
-  }
+		WHEN("it has spaces surrounding the tokens") {
+			EntryLine line("\t Name = VLC \n\n");
+			THEN("the spaces are ignored") {
+				REQUIRE(line.Key() == "Name");
+				REQUIRE(line.Value() == "VLC");
+			}
+		}
+	}
 }
 
 } // namespace xdg

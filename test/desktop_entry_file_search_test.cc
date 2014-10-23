@@ -28,102 +28,102 @@
 
 namespace amm {
 
-static bool present_in(std::string item, std::vector<std::string> list) {
-  return std::find(list.begin(), list.end(), item) != list.end();
+static bool presentIn(std::string item, std::vector<std::string> list) {
+    return std::find(list.begin(), list.end(), item) != list.end();
 }
 
-static void assert_files_are_present_in_list(std::vector<std::string> file_names) {
-  REQUIRE(file_names.size() == 8);
+static void assertFilesArePresentInList(std::vector<std::string> file_names) {
+    REQUIRE(file_names.size() == 8);
 
-  REQUIRE(present_in("test/fixtures/applications/missing.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/mousepad.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/unclassified.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/vlc.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/suppressed.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/suppressedinvalid.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/nested/xfburn.desktop", file_names));
-  REQUIRE(present_in("test/fixtures/applications/nested/deepnested/whaawmp.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/missing.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/mousepad.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/unclassified.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/vlc.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/suppressed.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/suppressedinvalid.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/nested/xfburn.desktop", file_names));
+    REQUIRE(presentIn("test/fixtures/applications/nested/deepnested/whaawmp.desktop", file_names));
 }
 
 
 SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
-  GIVEN("A file search service with one directory") {
-    std::vector<std::string> directory_names;
-    directory_names.push_back("test/fixtures/applications/");
-    DesktopEntryFileSearch searcher;
-    searcher.RegisterDirectories(directory_names);
+    GIVEN("A file search service with one directory") {
+        std::vector<std::string> directory_names;
+        directory_names.push_back("test/fixtures/applications/");
+        DesktopEntryFileSearch searcher;
+        searcher.RegisterDirectories(directory_names);
 
-    WHEN("resolved") {
-      searcher.Resolve();
+        WHEN("resolved") {
+            searcher.Resolve();
 
-      THEN("it has a list of files with extension 'desktop' inside the directory") {
-        assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
-      }
+            THEN("it has a list of files with extension 'desktop' inside the directory") {
+                assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+            }
+        }
     }
-  }
 
-  GIVEN("A file search service with repeated directory") {
-    std::vector<std::string> directory_names;
-    directory_names.push_back("test/fixtures/applications/");
-    directory_names.push_back("test/fixtures/applications");
-    DesktopEntryFileSearch searcher;
-    searcher.RegisterDirectories(directory_names);
+    GIVEN("A file search service with repeated directory") {
+        std::vector<std::string> directory_names;
+        directory_names.push_back("test/fixtures/applications/");
+        directory_names.push_back("test/fixtures/applications");
+        DesktopEntryFileSearch searcher;
+        searcher.RegisterDirectories(directory_names);
 
-    WHEN("resolved") {
-      searcher.Resolve();
+        WHEN("resolved") {
+            searcher.Resolve();
 
-      THEN("it ignores the duplicates") {
-        assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
-      }
+            THEN("it ignores the duplicates") {
+                assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+            }
+        }
     }
-  }
 
-  GIVEN("A file search service with one existing directory and one missing directory") {
-    std::vector<std::string> directory_names;
-    directory_names.push_back("test/fixtures/applications");
-    directory_names.push_back("test/does-not-exist/applications");
-    DesktopEntryFileSearch searcher;
-    searcher.RegisterDirectories(directory_names);
+    GIVEN("A file search service with one existing directory and one missing directory") {
+        std::vector<std::string> directory_names;
+        directory_names.push_back("test/fixtures/applications");
+        directory_names.push_back("test/does-not-exist/applications");
+        DesktopEntryFileSearch searcher;
+        searcher.RegisterDirectories(directory_names);
 
-    WHEN("resolved") {
-      searcher.Resolve();
+        WHEN("resolved") {
+            searcher.Resolve();
 
-      THEN("it has a list of files with extension 'desktop' inside the existing directory") {
-        assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
-      }
+            THEN("it has a list of files with extension 'desktop' inside the existing directory") {
+                assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+            }
 
-      THEN("it tracks the missing directory") {
-        std::vector<std::string> bad_paths = searcher.BadPaths();
-        REQUIRE(bad_paths.size() == 1);
-        REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
-      }
+            THEN("it tracks the missing directory") {
+                std::vector<std::string> bad_paths = searcher.BadPaths();
+                REQUIRE(bad_paths.size() == 1);
+                REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
+            }
+        }
     }
-  }
 }
 
 SCENARIO("DesktopEntryFileSearch default directories", "[filesearch]") {
-  GIVEN("XDG_DATA_DIRS points to a existing directory and a missing directory") {
-    unsetenv("HOME");
-    unsetenv("XDG_DATA_HOME");
-    setenv("XDG_DATA_DIRS", "test/fixtures:test/does-not-exist", 1);
+    GIVEN("XDG_DATA_DIRS points to a existing directory and a missing directory") {
+        unsetenv("HOME");
+        unsetenv("XDG_DATA_HOME");
+        setenv("XDG_DATA_DIRS", "test/fixtures:test/does-not-exist", 1);
 
-    GIVEN("A default file search service") {
-      DesktopEntryFileSearch searcher;
-      searcher.RegisterDefaultDirectories();
+        GIVEN("A default file search service") {
+            DesktopEntryFileSearch searcher;
+            searcher.RegisterDefaultDirectories();
 
-      WHEN("resolved") {
-        searcher.Resolve();
+            WHEN("resolved") {
+                searcher.Resolve();
 
-        THEN("it has a list of files with extension 'desktop' inside the directory") {
-          assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
+                THEN("it has a list of files with extension 'desktop' inside the directory") {
+                    assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+                }
+
+                THEN("it doesn't track the absent directory") {
+                    REQUIRE(searcher.BadPaths().size() == 0);
+                }
+            }
         }
-
-        THEN("it doesn't track the absent directory") {
-          REQUIRE(searcher.BadPaths().size() == 0);
-        }
-      }
     }
-  }
 }
 
 } // namespace amm

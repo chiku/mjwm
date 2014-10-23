@@ -28,82 +28,82 @@
 namespace amm {
 
 SCENARIO("VectorX", "[vectorx]") {
-  GIVEN("A VectorX with more than one item") {
-    std::vector<std::string> vector;
-    vector.push_back("foo");
-    vector.push_back("bar");
-    vector.push_back("baz");
-    VectorX vectorx(vector);
+    GIVEN("A VectorX with more than one item") {
+        std::vector<std::string> vector;
+        vector.push_back("foo");
+        vector.push_back("bar");
+        vector.push_back("baz");
+        VectorX vectorx(vector);
 
-    WHEN("joined with a delimeter") {
-      std::string result = vectorx.Join("; ");
-      THEN("it is a string with the delimeter in between the items") {
-        REQUIRE(result == "foo; bar; baz");
-      }
+        WHEN("joined with a delimeter") {
+            std::string result = vectorx.Join("; ");
+            THEN("it is a string with the delimeter in between the items") {
+                REQUIRE(result == "foo; bar; baz");
+            }
+        }
     }
-  }
 
-  GIVEN("A vectorx with one item") {
-    std::vector<std::string> vector;
-    vector.push_back("foo");
-    VectorX vectorx(vector);
+    GIVEN("A vectorx with one item") {
+        std::vector<std::string> vector;
+        vector.push_back("foo");
+        VectorX vectorx(vector);
 
-    WHEN("joined with a delimeter") {
-      std::string result = vectorx.Join("; ");
-      THEN("it the item in the original vector") {
-        REQUIRE(result == "foo");
-      }
+        WHEN("joined with a delimeter") {
+            std::string result = vectorx.Join("; ");
+            THEN("it the item in the original vector") {
+                REQUIRE(result == "foo");
+            }
+        }
     }
-  }
 
-  GIVEN("A vectorx with no items") {
-    std::vector<std::string> vector;
-    VectorX vectorx(vector);
+    GIVEN("A vectorx with no items") {
+        std::vector<std::string> vector;
+        VectorX vectorx(vector);
 
-    WHEN("joined with a delimeter") {
-      std::string result = vectorx.Join("; ");
-      THEN("it is an empty string") {
-        REQUIRE(result == "");
-      }
+        WHEN("joined with a delimeter") {
+            std::string result = vectorx.Join("; ");
+            THEN("it is an empty string") {
+                REQUIRE(result == "");
+            }
+        }
     }
-  }
 
-  GIVEN("A vectorx with some items ending in a delimeter") {
-    std::vector<std::string> vector;
-    vector.push_back("foo/");
-    vector.push_back("bar");
-    vector.push_back("baz/");
-    VectorX vectorx(vector);
+    GIVEN("A vectorx with some items ending in a delimeter") {
+        std::vector<std::string> vector;
+        vector.push_back("foo/");
+        vector.push_back("bar");
+        vector.push_back("baz/");
+        VectorX vectorx(vector);
 
-    WHEN("terminated with a delimeter") {
-      std::vector<std::string> result = vectorx.TerminateWith("/");
-      THEN("it adds the delimeter without duplicating it") {
-        REQUIRE(result.size() == 3);
-        REQUIRE(result[0] == "foo/");
-        REQUIRE(result[1] == "bar/");
-        REQUIRE(result[2] == "baz/");
-      }
+        WHEN("terminated with a delimeter") {
+            std::vector<std::string> result = vectorx.TerminateWith("/");
+            THEN("it adds the delimeter without duplicating it") {
+                REQUIRE(result.size() == 3);
+                REQUIRE(result[0] == "foo/");
+                REQUIRE(result[1] == "bar/");
+                REQUIRE(result[2] == "baz/");
+            }
+        }
     }
-  }
 
-  GIVEN("A vectorx with duplicates") {
-    std::vector<std::string> vector;
-    vector.push_back("foo");
-    vector.push_back("bar");
-    vector.push_back("foo");
-    vector.push_back("bar");
-    vector.push_back("bar");
-    VectorX vectorx(vector);
+    GIVEN("A vectorx with duplicates") {
+        std::vector<std::string> vector;
+        vector.push_back("foo");
+        vector.push_back("bar");
+        vector.push_back("foo");
+        vector.push_back("bar");
+        vector.push_back("bar");
+        VectorX vectorx(vector);
 
-    WHEN("unique") {
-      std::vector<std::string> result = vectorx.Unique();
-      THEN("it de-duplicates") {
-        REQUIRE(result.size() == 2);
-        REQUIRE(result[0] == "bar");
-        REQUIRE(result[1] == "foo");
-      }
+        WHEN("unique") {
+            std::vector<std::string> result = vectorx.Unique();
+            THEN("it de-duplicates") {
+                REQUIRE(result.size() == 2);
+                REQUIRE(result[0] == "bar");
+                REQUIRE(result[1] == "foo");
+            }
+        }
     }
-  }
 }
 
 } // namespace amm

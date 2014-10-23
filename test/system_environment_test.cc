@@ -29,90 +29,90 @@
 namespace amm {
 
 SCENARIO("SystemEnvironment", "[systemenvironment]") {
-  GIVEN("HOME is not set") {
-    unsetenv("HOME");
+    GIVEN("HOME is not set") {
+        unsetenv("HOME");
 
-    SystemEnvironment environment;
+        SystemEnvironment environment;
 
-    WHEN("validated") {
-      THEN("it is invalid") {
-        REQUIRE(!environment.IsValid());
-      }
-    }
-  }
-
-  GIVEN("HOME is set") {
-    setenv("HOME", "/home/mjwm", 1);
-
-    SystemEnvironment environment;
-
-    WHEN("validated") {
-      THEN("it is valid") {
-        REQUIRE(environment.IsValid());
-      }
+        WHEN("validated") {
+            THEN("it is invalid") {
+                REQUIRE(!environment.IsValid());
+            }
+        }
     }
 
-    GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
-      setenv("XDG_DATA_HOME", "/data/home", 1);
-      setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
+    GIVEN("HOME is set") {
+        setenv("HOME", "/home/mjwm", 1);
 
-      SystemEnvironment environment;
+        SystemEnvironment environment;
 
-      WHEN("XDG data home is asked") {
-        THEN("it is the directory pointed to by XDG_DATA_HOME") {
-          REQUIRE(environment.XdgDataHome() == "/data/home");
+        WHEN("validated") {
+            THEN("it is valid") {
+                REQUIRE(environment.IsValid());
+            }
         }
-      }
 
-      WHEN("XDG data directories is asked") {
-        THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {
-          std::vector<std::string> directories = environment.XdgDataDirectories();
-          REQUIRE(directories.size() == 2);
-          REQUIRE(directories[0] == "/data/dir1");
-          REQUIRE(directories[1] == "/data/dir2/");
-        }
-      }
+        GIVEN("XDG_DATA_HOME and XDG_DATA_DIRS are set") {
+            setenv("XDG_DATA_HOME", "/data/home", 1);
+            setenv("XDG_DATA_DIRS", "/data/dir1:/data/dir2/", 1);
 
-      WHEN("directories for 'applications' subdirectories is asked") {
-        THEN("it is a list of directories pointed to by XDG_DATA_HOME/applications, XDG_DATA_DIRS/applications") {
-          std::vector<std::string> directories = environment.ApplicationDirectories();
-          REQUIRE(directories.size() == 3);
-          REQUIRE(directories[0] == "/data/home/applications");
-          REQUIRE(directories[1] == "/data/dir1/applications");
-          REQUIRE(directories[2] == "/data/dir2/applications");
+            SystemEnvironment environment;
+
+            WHEN("XDG data home is asked") {
+                THEN("it is the directory pointed to by XDG_DATA_HOME") {
+                    REQUIRE(environment.XdgDataHome() == "/data/home");
+                }
+            }
+
+            WHEN("XDG data directories is asked") {
+                THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {
+                    std::vector<std::string> directories = environment.XdgDataDirectories();
+                    REQUIRE(directories.size() == 2);
+                    REQUIRE(directories[0] == "/data/dir1");
+                    REQUIRE(directories[1] == "/data/dir2/");
+                }
+            }
+
+            WHEN("directories for 'applications' subdirectories is asked") {
+                THEN("it is a list of directories pointed to by XDG_DATA_HOME/applications, XDG_DATA_DIRS/applications") {
+                    std::vector<std::string> directories = environment.ApplicationDirectories();
+                    REQUIRE(directories.size() == 3);
+                    REQUIRE(directories[0] == "/data/home/applications");
+                    REQUIRE(directories[1] == "/data/dir1/applications");
+                    REQUIRE(directories[2] == "/data/dir2/applications");
+                }
+            }
         }
-      }
+
+        GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
+            unsetenv("XDG_DATA_HOME");
+            unsetenv("XDG_DATA_DIRS");
+
+            SystemEnvironment environment;
+
+            WHEN("directories for 'applications' subdirectories is asked") {
+
+                THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
+                    std::vector<std::string> directories = environment.ApplicationDirectories();
+                    REQUIRE(directories.size() == 3);
+                    REQUIRE(directories[0] == "/home/mjwm/.local/share/applications");
+                    REQUIRE(directories[1] == "/usr/local/share/applications");
+                    REQUIRE(directories[2] == "/usr/share/applications");
+                }
+            }
+
+            WHEN("directories for icon themes is asked") {
+                THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
+                    std::vector<std::string> directories = environment.IconThemeDirectories();
+                    REQUIRE(directories.size() == 4);
+                    REQUIRE(directories[0] == "/home/mjwm/.icons");
+                    REQUIRE(directories[1] == "/usr/local/share/icons");
+                    REQUIRE(directories[2] == "/usr/share/icons");
+                    REQUIRE(directories[3] == "/usr/share/pixmaps");
+                }
+            }
+        }
     }
-
-    GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
-      unsetenv("XDG_DATA_HOME");
-      unsetenv("XDG_DATA_DIRS");
-
-      SystemEnvironment environment;
-
-      WHEN("directories for 'applications' subdirectories is asked") {
-
-        THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
-          std::vector<std::string> directories = environment.ApplicationDirectories();
-          REQUIRE(directories.size() == 3);
-          REQUIRE(directories[0] == "/home/mjwm/.local/share/applications");
-          REQUIRE(directories[1] == "/usr/local/share/applications");
-          REQUIRE(directories[2] == "/usr/share/applications");
-        }
-      }
-
-      WHEN("directories for icon themes is asked") {
-        THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
-          std::vector<std::string> directories = environment.IconThemeDirectories();
-          REQUIRE(directories.size() == 4);
-          REQUIRE(directories[0] == "/home/mjwm/.icons");
-          REQUIRE(directories[1] == "/usr/local/share/icons");
-          REQUIRE(directories[2] == "/usr/share/icons");
-          REQUIRE(directories[3] == "/usr/share/pixmaps");
-        }
-      }
-    }
-  }
 }
 
 } // namespace amm

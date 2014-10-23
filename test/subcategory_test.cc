@@ -28,72 +28,72 @@
 
 namespace amm {
 
-static xdg::DesktopEntry mousepad_desktop_entry() {
-  std::vector<std::string> lines;
-  lines.push_back("[Desktop Entry]");
-  lines.push_back("Name=Mousepad");
-  lines.push_back("Icon=accessories-text-editor");
-  lines.push_back("Exec=mousepad %F");
-  lines.push_back("Categories=Application;Utility;TextEditor;GTK;");
-  return xdg::DesktopEntry(lines);
+static xdg::DesktopEntry mousepadDesktopEntry() {
+    std::vector<std::string> lines;
+    lines.push_back("[Desktop Entry]");
+    lines.push_back("Name=Mousepad");
+    lines.push_back("Icon=accessories-text-editor");
+    lines.push_back("Exec=mousepad %F");
+    lines.push_back("Categories=Application;Utility;TextEditor;GTK;");
+    return xdg::DesktopEntry(lines);
 }
 
-static xdg::DesktopEntry sakura_desktop_entry() {
-  std::vector<std::string> lines;
-  lines.push_back("[Desktop Entry]");
-  lines.push_back("Name=Sakura");
-  lines.push_back("Icon=terminal-tango");
-  lines.push_back("Exec=sakura");
-  lines.push_back("Categories=GTK;Utility;TerminalEmulator;System;");
-  return xdg::DesktopEntry(lines);
+static xdg::DesktopEntry sakuraDesktopEntry() {
+    std::vector<std::string> lines;
+    lines.push_back("[Desktop Entry]");
+    lines.push_back("Name=Sakura");
+    lines.push_back("Icon=terminal-tango");
+    lines.push_back("Exec=sakura");
+    lines.push_back("Categories=GTK;Utility;TerminalEmulator;System;");
+    return xdg::DesktopEntry(lines);
 }
 
 SCENARIO("subcategory", "[subcategory]") {
-  GIVEN("A subcategory") {
-    Subcategory subcategory("Accessories", "accessories", "Utilities");
+    GIVEN("A subcategory") {
+        Subcategory subcategory("Accessories", "accessories", "Utilities");
 
-    WHEN("without desktop-files") {
-      THEN("it has no entries") {
-        REQUIRE(!subcategory.HasEntries());
-      }
-    }
-
-    WHEN("with one desktop-file") {
-      subcategory.AddDesktopEntry(mousepad_desktop_entry());
-      THEN("it has entries") {
-        REQUIRE(subcategory.HasEntries());
-      }
-    }
-
-    WHEN("with two desktop-file") {
-      subcategory.AddDesktopEntry(sakura_desktop_entry());
-      subcategory.AddDesktopEntry(mousepad_desktop_entry());
-      WHEN("sorted") {
-        subcategory.SortDesktopEntries();
-        THEN("its entries are alphabetically sorted by name") {
-          std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
-          REQUIRE(desktop_entries.size() == 2);
-          REQUIRE(desktop_entries[0].Name() == "Mousepad");
-          REQUIRE(desktop_entries[1].Name() == "Sakura");
+        WHEN("without desktop-files") {
+            THEN("it has no entries") {
+                REQUIRE(!subcategory.HasEntries());
+            }
         }
-      }
-    }
 
-    WHEN("with a repeated desktop file") {
-      subcategory.AddDesktopEntry(sakura_desktop_entry());
-      subcategory.AddDesktopEntry(mousepad_desktop_entry());
-      subcategory.AddDesktopEntry(sakura_desktop_entry());
-      WHEN("sorted") {
-        subcategory.SortDesktopEntries();
-        THEN("it doesn't repeat entries") {
-          std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
-          REQUIRE(desktop_entries.size() == 2);
-          REQUIRE(desktop_entries[0].Name() == "Mousepad");
-          REQUIRE(desktop_entries[1].Name() == "Sakura");
+        WHEN("with one desktop-file") {
+            subcategory.AddDesktopEntry(mousepadDesktopEntry());
+            THEN("it has entries") {
+                REQUIRE(subcategory.HasEntries());
+            }
         }
-      }
+
+        WHEN("with two desktop-file") {
+            subcategory.AddDesktopEntry(sakuraDesktopEntry());
+            subcategory.AddDesktopEntry(mousepadDesktopEntry());
+            WHEN("sorted") {
+                subcategory.SortDesktopEntries();
+                THEN("its entries are alphabetically sorted by name") {
+                    std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+                    REQUIRE(desktop_entries.size() == 2);
+                    REQUIRE(desktop_entries[0].Name() == "Mousepad");
+                    REQUIRE(desktop_entries[1].Name() == "Sakura");
+                }
+            }
+        }
+
+        WHEN("with a repeated desktop file") {
+            subcategory.AddDesktopEntry(sakuraDesktopEntry());
+            subcategory.AddDesktopEntry(mousepadDesktopEntry());
+            subcategory.AddDesktopEntry(sakuraDesktopEntry());
+            WHEN("sorted") {
+                subcategory.SortDesktopEntries();
+                THEN("it doesn't repeat entries") {
+                    std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+                    REQUIRE(desktop_entries.size() == 2);
+                    REQUIRE(desktop_entries[0].Name() == "Mousepad");
+                    REQUIRE(desktop_entries[1].Name() == "Sakura");
+                }
+            }
+        }
     }
-  }
 }
 
 } // namespace amm
