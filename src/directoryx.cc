@@ -23,21 +23,27 @@
 
 namespace amm {
 
-DirectoryX::DirectoryX(std::string path)
+bool DirectoryX::IsValid() const
+{
+    DIR* directory = opendir(path_.c_str());
+    if (directory) {
+        closedir(directory);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+DirectoryX::Entries::Entries(std::string path)
 {
     directory_ = opendir(path.c_str());
 }
 
-DirectoryX::~DirectoryX()
+DirectoryX::Entries::~Entries()
 {
-    if (IsValid()) {
+    if (directory_ != NULL) {
         closedir(directory_);
     }
-}
-
-bool DirectoryX::IsValid() const
-{
-    return directory_ != NULL;
 }
 
 DirectoryX::Entries::SearchResult DirectoryX::Entries::NextName()

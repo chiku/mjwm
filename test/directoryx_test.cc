@@ -51,6 +51,21 @@ void assertDirectoryNamesAreCorrect(std::vector<std::string> names)
     REQUIRE(names[3] == "nested");
 }
 
+void assertNamesAreCorrect(std::vector<std::string> names)
+{
+    std::sort(names.begin(), names.end());
+    REQUIRE(names.size() == 11);
+    REQUIRE(names[0] == ".");
+    REQUIRE(names[1] == "..");
+    REQUIRE(names[2] == "desktop.vlc");
+    REQUIRE(names[3] == "empty");
+    REQUIRE(names[4] == "missing.desktop");
+    REQUIRE(names[5] == "mousepad.desktop");
+    REQUIRE(names[6] == "nested");
+    REQUIRE(names[7] == "suppressed.desktop");
+    REQUIRE(names[8] == "suppressedinvalid.desktop");
+    REQUIRE(names[9] == "unclassified.desktop");
+    REQUIRE(names[10] == "vlc.desktop");
 }
 
 SCENARIO("DirectoryX", "[directoryx]") {
@@ -125,6 +140,27 @@ SCENARIO("DirectoryX", "[directoryx]") {
                     assertFileNamesAreCorrect(file_names);
                     assertDirectoryNamesAreCorrect(directory_names);
                 }
+            }
+        }
+
+        WHEN("iterated multiple times") {
+            THEN("all iterations have results") {
+                DirectoryX directory("test/fixtures/applications");
+                DirectoryX::Entries first_set = directory.AllEntries();
+                DirectoryX::Entries second_set = directory.AllEntries();
+                std::vector<std::string> first_set_names;
+                std::vector<std::string> second_set_names;
+
+                for (DirectoryX::Entries::iterator entry = first_set.begin(); entry != first_set.end(); ++entry) {
+                    first_set_names.push_back(entry->Name());
+                }
+
+                for (DirectoryX::Entries::iterator entry = second_set.begin(); entry != second_set.end(); ++entry) {
+                    second_set_names.push_back(entry->Name());
+                }
+
+                assertNamesAreCorrect(first_set_names);
+                assertNamesAreCorrect(second_set_names);
             }
         }
     }

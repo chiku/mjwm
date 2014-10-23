@@ -28,14 +28,14 @@ namespace amm
 class DirectoryX
 {
 public:
-    DirectoryX(std::string path);
-    ~DirectoryX();
+    DirectoryX(std::string path) : path_(path) {}
     bool IsValid() const;
 
     class Entries
     {
     public:
-        Entries(DIR* directory) : directory_(directory) { }
+        Entries(std::string path);
+        ~Entries();
 
         struct SearchResult
         {
@@ -76,10 +76,10 @@ public:
         SearchResult current_result_;
     };
 
-    Entries AllEntries() { return Entries(directory_); }
+    Entries AllEntries() { return Entries(path_); }
 
 private:
-    DIR *directory_;
+    std::string path_;
 };
 
 } // namespace amm
