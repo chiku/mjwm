@@ -31,6 +31,7 @@ run() {
 run mjwm_stringx_test
 run mjwm_vectorx_test
 run mjwm_filex_test
+run mjwm_directoryx_test
 run mjwm_xdg_entry_line_test
 run mjwm_xdg_entry_test
 run mjwm_xdg_desktop_entry_test
