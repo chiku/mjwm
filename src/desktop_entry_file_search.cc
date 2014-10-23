@@ -18,13 +18,13 @@
 
 #include "desktop_entry_file_search.h"
 
-#include <dirent.h>
 #include <cstdlib>
 #include <string>
 #include <vector>
 
 #include "stringx.h"
 #include "vectorx.h"
+#include "directoryx.h"
 #include "system_environment.h"
 
 namespace amm {
@@ -52,23 +52,23 @@ void DesktopEntryFileSearch::Resolve() {
 }
 
 void DesktopEntryFileSearch::Populate(std::string directory_name) {
-  DIR *directory = opendir(directory_name.c_str());
+  DirectoryX directory(directory_name);
 
-  if (directory) {
-    dirent *entry;
-    while((entry = readdir(directory)) != NULL) {
-      std::string entry_name = entry->d_name;
+  if (directory.IsValid()) {
+    DirectoryX::Entries entries = directory.AllEntries();
+
+    for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+      std::string entry_name = entry->Name();
       std::string full_path = StringX(directory_name).TerminateWith("/") + entry_name;
 
       if (StringX(entry_name).EndsWith(".desktop")) {
         desktop_file_names_.push_back(full_path);
       }
 
-      if ((entry->d_type & DT_DIR) && entry_name != ".." && entry_name != "." && full_path.size() <= PATH_MAX) {
+      if (entry->isDirectory() && entry_name != ".." && entry_name != ".") {
         Populate(full_path);
       }
     }
-    closedir(directory);
   } else if (capture_bad_paths_) {
     bad_paths_.push_back(directory_name);
   }

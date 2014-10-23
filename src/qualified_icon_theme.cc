@@ -16,12 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <dirent.h>
 #include <string>
 #include <vector>
 
 #include "stringx.h"
 #include "filex.h"
+#include "directoryx.h"
 #include "system_environment.h"
 #include "xdg/icon_theme.h"
 #include "qualified_icon_theme.h"
@@ -40,18 +40,18 @@ QualifiedIconTheme::QualifiedIconTheme(SystemEnvironment environment, std::strin
 
 xdg::IconTheme QualifiedIconTheme::IconThemeFromName(std::string theme_name) {
   for (std::vector<std::string>::iterator path = theme_search_paths_.begin(); path != theme_search_paths_.end(); ++path) {
-    DIR *directory = opendir(path->c_str());
+    DirectoryX directory(*path);
 
-    if (directory) {
-      dirent *entry;
-      while((entry = readdir(directory)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-          std::string full_path = StringX(*path).TerminateWith("/") + StringX(entry->d_name).TerminateWith("/") + "index.theme";
-
+    if (directory.IsValid()) {
+      DirectoryX::Entries entries = directory.AllEntries();
+      for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+        std::string name = entry->Name();
+        if (entry->isDirectory() && name != "." && name != "..") {
+          std::string full_path = StringX(*path).TerminateWith("/") + StringX(entry->Name()).TerminateWith("/") + "index.theme";
           std::vector<std::string> lines;
+
           if (FileX(full_path).Load(&lines)) {
-            xdg::IconTheme xdg_theme(lines);
-            xdg_theme.InternalNameIs(entry->d_name);
+            xdg::IconTheme xdg_theme = xdg::IconTheme(lines).InternalNameIs(entry->Name());
             if (xdg_theme.IsNamed(theme_name)) {
               return xdg_theme;
             }

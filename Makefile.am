@@ -121,6 +121,7 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
 
 mjwm_desktop_entry_file_search_test_SOURCES = src/stringx.cc \
                                               src/vectorx.cc \
+                                              src/directoryx.cc \
                                               src/system_environment.cc \
                                               src/desktop_entry_file_search.cc \
                                               test/desktop_entry_file_search_test.cc

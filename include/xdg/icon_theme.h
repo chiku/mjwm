@@ -36,7 +36,7 @@ class IconTheme {
   std::string InternalName() const { return internal_name_; }
   std::vector<std::string> Parents() const { return parents_; }
   std::vector<IconSubdirectory> Directories() const { return directories_; }
-  void InternalNameIs(std::string internal_name) { internal_name_ = internal_name; }
+  IconTheme InternalNameIs(std::string internal_name) { internal_name_ = internal_name; return *this; }
 
   bool IsNamed(std::string name) { return name == name_ || name == internal_name_; }
 

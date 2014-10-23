@@ -138,7 +138,7 @@ mjwm_command_line_options_parser_test_OBJECTS =  \
 mjwm_command_line_options_parser_test_LDADD = $(LDADD)
 am_mjwm_desktop_entry_file_search_test_OBJECTS =  \
 	src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
-	src/system_environment.$(OBJEXT) \
+	src/directoryx.$(OBJEXT) src/system_environment.$(OBJEXT) \
 	src/desktop_entry_file_search.$(OBJEXT) \
 	test/desktop_entry_file_search_test.$(OBJEXT)
 mjwm_desktop_entry_file_search_test_OBJECTS =  \
@@ -726,6 +726,7 @@ mjwm_transformer_jwm_test_SOURCES = src/stringx.cc \
 
 mjwm_desktop_entry_file_search_test_SOURCES = src/stringx.cc \
                                               src/vectorx.cc \
+                                              src/directoryx.cc \
                                               src/system_environment.cc \
                                               src/desktop_entry_file_search.cc \
                                               test/desktop_entry_file_search_test.cc
