@@ -101,7 +101,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
     WHEN("when parsed") {
       entry.Parse();
 
-      THEN("it exposes values under the section for all key") {
+      THEN("values are exposed under the section and key name") {
         REQUIRE(entry.Under("Desktop Entry", "Version"    ) == "1.0");
         REQUIRE(entry.Under("Desktop Entry", "Name"       ) == "VLC media player");
         REQUIRE(entry.Under("Desktop Entry", "GenericName") == "Media player");
@@ -122,7 +122,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
     WHEN("when parsed") {
       entry.Parse();
 
-      THEN("it exposes values under the section for all key") {
+      THEN("the whitespaces are ignored when retrieving the values") {
         REQUIRE(entry.Under("Desktop Entry", "Name"      ) == "VLC media player");
         REQUIRE(entry.Under("Desktop Entry", "Exec"      ) == "/usr/bin/vlc --started-from-file %U");
         REQUIRE(entry.Under("Desktop Entry", "Icon"      ) == "vlc");
@@ -150,7 +150,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
     WHEN("when parsed") {
       entry.Parse();
 
-      THEN("it exposes values under all sections and keys") {
+      THEN("values are exposed under the section and key name") {
         REQUIRE(entry.Under("Desktop Entry", "Version"       ) == "1.0");
         REQUIRE(entry.Under("Desktop Entry", "Type"          ) == "Application");
         REQUIRE(entry.Under("Desktop Entry", "Name"          ) == "Xfburn");
@@ -181,7 +181,7 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
     WHEN("when parsed") {
       entry.Parse();
 
-      THEN("it exposes values under all keys under an empty senction") {
+      THEN("the values are exposed under an empty section name") {
         REQUIRE(entry.Under("", "Name"      ) == "VLC media player");
         REQUIRE(entry.Under("", "Exec"      ) == "/usr/bin/vlc --started-from-file %U");
         REQUIRE(entry.Under("", "Icon"      ) == "vlc");

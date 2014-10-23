@@ -67,7 +67,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
         REQUIRE(entry.Comment() == "Simple Text Editor");
       }
 
-      THEN("it knows that it will displayed by default") {
+      THEN("it knows if it would be displayed by default") {
         REQUIRE(entry.Display());
       }
 
@@ -231,24 +231,8 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
       THEN("it is an AudioVideo") {
         REQUIRE(entry.IsA("AudioVideo"));
       }
-    }
 
-    WHEN("it has none of the categories as AudioVideo") {
-      std::vector<std::string> lines;
-      lines.push_back("[Desktop Entry]\n");
-      lines.push_back("Categories=Audio;Video;Player;GTK;\n");
-      DesktopEntry entry(lines);
-      THEN("it is not as AudioVideo") {
-        REQUIRE(!entry.IsA("AudioVideo"));
-      }
-    }
-
-    WHEN("it has one of the categories as AudioVideo") {
-      std::vector<std::string> lines;
-      lines.push_back("[Desktop Entry]\n");
-      lines.push_back("Categories=AudioVideo;Audio;Player;GTK;\n");
-      DesktopEntry entry(lines);
-      THEN("it is any of AudioVideo and Multimedia") {
+      THEN("it is either of AudioVideo and Multimedia") {
         std::vector<std::string> classifications;
         classifications.push_back("AudioVideo");
         classifications.push_back("Multimedia");
@@ -261,7 +245,11 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
       lines.push_back("[Desktop Entry]\n");
       lines.push_back("Categories=Audio;Video;Player;GTK;\n");
       DesktopEntry entry(lines);
-      THEN("it is not any of AudioVideo and Multimedia") {
+      THEN("it is not an AudioVideo") {
+        REQUIRE(!entry.IsA("AudioVideo"));
+      }
+
+      THEN("it is not either of AudioVideo or Multimedia") {
         std::vector<std::string> classifications;
         classifications.push_back("AudioVideo");
         classifications.push_back("Multimedia");

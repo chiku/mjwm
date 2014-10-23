@@ -36,7 +36,7 @@ SCENARIO("StringX", "[stringx]") {
         REQUIRE(stringx.EndsWith(".desktop"));
       }
 
-      THEN("it doesn't end with a substring present inside") {
+      THEN("it doesn't end with a substring that is not at the end") {
         REQUIRE(!stringx.EndsWith(".desk"));
       }
 
@@ -46,19 +46,19 @@ SCENARIO("StringX", "[stringx]") {
     }
   }
 
-  GIVEN("A stringx without a terminating delimeters") {
+  GIVEN("A stringx without terminating delimeters") {
     StringX stringx("AudioVideo;GTK");
 
-    WHEN("it is terminated with the delimeter") {
+    WHEN("terminated with a delimeter") {
       std::string result = stringx.TerminateWith(";");
-      THEN("it appends the delimeter to the stringx") {
+      THEN("it appends the delimeter to itself") {
         REQUIRE(result == "AudioVideo;GTK;");
       }
     }
 
-    WHEN("it is split by the delimeter") {
+    WHEN("split by the delimeter") {
       std::vector<std::string> result = stringx.Split(";");
-      THEN("the the last token is included") {
+      THEN("the last token is included") {
         REQUIRE(result.size() == 2);
         REQUIRE(result[0] == "AudioVideo");
         REQUIRE(result[1] == "GTK");
@@ -69,14 +69,14 @@ SCENARIO("StringX", "[stringx]") {
   GIVEN("A stringx with a terminating delimeters") {
     StringX stringx("AudioVideo;GTK;");
 
-    WHEN("it is terminated with the delimeter") {
+    WHEN("terminated with the delimeter") {
       std::string result = stringx.TerminateWith(";");
       THEN("it doesn't duplicate the delimeter") {
         REQUIRE(result == "AudioVideo;GTK;");
       }
     }
 
-    WHEN("it is split by the delimeter") {
+    WHEN("split by the delimeter") {
       std::vector<std::string> result = stringx.Split(";");
       THEN("the original string becomes a list of tokens") {
         REQUIRE(result.size() == 2);
@@ -86,12 +86,12 @@ SCENARIO("StringX", "[stringx]") {
     }
   }
 
-  GIVEN("A empty stringx") {
+  GIVEN("An empty stringx") {
     StringX stringx("");
 
-    WHEN("it is terminated with the delimeter") {
+    WHEN("terminated with a delimeter") {
       std::string result = stringx.TerminateWith(";");
-      THEN("it adds a delimeter") {
+      THEN("it appends the delimeter to itself") {
         REQUIRE(result == ";");
       }
     }
@@ -107,7 +107,7 @@ SCENARIO("StringX", "[stringx]") {
   GIVEN("A stringx with XML tags") {
     StringX stringx("Icon=<\'foo\' & \"bar\">");
 
-    WHEN("it is XML encoded") {
+    WHEN("XML encoded") {
       std::string result = stringx.Encode();
       THEN("the XML tags are replaced by corresponding XML escpace sequences") {
         REQUIRE(result == "Icon=&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;");
@@ -118,9 +118,9 @@ SCENARIO("StringX", "[stringx]") {
   GIVEN("A stringx with whitespaces at extremes") {
     StringX stringx(" \taccessories-text-editor \t\n");
 
-    WHEN("it is trimmed") {
+    WHEN("trimmed") {
       std::string result = stringx.Trim();
-      THEN("all whitespaces at the beginning and end are removed") {
+      THEN("all whitespaces at the beginning and in the end are removed") {
         REQUIRE(result == "accessories-text-editor");
       }
     }

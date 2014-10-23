@@ -97,7 +97,7 @@ SCENARIO("Menu custom categories", "[menu]") {
       lines.push_back("Accessories:accessories:Utility ");
       menu.LoadCustomCategories(lines);
 
-      THEN("it ignores shitepaces in subcategories") {
+      THEN("it ignores the whitepaces in subcategories") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 1);
@@ -107,13 +107,13 @@ SCENARIO("Menu custom categories", "[menu]") {
       }
     }
 
-    WHEN("given a line beginning with '#'") {
+    WHEN("given a line that begins with '#'") {
       std::vector<std::string> lines;
       lines.push_back("# Comments");
       lines.push_back("#More:comment:here");
       menu.LoadCustomCategories(lines);
 
-      THEN("it ignores it the lines begenning with '#'") {
+      THEN("it ignores the lines beginning with '#'") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 0);
@@ -126,7 +126,7 @@ SCENARIO("Menu custom categories", "[menu]") {
       lines.push_back("Game:Games");
       menu.LoadCustomCategories(lines);
 
-      THEN("it ignores the lines") {
+      THEN("it ignores the line") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 0);
@@ -139,7 +139,7 @@ SCENARIO("Menu custom categories", "[menu]") {
       lines.push_back("Games:games:Game:Fun");
       menu.LoadCustomCategories(lines);
 
-      THEN("it has multiple classifications in its subcategories") {
+      THEN("its subcategories have multiple classifications") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 1);
@@ -157,7 +157,7 @@ SCENARIO("Menu custom categories", "[menu]") {
       lines.push_back("Games:games:Game::Fun::Frolic");
       menu.LoadCustomCategories(lines);
 
-      THEN("it ignores the missing classification names") {
+      THEN("it ignores the missing classifications") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 1);
@@ -175,7 +175,7 @@ SCENARIO("Menu custom categories", "[menu]") {
       lines.push_back("Games:games:::");
       menu.LoadCustomCategories(lines);
 
-      THEN("it ignores the lines with missing classification names") {
+      THEN("it ignores the line with missing classification names") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
 
         REQUIRE(subcategories.size() == 0);
@@ -195,7 +195,7 @@ SCENARIO("Menu statistics", "[menu]") {
       menu.Populate(files);
       Stats summary = menu.Summary();
 
-      THEN("it holds the number of total files") {
+      THEN("it has number of total files") {
         REQUIRE(summary.TotalParsedFiles() == 2);
       }
     }
@@ -207,11 +207,11 @@ SCENARIO("Menu statistics", "[menu]") {
       menu.Populate(files);
       Stats summary = menu.Summary();
 
-      THEN("it holds the number of unclassified files") {
+      THEN("it has the number of unclassified files") {
         REQUIRE(summary.TotalUnclassifiedFiles() == 1);
       }
 
-      THEN("it holds the categories that weren't handled") {
+      THEN("it has the categories that weren't classified") {
         std::vector<std::string> unhandled_classifications = summary.UnhandledClassifications();
 
         REQUIRE(unhandled_classifications.size() == 1);
@@ -226,7 +226,7 @@ SCENARIO("Menu statistics", "[menu]") {
       menu.Populate(files);
       Stats summary = menu.Summary();
 
-      THEN("it holds the number of suppressed files") {
+      THEN("it has the number of suppressed files") {
         REQUIRE(summary.TotalSuppressedFiles() == 1);
       }
     }
@@ -238,7 +238,7 @@ SCENARIO("Menu statistics", "[menu]") {
       menu.Populate(files);
       Stats summary = menu.Summary();
 
-      THEN("it holds the a list of unparsed files") {
+      THEN("it has a list of the unparsed files") {
         std::vector<std::string> unparsed_files = summary.UnparsedFiles();
 
         REQUIRE(unparsed_files.size() == 1);
@@ -254,7 +254,7 @@ SCENARIO("Menu statistics", "[menu]") {
       menu.Populate(files);
       Stats summary = menu.Summary();
 
-      THEN("missing entries excludes suppressed files") {
+      THEN("the missing entries don't include suppressed files") {
         std::vector<std::string> unparsed_files = summary.UnparsedFiles();
 
         REQUIRE(unparsed_files.size() == 1);
@@ -283,7 +283,7 @@ SCENARIO("Menu sort", "[menu]") {
     WHEN("sorted") {
       menu.Sort();
 
-      THEN("it sorts the individual entries inside subcategories") {
+      THEN("the individual entries inside subcategories are sorted alphabetically") {
         std::vector<Subcategory> subcategories = menu.Subcategories();
         REQUIRE(subcategories.size() == 3);
 
@@ -312,7 +312,7 @@ SCENARIO("Menu representations", "[menu]") {
   GIVEN("A menu") {
     Menu menu;
 
-    WHEN("transformed to a representations") {
+    WHEN("transformed to representations") {
       std::vector<std::string> files;
       files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
       files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");

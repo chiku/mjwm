@@ -70,25 +70,25 @@ void assertNamesAreCorrect(std::vector<std::string> names)
 
 SCENARIO("DirectoryX", "[directoryx]") {
     GIVEN("A directoryx") {
-        WHEN("it exists") {
+        WHEN("present") {
             THEN("it is valid") {
                 DirectoryX directory("test/fixtures/applications");
                 REQUIRE(directory.IsValid());
             }
         }
 
-        WHEN("it doesn't exist") {
+        WHEN("not present") {
             DirectoryX directory("does-not-exist");
             THEN("it is invalid") {
                 REQUIRE(!directory.IsValid());
             }
         }
 
-        WHEN("containing files") {
+        WHEN("it has files under itself") {
             DirectoryX directory("test/fixtures/applications");
             DirectoryX::Entries entries = directory.AllEntries();
-            WHEN("its contained files are retrieved") {
-                THEN("it has the name of the file") {
+            WHEN("its contained files are retrieved one at a time") {
+                THEN("the retrieved entry has the name of the file and knows if it is a directory") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
 
@@ -129,7 +129,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
                 }
             }
 
-            WHEN("it is iterated for contained files (with postfix, value at & equals)") {
+            WHEN("it is iterated for contained files (with postfix, access to pointer at & equals)") {
                 THEN("it has the contained file and sub-directory names") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
@@ -144,7 +144,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
         }
 
         WHEN("iterated multiple times") {
-            THEN("all iterations have results") {
+            THEN("all iterations have the same results") {
                 DirectoryX directory("test/fixtures/applications");
                 DirectoryX::Entries first_set = directory.AllEntries();
                 DirectoryX::Entries second_set = directory.AllEntries();

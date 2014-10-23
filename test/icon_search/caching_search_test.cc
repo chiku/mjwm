@@ -39,7 +39,7 @@ class TestSearch : public IconSearchInterface {
 SCENARIO("icon_search::CachingSearch", "[cachingsearch]") {
   TestSearch *actual_searcher = new TestSearch;
 
-  GIVEN("Icon search that caches results") {
+  GIVEN("An icon search that caches results") {
     CachingSearch caching_searcher(*actual_searcher);
 
     WHEN("retrieving an unsearched item") {

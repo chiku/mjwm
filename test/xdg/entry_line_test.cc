@@ -48,10 +48,7 @@ SCENARIO("EntryLine for Declarations", "[desktopfileline]") {
       EntryLine line("[Desktop Entry]");
 
       THEN("it is a declaration") { REQUIRE(line.IsDeclaration()); }
-      THEN("the inner content is the declaration") {
-        REQUIRE(line.Declaration() == "Desktop Entry");
-      }
-
+      THEN("the inner content is the declaration") { REQUIRE(line.Declaration() == "Desktop Entry"); }
       THEN("it is not an assignment") { REQUIRE(!line.IsAssignment()); }
       THEN("it has no key") { REQUIRE(line.Key() == ""); }
       THEN("it has no value") { REQUIRE(line.Value() == ""); }
@@ -59,7 +56,7 @@ SCENARIO("EntryLine for Declarations", "[desktopfileline]") {
 
     WHEN("it has spaces around after a declaration") {
       EntryLine line(" [Desktop Entry] ");
-      THEN("the spaces is ignored") { REQUIRE(line.Declaration() == "Desktop Entry"); }
+      THEN("the spaces are ignored") { REQUIRE(line.Declaration() == "Desktop Entry"); }
     }
 
     WHEN("starting with a '[' but not ending with ']'") {

@@ -46,12 +46,12 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         REQUIRE(subdir.MinSize() == 24);
       }
 
-      THEN("its threshold equals 2") {
+      THEN("its threshold is 2") {
         REQUIRE(subdir.Threshold() == 2);
       }
     }
 
-    WHEN("when optional values are set to empty") {
+    WHEN("when optional values are empty") {
       IconSubdirectory subdir = IconSubdirectory("subdirectory", "24").Type("").MaxSize("").MinSize("").Threshold("");
 
       THEN("its type is retained") {
@@ -80,7 +80,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         REQUIRE(subdir.Location() == firefox);
       }
 
-      THEN("it can't be reset to empty value") {
+      THEN("it can't be reset to an empty value") {
         subdir.Location("");
         REQUIRE(subdir.Location() == firefox);
       }
@@ -107,7 +107,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
     WHEN("required size is lesser than the size") {
       int size = 22;
-      THEN("is doesn't match the required size") {
+      THEN("it doesn't match the required size") {
         REQUIRE(!fixed.Matches(size));
       }
 
@@ -151,22 +151,22 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
     WHEN("required size is lesser than the minimum size") {
       int size = 1;
-      THEN("is doesn't match the required size") {
+      THEN("it doesn't match the required size") {
         REQUIRE(!scalable.Matches(size));
       }
 
-      THEN("its distance is the difference of the required size the minimum size") {
+      THEN("its distance is the difference of the required size and the minimum size") {
         REQUIRE(scalable.Distance(size) == 1);
       }
     }
 
     WHEN("required size is greater than the maximum size") {
       int size = 257;
-      THEN("is doesn't match the required size") {
+      THEN("it doesn't match the required size") {
         REQUIRE(!scalable.Matches(size));
       }
 
-      THEN("its distance is the difference of the required size the maximum size") {
+      THEN("its distance is the difference of the required size and the maximum size") {
         REQUIRE(scalable.Distance(size) == 1);
       }
     }
@@ -186,7 +186,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         REQUIRE(threshold.Matches(34));
       }
 
-      THEN("it distance from the required size is zero") {
+      THEN("its distance from the required size is zero") {
         REQUIRE(threshold.Distance(14) == 0);
         REQUIRE(threshold.Distance(24) == 0);
         REQUIRE(threshold.Distance(34) == 0);
@@ -195,22 +195,22 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
     WHEN("required size is lesser than the inner threshold size") {
       int size = 13;
-      THEN("is doesn't match the required size") {
+      THEN("it doesn't match the required size") {
         REQUIRE(!threshold.Matches(13));
       }
 
-      THEN("its distance is the difference of the required size the minimum size") {
+      THEN("its distance is the difference of the required size and the minimum size") {
         REQUIRE(threshold.Distance(size) == 1);
       }
     }
 
     WHEN("required size is greater than the outer threshold size") {
       int size = 35;
-      THEN("is doesn't match the required size") {
+      THEN("it doesn't match the required size") {
         REQUIRE(!threshold.Matches(size));
       }
 
-      THEN("its distance is the difference of the required size the maximum size") {
+      THEN("its distance is the difference of the required size and the maximum size") {
         REQUIRE(threshold.Distance(size) == 1);
       }
     }
@@ -219,7 +219,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
   GIVEN("An subdirectory with type in mixed case") {
     IconSubdirectory mixed_type = IconSubdirectory("fixed", "24").Type("fIXeD");
 
-    WHEN("asked storing its type") {
+    WHEN("asked its type") {
       THEN("it is converted to camel-case") {
         REQUIRE(mixed_type.Type() == FIXED);
       }
@@ -234,7 +234,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         REQUIRE(invalid.Type() == INVALID);
       }
 
-      THEN("it never satisfied") {
+      THEN("it never satisfies a size requirement") {
         REQUIRE(!invalid.Matches(24));
         REQUIRE(!invalid.Matches(0));
         REQUIRE(!invalid.Matches(100));

@@ -72,7 +72,7 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
     WHEN("resolved") {
       searcher.Resolve();
 
-      THEN("it ignores duplicates") {
+      THEN("it ignores the duplicates") {
         assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
       }
     }
@@ -88,11 +88,11 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
     WHEN("resolved") {
       searcher.Resolve();
 
-      THEN("it has a list of files with extension 'desktop' in the directory that exists") {
+      THEN("it has a list of files with extension 'desktop' inside the existing directory") {
         assert_files_are_present_in_list(searcher.DesktopEntryFileNames());
       }
 
-      THEN("it tracks the directory that doesn't exist") {
+      THEN("it tracks the missing directory") {
         std::vector<std::string> bad_paths = searcher.BadPaths();
         REQUIRE(bad_paths.size() == 1);
         REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");

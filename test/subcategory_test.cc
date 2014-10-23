@@ -70,7 +70,7 @@ SCENARIO("subcategory", "[subcategory]") {
       subcategory.AddDesktopEntry(mousepad_desktop_entry());
       WHEN("sorted") {
         subcategory.SortDesktopEntries();
-        THEN("its entries in alphabetical order by name") {
+        THEN("its entries are alphabetically sorted by name") {
           std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
           REQUIRE(desktop_entries.size() == 2);
           REQUIRE(desktop_entries[0].Name() == "Mousepad");

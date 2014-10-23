@@ -37,7 +37,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       representation::MenuStart menu_start;
       std::string result = jwm_transformer.Transform(menu_start);
 
-      THEN("it gives static message") {
+      THEN("it is a static message") {
         REQUIRE(result == "<JWM>\n    <!--Menu start-->");
       }
     }
@@ -46,7 +46,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       representation::MenuEnd menu_end;
       std::string result = jwm_transformer.Transform(menu_end);
 
-      THEN("it gives static message") {
+      THEN("it is a static message") {
         REQUIRE(result == "    <!--Menu end-->\n</JWM>");
       }
     }
@@ -59,7 +59,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
         REQUIRE(result == "    <Menu label=\"Application\" icon=\"application.png\">");
       }
 
-      THEN("it XML excapes the name") {
+      THEN("it XML escapes the name") {
         representation::SubcategoryStart subcategory_start("Fun & Games", "games.png");
         std::string result = jwm_transformer.Transform(subcategory_start);
         REQUIRE(result == "    <Menu label=\"Fun &amp; Games\" icon=\"games.png\">");
@@ -79,11 +79,11 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
       representation::Program program("Application", "application.png", "/usr/bin/application", "Application uses");
       std::string result = jwm_transformer.Transform(program);
 
-      THEN("it gives static message") {
+      THEN("it is a static message") {
         REQUIRE(result == "        <Program label=\"Application\" icon=\"application.png\">/usr/bin/application</Program>");
       }
 
-      THEN("it XML excapes the name") {
+      THEN("it XML escapes the name") {
         representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter", "First person shooter game");
         std::string result = jwm_transformer.Transform(program);
         REQUIRE(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\">/usr/bin/shooter</Program>");
