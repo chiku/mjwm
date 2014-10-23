@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_XDG_ENTRY_
-#define AMM_XDG_ENTRY_
+#ifndef AMM_XDG_ENTRY_H_
+#define AMM_XDG_ENTRY_H_
 
 #include <string>
 #include <vector>
@@ -41,4 +41,4 @@ class Entry {
 } // namespace xdg
 } // namespace amm
 
-#endif // AMM_XDG_ENTRY_
+#endif // AMM_XDG_ENTRY_H_

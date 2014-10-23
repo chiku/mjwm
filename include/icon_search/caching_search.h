@@ -17,8 +17,8 @@
 */
 
 
-#ifndef AMM_ICON_SEARCH_CACHING_SEARCH_INTERFACE_H_
-#define AMM_ICON_SEARCH_CACHING_SEARCH_INTERFACE_H_
+#ifndef AMM_ICON_SEARCH_CACHING_SEARCH_H_
+#define AMM_ICON_SEARCH_CACHING_SEARCH_H_
 
 #include <string>
 #include <map>
@@ -56,4 +56,4 @@ class CachingSearch : public IconSearchInterface {
 } // namespace icon_search
 } // namespace amm
 
-#endif // AMM_ICON_SEARCH_CACHING_SEARCH_INTERFACE_H_
+#endif // AMM_ICON_SEARCH_CACHING_SEARCH_H_

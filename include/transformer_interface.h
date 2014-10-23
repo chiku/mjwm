@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_TRANSFORMER_H_
-#define AMM_TRANSFORMER_H_
+#ifndef AMM_TRANSFORMER_INTERFACE_H_
+#define AMM_TRANSFORMER_INTERFACE_H_
 
 #include <string>
 
@@ -41,4 +41,4 @@ class TransformerInterface {
 };
 } // namespace amm
 
-#endif // AMM_TRANSFORMER_H_
+#endif // AMM_TRANSFORMER_INTERFACE_H_
