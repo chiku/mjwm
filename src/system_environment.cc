@@ -48,33 +48,33 @@ SystemEnvironment::SystemEnvironment()
     }
 }
 
-std::vector<std::string> SystemEnvironment::XdgDataDirectories() const
+std::vector<std::string> SystemEnvironment::xdgDataDirectories() const
 {
-    return StringX(xdg_data_dirs_).Split(":");
+    return StringX(xdg_data_dirs_).split(":");
 }
 
-std::vector<std::string> SystemEnvironment::ApplicationDirectories() const
+std::vector<std::string> SystemEnvironment::applicationDirectories() const
 {
     std::vector<std::string> directories;
-    std::string home_application = StringX(XdgDataHome()).TerminateWith("/") + "applications";
+    std::string home_application = StringX(xdgDataHome()).terminateWith("/") + "applications";
     directories.push_back(home_application);
 
-    std::vector<std::string> data_dir_applications = XdgDataDirectories();
+    std::vector<std::string> data_dir_applications = xdgDataDirectories();
     for (std::vector<std::string>::const_iterator directory = data_dir_applications.begin(); directory != data_dir_applications.end(); ++directory) {
-        directories.push_back(StringX(*directory).TerminateWith("/") + "applications");
+        directories.push_back(StringX(*directory).terminateWith("/") + "applications");
     }
     return directories;
 }
 
-std::vector<std::string> SystemEnvironment::IconThemeDirectories() const
+std::vector<std::string> SystemEnvironment::iconThemeDirectories() const
 {
     std::vector<std::string> directories;
-    std::string home_icon = StringX(Home()).TerminateWith("/") + ".icons";
+    std::string home_icon = StringX(home()).terminateWith("/") + ".icons";
     directories.push_back(home_icon);
 
-    std::vector<std::string> xdg_data_dirs = XdgDataDirectories();
+    std::vector<std::string> xdg_data_dirs = xdgDataDirectories();
     for (std::vector<std::string>::const_iterator directory = xdg_data_dirs.begin(); directory != xdg_data_dirs.end(); ++directory) {
-        directories.push_back(StringX(*directory).TerminateWith("/") + "icons");
+        directories.push_back(StringX(*directory).terminateWith("/") + "icons");
     }
     directories.push_back("/usr/share/pixmaps");
 

@@ -73,27 +73,27 @@ SCENARIO("DirectoryX", "[directoryx]") {
         WHEN("present") {
             THEN("it is valid") {
                 DirectoryX directory("test/fixtures/applications");
-                REQUIRE(directory.IsValid());
+                REQUIRE(directory.isValid());
             }
         }
 
         WHEN("not present") {
             DirectoryX directory("does-not-exist");
             THEN("it is invalid") {
-                REQUIRE(!directory.IsValid());
+                REQUIRE(!directory.isValid());
             }
         }
 
         WHEN("it has files under itself") {
             DirectoryX directory("test/fixtures/applications");
-            DirectoryX::Entries entries = directory.AllEntries();
+            DirectoryX::Entries entries = directory.allEntries();
             WHEN("its contained files are retrieved one at a time") {
                 THEN("the retrieved entry has the name of the file and knows if it is a directory") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
 
                     for (int i = 0; i < 11; i++) {
-                        DirectoryX::Entries::SearchResult result = entries.NextName();
+                        DirectoryX::Entries::SearchResult result = entries.nextName();
                         REQUIRE(result.success);
                         (result.isDirectory ? directory_names : file_names).push_back(result.name);
                     }
@@ -106,9 +106,9 @@ SCENARIO("DirectoryX", "[directoryx]") {
             WHEN("its entries are iterated beyond range") {
                 THEN("it fails") {
                     for (int i = 0; i < 11; i++) {
-                        entries.NextName();
+                        entries.nextName();
                     }
-                    DirectoryX::Entries::SearchResult result = entries.NextName();
+                    DirectoryX::Entries::SearchResult result = entries.nextName();
 
                     REQUIRE(!result.success);
                     REQUIRE(!result.isDirectory);
@@ -121,7 +121,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
                     for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
-                        (entry->isDirectory() ? directory_names : file_names).push_back(entry->Name());
+                        (entry->isDirectory() ? directory_names : file_names).push_back(entry->name());
                     }
 
                     assertFileNamesAreCorrect(file_names);
@@ -134,7 +134,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
                     for (DirectoryX::Entries::iterator entry = entries.begin(); !(entry == entries.end()); entry++) {
-                        (entry->isDirectory() ? directory_names : file_names).push_back(entry->Name());
+                        (entry->isDirectory() ? directory_names : file_names).push_back(entry->name());
                     }
 
                     assertFileNamesAreCorrect(file_names);
@@ -146,17 +146,17 @@ SCENARIO("DirectoryX", "[directoryx]") {
         WHEN("iterated multiple times") {
             THEN("all iterations have the same results") {
                 DirectoryX directory("test/fixtures/applications");
-                DirectoryX::Entries first_set = directory.AllEntries();
-                DirectoryX::Entries second_set = directory.AllEntries();
+                DirectoryX::Entries first_set = directory.allEntries();
+                DirectoryX::Entries second_set = directory.allEntries();
                 std::vector<std::string> first_set_names;
                 std::vector<std::string> second_set_names;
 
                 for (DirectoryX::Entries::iterator entry = first_set.begin(); entry != first_set.end(); ++entry) {
-                    first_set_names.push_back(entry->Name());
+                    first_set_names.push_back(entry->name());
                 }
 
                 for (DirectoryX::Entries::iterator entry = second_set.begin(); entry != second_set.end(); ++entry) {
-                    second_set_names.push_back(entry->Name());
+                    second_set_names.push_back(entry->name());
                 }
 
                 assertNamesAreCorrect(first_set_names);

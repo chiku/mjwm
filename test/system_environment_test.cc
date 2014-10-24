@@ -36,7 +36,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
         WHEN("validated") {
             THEN("it is invalid") {
-                REQUIRE(!environment.IsValid());
+                REQUIRE(!environment.isValid());
             }
         }
     }
@@ -48,7 +48,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
         WHEN("validated") {
             THEN("it is valid") {
-                REQUIRE(environment.IsValid());
+                REQUIRE(environment.isValid());
             }
         }
 
@@ -60,13 +60,13 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
             WHEN("XDG data home is asked") {
                 THEN("it is the directory pointed to by XDG_DATA_HOME") {
-                    REQUIRE(environment.XdgDataHome() == "/data/home");
+                    REQUIRE(environment.xdgDataHome() == "/data/home");
                 }
             }
 
             WHEN("XDG data directories is asked") {
                 THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {
-                    std::vector<std::string> directories = environment.XdgDataDirectories();
+                    std::vector<std::string> directories = environment.xdgDataDirectories();
                     REQUIRE(directories.size() == 2);
                     REQUIRE(directories[0] == "/data/dir1");
                     REQUIRE(directories[1] == "/data/dir2/");
@@ -75,7 +75,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
             WHEN("directories for 'applications' subdirectories is asked") {
                 THEN("it is a list of directories pointed to by XDG_DATA_HOME/applications, XDG_DATA_DIRS/applications") {
-                    std::vector<std::string> directories = environment.ApplicationDirectories();
+                    std::vector<std::string> directories = environment.applicationDirectories();
                     REQUIRE(directories.size() == 3);
                     REQUIRE(directories[0] == "/data/home/applications");
                     REQUIRE(directories[1] == "/data/dir1/applications");
@@ -93,7 +93,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
             WHEN("directories for 'applications' subdirectories is asked") {
 
                 THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
-                    std::vector<std::string> directories = environment.ApplicationDirectories();
+                    std::vector<std::string> directories = environment.applicationDirectories();
                     REQUIRE(directories.size() == 3);
                     REQUIRE(directories[0] == "/home/mjwm/.local/share/applications");
                     REQUIRE(directories[1] == "/usr/local/share/applications");
@@ -103,7 +103,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
             WHEN("directories for icon themes is asked") {
                 THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
-                    std::vector<std::string> directories = environment.IconThemeDirectories();
+                    std::vector<std::string> directories = environment.iconThemeDirectories();
                     REQUIRE(directories.size() == 4);
                     REQUIRE(directories[0] == "/home/mjwm/.icons");
                     REQUIRE(directories[1] == "/usr/local/share/icons");

@@ -29,11 +29,11 @@ class StringX
 public:
     explicit StringX(std::string string);
 
-    bool EndsWith(const std::string delimiter) const; // FSS
-    std::string TerminateWith(const std::string end); // FSS
-    std::string Encode() const; // Transformer::JWM
-    std::string Trim() const; // DesktopEntry
-    std::vector<std::string> Split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
+    bool endsWith(const std::string delimiter) const; // FSS
+    std::string terminateWith(const std::string end); // FSS
+    std::string encode() const; // Transformer::JWM
+    std::string trim() const; // DesktopEntry
+    std::vector<std::string> split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
 private:
     const std::string string_;
 };

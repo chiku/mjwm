@@ -38,9 +38,9 @@ XdgSearch::XdgSearch(int size, std::string theme) : size_(size)
     registered_extensions_.push_back(".png");
     registered_extensions_.push_back(".svg");
     registered_extensions_.push_back(".xpm");
-    QualifiedIconTheme qualified_icon_theme = QualifiedIconTheme(environment, theme);
-    theme_search_paths_ = qualified_icon_theme.ThemeSearchPaths();
-    icon_themes_ = qualified_icon_theme.ParentThemes();
+    QualifiedIconTheme qualified_icon_theme = QualifiedIconTheme(environment, theme); // TODO inject qualified_icon_theme
+    theme_search_paths_ = qualified_icon_theme.themeSearchPaths();
+    icon_themes_ = qualified_icon_theme.parentThemes(); // TODO rename parentThemes to include self theme
 }
 
 std::string XdgSearch::resolvedName(std::string icon_name) const
@@ -76,8 +76,8 @@ std::vector<xdg::IconSubdirectory> XdgSearch::findSearchLocations(std::string ic
         for (std::vector<xdg::IconSubdirectory>::iterator subdir = theme_subdirs.begin(); subdir != theme_subdirs.end(); ++subdir) {
             for (std::vector<std::string>::const_iterator search_path = theme_search_paths_.begin(); search_path != theme_search_paths_.end(); ++search_path) {
                 for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
-                    std::string file_name = StringX(*search_path + "/" + icon_theme->internalName() + "/" + subdir->name() + "/" + icon_name).TerminateWith(*extension);
-                    if (FileX(file_name).Exists()) {
+                    std::string file_name = StringX(*search_path + "/" + icon_theme->internalName() + "/" + subdir->name() + "/" + icon_name).terminateWith(*extension);
+                    if (FileX(file_name).exists()) {
                         search_locations.push_back(xdg::IconSubdirectory(subdir->location(file_name)));
                     }
                 }
@@ -113,8 +113,8 @@ std::string XdgSearch::fallbackName(std::string icon_name) const
 {
     for (std::vector<std::string>::const_iterator directory = theme_search_paths_.begin(); directory != theme_search_paths_.end(); ++directory) {
         for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
-            std::string file_name = amm::StringX(amm::StringX(*directory).TerminateWith("/") + icon_name).TerminateWith(*extension);
-            if (FileX(file_name).Exists()) {
+            std::string file_name = amm::StringX(amm::StringX(*directory).terminateWith("/") + icon_name).terminateWith(*extension);
+            if (FileX(file_name).exists()) {
                 return file_name;
             }
         }

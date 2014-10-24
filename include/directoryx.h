@@ -29,7 +29,7 @@ class DirectoryX
 {
 public:
     DirectoryX(std::string path) : path_(path) {}
-    bool IsValid() const;
+    bool isValid() const;
 
     class Entries
     {
@@ -64,19 +64,19 @@ public:
             bool terminate_;
         };
 
-        iterator begin() { NextName(); return iterator(this, false); }
+        iterator begin() { nextName(); return iterator(this, false); }
         iterator end() { return iterator(this, true); }
 
-        std::string Name() const { return current_result_.name; }
+        std::string name() const { return current_result_.name; }
         bool isDirectory() const { return current_result_.isDirectory; }
-        SearchResult NextName();
+        SearchResult nextName();
 
     private:
         DIR *directory_;
         SearchResult current_result_;
     };
 
-    Entries AllEntries() { return Entries(path_); }
+    Entries allEntries() { return Entries(path_); }
 
 private:
     std::string path_;

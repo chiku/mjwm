@@ -39,12 +39,12 @@ IconTheme::IconTheme(std::vector<std::string> lines) : internal_name_("")
     std::string lower_case_name = name_;
     std::transform(lower_case_name.begin(), lower_case_name.end(), lower_case_name.begin(), ::tolower);
 
-    parents_ = StringX(xdg_entry.under("Icon Theme", "Inherits")).Split(",");
+    parents_ = StringX(xdg_entry.under("Icon Theme", "Inherits")).split(",");
     if (parents_.empty() && lower_case_name != "hicolor") {
         parents_.push_back("Hicolor");
     }
 
-    std::vector<std::string> directory_names = StringX(xdg_entry.under("Icon Theme", "Directories")).Split(",");
+    std::vector<std::string> directory_names = StringX(xdg_entry.under("Icon Theme", "Directories")).split(",");
     for (std::vector<std::string>::const_iterator name = directory_names.begin(); name != directory_names.end(); ++name) {
         std::string type = xdg_entry.under(*name, "Type");
         std::string size = xdg_entry.under(*name, "Size");

@@ -21,12 +21,12 @@
 int main(int argc, char *argv[])
 {
     amm::Amm amm;
-    amm.ValidateEnvironment();
-    amm.LoadCommandLineOption(argc, argv);
-    amm.RegisterIconService();
-    amm.ReadCategories();
-    amm.ReadDesktopEntryFiles();
-    amm.Populate();
-    amm.WriteOutputFile();
-    amm.PrintSummary();
+    amm.validateEnvironment();
+    amm.loadCommandLineOption(argc, argv);
+    amm.registerIconService();
+    amm.readCategories();
+    amm.readDesktopEntryFiles();
+    amm.populate();
+    amm.writeOutputFile();
+    amm.printSummary();
 }

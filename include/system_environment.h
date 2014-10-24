@@ -27,12 +27,12 @@ class SystemEnvironment
 {
 public:
     SystemEnvironment();
-    bool IsValid() const { return Home() != ""; }
-    std::string Home() const { return home_; }
-    std::string XdgDataHome() const { return xdg_data_home_; }
-    std::vector<std::string> XdgDataDirectories() const;
-    std::vector<std::string> ApplicationDirectories() const;
-    std::vector<std::string> IconThemeDirectories() const;
+    bool isValid() const { return home() != ""; }
+    std::string home() const { return home_; }
+    std::string xdgDataHome() const { return xdg_data_home_; }
+    std::vector<std::string> xdgDataDirectories() const;
+    std::vector<std::string> applicationDirectories() const;
+    std::vector<std::string> iconThemeDirectories() const;
 
 private:
     std::string home_;

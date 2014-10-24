@@ -22,7 +22,7 @@
 #include <string>
 
 namespace amm {
-bool DirectoryX::IsValid() const
+bool DirectoryX::isValid() const
 {
     DIR* directory = opendir(path_.c_str());
     if (directory) {
@@ -45,7 +45,7 @@ DirectoryX::Entries::~Entries()
     }
 }
 
-DirectoryX::Entries::SearchResult DirectoryX::Entries::NextName()
+DirectoryX::Entries::SearchResult DirectoryX::Entries::nextName()
 {
     dirent *entry_;
     while((entry_ = readdir(directory_)) != NULL) {
@@ -58,7 +58,7 @@ DirectoryX::Entries::SearchResult DirectoryX::Entries::NextName()
 
 DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++()
 {
-    result_ = subdirs_->NextName();
+    result_ = subdirs_->nextName();
     terminate_ = !result_.success;
     return *this;
 }
@@ -66,7 +66,7 @@ DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++()
 DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++(int)
 {
     DirectoryX::Entries::iterator output = *this;
-    result_ = subdirs_->NextName();
+    result_ = subdirs_->nextName();
     terminate_ = !result_.success;
     return output;
 }

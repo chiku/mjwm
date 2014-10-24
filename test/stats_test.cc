@@ -29,13 +29,13 @@ namespace amm {
 
 static Stats populatedStats() {
     Stats stats;
-    stats.AddClassifiedFile("VLC");
-    stats.AddClassifiedFile("Mousepad");
-    stats.AddClassifiedFile("Firefox");
-    stats.AddUnclassifiedFile("htop");
-    stats.AddUnclassifiedFile("NEdit");
-    stats.AddUnparsedFile("daemon");
-    stats.AddSuppressedFile("mplayer");
+    stats.addClassifiedFile("VLC");
+    stats.addClassifiedFile("Mousepad");
+    stats.addClassifiedFile("Firefox");
+    stats.addUnclassifiedFile("htop");
+    stats.addUnclassifiedFile("NEdit");
+    stats.addUnparsedFile("daemon");
+    stats.addSuppressedFile("mplayer");
     return stats;
 }
 
@@ -77,63 +77,63 @@ SCENARIO("Stats totals", "[stats]") {
         Stats stats;
 
         WHEN("created") {
-            THEN("it has no total files")        { REQUIRE(stats.TotalFiles() == 0); }
-            THEN("it has no parsed files")       { REQUIRE(stats.TotalParsedFiles() == 0); }
-            THEN("it has no unclassified files") { REQUIRE(stats.TotalUnclassifiedFiles() == 0); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.TotalSuppressedFiles() == 0); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.TotalUnparsedFiles() == 0); }
+            THEN("it has no total files")        { REQUIRE(stats.totalFiles() == 0); }
+            THEN("it has no parsed files")       { REQUIRE(stats.totalParsedFiles() == 0); }
+            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
+            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
 
             THEN("is has no counts in short details") {
-                REQUIRE(stats.Details("short") == expectedEmptydetails());
+                REQUIRE(stats.details("short") == expectedEmptydetails());
             }
 
             THEN("is has no counts in details") {
-                REQUIRE(stats.Details("normal") == expectedEmptydetails());
+                REQUIRE(stats.details("normal") == expectedEmptydetails());
             }
 
             THEN("is has no counts in long details") {
-                REQUIRE(stats.Details("long") == expectedEmptydetails());
+                REQUIRE(stats.details("long") == expectedEmptydetails());
             }
         }
 
         WHEN("a classified file is added") {
-            stats.AddClassifiedFile("file");
+            stats.addClassifiedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.TotalFiles() == 1); }
-            THEN("it has one parsed file")       { REQUIRE(stats.TotalParsedFiles() == 1); }
-            THEN("it has no unclassified files") { REQUIRE(stats.TotalUnclassifiedFiles() == 0); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.TotalSuppressedFiles() == 0); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.TotalUnparsedFiles() == 0); }
+            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
+            THEN("it has one parsed file")       { REQUIRE(stats.totalParsedFiles() == 1); }
+            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
+            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
         }
 
         WHEN("an unclassified file is added") {
-            stats.AddUnclassifiedFile("file");
+            stats.addUnclassifiedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.TotalFiles() == 1); }
-            THEN("it has one parsed file")       { REQUIRE(stats.TotalParsedFiles() == 1); }
-            THEN("it has one unclassified file") { REQUIRE(stats.TotalUnclassifiedFiles() == 1); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.TotalSuppressedFiles() == 0); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.TotalUnparsedFiles() == 0); }
+            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
+            THEN("it has one parsed file")       { REQUIRE(stats.totalParsedFiles() == 1); }
+            THEN("it has one unclassified file") { REQUIRE(stats.totalUnclassifiedFiles() == 1); }
+            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
+            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
         }
 
         WHEN("a suppressed file is added") {
-            stats.AddSuppressedFile("file");
+            stats.addSuppressedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.TotalFiles() == 1); }
-            THEN("it has no parsed files")       { REQUIRE(stats.TotalParsedFiles() == 0); }
-            THEN("it has no unclassified files") { REQUIRE(stats.TotalUnclassifiedFiles() == 0); }
-            THEN("it has one suppressed file")   { REQUIRE(stats.TotalSuppressedFiles() == 1); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.TotalUnparsedFiles() == 0); }
+            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
+            THEN("it has no parsed files")       { REQUIRE(stats.totalParsedFiles() == 0); }
+            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has one suppressed file")   { REQUIRE(stats.totalSuppressedFiles() == 1); }
+            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
         }
 
         WHEN("an unparsed file is added") {
-            stats.AddUnparsedFile("file");
+            stats.addUnparsedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.TotalFiles() == 1); }
-            THEN("it has no parsed files")       { REQUIRE(stats.TotalParsedFiles() == 0); }
-            THEN("it has no unclassified files") { REQUIRE(stats.TotalUnclassifiedFiles() == 0); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.TotalSuppressedFiles() == 0); }
-            THEN("it has one unparsed files")    { REQUIRE(stats.TotalUnparsedFiles() == 1); }
+            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
+            THEN("it has no parsed files")       { REQUIRE(stats.totalParsedFiles() == 0); }
+            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
+            THEN("it has one unparsed files")    { REQUIRE(stats.totalUnparsedFiles() == 1); }
         }
     }
 }
@@ -147,12 +147,12 @@ SCENARIO("Stats summaries", "[stats]") {
             Stats stats = populatedStats();
 
             THEN("short details includes counts") {
-                REQUIRE(stats.Details("short") == expectedShortdetailsWithValues());
+                REQUIRE(stats.details("short") == expectedShortdetailsWithValues());
             }
 
             THEN("details includes short details and a list of unparsed files") {
                 std::string expected_details = expectedShortdetailsWithValues() + "List of unparsed files: daemon\n";
-                REQUIRE(stats.Details("normal") == expected_details);
+                REQUIRE(stats.details("normal") == expected_details);
             }
 
             THEN("long details includes details and lists of suppressed and unclassified files") {
@@ -160,14 +160,14 @@ SCENARIO("Stats summaries", "[stats]") {
                                                 "List of unparsed files: daemon\n"
                                                 "List of suppressed files: mplayer\n"
                                                 "List of unclassified files: htop, NEdit\n";
-                REQUIRE(stats.Details("long") == expected_details);
+                REQUIRE(stats.details("long") == expected_details);
             }
         }
 
         WHEN("unhandled classifications are added") {
             Stats stats = populatedStats();
-            stats.AddUnhandledClassifications(unhandledClassificationFirstSet());
-            stats.AddUnhandledClassifications(unhandledClassificationSecondSet());
+            stats.addUnhandledClassifications(unhandledClassificationFirstSet());
+            stats.addUnhandledClassifications(unhandledClassificationSecondSet());
 
             THEN("long details includes the unhandled classifications") {
                 std::string expected_details = expectedShortdetailsWithValues() +
@@ -175,7 +175,7 @@ SCENARIO("Stats summaries", "[stats]") {
                                                 "List of suppressed files: mplayer\n"
                                                 "List of unclassified files: htop, NEdit\n"
                                                 "List of unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n";
-                REQUIRE(stats.Details("long") == expected_details);
+                REQUIRE(stats.details("long") == expected_details);
             }
         }
     }

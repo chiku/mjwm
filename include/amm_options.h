@@ -39,9 +39,9 @@ struct AmmOptions
     std::string category_file_name;
     std::string icon_theme_name;
     std::vector<std::string> deprecations;
-};
 
-AmmOptions DefaultAmmOptions(std::string home);
+    static AmmOptions Default(std::string home);
+};
 
 } // namespace amm
 

@@ -33,14 +33,14 @@ public:
     Subcategory(std::string display_name, std::string icon_name, std::string classification_name);
     Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
 
-    std::string DisplayName() const { return display_name_; }
-    std::string IconName() const { return icon_name_; }
-    std::vector<std::string> ClassificationNames() const { return classification_names_; }
-    std::vector<xdg::DesktopEntry> DesktopEntries() const { return desktop_entries_; }
+    std::string displayName() const { return display_name_; }
+    std::string iconName() const { return icon_name_; }
+    std::vector<std::string> classificationNames() const { return classification_names_; }
+    std::vector<xdg::DesktopEntry> desktopEntries() const { return desktop_entries_; }
 
-    bool HasEntries() const;
-    void AddDesktopEntry(xdg::DesktopEntry desktop_file);
-    void SortDesktopEntries();
+    bool hasEntries() const;
+    void addDesktopEntry(xdg::DesktopEntry desktop_file);
+    void sortDesktopEntries();
 
 private:
     std::string display_name_;

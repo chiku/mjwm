@@ -27,7 +27,7 @@ namespace amm {
 
 StringX::StringX(std::string string) : string_(string) {}
 
-bool StringX::EndsWith(const std::string delimeter) const
+bool StringX::endsWith(const std::string delimeter) const
 {
     const size_t length = string_.length();
     const size_t delimeter_length = delimeter.length();
@@ -35,12 +35,12 @@ bool StringX::EndsWith(const std::string delimeter) const
     return ((length >= delimeter_length) && (string_.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
 }
 
-std::string StringX::TerminateWith(std::string delimeter)
+std::string StringX::terminateWith(std::string delimeter)
 {
-    return EndsWith(delimeter) ? string_ : string_ + delimeter;
+    return endsWith(delimeter) ? string_ : string_ + delimeter;
 }
 
-std::string StringX::Encode() const
+std::string StringX::encode() const
 {
     std::string result;
     result.reserve(string_.size());
@@ -59,7 +59,7 @@ std::string StringX::Encode() const
     return result;
 }
 
-std::string StringX::Trim() const
+std::string StringX::trim() const
 {
     const std::string whitespace = " \t\n";
     const size_t begin = string_.find_first_not_of(whitespace);
@@ -74,13 +74,13 @@ std::string StringX::Trim() const
     return string_.substr(begin, range);
 }
 
-std::vector<std::string> StringX::Split(const std::string delimeter) const
+std::vector<std::string> StringX::split(const std::string delimeter) const
 {
     std::string raw = string_;
     size_t delimeter_length = delimeter.length();
     std::vector<std::string> result;
 
-    raw = StringX(raw).TerminateWith(delimeter);
+    raw = StringX(raw).terminateWith(delimeter);
 
     size_t start = 0U;
     size_t end = raw.find(delimeter);

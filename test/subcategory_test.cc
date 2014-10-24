@@ -54,24 +54,24 @@ SCENARIO("subcategory", "[subcategory]") {
 
         WHEN("without desktop-files") {
             THEN("it has no entries") {
-                REQUIRE(!subcategory.HasEntries());
+                REQUIRE(!subcategory.hasEntries());
             }
         }
 
         WHEN("with one desktop-file") {
-            subcategory.AddDesktopEntry(mousepadDesktopEntry());
+            subcategory.addDesktopEntry(mousepadDesktopEntry());
             THEN("it has entries") {
-                REQUIRE(subcategory.HasEntries());
+                REQUIRE(subcategory.hasEntries());
             }
         }
 
         WHEN("with two desktop-file") {
-            subcategory.AddDesktopEntry(sakuraDesktopEntry());
-            subcategory.AddDesktopEntry(mousepadDesktopEntry());
+            subcategory.addDesktopEntry(sakuraDesktopEntry());
+            subcategory.addDesktopEntry(mousepadDesktopEntry());
             WHEN("sorted") {
-                subcategory.SortDesktopEntries();
+                subcategory.sortDesktopEntries();
                 THEN("its entries are alphabetically sorted by name") {
-                    std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+                    std::vector<xdg::DesktopEntry> desktop_entries = subcategory.desktopEntries();
                     REQUIRE(desktop_entries.size() == 2);
                     REQUIRE(desktop_entries[0].name() == "Mousepad");
                     REQUIRE(desktop_entries[1].name() == "Sakura");
@@ -80,13 +80,13 @@ SCENARIO("subcategory", "[subcategory]") {
         }
 
         WHEN("with a repeated desktop file") {
-            subcategory.AddDesktopEntry(sakuraDesktopEntry());
-            subcategory.AddDesktopEntry(mousepadDesktopEntry());
-            subcategory.AddDesktopEntry(sakuraDesktopEntry());
+            subcategory.addDesktopEntry(sakuraDesktopEntry());
+            subcategory.addDesktopEntry(mousepadDesktopEntry());
+            subcategory.addDesktopEntry(sakuraDesktopEntry());
             WHEN("sorted") {
-                subcategory.SortDesktopEntries();
+                subcategory.sortDesktopEntries();
                 THEN("it doesn't repeat entries") {
-                    std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
+                    std::vector<xdg::DesktopEntry> desktop_entries = subcategory.desktopEntries();
                     REQUIRE(desktop_entries.size() == 2);
                     REQUIRE(desktop_entries[0].name() == "Mousepad");
                     REQUIRE(desktop_entries[1].name() == "Sakura");

@@ -30,9 +30,9 @@ class VectorX
 public:
     explicit VectorX(std::vector<std::string> vector) : vector_(vector) { }
 
-    std::string Join(std::string delimiter) const; // Transformer::Jwm, FSS, Stats, mjwm
-    std::vector<std::string> TerminateWith(std::string delimiter) const; //StringX
-    std::vector<std::string> Unique() const; // FSS
+    std::string join(std::string delimiter) const; // Transformer::Jwm, FSS, Stats, mjwm
+    std::vector<std::string> terminateWith(std::string delimiter) const; //StringX // TODO rename to terminateEachWith
+    std::vector<std::string> unique() const; // FSS
 private:
   const std::vector<std::string> vector_;
 };

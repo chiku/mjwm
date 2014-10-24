@@ -35,17 +35,17 @@ Subcategory::Subcategory(std::string display_name, std::string icon_name, std::s
 Subcategory::Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names) :
         display_name_(display_name), icon_name_(icon_name), classification_names_(classification_names) {}
 
-bool Subcategory::HasEntries() const
+bool Subcategory::hasEntries() const
 {
-    return DesktopEntries().size() > 0;
+    return desktopEntries().size() > 0;
 }
 
-void Subcategory::AddDesktopEntry(xdg::DesktopEntry desktop_entry)
+void Subcategory::addDesktopEntry(xdg::DesktopEntry desktop_entry)
 {
     desktop_entries_.push_back(desktop_entry);
 }
 
-void Subcategory::SortDesktopEntries()
+void Subcategory::sortDesktopEntries()
 {
     std::sort(desktop_entries_.begin(), desktop_entries_.end());
     std::vector<xdg::DesktopEntry>::iterator it = std::unique(desktop_entries_.begin(), desktop_entries_.end());

@@ -37,7 +37,7 @@ namespace amm {
 
 Menu::Menu() : icon_searcher_(new icon_search::MirrorSearch), unclassified_subcategory_(Subcategory("Others", "applications-others", "Others"))
 {
-    CreateDefaultCategories();
+    createDefaultCategories();
 }
 
 Menu::~Menu()
@@ -45,13 +45,13 @@ Menu::~Menu()
     delete icon_searcher_;
 }
 
-void Menu::RegisterIconService(icon_search::IconSearchInterface &icon_searcher)
+void Menu::registerIconService(icon_search::IconSearchInterface &icon_searcher)
 {
     delete icon_searcher_;
     icon_searcher_ = &icon_searcher;
 }
 
-void Menu::CreateDefaultCategories()
+void Menu::createDefaultCategories()
 {
     subcategories_.clear();
 
@@ -68,13 +68,13 @@ void Menu::CreateDefaultCategories()
     subcategories_.push_back(Subcategory("System",      "applications-system",      "System"     ));
 }
 
-void Menu::LoadCustomCategories(std::vector<std::string> lines)
+void Menu::loadCustomCategories(std::vector<std::string> lines)
 {
     subcategories_.clear();
 
     for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
         if ((*line)[0] != '#') {
-            std::vector<std::string> tokens = StringX(StringX(*line).Trim()).Split(":");
+            std::vector<std::string> tokens = StringX(StringX(*line).trim()).split(":");
             if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "") {
                 std::vector<std::string> classification_names;
                 for (std::vector<std::string>::const_iterator token = tokens.begin()+2; token != tokens.end(); ++token) {
@@ -90,68 +90,68 @@ void Menu::LoadCustomCategories(std::vector<std::string> lines)
     }
 }
 
-void Menu::Populate(std::vector<std::string> entry_names)
+void Menu::populate(std::vector<std::string> entry_names)
 {
     for (std::vector<std::string>::const_iterator name = entry_names.begin(); name != entry_names.end(); ++name) {
-        AddDesktopEntry(*name);
+        addDesktopEntry(*name);
     }
 
     subcategories_.push_back(unclassified_subcategory_);
 }
 
-void Menu::AddDesktopEntry(std::string entry_name)
+void Menu::addDesktopEntry(std::string entry_name)
 {
     std::vector<std::string> lines;
-    if (!FileX(entry_name).Load(&lines)) {
-        summary_.AddUnparsedFile(entry_name);
+    if (!FileX(entry_name).load(&lines)) {
+        summary_.addUnparsedFile(entry_name);
         return;
     }
     xdg::DesktopEntry entry(lines);
 
     if (!entry.display()) {
-        summary_.AddSuppressedFile(entry_name);
+        summary_.addSuppressedFile(entry_name);
         return;
     }
 
     if (!entry.isValid()) {
-        summary_.AddUnparsedFile(entry_name);
+        summary_.addUnparsedFile(entry_name);
         return;
     }
 
-    bool classified = Classify(entry);
+    bool classified = classify(entry);
     if (classified) {
-        summary_.AddClassifiedFile(entry_name);
+        summary_.addClassifiedFile(entry_name);
     } else {
-        unclassified_subcategory_.AddDesktopEntry(entry);
-        summary_.AddUnclassifiedFile(entry_name);
-        summary_.AddUnhandledClassifications(entry.categories());
+        unclassified_subcategory_.addDesktopEntry(entry);
+        summary_.addUnclassifiedFile(entry_name);
+        summary_.addUnhandledClassifications(entry.categories());
     }
 }
 
-bool Menu::Classify(xdg::DesktopEntry entry)
+bool Menu::classify(xdg::DesktopEntry entry)
 {
     bool classified = false;
 
     std::vector<Subcategory>::iterator subcategory;
     for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
-        if (entry.isAnyOf(subcategory->ClassificationNames())) {
+        if (entry.isAnyOf(subcategory->classificationNames())) {
             classified = true;
-            subcategory->AddDesktopEntry(entry);
+            subcategory->addDesktopEntry(entry);
         }
     }
 
     return classified;
 }
 
-void Menu::Sort()
+void Menu::sort()
 {
     std::vector<Subcategory>::iterator group;
     for (group = subcategories_.begin(); group != subcategories_.end(); ++group) {
-        group->SortDesktopEntries();
+        group->sortDesktopEntries();
     }
 }
 
-std::vector<representation::RepresentationInterface*> Menu::Representations() const
+std::vector<representation::RepresentationInterface*> Menu::representations() const
 {
     std::vector<representation::RepresentationInterface*> representations;
     representation::MenuStart *menu_start = new representation::MenuStart;
@@ -159,19 +159,19 @@ std::vector<representation::RepresentationInterface*> Menu::Representations() co
 
     std::vector<Subcategory>::const_iterator subcategory;
     for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
-        if (subcategory->HasEntries()) {
-            std::string icon_name = icon_searcher_->resolvedName(subcategory->IconName());
-            representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_name);
+        if (subcategory->hasEntries()) {
+            std::string icon_name = icon_searcher_->resolvedName(subcategory->iconName());
+            representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->displayName(), icon_name);
             representations.push_back(start);
 
-            std::vector<xdg::DesktopEntry> entries = subcategory->DesktopEntries();
+            std::vector<xdg::DesktopEntry> entries = subcategory->desktopEntries();
             for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
                 std::string icon_name = icon_searcher_->resolvedName(entry->icon());
                 representation::Program *program = new representation::Program(entry->name(), icon_name, entry->executable(), entry->comment());
                 representations.push_back(program);
             }
 
-            representation::SubcategoryEnd *end = new representation::SubcategoryEnd(subcategory->DisplayName());
+            representation::SubcategoryEnd *end = new representation::SubcategoryEnd(subcategory->displayName());
             representations.push_back(end);
         }
     }

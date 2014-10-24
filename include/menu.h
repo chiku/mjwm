@@ -36,19 +36,19 @@ public:
     Menu();
     ~Menu();
 
-    void RegisterIconService(icon_search::IconSearchInterface &icon_searcher);
-    std::vector<Subcategory> Subcategories() const { return subcategories_; }
-    Stats Summary() const { return summary_; }
+    void registerIconService(icon_search::IconSearchInterface &icon_searcher);
+    std::vector<Subcategory> subcategories() const { return subcategories_; }
+    Stats summary() const { return summary_; }
 
-    void LoadCustomCategories(std::vector<std::string> lines);
-    void Populate(std::vector<std::string> desktop_file_names);
-    void Sort();
-    std::vector<representation::RepresentationInterface*> Representations() const;
+    void loadCustomCategories(std::vector<std::string> lines);
+    void populate(std::vector<std::string> desktop_file_names);
+    void sort();
+    std::vector<representation::RepresentationInterface*> representations() const;
 
 private:
-    void AddDesktopEntry(std::string desktop_entry_name);
-    bool Classify(xdg::DesktopEntry entry);
-    void CreateDefaultCategories();
+    void addDesktopEntry(std::string desktop_entry_name);
+    bool classify(xdg::DesktopEntry entry);
+    void createDefaultCategories();
 
     icon_search::IconSearchInterface *icon_searcher_;
     Subcategory unclassified_subcategory_;

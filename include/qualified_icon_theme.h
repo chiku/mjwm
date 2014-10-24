@@ -32,14 +32,14 @@ class QualifiedIconTheme
 {
 public:
     QualifiedIconTheme(SystemEnvironment environment, std::string theme_name);
-    std::vector<std::string> ThemeSearchPaths() { return theme_search_paths_; }
-    std::vector<xdg::IconTheme> ParentThemes();
+    std::vector<std::string> themeSearchPaths() { return theme_search_paths_; }
+    std::vector<xdg::IconTheme> parentThemes();
 
 private:
     std::string theme_name_;
     std::vector<std::string> theme_search_paths_;
-    xdg::IconTheme CurrentIconThemeFromName();
-    xdg::IconTheme IconThemeFromName(std::string theme_name);
+    xdg::IconTheme currentIconThemeFromName();
+    xdg::IconTheme iconThemeFromName(std::string theme_name);
 };
 
 }

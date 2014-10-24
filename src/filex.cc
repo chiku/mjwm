@@ -25,7 +25,7 @@
 
 namespace amm {
 
-bool FileX::Load(std::vector<std::string> *lines) const
+bool FileX::load(std::vector<std::string> *lines) const
 {
     std::ifstream file(name_.c_str());
 
@@ -42,13 +42,13 @@ bool FileX::Load(std::vector<std::string> *lines) const
     return true;
 }
 
-bool FileX::Exists() const
+bool FileX::exists() const
 {
     struct stat st;
     return stat(name_.c_str(), &st) == 0;
 }
 
-bool FileX::ExistsAsDirectory() const
+bool FileX::existsAsDirectory() const
 {
     struct stat st;
     int result = stat(name_.c_str(), &st);

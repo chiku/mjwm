@@ -33,21 +33,21 @@ SCENARIO("FileX", "[filex]") {
             FileX filex("test/fixtures/applications/vlc.desktop");
 
             THEN("it exists") {
-                REQUIRE(filex.Exists());
+                REQUIRE(filex.exists());
             }
 
             THEN("it isn't a directory") {
-                REQUIRE(!filex.ExistsAsDirectory());
+                REQUIRE(!filex.existsAsDirectory());
             }
 
             THEN("it succeeds in reading its contents") {
                 std::vector<std::string> lines;
-                REQUIRE(filex.Load(&lines));
+                REQUIRE(filex.load(&lines));
             }
 
             THEN("it reads the content of the file") {
                 std::vector<std::string> lines;
-                filex.Load(&lines);
+                filex.load(&lines);
                 REQUIRE(lines.size() == 11);
                 REQUIRE(lines[0] == "[Desktop Entry]");
                 REQUIRE(lines[1] == "Version=1.0");
@@ -64,8 +64,8 @@ SCENARIO("FileX", "[filex]") {
 
             THEN("it over-writes the older content") {
                 std::vector<std::string> lines;
-                filex.Load(&lines);
-                filex.Load(&lines);
+                filex.load(&lines);
+                filex.load(&lines);
                 REQUIRE(lines.size() == 11);
             }
         }
@@ -74,11 +74,11 @@ SCENARIO("FileX", "[filex]") {
             FileX dirx("test/fixtures/applications");
 
             THEN("it exists") {
-                REQUIRE(dirx.Exists());
+                REQUIRE(dirx.exists());
             }
 
             THEN("it is a directory") {
-                REQUIRE(dirx.ExistsAsDirectory());
+                REQUIRE(dirx.existsAsDirectory());
             }
         }
 
@@ -86,28 +86,28 @@ SCENARIO("FileX", "[filex]") {
             FileX filex("test/fixtures/applications/does-not-exist.desktop");
 
             THEN("it doesn't exist") {
-                REQUIRE(!filex.Exists());
+                REQUIRE(!filex.exists());
             }
 
             THEN("it isn't a directory") {
-                REQUIRE(!filex.ExistsAsDirectory());
+                REQUIRE(!filex.existsAsDirectory());
             }
 
             THEN("it fails to read its contents") {
                 std::vector<std::string> lines;
-                REQUIRE(!filex.Load(&lines));
+                REQUIRE(!filex.load(&lines));
             }
 
             THEN("its lines are empty") {
                 std::vector<std::string> lines;
-                filex.Load(&lines);
+                filex.load(&lines);
                 REQUIRE(lines.empty());
             }
 
             THEN("it doesn't over-write the older contents") {
                 std::vector<std::string> lines;
                 lines.push_back("existing line");
-                filex.Load(&lines);
+                filex.load(&lines);
                 REQUIRE(lines.size() == 1);
                 REQUIRE(lines[0] == "existing line");
             }

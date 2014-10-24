@@ -27,7 +27,7 @@
 
 namespace amm {
 
-std::string VectorX::Join(std::string delimeter) const
+std::string VectorX::join(std::string delimeter) const
 {
     std::stringstream stream;
     size_t vector_size = vector_.size();
@@ -46,18 +46,18 @@ std::string VectorX::Join(std::string delimeter) const
     return stream.str();
 }
 
-std::vector<std::string> VectorX::TerminateWith(std::string delimiter) const
+std::vector<std::string> VectorX::terminateWith(std::string delimiter) const
 {
     std::vector<std::string> result;
 
     for (std::vector<std::string>::const_iterator i = vector_.begin(); i != vector_.end(); ++i) {
-        result.push_back(StringX(*i).TerminateWith(delimiter));
+        result.push_back(StringX(*i).terminateWith(delimiter));
     }
 
     return result;
 }
 
-std::vector<std::string> VectorX::Unique() const
+std::vector<std::string> VectorX::unique() const
 {
     std::vector<std::string> result = vector_;
 

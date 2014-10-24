@@ -26,10 +26,10 @@ namespace amm {
 class FileX
 {
 public:
-    FileX(std::string name) : name_(name) { }
-    bool Load(std::vector<std::string> *lines) const;
-    bool Exists() const;
-    bool ExistsAsDirectory() const;
+    explicit FileX(std::string name) : name_(name) { }
+    bool load(std::vector<std::string> *lines) const;
+    bool exists() const;
+    bool existsAsDirectory() const;
 
 private:
     std::string name_;

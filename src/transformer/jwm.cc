@@ -30,7 +30,7 @@ namespace transformer {
 static std::string removeFieldCode(std::string input)
 {
     std::vector<std::string> result;
-    std::vector<std::string> tokens = StringX(input).Split(" ");
+    std::vector<std::string> tokens = StringX(input).split(" ");
 
     for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
         if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
@@ -38,7 +38,7 @@ static std::string removeFieldCode(std::string input)
         }
     }
 
-    return VectorX(result).Join(" ");
+    return VectorX(result).join(" ");
 }
 
 std::string Jwm::transform(const representation::MenuStart &entry) const
@@ -63,7 +63,7 @@ std::string Jwm::transform(const representation::SubcategoryStart &entry) const
 {
     std::stringstream stream;
     stream << "    <Menu "
-        << "label=\"" << StringX(entry.name()).Encode()
+        << "label=\"" << StringX(entry.name()).encode()
         << "\" icon=\"" << entry.icon()
         << "\">";
     return stream.str();
@@ -82,8 +82,8 @@ std::string Jwm::transform(const representation::Program &entry) const
 {
     std::stringstream stream;
     stream << "        <Program "
-        << "label=\"" << StringX(entry.name()).Encode()
-        << "\" icon=\"" << StringX(entry.icon()).Encode()
+        << "label=\"" << StringX(entry.name()).encode()
+        << "\" icon=\"" << StringX(entry.icon()).encode()
         << "\">"
         << removeFieldCode(entry.executable())
         << "</Program>";

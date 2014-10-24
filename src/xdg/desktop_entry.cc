@@ -34,7 +34,7 @@ DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true) {
     name_ = xdg_entry.under("Desktop Entry", "Name");
     icon_ = xdg_entry.under("Desktop Entry", "Icon");
     executable_ = xdg_entry.under("Desktop Entry", "Exec");
-    categories_ = StringX(xdg_entry.under("Desktop Entry", "Categories")).Split(";");
+    categories_ = StringX(xdg_entry.under("Desktop Entry", "Categories")).split(";");
     comment_ = xdg_entry.under("Desktop Entry", "Comment");
     std::string display_raw = xdg_entry.under("Desktop Entry", "NoDisplay");
     display_ = display_raw != "true" && display_raw != "1";

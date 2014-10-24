@@ -51,13 +51,13 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
         std::vector<std::string> directory_names;
         directory_names.push_back("test/fixtures/applications/");
         DesktopEntryFileSearch searcher;
-        searcher.RegisterDirectories(directory_names);
+        searcher.registerDirectories(directory_names);
 
         WHEN("resolved") {
-            searcher.Resolve();
+            searcher.resolve();
 
             THEN("it has a list of files with extension 'desktop' inside the directory") {
-                assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+                assertFilesArePresentInList(searcher.desktopEntryFileNames());
             }
         }
     }
@@ -67,13 +67,13 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
         directory_names.push_back("test/fixtures/applications/");
         directory_names.push_back("test/fixtures/applications");
         DesktopEntryFileSearch searcher;
-        searcher.RegisterDirectories(directory_names);
+        searcher.registerDirectories(directory_names);
 
         WHEN("resolved") {
-            searcher.Resolve();
+            searcher.resolve();
 
             THEN("it ignores the duplicates") {
-                assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+                assertFilesArePresentInList(searcher.desktopEntryFileNames());
             }
         }
     }
@@ -83,17 +83,17 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
         directory_names.push_back("test/fixtures/applications");
         directory_names.push_back("test/does-not-exist/applications");
         DesktopEntryFileSearch searcher;
-        searcher.RegisterDirectories(directory_names);
+        searcher.registerDirectories(directory_names);
 
         WHEN("resolved") {
-            searcher.Resolve();
+            searcher.resolve();
 
             THEN("it has a list of files with extension 'desktop' inside the existing directory") {
-                assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+                assertFilesArePresentInList(searcher.desktopEntryFileNames());
             }
 
             THEN("it tracks the missing directory") {
-                std::vector<std::string> bad_paths = searcher.BadPaths();
+                std::vector<std::string> bad_paths = searcher.badPaths();
                 REQUIRE(bad_paths.size() == 1);
                 REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
             }
@@ -109,17 +109,17 @@ SCENARIO("DesktopEntryFileSearch default directories", "[filesearch]") {
 
         GIVEN("A default file search service") {
             DesktopEntryFileSearch searcher;
-            searcher.RegisterDefaultDirectories();
+            searcher.registerDefaultDirectories();
 
             WHEN("resolved") {
-                searcher.Resolve();
+                searcher.resolve();
 
                 THEN("it has a list of files with extension 'desktop' inside the directory") {
-                    assertFilesArePresentInList(searcher.DesktopEntryFileNames());
+                    assertFilesArePresentInList(searcher.desktopEntryFileNames());
                 }
 
                 THEN("it doesn't track the absent directory") {
-                    REQUIRE(searcher.BadPaths().size() == 0);
+                    REQUIRE(searcher.badPaths().empty());
                 }
             }
         }
