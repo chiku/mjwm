@@ -73,8 +73,8 @@ SCENARIO("subcategory", "[subcategory]") {
                 THEN("its entries are alphabetically sorted by name") {
                     std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
                     REQUIRE(desktop_entries.size() == 2);
-                    REQUIRE(desktop_entries[0].Name() == "Mousepad");
-                    REQUIRE(desktop_entries[1].Name() == "Sakura");
+                    REQUIRE(desktop_entries[0].name() == "Mousepad");
+                    REQUIRE(desktop_entries[1].name() == "Sakura");
                 }
             }
         }
@@ -88,8 +88,8 @@ SCENARIO("subcategory", "[subcategory]") {
                 THEN("it doesn't repeat entries") {
                     std::vector<xdg::DesktopEntry> desktop_entries = subcategory.DesktopEntries();
                     REQUIRE(desktop_entries.size() == 2);
-                    REQUIRE(desktop_entries[0].Name() == "Mousepad");
-                    REQUIRE(desktop_entries[1].Name() == "Sakura");
+                    REQUIRE(desktop_entries[0].name() == "Mousepad");
+                    REQUIRE(desktop_entries[1].name() == "Sakura");
                 }
             }
         }

@@ -39,21 +39,21 @@ public:
     IconSubdirectory();
     IconSubdirectory(std::string name, std::string size);
 
-    std::string Name() { return name_; }
-    int Size() { return size_; }
-    IconSubdirectoryType Type() { return type_; }
-    int MaxSize() { return max_size_; }
-    int MinSize() { return min_size_; }
-    int Threshold() { return threshold_; }
-    std::string Location() { return location_; }
-    bool Matches(int required_size);
-    int Distance(int required_size);
+    std::string name() { return name_; }
+    int size() { return size_; }
+    IconSubdirectoryType type() { return type_; }
+    int maxSize() { return max_size_; }
+    int minSize() { return min_size_; }
+    int threshold() { return threshold_; }
+    std::string location() { return location_; }
+    bool matches(int required_size);
+    int distance(int required_size);
 
-    IconSubdirectory& Type(std::string max_size);
-    IconSubdirectory& MaxSize(std::string max_size);
-    IconSubdirectory& MinSize(std::string min_size);
-    IconSubdirectory& Threshold(std::string threshold);
-    IconSubdirectory& Location(std::string location);
+    IconSubdirectory& type(std::string max_size);
+    IconSubdirectory& maxSize(std::string max_size);
+    IconSubdirectory& minSize(std::string min_size);
+    IconSubdirectory& threshold(std::string threshold);
+    IconSubdirectory& location(std::string location);
 
 private:
     std::string name_;

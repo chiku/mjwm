@@ -30,23 +30,23 @@ class DesktopEntry
 {
 public:
     DesktopEntry() { }
-    DesktopEntry(std::vector<std::string> lines);
+    explicit DesktopEntry(std::vector<std::string> lines);
 
-    std::string Name() const { return name_; }
-    std::string Icon() const { return icon_; }
-    std::string Executable() const { return executable_; }
-    std::vector<std::string> Categories() const { return categories_; }
-    std::string Comment() const { return comment_; }
-    bool Display() const { return display_; }
+    std::string name() const { return name_; }
+    std::string icon() const { return icon_; }
+    std::string executable() const { return executable_; }
+    std::vector<std::string> categories() const { return categories_; }
+    std::string comment() const { return comment_; }
+    bool display() const { return display_; }
 
     bool operator < (const DesktopEntry &other) const;
     bool operator > (const DesktopEntry &other) const;
     bool operator == (const DesktopEntry &other) const;
     bool operator != (const DesktopEntry &other) const;
 
-    bool IsValid() const;
-    bool IsA(std::string type) const;
-    bool IsAnyOf(std::vector<std::string> types) const;
+    bool isValid() const;
+    bool isA(std::string type) const;
+    bool isAnyOf(std::vector<std::string> types) const;
 
 private:
     std::string name_;

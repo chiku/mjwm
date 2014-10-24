@@ -53,8 +53,8 @@ xdg::IconTheme QualifiedIconTheme::IconThemeFromName(std::string theme_name)
                     std::vector<std::string> lines;
 
                     if (FileX(full_path).Load(&lines)) {
-                        xdg::IconTheme xdg_theme = xdg::IconTheme(lines).InternalNameIs(entry->Name());
-                        if (xdg_theme.IsNamed(theme_name)) {
+                        xdg::IconTheme xdg_theme = xdg::IconTheme(lines).internalNameIs(entry->Name());
+                        if (xdg_theme.isNamed(theme_name)) {
                             return xdg_theme;
                         }
                     }
@@ -78,7 +78,7 @@ std::vector<xdg::IconTheme> QualifiedIconTheme::ParentThemes()
     xdg::IconTheme icon_theme = CurrentIconThemeFromName();
     icon_themes.push_back(icon_theme);
 
-    std::vector<std::string> parent_themes = icon_theme.Parents();
+    std::vector<std::string> parent_themes = icon_theme.parents();
     for (std::vector<std::string>::iterator iter = parent_themes.begin(); iter != parent_themes.end(); ++iter) {
         icon_themes.push_back(IconThemeFromName(*iter));
     }

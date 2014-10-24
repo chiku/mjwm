@@ -43,19 +43,19 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
             DesktopEntry entry(lines);
 
             THEN("it has a name") {
-                REQUIRE(entry.Name() == "Mousepad");
+                REQUIRE(entry.name() == "Mousepad");
             }
 
             THEN("it has an icon") {
-                REQUIRE(entry.Icon() == "accessories-text-editor");
+                REQUIRE(entry.icon() == "accessories-text-editor");
             }
 
             THEN("it has an executable") {
-                REQUIRE(entry.Executable() == "mousepad %F");
+                REQUIRE(entry.executable() == "mousepad %F");
             }
 
             THEN("it has categories") {
-                std::vector<std::string> categories = entry.Categories();
+                std::vector<std::string> categories = entry.categories();
                 REQUIRE(categories.size() == 4);
                 REQUIRE(categories[0] == "Application");
                 REQUIRE(categories[1] == "GTK");
@@ -64,11 +64,11 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
             }
 
             THEN("it has a comment") {
-                REQUIRE(entry.Comment() == "Simple Text Editor");
+                REQUIRE(entry.comment() == "Simple Text Editor");
             }
 
             THEN("it knows if it would be displayed by default") {
-                REQUIRE(entry.Display());
+                REQUIRE(entry.display());
             }
 
             WHEN("NoDisplay is set to true") {
@@ -77,7 +77,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
                 lines.push_back("NoDisplay=true\n");
                 DesktopEntry entry(lines);
                 THEN("it is not marked as displayed") {
-                    REQUIRE(!entry.Display());
+                    REQUIRE(!entry.display());
                 }
             }
 
@@ -87,7 +87,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
                 lines.push_back("NoDisplay=1\n");
                 DesktopEntry entry(lines);
                 THEN("it is not marked as displayed") {
-                    REQUIRE(!entry.Display());
+                    REQUIRE(!entry.display());
                 }
             }
         }
@@ -182,7 +182,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             DesktopEntry entry(lines);
 
             THEN("it is valid") {
-                REQUIRE(entry.IsValid());
+                REQUIRE(entry.isValid());
             }
         }
 
@@ -193,7 +193,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Exec=mousepad %F\n");
             DesktopEntry entry(lines);
             THEN("it is not valid") {
-                REQUIRE(!entry.IsValid());
+                REQUIRE(!entry.isValid());
             }
         }
 
@@ -204,7 +204,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Exec=mousepad %F\n");
             DesktopEntry entry(lines);
             THEN("it is not valid") {
-                REQUIRE(!entry.IsValid());
+                REQUIRE(!entry.isValid());
             }
         }
 
@@ -215,7 +215,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Icon=accessories-text-editor\n");
             DesktopEntry entry(lines);
             THEN("it is not valid") {
-                REQUIRE(!entry.IsValid());
+                REQUIRE(!entry.isValid());
             }
         }
     }
@@ -229,14 +229,14 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
             lines.push_back("Categories=AudioVideo;Audio;Player;GTK;\n");
             DesktopEntry entry(lines);
             THEN("it is an AudioVideo") {
-                REQUIRE(entry.IsA("AudioVideo"));
+                REQUIRE(entry.isA("AudioVideo"));
             }
 
             THEN("it is either of AudioVideo and Multimedia") {
                 std::vector<std::string> classifications;
                 classifications.push_back("AudioVideo");
                 classifications.push_back("Multimedia");
-                REQUIRE(entry.IsAnyOf(classifications));
+                REQUIRE(entry.isAnyOf(classifications));
             }
         }
 
@@ -246,14 +246,14 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
             lines.push_back("Categories=Audio;Video;Player;GTK;\n");
             DesktopEntry entry(lines);
             THEN("it is not an AudioVideo") {
-                REQUIRE(!entry.IsA("AudioVideo"));
+                REQUIRE(!entry.isA("AudioVideo"));
             }
 
             THEN("it is not either of AudioVideo or Multimedia") {
                 std::vector<std::string> classifications;
                 classifications.push_back("AudioVideo");
                 classifications.push_back("Multimedia");
-                REQUIRE(!entry.IsAnyOf(classifications));
+                REQUIRE(!entry.isAnyOf(classifications));
             }
         }
     }

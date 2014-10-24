@@ -296,15 +296,15 @@ SCENARIO("Menu sort", "[menu]") {
                 REQUIRE(subcategories[0].DisplayName() == "Multimedia");
                 std::vector<xdg::DesktopEntry> multimedia_files = subcategories[0].DesktopEntries();
                 REQUIRE(multimedia_files.size() == 3);
-                REQUIRE(multimedia_files[0].Name() == "VLC media player");
-                REQUIRE(multimedia_files[1].Name() == "Whaaw! Media Player");
-                REQUIRE(multimedia_files[2].Name() == "Xfburn");
+                REQUIRE(multimedia_files[0].name() == "VLC media player");
+                REQUIRE(multimedia_files[1].name() == "Whaaw! Media Player");
+                REQUIRE(multimedia_files[2].name() == "Xfburn");
 
                 REQUIRE(subcategories[1].DisplayName() == "Utilities");
                 std::vector<xdg::DesktopEntry> utility_files = subcategories[1].DesktopEntries();
                 REQUIRE(utility_files.size() == 2);
-                REQUIRE(utility_files[0].Name() == "Mousepad");
-                REQUIRE(utility_files[1].Name() == "Xfburn");
+                REQUIRE(utility_files[0].name() == "Mousepad");
+                REQUIRE(utility_files[1].name() == "Xfburn");
 
                 REQUIRE(subcategories[2].DisplayName() == "Others");
                 std::vector<xdg::DesktopEntry> other_files = subcategories[2].DesktopEntries();

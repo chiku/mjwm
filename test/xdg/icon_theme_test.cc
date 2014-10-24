@@ -28,7 +28,8 @@
 namespace amm {
 namespace xdg {
 
-std::vector<std::string> hicolorThemeLines() {
+std::vector<std::string> hicolorThemeLines()
+{
     std::vector<std::string> lines;
     lines.push_back("[Icon Theme]");
     lines.push_back("Name=Hicolor");
@@ -36,7 +37,8 @@ std::vector<std::string> hicolorThemeLines() {
     return lines;
 }
 
-std::vector<std::string> birchIconThemeLinesWithoutParent() {
+std::vector<std::string> birchIconThemeLinesWithoutParent()
+{
     std::vector<std::string> lines;
     lines.push_back("[Icon Theme]");
     lines.push_back("Name=Birch");
@@ -47,13 +49,15 @@ std::vector<std::string> birchIconThemeLinesWithoutParent() {
     return lines;
 }
 
-std::vector<std::string> birchIconThemeLines() {
+std::vector<std::string> birchIconThemeLines()
+{
     std::vector<std::string> lines = birchIconThemeLinesWithoutParent();
     lines.push_back("Inherits=wood,default");
     return lines;
 }
 
-std::vector<std::string> subdirectoryLinesForScalableApps() {
+std::vector<std::string> subdirectoryLinesForScalableApps()
+{
     std::vector<std::string> lines;
     lines.push_back("[scalable/apps]");
     lines.push_back("Size=48");
@@ -66,7 +70,8 @@ std::vector<std::string> subdirectoryLinesForScalableApps() {
     return lines;
 }
 
-std::vector<std::string> joinLists(std::vector<std::string> first, std::vector<std::string> second) {
+std::vector<std::string> joinLists(std::vector<std::string> first, std::vector<std::string> second)
+{
     first.insert(first.end(), second.begin(), second.end());
     return first;
 }
@@ -77,41 +82,41 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             IconTheme icon_theme(birchIconThemeLines());
 
             THEN("it has a name") {
-                REQUIRE(icon_theme.Name() == "Birch");
+                REQUIRE(icon_theme.name() == "Birch");
             }
 
             THEN("it has a list of parents") {
-                std::vector<std::string> parents = icon_theme.Parents();
+                std::vector<std::string> parents = icon_theme.parents();
                 REQUIRE(parents.size() == 2);
                 REQUIRE(parents[0] == "wood");
                 REQUIRE(parents[1] == "default");
             }
 
             THEN("it has a list of directories") {
-                std::vector<IconSubdirectory> directories = icon_theme.Directories();
+                std::vector<IconSubdirectory> directories = icon_theme.directories();
                 REQUIRE(directories.size() == 5);
-                REQUIRE(directories[0].Name() == "48x48/apps");
-                REQUIRE(directories[1].Name() == "48x48/mimetypes");
-                REQUIRE(directories[2].Name() == "32x32/apps");
-                REQUIRE(directories[3].Name() == "scalable/apps");
-                REQUIRE(directories[4].Name() == "scalable/mimetypes");
+                REQUIRE(directories[0].name() == "48x48/apps");
+                REQUIRE(directories[1].name() == "48x48/mimetypes");
+                REQUIRE(directories[2].name() == "32x32/apps");
+                REQUIRE(directories[3].name() == "scalable/apps");
+                REQUIRE(directories[4].name() == "scalable/mimetypes");
             }
         }
 
         WHEN("registered with its internal name") {
             IconTheme icon_theme(birchIconThemeLines());
-            icon_theme.InternalNameIs("birch");
+            icon_theme.internalNameIs("birch");
 
             THEN("it can be referred to by its internal name") {
-                REQUIRE(icon_theme.IsNamed("birch"));
+                REQUIRE(icon_theme.isNamed("birch"));
             }
 
             THEN("it can be referred to by its display name") {
-                REQUIRE(icon_theme.IsNamed("Birch"));
+                REQUIRE(icon_theme.isNamed("Birch"));
             }
 
             THEN("it can't be referred to other names") {
-                REQUIRE(!icon_theme.IsNamed("Wood"));
+                REQUIRE(!icon_theme.isNamed("Wood"));
             }
         }
 
@@ -119,7 +124,7 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             IconTheme icon_theme(birchIconThemeLinesWithoutParent());
 
             THEN("its parent is Hicolor") {
-                std::vector<std::string> parents = icon_theme.Parents();
+                std::vector<std::string> parents = icon_theme.parents();
                 REQUIRE(parents.size() == 1);
                 REQUIRE(parents[0] == "Hicolor");
             }
@@ -129,7 +134,7 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             IconTheme icon_theme(hicolorThemeLines());
 
             THEN("it has no parents") {
-                std::vector<std::string> parents = icon_theme.Parents();
+                std::vector<std::string> parents = icon_theme.parents();
                 REQUIRE(parents.empty());
             }
         }
@@ -137,25 +142,25 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
 
     GIVEN("An Icon Theme with sub-directories") {
         IconTheme icon_theme(joinLists(birchIconThemeLines(), subdirectoryLinesForScalableApps()));
-        std::vector<IconSubdirectory> directories = icon_theme.Directories();
+        std::vector<IconSubdirectory> directories = icon_theme.directories();
 
         WHEN("the sub-directory has all properties") {
             IconSubdirectory scalable_apps = directories[3];
 
             THEN("the sub-directory has a size") {
-                REQUIRE(scalable_apps.Size() == 48);
+                REQUIRE(scalable_apps.size() == 48);
             }
 
             THEN("the sub-directory has a type") {
-                REQUIRE(scalable_apps.Type() == SCALABLE);
+                REQUIRE(scalable_apps.type() == SCALABLE);
             }
 
             THEN("the sub-directory has a maximum size") {
-                REQUIRE(scalable_apps.MaxSize() == 256);
+                REQUIRE(scalable_apps.maxSize() == 256);
             }
 
             THEN("the sub-directory has a threshold") {
-                REQUIRE(scalable_apps.Threshold() == 208);
+                REQUIRE(scalable_apps.threshold() == 208);
             }
         }
     }

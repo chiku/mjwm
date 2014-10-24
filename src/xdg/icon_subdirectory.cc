@@ -26,102 +26,112 @@
 namespace amm {
 namespace xdg {
 
-static int StringToInt(std::string str) {
-  return atoi(str.c_str());
+static int stringToInt(std::string str)
+{
+    return atoi(str.c_str());
 }
 
-IconSubdirectory::IconSubdirectory() {
-  type_ = INVALID;
-}
-
-IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(name) {
-  size_ = StringToInt(size);
-  type_ = THRESHOLD;
-  max_size_ = size_;
-  min_size_ = size_;
-  threshold_ = 2;
-}
-
-IconSubdirectory& IconSubdirectory::Type(std::string type) {
-  std::transform(type.begin(), type.end(), type.begin(), ::tolower);
-  if (type == "fixed") {
-    type_ = FIXED;
-  } else if (type == "threshold" || type == "") {
-    type_ = THRESHOLD;
-  } else if (type == "scalable") {
-    type_ = SCALABLE;
-  } else {
+IconSubdirectory::IconSubdirectory()
+{
     type_ = INVALID;
-  }
-  return *this;
 }
 
-IconSubdirectory& IconSubdirectory::MaxSize(std::string max_size) {
-  if (max_size != "") {
-    max_size_ = StringToInt(max_size);
-  }
-  return *this;
+IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(name)
+{
+    size_ = stringToInt(size);
+    type_ = THRESHOLD;
+    max_size_ = size_;
+    min_size_ = size_;
+    threshold_ = 2;
 }
 
-IconSubdirectory& IconSubdirectory::MinSize(std::string min_size) {
-  if (min_size != "") {
-    min_size_ = StringToInt(min_size);
-  }
-  return *this;
-}
-
-IconSubdirectory& IconSubdirectory::Threshold(std::string threshold) {
-  if (threshold != "") {
-    threshold_ = StringToInt(threshold);
-  }
-  return *this;
-}
-
-IconSubdirectory& IconSubdirectory::Location(std::string location) {
-  if (location != "") {
-    location_ = location;
-  }
-  return *this;
-}
-
-bool IconSubdirectory::Matches(int required_size) {
-  if (type_ == FIXED) {
-    return size_ == required_size;
-  }
-  if (type_ == SCALABLE) {
-    return (min_size_ <= required_size) && (required_size <= max_size_);
-  }
-  if (type_ == THRESHOLD) {
-    return (size_ - threshold_ <= required_size) && (required_size <= size_ + threshold_);
-  }
-
-  return false;
-}
-
-int IconSubdirectory::Distance(int required_size) {
-  if (type_ == FIXED) {
-    return abs(size_ - required_size);
-  }
-  if (type_ == SCALABLE) {
-    if (required_size < min_size_) {
-      return min_size_ - required_size;
+IconSubdirectory& IconSubdirectory::type(std::string type)
+{
+    std::transform(type.begin(), type.end(), type.begin(), ::tolower);
+    if (type == "fixed") {
+        type_ = FIXED;
+    } else if (type == "threshold" || type == "") {
+        type_ = THRESHOLD;
+    } else if (type == "scalable") {
+        type_ = SCALABLE;
+    } else {
+        type_ = INVALID;
     }
-    if (required_size > max_size_) {
-      return required_size - max_size_;
-    }
-    return 0;
-  }
-  if (type_ == THRESHOLD) {
-    if (required_size < size_ - threshold_) {
-      return min_size_ - required_size;
-    }
-    if (required_size > size_ + threshold_) {
-      return required_size - max_size_;
-    }
-    return 0;
-  }
+    return *this;
+}
 
-  return std::numeric_limits<int>::max();
+IconSubdirectory& IconSubdirectory::maxSize(std::string max_size)
+{
+    if (max_size != "") {
+        max_size_ = stringToInt(max_size);
+    }
+    return *this;
+}
+
+IconSubdirectory& IconSubdirectory::minSize(std::string min_size)
+{
+    if (min_size != "") {
+        min_size_ = stringToInt(min_size);
+    }
+    return *this;
+}
+
+IconSubdirectory& IconSubdirectory::threshold(std::string threshold)
+{
+    if (threshold != "") {
+        threshold_ = stringToInt(threshold);
+    }
+    return *this;
+}
+
+IconSubdirectory& IconSubdirectory::location(std::string location)
+{
+    if (location != "") {
+        location_ = location;
+    }
+    return *this;
+}
+
+bool IconSubdirectory::matches(int required_size)
+{
+    if (type_ == FIXED) {
+        return size_ == required_size;
+    }
+    if (type_ == SCALABLE) {
+        return (min_size_ <= required_size) && (required_size <= max_size_);
+    }
+    if (type_ == THRESHOLD) {
+        return (size_ - threshold_ <= required_size) && (required_size <= size_ + threshold_);
+    }
+
+    return false;
+}
+
+int IconSubdirectory::distance(int required_size)
+{
+    if (type_ == FIXED) {
+        return abs(size_ - required_size);
+    }
+    if (type_ == SCALABLE) {
+        if (required_size < min_size_) {
+            return min_size_ - required_size;
+        }
+        if (required_size > max_size_) {
+            return required_size - max_size_;
+        }
+        return 0;
+    }
+    if (type_ == THRESHOLD) {
+        if (required_size < size_ - threshold_) {
+            return min_size_ - required_size;
+        }
+        if (required_size > size_ + threshold_) {
+            return required_size - max_size_;
+        }
+        return 0;
+    }
+
+    return std::numeric_limits<int>::max();
 }
 
 } // namespace xdg

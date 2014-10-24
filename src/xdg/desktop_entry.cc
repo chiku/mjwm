@@ -29,49 +29,55 @@ namespace amm {
 namespace xdg {
 
 DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true) {
-  Entry xdg_entry(lines);
-  xdg_entry.Parse();
-  name_ = xdg_entry.Under("Desktop Entry", "Name");
-  icon_ = xdg_entry.Under("Desktop Entry", "Icon");
-  executable_ = xdg_entry.Under("Desktop Entry", "Exec");
-  categories_ = StringX(xdg_entry.Under("Desktop Entry", "Categories")).Split(";");
-  comment_ = xdg_entry.Under("Desktop Entry", "Comment");
-  std::string display_raw = xdg_entry.Under("Desktop Entry", "NoDisplay");
-  display_ = display_raw != "true" && display_raw != "1";
-  std::sort(categories_.begin(), categories_.end());
+    Entry xdg_entry(lines);
+    xdg_entry.parse();
+    name_ = xdg_entry.under("Desktop Entry", "Name");
+    icon_ = xdg_entry.under("Desktop Entry", "Icon");
+    executable_ = xdg_entry.under("Desktop Entry", "Exec");
+    categories_ = StringX(xdg_entry.under("Desktop Entry", "Categories")).Split(";");
+    comment_ = xdg_entry.under("Desktop Entry", "Comment");
+    std::string display_raw = xdg_entry.under("Desktop Entry", "NoDisplay");
+    display_ = display_raw != "true" && display_raw != "1";
+    std::sort(categories_.begin(), categories_.end());
 }
 
-bool DesktopEntry::operator < (const DesktopEntry &other) const {
-  return name_ < other.name_;
+bool DesktopEntry::operator < (const DesktopEntry &other) const
+{
+    return name_ < other.name_;
 }
 
-bool DesktopEntry::operator > (const DesktopEntry &other) const {
-  return name_ > other.name_;
+bool DesktopEntry::operator > (const DesktopEntry &other) const
+{
+    return name_ > other.name_;
 }
 
-bool DesktopEntry::operator == (const DesktopEntry &other) const {
-  return name_ == other.name_ && executable_ == other.executable_;
+bool DesktopEntry::operator == (const DesktopEntry &other) const
+{
+    return name_ == other.name_ && executable_ == other.executable_;
 }
 
-bool DesktopEntry::operator != (const DesktopEntry &other) const {
-  return !(*this == other);
+bool DesktopEntry::operator != (const DesktopEntry &other) const
+{
+    return !(*this == other);
 }
 
-bool DesktopEntry::IsValid() const {
-  return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
+bool DesktopEntry::isValid() const
+{
+    return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
 }
 
-bool DesktopEntry::IsA(std::string type) const {
-  return std::binary_search(categories_.begin(), categories_.end(), type);
+bool DesktopEntry::isA(std::string type) const {
+    return std::binary_search(categories_.begin(), categories_.end(), type);
 }
 
-bool DesktopEntry::IsAnyOf(std::vector<std::string> types) const {
-  for (std::vector<std::string>::const_iterator type = types.begin(); type != types.end(); ++type) {
-    if (IsA(*type)) {
-      return true;
-    }
-  };
-  return false;
+bool DesktopEntry::isAnyOf(std::vector<std::string> types) const
+{
+    for (std::vector<std::string>::const_iterator type = types.begin(); type != types.end(); ++type) {
+        if (isA(*type)) {
+            return true;
+        }
+    };
+    return false;
 }
 
 } // namespace xdg

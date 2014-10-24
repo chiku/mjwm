@@ -108,12 +108,12 @@ void Menu::AddDesktopEntry(std::string entry_name)
     }
     xdg::DesktopEntry entry(lines);
 
-    if (!entry.Display()) {
+    if (!entry.display()) {
         summary_.AddSuppressedFile(entry_name);
         return;
     }
 
-    if (!entry.IsValid()) {
+    if (!entry.isValid()) {
         summary_.AddUnparsedFile(entry_name);
         return;
     }
@@ -124,7 +124,7 @@ void Menu::AddDesktopEntry(std::string entry_name)
     } else {
         unclassified_subcategory_.AddDesktopEntry(entry);
         summary_.AddUnclassifiedFile(entry_name);
-        summary_.AddUnhandledClassifications(entry.Categories());
+        summary_.AddUnhandledClassifications(entry.categories());
     }
 }
 
@@ -134,7 +134,7 @@ bool Menu::Classify(xdg::DesktopEntry entry)
 
     std::vector<Subcategory>::iterator subcategory;
     for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
-        if (entry.IsAnyOf(subcategory->ClassificationNames())) {
+        if (entry.isAnyOf(subcategory->ClassificationNames())) {
             classified = true;
             subcategory->AddDesktopEntry(entry);
         }
@@ -166,8 +166,8 @@ std::vector<representation::RepresentationInterface*> Menu::Representations() co
 
             std::vector<xdg::DesktopEntry> entries = subcategory->DesktopEntries();
             for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
-                std::string icon_name = icon_searcher_->resolvedName(entry->Icon());
-                representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable(), entry->Comment());
+                std::string icon_name = icon_searcher_->resolvedName(entry->icon());
+                representation::Program *program = new representation::Program(entry->name(), icon_name, entry->executable(), entry->comment());
                 representations.push_back(program);
             }
 

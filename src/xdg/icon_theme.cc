@@ -30,34 +30,35 @@
 namespace amm {
 namespace xdg {
 
-IconTheme::IconTheme(std::vector<std::string> lines) : internal_name_("") {
-  Entry xdg_entry(lines);
-  xdg_entry.Parse();
+IconTheme::IconTheme(std::vector<std::string> lines) : internal_name_("")
+{
+    Entry xdg_entry(lines);
+    xdg_entry.parse();
 
-  name_ = xdg_entry.Under("Icon Theme", "Name");
-  std::string lower_case_name = name_;
-  std::transform(lower_case_name.begin(), lower_case_name.end(), lower_case_name.begin(), ::tolower);
+    name_ = xdg_entry.under("Icon Theme", "Name");
+    std::string lower_case_name = name_;
+    std::transform(lower_case_name.begin(), lower_case_name.end(), lower_case_name.begin(), ::tolower);
 
-  parents_ = StringX(xdg_entry.Under("Icon Theme", "Inherits")).Split(",");
-  if (parents_.empty() && lower_case_name != "hicolor") {
-    parents_.push_back("Hicolor");
-  }
+    parents_ = StringX(xdg_entry.under("Icon Theme", "Inherits")).Split(",");
+    if (parents_.empty() && lower_case_name != "hicolor") {
+        parents_.push_back("Hicolor");
+    }
 
-  std::vector<std::string> directory_names = StringX(xdg_entry.Under("Icon Theme", "Directories")).Split(",");
-  for (std::vector<std::string>::const_iterator name = directory_names.begin(); name != directory_names.end(); ++name) {
-    std::string type = xdg_entry.Under(*name, "Type");
-    std::string size = xdg_entry.Under(*name, "Size");
-    std::string maxsize = xdg_entry.Under(*name, "MaxSize");
-    std::string minsize = xdg_entry.Under(*name, "MinSize");
-    std::string threshold = xdg_entry.Under(*name, "Threshold");
+    std::vector<std::string> directory_names = StringX(xdg_entry.under("Icon Theme", "Directories")).Split(",");
+    for (std::vector<std::string>::const_iterator name = directory_names.begin(); name != directory_names.end(); ++name) {
+        std::string type = xdg_entry.under(*name, "Type");
+        std::string size = xdg_entry.under(*name, "Size");
+        std::string maxsize = xdg_entry.under(*name, "MaxSize");
+        std::string minsize = xdg_entry.under(*name, "MinSize");
+        std::string threshold = xdg_entry.under(*name, "Threshold");
 
-    IconSubdirectory icon_subdirectory = IconSubdirectory(*name, size)
-      .Type(type)
-      .MaxSize(maxsize)
-      .MinSize(minsize)
-      .Threshold(threshold);
-    directories_.push_back(icon_subdirectory);
-  }
+        IconSubdirectory icon_subdirectory = IconSubdirectory(*name, size)
+            .type(type)
+            .maxSize(maxsize)
+            .minSize(minsize)
+            .threshold(threshold);
+        directories_.push_back(icon_subdirectory);
+    }
 }
 
 } // namespace xdg

@@ -28,12 +28,12 @@ namespace xdg {
 class EntryLine
 {
 public:
-    EntryLine(std::string content);
-    bool IsDeclaration() const;
-    bool IsAssignment() const;
-    std::string Declaration() const;
-    std::string Key() const;
-    std::string Value() const;
+    explicit EntryLine(std::string content);
+    bool isDeclaration() const;
+    bool isAssignment() const;
+    std::string declaration() const;
+    std::string key() const;
+    std::string value() const;
 
 private:
     std::string content_;

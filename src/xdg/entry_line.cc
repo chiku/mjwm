@@ -26,44 +26,48 @@ namespace xdg {
 std::string kAssignmentDelim = "=";
 
 EntryLine::EntryLine(std::string content) :
-    content_(StringX(content).Trim()),
-    content_length_(content_.size()),
-    assignment_delim_location_(content_.find(kAssignmentDelim)) {}
+        content_(StringX(content).Trim()),
+        content_length_(content_.size()),
+        assignment_delim_location_(content_.find(kAssignmentDelim)) {}
 
-bool EntryLine::IsDeclaration() const {
-  return content_[0] == '[' && content_[content_.length() - 1] == ']';
+bool EntryLine::isDeclaration() const
+{
+    return content_[0] == '[' && content_[content_.length() - 1] == ']';
 }
 
-bool EntryLine::IsAssignment() const {
-  return assignment_delim_location_ != std::string::npos;
+bool EntryLine::isAssignment() const
+{
+    return assignment_delim_location_ != std::string::npos;
 }
 
-std::string EntryLine::Declaration() const {
-  if (!IsDeclaration()) {
-    return "";
-  }
+std::string EntryLine::declaration() const
+{
+    if (!isDeclaration()) {
+        return "";
+    }
 
-  std::string::size_type start = content_.find("[") + 1;
-  std::string::size_type end = content_.find("]");
-  return content_.substr(start, end - start);
+    std::string::size_type start = content_.find("[") + 1;
+    std::string::size_type end = content_.find("]");
+    return content_.substr(start, end - start);
 }
 
-std::string EntryLine::Key() const {
-  if (!IsAssignment()) {
-    return "";
-  }
+std::string EntryLine::key() const
+{
+    if (!isAssignment()) {
+        return "";
+    }
 
-  return StringX(content_.substr(0, assignment_delim_location_)).Trim();
+    return StringX(content_.substr(0, assignment_delim_location_)).Trim();
 }
 
-std::string EntryLine::Value() const {
-  if (!IsAssignment()) {
-    return "";
-  }
+std::string EntryLine::value() const
+{
+    if (!isAssignment()) {
+        return "";
+    }
 
-  return StringX(content_.substr(assignment_delim_location_ + 1, content_.length())).Trim();
+    return StringX(content_.substr(assignment_delim_location_ + 1, content_.length())).Trim();
 }
-
 
 } // namespace xdg
 } // namespace amm

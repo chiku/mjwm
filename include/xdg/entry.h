@@ -30,9 +30,9 @@ namespace xdg {
 class Entry
 {
 public:
-    Entry(std::vector<std::string> lines) : lines_(lines) { }
-    void Parse();
-    std::string Under(std::string section, std::string key);
+    explicit Entry(std::vector<std::string> lines) : lines_(lines) { }
+    void parse();
+    std::string under(std::string section, std::string key);
 
 private:
     std::vector<std::string> lines_;

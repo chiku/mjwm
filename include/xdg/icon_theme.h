@@ -33,13 +33,13 @@ class IconTheme
 public:
     explicit IconTheme(std::vector<std::string> lines);
 
-    std::string Name() const { return name_; }
-    std::string InternalName() const { return internal_name_; }
-    std::vector<std::string> Parents() const { return parents_; }
-    std::vector<IconSubdirectory> Directories() const { return directories_; }
-    IconTheme InternalNameIs(std::string internal_name) { internal_name_ = internal_name; return *this; }
+    std::string name() const { return name_; }
+    std::string internalName() const { return internal_name_; }
+    std::vector<std::string> parents() const { return parents_; }
+    std::vector<IconSubdirectory> directories() const { return directories_; }
+    IconTheme internalNameIs(std::string internal_name) { internal_name_ = internal_name; return *this; }
 
-    bool IsNamed(std::string name) { return name == name_ || name == internal_name_; }
+    bool isNamed(std::string name) const { return name == name_ || name == internal_name_; }
 
 private:
     std::string name_;

@@ -27,25 +27,27 @@
 namespace amm {
 namespace xdg {
 
-void Entry::Parse() {
-  std::map< std::string, std::string > entry;
-  std::string current_section = "";
+void Entry::parse()
+{
+    std::map< std::string, std::string > entry;
+    std::string current_section = "";
 
-  for (std::vector<std::string>::iterator iter = lines_.begin(); iter != lines_.end(); ++iter) {
-    EntryLine line(*iter);
-    if (line.IsDeclaration()) {
-      result_[current_section] = entry;
-      entry.clear();
-      current_section = line.Declaration();
-    } else if (line.IsAssignment()) {
-      entry[line.Key()] = line.Value();
+    for (std::vector<std::string>::iterator iter = lines_.begin(); iter != lines_.end(); ++iter) {
+        EntryLine line(*iter);
+        if (line.isDeclaration()) {
+            result_[current_section] = entry;
+            entry.clear();
+            current_section = line.declaration();
+        } else if (line.isAssignment()) {
+            entry[line.key()] = line.value();
+        }
     }
-  }
-  result_[current_section] = entry;
+    result_[current_section] = entry;
 }
 
-std::string Entry::Under(std::string section, std::string key) {
-  return result_[section][key];
+std::string Entry::under(std::string section, std::string key)
+{
+    return result_[section][key];
 }
 
 } // namespace xdg
