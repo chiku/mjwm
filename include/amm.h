@@ -28,25 +28,26 @@
 #include "icon_search/icon_search_interface.h"
 
 namespace amm {
-class Amm {
- public:
-  Amm();
-  ~Amm();
-  void ValidateEnvironment();
-  void LoadCommandLineOption(int argc, char **argv);
-  void RegisterIconService();
-  void ReadCategories();
-  void ReadDesktopEntryFiles();
-  void Populate();
-  void WriteOutputFile();
-  void PrintSummary();
+class Amm
+{
+public:
+    Amm();
+    ~Amm();
+    void ValidateEnvironment();
+    void LoadCommandLineOption(int argc, char **argv);
+    void RegisterIconService();
+    void ReadCategories();
+    void ReadDesktopEntryFiles();
+    void Populate();
+    void WriteOutputFile();
+    void PrintSummary();
 
- private:
-  SystemEnvironment environment_;
-  AmmOptions options_;
-  Menu menu_;
-  std::vector<std::string> desktop_entry_file_names_;
-  icon_search::IconSearchInterface *actual_searcher_;
+private:
+    SystemEnvironment environment_;
+    AmmOptions options_;
+    Menu menu_;
+    std::vector<std::string> desktop_entry_file_names_;
+    icon_search::IconSearchInterface *actual_searcher_;
 };
 } // namespace amm
 

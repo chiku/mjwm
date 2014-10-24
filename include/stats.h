@@ -24,30 +24,31 @@
 
 namespace amm {
 // Understands the summary of populating a menu
-class Stats {
- public:
-  void AddClassifiedFile(std::string file) { classified_files_.push_back(file); }
-  void AddUnclassifiedFile(std::string file) { unclassified_files_.push_back(file); }
-  void AddSuppressedFile(std::string file) { suppressed_files_.push_back(file); }
-  void AddUnparsedFile(std::string file) { unparsed_files_.push_back(file); }
-  void AddUnhandledClassifications(std::vector<std::string> classifications);
+class Stats
+{
+public:
+    void AddClassifiedFile(std::string file) { classified_files_.push_back(file); }
+    void AddUnclassifiedFile(std::string file) { unclassified_files_.push_back(file); }
+    void AddSuppressedFile(std::string file) { suppressed_files_.push_back(file); }
+    void AddUnparsedFile(std::string file) { unparsed_files_.push_back(file); }
+    void AddUnhandledClassifications(std::vector<std::string> classifications);
 
-  size_t TotalFiles() const;
-  size_t TotalParsedFiles() const;
-  size_t TotalUnclassifiedFiles() const;
-  size_t TotalSuppressedFiles() const;
-  size_t TotalUnparsedFiles() const;
-  std::vector<std::string> UnparsedFiles() const;
-  std::vector<std::string> UnhandledClassifications();
+    size_t TotalFiles() const;
+    size_t TotalParsedFiles() const;
+    size_t TotalUnclassifiedFiles() const;
+    size_t TotalSuppressedFiles() const;
+    size_t TotalUnparsedFiles() const;
+    std::vector<std::string> UnparsedFiles() const;
+    std::vector<std::string> UnhandledClassifications();
 
-  std::string Details(std::string summary_type);
+    std::string Details(std::string summary_type);
 
- private:
-  std::vector<std::string> classified_files_;
-  std::vector<std::string> unclassified_files_;
-  std::vector<std::string> unparsed_files_;
-  std::vector<std::string> suppressed_files_;
-  std::vector<std::string> unhandled_classifications_;
+private:
+    std::vector<std::string> classified_files_;
+    std::vector<std::string> unclassified_files_;
+    std::vector<std::string> unparsed_files_;
+    std::vector<std::string> suppressed_files_;
+    std::vector<std::string> unhandled_classifications_;
 };
 } // namespace amm
 

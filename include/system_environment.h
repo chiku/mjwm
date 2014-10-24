@@ -23,20 +23,21 @@
 #include <vector>
 
 namespace amm {
-class SystemEnvironment {
- public:
-  SystemEnvironment();
-  bool IsValid() const { return Home() != ""; }
-  std::string Home() const { return home_; }
-  std::string XdgDataHome() const { return xdg_data_home_; }
-  std::vector<std::string> XdgDataDirectories() const;
-  std::vector<std::string> ApplicationDirectories() const;
-  std::vector<std::string> IconThemeDirectories() const;
+class SystemEnvironment
+{
+public:
+    SystemEnvironment();
+    bool IsValid() const { return Home() != ""; }
+    std::string Home() const { return home_; }
+    std::string XdgDataHome() const { return xdg_data_home_; }
+    std::vector<std::string> XdgDataDirectories() const;
+    std::vector<std::string> ApplicationDirectories() const;
+    std::vector<std::string> IconThemeDirectories() const;
 
- private:
-  std::string home_;
-  std::string xdg_data_home_;
-  std::string xdg_data_dirs_;
+private:
+    std::string home_;
+    std::string xdg_data_home_;
+    std::string xdg_data_dirs_;
 };
 } // namespace amm
 

@@ -24,22 +24,23 @@
 
 namespace amm {
 // Understands search for .desktop files
-class DesktopEntryFileSearch {
- public:
-  DesktopEntryFileSearch() : capture_bad_paths_(true) {}
-  void Resolve();
-  void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
-  void RegisterDefaultDirectories();
-  std::vector<std::string> DesktopEntryFileNames() const { return desktop_file_names_; }
-  std::vector<std::string> BadPaths() const { return bad_paths_; }
+class DesktopEntryFileSearch
+{
+public:
+    DesktopEntryFileSearch() : capture_bad_paths_(true) {}
+    void Resolve();
+    void RegisterDirectories(std::vector<std::string> directory_names) { directory_names_ = directory_names; }
+    void RegisterDefaultDirectories();
+    std::vector<std::string> DesktopEntryFileNames() const { return desktop_file_names_; }
+    std::vector<std::string> BadPaths() const { return bad_paths_; }
 
- private:
-  void Populate(std::string directory_name);
+private:
+    void Populate(std::string directory_name);
 
-  std::vector<std::string> directory_names_;
-  std::vector<std::string> desktop_file_names_;
-  std::vector<std::string> bad_paths_;
-  bool capture_bad_paths_;
+    std::vector<std::string> directory_names_;
+    std::vector<std::string> desktop_file_names_;
+    std::vector<std::string> bad_paths_;
+    bool capture_bad_paths_;
 };
 } // namespace amm
 

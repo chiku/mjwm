@@ -30,30 +30,31 @@
 namespace amm {
 // Understands a collection of desktop files divided in subcategories
 // TODO : Split amm::Menu
-class Menu {
- public:
-  Menu();
-  ~Menu();
+class Menu
+{
+public:
+    Menu();
+    ~Menu();
 
-  void RegisterIconService(icon_search::IconSearchInterface &icon_searcher);
-  std::vector<Subcategory> Subcategories() const { return subcategories_; }
-  Stats Summary() const { return summary_; }
+    void RegisterIconService(icon_search::IconSearchInterface &icon_searcher);
+    std::vector<Subcategory> Subcategories() const { return subcategories_; }
+    Stats Summary() const { return summary_; }
 
-  void LoadCustomCategories(std::vector<std::string> lines);
-  void Populate(std::vector<std::string> desktop_file_names);
-  void Sort();
-  std::vector<RepresentationInterface*> Representations() const;
+    void LoadCustomCategories(std::vector<std::string> lines);
+    void Populate(std::vector<std::string> desktop_file_names);
+    void Sort();
+    std::vector<RepresentationInterface*> Representations() const;
 
- private:
-  void AddDesktopEntry(std::string desktop_entry_name);
-  bool Classify(xdg::DesktopEntry entry);
-  void CreateDefaultCategories();
+private:
+    void AddDesktopEntry(std::string desktop_entry_name);
+    bool Classify(xdg::DesktopEntry entry);
+    void CreateDefaultCategories();
 
-  icon_search::IconSearchInterface *icon_searcher_;
-  Subcategory unclassified_subcategory_;
-  std::vector<Subcategory> subcategories_;
-  std::vector<std::string> desktop_file_names_;
-  Stats summary_;
+    icon_search::IconSearchInterface *icon_searcher_;
+    Subcategory unclassified_subcategory_;
+    std::vector<Subcategory> subcategories_;
+    std::vector<std::string> desktop_file_names_;
+    Stats summary_;
 };
 } // namespace amm
 

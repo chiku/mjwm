@@ -27,15 +27,16 @@ namespace amm {
 namespace xdg {
 
 // Understands INI style files for configuring desktop environments as per FreeDesktop guidelines
-class Entry {
- public:
-  Entry(std::vector<std::string> lines) { lines_ = lines; }
-  void Parse();
-  std::string Under(std::string section, std::string key);
+class Entry
+{
+public:
+    Entry(std::vector<std::string> lines) : lines_(lines) { }
+    void Parse();
+    std::string Under(std::string section, std::string key);
 
- private:
-  std::vector<std::string> lines_;
-  std::map< std::string, std::map< std::string, std::string > > result_;
+private:
+    std::vector<std::string> lines_;
+    std::map< std::string, std::map< std::string, std::string > > result_;
 };
 
 } // namespace xdg

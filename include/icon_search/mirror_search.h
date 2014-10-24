@@ -27,9 +27,10 @@
 namespace amm {
 namespace icon_search {
 // Understands returning the input file-name as the output
-class MirrorSearch : public IconSearchInterface {
- public:
-  std::string ResolvedName(std::string icon_name) const { return icon_name; }
+class MirrorSearch : public IconSearchInterface
+{
+public:
+    std::string ResolvedName(std::string icon_name) const { return icon_name; }
 };
 } // namespace icon_search
 } // namespace amm

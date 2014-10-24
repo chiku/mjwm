@@ -24,17 +24,18 @@
 
 namespace amm {
 // TODO : move methods with single use to their usage points
-class StringX {
- public:
-  explicit StringX(std::string string);
+class StringX
+{
+public:
+    explicit StringX(std::string string);
 
-  bool EndsWith(const std::string delimiter) const; // FSS
-  std::string TerminateWith(const std::string end); // FSS
-  std::string Encode() const; // Transformer::JWM
-  std::string Trim() const; // DesktopEntry
-  std::vector<std::string> Split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
- private:
-  const std::string string_;
+    bool EndsWith(const std::string delimiter) const; // FSS
+    std::string TerminateWith(const std::string end); // FSS
+    std::string Encode() const; // Transformer::JWM
+    std::string Trim() const; // DesktopEntry
+    std::vector<std::string> Split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
+private:
+    const std::string string_;
 };
 } // namespace amm
 

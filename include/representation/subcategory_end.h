@@ -27,16 +27,15 @@
 namespace amm {
 namespace representation {
 
-class SubcategoryEnd : public RepresentationInterface {
- public:
-  explicit SubcategoryEnd(std::string name) : name_(name) {}
-  virtual ~SubcategoryEnd() {}
-  virtual std::string name() const { return name_ + " end"; }
-  virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(*this);
-  }
- private:
-  const std::string name_;
+class SubcategoryEnd : public RepresentationInterface
+{
+public:
+    explicit SubcategoryEnd(std::string name) : name_(name) {}
+    virtual ~SubcategoryEnd() {}
+    virtual std::string name() const { return name_ + " end"; }
+    virtual std::string visit(TransformerInterface &transformer) const { return transformer.Transform(*this); }
+private:
+    const std::string name_;
 };
 
 } // namespace representation

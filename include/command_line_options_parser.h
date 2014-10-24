@@ -23,12 +23,13 @@
 
 namespace amm {
 // Understands parsing of user specified options supplied to the program
-class CommandLineOptionsParser {
- public:
-  AmmOptions Parse(int argc, char *const *argv, std::string home);
+class CommandLineOptionsParser
+{
+public:
+    AmmOptions Parse(int argc, char *const *argv, std::string home);
 
- private:
-  void AllowMultipleEntries();
+private:
+    void AllowMultipleEntries();
 };
 } // namespace amm
 

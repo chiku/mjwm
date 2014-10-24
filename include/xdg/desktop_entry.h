@@ -26,34 +26,35 @@ namespace amm {
 namespace xdg {
 
 // Understands the representation of a FreeDesktop .desktop file
-class DesktopEntry {
- public:
-  DesktopEntry() { }
-  DesktopEntry(std::vector<std::string> lines);
+class DesktopEntry
+{
+public:
+    DesktopEntry() { }
+    DesktopEntry(std::vector<std::string> lines);
 
-  std::string Name() const { return name_; }
-  std::string Icon() const { return icon_; }
-  std::string Executable() const { return executable_; }
-  std::vector<std::string> Categories() const { return categories_; }
-  std::string Comment() const { return comment_; }
-  bool Display() const { return display_; }
+    std::string Name() const { return name_; }
+    std::string Icon() const { return icon_; }
+    std::string Executable() const { return executable_; }
+    std::vector<std::string> Categories() const { return categories_; }
+    std::string Comment() const { return comment_; }
+    bool Display() const { return display_; }
 
-  bool operator < (const DesktopEntry &other) const;
-  bool operator > (const DesktopEntry &other) const;
-  bool operator == (const DesktopEntry &other) const;
-  bool operator != (const DesktopEntry &other) const;
+    bool operator < (const DesktopEntry &other) const;
+    bool operator > (const DesktopEntry &other) const;
+    bool operator == (const DesktopEntry &other) const;
+    bool operator != (const DesktopEntry &other) const;
 
-  bool IsValid() const;
-  bool IsA(std::string type) const;
-  bool IsAnyOf(std::vector<std::string> types) const;
+    bool IsValid() const;
+    bool IsA(std::string type) const;
+    bool IsAnyOf(std::vector<std::string> types) const;
 
- private:
-  std::string name_;
-  std::string executable_;
-  std::string icon_;
-  std::vector<std::string> categories_;
-  std::string comment_;
-  bool display_;
+private:
+    std::string name_;
+    std::string executable_;
+    std::string icon_;
+    std::vector<std::string> categories_;
+    std::string comment_;
+    bool display_;
 };
 
 } // namespace xdg

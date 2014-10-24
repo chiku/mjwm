@@ -16,7 +16,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #ifndef AMM_ICON_SEARCH_CACHING_SEARCH_H_
 #define AMM_ICON_SEARCH_CACHING_SEARCH_H_
 
@@ -28,29 +27,27 @@
 namespace amm {
 namespace icon_search {
 
-class CachingSearch : public IconSearchInterface {
- public:
-  CachingSearch(IconSearchInterface &actual_searcher) : actual_searcher_(actual_searcher) { }
-  std::string ResolvedName(std::string icon_name) const {
-    std::map<std::string, std::string>::const_iterator it = IteratorTo(icon_name);
-    if (it != cache.end()) {
-      return it->second;
+class CachingSearch : public IconSearchInterface
+{
+public:
+    CachingSearch(IconSearchInterface &actual_searcher) : actual_searcher_(actual_searcher) { }
+    std::string ResolvedName(std::string icon_name) const
+    {
+        std::map<std::string, std::string>::const_iterator it = IteratorTo(icon_name);
+        if (it != cache.end()) {
+            return it->second;
+        }
+        std::string result = actual_searcher_.ResolvedName(icon_name);
+        cache.insert(std::pair<std::string, std::string>(icon_name, result));
+        return result;
     }
-    std::string result = actual_searcher_.ResolvedName(icon_name);
-    cache.insert(std::pair<std::string, std::string>(icon_name, result));
-    return result;
-  }
 
-  bool IsCached(std::string icon_name) const {
-    return IteratorTo(icon_name) != cache.end();
-  }
+    bool IsCached(std::string icon_name) const { return IteratorTo(icon_name) != cache.end(); }
 
- private:
-  IconSearchInterface& actual_searcher_;
-  mutable std::map<std::string, std::string> cache;
-  std::map<std::string, std::string>::const_iterator IteratorTo(std::string icon_name) const {
-    return cache.find(icon_name);
-  }
+private:
+    IconSearchInterface& actual_searcher_;
+    mutable std::map<std::string, std::string> cache;
+    std::map<std::string, std::string>::const_iterator IteratorTo(std::string icon_name) const { return cache.find(icon_name); }
 };
 
 } // namespace icon_search

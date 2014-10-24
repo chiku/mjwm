@@ -25,14 +25,15 @@
 namespace amm {
 // TODO : move methods with single use to their usage points
 
-class VectorX {
- public:
-  explicit VectorX(std::vector<std::string> vector);
+class VectorX
+{
+public:
+    explicit VectorX(std::vector<std::string> vector) : vector_(vector) { }
 
-  std::string Join(std::string delimiter) const; // Transformer::Jwm, FSS, Stats, mjwm
-  std::vector<std::string> TerminateWith(std::string delimiter) const; //StringX
-  std::vector<std::string> Unique() const; // FSS
- private:
+    std::string Join(std::string delimiter) const; // Transformer::Jwm, FSS, Stats, mjwm
+    std::vector<std::string> TerminateWith(std::string delimiter) const; //StringX
+    std::vector<std::string> Unique() const; // FSS
+private:
   const std::vector<std::string> vector_;
 };
 } // namespace amm

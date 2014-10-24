@@ -24,10 +24,11 @@
 
 namespace amm {
 namespace icon_search {
-class IconSearchInterface {
- public:
-  virtual ~IconSearchInterface() {}
-  virtual std::string ResolvedName(std::string icon_name) const = 0;
+class IconSearchInterface
+{
+public:
+    virtual ~IconSearchInterface() {}
+    virtual std::string ResolvedName(std::string icon_name) const = 0;
 };
 } // namespace icon_search
 } // namespace amm

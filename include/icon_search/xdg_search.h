@@ -29,21 +29,22 @@ namespace amm {
 namespace icon_search {
 
 // Understands returning icon file-name based on a file-system search based on XDG standards
-class XdgSearch : public IconSearchInterface {
- public:
-  XdgSearch(int size, std::string theme);
-  std::string ResolvedName(std::string icon_name) const;
+class XdgSearch : public IconSearchInterface
+{
+public:
+    XdgSearch(int size, std::string theme);
+    std::string ResolvedName(std::string icon_name) const;
 
- private:
-  int size_;
-  std::vector<std::string> registered_extensions_;
-  std::vector<std::string> theme_search_paths_;
-  std::vector<xdg::IconTheme> icon_themes_;
+private:
+    int size_;
+    std::vector<std::string> registered_extensions_;
+    std::vector<std::string> theme_search_paths_;
+    std::vector<xdg::IconTheme> icon_themes_;
 
-  std::vector<xdg::IconSubdirectory> FindSearchLocations(std::string icon_name) const;
-  std::string NameInTheme(std::string icon_name) const;
-  std::string LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const;
-  std::string FallbackName(std::string icon_name) const;
+    std::vector<xdg::IconSubdirectory> FindSearchLocations(std::string icon_name) const;
+    std::string NameInTheme(std::string icon_name) const;
+    std::string LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const;
+    std::string FallbackName(std::string icon_name) const;
 };
 } // namespace icon_search
 } // namespace amm

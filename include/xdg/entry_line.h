@@ -25,19 +25,20 @@ namespace amm {
 namespace xdg {
 
 // Understands a line of XDG style INI files
-class EntryLine {
- public:
-  EntryLine(std::string content);
-  bool IsDeclaration() const;
-  bool IsAssignment() const;
-  std::string Declaration() const;
-  std::string Key() const;
-  std::string Value() const;
+class EntryLine
+{
+public:
+    EntryLine(std::string content);
+    bool IsDeclaration() const;
+    bool IsAssignment() const;
+    std::string Declaration() const;
+    std::string Key() const;
+    std::string Value() const;
 
- private:
-  std::string content_;
-  size_t content_length_;
-  size_t assignment_delim_location_;
+private:
+    std::string content_;
+    size_t content_length_;
+    size_t assignment_delim_location_;
 };
 
 } // namespace xdg

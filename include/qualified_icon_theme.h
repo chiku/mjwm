@@ -28,17 +28,18 @@
 namespace amm {
 
 // Understands how an icon-theme exists out in the file-system
-class QualifiedIconTheme {
- public:
-  QualifiedIconTheme(SystemEnvironment environment, std::string theme_name);
-  std::vector<std::string> ThemeSearchPaths() { return theme_search_paths_; }
-  std::vector<xdg::IconTheme> ParentThemes();
+class QualifiedIconTheme
+{
+public:
+    QualifiedIconTheme(SystemEnvironment environment, std::string theme_name);
+    std::vector<std::string> ThemeSearchPaths() { return theme_search_paths_; }
+    std::vector<xdg::IconTheme> ParentThemes();
 
- private:
-  std::string theme_name_;
-  std::vector<std::string> theme_search_paths_;
-  xdg::IconTheme CurrentIconThemeFromName();
-  xdg::IconTheme IconThemeFromName(std::string theme_name);
+private:
+    std::string theme_name_;
+    std::vector<std::string> theme_search_paths_;
+    xdg::IconTheme CurrentIconThemeFromName();
+    xdg::IconTheme IconThemeFromName(std::string theme_name);
 };
 
 }

@@ -26,18 +26,19 @@
 
 namespace amm {
 
-struct AmmOptions {
-  bool is_parsed;
-  bool is_help;
-  bool is_version;
-  bool is_iconize;
-  bool override_default_directories;
-  std::string summary_type;
-  std::string output_file_name;
-  std::vector<std::string> input_directory_names;
-  std::string category_file_name;
-  std::string icon_theme_name;
-  std::vector<std::string> deprecations;
+struct AmmOptions
+{
+    bool is_parsed;
+    bool is_help;
+    bool is_version;
+    bool is_iconize;
+    bool override_default_directories;
+    std::string summary_type;
+    std::string output_file_name;
+    std::vector<std::string> input_directory_names;
+    std::string category_file_name;
+    std::string icon_theme_name;
+    std::vector<std::string> deprecations;
 };
 
 AmmOptions DefaultAmmOptions(std::string home);

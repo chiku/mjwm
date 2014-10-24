@@ -23,18 +23,17 @@
 #include <vector>
 
 namespace amm {
+class FileX
+{
+public:
+    FileX(std::string name) : name_(name) { }
+    bool Load(std::vector<std::string> *lines) const;
+    bool Exists() const;
+    bool ExistsAsDirectory() const;
 
-class FileX {
- public:
-  FileX(std::string name) : name_(name) { }
-  bool Load(std::vector<std::string> *lines) const;
-  bool Exists() const;
-  bool ExistsAsDirectory() const;
-
- private:
-  std::string name_;
+private:
+    std::string name_;
 };
-
 } // namespace amm
 
 #endif // AMM_FILEX_H_

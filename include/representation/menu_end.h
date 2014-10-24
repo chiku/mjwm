@@ -28,12 +28,10 @@ namespace amm {
 namespace representation {
 
 class MenuEnd : public RepresentationInterface {
- public:
-  virtual ~MenuEnd() {}
-  virtual std::string name() const { return "Menu end"; }
-  virtual std::string visit(TransformerInterface &transformer) const {
-    return transformer.Transform(*this);
-  }
+public:
+    virtual ~MenuEnd() {}
+    virtual std::string name() const { return "Menu end"; }
+    virtual std::string visit(TransformerInterface &transformer) const { return transformer.Transform(*this); }
 };
 
 } // namespace representation

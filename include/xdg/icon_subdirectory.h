@@ -24,43 +24,45 @@
 namespace amm {
 namespace xdg {
 
-enum IconSubdirectoryType {
-  FIXED,
-  SCALABLE,
-  THRESHOLD,
-  INVALID
+enum IconSubdirectoryType
+{
+    FIXED,
+    SCALABLE,
+    THRESHOLD,
+    INVALID
 };
 
 // Understands the representation of a FreeDesktop .desktop file
-class IconSubdirectory {
- public:
-  IconSubdirectory();
-  IconSubdirectory(std::string name, std::string size);
+class IconSubdirectory
+{
+public:
+    IconSubdirectory();
+    IconSubdirectory(std::string name, std::string size);
 
-  std::string Name() { return name_; }
-  int Size() { return size_; }
-  IconSubdirectoryType Type() { return type_; }
-  int MaxSize() { return max_size_; }
-  int MinSize() { return min_size_; }
-  int Threshold() { return threshold_; }
-  std::string Location() { return location_; }
-  bool Matches(int required_size);
-  int Distance(int required_size);
+    std::string Name() { return name_; }
+    int Size() { return size_; }
+    IconSubdirectoryType Type() { return type_; }
+    int MaxSize() { return max_size_; }
+    int MinSize() { return min_size_; }
+    int Threshold() { return threshold_; }
+    std::string Location() { return location_; }
+    bool Matches(int required_size);
+    int Distance(int required_size);
 
-  IconSubdirectory& Type(std::string max_size);
-  IconSubdirectory& MaxSize(std::string max_size);
-  IconSubdirectory& MinSize(std::string min_size);
-  IconSubdirectory& Threshold(std::string threshold);
-  IconSubdirectory& Location(std::string location);
+    IconSubdirectory& Type(std::string max_size);
+    IconSubdirectory& MaxSize(std::string max_size);
+    IconSubdirectory& MinSize(std::string min_size);
+    IconSubdirectory& Threshold(std::string threshold);
+    IconSubdirectory& Location(std::string location);
 
- private:
-  std::string name_;
-  IconSubdirectoryType type_;
-  int size_;
-  int max_size_;
-  int min_size_;
-  int threshold_;
-  std::string location_;
+private:
+    std::string name_;
+    IconSubdirectoryType type_;
+    int size_;
+    int max_size_;
+    int min_size_;
+    int threshold_;
+    std::string location_;
 };
 
 } // namespace xdg

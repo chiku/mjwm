@@ -27,8 +27,6 @@
 
 namespace amm {
 
-VectorX::VectorX(std::vector<std::string> vector) : vector_(vector) {}
-
 std::string VectorX::Join(std::string delimeter) const {
   std::stringstream stream;
   size_t vector_size = vector_.size();
