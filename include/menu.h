@@ -25,7 +25,7 @@
 #include "stats.h"
 #include "subcategory.h"
 #include "icon_search/icon_search_interface.h"
-#include "representation_interface.h"
+#include "representation/representation_interface.h"
 
 namespace amm {
 // Understands a collection of desktop files divided in subcategories
@@ -43,7 +43,7 @@ public:
     void LoadCustomCategories(std::vector<std::string> lines);
     void Populate(std::vector<std::string> desktop_file_names);
     void Sort();
-    std::vector<RepresentationInterface*> Representations() const;
+    std::vector<representation::RepresentationInterface*> Representations() const;
 
 private:
     void AddDesktopEntry(std::string desktop_entry_name);

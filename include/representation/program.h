@@ -21,8 +21,8 @@
 
 #include <string>
 
-#include "representation_interface.h"
-#include "transformer_interface.h"
+#include "representation/representation_interface.h"
+#include "transformer/transformer_interface.h"
 
 namespace amm {
 namespace representation {
@@ -37,7 +37,7 @@ public:
     virtual std::string icon() const { return icon_; }
     virtual std::string executable() const { return executable_; }
     virtual std::string comment() const { return comment_; }
-    virtual std::string visit(TransformerInterface &transformer) const { return transformer.Transform(*this); }
+    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 private:
     const std::string name_;
     const std::string icon_;

@@ -21,8 +21,8 @@
 
 #include <string>
 
-#include "representation_interface.h"
-#include "transformer_interface.h"
+#include "representation/representation_interface.h"
+#include "transformer/transformer_interface.h"
 
 namespace amm {
 namespace representation {
@@ -33,7 +33,7 @@ public:
     explicit SubcategoryEnd(std::string name) : name_(name) {}
     virtual ~SubcategoryEnd() {}
     virtual std::string name() const { return name_ + " end"; }
-    virtual std::string visit(TransformerInterface &transformer) const { return transformer.Transform(*this); }
+    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 private:
     const std::string name_;
 };

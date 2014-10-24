@@ -21,7 +21,7 @@
 
 #include <string>
 
-#include "transformer_interface.h"
+#include "transformer/transformer_interface.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
 #include "representation/subcategory_start.h"
@@ -34,11 +34,11 @@ namespace transformer {
 class Jwm : public TransformerInterface
 {
 public:
-    virtual std::string Transform(const representation::MenuStart &entry) const;
-    virtual std::string Transform(const representation::MenuEnd &entry) const;
-    virtual std::string Transform(const representation::SubcategoryStart &entry) const;
-    virtual std::string Transform(const representation::SubcategoryEnd &entry) const;
-    virtual std::string Transform(const representation::Program &entry) const;
+    virtual std::string transform(const representation::MenuStart &entry) const;
+    virtual std::string transform(const representation::MenuEnd &entry) const;
+    virtual std::string transform(const representation::SubcategoryStart &entry) const;
+    virtual std::string transform(const representation::SubcategoryEnd &entry) const;
+    virtual std::string transform(const representation::Program &entry) const;
 };
 } // namespace transformer
 } // namespace amm

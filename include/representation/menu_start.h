@@ -21,8 +21,8 @@
 
 #include <string>
 
-#include "representation_interface.h"
-#include "transformer_interface.h"
+#include "representation/representation_interface.h"
+#include "transformer/transformer_interface.h"
 
 namespace amm {
 namespace representation {
@@ -32,7 +32,7 @@ class MenuStart : public RepresentationInterface
 public:
     virtual ~MenuStart() {}
     virtual std::string name() const { return "Menu start"; }
-    virtual std::string visit(TransformerInterface &transformer) const { return transformer.Transform(*this); }
+    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 };
 
 } // namespace representation

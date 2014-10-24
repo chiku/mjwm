@@ -35,7 +35,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
 
         WHEN("transforming a menu-start representation") {
             representation::MenuStart menu_start;
-            std::string result = jwm_transformer.Transform(menu_start);
+            std::string result = jwm_transformer.transform(menu_start);
 
             THEN("it is a static message") {
                 REQUIRE(result == "<JWM>\n    <!--Menu start-->");
@@ -44,7 +44,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
 
         WHEN("transforming a menu-end representation") {
             representation::MenuEnd menu_end;
-            std::string result = jwm_transformer.Transform(menu_end);
+            std::string result = jwm_transformer.transform(menu_end);
 
             THEN("it is a static message") {
                 REQUIRE(result == "    <!--Menu end-->\n</JWM>");
@@ -53,7 +53,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
 
         WHEN("transforming a subcategory-start representation") {
             representation::SubcategoryStart subcategory_start("Application", "application.png");
-            std::string result = jwm_transformer.Transform(subcategory_start);
+            std::string result = jwm_transformer.transform(subcategory_start);
 
             THEN("it includes the subcategory name and icon") {
                 REQUIRE(result == "    <Menu label=\"Application\" icon=\"application.png\">");
@@ -61,14 +61,14 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
 
             THEN("it XML escapes the name") {
                 representation::SubcategoryStart subcategory_start("Fun & Games", "games.png");
-                std::string result = jwm_transformer.Transform(subcategory_start);
+                std::string result = jwm_transformer.transform(subcategory_start);
                 REQUIRE(result == "    <Menu label=\"Fun &amp; Games\" icon=\"games.png\">");
             }
         }
 
         WHEN("transforming a subcategory-end representation") {
             representation::SubcategoryEnd subcategory_end("Application");
-            std::string result = jwm_transformer.Transform(subcategory_end);
+            std::string result = jwm_transformer.transform(subcategory_end);
 
             THEN("it includes the subcategory names in XML comments") {
                 REQUIRE(result == "        <!--Application end-->\n    </Menu>");
@@ -77,7 +77,7 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
 
         WHEN("transforming a menu-entry representation") {
             representation::Program program("Application", "application.png", "/usr/bin/application", "Application uses");
-            std::string result = jwm_transformer.Transform(program);
+            std::string result = jwm_transformer.transform(program);
 
             THEN("it is a static message") {
                 REQUIRE(result == "        <Program label=\"Application\" icon=\"application.png\">/usr/bin/application</Program>");
@@ -85,13 +85,13 @@ SCENARIO("transformer::Jwm", "[transformerjwm]") {
 
             THEN("it XML escapes the name") {
                 representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter", "First person shooter game");
-                std::string result = jwm_transformer.Transform(program);
+                std::string result = jwm_transformer.transform(program);
                 REQUIRE(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\">/usr/bin/shooter</Program>");
             }
 
             THEN("it removes field codes from the executable") {
                 representation::Program program("Mousepad", "application-text-editor", "mousepad %F", "Simple Text Editor");
-                std::string result = jwm_transformer.Transform(program);
+                std::string result = jwm_transformer.transform(program);
                 REQUIRE(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\">mousepad</Program>");
             }
         }

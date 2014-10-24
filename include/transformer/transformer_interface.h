@@ -16,8 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_TRANSFORMER_INTERFACE_H_
-#define AMM_TRANSFORMER_INTERFACE_H_
+#ifndef AMM_TRANSFORMER_TRANSFORMER_INTERFACE_H_
+#define AMM_TRANSFORMER_TRANSFORMER_INTERFACE_H_
 
 #include <string>
 
@@ -31,14 +31,17 @@ namespace representation {
     class Program;
 } // namespace representation
 
-class TransformerInterface {
+namespace transformer {
+class TransformerInterface
+{
 public:
-    virtual std::string Transform(const representation::MenuStart &entry) const = 0;
-    virtual std::string Transform(const representation::MenuEnd &entry) const = 0;
-    virtual std::string Transform(const representation::SubcategoryStart &entry) const = 0;
-    virtual std::string Transform(const representation::SubcategoryEnd &entry) const = 0;
-    virtual std::string Transform(const representation::Program &entry) const = 0;
+    virtual std::string transform(const representation::MenuStart &entry) const = 0;
+    virtual std::string transform(const representation::MenuEnd &entry) const = 0;
+    virtual std::string transform(const representation::SubcategoryStart &entry) const = 0;
+    virtual std::string transform(const representation::SubcategoryEnd &entry) const = 0;
+    virtual std::string transform(const representation::Program &entry) const = 0;
 };
+} // namespace transformer
 } // namespace amm
 
-#endif // AMM_TRANSFORMER_INTERFACE_H_
+#endif // AMM_TRANSFORMER_TRANSFORMER_INTERFACE_H_

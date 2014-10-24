@@ -151,9 +151,9 @@ void Menu::Sort()
     }
 }
 
-std::vector<RepresentationInterface*> Menu::Representations() const
+std::vector<representation::RepresentationInterface*> Menu::Representations() const
 {
-    std::vector<RepresentationInterface*> representations;
+    std::vector<representation::RepresentationInterface*> representations;
     representation::MenuStart *menu_start = new representation::MenuStart;
     representations.push_back(menu_start);
 

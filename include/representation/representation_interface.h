@@ -16,22 +16,24 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_REPRESENTATION_INTERFACE_H_
-#define AMM_REPRESENTATION_INTERFACE_H_
+#ifndef AMM_REPRESENTATION_REPRESENTATION_INTERFACE_H_
+#define AMM_REPRESENTATION_REPRESENTATION_INTERFACE_H_
 
 #include <string>
 
-#include "transformer_interface.h"
+#include "transformer/transformer_interface.h"
 
 namespace amm {
-
-class RepresentationInterface {
+namespace representation {
+class RepresentationInterface
+{
 public:
     virtual ~RepresentationInterface() {}
     virtual std::string name() const = 0;
-    virtual std::string visit(TransformerInterface &transformer) const = 0;
+    virtual std::string visit(transformer::TransformerInterface &transformer) const = 0;
 };
 
+} // namespace representation
 } // namespace amm
 
-#endif // AMM_REPRESENTATION_INTERFACE_H_
+#endif // AMM_REPRESENTATION_REPRESENTATION_INTERFACE_H_

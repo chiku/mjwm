@@ -29,50 +29,51 @@
 #include "representation/subcategory_start.h"
 #include "representation/subcategory_end.h"
 #include "representation/program.h"
-#include "transformer_interface.h"
+#include "transformer/transformer_interface.h"
 #include "icon_search/icon_search_interface.h"
 
 namespace amm {
 
 static const std::string kapplicationFixturesDirectory = "test/fixtures/applications/";
 
-class TestTransformer : public TransformerInterface
+class TestTransformer : public transformer::TransformerInterface
 {
 public:
-    std::string Transform(const representation::MenuStart &entry) const
+    std::string transform(const representation::MenuStart &entry) const
     {
         return "Menu start--> name: " + entry.name();
     }
 
-    std::string Transform(const representation::MenuEnd &entry) const
+    std::string transform(const representation::MenuEnd &entry) const
     {
         return "Menu end--> name: " + entry.name();
     }
 
-    std::string Transform(const representation::SubcategoryStart &entry) const
+    std::string transform(const representation::SubcategoryStart &entry) const
     {
         return "Subsection start--> name: " + entry.name() + " icon: " + entry.icon();
     }
 
-    std::string Transform(const representation::SubcategoryEnd &entry) const
+    std::string transform(const representation::SubcategoryEnd &entry) const
     {
         return "Subsection end--> name: " + entry.name();
     }
 
-    std::string Transform(const representation::Program &entry) const
+    std::string transform(const representation::Program &entry) const
     {
         return "Program--> name: " + entry.name() + " icon: " + entry.icon() + " executable: " + entry.executable() + " comment: " + entry.comment();
     }
 };
 
-class TestIconSearch : public icon_search::IconSearchInterface {
+class TestIconSearch : public icon_search::IconSearchInterface
+{
 public:
     std::string resolvedName(std::string name) const { return name + ".always"; }
 };
 
-static void clearMemory(std::vector<RepresentationInterface*> representations)
+static void clearMemory(std::vector<representation::RepresentationInterface*> representations)
 {
-    for (std::vector<RepresentationInterface*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
+    for (std::vector<representation::RepresentationInterface*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
         delete *iter;
     }
 }
@@ -323,7 +324,7 @@ SCENARIO("Menu representations", "[menu]") {
             files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
 
             menu.Populate(files);
-            std::vector<RepresentationInterface*> representations = menu.Representations();
+            std::vector<representation::RepresentationInterface*> representations = menu.Representations();
             TestTransformer test_transformer;
 
             THEN("it stores menu start, subcategory start, menu entry, subcategory end and menu end") {
@@ -350,7 +351,7 @@ SCENARIO("Menu representations", "[menu]") {
             menu.RegisterIconService(*icon_searcher);
 
             menu.Populate(files);
-            std::vector<RepresentationInterface*> representations = menu.Representations();
+            std::vector<representation::RepresentationInterface*> representations = menu.Representations();
             TestTransformer test_transformer;
 
             THEN("it adds the icon name to icons for subcategory and menu-entry") {
