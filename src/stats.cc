@@ -27,73 +27,82 @@
 
 namespace amm {
 
-void Stats::AddUnhandledClassifications(std::vector<std::string> classifications) {
-  unhandled_classifications_.insert(unhandled_classifications_.begin(), classifications.begin(), classifications.end());
+void Stats::AddUnhandledClassifications(std::vector<std::string> classifications)
+{
+    unhandled_classifications_.insert(unhandled_classifications_.begin(), classifications.begin(), classifications.end());
 }
 
-size_t Stats::TotalFiles() const {
-  return classified_files_.size() + unclassified_files_.size() + suppressed_files_.size() + unparsed_files_.size();
+size_t Stats::TotalFiles() const
+{
+    return classified_files_.size() + unclassified_files_.size() + suppressed_files_.size() + unparsed_files_.size();
 }
 
-size_t Stats::TotalParsedFiles() const {
-  return classified_files_.size() + unclassified_files_.size();
+size_t Stats::TotalParsedFiles() const
+{
+    return classified_files_.size() + unclassified_files_.size();
 }
 
-size_t Stats::TotalUnclassifiedFiles() const {
-  return unclassified_files_.size();
+size_t Stats::TotalUnclassifiedFiles() const
+{
+    return unclassified_files_.size();
 }
 
-size_t Stats::TotalSuppressedFiles() const {
-  return suppressed_files_.size();
+size_t Stats::TotalSuppressedFiles() const
+{
+    return suppressed_files_.size();
 }
 
-size_t Stats::TotalUnparsedFiles() const {
-  return unparsed_files_.size();
+size_t Stats::TotalUnparsedFiles() const
+{
+    return unparsed_files_.size();
 }
 
-std::vector<std::string> Stats::UnparsedFiles() const {
-  return unparsed_files_;
+std::vector<std::string> Stats::UnparsedFiles() const
+{
+    return unparsed_files_;
 }
 
-std::vector<std::string> Stats::UnhandledClassifications() {
-  if (unhandled_classifications_.size() > 1) {
-    std::sort(unhandled_classifications_.begin(), unhandled_classifications_.end());
-    std::vector<std::string>::iterator it = std::unique(unhandled_classifications_.begin(), unhandled_classifications_.end());
-    unhandled_classifications_.resize(std::distance(unhandled_classifications_.begin(), it));
-  }
-
-  return unhandled_classifications_;
-}
-
-std::string Stats::Details(std::string summary_type) {
-  std::stringstream stream;
-  stream << "Total desktop files: " << TotalFiles() << std::endl;
-  stream << "Parsed desktop files: " << TotalParsedFiles() << std::endl;
-  stream << "Unparsed desktop files: " << TotalUnparsedFiles() << std::endl;
-  stream << "Suppressed desktop files (NoDisplay): " << TotalSuppressedFiles() << std::endl;
-  stream << "Unclassified desktop files: " << TotalUnclassifiedFiles() << std::endl;
-
-  if (summary_type == "normal" || summary_type == "long") {
-    if (TotalUnparsedFiles() > 0) {
-      stream << "List of unparsed files: " << VectorX(unparsed_files_).Join(", ") << std::endl;
-    }
-  }
-
-  if (summary_type == "long") {
-    if (TotalSuppressedFiles() > 0) {
-      stream << "List of suppressed files: " << VectorX(suppressed_files_).Join(", ") << std::endl;
+std::vector<std::string> Stats::UnhandledClassifications()
+{
+    if (unhandled_classifications_.size() > 1) {
+        std::sort(unhandled_classifications_.begin(), unhandled_classifications_.end());
+        std::vector<std::string>::iterator it = std::unique(unhandled_classifications_.begin(), unhandled_classifications_.end());
+        unhandled_classifications_.resize(std::distance(unhandled_classifications_.begin(), it));
     }
 
-    if (TotalUnclassifiedFiles() > 0) {
-      stream << "List of unclassified files: " << VectorX(unclassified_files_).Join(", ") << std::endl;
+    return unhandled_classifications_;
+}
+
+std::string Stats::Details(std::string summary_type)
+{
+    std::stringstream stream;
+    stream << "Total desktop files: " << TotalFiles() << std::endl;
+    stream << "Parsed desktop files: " << TotalParsedFiles() << std::endl;
+    stream << "Unparsed desktop files: " << TotalUnparsedFiles() << std::endl;
+    stream << "Suppressed desktop files (NoDisplay): " << TotalSuppressedFiles() << std::endl;
+    stream << "Unclassified desktop files: " << TotalUnclassifiedFiles() << std::endl;
+
+    if (summary_type == "normal" || summary_type == "long") {
+        if (TotalUnparsedFiles() > 0) {
+            stream << "List of unparsed files: " << VectorX(unparsed_files_).Join(", ") << std::endl;
+        }
     }
 
-    if (unhandled_classifications_.size() > 0) {
-      stream << "List of unhandled classifications: " << VectorX(UnhandledClassifications()).Join(", ") << std::endl;
-    }
-  }
+    if (summary_type == "long") {
+        if (TotalSuppressedFiles() > 0) {
+            stream << "List of suppressed files: " << VectorX(suppressed_files_).Join(", ") << std::endl;
+        }
 
-  return stream.str();
+        if (TotalUnclassifiedFiles() > 0) {
+            stream << "List of unclassified files: " << VectorX(unclassified_files_).Join(", ") << std::endl;
+        }
+
+        if (unhandled_classifications_.size() > 0) {
+            stream << "List of unhandled classifications: " << VectorX(UnhandledClassifications()).Join(", ") << std::endl;
+        }
+    }
+
+    return stream.str();
 }
 
 } // namespace amm

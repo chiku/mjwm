@@ -27,61 +27,67 @@
 namespace amm {
 namespace transformer {
 
-static std::string RemoveFieldCode(std::string input) {
-  std::vector<std::string> result;
-  std::vector<std::string> tokens = StringX(input).Split(" ");
+static std::string RemoveFieldCode(std::string input)
+{
+    std::vector<std::string> result;
+    std::vector<std::string> tokens = StringX(input).Split(" ");
 
-  for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
-    if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
-      result.push_back(*iter);
+    for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
+        if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
+            result.push_back(*iter);
+        }
     }
-  }
 
-  return VectorX(result).Join(" ");
+    return VectorX(result).Join(" ");
 }
 
-std::string Jwm::Transform(const representation::MenuStart &entry) const {
-  std::stringstream stream;
-  stream << "<JWM>"
-         << std::endl
-         << "    <!--" << entry.name() << "-->";
-  return stream.str();
+std::string Jwm::Transform(const representation::MenuStart &entry) const
+{
+    std::stringstream stream;
+    stream << "<JWM>"
+        << std::endl
+        << "    <!--" << entry.name() << "-->";
+    return stream.str();
 }
 
-std::string Jwm::Transform(const representation::MenuEnd &entry) const {
-  std::stringstream stream;
-  stream << "    <!--" << entry.name() << "-->"
-         << std::endl
-         << "</JWM>";
-  return stream.str();
+std::string Jwm::Transform(const representation::MenuEnd &entry) const
+{
+    std::stringstream stream;
+    stream << "    <!--" << entry.name() << "-->"
+        << std::endl
+        << "</JWM>";
+    return stream.str();
 }
 
-std::string Jwm::Transform(const representation::SubcategoryStart &entry) const {
-  std::stringstream stream;
-  stream << "    <Menu "
-         << "label=\"" << StringX(entry.name()).Encode()
-         << "\" icon=\"" << entry.icon()
-         << "\">";
-  return stream.str();
+std::string Jwm::Transform(const representation::SubcategoryStart &entry) const
+{
+    std::stringstream stream;
+    stream << "    <Menu "
+        << "label=\"" << StringX(entry.name()).Encode()
+        << "\" icon=\"" << entry.icon()
+        << "\">";
+    return stream.str();
 }
 
-std::string Jwm::Transform(const representation::SubcategoryEnd &entry) const {
-  std::stringstream stream;
-  stream << "        <!--" << entry.name() << "-->"
-         << std::endl
-         << "    </Menu>";
-  return stream.str();
+std::string Jwm::Transform(const representation::SubcategoryEnd &entry) const
+{
+    std::stringstream stream;
+    stream << "        <!--" << entry.name() << "-->"
+        << std::endl
+        << "    </Menu>";
+    return stream.str();
 }
 
-std::string Jwm::Transform(const representation::Program &entry) const {
-  std::stringstream stream;
-  stream << "        <Program "
-         << "label=\"" << StringX(entry.name()).Encode()
-         << "\" icon=\"" << StringX(entry.icon()).Encode()
-         << "\">"
-         << RemoveFieldCode(entry.executable())
-         << "</Program>";
-  return stream.str();
+std::string Jwm::Transform(const representation::Program &entry) const
+{
+    std::stringstream stream;
+    stream << "        <Program "
+        << "label=\"" << StringX(entry.name()).Encode()
+        << "\" icon=\"" << StringX(entry.icon()).Encode()
+        << "\">"
+        << RemoveFieldCode(entry.executable())
+        << "</Program>";
+    return stream.str();
 }
 
 } // namespace transformer

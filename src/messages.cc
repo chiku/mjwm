@@ -28,96 +28,105 @@
 namespace amm {
 namespace messages {
 
-std::string Help() {
-  std::stringstream stream;
+std::string Help()
+{
+    std::stringstream stream;
 
-  stream << PACKAGE_STRING <<  ", Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
-  stream << PACKAGE << " comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
-  stream << "This is free software, and you are welcome to redistribute it" << std::endl;
-  stream << "under certain conditions; Refer COPYING for details." << std::endl;
-  stream << std::endl;
+    stream << PACKAGE_STRING <<  ", Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
+    stream << PACKAGE << " comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
+    stream << "This is free software, and you are welcome to redistribute it" << std::endl;
+    stream << "under certain conditions; Refer COPYING for details." << std::endl;
+    stream << std::endl;
 
-  stream << PACKAGE << " creates JWM's menu from (freedesktop) desktop files" << std::endl;
-  stream << std::endl;
+    stream << PACKAGE << " creates JWM's menu from (freedesktop) desktop files" << std::endl;
+    stream << std::endl;
 
-  stream << "Optional arguments:" << std::endl;
-  stream << "  -o, --output-file [FILE]    Outfile file [Default: ./automenu]" << std::endl;
-  stream << "  -i, --input-directory [DIRECTORY]" << std::endl;
-  stream << "                              Directory to scan for '.desktop' files. Multiple" << std::endl;
-  stream << "                                directories, if provided, must be separated by" << std::endl;
-  stream << "                                colons. [Default: application directories" << std::endl;
-  stream << "                                under $XDG_DATA_HOME & $XDG_DATA_DIRS]" << std::endl;
-  stream << "  -c, --category-file [FILE]  Use an external category file. Overrides the" << std::endl;
-  stream << "                                built in categories. Please look at" << std::endl;
-  stream << "                                default.mjwm to write your own category files." << std::endl;
-  stream << "      --iconize=[THEME]       Search for icon files by name in $HOME," << std::endl;
-  stream << "                                $XDG_DATA_DIRS/icons, and /usr/share/pixmaps." << std::endl;
-  stream << "                                Icon file names would be absolute paths to" << std::endl;
-  stream << "                                icons in the specified directories. Hicolor" << std::endl;
-  stream << "                                icon theme is used if no theme name is given." << std::endl;
-  stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
-  stream << "                                short, normal and long. Defaults to normal." << std::endl;
-  stream << "      --help                  Show this help" << std::endl;
-  stream << "      --version               Show version information" << std::endl;
-  stream << std::endl;
+    stream << "Optional arguments:" << std::endl;
+    stream << "  -o, --output-file [FILE]    Outfile file [Default: ./automenu]" << std::endl;
+    stream << "  -i, --input-directory [DIRECTORY]" << std::endl;
+    stream << "                              Directory to scan for '.desktop' files. Multiple" << std::endl;
+    stream << "                                directories, if provided, must be separated by" << std::endl;
+    stream << "                                colons. [Default: application directories" << std::endl;
+    stream << "                                under $XDG_DATA_HOME & $XDG_DATA_DIRS]" << std::endl;
+    stream << "  -c, --category-file [FILE]  Use an external category file. Overrides the" << std::endl;
+    stream << "                                built in categories. Please look at" << std::endl;
+    stream << "                                default.mjwm to write your own category files." << std::endl;
+    stream << "      --iconize=[THEME]       Search for icon files by name in $HOME," << std::endl;
+    stream << "                                $XDG_DATA_DIRS/icons, and /usr/share/pixmaps." << std::endl;
+    stream << "                                Icon file names would be absolute paths to" << std::endl;
+    stream << "                                icons in the specified directories. Hicolor" << std::endl;
+    stream << "                                icon theme is used if no theme name is given." << std::endl;
+    stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
+    stream << "                                short, normal and long. Defaults to normal." << std::endl;
+    stream << "      --help                  Show this help" << std::endl;
+    stream << "      --version               Show version information" << std::endl;
+    stream << std::endl;
 
-  stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
-  stream << "More information at http://github.com/chiku/mjwm" << std::endl;
+    stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
+    stream << "More information at http://github.com/chiku/mjwm" << std::endl;
 
-  return stream.str();
+    return stream.str();
 }
 
-std::string Version() {
-  std::stringstream stream;
-  stream << PACKAGE_STRING << std::endl;
-  return stream.str();
+std::string Version()
+{
+    std::stringstream stream;
+    stream << PACKAGE_STRING << std::endl;
+    return stream.str();
 }
 
-std::string HomeNotSet() {
-  std::stringstream stream;
-  stream << "$HOME is not set. Please set $HOME to a proper value and rerun." << std::endl;
-  return stream.str();
+std::string HomeNotSet()
+{
+    std::stringstream stream;
+    stream << "$HOME is not set. Please set $HOME to a proper value and rerun." << std::endl;
+    return stream.str();
 }
 
-std::string OptionError() {
-  std::stringstream stream;
-  stream << "Please run "<< PACKAGE << " --help to see options" << std::endl;
-  return stream.str();
+std::string OptionError()
+{
+    std::stringstream stream;
+    stream << "Please run "<< PACKAGE << " --help to see options" << std::endl;
+    return stream.str();
 }
 
-std::string BadSummaryType(std::string actual) {
-  std::stringstream stream;
-  stream << actual << " is not a valid summary type" << std::endl << OptionError() << std::endl;
-  return stream.str();
+std::string BadSummaryType(std::string actual)
+{
+    std::stringstream stream;
+    stream << actual << " is not a valid summary type" << std::endl << OptionError() << std::endl;
+    return stream.str();
 }
 
-std::string AutogeneratedByAmm() {
-  std::time_t rawtime;
-  tm *timeinfo;
-  char buffer[80];
-  std::time(&rawtime);
-  timeinfo = std::localtime(&rawtime);
-  std::strftime(buffer, 80, "%c", timeinfo);
+std::string AutogeneratedByAmm()
+{
+    std::time_t rawtime;
+    tm *timeinfo;
+    char buffer[80];
+    std::time(&rawtime);
+    timeinfo = std::localtime(&rawtime);
+    std::strftime(buffer, 80, "%c", timeinfo);
 
-  std::stringstream stream;
-  stream << "<!-- Autogenerated by " << PACKAGE_STRING << " (" << buffer << ") -->" << std::endl;
-  return stream.str();
+    std::stringstream stream;
+    stream << "<!-- Autogenerated by " << PACKAGE_STRING << " (" << buffer << ") -->" << std::endl;
+    return stream.str();
 }
 
-std::string NoValidDesktopEntryFiles() {
-  return "No valid desktop files were found in any search directories.";
+std::string NoValidDesktopEntryFiles()
+{
+    return "No valid desktop files were found in any search directories.";
 }
 
-std::string BadCategoryFile(const std::string file_name) {
-  std::stringstream stream;
-  stream << "Couldn't open category file: " << file_name;
-  return stream.str();
+std::string BadCategoryFile(const std::string file_name)
+{
+    std::stringstream stream;
+    stream << "Couldn't open category file: " << file_name;
+    return stream.str();
 }
 
-std::string BadOutputFile(const std::string file_name) {
-  std::stringstream stream;
-  stream << "Couldn't open output file: " << file_name;
-  return stream.str();
+std::string BadOutputFile(const std::string file_name)
+{
+    std::stringstream stream;
+    stream << "Couldn't open output file: " << file_name;
+    return stream.str();
 }
 
 } // namespace messages

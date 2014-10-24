@@ -32,91 +32,96 @@
 namespace amm {
 namespace icon_search {
 
-XdgSearch::XdgSearch(int size, std::string theme) : size_(size) {
-  SystemEnvironment environment;
-  registered_extensions_.push_back(".png");
-  registered_extensions_.push_back(".svg");
-  registered_extensions_.push_back(".xpm");
-  QualifiedIconTheme qualified_icon_theme = QualifiedIconTheme(environment, theme);
-  theme_search_paths_ = qualified_icon_theme.ThemeSearchPaths();
-  icon_themes_ = qualified_icon_theme.ParentThemes();
+XdgSearch::XdgSearch(int size, std::string theme) : size_(size)
+{
+    SystemEnvironment environment;
+    registered_extensions_.push_back(".png");
+    registered_extensions_.push_back(".svg");
+    registered_extensions_.push_back(".xpm");
+    QualifiedIconTheme qualified_icon_theme = QualifiedIconTheme(environment, theme);
+    theme_search_paths_ = qualified_icon_theme.ThemeSearchPaths();
+    icon_themes_ = qualified_icon_theme.ParentThemes();
 }
 
-std::string XdgSearch::ResolvedName(std::string icon_name) const {
-  std::string file_name = NameInTheme(icon_name);
-  if (file_name != "") {
-    return file_name;
-  }
-
-  file_name = FallbackName(icon_name);
-  if (file_name != "") {
-    return file_name;
-  }
-
-  return icon_name;
-}
-
-std::string XdgSearch::NameInTheme(std::string icon_name) const {
-  std::vector<xdg::IconSubdirectory> search_locations = FindSearchLocations(icon_name);
-  std::string file_name = LookupBySize(search_locations);
-
-  return file_name;
-}
-
-std::vector<xdg::IconSubdirectory> XdgSearch::FindSearchLocations(std::string icon_name) const {
-  std::vector<xdg::IconSubdirectory> search_locations;
-
-  for (std::vector<xdg::IconTheme>::const_iterator icon_theme = icon_themes_.begin(); icon_theme != icon_themes_.end(); ++icon_theme) {
-    std::vector<xdg::IconSubdirectory> theme_subdirs = icon_theme->Directories();
-
-    for (std::vector<xdg::IconSubdirectory>::iterator subdir = theme_subdirs.begin(); subdir != theme_subdirs.end(); ++subdir) {
-      for (std::vector<std::string>::const_iterator search_path = theme_search_paths_.begin(); search_path != theme_search_paths_.end(); ++search_path) {
-        for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
-          std::string file_name = StringX(*search_path + "/" + icon_theme->InternalName() + "/" + subdir->Name() + "/" + icon_name).TerminateWith(*extension);
-          if (FileX(file_name).Exists()) {
-            search_locations.push_back(xdg::IconSubdirectory(subdir->Location(file_name)));
-          }
-        }
-      }
-    }
-  }
-
-  return search_locations;
-}
-
-std::string XdgSearch::LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const {
-  for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
-    if (subdir->Matches(size_)) {
-      return subdir->Location();
-    }
-  }
-
-  int minimal_size = INT_MAX;
-  std::string closest_file_name = "";
-  for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
-    int distance = subdir->Distance(size_);
-    if (distance < minimal_size) {
-      closest_file_name = subdir->Location();
-      minimal_size = distance;
-    }
-  }
-
-  return closest_file_name;
-}
-
-std::string XdgSearch::FallbackName(std::string icon_name) const {
-  for (std::vector<std::string>::const_iterator directory = theme_search_paths_.begin(); directory != theme_search_paths_.end(); ++directory) {
-    for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
-      std::string file_name = amm::StringX(amm::StringX(*directory).TerminateWith("/") + icon_name).TerminateWith(*extension);
-      if (FileX(file_name).Exists()) {
+std::string XdgSearch::ResolvedName(std::string icon_name) const
+{
+    std::string file_name = NameInTheme(icon_name);
+    if (file_name != "") {
         return file_name;
-      }
     }
-  }
 
-  return "";
+    file_name = FallbackName(icon_name);
+    if (file_name != "") {
+        return file_name;
+    }
+
+    return icon_name;
 }
 
+std::string XdgSearch::NameInTheme(std::string icon_name) const
+{
+    std::vector<xdg::IconSubdirectory> search_locations = FindSearchLocations(icon_name);
+    std::string file_name = LookupBySize(search_locations);
+
+    return file_name;
+}
+
+std::vector<xdg::IconSubdirectory> XdgSearch::FindSearchLocations(std::string icon_name) const
+{
+    std::vector<xdg::IconSubdirectory> search_locations;
+
+    for (std::vector<xdg::IconTheme>::const_iterator icon_theme = icon_themes_.begin(); icon_theme != icon_themes_.end(); ++icon_theme) {
+        std::vector<xdg::IconSubdirectory> theme_subdirs = icon_theme->Directories();
+
+        for (std::vector<xdg::IconSubdirectory>::iterator subdir = theme_subdirs.begin(); subdir != theme_subdirs.end(); ++subdir) {
+            for (std::vector<std::string>::const_iterator search_path = theme_search_paths_.begin(); search_path != theme_search_paths_.end(); ++search_path) {
+                for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
+                    std::string file_name = StringX(*search_path + "/" + icon_theme->InternalName() + "/" + subdir->Name() + "/" + icon_name).TerminateWith(*extension);
+                    if (FileX(file_name).Exists()) {
+                        search_locations.push_back(xdg::IconSubdirectory(subdir->Location(file_name)));
+                    }
+                }
+            }
+        }
+    }
+
+    return search_locations;
+}
+
+std::string XdgSearch::LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const
+{
+    for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
+        if (subdir->Matches(size_)) {
+            return subdir->Location();
+        }
+    }
+
+    int minimal_size = INT_MAX;
+    std::string closest_file_name = "";
+    for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
+        int distance = subdir->Distance(size_);
+        if (distance < minimal_size) {
+            closest_file_name = subdir->Location();
+            minimal_size = distance;
+        }
+    }
+
+    return closest_file_name;
+}
+
+std::string XdgSearch::FallbackName(std::string icon_name) const
+{
+    for (std::vector<std::string>::const_iterator directory = theme_search_paths_.begin(); directory != theme_search_paths_.end(); ++directory) {
+        for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
+            std::string file_name = amm::StringX(amm::StringX(*directory).TerminateWith("/") + icon_name).TerminateWith(*extension);
+            if (FileX(file_name).Exists()) {
+                return file_name;
+            }
+        }
+    }
+
+    return "";
+}
 
 } // namespace icon_search
 } // namespace amm

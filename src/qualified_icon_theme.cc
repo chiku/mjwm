@@ -28,57 +28,61 @@
 
 namespace amm {
 
-QualifiedIconTheme::QualifiedIconTheme(SystemEnvironment environment, std::string theme_name) : theme_name_(theme_name) {
-  std::vector<std::string> theme_directories = environment.IconThemeDirectories();
+QualifiedIconTheme::QualifiedIconTheme(SystemEnvironment environment, std::string theme_name) : theme_name_(theme_name)
+{
+    std::vector<std::string> theme_directories = environment.IconThemeDirectories();
 
-  for (std::vector<std::string>::const_iterator dir = theme_directories.begin(); dir != theme_directories.end(); ++dir) {
-    if (FileX(*dir).Exists()) {
-      theme_search_paths_.push_back(*dir);
-    }
-  }
-}
-
-xdg::IconTheme QualifiedIconTheme::IconThemeFromName(std::string theme_name) {
-  for (std::vector<std::string>::iterator path = theme_search_paths_.begin(); path != theme_search_paths_.end(); ++path) {
-    DirectoryX directory(*path);
-
-    if (directory.IsValid()) {
-      DirectoryX::Entries entries = directory.AllEntries();
-      for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
-        std::string name = entry->Name();
-        if (entry->isDirectory() && name != "." && name != "..") {
-          std::string full_path = StringX(*path).TerminateWith("/") + StringX(entry->Name()).TerminateWith("/") + "index.theme";
-          std::vector<std::string> lines;
-
-          if (FileX(full_path).Load(&lines)) {
-            xdg::IconTheme xdg_theme = xdg::IconTheme(lines).InternalNameIs(entry->Name());
-            if (xdg_theme.IsNamed(theme_name)) {
-              return xdg_theme;
-            }
-          }
+    for (std::vector<std::string>::const_iterator dir = theme_directories.begin(); dir != theme_directories.end(); ++dir) {
+        if (FileX(*dir).Exists()) {
+            theme_search_paths_.push_back(*dir);
         }
-      }
     }
-  }
-
-  std::vector<std::string> empty_lines;
-  return xdg::IconTheme(empty_lines);
 }
 
-xdg::IconTheme QualifiedIconTheme::CurrentIconThemeFromName() {
-  return IconThemeFromName(theme_name_);
+xdg::IconTheme QualifiedIconTheme::IconThemeFromName(std::string theme_name)
+{
+    for (std::vector<std::string>::iterator path = theme_search_paths_.begin(); path != theme_search_paths_.end(); ++path) {
+        DirectoryX directory(*path);
+
+        if (directory.IsValid()) {
+            DirectoryX::Entries entries = directory.AllEntries();
+            for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+                std::string name = entry->Name();
+                if (entry->isDirectory() && name != "." && name != "..") {
+                    std::string full_path = StringX(*path).TerminateWith("/") + StringX(entry->Name()).TerminateWith("/") + "index.theme";
+                    std::vector<std::string> lines;
+
+                    if (FileX(full_path).Load(&lines)) {
+                        xdg::IconTheme xdg_theme = xdg::IconTheme(lines).InternalNameIs(entry->Name());
+                        if (xdg_theme.IsNamed(theme_name)) {
+                            return xdg_theme;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    std::vector<std::string> empty_lines;
+    return xdg::IconTheme(empty_lines);
 }
 
-std::vector<xdg::IconTheme> QualifiedIconTheme::ParentThemes() {
-  std::vector<xdg::IconTheme> icon_themes;
-  xdg::IconTheme icon_theme = CurrentIconThemeFromName();
-  icon_themes.push_back(icon_theme);
+xdg::IconTheme QualifiedIconTheme::CurrentIconThemeFromName()
+{
+    return IconThemeFromName(theme_name_);
+}
 
-  std::vector<std::string> parent_themes = icon_theme.Parents();
-  for (std::vector<std::string>::iterator iter = parent_themes.begin(); iter != parent_themes.end(); ++iter) {
-    icon_themes.push_back(IconThemeFromName(*iter));
-  }
-  return icon_themes;
+std::vector<xdg::IconTheme> QualifiedIconTheme::ParentThemes()
+{
+    std::vector<xdg::IconTheme> icon_themes;
+    xdg::IconTheme icon_theme = CurrentIconThemeFromName();
+    icon_themes.push_back(icon_theme);
+
+    std::vector<std::string> parent_themes = icon_theme.Parents();
+    for (std::vector<std::string>::iterator iter = parent_themes.begin(); iter != parent_themes.end(); ++iter) {
+        icon_themes.push_back(IconThemeFromName(*iter));
+    }
+    return icon_themes;
 }
 
 } // namespace amm

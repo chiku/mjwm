@@ -25,31 +25,33 @@
 
 namespace amm {
 
-bool FileX::Load(std::vector<std::string> *lines) const {
-  std::ifstream file(name_.c_str());
+bool FileX::Load(std::vector<std::string> *lines) const
+{
+    std::ifstream file(name_.c_str());
 
-  if (!file.good()) {
-    return false;
-  }
+    if (!file.good()) {
+        return false;
+    }
 
-  lines->clear();
-  std::string line;
-  while (std::getline(file, line)) {
-    lines->push_back(line);
-  }
-  file.close();
-  return true;
+    lines->clear();
+    std::string line;
+    while (std::getline(file, line)) {
+        lines->push_back(line);
+    }
+    file.close();
+    return true;
 }
 
-bool FileX::Exists() const {
-  struct stat st;
-  return stat(name_.c_str(), &st) == 0;
+bool FileX::Exists() const
+{
+    struct stat st;
+    return stat(name_.c_str(), &st) == 0;
 }
 
-bool FileX::ExistsAsDirectory() const {
-  struct stat st;
-  int result = stat(name_.c_str(), &st);
-  return result == 0 && S_ISDIR(st.st_mode);
+bool FileX::ExistsAsDirectory() const
+{
+    struct stat st;
+    int result = stat(name_.c_str(), &st);
+    return result == 0 && S_ISDIR(st.st_mode);
 }
-
 } // namespace amm

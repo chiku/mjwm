@@ -27,25 +27,29 @@
 namespace amm {
 
 Subcategory::Subcategory(std::string display_name, std::string icon_name, std::string classification_name) :
-    display_name_(display_name), icon_name_(icon_name) {
-  classification_names_.push_back(classification_name);
+        display_name_(display_name), icon_name_(icon_name)
+{
+    classification_names_.push_back(classification_name);
 }
 
 Subcategory::Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names) :
-   display_name_(display_name), icon_name_(icon_name), classification_names_(classification_names) {}
+        display_name_(display_name), icon_name_(icon_name), classification_names_(classification_names) {}
 
-bool Subcategory::HasEntries() const {
-  return DesktopEntries().size() > 0;
+bool Subcategory::HasEntries() const
+{
+    return DesktopEntries().size() > 0;
 }
 
-void Subcategory::AddDesktopEntry(xdg::DesktopEntry desktop_entry) {
-  desktop_entries_.push_back(desktop_entry);
+void Subcategory::AddDesktopEntry(xdg::DesktopEntry desktop_entry)
+{
+    desktop_entries_.push_back(desktop_entry);
 }
 
-void Subcategory::SortDesktopEntries() {
-  std::sort(desktop_entries_.begin(), desktop_entries_.end());
-  std::vector<xdg::DesktopEntry>::iterator it = std::unique(desktop_entries_.begin(), desktop_entries_.end());
-  desktop_entries_.resize(std::distance(desktop_entries_.begin(), it));
+void Subcategory::SortDesktopEntries()
+{
+    std::sort(desktop_entries_.begin(), desktop_entries_.end());
+    std::vector<xdg::DesktopEntry>::iterator it = std::unique(desktop_entries_.begin(), desktop_entries_.end());
+    desktop_entries_.resize(std::distance(desktop_entries_.begin(), it));
 }
 
 } // namespace amm

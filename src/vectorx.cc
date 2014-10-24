@@ -27,42 +27,45 @@
 
 namespace amm {
 
-std::string VectorX::Join(std::string delimeter) const {
-  std::stringstream stream;
-  size_t vector_size = vector_.size();
+std::string VectorX::Join(std::string delimeter) const
+{
+    std::stringstream stream;
+    size_t vector_size = vector_.size();
 
-  if (vector_size == 0) {
-    return "";
-  }
-
-  if (vector_size >= 2) {
-    for (std::vector<std::string>::const_iterator iterator = vector_.begin(); iterator != vector_.end()-1; ++iterator) {
-      stream << *iterator << delimeter;
+    if (vector_size == 0) {
+        return "";
     }
-  }
-  stream << vector_.back();
 
-  return stream.str();
+    if (vector_size >= 2) {
+        for (std::vector<std::string>::const_iterator iterator = vector_.begin(); iterator != vector_.end()-1; ++iterator) {
+            stream << *iterator << delimeter;
+        }
+    }
+    stream << vector_.back();
+
+    return stream.str();
 }
 
-std::vector<std::string> VectorX::TerminateWith(std::string delimiter) const {
-  std::vector<std::string> result;
+std::vector<std::string> VectorX::TerminateWith(std::string delimiter) const
+{
+    std::vector<std::string> result;
 
-  for (std::vector<std::string>::const_iterator i = vector_.begin(); i != vector_.end(); ++i) {
-    result.push_back(StringX(*i).TerminateWith(delimiter));
-  }
+    for (std::vector<std::string>::const_iterator i = vector_.begin(); i != vector_.end(); ++i) {
+        result.push_back(StringX(*i).TerminateWith(delimiter));
+    }
 
-  return result;
+    return result;
 }
 
-std::vector<std::string> VectorX::Unique() const {
-  std::vector<std::string> result = vector_;
+std::vector<std::string> VectorX::Unique() const
+{
+    std::vector<std::string> result = vector_;
 
-  std::sort(result.begin(), result.end());
-  std::vector<std::string>::iterator it = std::unique(result.begin(), result.end());
-  result.resize(std::distance(result.begin(), it));
+    std::sort(result.begin(), result.end());
+    std::vector<std::string>::iterator it = std::unique(result.begin(), result.end());
+    result.resize(std::distance(result.begin(), it));
 
-  return result;
+    return result;
 }
 
 } // namespace amm

@@ -18,14 +18,15 @@
 
 #include "amm.h"
 
-int main(int argc, char *argv[]) {
-  amm::Amm amm;
-  amm.ValidateEnvironment();
-  amm.LoadCommandLineOption(argc, argv);
-  amm.RegisterIconService();
-  amm.ReadCategories();
-  amm.ReadDesktopEntryFiles();
-  amm.Populate();
-  amm.WriteOutputFile();
-  amm.PrintSummary();
+int main(int argc, char *argv[])
+{
+    amm::Amm amm;
+    amm.ValidateEnvironment();
+    amm.LoadCommandLineOption(argc, argv);
+    amm.RegisterIconService();
+    amm.ReadCategories();
+    amm.ReadDesktopEntryFiles();
+    amm.Populate();
+    amm.WriteOutputFile();
+    amm.PrintSummary();
 }

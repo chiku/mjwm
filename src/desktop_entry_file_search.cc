@@ -29,55 +29,58 @@
 
 namespace amm {
 
-static std::vector<std::string> DefaultDirectories() {
-  std::vector<std::string> existing_directories;
-  std::vector<std::string> directories = SystemEnvironment().ApplicationDirectories();
-  for (std::vector<std::string>::iterator directory = directories.begin(); directory != directories.end(); ++directory) {
-    if (DirectoryX(*directory).IsValid()) {
-      existing_directories.push_back(*directory);
+static std::vector<std::string> DefaultDirectories()
+{
+    std::vector<std::string> existing_directories;
+    std::vector<std::string> directories = SystemEnvironment().ApplicationDirectories();
+    for (std::vector<std::string>::iterator directory = directories.begin(); directory != directories.end(); ++directory) {
+        if (DirectoryX(*directory).IsValid()) {
+            existing_directories.push_back(*directory);
+        }
     }
-  }
-  return existing_directories;
+    return existing_directories;
 }
 
-void DesktopEntryFileSearch::RegisterDefaultDirectories() {
-  capture_bad_paths_ = false;
-  RegisterDirectories(DefaultDirectories());
+void DesktopEntryFileSearch::RegisterDefaultDirectories()
+{
+    capture_bad_paths_ = false;
+    RegisterDirectories(DefaultDirectories());
 }
 
-void DesktopEntryFileSearch::Resolve() {
-  desktop_file_names_.clear();
-  bad_paths_.clear();
+void DesktopEntryFileSearch::Resolve()
+{
+    desktop_file_names_.clear();
+    bad_paths_.clear();
 
-  std::vector<std::string> terminated_names = VectorX(directory_names_).TerminateWith("/");
-  std::vector<std::string> unique_names = VectorX(terminated_names).Unique();
+    std::vector<std::string> terminated_names = VectorX(directory_names_).TerminateWith("/");
+    std::vector<std::string> unique_names = VectorX(terminated_names).Unique();
 
-  for (std::vector<std::string>::const_iterator name = unique_names.begin(); name != unique_names.end(); ++name) {
-    Populate(*name);
-  }
-}
-
-void DesktopEntryFileSearch::Populate(std::string directory_name) {
-  DirectoryX directory(directory_name);
-
-  if (directory.IsValid()) {
-    DirectoryX::Entries entries = directory.AllEntries();
-
-    for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
-      std::string entry_name = entry->Name();
-      std::string full_path = StringX(directory_name).TerminateWith("/") + entry_name;
-
-      if (StringX(entry_name).EndsWith(".desktop")) {
-        desktop_file_names_.push_back(full_path);
-      }
-
-      if (entry->isDirectory() && entry_name != ".." && entry_name != ".") {
-        Populate(full_path);
-      }
+    for (std::vector<std::string>::const_iterator name = unique_names.begin(); name != unique_names.end(); ++name) {
+        Populate(*name);
     }
-  } else if (capture_bad_paths_) {
-    bad_paths_.push_back(directory_name);
-  }
 }
 
+void DesktopEntryFileSearch::Populate(std::string directory_name)
+{
+    DirectoryX directory(directory_name);
+
+    if (directory.IsValid()) {
+        DirectoryX::Entries entries = directory.AllEntries();
+
+        for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+            std::string entry_name = entry->Name();
+            std::string full_path = StringX(directory_name).TerminateWith("/") + entry_name;
+
+            if (StringX(entry_name).EndsWith(".desktop")) {
+                desktop_file_names_.push_back(full_path);
+            }
+
+            if (entry->isDirectory() && entry_name != ".." && entry_name != ".") {
+                Populate(full_path);
+            }
+        }
+    } else if (capture_bad_paths_) {
+        bad_paths_.push_back(directory_name);
+    }
+}
 } // namespace amm

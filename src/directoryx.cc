@@ -22,7 +22,6 @@
 #include <string>
 
 namespace amm {
-
 bool DirectoryX::IsValid() const
 {
     DIR* directory = opendir(path_.c_str());
@@ -71,5 +70,4 @@ DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++(int)
     terminate_ = !result_.success;
     return output;
 }
-
 } // namespace amm
