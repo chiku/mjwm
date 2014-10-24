@@ -43,14 +43,14 @@ XdgSearch::XdgSearch(int size, std::string theme) : size_(size)
     icon_themes_ = qualified_icon_theme.ParentThemes();
 }
 
-std::string XdgSearch::ResolvedName(std::string icon_name) const
+std::string XdgSearch::resolvedName(std::string icon_name) const
 {
-    std::string file_name = NameInTheme(icon_name);
+    std::string file_name = nameInTheme(icon_name);
     if (file_name != "") {
         return file_name;
     }
 
-    file_name = FallbackName(icon_name);
+    file_name = fallbackName(icon_name);
     if (file_name != "") {
         return file_name;
     }
@@ -58,15 +58,15 @@ std::string XdgSearch::ResolvedName(std::string icon_name) const
     return icon_name;
 }
 
-std::string XdgSearch::NameInTheme(std::string icon_name) const
+std::string XdgSearch::nameInTheme(std::string icon_name) const
 {
-    std::vector<xdg::IconSubdirectory> search_locations = FindSearchLocations(icon_name);
-    std::string file_name = LookupBySize(search_locations);
+    std::vector<xdg::IconSubdirectory> search_locations = findSearchLocations(icon_name);
+    std::string file_name = lookupBySize(search_locations);
 
     return file_name;
 }
 
-std::vector<xdg::IconSubdirectory> XdgSearch::FindSearchLocations(std::string icon_name) const
+std::vector<xdg::IconSubdirectory> XdgSearch::findSearchLocations(std::string icon_name) const
 {
     std::vector<xdg::IconSubdirectory> search_locations;
 
@@ -88,7 +88,7 @@ std::vector<xdg::IconSubdirectory> XdgSearch::FindSearchLocations(std::string ic
     return search_locations;
 }
 
-std::string XdgSearch::LookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const
+std::string XdgSearch::lookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const
 {
     for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
         if (subdir->Matches(size_)) {
@@ -109,7 +109,7 @@ std::string XdgSearch::LookupBySize(std::vector<xdg::IconSubdirectory> search_lo
     return closest_file_name;
 }
 
-std::string XdgSearch::FallbackName(std::string icon_name) const
+std::string XdgSearch::fallbackName(std::string icon_name) const
 {
     for (std::vector<std::string>::const_iterator directory = theme_search_paths_.begin(); directory != theme_search_paths_.end(); ++directory) {
         for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {

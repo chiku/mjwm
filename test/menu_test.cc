@@ -36,37 +36,42 @@ namespace amm {
 
 static const std::string kapplicationFixturesDirectory = "test/fixtures/applications/";
 
-class TestTransformer : public TransformerInterface {
- public:
-    std::string Transform(const representation::MenuStart &entry) const {
+class TestTransformer : public TransformerInterface
+{
+public:
+    std::string Transform(const representation::MenuStart &entry) const
+    {
         return "Menu start--> name: " + entry.name();
     }
 
-    std::string Transform(const representation::MenuEnd &entry) const {
+    std::string Transform(const representation::MenuEnd &entry) const
+    {
         return "Menu end--> name: " + entry.name();
     }
 
-    std::string Transform(const representation::SubcategoryStart &entry) const {
+    std::string Transform(const representation::SubcategoryStart &entry) const
+    {
         return "Subsection start--> name: " + entry.name() + " icon: " + entry.icon();
     }
 
-    std::string Transform(const representation::SubcategoryEnd &entry) const {
+    std::string Transform(const representation::SubcategoryEnd &entry) const
+    {
         return "Subsection end--> name: " + entry.name();
     }
 
-    std::string Transform(const representation::Program &entry) const {
+    std::string Transform(const representation::Program &entry) const
+    {
         return "Program--> name: " + entry.name() + " icon: " + entry.icon() + " executable: " + entry.executable() + " comment: " + entry.comment();
     }
 };
 
 class TestIconSearch : public icon_search::IconSearchInterface {
 public:
-    std::string ResolvedName(std::string name) const {
-        return name + ".always";
-    }
+    std::string resolvedName(std::string name) const { return name + ".always"; }
 };
 
-static void clearMemory(std::vector<RepresentationInterface*> representations) {
+static void clearMemory(std::vector<RepresentationInterface*> representations)
+{
     for (std::vector<RepresentationInterface*>::iterator iter = representations.begin(); iter != representations.end(); ++iter) {
         delete *iter;
     }

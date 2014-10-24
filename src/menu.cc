@@ -160,13 +160,13 @@ std::vector<RepresentationInterface*> Menu::Representations() const
     std::vector<Subcategory>::const_iterator subcategory;
     for (subcategory = subcategories_.begin(); subcategory != subcategories_.end(); ++subcategory) {
         if (subcategory->HasEntries()) {
-            std::string icon_name = icon_searcher_->ResolvedName(subcategory->IconName());
+            std::string icon_name = icon_searcher_->resolvedName(subcategory->IconName());
             representation::SubcategoryStart *start = new representation::SubcategoryStart(subcategory->DisplayName(), icon_name);
             representations.push_back(start);
 
             std::vector<xdg::DesktopEntry> entries = subcategory->DesktopEntries();
             for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
-                std::string icon_name = icon_searcher_->ResolvedName(entry->Icon());
+                std::string icon_name = icon_searcher_->resolvedName(entry->Icon());
                 representation::Program *program = new representation::Program(entry->Name(), icon_name, entry->Executable(), entry->Comment());
                 representations.push_back(program);
             }

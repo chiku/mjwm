@@ -28,7 +28,7 @@ class IconSearchInterface
 {
 public:
     virtual ~IconSearchInterface() {}
-    virtual std::string ResolvedName(std::string icon_name) const = 0;
+    virtual std::string resolvedName(std::string icon_name) const = 0;
 };
 } // namespace icon_search
 } // namespace amm

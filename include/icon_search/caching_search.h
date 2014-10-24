@@ -30,19 +30,19 @@ namespace icon_search {
 class CachingSearch : public IconSearchInterface
 {
 public:
-    CachingSearch(IconSearchInterface &actual_searcher) : actual_searcher_(actual_searcher) { }
-    std::string ResolvedName(std::string icon_name) const
+    explicit CachingSearch(IconSearchInterface &actual_searcher) : actual_searcher_(actual_searcher) { }
+    std::string resolvedName(std::string icon_name) const
     {
         std::map<std::string, std::string>::const_iterator it = IteratorTo(icon_name);
         if (it != cache.end()) {
             return it->second;
         }
-        std::string result = actual_searcher_.ResolvedName(icon_name);
+        std::string result = actual_searcher_.resolvedName(icon_name);
         cache.insert(std::pair<std::string, std::string>(icon_name, result));
         return result;
     }
 
-    bool IsCached(std::string icon_name) const { return IteratorTo(icon_name) != cache.end(); }
+    bool isCached(std::string icon_name) const { return IteratorTo(icon_name) != cache.end(); }
 
 private:
     IconSearchInterface& actual_searcher_;

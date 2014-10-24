@@ -31,8 +31,8 @@ class TestSearch : public IconSearchInterface
 {
 public:
     TestSearch() : extension_(".png") { }
-    std::string ResolvedName(std::string icon_name) const { return icon_name + extension_; }
-    void ExtensionIs(std::string extension) { extension_ = extension; }
+    std::string resolvedName(std::string icon_name) const { return icon_name + extension_; }
+    void extensionIs(std::string extension) { extension_ = extension; }
 private:
     std::string extension_;
 };
@@ -45,25 +45,25 @@ SCENARIO("icon_search::CachingSearch", "[cachingsearch]") {
 
         WHEN("retrieving an unsearched item") {
             THEN("the item is absent from the cache") {
-                REQUIRE(!caching_searcher.IsCached("vlc"));
+                REQUIRE(!caching_searcher.isCached("vlc"));
             }
         }
 
         WHEN("retrieving a searched item") {
-            caching_searcher.ResolvedName("vlc");
+            caching_searcher.resolvedName("vlc");
             THEN("the item is present in the cache") {
-                REQUIRE(caching_searcher.IsCached("vlc"));
+                REQUIRE(caching_searcher.isCached("vlc"));
             }
 
             THEN("the item is same as the original item") {
-                REQUIRE(caching_searcher.ResolvedName("vlc") == "vlc.png");
+                REQUIRE(caching_searcher.resolvedName("vlc") == "vlc.png");
             }
 
             WHEN("the underlying implementation returns a different item") {
-                caching_searcher.ResolvedName("vlc");
-                actual_searcher->ExtensionIs(".svg");
+                caching_searcher.resolvedName("vlc");
+                actual_searcher->extensionIs(".svg");
                 THEN("the original entry is retrieved") {
-                    REQUIRE(caching_searcher.ResolvedName("vlc") == "vlc.png");
+                    REQUIRE(caching_searcher.resolvedName("vlc") == "vlc.png");
                 }
             }
         }
