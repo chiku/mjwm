@@ -76,7 +76,7 @@ SCENARIO("VectorX", "[vectorx]") {
         VectorX vectorx(vector);
 
         WHEN("terminated with a delimeter") {
-            std::vector<std::string> result = vectorx.terminateWith("/");
+            std::vector<std::string> result = vectorx.terminateEachWith("/");
             THEN("it adds the delimeter without duplicating it") {
                 REQUIRE(result.size() == 3);
                 REQUIRE(result[0] == "foo/");

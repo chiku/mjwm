@@ -23,16 +23,15 @@
 #include <vector>
 
 namespace amm {
-// TODO : move methods with single use to their usage points
 
 class VectorX
 {
 public:
     explicit VectorX(std::vector<std::string> vector) : vector_(vector) { }
 
-    std::string join(std::string delimiter) const; // Transformer::Jwm, FSS, Stats, mjwm
-    std::vector<std::string> terminateWith(std::string delimiter) const; //StringX // TODO rename to terminateEachWith
-    std::vector<std::string> unique() const; // FSS
+    std::string join(std::string delimiter) const;
+    std::vector<std::string> terminateEachWith(std::string delimiter) const;
+    std::vector<std::string> unique() const;
 private:
   const std::vector<std::string> vector_;
 };

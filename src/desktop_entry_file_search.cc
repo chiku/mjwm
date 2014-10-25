@@ -52,7 +52,7 @@ void DesktopEntryFileSearch::resolve()
     desktop_file_names_.clear();
     bad_paths_.clear();
 
-    std::vector<std::string> terminated_names = VectorX(directory_names_).terminateWith("/");
+    std::vector<std::string> terminated_names = VectorX(directory_names_).terminateEachWith("/");
     std::vector<std::string> unique_names = VectorX(terminated_names).unique();
 
     for (std::vector<std::string>::const_iterator name = unique_names.begin(); name != unique_names.end(); ++name) {

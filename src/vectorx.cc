@@ -46,7 +46,7 @@ std::string VectorX::join(std::string delimeter) const
     return stream.str();
 }
 
-std::vector<std::string> VectorX::terminateWith(std::string delimiter) const
+std::vector<std::string> VectorX::terminateEachWith(std::string delimiter) const
 {
     std::vector<std::string> result;
 

@@ -23,17 +23,16 @@
 #include <vector>
 
 namespace amm {
-// TODO : move methods with single use to their usage points
 class StringX
 {
 public:
     explicit StringX(std::string string);
 
-    bool endsWith(const std::string delimiter) const; // FSS
-    std::string terminateWith(const std::string end); // FSS
-    std::string encode() const; // Transformer::JWM
-    std::string trim() const; // DesktopEntry
-    std::vector<std::string> split(const std::string delimiter) const; // Menu, Transformer::JWM, FSS, CLO
+    bool endsWith(const std::string delimiter) const;
+    std::string terminateWith(const std::string end);
+    std::string encode() const;
+    std::string trim() const;
+    std::vector<std::string> split(const std::string delimiter) const;
 private:
     const std::string string_;
 };
