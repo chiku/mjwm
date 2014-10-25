@@ -1,4 +1,4 @@
-#/bin/bash
+#/bin/sh
 
 set_environment() {
   export VERBOSE=1
