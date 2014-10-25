@@ -28,7 +28,8 @@
 namespace amm {
 namespace xdg {
 
-DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true) {
+DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true)
+{
     Entry xdg_entry(lines);
     xdg_entry.parse();
     name_ = xdg_entry.under("Desktop Entry", "Name");
@@ -66,7 +67,8 @@ bool DesktopEntry::isValid() const
     return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
 }
 
-bool DesktopEntry::isA(std::string type) const {
+bool DesktopEntry::isA(std::string type) const
+{
     return std::binary_search(categories_.begin(), categories_.end(), type);
 }
 
