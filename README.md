@@ -18,7 +18,7 @@ Dependencies
 
 The application runs on a POSIX system with a C++ runtime.
 
-For compiling the aplication you need make, automake, autoconf and a recent C++ compiler. This application has compiled fine with g++ 4.6, g++ 4.8 and clang++ 3.3.
+For compiling the aplication you need make, automake, autoconf and a recent C++ compiler. This application has compiled fine with g++ versions 4.6, 4.8 & 4.9 and clang++ 3.3, 3.4 & 3.5 .
 
 Installation from source
 ------------------------
