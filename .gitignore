@@ -23,5 +23,3 @@ coverage/
 *coverage.info
 *.gcov
 
-# Program output
-automenu
