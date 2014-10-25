@@ -28,7 +28,7 @@ namespace amm
 class DirectoryX
 {
 public:
-    DirectoryX(std::string path) : path_(path) {}
+    explicit DirectoryX(std::string path) : path_(path) {}
     bool isValid() const;
 
     class Entries
@@ -51,21 +51,19 @@ public:
         class iterator
         {
         public:
-            iterator(Entries *subdirs, bool terminate) : subdirs_(subdirs), terminate_(terminate) {}
+            iterator(Entries *subdirs) : subdirs_(subdirs) { }
             Entries* operator ->() { return subdirs_; }
             Entries& operator *() { return *subdirs_; }
             iterator operator ++();
             iterator operator ++(int);
-            bool operator ==(const iterator& rhs) { return terminate_ == rhs.terminate_; }
-            bool operator !=(const iterator& rhs) { return terminate_ != rhs.terminate_; }
+            bool operator ==(const iterator& rhs) { return subdirs_ == rhs.subdirs_; }
+            bool operator !=(const iterator& rhs) { return subdirs_ != rhs.subdirs_; }
         private:
             Entries *subdirs_;
-            SearchResult result_;
-            bool terminate_;
         };
 
-        iterator begin() { nextName(); return iterator(this, false); }
-        iterator end() { return iterator(this, true); }
+        iterator begin() { nextName(); return iterator(this); }
+        iterator end() { return iterator(NULL); }
 
         std::string name() const { return current_result_.name; }
         bool isDirectory() const { return current_result_.isDirectory; }

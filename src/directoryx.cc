@@ -58,16 +58,18 @@ DirectoryX::Entries::SearchResult DirectoryX::Entries::nextName()
 
 DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++()
 {
-    result_ = subdirs_->nextName();
-    terminate_ = !result_.success;
-    return *this;
+    DirectoryX::Entries::iterator output = *this;
+    if (!subdirs_->nextName().success) {
+        subdirs_ = NULL;
+    }
+    return output;
 }
 
 DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++(int)
 {
-    DirectoryX::Entries::iterator output = *this;
-    result_ = subdirs_->nextName();
-    terminate_ = !result_.success;
-    return output;
+    if (!subdirs_->nextName().success) {
+        subdirs_ = NULL;
+    }
+    return *this;
 }
 } // namespace amm
