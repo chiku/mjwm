@@ -33,6 +33,7 @@
 #include "icon_search/icon_search_interface.h"
 #include "icon_search/xdg_search.h"
 #include "icon_search/caching_search.h"
+#include "qualified_icon_theme.h"
 #include "desktop_entry_file_search.h"
 #include "stats.h"
 #include "menu.h"
@@ -104,7 +105,8 @@ void Amm::readCategories()
 void Amm::registerIconService()
 {
     if (options_.is_iconize) {
-        actual_searcher_ = new icon_search::XdgSearch(48, options_.icon_theme_name);
+        QualifiedIconTheme theme(environment_, options_.icon_theme_name);
+        actual_searcher_ = new icon_search::XdgSearch(48, theme);
         icon_search::IconSearchInterface *icon_searcher = new icon_search::CachingSearch(*actual_searcher_);
         menu_.registerIconService(*icon_searcher);
     }

@@ -24,7 +24,6 @@
 
 #include "stringx.h"
 #include "filex.h"
-#include "system_environment.h"
 #include "xdg/icon_subdirectory.h"
 #include "xdg/icon_theme.h"
 #include "qualified_icon_theme.h"
@@ -32,15 +31,13 @@
 namespace amm {
 namespace icon_search {
 
-XdgSearch::XdgSearch(int size, std::string theme) : size_(size)
+XdgSearch::XdgSearch(int size, QualifiedIconTheme qualified_icon_theme) : size_(size)
 {
-    SystemEnvironment environment;
     registered_extensions_.push_back(".png");
     registered_extensions_.push_back(".svg");
     registered_extensions_.push_back(".xpm");
-    QualifiedIconTheme qualified_icon_theme = QualifiedIconTheme(environment, theme); // TODO inject qualified_icon_theme
     theme_search_paths_ = qualified_icon_theme.themeSearchPaths();
-    icon_themes_ = qualified_icon_theme.parentThemes(); // TODO rename parentThemes to include self theme
+    icon_themes_ = qualified_icon_theme.themeWithParent();
 }
 
 std::string XdgSearch::resolvedName(std::string icon_name) const

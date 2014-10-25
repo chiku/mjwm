@@ -24,6 +24,7 @@
 
 #include "xdg/icon_theme.h"
 #include "icon_search/icon_search_interface.h"
+#include "qualified_icon_theme.h"
 
 namespace amm {
 namespace icon_search {
@@ -32,7 +33,7 @@ namespace icon_search {
 class XdgSearch : public IconSearchInterface
 {
 public:
-    XdgSearch(int size, std::string theme);
+    XdgSearch(int size, QualifiedIconTheme qualified_icon_theme);
     std::string resolvedName(std::string icon_name) const;
 
 private:

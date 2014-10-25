@@ -72,7 +72,7 @@ xdg::IconTheme QualifiedIconTheme::currentIconThemeFromName()
     return iconThemeFromName(theme_name_);
 }
 
-std::vector<xdg::IconTheme> QualifiedIconTheme::parentThemes()
+std::vector<xdg::IconTheme> QualifiedIconTheme::themeWithParent()
 {
     std::vector<xdg::IconTheme> icon_themes;
     xdg::IconTheme icon_theme = currentIconThemeFromName();
