@@ -32,7 +32,7 @@ EntryLine::EntryLine(std::string content) :
 
 bool EntryLine::isDeclaration() const
 {
-    return content_[0] == '[' && content_[content_.length() - 1] == ']';
+    return content_[0] == '[' && content_[content_length_ - 1] == ']';
 }
 
 bool EntryLine::isAssignment() const
@@ -66,7 +66,7 @@ std::string EntryLine::value() const
         return "";
     }
 
-    return StringX(content_.substr(assignment_delim_location_ + 1, content_.length())).trim();
+    return StringX(content_.substr(assignment_delim_location_ + 1, content_length_)).trim();
 }
 
 } // namespace xdg
