@@ -16,8 +16,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define CATCH_CONFIG_MAIN
-
 #include "../catch.hpp"
 #include "xdg/entry.h"
 
