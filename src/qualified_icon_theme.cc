@@ -52,7 +52,7 @@ xdg::IconTheme QualifiedIconTheme::iconThemeFromName(std::string theme_name)
                     std::string full_path = StringX(*path).terminateWith("/") + StringX(entry->name()).terminateWith("/") + "index.theme";
                     std::vector<std::string> lines;
 
-                    if (FileX(full_path).load(&lines)) {
+                    if (FileX(full_path).readLines(&lines)) {
                         xdg::IconTheme xdg_theme = xdg::IconTheme(lines).internalNameIs(entry->name());
                         if (xdg_theme.isNamed(theme_name)) {
                             return xdg_theme;

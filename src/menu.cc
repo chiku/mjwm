@@ -102,7 +102,7 @@ void Menu::populate(std::vector<std::string> entry_names)
 void Menu::addDesktopEntry(std::string entry_name)
 {
     std::vector<std::string> lines;
-    if (!FileX(entry_name).load(&lines)) {
+    if (!FileX(entry_name).readLines(&lines)) {
         summary_.addUnparsedFile(entry_name);
         return;
     }

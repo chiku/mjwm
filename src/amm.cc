@@ -94,7 +94,7 @@ void Amm::readCategories()
     std::vector<std::string> category_lines;
 
     if (category_file_name != "") {
-        if (FileX(category_file_name).load(&category_lines)) {
+        if (FileX(category_file_name).readLines(&category_lines)) {
             menu_.loadCustomCategories(category_lines);
         } else {
             std::cerr << messages::badCategoryFile(category_file_name) << std::endl;
