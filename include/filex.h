@@ -27,7 +27,10 @@ class FileX
 {
 public:
     explicit FileX(std::string name) : name_(name) { }
-    bool load(std::vector<std::string> *lines) const;
+    bool readLines(std::vector<std::string> *lines) const;
+    bool load(std::vector<std::string> *lines) const { return readLines(lines); }
+    bool writeLines(const std::vector<std::string> &lines) const;
+    bool moveTo(std::string location) const;
     bool exists() const;
     bool existsAsDirectory() const;
 

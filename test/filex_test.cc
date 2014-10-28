@@ -18,6 +18,7 @@
 
 #include "filex.h"
 
+#include <cstdio>
 #include <string>
 #include <vector>
 
@@ -40,12 +41,12 @@ SCENARIO("FileX", "[filex]") {
 
             THEN("it succeeds in reading its contents") {
                 std::vector<std::string> lines;
-                REQUIRE(filex.load(&lines));
+                REQUIRE(filex.readLines(&lines));
             }
 
             THEN("it reads the content of the file") {
                 std::vector<std::string> lines;
-                filex.load(&lines);
+                filex.readLines(&lines);
                 REQUIRE(lines.size() == 11);
                 REQUIRE(lines[0] == "[Desktop Entry]");
                 REQUIRE(lines[1] == "Version=1.0");
@@ -62,13 +63,67 @@ SCENARIO("FileX", "[filex]") {
 
             THEN("it over-writes the older content") {
                 std::vector<std::string> lines;
-                filex.load(&lines);
-                filex.load(&lines);
+                filex.readLines(&lines);
+                filex.readLines(&lines);
                 REQUIRE(lines.size() == 11);
+            }
+
+            THEN("it doesn't write lines to the file") {
+                std::vector<std::string> lines;
+                lines.push_back("first");
+                lines.push_back("second");
+                REQUIRE(!filex.writeLines(lines));
+            }
+
+            THEN("it can move the file to an existing directory") {
+                std::string file_name = "test/fixtures/new-file";
+                std::string renamed_file_name = "test/fixtures/renamed-file";
+
+                remove(file_name.c_str());
+                remove(renamed_file_name.c_str());
+
+                std::vector<std::string> lines;
+                lines.push_back("first");
+                lines.push_back("second");
+                REQUIRE(FileX(file_name).writeLines(lines));
+
+                REQUIRE(FileX(file_name).moveTo(renamed_file_name));
+
+                REQUIRE(!FileX(file_name).exists());
+
+                std::vector<std::string> read_lines;
+                REQUIRE(FileX(renamed_file_name).readLines(&read_lines));
+                REQUIRE(read_lines.size() == 2);
+                REQUIRE(read_lines[0] == "first");
+                REQUIRE(read_lines[1] == "second");
+
+                remove(file_name.c_str());
+                remove(renamed_file_name.c_str());
+            }
+
+            THEN("it can't move the file to a non-existing directory") {
+                std::string file_name = "test/fixtures/new-file";
+                std::string renamed_file_name = "test/does-not-exist-fixtures/renamed-file";
+
+                remove(file_name.c_str());
+                remove(renamed_file_name.c_str());
+
+                std::vector<std::string> lines;
+                lines.push_back("first");
+                lines.push_back("second");
+                REQUIRE(FileX(file_name).writeLines(lines));
+
+                REQUIRE(!FileX(file_name).moveTo(renamed_file_name));
+
+                REQUIRE(FileX(file_name).exists());
+                REQUIRE(!FileX(renamed_file_name).exists());
+
+                remove(file_name.c_str());
+                remove(renamed_file_name.c_str());
             }
         }
 
-        WHEN("it points to a directory that exists") {
+        WHEN("pointing to a directory that exists") {
             FileX dirx("test/fixtures/applications");
 
             THEN("it exists") {
@@ -80,8 +135,11 @@ SCENARIO("FileX", "[filex]") {
             }
         }
 
-        WHEN("it points to a file that doesn't exist") {
-            FileX filex("test/fixtures/applications/does-not-exist.desktop");
+        WHEN("pointing to a file that doesn't exist") {
+            std::string file_name = "test/fixtures/applications/does-not-exist.desktop";
+            FileX filex(file_name);
+            remove(file_name.c_str());
+            remove((file_name + ".backup_extension").c_str());
 
             THEN("it doesn't exist") {
                 REQUIRE(!filex.exists());
@@ -93,21 +151,36 @@ SCENARIO("FileX", "[filex]") {
 
             THEN("it fails to read its contents") {
                 std::vector<std::string> lines;
-                REQUIRE(!filex.load(&lines));
+                REQUIRE(!filex.readLines(&lines));
             }
 
             THEN("its lines are empty") {
                 std::vector<std::string> lines;
-                filex.load(&lines);
+                filex.readLines(&lines);
                 REQUIRE(lines.empty());
             }
 
             THEN("it doesn't over-write the older contents") {
                 std::vector<std::string> lines;
                 lines.push_back("existing line");
-                filex.load(&lines);
+                filex.readLines(&lines);
                 REQUIRE(lines.size() == 1);
                 REQUIRE(lines[0] == "existing line");
+            }
+
+            THEN("it writes lines to the file") {
+                std::vector<std::string> lines;
+                lines.push_back("first");
+                lines.push_back("second");
+                REQUIRE(filex.writeLines(lines));
+
+                FileX read_file(file_name);
+                std::vector<std::string> read_lines;
+                REQUIRE(read_file.readLines(&read_lines));
+                REQUIRE(read_lines.size() == 2);
+                REQUIRE(read_lines[0] == "first");
+                REQUIRE(read_lines[1] == "second");
+                remove(file_name.c_str());
             }
         }
     }

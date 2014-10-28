@@ -19,28 +19,12 @@
 #include "filex.h"
 
 #include <sys/stat.h>
+#include <cstdio>
 #include <string>
 #include <vector>
-#include <fstream>
+#include <fstream> // TODO : enable optional cstdio integration
 
 namespace amm {
-
-bool FileX::load(std::vector<std::string> *lines) const
-{
-    std::ifstream file(name_.c_str());
-
-    if (!file.good()) {
-        return false;
-    }
-
-    lines->clear();
-    std::string line;
-    while (std::getline(file, line)) {
-        lines->push_back(line);
-    }
-    file.close();
-    return true;
-}
 
 bool FileX::exists() const
 {
@@ -54,4 +38,44 @@ bool FileX::existsAsDirectory() const
     int result = stat(name_.c_str(), &st);
     return result == 0 && S_ISDIR(st.st_mode);
 }
+
+bool FileX::moveTo(std::string new_path) const
+{
+    return rename(name_.c_str(), new_path.c_str()) == 0;
+}
+
+bool FileX::readLines(std::vector<std::string> *lines) const
+{
+    std::ifstream file(name_.c_str());
+    if (!file.good()) {
+        return false;
+    }
+
+    lines->clear();
+    std::string line;
+    while (std::getline(file, line)) {
+        lines->push_back(line);
+    }
+    file.close();
+    return true;
+}
+
+bool FileX::writeLines(const std::vector<std::string> &lines) const
+{
+    if (exists()) {
+        return false;
+    }
+
+    std::ofstream file(name_.c_str());
+    if (!file.good()) {
+        return false;
+    }
+
+    for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
+        file << *line << '\n';
+    }
+
+    return true;
+}
+
 } // namespace amm
