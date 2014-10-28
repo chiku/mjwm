@@ -21,6 +21,9 @@
 #include <dirent.h>
 #include <string>
 
+#include "stringx.h"
+#include "filex.h"
+
 namespace amm {
 bool DirectoryX::isValid() const
 {
@@ -33,7 +36,7 @@ bool DirectoryX::isValid() const
     }
 }
 
-DirectoryX::Entries::Entries(std::string path)
+DirectoryX::Entries::Entries(std::string path) : path_(path)
 {
     directory_ = opendir(path.c_str());
 }
@@ -49,7 +52,8 @@ DirectoryX::Entries::SearchResult DirectoryX::Entries::nextName()
 {
     dirent *entry_;
     while((entry_ = readdir(directory_)) != NULL) {
-        current_result_ = SearchResult::Success(entry_->d_name, entry_->d_type == DT_DIR);
+        std::string full_path = StringX(path_).terminateWith("/") + entry_->d_name;
+        current_result_ = SearchResult::Success(entry_->d_name, FileX(full_path).existsAsDirectory());
         return current_result_;
     }
     current_result_ = SearchResult::Bad();

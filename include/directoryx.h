@@ -70,6 +70,7 @@ public:
         SearchResult nextName();
 
     private:
+        std::string path_;
         DIR *directory_;
         SearchResult current_result_;
     };
