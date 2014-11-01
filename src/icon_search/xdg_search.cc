@@ -31,6 +31,16 @@
 namespace amm {
 namespace icon_search {
 
+class Path
+{
+public:
+    explicit Path(const std::string &name) { name_ = name; name_.reserve(256); }
+    void join(const std::string &path) { name_ += "/"; name_ += path; }
+    std::string result() { return name_; }
+private:
+    std::string name_;
+};
+
 XdgSearch::XdgSearch(int size, QualifiedIconTheme qualified_icon_theme) : size_(size)
 {
     registered_extensions_.push_back(".png");
@@ -73,7 +83,11 @@ std::vector<xdg::IconSubdirectory> XdgSearch::findSearchLocations(std::string ic
         for (std::vector<xdg::IconSubdirectory>::iterator subdir = theme_subdirs.begin(); subdir != theme_subdirs.end(); ++subdir) {
             for (std::vector<std::string>::const_iterator search_path = theme_search_paths_.begin(); search_path != theme_search_paths_.end(); ++search_path) {
                 for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
-                    std::string file_name = StringX(*search_path + "/" + icon_theme->internalName() + "/" + subdir->name() + "/" + icon_name).terminateWith(*extension);
+                    Path path(*search_path);
+                    path.join(icon_theme->internalName());
+                    path.join(subdir->name());
+                    path.join(icon_name);
+                    std::string file_name = StringX(path.result()).terminateWith(*extension);
                     if (FileX(file_name).exists()) {
                         search_locations.push_back(xdg::IconSubdirectory(subdir->location(file_name)));
                     }

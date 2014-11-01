@@ -27,13 +27,13 @@ namespace amm {
 class VectorX
 {
 public:
-    explicit VectorX(std::vector<std::string> vector) : vector_(vector) { }
+    explicit VectorX(const std::vector<std::string> &vector) : vector_(vector) { }
 
-    std::string join(std::string delimiter) const;
-    std::vector<std::string> terminateEachWith(std::string delimiter) const;
+    std::string join(const std::string &delimiter) const;
+    std::vector<std::string> terminateEachWith(const std::string &delimiter) const;
     std::vector<std::string> unique() const;
 private:
-  const std::vector<std::string> vector_;
+    const std::vector<std::string> &vector_;
 };
 } // namespace amm
 

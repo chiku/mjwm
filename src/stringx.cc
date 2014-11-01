@@ -27,7 +27,7 @@ namespace amm {
 
 StringX::StringX(std::string string) : string_(string) {}
 
-bool StringX::endsWith(const std::string delimeter) const
+bool StringX::endsWith(const std::string &delimeter) const
 {
     const size_t length = string_.length();
     const size_t delimeter_length = delimeter.length();
@@ -35,7 +35,7 @@ bool StringX::endsWith(const std::string delimeter) const
     return ((length >= delimeter_length) && (string_.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
 }
 
-std::string StringX::terminateWith(std::string delimeter)
+std::string StringX::terminateWith(const std::string &delimeter)
 {
     return endsWith(delimeter) ? string_ : string_ + delimeter;
 }
@@ -74,7 +74,7 @@ std::string StringX::trim() const
     return string_.substr(begin, range);
 }
 
-std::vector<std::string> StringX::split(const std::string delimeter) const
+std::vector<std::string> StringX::split(const std::string &delimeter) const
 {
     std::string raw = string_;
     size_t delimeter_length = delimeter.length();

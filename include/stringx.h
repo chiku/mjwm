@@ -28,11 +28,11 @@ class StringX
 public:
     explicit StringX(std::string string);
 
-    bool endsWith(const std::string delimiter) const;
-    std::string terminateWith(const std::string end);
+    bool endsWith(const std::string &delimiter) const;
+    std::string terminateWith(const std::string &end);
     std::string encode() const;
     std::string trim() const;
-    std::vector<std::string> split(const std::string delimiter) const;
+    std::vector<std::string> split(const std::string &delimiter) const;
 private:
     const std::string string_;
 };

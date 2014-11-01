@@ -27,7 +27,7 @@
 
 namespace amm {
 
-std::string VectorX::join(std::string delimeter) const
+std::string VectorX::join(const std::string &delimeter) const
 {
     std::stringstream stream;
     size_t vector_size = vector_.size();
@@ -46,7 +46,7 @@ std::string VectorX::join(std::string delimeter) const
     return stream.str();
 }
 
-std::vector<std::string> VectorX::terminateEachWith(std::string delimiter) const
+std::vector<std::string> VectorX::terminateEachWith(const std::string &delimiter) const
 {
     std::vector<std::string> result;
 
