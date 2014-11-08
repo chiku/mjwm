@@ -35,7 +35,7 @@
 
 namespace amm {
 
-Menu::Menu() : icon_searcher_(new icon_search::MirrorSearch), unclassified_subcategory_(Subcategory("Others", "applications-others", "Others"))
+Menu::Menu() : icon_searcher_(new icon_search::MirrorSearch), unclassified_subcategory_(Subcategory::Others())
 {
     createDefaultCategories();
 }
@@ -55,17 +55,17 @@ void Menu::createDefaultCategories()
 {
     subcategories_.clear();
 
-    subcategories_.push_back(Subcategory("Settings",    "gnome-settings",           "Settings"   ));
-    subcategories_.push_back(Subcategory("Accessories", "applications-accessories", "Utility"    ));
-    subcategories_.push_back(Subcategory("Development", "applications-development", "Development"));
-    subcategories_.push_back(Subcategory("Education",   "applications-science",     "Education"  ));
-    subcategories_.push_back(Subcategory("Games",       "applications-games",       "Game"       ));
-    subcategories_.push_back(Subcategory("Graphics",    "applications-graphics",    "Graphics"   ));
-    subcategories_.push_back(Subcategory("Internet",    "applications-internet",    "Network"    ));
-    subcategories_.push_back(Subcategory("Multimedia",  "applications-multimedia",  "AudioVideo" ));
-    subcategories_.push_back(Subcategory("Office",      "applications-office",      "Office"     ));
-    subcategories_.push_back(Subcategory("Science",     "applications-science",     "Science"    ));
-    subcategories_.push_back(Subcategory("System",      "applications-system",      "System"     ));
+    subcategories_.push_back(Subcategory::Settings());
+    subcategories_.push_back(Subcategory::Accessories());
+    subcategories_.push_back(Subcategory::Development());
+    subcategories_.push_back(Subcategory::Education());
+    subcategories_.push_back(Subcategory::Games());
+    subcategories_.push_back(Subcategory::Graphics());
+    subcategories_.push_back(Subcategory::Internet());
+    subcategories_.push_back(Subcategory::Multimedia());
+    subcategories_.push_back(Subcategory::Office());
+    subcategories_.push_back(Subcategory::Science());
+    subcategories_.push_back(Subcategory::System());
 }
 
 void Menu::loadCustomCategories(std::vector<std::string> lines)

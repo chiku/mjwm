@@ -42,6 +42,19 @@ public:
     void addDesktopEntry(xdg::DesktopEntry desktop_file);
     void sortDesktopEntries();
 
+    static Subcategory Others()      { return Subcategory("Others",      "applications-others",      "Others"     ); }
+    static Subcategory Settings()    { return Subcategory("Settings",    "gnome-settings",           "Settings"   ); }
+    static Subcategory Accessories() { return Subcategory("Accessories", "applications-accessories", "Utility"    ); }
+    static Subcategory Development() { return Subcategory("Development", "applications-development", "Development"); }
+    static Subcategory Education()   { return Subcategory("Education",   "applications-science",     "Education"  ); }
+    static Subcategory Games()       { return Subcategory("Games",       "applications-games",       "Game"       ); }
+    static Subcategory Graphics()    { return Subcategory("Graphics",    "applications-graphics",    "Graphics"   ); }
+    static Subcategory Internet()    { return Subcategory("Internet",    "applications-internet",    "Network"    ); }
+    static Subcategory Multimedia()  { return Subcategory("Multimedia",  "applications-multimedia",  "AudioVideo" ); }
+    static Subcategory Office()      { return Subcategory("Office",      "applications-office",      "Office"     ); }
+    static Subcategory Science()     { return Subcategory("Science",     "applications-science",     "Science"    ); }
+    static Subcategory System()      { return Subcategory("System",      "applications-system",      "System"     ); }
+
 private:
     std::string display_name_;
     std::string icon_name_;
