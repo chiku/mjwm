@@ -26,7 +26,7 @@ namespace amm {
 class StringX
 {
 public:
-    explicit StringX(std::string string);
+    explicit StringX(const std::string &string) : string_(string) {}
 
     bool endsWith(const std::string &delimiter) const;
     std::string terminateWith(const std::string &end);

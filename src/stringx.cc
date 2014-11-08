@@ -25,8 +25,6 @@
 
 namespace amm {
 
-StringX::StringX(std::string string) : string_(string) {}
-
 bool StringX::endsWith(const std::string &delimeter) const
 {
     const size_t length = string_.length();
