@@ -45,9 +45,21 @@ void Entry::parse()
     result_[current_section] = entry;
 }
 
-std::string Entry::under(std::string section, std::string key)
+std::string Entry::under(std::string section_name, std::string key_name)
 {
-    return result_[section][key];
+    std::map<std::string, std::string> section = result_[section_name];
+    if (language_ == "") {
+        return section[key_name];
+    }
+
+    std::string language_aware_key_name = key_name + "[" + language_ + "]";
+    std::map<std::string, std::string>::const_iterator language_aware_key_itr = section.find(language_aware_key_name);
+
+    if (language_aware_key_itr != section.end()) {
+      return language_aware_key_itr->second;
+    } else {
+      return section[key_name];
+    }
 }
 
 } // namespace xdg

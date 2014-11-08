@@ -28,9 +28,9 @@
 namespace amm {
 namespace xdg {
 
-DesktopEntry::DesktopEntry(std::vector<std::string> lines) : display_(true)
+void DesktopEntry::parse(std::vector<std::string> lines)
 {
-    Entry xdg_entry(lines);
+    Entry xdg_entry(lines, language_);
     xdg_entry.parse();
     name_ = xdg_entry.under("Desktop Entry", "Name");
     icon_ = xdg_entry.under("Desktop Entry", "Icon");

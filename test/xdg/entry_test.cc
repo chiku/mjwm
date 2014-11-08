@@ -39,6 +39,28 @@ std::vector<std::string> singleSectionEntryLines()
     return lines;
 }
 
+std::vector<std::string> singleSectionEntryLinesWithLanguages()
+{
+    std::vector<std::string> lines;
+    lines.push_back("[Desktop Entry]");
+    lines.push_back("Version=1.0");
+    lines.push_back("Name=VLC media player");
+    lines.push_back("GenericName=Media player");
+    lines.push_back("Comment=Read, capture, broadcast your multimedia streams");
+    lines.push_back("Name[bn]=VLC মিডিয়া প্লেয়ার");
+    lines.push_back("Comment[bn]=আপনার মাল্টিমিডিয়া স্ট্রীম পড়ুন, ধরে রাখুন এবং ছড়িয়ে দিন");
+    lines.push_back("Name[br]=VLC lenner mediaoù");
+    lines.push_back("GenericName[br]=Lenner mediaoù");
+    lines.push_back("Comment[br]=Lenn, enrollañ, skignañ ho lanvioù liesvedia");
+    lines.push_back("Exec=/usr/bin/vlc --started-from-file %U");
+    lines.push_back("TryExec=/usr/bin/vlc");
+    lines.push_back("Icon=vlc");
+    lines.push_back("Terminal=false");
+    lines.push_back("Type=Application");
+    lines.push_back("Categories=AudioVideo;Player;Recorder;");
+    return lines;
+}
+
 std::vector<std::string> multipleSectionsEntry()
 {
     std::vector<std::string> lines;
@@ -105,6 +127,48 @@ SCENARIO("xdg::Entry", "[XDGentry]") {
             entry.parse();
 
             THEN("values are exposed under the section and key name") {
+                REQUIRE(entry.under("Desktop Entry", "Version"    ) == "1.0");
+                REQUIRE(entry.under("Desktop Entry", "Name"       ) == "VLC media player");
+                REQUIRE(entry.under("Desktop Entry", "GenericName") == "Media player");
+                REQUIRE(entry.under("Desktop Entry", "Comment"    ) == "Read, capture, broadcast your multimedia streams");
+                REQUIRE(entry.under("Desktop Entry", "Exec"       ) == "/usr/bin/vlc --started-from-file %U");
+                REQUIRE(entry.under("Desktop Entry", "TryExec"    ) == "/usr/bin/vlc");
+                REQUIRE(entry.under("Desktop Entry", "Icon"       ) == "vlc");
+                REQUIRE(entry.under("Desktop Entry", "Terminal"   ) == "false");
+                REQUIRE(entry.under("Desktop Entry", "Type"       ) == "Application");
+                REQUIRE(entry.under("Desktop Entry", "Categories" ) == "AudioVideo;Player;Recorder;");
+            }
+        }
+    }
+
+    GIVEN("An XDG file for an existing language") {
+        xdg::Entry entry(singleSectionEntryLinesWithLanguages(), "bn");
+
+        WHEN("when parsed") {
+            entry.parse();
+
+            THEN("values are exposed for the language") {
+                REQUIRE(entry.under("Desktop Entry", "Version"    ) == "1.0");
+                REQUIRE(entry.under("Desktop Entry", "Name"       ) == "VLC মিডিয়া প্লেয়ার");
+                REQUIRE(entry.under("Desktop Entry", "GenericName") == "Media player");
+                REQUIRE(entry.under("Desktop Entry", "Comment"    ) == "আপনার মাল্টিমিডিয়া স্ট্রীম পড়ুন, ধরে রাখুন এবং ছড়িয়ে দিন");
+                REQUIRE(entry.under("Desktop Entry", "Exec"       ) == "/usr/bin/vlc --started-from-file %U");
+                REQUIRE(entry.under("Desktop Entry", "TryExec"    ) == "/usr/bin/vlc");
+                REQUIRE(entry.under("Desktop Entry", "Icon"       ) == "vlc");
+                REQUIRE(entry.under("Desktop Entry", "Terminal"   ) == "false");
+                REQUIRE(entry.under("Desktop Entry", "Type"       ) == "Application");
+                REQUIRE(entry.under("Desktop Entry", "Categories" ) == "AudioVideo;Player;Recorder;");
+            }
+        }
+    }
+
+    GIVEN("An XDG file for a non-existing language") {
+        xdg::Entry entry(singleSectionEntryLinesWithLanguages(), "bad");
+
+        WHEN("when parsed") {
+            entry.parse();
+
+            THEN("default values are exposed") {
                 REQUIRE(entry.under("Desktop Entry", "Version"    ) == "1.0");
                 REQUIRE(entry.under("Desktop Entry", "Name"       ) == "VLC media player");
                 REQUIRE(entry.under("Desktop Entry", "GenericName") == "Media player");

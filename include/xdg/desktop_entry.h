@@ -29,8 +29,7 @@ namespace xdg {
 class DesktopEntry
 {
 public:
-    DesktopEntry() { }
-    explicit DesktopEntry(std::vector<std::string> lines);
+    DesktopEntry() : display_(true) { }
 
     std::string name() const { return name_; }
     std::string icon() const { return icon_; }
@@ -39,11 +38,14 @@ public:
     std::string comment() const { return comment_; }
     bool display() const { return display_; }
 
+    void hasLanguage(std::string language) { language_ = language; }
+
     bool operator < (const DesktopEntry &other) const;
     bool operator > (const DesktopEntry &other) const;
     bool operator == (const DesktopEntry &other) const;
     bool operator != (const DesktopEntry &other) const;
 
+    void parse(std::vector<std::string> lines);
     bool isValid() const;
     bool isA(std::string type) const;
     bool isAnyOf(std::vector<std::string> types) const;
@@ -55,6 +57,7 @@ private:
     std::vector<std::string> categories_;
     std::string comment_;
     bool display_;
+    std::string language_;
 };
 
 } // namespace xdg

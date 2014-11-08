@@ -26,7 +26,7 @@
 namespace amm {
 namespace xdg {
 
-SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
+SCENARIO("Populate DesktopEntry", "[desktopfile]") {
     GIVEN("A desktop-file") {
         DesktopEntry entry;
 
@@ -38,7 +38,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
             lines.push_back("Exec=mousepad %F\n");
             lines.push_back("Categories=Application;Utility;TextEditor;GTK;\n");
             lines.push_back("Comment=Simple Text Editor\n");
-            DesktopEntry entry(lines);
+            entry.parse(lines);
 
             THEN("it has a name") {
                 REQUIRE(entry.name() == "Mousepad");
@@ -73,7 +73,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
                 std::vector<std::string> lines;
                 lines.push_back("[Desktop Entry]\n");
                 lines.push_back("NoDisplay=true\n");
-                DesktopEntry entry(lines);
+                entry.parse(lines);
                 THEN("it is not marked as displayed") {
                     REQUIRE(!entry.display());
                 }
@@ -83,7 +83,7 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
                 std::vector<std::string> lines;
                 lines.push_back("[Desktop Entry]\n");
                 lines.push_back("NoDisplay=1\n");
-                DesktopEntry entry(lines);
+                entry.parse(lines);
                 THEN("it is not marked as displayed") {
                     REQUIRE(!entry.display());
                 }
@@ -92,21 +92,52 @@ SCENARIO("DesktopEntry.Populate()", "[desktopfile]") {
     }
 }
 
+SCENARIO("Language-aware DesktopEntry", "[focus]") {
+    GIVEN("A desktop-file") {
+        DesktopEntry entry;
+        entry.hasLanguage("sr");
+
+        WHEN("created") {
+            std::vector<std::string> lines;
+            lines.push_back("[Desktop Entry]\n");
+            lines.push_back("Name=Mousepad\n");
+            lines.push_back("Name[sr]=Мишоловка\n");
+            lines.push_back("Icon=accessories-text-editor\n");
+            lines.push_back("Exec=mousepad %F\n");
+            lines.push_back("Categories=Application;Utility;TextEditor;GTK;\n");
+            lines.push_back("Comment=Simple Text Editor\n");
+            lines.push_back("Comment[sr]=Једноставан уређивач текста\n");
+            entry.parse(lines);
+
+            THEN("it picks the name with matching language") {
+                REQUIRE(entry.name() == "Мишоловка");
+            }
+
+            THEN("it picks comment with the matching language") {
+                REQUIRE(entry.comment() == "Једноставан уређивач текста");
+            }
+        }
+    }
+}
+
 
 SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
+    DesktopEntry entry;
+    DesktopEntry other_entry;
+
     GIVEN("A desktop-file") {
         std::vector<std::string> lines;
         lines.push_back("[Desktop Entry]\n");
         lines.push_back("Name=Mousepad");
         lines.push_back("Exec=mousepad");
-        DesktopEntry entry(lines);
+        entry.parse(lines);
 
         WHEN("compared to another desktop-file") {
             WHEN("the other desktop-file has an alphabetically greater name") {
                 std::vector<std::string> other_lines;
                 other_lines.push_back("[Desktop Entry]\n");
                 other_lines.push_back("Name=VLC");
-                DesktopEntry other_entry(other_lines);
+                other_entry.parse(other_lines);
 
                 THEN("the desktop file is lesser than the other desktop file") {
                     REQUIRE(entry < other_entry);
@@ -118,7 +149,7 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 std::vector<std::string> other_lines;
                 other_lines.push_back("[Desktop Entry]\n");
                 other_lines.push_back("Name=GParted");
-                DesktopEntry other_entry(other_lines);
+                other_entry.parse(other_lines);
 
                 THEN("the desktop file is greater than the other desktop file") {
                     REQUIRE(entry > other_entry);
@@ -131,7 +162,7 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_lines.push_back("[Desktop Entry]\n");
                 other_lines.push_back("Name=Mousepad");
                 other_lines.push_back("Exec=mousepad");
-                DesktopEntry other_entry(other_lines);
+                other_entry.parse(other_lines);
 
                 THEN("the desktop file is equal to the other desktop file") {
                     REQUIRE(entry == other_entry);
@@ -144,7 +175,7 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_lines.push_back("[Desktop Entry]\n");
                 other_lines.push_back("Name=VLC Server");
                 other_lines.push_back("Exec=vlc");
-                DesktopEntry other_entry(other_lines);
+                other_entry.parse(other_lines);
 
                 THEN("the desktop file is not equal to the other desktop file") {
                     REQUIRE(entry != other_entry);
@@ -157,7 +188,7 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_lines.push_back("[Desktop Entry]\n");
                 other_lines.push_back("Name=VLC");
                 other_lines.push_back("Exec=svlc");
-                DesktopEntry other_entry(other_lines);
+                other_entry.parse(other_lines);
 
                 THEN("the desktop file is not equal to the other desktop file") {
                     REQUIRE(entry != other_entry);
@@ -170,6 +201,8 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
 
 
 SCENARIO("DesktopEntry validity", "[desktopfile]") {
+    DesktopEntry entry;
+
     GIVEN("A desktop-file") {
         WHEN("it has a name, an icon and an executable") {
             std::vector<std::string> lines;
@@ -177,8 +210,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Name=Mousepad\n");
             lines.push_back("Icon=accessories-text-editor\n");
             lines.push_back("Exec=mousepad %F\n");
-            DesktopEntry entry(lines);
-
+            entry.parse(lines);
             THEN("it is valid") {
                 REQUIRE(entry.isValid());
             }
@@ -189,7 +221,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("[Desktop Entry]\n");
             lines.push_back("Icon=accessories-text-editor\n");
             lines.push_back("Exec=mousepad %F\n");
-            DesktopEntry entry(lines);
+            entry.parse(lines);
             THEN("it is not valid") {
                 REQUIRE(!entry.isValid());
             }
@@ -200,7 +232,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("[Desktop Entry]\n");
             lines.push_back("Name=Mousepad\n");
             lines.push_back("Exec=mousepad %F\n");
-            DesktopEntry entry(lines);
+            entry.parse(lines);
             THEN("it is not valid") {
                 REQUIRE(!entry.isValid());
             }
@@ -211,7 +243,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("[Desktop Entry]\n");
             lines.push_back("Name=Mousepad\n");
             lines.push_back("Icon=accessories-text-editor\n");
-            DesktopEntry entry(lines);
+            entry.parse(lines);
             THEN("it is not valid") {
                 REQUIRE(!entry.isValid());
             }
@@ -220,12 +252,14 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
 }
 
 SCENARIO("DesktopEntry classifications", "[desktopfile]") {
+    DesktopEntry entry;
+
     GIVEN("A desktop-file") {
         WHEN("it has one of the categories as AudioVideo") {
             std::vector<std::string> lines;
             lines.push_back("[Desktop Entry]\n");
             lines.push_back("Categories=AudioVideo;Audio;Player;GTK;\n");
-            DesktopEntry entry(lines);
+            entry.parse(lines);
             THEN("it is an AudioVideo") {
                 REQUIRE(entry.isA("AudioVideo"));
             }
@@ -242,7 +276,7 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
             std::vector<std::string> lines;
             lines.push_back("[Desktop Entry]\n");
             lines.push_back("Categories=Audio;Video;Player;GTK;\n");
-            DesktopEntry entry(lines);
+            entry.parse(lines);
             THEN("it is not an AudioVideo") {
                 REQUIRE(!entry.isA("AudioVideo"));
             }

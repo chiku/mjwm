@@ -33,7 +33,9 @@ static xdg::DesktopEntry mousepadDesktopEntry() {
     lines.push_back("Icon=accessories-text-editor");
     lines.push_back("Exec=mousepad %F");
     lines.push_back("Categories=Application;Utility;TextEditor;GTK;");
-    return xdg::DesktopEntry(lines);
+    xdg::DesktopEntry entry;
+    entry.parse(lines);
+    return entry;
 }
 
 static xdg::DesktopEntry sakuraDesktopEntry() {
@@ -43,7 +45,9 @@ static xdg::DesktopEntry sakuraDesktopEntry() {
     lines.push_back("Icon=terminal-tango");
     lines.push_back("Exec=sakura");
     lines.push_back("Categories=GTK;Utility;TerminalEmulator;System;");
-    return xdg::DesktopEntry(lines);
+    xdg::DesktopEntry entry;
+    entry.parse(lines);
+    return entry;
 }
 
 SCENARIO("subcategory", "[subcategory]") {

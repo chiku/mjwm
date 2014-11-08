@@ -106,7 +106,8 @@ void Menu::addDesktopEntry(std::string entry_name)
         summary_.addUnparsedFile(entry_name);
         return;
     }
-    xdg::DesktopEntry entry(lines);
+    xdg::DesktopEntry entry;
+    entry.parse(lines);
 
     if (!entry.display()) {
         summary_.addSuppressedFile(entry_name);
