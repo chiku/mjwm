@@ -43,7 +43,7 @@ struct AmmOptions
 
     bool hasValidSummaryType() { return (summary_type == "short" || summary_type == "normal" || summary_type == "long"); }
 
-    static AmmOptions Default(std::string home);
+    static AmmOptions Default(std::string home, std::string language);
 };
 
 } // namespace amm

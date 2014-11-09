@@ -111,6 +111,73 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
             }
         }
     }
+
+    GIVEN("LANGUAGE is set with encoding and sub-type") {
+        WHEN("langauage is asked") {
+            THEN("it is the first part of the LANGUAGE") {
+                setenv("LANGUAGE", "en_IN.UTF-8", 1);
+                SystemEnvironment environment;
+                REQUIRE(environment.language() == "en");
+            }
+        }
+    }
+
+    GIVEN("LANGUAGE is set but LC_ALL and LANG is not set") {
+        WHEN("langauage is asked") {
+            THEN("it is the first part of the LANGUAGE") {
+                setenv("LANGUAGE", "en_IN.UTF-8", 1);
+                unsetenv("LC_ALL");
+                unsetenv("LANG");
+                SystemEnvironment environment;
+                REQUIRE(environment.language() == "en");
+            }
+        }
+    }
+
+    GIVEN("LANGUAGE is set without encoding and without sub-type") {
+        WHEN("langauage is asked") {
+            THEN("it is the first part of the LANGUAGE") {
+                setenv("LANGUAGE", "en", 1);
+                SystemEnvironment environment;
+                REQUIRE(environment.language() == "en");
+            }
+        }
+    }
+
+    GIVEN("LANGUAGE is not set but LC_ALL is set") {
+        WHEN("langauage is asked") {
+            THEN("it is the first part of the LC_ALL") {
+                unsetenv("LANGUAGE");
+                setenv("LC_ALL", "en_IN.UTF-8", 1);
+                SystemEnvironment environment;
+                REQUIRE(environment.language() == "en");
+            }
+        }
+    }
+
+    GIVEN("LANGUAGE and LC_ALL are not set but LANG is set") {
+        WHEN("langauage is asked") {
+            THEN("it is the first part of the LANG") {
+                unsetenv("LANGUAGE");
+                unsetenv("LC_ALL");
+                setenv("LANG", "en_IN.UTF-8", 1);
+                SystemEnvironment environment;
+                REQUIRE(environment.language() == "en");
+            }
+        }
+    }
+
+    GIVEN("LANGUAGE, LC_ALL and LANG are not set") {
+        WHEN("langauage is asked") {
+            THEN("it empty") {
+                unsetenv("LANGUAGE");
+                unsetenv("LC_ALL");
+                unsetenv("LANG");
+                SystemEnvironment environment;
+                REQUIRE(environment.language() == "");
+            }
+        }
+    }
 }
 
 } // namespace amm

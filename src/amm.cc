@@ -65,7 +65,7 @@ void Amm::validateEnvironment()
 
 void Amm::loadCommandLineOption(int argc, char **argv)
 {
-    options_ = CommandLineOptionsParser().parse(argc, argv, environment_.home());
+    options_ = CommandLineOptionsParser(environment_.home(), environment_.language()).parse(argc, argv);
     if (!options_.is_parsed) {
         std::cerr << messages::optionError();
         exit(2);

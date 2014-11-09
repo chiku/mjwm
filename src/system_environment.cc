@@ -24,6 +24,10 @@
 
 #include "stringx.h"
 
+
+
+#include <iostream>
+
 namespace amm {
 
 SystemEnvironment::SystemEnvironment()
@@ -45,6 +49,14 @@ SystemEnvironment::SystemEnvironment()
         xdg_data_dirs_ = xdg_data_dirs;
     } else {
         xdg_data_dirs_ = "/usr/local/share:/usr/share";
+    }
+
+    language_ = getLanguageWith(std::getenv("LANGUAGE"));
+    if (language_ == "")  {
+        language_ = getLanguageWith(std::getenv("LC_ALL"));
+    }
+    if (language_ == "") {
+        language_ = getLanguageWith(std::getenv("LANG"));
     }
 }
 
@@ -79,6 +91,16 @@ std::vector<std::string> SystemEnvironment::iconThemeDirectories() const
     directories.push_back("/usr/share/pixmaps");
 
     return directories;
+}
+
+std::string SystemEnvironment::getLanguageWith(const char *raw)
+{
+    if (raw == NULL) {
+        return "";
+    }
+
+    std::string without_encoding = StringX(raw).split(".")[0];
+    return StringX(without_encoding).split("_")[0];
 }
 
 } // namespace amm

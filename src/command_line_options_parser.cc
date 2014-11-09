@@ -27,10 +27,10 @@
 
 namespace amm {
 
-AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv, std::string home)
+AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
 {
     allowMultipleEntries();
-    AmmOptions amm_options = AmmOptions::Default(home);
+    AmmOptions amm_options = AmmOptions::Default(home_, language_);
 
     int option_index = 0;
     int help_flag = 0;

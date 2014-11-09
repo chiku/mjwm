@@ -22,7 +22,7 @@
 #include "stringx.h"
 
 namespace amm {
-AmmOptions AmmOptions::Default(std::string home)
+AmmOptions AmmOptions::Default(std::string home, std::string language)
 {
     AmmOptions amm_options;
     amm_options.is_parsed = false;
@@ -33,6 +33,7 @@ AmmOptions AmmOptions::Default(std::string home)
     amm_options.summary_type = "normal";
     amm_options.output_file_name = StringX(home).terminateWith("/") + (".jwmrc-mjwm");
     amm_options.icon_theme_name = "hicolor";
+    amm_options.language = language;
     return amm_options;
 }
 } // namespace amm

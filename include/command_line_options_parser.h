@@ -26,10 +26,13 @@ namespace amm {
 class CommandLineOptionsParser
 {
 public:
-    AmmOptions parse(int argc, char *const *argv, std::string home);
+    CommandLineOptionsParser(std::string home, std::string language) : home_(home), language_(language) { }
+    AmmOptions parse(int argc, char *const *argv);
 
 private:
     void allowMultipleEntries();
+    std::string home_;
+    std::string language_;
 };
 } // namespace amm
 

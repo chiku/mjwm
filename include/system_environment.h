@@ -32,6 +32,7 @@ public:
     std::string home() const { return home_; }
     std::string xdgDataHome() const { return xdg_data_home_; }
     std::vector<std::string> xdgDataDirectories() const;
+    std::string language() const { return language_; }
     std::vector<std::string> applicationDirectories() const;
     std::vector<std::string> iconThemeDirectories() const;
 
@@ -39,6 +40,9 @@ private:
     std::string home_;
     std::string xdg_data_home_;
     std::string xdg_data_dirs_;
+    std::string language_;
+
+    std::string getLanguageWith(const char *raw);
 };
 } // namespace amm
 

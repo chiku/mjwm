@@ -29,11 +29,12 @@ namespace amm {
 SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
-        CommandLineOptionsParser parser;
+        std::string language = "hn";
+        CommandLineOptionsParser parser(home, language);
 
         WHEN("parsing default") {
             char* argv[] = {strdup("amm"), 0};
-            AmmOptions options = parser.parse(1, argv, home);
+            AmmOptions options = parser.parse(1, argv);
 
             THEN("the parsing succeeds") {
                 REQUIRE(options.is_parsed);
@@ -79,8 +80,8 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
                 REQUIRE(options.summary_type == "normal");
             }
 
-            THEN("its language is empty") {
-                REQUIRE(options.language == "");
+            THEN("its language is the supplied one") {
+                REQUIRE(options.language == language);
             }
         }
     }
@@ -89,11 +90,12 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
 SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
-        CommandLineOptionsParser parser;
+        std::string language = "hn";
+        CommandLineOptionsParser parser(home, language);
 
         WHEN("parsing --help") {
             char* argv[] = {strdup("amm"), strdup("--help"), 0};
-            AmmOptions options = parser.parse(2, argv, home);
+            AmmOptions options = parser.parse(2, argv);
 
             THEN("its help flag is on") {
                 REQUIRE(options.is_help);
@@ -102,7 +104,7 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
 
         WHEN("parsing --version") {
             char* argv[] = {strdup("amm"), strdup("--version"), 0};
-            AmmOptions options = parser.parse(2, argv, home);
+            AmmOptions options = parser.parse(2, argv);
 
             THEN("its version flag is on") {
                 REQUIRE(options.is_version);
@@ -111,7 +113,7 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
 
         WHEN("parsing --iconize") {
             char* argv[] = {strdup("amm"), strdup("--iconize"), 0};
-            AmmOptions options = parser.parse(2, argv, home);
+            AmmOptions options = parser.parse(2, argv);
 
             THEN("its iconize flag is on") {
                 REQUIRE(options.is_iconize);
@@ -120,7 +122,7 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
 
         WHEN("parsing --iconize=Faenza") {
             char* argv[] = {strdup("amm"), strdup("--iconize=Faenza"), 0};
-            AmmOptions options = parser.parse(2, argv, home);
+            AmmOptions options = parser.parse(2, argv);
 
             THEN("its iconize flag is on") {
                 REQUIRE(options.is_iconize);
@@ -136,11 +138,12 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
 SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
-        CommandLineOptionsParser parser;
+        std::string language = "hn";
+        CommandLineOptionsParser parser(home, language);
 
         WHEN("parsing --output-file") {
             char* argv[] = {strdup("amm"), strdup("--output-file"), strdup("menu.out"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its output-file is set to the given value") {
                 REQUIRE(options.output_file_name == "menu.out");
@@ -149,7 +152,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing -o") {
             char* argv[] = {strdup("amm"), strdup("-o"), strdup("menu.out"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its output-file is set to the given value") {
                 REQUIRE(options.output_file_name == "menu.out");
@@ -158,7 +161,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing --input-directory") {
             char* argv[] = {strdup("amm"), strdup("--input-directory"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its input-directories is set to the given values") {
                 std::vector<std::string> input_directory_names = options.input_directory_names;
@@ -175,7 +178,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing -i") {
             char* argv[] = {strdup("amm"), strdup("-i"), strdup("/usr/share/applications:/usr/local/share/applications"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its input-directories is set to the given values") {
                 std::vector<std::string> input_directory_names = options.input_directory_names;
@@ -188,7 +191,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing --category-file") {
             char* argv[] = {strdup("amm"), strdup("--category-file"), strdup("default.mjwm"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its category-file is set to the given value") {
                 REQUIRE(options.category_file_name == "default.mjwm");
@@ -197,7 +200,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing -c") {
             char* argv[] = {strdup("amm"), strdup("-c"), strdup("default.mjwm"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its category-file is set to the given value") {
                 REQUIRE(options.category_file_name == "default.mjwm");
@@ -206,7 +209,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing --summary long") {
             char* argv[] = {strdup("amm"), strdup("--summary"), strdup("long"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its summary is set to long") {
                 REQUIRE(options.summary_type == "long");
@@ -215,7 +218,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
         WHEN("parsing --language bn") {
             char* argv[] = {strdup("amm"), strdup("--language"), strdup("bn"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("its language is set to bn") {
                 REQUIRE(options.language == "bn");
@@ -228,11 +231,12 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 SCENARIO("Command-line arguments parse failure", "[commandlineoptions]") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
-        CommandLineOptionsParser parser;
+        std::string language = "hn";
+        CommandLineOptionsParser parser(home, language);
 
         WHEN("parsing a bad option") {
             char* argv[] = {strdup("amm"), strdup("--bad-option"), strdup("default.mjwm"), 0};
-            AmmOptions options = parser.parse(3, argv, home);
+            AmmOptions options = parser.parse(3, argv);
 
             THEN("the parsing fails") {
                 REQUIRE(!options.is_parsed);
@@ -241,7 +245,7 @@ SCENARIO("Command-line arguments parse failure", "[commandlineoptions]") {
 
         WHEN("parsing a missing mandatory option") {
             char* argv[] = {strdup("amm"), strdup("-c"), 0};
-            AmmOptions options = parser.parse(2, argv, home);
+            AmmOptions options = parser.parse(2, argv);
 
             THEN("the parsing fails") {
                 REQUIRE(!options.is_parsed);
