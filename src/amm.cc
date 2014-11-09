@@ -19,7 +19,6 @@
 #include "amm.h"
 
 #include <cstdlib>
-#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -27,6 +26,7 @@
 
 #include "vectorx.h"
 #include "filex.h"
+#include "timex.h"
 #include "messages.h"
 #include "amm_options.h"
 #include "system_environment.h"
@@ -159,14 +159,7 @@ void Amm::writeOutputFile()
     std::string output_file_name = options_.output_file_name;
     FileX output_file = FileX(output_file_name);
     if (output_file.exists()) {
-        std::time_t rawtime;
-        tm *timeinfo;
-        char buffer[80];
-        std::time(&rawtime);
-        timeinfo = std::localtime(&rawtime);
-        std::strftime(buffer, 80, "%Y%m%d%H%M%S", timeinfo);
-
-        std::string backup_file_name = output_file_name + "." + std::string(buffer) + ".bak";
+        std::string backup_file_name = output_file_name + "." + timex::currentTimeAsTimestamp() + ".bak";
         output_file.moveTo(backup_file_name);
         std::cout << "Backed " << output_file_name << " to " << backup_file_name << std::endl;
     }

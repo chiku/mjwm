@@ -42,7 +42,7 @@ test_files = test/stringx_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc
 
-mjwm_SOURCES = $(implementation_files) src/messages.cc src/amm.cc src/qualified_icon_theme.cc src/icon_search/xdg_search.cc src/main.cc
+mjwm_SOURCES = $(implementation_files) src/timex.cc src/messages.cc src/amm.cc src/qualified_icon_theme.cc src/icon_search/xdg_search.cc src/main.cc
 
 check_PROGRAMS = mjwm_test
 

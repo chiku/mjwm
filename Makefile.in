@@ -113,8 +113,9 @@ am__objects_1 = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
 	src/desktop_entry_file_search.$(OBJEXT) \
 	src/amm_options.$(OBJEXT) \
 	src/command_line_options_parser.$(OBJEXT)
-am_mjwm_OBJECTS = $(am__objects_1) src/messages.$(OBJEXT) \
-	src/amm.$(OBJEXT) src/qualified_icon_theme.$(OBJEXT) \
+am_mjwm_OBJECTS = $(am__objects_1) src/timex.$(OBJEXT) \
+	src/messages.$(OBJEXT) src/amm.$(OBJEXT) \
+	src/qualified_icon_theme.$(OBJEXT) \
 	src/icon_search/xdg_search.$(OBJEXT) src/main.$(OBJEXT)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
@@ -545,7 +546,7 @@ test_files = test/stringx_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc
 
-mjwm_SOURCES = $(implementation_files) src/messages.cc src/amm.cc src/qualified_icon_theme.cc src/icon_search/xdg_search.cc src/main.cc
+mjwm_SOURCES = $(implementation_files) src/timex.cc src/messages.cc src/amm.cc src/qualified_icon_theme.cc src/icon_search/xdg_search.cc src/main.cc
 mjwmdir = $(datadir)/mjwm
 mjwm_DATA = data/default.mjwm data/puppy.mjwm
 man1_MANS = doc/mjwm.1
@@ -699,6 +700,7 @@ src/amm_options.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/command_line_options_parser.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/timex.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/messages.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/amm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
@@ -811,6 +813,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stringx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/system_environment.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/timex.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/icon_search/$(DEPDIR)/xdg_search.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/jwm.Po@am__quote@
