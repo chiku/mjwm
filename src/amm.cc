@@ -70,6 +70,10 @@ void Amm::loadCommandLineOption(int argc, char **argv)
         std::cerr << messages::optionError();
         exit(2);
     }
+    if (!options_.hasValidSummaryType()) {
+        std::cerr << messages::badSummaryType(options_.summary_type);
+        exit(2);
+    }
     std::vector<std::string> deprecations = options_.deprecations;
     if (deprecations.size() > 0) {
         std::cerr << VectorX(deprecations).join("\n") << "\tProceeding..." << std::endl; // TODO : remove Proceeding...
@@ -81,10 +85,6 @@ void Amm::loadCommandLineOption(int argc, char **argv)
     if (options_.is_version) {
         std::cout << messages::version();
         exit(0);
-    }
-    if (options_.summary_type != "short" && options_.summary_type != "normal" && options_.summary_type != "long") { // TODO : move to validations
-        std::cout << messages::badSummaryType(options_.summary_type);
-        exit(2);
     }
 }
 

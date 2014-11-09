@@ -39,6 +39,7 @@ test_files = test/stringx_test.cc \
              test/transformer/jwm_test.cc \
              test/system_environment_test.cc \
              test/desktop_entry_file_search_test.cc \
+             test/amm_options_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc
 

@@ -131,6 +131,7 @@ am__objects_2 = test/stringx_test.$(OBJEXT) \
 	test/menu_test.$(OBJEXT) test/transformer/jwm_test.$(OBJEXT) \
 	test/system_environment_test.$(OBJEXT) \
 	test/desktop_entry_file_search_test.$(OBJEXT) \
+	test/amm_options_test.$(OBJEXT) \
 	test/command_line_options_parser_test.$(OBJEXT) \
 	test/icon_search/caching_search_test.$(OBJEXT)
 am_mjwm_test_OBJECTS = $(am__objects_1) $(am__objects_2) \
@@ -543,6 +544,7 @@ test_files = test/stringx_test.cc \
              test/transformer/jwm_test.cc \
              test/system_environment_test.cc \
              test/desktop_entry_file_search_test.cc \
+             test/amm_options_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc
 
@@ -767,6 +769,8 @@ test/system_environment_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 test/desktop_entry_file_search_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
+test/amm_options_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
 test/command_line_options_parser_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 test/icon_search/$(am__dirstamp):
@@ -822,6 +826,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/entry_line.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/icon_subdirectory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/icon_theme.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/amm_options_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_parser_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_entry_file_search_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/directoryx_test.Po@am__quote@

@@ -40,6 +40,8 @@ struct AmmOptions
     std::string icon_theme_name;
     std::vector<std::string> deprecations;
 
+    bool hasValidSummaryType() { return (summary_type == "short" || summary_type == "normal" || summary_type == "long"); }
+
     static AmmOptions Default(std::string home);
 };
 

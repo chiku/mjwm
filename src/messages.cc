@@ -91,7 +91,7 @@ std::string optionError()
 std::string badSummaryType(std::string actual)
 {
     std::stringstream stream;
-    stream << actual << " is not a valid summary type" << std::endl << optionError() << std::endl;
+    stream << actual << " is not a valid summary type" << std::endl << optionError();
     return stream.str();
 }
 
@@ -107,14 +107,14 @@ std::string noValidDesktopEntryFiles()
     return "No valid desktop files were found in any search directories.";
 }
 
-std::string badCategoryFile(const std::string file_name)
+std::string badCategoryFile(const std::string &file_name)
 {
     std::stringstream stream;
     stream << "Couldn't open category file: " << file_name;
     return stream.str();
 }
 
-std::string badOutputFile(const std::string file_name)
+std::string badOutputFile(const std::string &file_name)
 {
     std::stringstream stream;
     stream << "Couldn't open output file: " << file_name;
