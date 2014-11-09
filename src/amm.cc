@@ -76,7 +76,7 @@ void Amm::loadCommandLineOption(int argc, char **argv)
     }
     std::vector<std::string> deprecations = options_.deprecations;
     if (deprecations.size() > 0) {
-        std::cerr << VectorX(deprecations).join("\n") << "\tProceeding..." << std::endl; // TODO : remove Proceeding...
+        std::cerr << VectorX(deprecations).join("\n") << std::endl;
     }
     if (options_.is_help) {
         std::cout << messages::help();
