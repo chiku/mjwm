@@ -26,7 +26,7 @@
 
 namespace amm {
 namespace icon_search {
-
+// Understands reusing older searches for icon names
 class CachingSearch : public IconSearchInterface
 {
 public:

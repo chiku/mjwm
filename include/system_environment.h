@@ -23,6 +23,7 @@
 #include <vector>
 
 namespace amm {
+// Understands environment variables
 class SystemEnvironment
 {
 public:
