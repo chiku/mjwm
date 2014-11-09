@@ -135,6 +135,7 @@ void Amm::readDesktopEntryFiles()
 
 void Amm::populate()
 {
+    menu_.registerLanguage(options_.language);
     menu_.populate(desktop_entry_file_names_);
     if (menu_.summary().totalParsedFiles() == 0) {
         std::cerr << messages::noValidDesktopEntryFiles() << std::endl;

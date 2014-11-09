@@ -44,6 +44,7 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv, std::str
         {"input-directory", required_argument, 0,             'i'},
         {"category-file",   required_argument, 0,             'c'},
         {"summary",         required_argument, 0,              0 },
+        {"language",        required_argument, 0,              0 },
         {0,                 0,                 0,              0 },
     };
 
@@ -59,14 +60,18 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv, std::str
             if (version_flag == 1) {
                 amm_options.is_version = true;
             }
-            if (std::string(long_options[option_index].name) == "iconize") {
+            std::string long_option_name = long_options[option_index].name;
+            if (long_option_name == "iconize") {
                 amm_options.is_iconize = true;
                 if (optarg) {
                     amm_options.icon_theme_name = optarg;
                 }
             }
-            if (std::string(long_options[option_index].name) == "summary") {
+            if (long_option_name == "summary") {
                 amm_options.summary_type = optarg;
+            }
+            if (long_option_name == "language") {
+                amm_options.language = optarg;
             }
         } else if (chosen_option == 'o') {
             amm_options.output_file_name = optarg;

@@ -107,6 +107,7 @@ void Menu::addDesktopEntry(std::string entry_name)
         return;
     }
     xdg::DesktopEntry entry;
+    entry.hasLanguage(language_);
     entry.parse(lines);
 
     if (!entry.display()) {

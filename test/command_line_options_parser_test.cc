@@ -78,6 +78,10 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
             THEN("its summary style is normal") {
                 REQUIRE(options.summary_type == "normal");
             }
+
+            THEN("its language is empty") {
+                REQUIRE(options.language == "");
+            }
         }
     }
 }
@@ -206,6 +210,15 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
 
             THEN("its summary is set to long") {
                 REQUIRE(options.summary_type == "long");
+            }
+        }
+
+        WHEN("parsing --language bn") {
+            char* argv[] = {strdup("amm"), strdup("--language"), strdup("bn"), 0};
+            AmmOptions options = parser.parse(3, argv, home);
+
+            THEN("its language is set to bn") {
+                REQUIRE(options.language == "bn");
             }
         }
     }

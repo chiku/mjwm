@@ -366,6 +366,32 @@ SCENARIO("Menu representations", "[menu]") {
                 clearMemory(representations);
             }
         }
+
+        WHEN("transformed to a representations with a custom language") {
+            std::vector<std::string> files;
+            files.push_back(kapplicationFixturesDirectory + "vlc.desktop");
+            files.push_back(kapplicationFixturesDirectory + "mousepad.desktop");
+
+            menu.registerLanguage("sr");
+
+            menu.populate(files);
+            std::vector<representation::RepresentationInterface*> representations = menu.representations();
+            TestTransformer test_transformer;
+
+            THEN("it uses names in the given language when available") {
+                REQUIRE(representations.size() == 8);
+                REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
+                REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories");
+                REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Мишоловка icon: accessories-text-editor executable: mousepad %F comment: Једноставан уређивач текста");
+                REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
+                REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia");
+                REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
+                REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
+                REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
+
+                clearMemory(representations);
+            }
+        }
     }
 }
 

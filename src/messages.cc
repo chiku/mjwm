@@ -57,6 +57,8 @@ std::string help()
     stream << "                                icon theme is used if no theme name is given." << std::endl;
     stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
     stream << "                                short, normal and long. Defaults to normal." << std::endl;
+    stream << "      --language [NAME]       The language for which the menu would be build." << std::endl;
+    stream << "                                Defaults to the system default." << std::endl;
     stream << "      --help                  Show this help" << std::endl;
     stream << "      --version               Show version information" << std::endl;
     stream << std::endl;

@@ -38,6 +38,7 @@ struct AmmOptions
     std::vector<std::string> input_directory_names;
     std::string category_file_name;
     std::string icon_theme_name;
+    std::string language;
     std::vector<std::string> deprecations;
 
     bool hasValidSummaryType() { return (summary_type == "short" || summary_type == "normal" || summary_type == "long"); }

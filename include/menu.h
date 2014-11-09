@@ -37,6 +37,7 @@ public:
     ~Menu();
 
     void registerIconService(icon_search::IconSearchInterface &icon_searcher);
+    void registerLanguage(const std::string &language) { language_ = language; }
     std::vector<Subcategory> subcategories() const { return subcategories_; }
     Stats summary() const { return summary_; }
 
@@ -50,6 +51,7 @@ private:
     bool classify(xdg::DesktopEntry entry);
     void createDefaultCategories();
 
+    std::string language_;
     icon_search::IconSearchInterface *icon_searcher_;
     Subcategory unclassified_subcategory_;
     std::vector<Subcategory> subcategories_;

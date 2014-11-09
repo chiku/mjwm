@@ -54,8 +54,9 @@ Optional arguments:
                                 Icon file names would be absolute paths to
                                 icons in the specified directories. Hicolor
                                 icon theme is used if no theme name is given.
-      --summary=type          The summary of the run. Acceptable values are
+      --summary [TYPE]        The summary of the run. Acceptable values are
                                 short, normal and long. Defaults to normal.
+      --language [NAME]       The language for which the menu would be build.
       --help                  Show this help
       --version               Show version information
 ```
