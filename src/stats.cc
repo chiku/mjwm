@@ -76,29 +76,30 @@ std::vector<std::string> Stats::unhandledClassifications()
 std::string Stats::details(std::string summary_type)
 {
     std::stringstream stream;
-    stream << "Total desktop files: " << totalFiles() << std::endl;
-    stream << "Parsed desktop files: " << totalParsedFiles() << std::endl;
-    stream << "Unparsed desktop files: " << totalUnparsedFiles() << std::endl;
-    stream << "Suppressed desktop files (NoDisplay): " << totalSuppressedFiles() << std::endl;
-    stream << "Unclassified desktop files: " << totalUnclassifiedFiles() << std::endl;
+    stream << "Total desktop files: " << totalFiles() << " ["
+           << totalParsedFiles() << " Parsed, "
+           << totalUnparsedFiles()  << " Unparsed, "
+           << totalSuppressedFiles() << " Suppressed"
+           << "]\n";
+    stream << "Unclassified files: " << totalUnclassifiedFiles() << std::endl;
 
     if (summary_type == "normal" || summary_type == "long") {
         if (totalUnparsedFiles() > 0) {
-            stream << "List of unparsed files: " << VectorX(unparsed_files_).join(", ") << std::endl;
+            stream << "Unparsed files: " << VectorX(unparsed_files_).join(", ") << std::endl;
         }
     }
 
     if (summary_type == "long") {
         if (totalSuppressedFiles() > 0) {
-            stream << "List of suppressed files: " << VectorX(suppressed_files_).join(", ") << std::endl;
+            stream << "Suppressed files: " << VectorX(suppressed_files_).join(", ") << std::endl;
         }
 
         if (totalUnclassifiedFiles() > 0) {
-            stream << "List of unclassified files: " << VectorX(unclassified_files_).join(", ") << std::endl;
+            stream << "Unclassified files: " << VectorX(unclassified_files_).join(", ") << std::endl;
         }
 
         if (unhandled_classifications_.size() > 0) {
-            stream << "List of unhandled classifications: " << VectorX(unhandledClassifications()).join(", ") << std::endl;
+            stream << "Unhandled classifications: " << VectorX(unhandledClassifications()).join(", ") << std::endl;
         }
     }
 

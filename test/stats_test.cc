@@ -55,19 +55,13 @@ static std::vector<std::string> unhandledClassificationSecondSet() {
 }
 
 static std::string expectedEmptydetails() {
-    return "Total desktop files: 0\n"
-                 "Parsed desktop files: 0\n"
-                 "Unparsed desktop files: 0\n"
-                 "Suppressed desktop files (NoDisplay): 0\n"
-                 "Unclassified desktop files: 0\n";
+    return "Total desktop files: 0 [0 Parsed, 0 Unparsed, 0 Suppressed]\n"
+           "Unclassified files: 0\n";
 }
 
 static std::string expectedShortdetailsWithValues() {
-    return "Total desktop files: 7\n"
-                 "Parsed desktop files: 5\n"
-                 "Unparsed desktop files: 1\n"
-                 "Suppressed desktop files (NoDisplay): 1\n"
-                 "Unclassified desktop files: 2\n";
+    return "Total desktop files: 7 [5 Parsed, 1 Unparsed, 1 Suppressed]\n"
+           "Unclassified files: 2\n";
 }
 
 SCENARIO("Stats totals", "[stats]") {
@@ -149,15 +143,15 @@ SCENARIO("Stats summaries", "[stats]") {
             }
 
             THEN("details includes short details and a list of unparsed files") {
-                std::string expected_details = expectedShortdetailsWithValues() + "List of unparsed files: daemon\n";
+                std::string expected_details = expectedShortdetailsWithValues() + "Unparsed files: daemon\n";
                 REQUIRE(stats.details("normal") == expected_details);
             }
 
             THEN("long details includes details and lists of suppressed and unclassified files") {
                 std::string expected_details = expectedShortdetailsWithValues() +
-                                                "List of unparsed files: daemon\n"
-                                                "List of suppressed files: mplayer\n"
-                                                "List of unclassified files: htop, NEdit\n";
+                                                "Unparsed files: daemon\n"
+                                                "Suppressed files: mplayer\n"
+                                                "Unclassified files: htop, NEdit\n";
                 REQUIRE(stats.details("long") == expected_details);
             }
         }
@@ -169,10 +163,10 @@ SCENARIO("Stats summaries", "[stats]") {
 
             THEN("long details includes the unhandled classifications") {
                 std::string expected_details = expectedShortdetailsWithValues() +
-                                                "List of unparsed files: daemon\n"
-                                                "List of suppressed files: mplayer\n"
-                                                "List of unclassified files: htop, NEdit\n"
-                                                "List of unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n";
+                                                "Unparsed files: daemon\n"
+                                                "Suppressed files: mplayer\n"
+                                                "Unclassified files: htop, NEdit\n"
+                                                "Unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n";
                 REQUIRE(stats.details("long") == expected_details);
             }
         }
