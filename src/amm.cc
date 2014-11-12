@@ -159,6 +159,10 @@ void Amm::writeOutputFile()
 
     std::string output_file_name = options_.output_file_name;
     FileX output_file = FileX(output_file_name);
+    if (output_file.existsAsDirectory()) {
+        std::cerr << messages::outputPathBlockedByDirectory(output_file_name) << std::endl;
+        exit(1);
+    }
     if (output_file.exists()) {
         std::string backup_file_name = output_file_name + "." + timex::currentTimeAsTimestamp() + ".bak";
         output_file.moveTo(backup_file_name);

@@ -116,6 +116,13 @@ std::string badCategoryFile(const std::string &file_name)
     return stream.str();
 }
 
+std::string outputPathBlockedByDirectory(const std::string &file_name)
+{
+    std::stringstream stream;
+    stream << "A directory with the same name as the output file exists: " << file_name;
+    return stream.str();
+}
+
 std::string badOutputFile(const std::string &file_name)
 {
     std::stringstream stream;
