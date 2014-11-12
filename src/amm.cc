@@ -128,7 +128,6 @@ void Amm::readDesktopEntryFiles()
     std::vector<std::string> bad_paths = service.badPaths();
     if (bad_paths.size() > 0) {
         std::cerr << "These paths couldn't be opened: " << VectorX(bad_paths).join(", ");
-        std::cerr << std::endl << "Proceeding..." << std::endl;
     }
     desktop_entry_file_names_ = service.desktopEntryFileNames();
 }
