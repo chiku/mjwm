@@ -1,3 +1,21 @@
+mjwm NEWS - User visible changes. 2014-11-15
+Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
+
+version 4.0.0 - Chirantan Mitra, 2014-11-15
+
+* Provide option to chose summary type from short, normal (default) and long
+* Fail the application if $HOME is not set [#38]
+* Handle .desktop files that contain multiple sections. Look for entries under "[Desktop Entry]"
+* Create puppet PET packages on drone.io (https://drone.io/github.com/chiku/mjwm/files)
+* Introduce an XDG compliant icon scan (based on http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html) [#33]
+* Read comments from .desktop files. These would be used as tooltips once JWM supports them [#41]
+* Allow the user to specify the name of the icon theme to use [#36]
+* Backup older output file if it exists [#39, #43]
+* Reduce the verbosity of summary output
+* Read environment variables LAMGUAGE, LC_ALL & LANG in that order to figure out the system language. This language is chosen for builing the menu [#42]
+* Accept the language to build menus from command line. This would override the system defaults [#40]
+* [BUG] Trailing whitespaces in a custom category file are ignored
+
 mjwm NEWS - User visible changes. 2014-03-21
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
