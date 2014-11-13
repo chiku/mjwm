@@ -33,7 +33,7 @@ public:
     Entry(const std::vector<std::string> &lines, const std::string &language) : lines_(lines), language_(language) { }
     explicit Entry(const std::vector<std::string> &lines) : lines_(lines) { }
     void parse();
-    std::string under(const std::string &section_name, const std::string &key_name);
+    std::string under(const std::string &section_name, const std::string &key_name); //TODO : make const under C++11
 
 private:
     std::vector<std::string> lines_;

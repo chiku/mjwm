@@ -37,27 +37,29 @@ public:
         Entries(const std::string &path);
         ~Entries();
 
-        struct SearchResult
+        class SearchResult
         {
+        public:
             std::string name;
             bool success;
             bool isDirectory;
             SearchResult() : name(""), success(false), isDirectory(false) { }
-            SearchResult(const std::string &name_, bool success_, bool isDirectory_) : name(name_), success(success_), isDirectory(isDirectory_) {}
             static SearchResult Bad() { return SearchResult("", false, false); }
             static SearchResult Success(const std::string &name, bool is_directory_) { return SearchResult(name, true, is_directory_); }
+        private:
+            SearchResult(const std::string &name_, bool success_, bool isDirectory_) : name(name_), success(success_), isDirectory(isDirectory_) {}
         };
 
         class iterator
         {
         public:
             iterator(Entries *subdirs) : subdirs_(subdirs) { }
-            Entries* operator ->() { return subdirs_; }
-            Entries& operator *() { return *subdirs_; }
+            Entries* operator ->() const { return subdirs_; }
+            Entries& operator *() const { return *subdirs_; }
             iterator operator ++();
             iterator operator ++(int);
-            bool operator ==(const iterator& rhs) { return subdirs_ == rhs.subdirs_; }
-            bool operator !=(const iterator& rhs) { return subdirs_ != rhs.subdirs_; }
+            bool operator ==(const iterator& rhs) const { return subdirs_ == rhs.subdirs_; }
+            bool operator !=(const iterator& rhs) const { return subdirs_ != rhs.subdirs_; }
         private:
             Entries *subdirs_;
         };

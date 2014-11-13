@@ -30,7 +30,7 @@ public:
     AmmOptions parse(int argc, char *const *argv);
 
 private:
-    void allowMultipleEntries();
+    void allowMultipleEntries() const;
     std::string home_;
     std::string language_;
 };

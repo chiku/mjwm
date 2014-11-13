@@ -33,14 +33,14 @@ class Amm
 public:
     Amm();
     ~Amm();
-    void validateEnvironment();
+    void validateEnvironment() const;
     void loadCommandLineOption(int argc, char **argv);
     void registerIconService();
     void readCategories();
     void readDesktopEntryFiles();
     void populate();
     void writeOutputFile();
-    void printSummary();
+    void printSummary() const;
 
 private:
     SystemEnvironment environment_;

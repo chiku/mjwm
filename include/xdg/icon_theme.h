@@ -37,9 +37,8 @@ public:
     std::string internalName() const { return internal_name_; }
     std::vector<std::string> parents() const { return parents_; }
     std::vector<IconSubdirectory> directories() const { return directories_; }
-    IconTheme internalNameIs(const std::string &internal_name) { internal_name_ = internal_name; return *this; }
-
     bool isNamed(const std::string &name) const { return name == name_ || name == internal_name_; }
+    IconTheme internalNameIs(const std::string &internal_name) { internal_name_ = internal_name; return *this; }
 
 private:
     std::string name_;

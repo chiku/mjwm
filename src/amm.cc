@@ -55,7 +55,7 @@ Amm::~Amm()
     }
 }
 
-void Amm::validateEnvironment()
+void Amm::validateEnvironment() const
 {
     if (!environment_.isValid()) {
         std::cerr << messages::homeNotSet() << std::endl;
@@ -173,7 +173,7 @@ void Amm::writeOutputFile()
     }
 }
 
-void Amm::printSummary()
+void Amm::printSummary() const
 {
     std::cout << menu_.summary().details(options_.summary_type);
     std::cout << "Created " << options_.output_file_name << std::endl;

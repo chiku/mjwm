@@ -88,7 +88,7 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
     return amm_options;
 }
 
-void CommandLineOptionsParser::allowMultipleEntries()
+void CommandLineOptionsParser::allowMultipleEntries() const
 {
     // Allow getopt_long() to be called multiple times
     // http://pubs.opengroup.org/onlinepubs/009696799/functions/getopt.html

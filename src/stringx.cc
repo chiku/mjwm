@@ -33,7 +33,7 @@ bool StringX::endsWith(const std::string &delimeter) const
     return ((length >= delimeter_length) && (string_.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
 }
 
-std::string StringX::terminateWith(const std::string &delimeter)
+std::string StringX::terminateWith(const std::string &delimeter) const
 {
     return endsWith(delimeter) ? string_ : string_ + delimeter;
 }

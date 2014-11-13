@@ -29,7 +29,7 @@ public:
     explicit StringX(const std::string &string) : string_(string) {}
 
     bool endsWith(const std::string &delimiter) const;
-    std::string terminateWith(const std::string &end);
+    std::string terminateWith(const std::string &end) const;
     std::string encode() const;
     std::string trim() const;
     std::vector<std::string> split(const std::string &delimiter) const;
