@@ -30,7 +30,7 @@ class RepresentationInterface
 public:
     virtual ~RepresentationInterface() {}
     virtual std::string name() const = 0;
-    virtual std::string visit(transformer::TransformerInterface &transformer) const = 0;
+    virtual std::string visit(const transformer::TransformerInterface &transformer) const = 0;
 };
 
 } // namespace representation

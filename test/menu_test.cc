@@ -66,7 +66,7 @@ public:
 class TestIconSearch : public icon_search::IconSearchInterface
 {
 public:
-    std::string resolvedName(std::string name) const { return name + ".always"; }
+    std::string resolvedName(const std::string &name) const { return name + ".always"; }
 };
 
 static void clearMemory(std::vector<representation::RepresentationInterface*> representations)

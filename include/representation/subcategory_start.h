@@ -30,11 +30,11 @@ namespace representation {
 class SubcategoryStart : public RepresentationInterface
 {
 public:
-    SubcategoryStart(std::string name, std::string icon) : name_(name), icon_(icon) {}
+    SubcategoryStart(const std::string &name, const std::string &icon) : name_(name), icon_(icon) {}
     virtual ~SubcategoryStart() {}
     virtual std::string name() const { return name_; }
     virtual std::string icon() const { return icon_; }
-    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
+    virtual std::string visit(const transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 private:
     const std::string name_;
     const std::string icon_;

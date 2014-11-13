@@ -32,7 +32,7 @@ class MenuEnd : public RepresentationInterface
 public:
     virtual ~MenuEnd() {}
     virtual std::string name() const { return "Menu end"; }
-    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
+    virtual std::string visit(const transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 };
 
 } // namespace representation

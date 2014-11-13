@@ -36,7 +36,7 @@ bool DirectoryX::isValid() const
     }
 }
 
-DirectoryX::Entries::Entries(std::string path) : path_(path)
+DirectoryX::Entries::Entries(const std::string &path) : path_(path)
 {
     directory_ = opendir(path.c_str());
 }

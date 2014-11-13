@@ -26,7 +26,7 @@ namespace amm {
 class CommandLineOptionsParser
 {
 public:
-    CommandLineOptionsParser(std::string home, std::string language) : home_(home), language_(language) { }
+    CommandLineOptionsParser(const std::string &home, const std::string &language) : home_(home), language_(language) { }
     AmmOptions parse(int argc, char *const *argv);
 
 private:

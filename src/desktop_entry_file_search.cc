@@ -60,7 +60,7 @@ void DesktopEntryFileSearch::resolve()
     }
 }
 
-void DesktopEntryFileSearch::populate(std::string directory_name)
+void DesktopEntryFileSearch::populate(const std::string &directory_name)
 {
     DirectoryX directory(directory_name);
 

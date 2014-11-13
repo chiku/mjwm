@@ -22,7 +22,7 @@
 #include "stringx.h"
 
 namespace amm {
-AmmOptions AmmOptions::Default(std::string home, std::string language)
+AmmOptions AmmOptions::Default(const std::string &home, const std::string &language)
 {
     AmmOptions amm_options;
     amm_options.is_parsed = false;

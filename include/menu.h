@@ -41,14 +41,14 @@ public:
     std::vector<Subcategory> subcategories() const { return subcategories_; }
     Stats summary() const { return summary_; }
 
-    void loadCustomCategories(std::vector<std::string> lines);
-    void populate(std::vector<std::string> desktop_file_names);
+    void loadCustomCategories(const std::vector<std::string> &lines);
+    void populate(const std::vector<std::string> &desktop_file_names);
     void sort();
     std::vector<representation::RepresentationInterface*> representations() const;
 
 private:
-    void addDesktopEntry(std::string desktop_entry_name);
-    bool classify(xdg::DesktopEntry entry);
+    void addDesktopEntry(const std::string &desktop_entry_name);
+    bool classify(const xdg::DesktopEntry &entry);
     void createDefaultCategories();
 
     std::string language_;

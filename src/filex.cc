@@ -39,7 +39,7 @@ bool FileX::existsAsDirectory() const
     return result == 0 && S_ISDIR(st.st_mode);
 }
 
-bool FileX::moveTo(std::string new_path) const
+bool FileX::moveTo(const std::string &new_path) const
 {
     return rename(name_.c_str(), new_path.c_str()) == 0;
 }

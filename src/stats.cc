@@ -27,7 +27,7 @@
 
 namespace amm {
 
-void Stats::addUnhandledClassifications(std::vector<std::string> classifications)
+void Stats::addUnhandledClassifications(const std::vector<std::string> &classifications)
 {
     unhandled_classifications_.insert(unhandled_classifications_.begin(), classifications.begin(), classifications.end());
 }
@@ -73,7 +73,7 @@ std::vector<std::string> Stats::unhandledClassifications()
     return unhandled_classifications_;
 }
 
-std::string Stats::details(std::string summary_type)
+std::string Stats::details(const std::string &summary_type)
 {
     std::stringstream stream;
     stream << "Total desktop files: " << totalFiles() << " ["

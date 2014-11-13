@@ -45,7 +45,7 @@ void Entry::parse()
     result_[current_section] = entry;
 }
 
-std::string Entry::under(std::string section_name, std::string key_name)
+std::string Entry::under(const std::string &section_name, const std::string &key_name)
 {
     std::map<std::string, std::string> section = result_[section_name];
     if (language_ == "") {

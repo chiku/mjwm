@@ -34,7 +34,7 @@ class XdgSearch : public IconSearchInterface
 {
 public:
     XdgSearch(int size, QualifiedIconTheme qualified_icon_theme);
-    std::string resolvedName(std::string icon_name) const;
+    std::string resolvedName(const std::string &icon_name) const;
 
 private:
     int size_;
@@ -42,10 +42,10 @@ private:
     std::vector<std::string> theme_search_paths_;
     std::vector<xdg::IconTheme> icon_themes_;
 
-    std::vector<xdg::IconSubdirectory> findSearchLocations(std::string icon_name) const;
-    std::string nameInTheme(std::string icon_name) const;
-    std::string lookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const;
-    std::string fallbackName(std::string icon_name) const;
+    std::vector<xdg::IconSubdirectory> findSearchLocations(const std::string &icon_name) const;
+    std::string nameInTheme(const std::string &icon_name) const;
+    std::string lookupBySize(const std::vector<xdg::IconSubdirectory> &search_locations) const;
+    std::string fallbackName(const std::string &icon_name) const;
 };
 } // namespace icon_search
 } // namespace amm

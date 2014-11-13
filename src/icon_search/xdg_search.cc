@@ -50,7 +50,7 @@ XdgSearch::XdgSearch(int size, QualifiedIconTheme qualified_icon_theme) : size_(
     icon_themes_ = qualified_icon_theme.themeWithParent();
 }
 
-std::string XdgSearch::resolvedName(std::string icon_name) const
+std::string XdgSearch::resolvedName(const std::string &icon_name) const
 {
     std::string file_name = nameInTheme(icon_name);
     if (file_name != "") {
@@ -65,7 +65,7 @@ std::string XdgSearch::resolvedName(std::string icon_name) const
     return icon_name;
 }
 
-std::string XdgSearch::nameInTheme(std::string icon_name) const
+std::string XdgSearch::nameInTheme(const std::string &icon_name) const
 {
     std::vector<xdg::IconSubdirectory> search_locations = findSearchLocations(icon_name);
     std::string file_name = lookupBySize(search_locations);
@@ -73,7 +73,7 @@ std::string XdgSearch::nameInTheme(std::string icon_name) const
     return file_name;
 }
 
-std::vector<xdg::IconSubdirectory> XdgSearch::findSearchLocations(std::string icon_name) const
+std::vector<xdg::IconSubdirectory> XdgSearch::findSearchLocations(const std::string &icon_name) const
 {
     std::vector<xdg::IconSubdirectory> search_locations;
 
@@ -99,9 +99,9 @@ std::vector<xdg::IconSubdirectory> XdgSearch::findSearchLocations(std::string ic
     return search_locations;
 }
 
-std::string XdgSearch::lookupBySize(std::vector<xdg::IconSubdirectory> search_locations) const
+std::string XdgSearch::lookupBySize(const std::vector<xdg::IconSubdirectory> &search_locations) const
 {
-    for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
+    for (std::vector<xdg::IconSubdirectory>::const_iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
         if (subdir->matches(size_)) {
             return subdir->location();
         }
@@ -109,7 +109,7 @@ std::string XdgSearch::lookupBySize(std::vector<xdg::IconSubdirectory> search_lo
 
     int minimal_size = INT_MAX;
     std::string closest_file_name = "";
-    for (std::vector<xdg::IconSubdirectory>::iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
+    for (std::vector<xdg::IconSubdirectory>::const_iterator subdir = search_locations.begin(); subdir != search_locations.end(); ++subdir) {
         int distance = subdir->distance(size_);
         if (distance < minimal_size) {
             closest_file_name = subdir->location();
@@ -120,11 +120,13 @@ std::string XdgSearch::lookupBySize(std::vector<xdg::IconSubdirectory> search_lo
     return closest_file_name;
 }
 
-std::string XdgSearch::fallbackName(std::string icon_name) const
+std::string XdgSearch::fallbackName(const std::string &icon_name) const
 {
     for (std::vector<std::string>::const_iterator directory = theme_search_paths_.begin(); directory != theme_search_paths_.end(); ++directory) {
         for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
-            std::string file_name = amm::StringX(amm::StringX(*directory).terminateWith("/") + icon_name).terminateWith(*extension);
+            Path path(*directory);
+            path.join(icon_name);
+            std::string file_name = StringX(path.result()).terminateWith(*extension);
             if (FileX(file_name).exists()) {
                 return file_name;
             }

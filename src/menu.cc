@@ -68,7 +68,7 @@ void Menu::createDefaultCategories()
     subcategories_.push_back(Subcategory::System());
 }
 
-void Menu::loadCustomCategories(std::vector<std::string> lines)
+void Menu::loadCustomCategories(const std::vector<std::string> &lines)
 {
     subcategories_.clear();
 
@@ -90,7 +90,7 @@ void Menu::loadCustomCategories(std::vector<std::string> lines)
     }
 }
 
-void Menu::populate(std::vector<std::string> entry_names)
+void Menu::populate(const std::vector<std::string> &entry_names)
 {
     for (std::vector<std::string>::const_iterator name = entry_names.begin(); name != entry_names.end(); ++name) {
         addDesktopEntry(*name);
@@ -99,7 +99,7 @@ void Menu::populate(std::vector<std::string> entry_names)
     subcategories_.push_back(unclassified_subcategory_);
 }
 
-void Menu::addDesktopEntry(std::string entry_name)
+void Menu::addDesktopEntry(const std::string &entry_name)
 {
     std::vector<std::string> lines;
     if (!FileX(entry_name).readLines(&lines)) {
@@ -130,7 +130,7 @@ void Menu::addDesktopEntry(std::string entry_name)
     }
 }
 
-bool Menu::classify(xdg::DesktopEntry entry)
+bool Menu::classify(const xdg::DesktopEntry &entry)
 {
     bool classified = false;
 

@@ -30,14 +30,14 @@ namespace representation {
 class Program : public RepresentationInterface
 {
 public:
-    Program(std::string name, std::string icon, std::string executable, std::string comment)
+    Program(const std::string &name, const std::string &icon, const std::string &executable, const std::string &comment)
             : name_(name), icon_(icon), executable_(executable), comment_(comment) {}
     virtual ~Program() {}
     virtual std::string name() const { return name_; }
     virtual std::string icon() const { return icon_; }
     virtual std::string executable() const { return executable_; }
     virtual std::string comment() const { return comment_; }
-    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
+    virtual std::string visit(const transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 private:
     const std::string name_;
     const std::string icon_;

@@ -30,7 +30,7 @@
 namespace amm {
 namespace xdg {
 
-IconTheme::IconTheme(std::vector<std::string> lines) : internal_name_("")
+IconTheme::IconTheme(const std::vector<std::string> &lines) : internal_name_("")
 {
     Entry xdg_entry(lines);
     xdg_entry.parse();

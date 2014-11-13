@@ -31,15 +31,15 @@ namespace xdg {
 class IconTheme
 {
 public:
-    explicit IconTheme(std::vector<std::string> lines);
+    explicit IconTheme(const std::vector<std::string> &lines);
 
     std::string name() const { return name_; }
     std::string internalName() const { return internal_name_; }
     std::vector<std::string> parents() const { return parents_; }
     std::vector<IconSubdirectory> directories() const { return directories_; }
-    IconTheme internalNameIs(std::string internal_name) { internal_name_ = internal_name; return *this; }
+    IconTheme internalNameIs(const std::string &internal_name) { internal_name_ = internal_name; return *this; }
 
-    bool isNamed(std::string name) const { return name == name_ || name == internal_name_; }
+    bool isNamed(const std::string &name) const { return name == name_ || name == internal_name_; }
 
 private:
     std::string name_;

@@ -31,7 +31,7 @@ class CachingSearch : public IconSearchInterface
 {
 public:
     explicit CachingSearch(IconSearchInterface &actual_searcher) : actual_searcher_(actual_searcher) { }
-    std::string resolvedName(std::string icon_name) const
+    std::string resolvedName(const std::string &icon_name) const
     {
         std::map<std::string, std::string>::const_iterator it = IteratorTo(icon_name);
         if (it != cache.end()) {
@@ -42,12 +42,12 @@ public:
         return result;
     }
 
-    bool isCached(std::string icon_name) const { return IteratorTo(icon_name) != cache.end(); }
+    bool isCached(const std::string &icon_name) const { return IteratorTo(icon_name) != cache.end(); }
 
 private:
     IconSearchInterface& actual_searcher_;
     mutable std::map<std::string, std::string> cache;
-    std::map<std::string, std::string>::const_iterator IteratorTo(std::string icon_name) const { return cache.find(icon_name); }
+    std::map<std::string, std::string>::const_iterator IteratorTo(const std::string &icon_name) const { return cache.find(icon_name); }
 };
 
 } // namespace icon_search

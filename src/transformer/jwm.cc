@@ -27,7 +27,7 @@
 namespace amm {
 namespace transformer {
 
-static std::string removeFieldCode(std::string input)
+static std::string removeFieldCode(const std::string &input)
 {
     std::vector<std::string> result;
     std::vector<std::string> tokens = StringX(input).split(" ");

@@ -28,7 +28,7 @@
 
 namespace amm {
 
-QualifiedIconTheme::QualifiedIconTheme(SystemEnvironment environment, std::string theme_name) : theme_name_(theme_name)
+QualifiedIconTheme::QualifiedIconTheme(const SystemEnvironment &environment, const std::string &theme_name) : theme_name_(theme_name)
 {
     std::vector<std::string> theme_directories = environment.iconThemeDirectories();
 
@@ -39,7 +39,7 @@ QualifiedIconTheme::QualifiedIconTheme(SystemEnvironment environment, std::strin
     }
 }
 
-xdg::IconTheme QualifiedIconTheme::iconThemeFromName(std::string theme_name)
+xdg::IconTheme QualifiedIconTheme::iconThemeFromName(const std::string &theme_name)
 {
     for (std::vector<std::string>::iterator path = theme_search_paths_.begin(); path != theme_search_paths_.end(); ++path) {
         DirectoryX directory(*path);

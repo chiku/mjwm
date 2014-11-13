@@ -26,13 +26,13 @@
 
 namespace amm {
 
-Subcategory::Subcategory(std::string display_name, std::string icon_name, std::string classification_name) :
+Subcategory::Subcategory(const std::string &display_name, const std::string &icon_name, const std::string &classification_name) :
         display_name_(display_name), icon_name_(icon_name)
 {
     classification_names_.push_back(classification_name);
 }
 
-Subcategory::Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names) :
+Subcategory::Subcategory(const std::string &display_name, const std::string &icon_name, const std::vector<std::string> &classification_names) :
         display_name_(display_name), icon_name_(icon_name), classification_names_(classification_names) {}
 
 bool Subcategory::hasEntries() const
@@ -40,7 +40,7 @@ bool Subcategory::hasEntries() const
     return desktopEntries().size() > 0;
 }
 
-void Subcategory::addDesktopEntry(xdg::DesktopEntry desktop_entry)
+void Subcategory::addDesktopEntry(const xdg::DesktopEntry &desktop_entry)
 {
     desktop_entries_.push_back(desktop_entry);
 }

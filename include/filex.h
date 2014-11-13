@@ -26,10 +26,10 @@ namespace amm {
 class FileX
 {
 public:
-    explicit FileX(std::string name) : name_(name) { }
+    explicit FileX(const std::string &name) : name_(name) { }
     bool readLines(std::vector<std::string> *lines) const;
     bool writeLines(const std::vector<std::string> &lines) const;
-    bool moveTo(std::string location) const;
+    bool moveTo(const std::string &location) const;
     bool exists() const;
     bool existsAsDirectory() const;
 

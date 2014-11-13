@@ -31,7 +31,7 @@ namespace amm {
 class QualifiedIconTheme
 {
 public:
-    QualifiedIconTheme(SystemEnvironment environment, std::string theme_name);
+    QualifiedIconTheme(const SystemEnvironment &environment, const std::string &theme_name);
     std::vector<std::string> themeSearchPaths() { return theme_search_paths_; }
     std::vector<xdg::IconTheme> themeWithParent();
 
@@ -39,7 +39,7 @@ private:
     std::string theme_name_;
     std::vector<std::string> theme_search_paths_;
     xdg::IconTheme currentIconThemeFromName();
-    xdg::IconTheme iconThemeFromName(std::string theme_name);
+    xdg::IconTheme iconThemeFromName(const std::string &theme_name);
 };
 
 }

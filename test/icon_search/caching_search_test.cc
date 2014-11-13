@@ -29,8 +29,8 @@ class TestSearch : public IconSearchInterface
 {
 public:
     TestSearch() : extension_(".png") { }
-    std::string resolvedName(std::string icon_name) const { return icon_name + extension_; }
-    void extensionIs(std::string extension) { extension_ = extension; }
+    std::string resolvedName(const std::string &icon_name) const { return icon_name + extension_; }
+    void extensionIs(const std::string &extension) { extension_ = extension; }
 private:
     std::string extension_;
 };

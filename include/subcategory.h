@@ -30,8 +30,8 @@ class Subcategory
 {
 public:
     Subcategory() {}
-    Subcategory(std::string display_name, std::string icon_name, std::string classification_name);
-    Subcategory(std::string display_name, std::string icon_name, std::vector<std::string> classification_names);
+    Subcategory(const std::string &display_name, const std::string &icon_name, const std::string &classification_name);
+    Subcategory(const std::string &display_name, const std::string &icon_name, const std::vector<std::string> &classification_names);
 
     std::string displayName() const { return display_name_; }
     std::string iconName() const { return icon_name_; }
@@ -39,7 +39,7 @@ public:
     std::vector<xdg::DesktopEntry> desktopEntries() const { return desktop_entries_; }
 
     bool hasEntries() const;
-    void addDesktopEntry(xdg::DesktopEntry desktop_file);
+    void addDesktopEntry(const xdg::DesktopEntry &desktop_file);
     void sortDesktopEntries();
 
     static Subcategory Others()      { return Subcategory("Others",      "applications-others",      "Others"     ); }

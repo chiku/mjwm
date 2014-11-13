@@ -25,7 +25,7 @@ namespace xdg {
 
 std::string kAssignmentDelim = "=";
 
-EntryLine::EntryLine(std::string content) :
+EntryLine::EntryLine(const std::string &content) :
         content_(StringX(content).trim()),
         content_length_(content_.size()),
         assignment_delim_location_(content_.find(kAssignmentDelim)) {}

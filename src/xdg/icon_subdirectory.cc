@@ -26,7 +26,7 @@
 namespace amm {
 namespace xdg {
 
-static int stringToInt(std::string str)
+inline static int stringToInt(const std::string &str)
 {
     return atoi(str.c_str());
 }
@@ -36,7 +36,7 @@ IconSubdirectory::IconSubdirectory()
     type_ = INVALID;
 }
 
-IconSubdirectory::IconSubdirectory(std::string name, std::string size) : name_(name)
+IconSubdirectory::IconSubdirectory(const std::string &name, const std::string &size) : name_(name)
 {
     size_ = stringToInt(size);
     type_ = THRESHOLD;
@@ -60,7 +60,7 @@ IconSubdirectory& IconSubdirectory::type(std::string type)
     return *this;
 }
 
-IconSubdirectory& IconSubdirectory::maxSize(std::string max_size)
+IconSubdirectory& IconSubdirectory::maxSize(const std::string &max_size)
 {
     if (max_size != "") {
         max_size_ = stringToInt(max_size);
@@ -68,7 +68,7 @@ IconSubdirectory& IconSubdirectory::maxSize(std::string max_size)
     return *this;
 }
 
-IconSubdirectory& IconSubdirectory::minSize(std::string min_size)
+IconSubdirectory& IconSubdirectory::minSize(const std::string &min_size)
 {
     if (min_size != "") {
         min_size_ = stringToInt(min_size);
@@ -76,7 +76,7 @@ IconSubdirectory& IconSubdirectory::minSize(std::string min_size)
     return *this;
 }
 
-IconSubdirectory& IconSubdirectory::threshold(std::string threshold)
+IconSubdirectory& IconSubdirectory::threshold(const std::string &threshold)
 {
     if (threshold != "") {
         threshold_ = stringToInt(threshold);
@@ -84,7 +84,7 @@ IconSubdirectory& IconSubdirectory::threshold(std::string threshold)
     return *this;
 }
 
-IconSubdirectory& IconSubdirectory::location(std::string location)
+IconSubdirectory& IconSubdirectory::location(const std::string &location)
 {
     if (location != "") {
         location_ = location;
@@ -92,7 +92,7 @@ IconSubdirectory& IconSubdirectory::location(std::string location)
     return *this;
 }
 
-bool IconSubdirectory::matches(int required_size)
+bool IconSubdirectory::matches(int required_size) const
 {
     if (type_ == FIXED) {
         return size_ == required_size;
@@ -107,7 +107,7 @@ bool IconSubdirectory::matches(int required_size)
     return false;
 }
 
-int IconSubdirectory::distance(int required_size)
+int IconSubdirectory::distance(int required_size) const
 {
     if (type_ == FIXED) {
         return abs(size_ - required_size);

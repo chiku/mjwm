@@ -38,17 +38,17 @@ public:
     std::string comment() const { return comment_; }
     bool display() const { return display_; }
 
-    void hasLanguage(std::string language) { language_ = language; }
+    void hasLanguage(const std::string &language) { language_ = language; }
 
     bool operator < (const DesktopEntry &other) const;
     bool operator > (const DesktopEntry &other) const;
     bool operator == (const DesktopEntry &other) const;
     bool operator != (const DesktopEntry &other) const;
 
-    void parse(std::vector<std::string> lines);
+    void parse(const std::vector<std::string> &lines);
     bool isValid() const;
-    bool isA(std::string type) const;
-    bool isAnyOf(std::vector<std::string> types) const;
+    bool isA(const std::string &type) const;
+    bool isAnyOf(const std::vector<std::string> &types) const;
 
 private:
     std::string name_;

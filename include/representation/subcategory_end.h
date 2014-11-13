@@ -33,7 +33,7 @@ public:
     explicit SubcategoryEnd(std::string name) : name_(name) {}
     virtual ~SubcategoryEnd() {}
     virtual std::string name() const { return name_ + " end"; }
-    virtual std::string visit(transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
+    virtual std::string visit(const transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 private:
     const std::string name_;
 };

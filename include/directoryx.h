@@ -28,13 +28,13 @@ namespace amm
 class DirectoryX
 {
 public:
-    explicit DirectoryX(std::string path) : path_(path) {}
+    explicit DirectoryX(const std::string &path) : path_(path) {}
     bool isValid() const;
 
     class Entries
     {
     public:
-        Entries(std::string path);
+        Entries(const std::string &path);
         ~Entries();
 
         struct SearchResult
@@ -43,9 +43,9 @@ public:
             bool success;
             bool isDirectory;
             SearchResult() : name(""), success(false), isDirectory(false) { }
-            SearchResult(std::string name_, bool success_, bool isDirectory_) : name(name_), success(success_), isDirectory(isDirectory_) {}
+            SearchResult(const std::string &name_, bool success_, bool isDirectory_) : name(name_), success(success_), isDirectory(isDirectory_) {}
             static SearchResult Bad() { return SearchResult("", false, false); }
-            static SearchResult Success(std::string name, bool is_directory_) { return SearchResult(name, true, is_directory_); }
+            static SearchResult Success(const std::string &name, bool is_directory_) { return SearchResult(name, true, is_directory_); }
         };
 
         class iterator
