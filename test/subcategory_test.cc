@@ -56,14 +56,14 @@ SCENARIO("subcategory", "[subcategory]") {
 
         WHEN("without desktop-files") {
             THEN("it has no entries") {
-                REQUIRE(!subcategory.hasEntries());
+                CHECK_FALSE(subcategory.hasEntries());
             }
         }
 
         WHEN("with one desktop-file") {
             subcategory.addDesktopEntry(mousepadDesktopEntry());
             THEN("it has entries") {
-                REQUIRE(subcategory.hasEntries());
+                CHECK(subcategory.hasEntries());
             }
         }
 
@@ -75,8 +75,8 @@ SCENARIO("subcategory", "[subcategory]") {
                 THEN("its entries are alphabetically sorted by name") {
                     std::vector<xdg::DesktopEntry> desktop_entries = subcategory.desktopEntries();
                     REQUIRE(desktop_entries.size() == 2);
-                    REQUIRE(desktop_entries[0].name() == "Mousepad");
-                    REQUIRE(desktop_entries[1].name() == "Sakura");
+                    CHECK(desktop_entries[0].name() == "Mousepad");
+                    CHECK(desktop_entries[1].name() == "Sakura");
                 }
             }
         }
@@ -90,8 +90,8 @@ SCENARIO("subcategory", "[subcategory]") {
                 THEN("it doesn't repeat entries") {
                     std::vector<xdg::DesktopEntry> desktop_entries = subcategory.desktopEntries();
                     REQUIRE(desktop_entries.size() == 2);
-                    REQUIRE(desktop_entries[0].name() == "Mousepad");
-                    REQUIRE(desktop_entries[1].name() == "Sakura");
+                    CHECK(desktop_entries[0].name() == "Mousepad");
+                    CHECK(desktop_entries[1].name() == "Sakura");
                 }
             }
         }

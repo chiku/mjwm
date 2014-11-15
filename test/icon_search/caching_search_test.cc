@@ -43,25 +43,25 @@ SCENARIO("icon_search::CachingSearch", "[cachingsearch]") {
 
         WHEN("retrieving an unsearched item") {
             THEN("the item is absent from the cache") {
-                REQUIRE(!caching_searcher.isCached("vlc"));
+                CHECK_FALSE(caching_searcher.isCached("vlc"));
             }
         }
 
         WHEN("retrieving a searched item") {
             caching_searcher.resolvedName("vlc");
             THEN("the item is present in the cache") {
-                REQUIRE(caching_searcher.isCached("vlc"));
+                CHECK(caching_searcher.isCached("vlc"));
             }
 
             THEN("the item is same as the original item") {
-                REQUIRE(caching_searcher.resolvedName("vlc") == "vlc.png");
+                CHECK(caching_searcher.resolvedName("vlc") == "vlc.png");
             }
 
             WHEN("the underlying implementation returns a different item") {
                 caching_searcher.resolvedName("vlc");
                 actual_searcher->extensionIs(".svg");
                 THEN("the original entry is retrieved") {
-                    REQUIRE(caching_searcher.resolvedName("vlc") == "vlc.png");
+                    CHECK(caching_searcher.resolvedName("vlc") == "vlc.png");
                 }
             }
         }

@@ -32,47 +32,47 @@ SCENARIO("FileX", "[filex]") {
             FileX filex("test/fixtures/applications/vlc.desktop");
 
             THEN("it exists") {
-                REQUIRE(filex.exists());
+                CHECK(filex.exists());
             }
 
             THEN("it isn't a directory") {
-                REQUIRE(!filex.existsAsDirectory());
+                CHECK_FALSE(filex.existsAsDirectory());
             }
 
             THEN("it succeeds in reading its contents") {
                 std::vector<std::string> lines;
-                REQUIRE(filex.readLines(&lines));
+                CHECK(filex.readLines(&lines));
             }
 
             THEN("it reads the content of the file") {
                 std::vector<std::string> lines;
                 filex.readLines(&lines);
                 REQUIRE(lines.size() == 11);
-                REQUIRE(lines[0] == "[Desktop Entry]");
-                REQUIRE(lines[1] == "Version=1.0");
-                REQUIRE(lines[2] == "Name=VLC media player");
-                REQUIRE(lines[3] == "GenericName=Media player");
-                REQUIRE(lines[4] == "Comment=Read, capture, broadcast your multimedia streams");
-                REQUIRE(lines[5] == "Exec=/usr/bin/vlc --started-from-file %U");
-                REQUIRE(lines[6] == "TryExec=/usr/bin/vlc");
-                REQUIRE(lines[7] == "Icon=vlc");
-                REQUIRE(lines[8] == "Terminal=false");
-                REQUIRE(lines[9] == "Type=Application");
-                REQUIRE(lines[10] == "Categories=AudioVideo;Player;Recorder;");
+                CHECK(lines[0] == "[Desktop Entry]");
+                CHECK(lines[1] == "Version=1.0");
+                CHECK(lines[2] == "Name=VLC media player");
+                CHECK(lines[3] == "GenericName=Media player");
+                CHECK(lines[4] == "Comment=Read, capture, broadcast your multimedia streams");
+                CHECK(lines[5] == "Exec=/usr/bin/vlc --started-from-file %U");
+                CHECK(lines[6] == "TryExec=/usr/bin/vlc");
+                CHECK(lines[7] == "Icon=vlc");
+                CHECK(lines[8] == "Terminal=false");
+                CHECK(lines[9] == "Type=Application");
+                CHECK(lines[10] == "Categories=AudioVideo;Player;Recorder;");
             }
 
             THEN("it over-writes the older content") {
                 std::vector<std::string> lines;
                 filex.readLines(&lines);
                 filex.readLines(&lines);
-                REQUIRE(lines.size() == 11);
+                CHECK(lines.size() == 11);
             }
 
             THEN("it doesn't write lines to the file") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                REQUIRE(!filex.writeLines(lines));
+                CHECK_FALSE(filex.writeLines(lines));
             }
 
             THEN("it can move the file to an existing directory") {
@@ -85,17 +85,17 @@ SCENARIO("FileX", "[filex]") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                REQUIRE(FileX(file_name).writeLines(lines));
+                CHECK(FileX(file_name).writeLines(lines));
 
-                REQUIRE(FileX(file_name).moveTo(renamed_file_name));
+                CHECK(FileX(file_name).moveTo(renamed_file_name));
 
-                REQUIRE(!FileX(file_name).exists());
+                CHECK_FALSE(FileX(file_name).exists());
 
                 std::vector<std::string> read_lines;
-                REQUIRE(FileX(renamed_file_name).readLines(&read_lines));
+                CHECK(FileX(renamed_file_name).readLines(&read_lines));
                 REQUIRE(read_lines.size() == 2);
-                REQUIRE(read_lines[0] == "first");
-                REQUIRE(read_lines[1] == "second");
+                CHECK(read_lines[0] == "first");
+                CHECK(read_lines[1] == "second");
 
                 remove(file_name.c_str());
                 remove(renamed_file_name.c_str());
@@ -111,12 +111,12 @@ SCENARIO("FileX", "[filex]") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                REQUIRE(FileX(file_name).writeLines(lines));
+                CHECK(FileX(file_name).writeLines(lines));
 
-                REQUIRE(!FileX(file_name).moveTo(renamed_file_name));
+                CHECK_FALSE(FileX(file_name).moveTo(renamed_file_name));
 
-                REQUIRE(FileX(file_name).exists());
-                REQUIRE(!FileX(renamed_file_name).exists());
+                CHECK(FileX(file_name).exists());
+                CHECK_FALSE(FileX(renamed_file_name).exists());
 
                 remove(file_name.c_str());
                 remove(renamed_file_name.c_str());
@@ -127,11 +127,11 @@ SCENARIO("FileX", "[filex]") {
             FileX dirx("test/fixtures/applications");
 
             THEN("it exists") {
-                REQUIRE(dirx.exists());
+                CHECK(dirx.exists());
             }
 
             THEN("it is a directory") {
-                REQUIRE(dirx.existsAsDirectory());
+                CHECK(dirx.existsAsDirectory());
             }
         }
 
@@ -142,22 +142,22 @@ SCENARIO("FileX", "[filex]") {
             remove((file_name + ".backup_extension").c_str());
 
             THEN("it doesn't exist") {
-                REQUIRE(!filex.exists());
+                CHECK_FALSE(filex.exists());
             }
 
             THEN("it isn't a directory") {
-                REQUIRE(!filex.existsAsDirectory());
+                CHECK_FALSE(filex.existsAsDirectory());
             }
 
             THEN("it fails to read its contents") {
                 std::vector<std::string> lines;
-                REQUIRE(!filex.readLines(&lines));
+                CHECK_FALSE(filex.readLines(&lines));
             }
 
             THEN("its lines are empty") {
                 std::vector<std::string> lines;
                 filex.readLines(&lines);
-                REQUIRE(lines.empty());
+                CHECK(lines.empty());
             }
 
             THEN("it doesn't over-write the older contents") {
@@ -165,21 +165,21 @@ SCENARIO("FileX", "[filex]") {
                 lines.push_back("existing line");
                 filex.readLines(&lines);
                 REQUIRE(lines.size() == 1);
-                REQUIRE(lines[0] == "existing line");
+                CHECK(lines[0] == "existing line");
             }
 
             THEN("it writes lines to the file") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                REQUIRE(filex.writeLines(lines));
+                CHECK(filex.writeLines(lines));
 
                 FileX read_file(file_name);
                 std::vector<std::string> read_lines;
-                REQUIRE(read_file.readLines(&read_lines));
+                CHECK(read_file.readLines(&read_lines));
                 REQUIRE(read_lines.size() == 2);
-                REQUIRE(read_lines[0] == "first");
-                REQUIRE(read_lines[1] == "second");
+                CHECK(read_lines[0] == "first");
+                CHECK(read_lines[1] == "second");
                 remove(file_name.c_str());
             }
         }

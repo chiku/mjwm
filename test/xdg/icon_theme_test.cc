@@ -80,24 +80,24 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             IconTheme icon_theme(birchIconThemeLines());
 
             THEN("it has a name") {
-                REQUIRE(icon_theme.name() == "Birch");
+                CHECK(icon_theme.name() == "Birch");
             }
 
             THEN("it has a list of parents") {
                 std::vector<std::string> parents = icon_theme.parents();
                 REQUIRE(parents.size() == 2);
-                REQUIRE(parents[0] == "wood");
-                REQUIRE(parents[1] == "default");
+                CHECK(parents[0] == "wood");
+                CHECK(parents[1] == "default");
             }
 
             THEN("it has a list of directories") {
                 std::vector<IconSubdirectory> directories = icon_theme.directories();
                 REQUIRE(directories.size() == 5);
-                REQUIRE(directories[0].name() == "48x48/apps");
-                REQUIRE(directories[1].name() == "48x48/mimetypes");
-                REQUIRE(directories[2].name() == "32x32/apps");
-                REQUIRE(directories[3].name() == "scalable/apps");
-                REQUIRE(directories[4].name() == "scalable/mimetypes");
+                CHECK(directories[0].name() == "48x48/apps");
+                CHECK(directories[1].name() == "48x48/mimetypes");
+                CHECK(directories[2].name() == "32x32/apps");
+                CHECK(directories[3].name() == "scalable/apps");
+                CHECK(directories[4].name() == "scalable/mimetypes");
             }
         }
 
@@ -106,15 +106,15 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             icon_theme.internalNameIs("birch");
 
             THEN("it can be referred to by its internal name") {
-                REQUIRE(icon_theme.isNamed("birch"));
+                CHECK(icon_theme.isNamed("birch"));
             }
 
             THEN("it can be referred to by its display name") {
-                REQUIRE(icon_theme.isNamed("Birch"));
+                CHECK(icon_theme.isNamed("Birch"));
             }
 
             THEN("it can't be referred to other names") {
-                REQUIRE(!icon_theme.isNamed("Wood"));
+                CHECK(!icon_theme.isNamed("Wood"));
             }
         }
 
@@ -124,7 +124,7 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             THEN("its parent is Hicolor") {
                 std::vector<std::string> parents = icon_theme.parents();
                 REQUIRE(parents.size() == 1);
-                REQUIRE(parents[0] == "Hicolor");
+                CHECK(parents[0] == "Hicolor");
             }
         }
 
@@ -133,7 +133,7 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
 
             THEN("it has no parents") {
                 std::vector<std::string> parents = icon_theme.parents();
-                REQUIRE(parents.empty());
+                CHECK(parents.empty());
             }
         }
     }
@@ -146,19 +146,19 @@ SCENARIO("xdg::IconTheme", "[icontheme]") {
             IconSubdirectory scalable_apps = directories[3];
 
             THEN("the sub-directory has a size") {
-                REQUIRE(scalable_apps.size() == 48);
+                CHECK(scalable_apps.size() == 48);
             }
 
             THEN("the sub-directory has a type") {
-                REQUIRE(scalable_apps.type() == SCALABLE);
+                CHECK(scalable_apps.type() == SCALABLE);
             }
 
             THEN("the sub-directory has a maximum size") {
-                REQUIRE(scalable_apps.maxSize() == 256);
+                CHECK(scalable_apps.maxSize() == 256);
             }
 
             THEN("the sub-directory has a threshold") {
-                REQUIRE(scalable_apps.threshold() == 208);
+                CHECK(scalable_apps.threshold() == 208);
             }
         }
     }

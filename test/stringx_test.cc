@@ -31,15 +31,15 @@ SCENARIO("StringX", "[stringx]") {
 
         WHEN("it has a sub-string at the end") {
             THEN("it ends with the substring") {
-                REQUIRE(stringx.endsWith(".desktop"));
+                CHECK(stringx.endsWith(".desktop"));
             }
 
             THEN("it doesn't end with a substring that is not at the end") {
-                REQUIRE(!stringx.endsWith(".desk"));
+                CHECK_FALSE(stringx.endsWith(".desk"));
             }
 
             THEN("it doesn't ends with a superstring") {
-                REQUIRE(!stringx.endsWith("vlc.desktop file"));
+                CHECK_FALSE(stringx.endsWith("vlc.desktop file"));
             }
         }
     }
@@ -50,7 +50,7 @@ SCENARIO("StringX", "[stringx]") {
         WHEN("terminated with a delimeter") {
             std::string result = stringx.terminateWith(";");
             THEN("it appends the delimeter to itself") {
-                REQUIRE(result == "AudioVideo;GTK;");
+                CHECK(result == "AudioVideo;GTK;");
             }
         }
 
@@ -58,8 +58,8 @@ SCENARIO("StringX", "[stringx]") {
             std::vector<std::string> result = stringx.split(";");
             THEN("the last token is included") {
                 REQUIRE(result.size() == 2);
-                REQUIRE(result[0] == "AudioVideo");
-                REQUIRE(result[1] == "GTK");
+                CHECK(result[0] == "AudioVideo");
+                CHECK(result[1] == "GTK");
             }
         }
     }
@@ -70,7 +70,7 @@ SCENARIO("StringX", "[stringx]") {
         WHEN("terminated with the delimeter") {
             std::string result = stringx.terminateWith(";");
             THEN("it doesn't duplicate the delimeter") {
-                REQUIRE(result == "AudioVideo;GTK;");
+                CHECK(result == "AudioVideo;GTK;");
             }
         }
 
@@ -78,8 +78,8 @@ SCENARIO("StringX", "[stringx]") {
             std::vector<std::string> result = stringx.split(";");
             THEN("the original string becomes a list of tokens") {
                 REQUIRE(result.size() == 2);
-                REQUIRE(result[0] == "AudioVideo");
-                REQUIRE(result[1] == "GTK");
+                CHECK(result[0] == "AudioVideo");
+                CHECK(result[1] == "GTK");
             }
         }
     }
@@ -90,14 +90,14 @@ SCENARIO("StringX", "[stringx]") {
         WHEN("terminated with a delimeter") {
             std::string result = stringx.terminateWith(";");
             THEN("it appends the delimeter to itself") {
-                REQUIRE(result == ";");
+                CHECK(result == ";");
             }
         }
 
         WHEN("split") {
             std::vector<std::string> result = stringx.split(";");
             THEN("it is empty") {
-                REQUIRE(result.empty());
+                CHECK(result.empty());
             }
         }
     }
@@ -108,7 +108,7 @@ SCENARIO("StringX", "[stringx]") {
         WHEN("XML encoded") {
             std::string result = stringx.encode();
             THEN("the XML tags are replaced by corresponding XML escpace sequences") {
-                REQUIRE(result == "Icon=&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;");
+                CHECK(result == "Icon=&lt;&apos;foo&apos; &amp; &quot;bar&quot;&gt;");
             }
         }
     }
@@ -119,7 +119,7 @@ SCENARIO("StringX", "[stringx]") {
         WHEN("trimmed") {
             std::string result = stringx.trim();
             THEN("all whitespaces at the beginning and in the end are removed") {
-                REQUIRE(result == "accessories-text-editor");
+                CHECK(result == "accessories-text-editor");
             }
         }
     }

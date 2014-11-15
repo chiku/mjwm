@@ -91,8 +91,8 @@ SCENARIO("Menu custom categories", "[menu]") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
                 REQUIRE(subcategories.size() == 2);
-                REQUIRE(subcategories[0].displayName() == "Accessories");
-                REQUIRE(subcategories[1].displayName() == "Games");
+                CHECK(subcategories[0].displayName() == "Accessories");
+                CHECK(subcategories[1].displayName() == "Games");
             }
         }
 
@@ -107,7 +107,7 @@ SCENARIO("Menu custom categories", "[menu]") {
                 REQUIRE(subcategories.size() == 1);
                 std::vector<std::string> classification_names = subcategories[0].classificationNames();
                 REQUIRE(classification_names.size() == 1);
-                REQUIRE(classification_names[0] == "Utility");
+                CHECK(classification_names[0] == "Utility");
             }
         }
 
@@ -120,7 +120,7 @@ SCENARIO("Menu custom categories", "[menu]") {
             THEN("it ignores the lines beginning with '#'") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
-                REQUIRE(subcategories.empty());
+                CHECK(subcategories.empty());
             }
         }
 
@@ -133,7 +133,7 @@ SCENARIO("Menu custom categories", "[menu]") {
             THEN("it ignores the line") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
-                REQUIRE(subcategories.empty());
+                CHECK(subcategories.empty());
             }
         }
 
@@ -147,12 +147,12 @@ SCENARIO("Menu custom categories", "[menu]") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
                 REQUIRE(subcategories.size() == 1);
-                REQUIRE(subcategories[0].displayName() == "Games");
+                CHECK(subcategories[0].displayName() == "Games");
 
                 std::vector<std::string> classification_names = subcategories[0].classificationNames();
                 REQUIRE(classification_names.size() == 2);
-                REQUIRE(classification_names[0] == "Game");
-                REQUIRE(classification_names[1] == "Fun");
+                CHECK(classification_names[0] == "Game");
+                CHECK(classification_names[1] == "Fun");
             }
         }
 
@@ -168,9 +168,9 @@ SCENARIO("Menu custom categories", "[menu]") {
 
                 std::vector<std::string> classification_names = subcategories[0].classificationNames();
                 REQUIRE(classification_names.size() == 3);
-                REQUIRE(classification_names[0] == "Game");
-                REQUIRE(classification_names[1] == "Fun");
-                REQUIRE(classification_names[2] == "Frolic");
+                CHECK(classification_names[0] == "Game");
+                CHECK(classification_names[1] == "Fun");
+                CHECK(classification_names[2] == "Frolic");
             }
         }
 
@@ -182,7 +182,7 @@ SCENARIO("Menu custom categories", "[menu]") {
             THEN("it ignores the line with missing classification names") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
-                REQUIRE(subcategories.empty());
+                CHECK(subcategories.empty());
             }
         }
     }
@@ -200,7 +200,7 @@ SCENARIO("Menu statistics", "[menu]") {
             Stats summary = menu.summary();
 
             THEN("it has number of total files") {
-                REQUIRE(summary.totalParsedFiles() == 2);
+                CHECK(summary.totalParsedFiles() == 2);
             }
         }
 
@@ -212,14 +212,14 @@ SCENARIO("Menu statistics", "[menu]") {
             Stats summary = menu.summary();
 
             THEN("it has the number of unclassified files") {
-                REQUIRE(summary.totalUnclassifiedFiles() == 1);
+                CHECK(summary.totalUnclassifiedFiles() == 1);
             }
 
             THEN("it has the categories that weren't classified") {
                 std::vector<std::string> unhandled_classifications = summary.unhandledClassifications();
 
                 REQUIRE(unhandled_classifications.size() == 1);
-                REQUIRE(unhandled_classifications[0] == "GTK");
+                CHECK(unhandled_classifications[0] == "GTK");
             }
         }
 
@@ -231,7 +231,7 @@ SCENARIO("Menu statistics", "[menu]") {
             Stats summary = menu.summary();
 
             THEN("it has the number of suppressed files") {
-                REQUIRE(summary.totalSuppressedFiles() == 1);
+                CHECK(summary.totalSuppressedFiles() == 1);
             }
         }
 
@@ -246,7 +246,7 @@ SCENARIO("Menu statistics", "[menu]") {
                 std::vector<std::string> unparsed_files = summary.unparsedFiles();
 
                 REQUIRE(unparsed_files.size() == 1);
-                REQUIRE(unparsed_files[0] == kapplicationFixturesDirectory + "missing.desktop");
+                CHECK(unparsed_files[0] == kapplicationFixturesDirectory + "missing.desktop");
             }
         }
 
@@ -262,7 +262,7 @@ SCENARIO("Menu statistics", "[menu]") {
                 std::vector<std::string> unparsed_files = summary.unparsedFiles();
 
                 REQUIRE(unparsed_files.size() == 1);
-                REQUIRE(unparsed_files[0] == kapplicationFixturesDirectory + "missing.desktop");
+                CHECK(unparsed_files[0] == kapplicationFixturesDirectory + "missing.desktop");
             }
         }
     }
@@ -291,22 +291,22 @@ SCENARIO("Menu sort", "[menu]") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
                 REQUIRE(subcategories.size() == 3);
 
-                REQUIRE(subcategories[0].displayName() == "Multimedia");
+                CHECK(subcategories[0].displayName() == "Multimedia");
                 std::vector<xdg::DesktopEntry> multimedia_files = subcategories[0].desktopEntries();
                 REQUIRE(multimedia_files.size() == 3);
-                REQUIRE(multimedia_files[0].name() == "VLC media player");
-                REQUIRE(multimedia_files[1].name() == "Whaaw! Media Player");
-                REQUIRE(multimedia_files[2].name() == "Xfburn");
+                CHECK(multimedia_files[0].name() == "VLC media player");
+                CHECK(multimedia_files[1].name() == "Whaaw! Media Player");
+                CHECK(multimedia_files[2].name() == "Xfburn");
 
-                REQUIRE(subcategories[1].displayName() == "Utilities");
+                CHECK(subcategories[1].displayName() == "Utilities");
                 std::vector<xdg::DesktopEntry> utility_files = subcategories[1].desktopEntries();
                 REQUIRE(utility_files.size() == 2);
-                REQUIRE(utility_files[0].name() == "Mousepad");
-                REQUIRE(utility_files[1].name() == "Xfburn");
+                CHECK(utility_files[0].name() == "Mousepad");
+                CHECK(utility_files[1].name() == "Xfburn");
 
-                REQUIRE(subcategories[2].displayName() == "Others");
+                CHECK(subcategories[2].displayName() == "Others");
                 std::vector<xdg::DesktopEntry> other_files = subcategories[2].desktopEntries();
-                REQUIRE(other_files.empty());
+                CHECK(other_files.empty());
             }
         }
     }
@@ -327,14 +327,14 @@ SCENARIO("Menu representations", "[menu]") {
 
             THEN("it stores menu start, subcategory start, menu entry, subcategory end and menu end") {
                 REQUIRE(representations.size() == 8);
-                REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
-                REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories");
-                REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor executable: mousepad %F comment: Simple Text Editor");
-                REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
-                REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia");
-                REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
-                REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
-                REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
+                CHECK(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
+                CHECK(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories");
+                CHECK(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor executable: mousepad %F comment: Simple Text Editor");
+                CHECK(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
+                CHECK(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia");
+                CHECK(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
+                CHECK(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
+                CHECK(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
 
                 clearMemory(representations);
             }
@@ -354,14 +354,14 @@ SCENARIO("Menu representations", "[menu]") {
 
             THEN("it adds the icon name to icons for subcategory and menu-entry") {
                 REQUIRE(representations.size() == 8);
-                REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
-                REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories.always");
-                REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor.always executable: mousepad %F comment: Simple Text Editor");
-                REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
-                REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia.always");
-                REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc.always executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
-                REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
-                REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
+                CHECK(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
+                CHECK(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories.always");
+                CHECK(representations[2]->visit(test_transformer) == "Program--> name: Mousepad icon: accessories-text-editor.always executable: mousepad %F comment: Simple Text Editor");
+                CHECK(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
+                CHECK(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia.always");
+                CHECK(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc.always executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
+                CHECK(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
+                CHECK(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
 
                 clearMemory(representations);
             }
@@ -380,14 +380,14 @@ SCENARIO("Menu representations", "[menu]") {
 
             THEN("it uses names in the given language when available") {
                 REQUIRE(representations.size() == 8);
-                REQUIRE(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
-                REQUIRE(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories");
-                REQUIRE(representations[2]->visit(test_transformer) == "Program--> name: Мишоловка icon: accessories-text-editor executable: mousepad %F comment: Једноставан уређивач текста");
-                REQUIRE(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
-                REQUIRE(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia");
-                REQUIRE(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
-                REQUIRE(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
-                REQUIRE(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
+                CHECK(representations[0]->visit(test_transformer) == "Menu start--> name: Menu start");
+                CHECK(representations[1]->visit(test_transformer) == "Subsection start--> name: Accessories icon: applications-accessories");
+                CHECK(representations[2]->visit(test_transformer) == "Program--> name: Мишоловка icon: accessories-text-editor executable: mousepad %F comment: Једноставан уређивач текста");
+                CHECK(representations[3]->visit(test_transformer) == "Subsection end--> name: Accessories end");
+                CHECK(representations[4]->visit(test_transformer) == "Subsection start--> name: Multimedia icon: applications-multimedia");
+                CHECK(representations[5]->visit(test_transformer) == "Program--> name: VLC media player icon: vlc executable: /usr/bin/vlc --started-from-file %U comment: Read, capture, broadcast your multimedia streams");
+                CHECK(representations[6]->visit(test_transformer) == "Subsection end--> name: Multimedia end");
+                CHECK(representations[7]->visit(test_transformer) == "Menu end--> name: Menu end");
 
                 clearMemory(representations);
             }

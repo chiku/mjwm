@@ -29,28 +29,28 @@ SCENARIO("Amm options", "[ammoptions]") {
         WHEN("summary type is short") {
             THEN("it is valid") {
                 options.summary_type = "short";
-                REQUIRE(options.hasValidSummaryType());
+                CHECK(options.hasValidSummaryType());
             }
         }
 
         WHEN("summary type is normal") {
             THEN("it is valid") {
                 options.summary_type = "normal";
-                REQUIRE(options.hasValidSummaryType());
+                CHECK(options.hasValidSummaryType());
             }
         }
 
         WHEN("summary type is long") {
             THEN("it is valid") {
                 options.summary_type = "long";
-                REQUIRE(options.hasValidSummaryType());
+                CHECK(options.hasValidSummaryType());
             }
         }
 
         WHEN("summary type is something else") {
             THEN("it is invalid") {
                 options.summary_type = "unknown";
-                REQUIRE(!options.hasValidSummaryType());
+                CHECK_FALSE(options.hasValidSummaryType());
             }
         }
     }

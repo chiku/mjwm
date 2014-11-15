@@ -36,7 +36,7 @@ SCENARIO("VectorX", "[vectorx]") {
         WHEN("joined with a delimeter") {
             std::string result = vectorx.join("; ");
             THEN("it is a string with the delimeter in between the items") {
-                REQUIRE(result == "foo; bar; baz");
+                CHECK(result == "foo; bar; baz");
             }
         }
     }
@@ -49,7 +49,7 @@ SCENARIO("VectorX", "[vectorx]") {
         WHEN("joined with a delimeter") {
             std::string result = vectorx.join("; ");
             THEN("it the item in the original vector") {
-                REQUIRE(result == "foo");
+                CHECK(result == "foo");
             }
         }
     }
@@ -61,7 +61,7 @@ SCENARIO("VectorX", "[vectorx]") {
         WHEN("joined with a delimeter") {
             std::string result = vectorx.join("; ");
             THEN("it is an empty string") {
-                REQUIRE(result == "");
+                CHECK(result == "");
             }
         }
     }
@@ -77,9 +77,9 @@ SCENARIO("VectorX", "[vectorx]") {
             std::vector<std::string> result = vectorx.terminateEachWith("/");
             THEN("it adds the delimeter without duplicating it") {
                 REQUIRE(result.size() == 3);
-                REQUIRE(result[0] == "foo/");
-                REQUIRE(result[1] == "bar/");
-                REQUIRE(result[2] == "baz/");
+                CHECK(result[0] == "foo/");
+                CHECK(result[1] == "bar/");
+                CHECK(result[2] == "baz/");
             }
         }
     }
@@ -97,8 +97,8 @@ SCENARIO("VectorX", "[vectorx]") {
             std::vector<std::string> result = vectorx.unique();
             THEN("it de-duplicates") {
                 REQUIRE(result.size() == 2);
-                REQUIRE(result[0] == "bar");
-                REQUIRE(result[1] == "foo");
+                CHECK(result[0] == "bar");
+                CHECK(result[1] == "foo");
             }
         }
     }

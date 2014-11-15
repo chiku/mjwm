@@ -41,32 +41,32 @@ SCENARIO("Populate DesktopEntry", "[desktopfile]") {
             entry.parse(lines);
 
             THEN("it has a name") {
-                REQUIRE(entry.name() == "Mousepad");
+                CHECK(entry.name() == "Mousepad");
             }
 
             THEN("it has an icon") {
-                REQUIRE(entry.icon() == "accessories-text-editor");
+                CHECK(entry.icon() == "accessories-text-editor");
             }
 
             THEN("it has an executable") {
-                REQUIRE(entry.executable() == "mousepad %F");
+                CHECK(entry.executable() == "mousepad %F");
             }
 
             THEN("it has categories") {
                 std::vector<std::string> categories = entry.categories();
                 REQUIRE(categories.size() == 4);
-                REQUIRE(categories[0] == "Application");
-                REQUIRE(categories[1] == "GTK");
-                REQUIRE(categories[2] == "TextEditor");
-                REQUIRE(categories[3] == "Utility");
+                CHECK(categories[0] == "Application");
+                CHECK(categories[1] == "GTK");
+                CHECK(categories[2] == "TextEditor");
+                CHECK(categories[3] == "Utility");
             }
 
             THEN("it has a comment") {
-                REQUIRE(entry.comment() == "Simple Text Editor");
+                CHECK(entry.comment() == "Simple Text Editor");
             }
 
             THEN("it knows if it would be displayed by default") {
-                REQUIRE(entry.display());
+                CHECK(entry.display());
             }
 
             WHEN("NoDisplay is set to true") {
@@ -75,7 +75,7 @@ SCENARIO("Populate DesktopEntry", "[desktopfile]") {
                 lines.push_back("NoDisplay=true\n");
                 entry.parse(lines);
                 THEN("it is not marked as displayed") {
-                    REQUIRE(!entry.display());
+                    CHECK_FALSE(entry.display());
                 }
             }
 
@@ -85,7 +85,7 @@ SCENARIO("Populate DesktopEntry", "[desktopfile]") {
                 lines.push_back("NoDisplay=1\n");
                 entry.parse(lines);
                 THEN("it is not marked as displayed") {
-                    REQUIRE(!entry.display());
+                    CHECK_FALSE(entry.display());
                 }
             }
         }
@@ -110,11 +110,11 @@ SCENARIO("Language-aware DesktopEntry", "[focus]") {
             entry.parse(lines);
 
             THEN("it picks the name with matching language") {
-                REQUIRE(entry.name() == "Мишоловка");
+                CHECK(entry.name() == "Мишоловка");
             }
 
             THEN("it picks comment with the matching language") {
-                REQUIRE(entry.comment() == "Једноставан уређивач текста");
+                CHECK(entry.comment() == "Једноставан уређивач текста");
             }
         }
     }
@@ -140,8 +140,8 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_entry.parse(other_lines);
 
                 THEN("the desktop file is lesser than the other desktop file") {
-                    REQUIRE(entry < other_entry);
-                    REQUIRE(!(other_entry < entry));
+                    CHECK(entry < other_entry);
+                    CHECK_FALSE(other_entry < entry);
                 }
             }
 
@@ -152,8 +152,8 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_entry.parse(other_lines);
 
                 THEN("the desktop file is greater than the other desktop file") {
-                    REQUIRE(entry > other_entry);
-                    REQUIRE(!(other_entry > entry));
+                    CHECK(entry > other_entry);
+                    CHECK_FALSE(other_entry > entry);
                 }
             }
 
@@ -165,8 +165,8 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_entry.parse(other_lines);
 
                 THEN("the desktop file is equal to the other desktop file") {
-                    REQUIRE(entry == other_entry);
-                    REQUIRE(!(other_entry != entry));
+                    CHECK(entry == other_entry);
+                    CHECK_FALSE(other_entry != entry);
                 }
             }
 
@@ -178,8 +178,8 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_entry.parse(other_lines);
 
                 THEN("the desktop file is not equal to the other desktop file") {
-                    REQUIRE(entry != other_entry);
-                    REQUIRE(!(other_entry == entry));
+                    CHECK(entry != other_entry);
+                    CHECK_FALSE(other_entry == entry);
                 }
             }
 
@@ -191,8 +191,8 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
                 other_entry.parse(other_lines);
 
                 THEN("the desktop file is not equal to the other desktop file") {
-                    REQUIRE(entry != other_entry);
-                    REQUIRE(!(other_entry == entry));
+                    CHECK(entry != other_entry);
+                    CHECK_FALSE(other_entry == entry);
                 }
             }
         }
@@ -212,7 +212,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Exec=mousepad %F\n");
             entry.parse(lines);
             THEN("it is valid") {
-                REQUIRE(entry.isValid());
+                CHECK(entry.isValid());
             }
         }
 
@@ -223,7 +223,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Exec=mousepad %F\n");
             entry.parse(lines);
             THEN("it is not valid") {
-                REQUIRE(!entry.isValid());
+                CHECK_FALSE(entry.isValid());
             }
         }
 
@@ -234,7 +234,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Exec=mousepad %F\n");
             entry.parse(lines);
             THEN("it is not valid") {
-                REQUIRE(!entry.isValid());
+                CHECK_FALSE(entry.isValid());
             }
         }
 
@@ -245,7 +245,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
             lines.push_back("Icon=accessories-text-editor\n");
             entry.parse(lines);
             THEN("it is not valid") {
-                REQUIRE(!entry.isValid());
+                CHECK_FALSE(entry.isValid());
             }
         }
     }
@@ -261,14 +261,14 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
             lines.push_back("Categories=AudioVideo;Audio;Player;GTK;\n");
             entry.parse(lines);
             THEN("it is an AudioVideo") {
-                REQUIRE(entry.isA("AudioVideo"));
+                CHECK(entry.isA("AudioVideo"));
             }
 
             THEN("it is either of AudioVideo and Multimedia") {
                 std::vector<std::string> classifications;
                 classifications.push_back("AudioVideo");
                 classifications.push_back("Multimedia");
-                REQUIRE(entry.isAnyOf(classifications));
+                CHECK(entry.isAnyOf(classifications));
             }
         }
 
@@ -278,14 +278,14 @@ SCENARIO("DesktopEntry classifications", "[desktopfile]") {
             lines.push_back("Categories=Audio;Video;Player;GTK;\n");
             entry.parse(lines);
             THEN("it is not an AudioVideo") {
-                REQUIRE(!entry.isA("AudioVideo"));
+                CHECK_FALSE(entry.isA("AudioVideo"));
             }
 
             THEN("it is not either of AudioVideo or Multimedia") {
                 std::vector<std::string> classifications;
                 classifications.push_back("AudioVideo");
                 classifications.push_back("Multimedia");
-                REQUIRE(!entry.isAnyOf(classifications));
+                CHECK_FALSE(entry.isAnyOf(classifications));
             }
         }
     }

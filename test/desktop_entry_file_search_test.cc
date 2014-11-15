@@ -33,14 +33,14 @@ static bool presentIn(std::string item, std::vector<std::string> list) {
 static void assertFilesArePresentInList(std::vector<std::string> file_names) {
     REQUIRE(file_names.size() == 8);
 
-    REQUIRE(presentIn("test/fixtures/applications/missing.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/mousepad.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/unclassified.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/vlc.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/suppressed.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/suppressedinvalid.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/nested/xfburn.desktop", file_names));
-    REQUIRE(presentIn("test/fixtures/applications/nested/deepnested/whaawmp.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/missing.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/mousepad.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/unclassified.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/vlc.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/suppressed.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/suppressedinvalid.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/nested/xfburn.desktop", file_names));
+    CHECK(presentIn("test/fixtures/applications/nested/deepnested/whaawmp.desktop", file_names));
 }
 
 
@@ -93,7 +93,7 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
             THEN("it tracks the missing directory") {
                 std::vector<std::string> bad_paths = searcher.badPaths();
                 REQUIRE(bad_paths.size() == 1);
-                REQUIRE(bad_paths[0] == "test/does-not-exist/applications/");
+                CHECK(bad_paths[0] == "test/does-not-exist/applications/");
             }
         }
     }

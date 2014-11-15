@@ -30,40 +30,40 @@ void assertFileNamesAreCorrect(std::vector<std::string> names)
 {
     std::sort(names.begin(), names.end());
     REQUIRE(names.size() == 7);
-    REQUIRE(names[0] == "desktop.vlc");
-    REQUIRE(names[1] == "missing.desktop");
-    REQUIRE(names[2] == "mousepad.desktop");
-    REQUIRE(names[3] == "suppressed.desktop");
-    REQUIRE(names[4] == "suppressedinvalid.desktop");
-    REQUIRE(names[5] == "unclassified.desktop");
-    REQUIRE(names[6] == "vlc.desktop");
+    CHECK(names[0] == "desktop.vlc");
+    CHECK(names[1] == "missing.desktop");
+    CHECK(names[2] == "mousepad.desktop");
+    CHECK(names[3] == "suppressed.desktop");
+    CHECK(names[4] == "suppressedinvalid.desktop");
+    CHECK(names[5] == "unclassified.desktop");
+    CHECK(names[6] == "vlc.desktop");
 }
 
 void assertDirectoryNamesAreCorrect(std::vector<std::string> names)
 {
     std::sort(names.begin(), names.end());
     REQUIRE(names.size() == 4);
-    REQUIRE(names[0] == ".");
-    REQUIRE(names[1] == "..");
-    REQUIRE(names[2] == "empty");
-    REQUIRE(names[3] == "nested");
+    CHECK(names[0] == ".");
+    CHECK(names[1] == "..");
+    CHECK(names[2] == "empty");
+    CHECK(names[3] == "nested");
 }
 
 void assertNamesAreCorrect(std::vector<std::string> names)
 {
     std::sort(names.begin(), names.end());
     REQUIRE(names.size() == 11);
-    REQUIRE(names[0] == ".");
-    REQUIRE(names[1] == "..");
-    REQUIRE(names[2] == "desktop.vlc");
-    REQUIRE(names[3] == "empty");
-    REQUIRE(names[4] == "missing.desktop");
-    REQUIRE(names[5] == "mousepad.desktop");
-    REQUIRE(names[6] == "nested");
-    REQUIRE(names[7] == "suppressed.desktop");
-    REQUIRE(names[8] == "suppressedinvalid.desktop");
-    REQUIRE(names[9] == "unclassified.desktop");
-    REQUIRE(names[10] == "vlc.desktop");
+    CHECK(names[0] == ".");
+    CHECK(names[1] == "..");
+    CHECK(names[2] == "desktop.vlc");
+    CHECK(names[3] == "empty");
+    CHECK(names[4] == "missing.desktop");
+    CHECK(names[5] == "mousepad.desktop");
+    CHECK(names[6] == "nested");
+    CHECK(names[7] == "suppressed.desktop");
+    CHECK(names[8] == "suppressedinvalid.desktop");
+    CHECK(names[9] == "unclassified.desktop");
+    CHECK(names[10] == "vlc.desktop");
 }
 
 SCENARIO("DirectoryX", "[directoryx]") {
@@ -71,14 +71,14 @@ SCENARIO("DirectoryX", "[directoryx]") {
         WHEN("present") {
             THEN("it is valid") {
                 DirectoryX directory("test/fixtures/applications");
-                REQUIRE(directory.isValid());
+                CHECK(directory.isValid());
             }
         }
 
         WHEN("not present") {
             DirectoryX directory("does-not-exist");
             THEN("it is invalid") {
-                REQUIRE(!directory.isValid());
+                CHECK_FALSE(directory.isValid());
             }
         }
 
@@ -92,7 +92,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
 
                     for (int i = 0; i < 11; i++) {
                         DirectoryX::Entries::SearchResult result = entries.nextName();
-                        REQUIRE(result.success);
+                        CHECK(result.success);
                         (result.isDirectory ? directory_names : file_names).push_back(result.name);
                     }
 
@@ -108,9 +108,9 @@ SCENARIO("DirectoryX", "[directoryx]") {
                     }
                     DirectoryX::Entries::SearchResult result = entries.nextName();
 
-                    REQUIRE(!result.success);
-                    REQUIRE(!result.isDirectory);
-                    REQUIRE(result.name == "");
+                    CHECK_FALSE(result.success);
+                    CHECK_FALSE(result.isDirectory);
+                    CHECK(result.name == "");
                 }
             }
 

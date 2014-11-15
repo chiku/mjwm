@@ -69,63 +69,63 @@ SCENARIO("Stats totals", "[stats]") {
         Stats stats;
 
         WHEN("created") {
-            THEN("it has no total files")        { REQUIRE(stats.totalFiles() == 0); }
-            THEN("it has no parsed files")       { REQUIRE(stats.totalParsedFiles() == 0); }
-            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
+            THEN("it has no total files")        { CHECK(stats.totalFiles() == 0); }
+            THEN("it has no parsed files")       { CHECK(stats.totalParsedFiles() == 0); }
+            THEN("it has no unclassified files") { CHECK(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has no suppressed files")   { CHECK(stats.totalSuppressedFiles() == 0); }
+            THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
 
             THEN("is has no counts in short details") {
-                REQUIRE(stats.details("short") == expectedEmptydetails());
+                CHECK(stats.details("short") == expectedEmptydetails());
             }
 
             THEN("is has no counts in details") {
-                REQUIRE(stats.details("normal") == expectedEmptydetails());
+                CHECK(stats.details("normal") == expectedEmptydetails());
             }
 
             THEN("is has no counts in long details") {
-                REQUIRE(stats.details("long") == expectedEmptydetails());
+                CHECK(stats.details("long") == expectedEmptydetails());
             }
         }
 
         WHEN("a classified file is added") {
             stats.addClassifiedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
-            THEN("it has one parsed file")       { REQUIRE(stats.totalParsedFiles() == 1); }
-            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
+            THEN("it has one total file")        { CHECK(stats.totalFiles() == 1); }
+            THEN("it has one parsed file")       { CHECK(stats.totalParsedFiles() == 1); }
+            THEN("it has no unclassified files") { CHECK(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has no suppressed files")   { CHECK(stats.totalSuppressedFiles() == 0); }
+            THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
         }
 
         WHEN("an unclassified file is added") {
             stats.addUnclassifiedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
-            THEN("it has one parsed file")       { REQUIRE(stats.totalParsedFiles() == 1); }
-            THEN("it has one unclassified file") { REQUIRE(stats.totalUnclassifiedFiles() == 1); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
+            THEN("it has one total file")        { CHECK(stats.totalFiles() == 1); }
+            THEN("it has one parsed file")       { CHECK(stats.totalParsedFiles() == 1); }
+            THEN("it has one unclassified file") { CHECK(stats.totalUnclassifiedFiles() == 1); }
+            THEN("it has no suppressed files")   { CHECK(stats.totalSuppressedFiles() == 0); }
+            THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
         }
 
         WHEN("a suppressed file is added") {
             stats.addSuppressedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
-            THEN("it has no parsed files")       { REQUIRE(stats.totalParsedFiles() == 0); }
-            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
-            THEN("it has one suppressed file")   { REQUIRE(stats.totalSuppressedFiles() == 1); }
-            THEN("it has no unparsed files")     { REQUIRE(stats.totalUnparsedFiles() == 0); }
+            THEN("it has one total file")        { CHECK(stats.totalFiles() == 1); }
+            THEN("it has no parsed files")       { CHECK(stats.totalParsedFiles() == 0); }
+            THEN("it has no unclassified files") { CHECK(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has one suppressed file")   { CHECK(stats.totalSuppressedFiles() == 1); }
+            THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
         }
 
         WHEN("an unparsed file is added") {
             stats.addUnparsedFile("file");
 
-            THEN("it has one total file")        { REQUIRE(stats.totalFiles() == 1); }
-            THEN("it has no parsed files")       { REQUIRE(stats.totalParsedFiles() == 0); }
-            THEN("it has no unclassified files") { REQUIRE(stats.totalUnclassifiedFiles() == 0); }
-            THEN("it has no suppressed files")   { REQUIRE(stats.totalSuppressedFiles() == 0); }
-            THEN("it has one unparsed files")    { REQUIRE(stats.totalUnparsedFiles() == 1); }
+            THEN("it has one total file")        { CHECK(stats.totalFiles() == 1); }
+            THEN("it has no parsed files")       { CHECK(stats.totalParsedFiles() == 0); }
+            THEN("it has no unclassified files") { CHECK(stats.totalUnclassifiedFiles() == 0); }
+            THEN("it has no suppressed files")   { CHECK(stats.totalSuppressedFiles() == 0); }
+            THEN("it has one unparsed files")    { CHECK(stats.totalUnparsedFiles() == 1); }
         }
     }
 }
@@ -139,12 +139,12 @@ SCENARIO("Stats summaries", "[stats]") {
             Stats stats = populatedStats();
 
             THEN("short details includes counts") {
-                REQUIRE(stats.details("short") == expectedShortdetailsWithValues());
+                CHECK(stats.details("short") == expectedShortdetailsWithValues());
             }
 
             THEN("details includes short details and a list of unparsed files") {
                 std::string expected_details = expectedShortdetailsWithValues() + "Unparsed files: daemon\n";
-                REQUIRE(stats.details("normal") == expected_details);
+                CHECK(stats.details("normal") == expected_details);
             }
 
             THEN("long details includes details and lists of suppressed and unclassified files") {
@@ -152,7 +152,7 @@ SCENARIO("Stats summaries", "[stats]") {
                                                 "Unparsed files: daemon\n"
                                                 "Suppressed files: mplayer\n"
                                                 "Unclassified files: htop, NEdit\n";
-                REQUIRE(stats.details("long") == expected_details);
+                CHECK(stats.details("long") == expected_details);
             }
         }
 
@@ -167,7 +167,7 @@ SCENARIO("Stats summaries", "[stats]") {
                                                 "Suppressed files: mplayer\n"
                                                 "Unclassified files: htop, NEdit\n"
                                                 "Unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n";
-                REQUIRE(stats.details("long") == expected_details);
+                CHECK(stats.details("long") == expected_details);
             }
         }
     }

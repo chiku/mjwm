@@ -34,7 +34,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
         WHEN("validated") {
             THEN("it is invalid") {
-                REQUIRE(!environment.isValid());
+                CHECK_FALSE(environment.isValid());
             }
         }
     }
@@ -46,7 +46,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
         WHEN("validated") {
             THEN("it is valid") {
-                REQUIRE(environment.isValid());
+                CHECK(environment.isValid());
             }
         }
 
@@ -58,7 +58,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
 
             WHEN("XDG data home is asked") {
                 THEN("it is the directory pointed to by XDG_DATA_HOME") {
-                    REQUIRE(environment.xdgDataHome() == "/data/home");
+                    CHECK(environment.xdgDataHome() == "/data/home");
                 }
             }
 
@@ -66,8 +66,8 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 THEN("it is a list of directories pointed to by XDG_DATA_DIRS") {
                     std::vector<std::string> directories = environment.xdgDataDirectories();
                     REQUIRE(directories.size() == 2);
-                    REQUIRE(directories[0] == "/data/dir1");
-                    REQUIRE(directories[1] == "/data/dir2/");
+                    CHECK(directories[0] == "/data/dir1");
+                    CHECK(directories[1] == "/data/dir2/");
                 }
             }
 
@@ -75,9 +75,9 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 THEN("it is a list of directories pointed to by XDG_DATA_HOME/applications, XDG_DATA_DIRS/applications") {
                     std::vector<std::string> directories = environment.applicationDirectories();
                     REQUIRE(directories.size() == 3);
-                    REQUIRE(directories[0] == "/data/home/applications");
-                    REQUIRE(directories[1] == "/data/dir1/applications");
-                    REQUIRE(directories[2] == "/data/dir2/applications");
+                    CHECK(directories[0] == "/data/home/applications");
+                    CHECK(directories[1] == "/data/dir1/applications");
+                    CHECK(directories[2] == "/data/dir2/applications");
                 }
             }
         }
@@ -93,9 +93,9 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 THEN("it is a list of directories pointed to by $HOME/.local/share/applications, /usr/local/share/applications and /usr/share/applications") {
                     std::vector<std::string> directories = environment.applicationDirectories();
                     REQUIRE(directories.size() == 3);
-                    REQUIRE(directories[0] == "/home/mjwm/.local/share/applications");
-                    REQUIRE(directories[1] == "/usr/local/share/applications");
-                    REQUIRE(directories[2] == "/usr/share/applications");
+                    CHECK(directories[0] == "/home/mjwm/.local/share/applications");
+                    CHECK(directories[1] == "/usr/local/share/applications");
+                    CHECK(directories[2] == "/usr/share/applications");
                 }
             }
 
@@ -103,10 +103,10 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
                     std::vector<std::string> directories = environment.iconThemeDirectories();
                     REQUIRE(directories.size() == 4);
-                    REQUIRE(directories[0] == "/home/mjwm/.icons");
-                    REQUIRE(directories[1] == "/usr/local/share/icons");
-                    REQUIRE(directories[2] == "/usr/share/icons");
-                    REQUIRE(directories[3] == "/usr/share/pixmaps");
+                    CHECK(directories[0] == "/home/mjwm/.icons");
+                    CHECK(directories[1] == "/usr/local/share/icons");
+                    CHECK(directories[2] == "/usr/share/icons");
+                    CHECK(directories[3] == "/usr/share/pixmaps");
                 }
             }
         }
@@ -116,8 +116,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
         WHEN("langauage is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en_IN.UTF-8", 1);
-                SystemEnvironment environment;
-                REQUIRE(environment.language() == "en");
+                CHECK(SystemEnvironment.language() == "en");
             }
         }
     }
@@ -128,8 +127,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 setenv("LANGUAGE", "en_IN.UTF-8", 1);
                 unsetenv("LC_ALL");
                 unsetenv("LANG");
-                SystemEnvironment environment;
-                REQUIRE(environment.language() == "en");
+                CHECK(SystemEnvironment.language() == "en");
             }
         }
     }
@@ -138,8 +136,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
         WHEN("langauage is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en", 1);
-                SystemEnvironment environment;
-                REQUIRE(environment.language() == "en");
+                CHECK(SystemEnvironment.language() == "en");
             }
         }
     }
@@ -149,8 +146,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
             THEN("it is the first part of the LC_ALL") {
                 unsetenv("LANGUAGE");
                 setenv("LC_ALL", "en_IN.UTF-8", 1);
-                SystemEnvironment environment;
-                REQUIRE(environment.language() == "en");
+                CHECK(SystemEnvironment.language() == "en");
             }
         }
     }
@@ -161,8 +157,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 unsetenv("LANGUAGE");
                 unsetenv("LC_ALL");
                 setenv("LANG", "en_IN.UTF-8", 1);
-                SystemEnvironment environment;
-                REQUIRE(environment.language() == "en");
+                CHECK(SystemEnvironment.language() == "en");
             }
         }
     }
@@ -173,8 +168,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 unsetenv("LANGUAGE");
                 unsetenv("LC_ALL");
                 unsetenv("LANG");
-                SystemEnvironment environment;
-                REQUIRE(environment.language() == "");
+                CHECK(SystemEnvironment.language() == "");
             }
         }
     }

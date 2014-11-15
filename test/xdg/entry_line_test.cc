@@ -26,62 +26,62 @@
 namespace amm {
 namespace xdg {
 
-SCENARIO("EntryLine for Comments", "[desktopfileline]") {
+SCENARIO("EntryLine for Comments", "[entryline]") {
     GIVEN("A line in a desktop-file") {
         WHEN("starting with a '#'") {
             EntryLine line("# Comment line");
 
-            THEN("it is not a declaration") { REQUIRE(!line.isDeclaration()); }
-            THEN("it has no declarations") { REQUIRE(line.declaration() == ""); }
-            THEN("it is not an assignment") { REQUIRE(!line.isAssignment()); }
-            THEN("it has no key") { REQUIRE(line.key() == ""); }
-            THEN("it has no value") { REQUIRE(line.value() == ""); }
+            THEN("it is not a declaration") { CHECK_FALSE(line.isDeclaration()); }
+            THEN("it has no declarations") { CHECK(line.declaration() == ""); }
+            THEN("it is not an assignment") { CHECK_FALSE(line.isAssignment()); }
+            THEN("it has no key") { CHECK(line.key() == ""); }
+            THEN("it has no value") { CHECK(line.value() == ""); }
         }
     }
 }
 
-SCENARIO("EntryLine for Declarations", "[desktopfileline]") {
+SCENARIO("EntryLine for Declarations", "[entryline]") {
     GIVEN("A line in a desktop-file") {
         WHEN("starting with a '[' and ending with ']'") {
             EntryLine line("[Desktop Entry]");
 
-            THEN("it is a declaration") { REQUIRE(line.isDeclaration()); }
-            THEN("the inner content is the declaration") { REQUIRE(line.declaration() == "Desktop Entry"); }
-            THEN("it is not an assignment") { REQUIRE(!line.isAssignment()); }
-            THEN("it has no key") { REQUIRE(line.key() == ""); }
-            THEN("it has no value") { REQUIRE(line.value() == ""); }
+            THEN("it is a declaration") { CHECK(line.isDeclaration()); }
+            THEN("the inner content is the declaration") { CHECK(line.declaration() == "Desktop Entry"); }
+            THEN("it is not an assignment") { CHECK_FALSE(line.isAssignment()); }
+            THEN("it has no key") { CHECK(line.key() == ""); }
+            THEN("it has no value") { CHECK(line.value() == ""); }
         }
 
         WHEN("it has spaces around after a declaration") {
             EntryLine line(" [Desktop Entry] ");
-            THEN("the spaces are ignored") { REQUIRE(line.declaration() == "Desktop Entry"); }
+            THEN("the spaces are ignored") { CHECK(line.declaration() == "Desktop Entry"); }
         }
 
         WHEN("starting with a '[' but not ending with ']'") {
             EntryLine line("[Desktop Entry");
-            THEN("it is not a declaration") { REQUIRE(!line.isDeclaration()); }
+            THEN("it is not a declaration") { CHECK_FALSE(line.isDeclaration()); }
         }
     }
 }
 
-SCENARIO("EntryLine for Assignments", "[desktopfileline]") {
+SCENARIO("EntryLine for Assignments", "[entryline]") {
     GIVEN("A line in a desktop-file") {
         WHEN("it has an '=' in the middle") {
             EntryLine line("Name=VLC");
 
-            THEN("it is an assignment") { REQUIRE(line.isAssignment()); }
-            THEN("it has a key") { REQUIRE(line.key() == "Name"); }
-            THEN("it has a value") { REQUIRE(line.value() == "VLC"); }
+            THEN("it is an assignment") { CHECK(line.isAssignment()); }
+            THEN("it has a key") { CHECK(line.key() == "Name"); }
+            THEN("it has a value") { CHECK(line.value() == "VLC"); }
 
-            THEN("it is not a declaration") { REQUIRE(!line.isDeclaration()); }
-            THEN("it has no declarations") { REQUIRE(line.declaration() == ""); }
+            THEN("it is not a declaration") { CHECK_FALSE(line.isDeclaration()); }
+            THEN("it has no declarations") { CHECK(line.declaration() == ""); }
         }
 
         WHEN("it has spaces surrounding the tokens") {
             EntryLine line("\t Name = VLC \n\n");
             THEN("the spaces are ignored") {
-                REQUIRE(line.key() == "Name");
-                REQUIRE(line.value() == "VLC");
+                CHECK(line.key() == "Name");
+                CHECK(line.value() == "VLC");
             }
         }
     }

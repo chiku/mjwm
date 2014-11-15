@@ -33,19 +33,19 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
             IconSubdirectory subdir = IconSubdirectory("subdirectory", "24");
 
             THEN("its type is Threshold") {
-                REQUIRE(subdir.type() == THRESHOLD);
+                CHECK(subdir.type() == THRESHOLD);
             }
 
             THEN("its maximum size equals its size") {
-                REQUIRE(subdir.maxSize() == 24);
+                CHECK(subdir.maxSize() == 24);
             }
 
             THEN("its minimum size equals its size") {
-                REQUIRE(subdir.minSize() == 24);
+                CHECK(subdir.minSize() == 24);
             }
 
             THEN("its threshold is 2") {
-                REQUIRE(subdir.threshold() == 2);
+                CHECK(subdir.threshold() == 2);
             }
         }
 
@@ -53,19 +53,19 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
             IconSubdirectory subdir = IconSubdirectory("subdirectory", "24").type("").maxSize("").minSize("").threshold("");
 
             THEN("its type is retained") {
-                REQUIRE(subdir.type() == THRESHOLD);
+                CHECK(subdir.type() == THRESHOLD);
             }
 
             THEN("its maximum size is retained") {
-                REQUIRE(subdir.maxSize() == 24);
+                CHECK(subdir.maxSize() == 24);
             }
 
             THEN("its minimum size is retained") {
-                REQUIRE(subdir.minSize() == 24);
+                CHECK(subdir.minSize() == 24);
             }
 
             THEN("its threshold is retained") {
-                REQUIRE(subdir.threshold() == 2);
+                CHECK(subdir.threshold() == 2);
             }
         }
 
@@ -75,12 +75,12 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
             subdir.location(firefox);
 
             THEN("its location can be retrieved") {
-                REQUIRE(subdir.location() == firefox);
+                CHECK(subdir.location() == firefox);
             }
 
             THEN("it can't be reset to an empty value") {
                 subdir.location("");
-                REQUIRE(subdir.location() == firefox);
+                CHECK(subdir.location() == firefox);
             }
         }
     }
@@ -91,37 +91,37 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
         WHEN("required size equals the size") {
             int size = 24;
             THEN("its type is fixed") {
-                REQUIRE(fixed.type() == FIXED);
+                CHECK(fixed.type() == FIXED);
             }
 
             THEN("it matches the required size") {
-                REQUIRE(fixed.matches(size));
+                CHECK(fixed.matches(size));
             }
 
             THEN("its distance from the size is zero") {
-                REQUIRE(fixed.distance(size) == 0);
+                CHECK(fixed.distance(size) == 0);
             }
         }
 
         WHEN("required size is lesser than the size") {
             int size = 22;
             THEN("it doesn't match the required size") {
-                REQUIRE(!fixed.matches(size));
+                CHECK_FALSE(fixed.matches(size));
             }
 
             THEN("its distance is the difference between the actual size and the required size") {
-                REQUIRE(fixed.distance(size) == 2);
+                CHECK(fixed.distance(size) == 2);
             }
         }
 
         WHEN("required size is greater than the size") {
             int size = 26;
             THEN("it doesn't match the required size") {
-                REQUIRE(!fixed.matches(size));
+                CHECK_FALSE(fixed.matches(size));
             }
 
             THEN("its distance is the difference between the actual size and the required size") {
-                REQUIRE(fixed.distance(size) == 2);
+                CHECK(fixed.distance(size) == 2);
             }
         }
     }
@@ -131,41 +131,41 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
         WHEN("required size is between the minimum size and size") {
             THEN("its type is scalable") {
-                REQUIRE(scalable.type() == SCALABLE);
+                CHECK(scalable.type() == SCALABLE);
             }
 
             THEN("it matches the required size") {
-                REQUIRE(scalable.matches(2));
-                REQUIRE(scalable.matches(24));
-                REQUIRE(scalable.matches(256));
+                CHECK(scalable.matches(2));
+                CHECK(scalable.matches(24));
+                CHECK(scalable.matches(256));
             }
 
             THEN("its distance from the required size is zero") {
-                REQUIRE(scalable.distance(2) == 0);
-                REQUIRE(scalable.distance(24) == 0);
-                REQUIRE(scalable.distance(256) == 0);
+                CHECK(scalable.distance(2) == 0);
+                CHECK(scalable.distance(24) == 0);
+                CHECK(scalable.distance(256) == 0);
             }
         }
 
         WHEN("required size is lesser than the minimum size") {
             int size = 1;
             THEN("it doesn't match the required size") {
-                REQUIRE(!scalable.matches(size));
+                CHECK_FALSE(scalable.matches(size));
             }
 
             THEN("its distance is the difference of the required size and the minimum size") {
-                REQUIRE(scalable.distance(size) == 1);
+                CHECK(scalable.distance(size) == 1);
             }
         }
 
         WHEN("required size is greater than the maximum size") {
             int size = 257;
             THEN("it doesn't match the required size") {
-                REQUIRE(!scalable.matches(size));
+                CHECK_FALSE(scalable.matches(size));
             }
 
             THEN("its distance is the difference of the required size and the maximum size") {
-                REQUIRE(scalable.distance(size) == 1);
+                CHECK(scalable.distance(size) == 1);
             }
         }
     }
@@ -175,41 +175,41 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
         WHEN("it is between threshold around the size") {
             THEN("its type is threshold") {
-                REQUIRE(threshold.type() == THRESHOLD);
+                CHECK(threshold.type() == THRESHOLD);
             }
 
             THEN("it matches the required size") {
-                REQUIRE(threshold.matches(14));
-                REQUIRE(threshold.matches(24));
-                REQUIRE(threshold.matches(34));
+                CHECK(threshold.matches(14));
+                CHECK(threshold.matches(24));
+                CHECK(threshold.matches(34));
             }
 
             THEN("its distance from the required size is zero") {
-                REQUIRE(threshold.distance(14) == 0);
-                REQUIRE(threshold.distance(24) == 0);
-                REQUIRE(threshold.distance(34) == 0);
+                CHECK(threshold.distance(14) == 0);
+                CHECK(threshold.distance(24) == 0);
+                CHECK(threshold.distance(34) == 0);
             }
         }
 
         WHEN("required size is lesser than the inner threshold size") {
             int size = 13;
             THEN("it doesn't match the required size") {
-                REQUIRE(!threshold.matches(13));
+                CHECK_FALSE(threshold.matches(13));
             }
 
             THEN("its distance is the difference of the required size and the minimum size") {
-                REQUIRE(threshold.distance(size) == 1);
+                CHECK(threshold.distance(size) == 1);
             }
         }
 
         WHEN("required size is greater than the outer threshold size") {
             int size = 35;
             THEN("it doesn't match the required size") {
-                REQUIRE(!threshold.matches(size));
+                CHECK_FALSE(threshold.matches(size));
             }
 
             THEN("its distance is the difference of the required size and the maximum size") {
-                REQUIRE(threshold.distance(size) == 1);
+                CHECK(threshold.distance(size) == 1);
             }
         }
     }
@@ -219,7 +219,7 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
         WHEN("asked its type") {
             THEN("it is converted to camel-case") {
-                REQUIRE(mixed_type.type() == FIXED);
+                CHECK(mixed_type.type() == FIXED);
             }
         }
     }
@@ -229,19 +229,19 @@ SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
 
         WHEN("matched for a size") {
             THEN("its type is invalid") {
-                REQUIRE(invalid.type() == INVALID);
+                CHECK(invalid.type() == INVALID);
             }
 
             THEN("it never satisfies a size requirement") {
-                REQUIRE(!invalid.matches(24));
-                REQUIRE(!invalid.matches(0));
-                REQUIRE(!invalid.matches(100));
+                CHECK_FALSE(invalid.matches(24));
+                CHECK_FALSE(invalid.matches(0));
+                CHECK_FALSE(invalid.matches(100));
             }
 
             THEN("it is at a huge distance") {
-                REQUIRE(invalid.distance(24) == INT_MAX);
-                REQUIRE(invalid.distance(0) == INT_MAX);
-                REQUIRE(invalid.distance(100) == INT_MAX);
+                CHECK(invalid.distance(24) == INT_MAX);
+                CHECK(invalid.distance(0) == INT_MAX);
+                CHECK(invalid.distance(100) == INT_MAX);
             }
         }
     }

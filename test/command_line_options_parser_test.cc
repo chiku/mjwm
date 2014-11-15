@@ -37,51 +37,51 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
             AmmOptions options = parser.parse(1, argv);
 
             THEN("the parsing succeeds") {
-                REQUIRE(options.is_parsed);
+                CHECK(options.is_parsed);
             }
 
             THEN("it doesn't have deprecations") {
-                REQUIRE(options.deprecations.empty());
+                CHECK(options.deprecations.empty());
             }
 
             THEN("its help flag is off") {
-                REQUIRE(!options.is_help);
+                CHECK_FALSE(options.is_help);
             }
 
             THEN("its version flag is off") {
-                REQUIRE(!options.is_version);
+                CHECK_FALSE(options.is_version);
             }
 
             THEN("its iconize flag is off") {
-                REQUIRE(!options.is_iconize);
+                CHECK_FALSE(options.is_iconize);
             }
 
             THEN("its icon theme is hicolor") {
-                REQUIRE(options.icon_theme_name == "hicolor");
+                CHECK(options.icon_theme_name == "hicolor");
             }
 
             THEN("it retains its input directories") {
-                REQUIRE(!options.override_default_directories);
+                CHECK_FALSE(options.override_default_directories);
             }
 
             THEN("its output file is '.jwmrc-mjwm' under $HOME") {
-                REQUIRE(options.output_file_name == "/home/mjwm/.jwmrc-mjwm");
+                CHECK(options.output_file_name == "/home/mjwm/.jwmrc-mjwm");
             }
 
             THEN("its input directories is empty") {
-                REQUIRE(options.input_directory_names.empty());
+                CHECK(options.input_directory_names.empty());
             }
 
             THEN("its category file is empty") {
-                REQUIRE(options.category_file_name == "");
+                CHECK(options.category_file_name == "");
             }
 
             THEN("its summary style is normal") {
-                REQUIRE(options.summary_type == "normal");
+                CHECK(options.summary_type == "normal");
             }
 
             THEN("its language is the supplied one") {
-                REQUIRE(options.language == language);
+                CHECK(options.language == language);
             }
         }
     }
@@ -98,7 +98,7 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
             AmmOptions options = parser.parse(2, argv);
 
             THEN("its help flag is on") {
-                REQUIRE(options.is_help);
+                CHECK(options.is_help);
             }
         }
 
@@ -107,7 +107,7 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
             AmmOptions options = parser.parse(2, argv);
 
             THEN("its version flag is on") {
-                REQUIRE(options.is_version);
+                CHECK(options.is_version);
             }
         }
 
@@ -116,7 +116,7 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
             AmmOptions options = parser.parse(2, argv);
 
             THEN("its iconize flag is on") {
-                REQUIRE(options.is_iconize);
+                CHECK(options.is_iconize);
             }
         }
 
@@ -125,11 +125,11 @@ SCENARIO("Command-line arguments parse with flags", "[commandlineoptions]") {
             AmmOptions options = parser.parse(2, argv);
 
             THEN("its iconize flag is on") {
-                REQUIRE(options.is_iconize);
+                CHECK(options.is_iconize);
             }
 
             THEN("its icon theme is Faenza") {
-                REQUIRE(options.icon_theme_name == "Faenza");
+                CHECK(options.icon_theme_name == "Faenza");
             }
         }
     }
@@ -146,7 +146,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("its output-file is set to the given value") {
-                REQUIRE(options.output_file_name == "menu.out");
+                CHECK(options.output_file_name == "menu.out");
             }
         }
 
@@ -155,7 +155,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("its output-file is set to the given value") {
-                REQUIRE(options.output_file_name == "menu.out");
+                CHECK(options.output_file_name == "menu.out");
             }
         }
 
@@ -167,12 +167,12 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
                 std::vector<std::string> input_directory_names = options.input_directory_names;
 
                 REQUIRE(input_directory_names.size() == 2);
-                REQUIRE(input_directory_names[0] == "/usr/share/applications");
-                REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
+                CHECK(input_directory_names[0] == "/usr/share/applications");
+                CHECK(input_directory_names[1] == "/usr/local/share/applications");
             }
 
             THEN("its marks that default directory are overridden") {
-                REQUIRE(options.override_default_directories);
+                CHECK(options.override_default_directories);
             }
         }
 
@@ -184,8 +184,8 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
                 std::vector<std::string> input_directory_names = options.input_directory_names;
 
                 REQUIRE(input_directory_names.size() == 2);
-                REQUIRE(input_directory_names[0] == "/usr/share/applications");
-                REQUIRE(input_directory_names[1] == "/usr/local/share/applications");
+                CHECK(input_directory_names[0] == "/usr/share/applications");
+                CHECK(input_directory_names[1] == "/usr/local/share/applications");
             }
         }
 
@@ -194,7 +194,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("its category-file is set to the given value") {
-                REQUIRE(options.category_file_name == "default.mjwm");
+                CHECK(options.category_file_name == "default.mjwm");
             }
         }
 
@@ -203,7 +203,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("its category-file is set to the given value") {
-                REQUIRE(options.category_file_name == "default.mjwm");
+                CHECK(options.category_file_name == "default.mjwm");
             }
         }
 
@@ -212,7 +212,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("its summary is set to long") {
-                REQUIRE(options.summary_type == "long");
+                CHECK(options.summary_type == "long");
             }
         }
 
@@ -221,7 +221,7 @@ SCENARIO("Command-line arguments parse options", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("its language is set to bn") {
-                REQUIRE(options.language == "bn");
+                CHECK(options.language == "bn");
             }
         }
     }
@@ -239,7 +239,7 @@ SCENARIO("Command-line arguments parse failure", "[commandlineoptions]") {
             AmmOptions options = parser.parse(3, argv);
 
             THEN("the parsing fails") {
-                REQUIRE(!options.is_parsed);
+                CHECK_FALSE(options.is_parsed);
             }
         }
 
@@ -248,7 +248,7 @@ SCENARIO("Command-line arguments parse failure", "[commandlineoptions]") {
             AmmOptions options = parser.parse(2, argv);
 
             THEN("the parsing fails") {
-                REQUIRE(!options.is_parsed);
+                CHECK_FALSE(options.is_parsed);
             }
         }
     }
