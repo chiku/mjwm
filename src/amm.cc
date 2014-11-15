@@ -75,7 +75,7 @@ void Amm::loadCommandLineOption(int argc, char **argv)
         exit(2);
     }
     std::vector<std::string> deprecations = options_.deprecations;
-    if (deprecations.size() > 0) {
+    if (!deprecations.empty()) {
         std::cerr << VectorX(deprecations).join("\n") << std::endl;
     }
     if (options_.is_help) {
@@ -126,7 +126,7 @@ void Amm::readDesktopEntryFiles()
     service.resolve();
 
     std::vector<std::string> bad_paths = service.badPaths();
-    if (bad_paths.size() > 0) {
+    if (!bad_paths.empty()) {
         std::cerr << "These paths couldn't be opened: " << VectorX(bad_paths).join(", ");
     }
     desktop_entry_file_names_ = service.desktopEntryFileNames();
