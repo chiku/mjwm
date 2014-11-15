@@ -120,7 +120,7 @@ SCENARIO("Menu custom categories", "[menu]") {
             THEN("it ignores the lines beginning with '#'") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
-                REQUIRE(subcategories.size() == 0);
+                REQUIRE(subcategories.empty());
             }
         }
 
@@ -133,7 +133,7 @@ SCENARIO("Menu custom categories", "[menu]") {
             THEN("it ignores the line") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
-                REQUIRE(subcategories.size() == 0);
+                REQUIRE(subcategories.empty());
             }
         }
 
@@ -182,7 +182,7 @@ SCENARIO("Menu custom categories", "[menu]") {
             THEN("it ignores the line with missing classification names") {
                 std::vector<Subcategory> subcategories = menu.subcategories();
 
-                REQUIRE(subcategories.size() == 0);
+                REQUIRE(subcategories.empty());
             }
         }
     }
@@ -306,7 +306,7 @@ SCENARIO("Menu sort", "[menu]") {
 
                 REQUIRE(subcategories[2].displayName() == "Others");
                 std::vector<xdg::DesktopEntry> other_files = subcategories[2].desktopEntries();
-                REQUIRE(other_files.size() == 0);
+                REQUIRE(other_files.empty());
             }
         }
     }

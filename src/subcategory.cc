@@ -37,7 +37,7 @@ Subcategory::Subcategory(const std::string &display_name, const std::string &ico
 
 bool Subcategory::hasEntries() const
 {
-    return desktopEntries().size() > 0;
+    return !desktopEntries().empty();
 }
 
 void Subcategory::addDesktopEntry(const xdg::DesktopEntry &desktop_entry)

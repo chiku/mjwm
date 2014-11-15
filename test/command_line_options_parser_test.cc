@@ -41,7 +41,7 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
             }
 
             THEN("it doesn't have deprecations") {
-                REQUIRE(options.deprecations.size() == 0);
+                REQUIRE(options.deprecations.empty());
             }
 
             THEN("its help flag is off") {
@@ -69,7 +69,7 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
             }
 
             THEN("its input directories is empty") {
-                REQUIRE(options.input_directory_names.size() == 0);
+                REQUIRE(options.input_directory_names.empty());
             }
 
             THEN("its category file is empty") {
