@@ -116,7 +116,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
         WHEN("langauage is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en_IN.UTF-8", 1);
-                CHECK(SystemEnvironment.language() == "en");
+                CHECK(SystemEnvironment().language() == "en");
             }
         }
     }
@@ -127,7 +127,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 setenv("LANGUAGE", "en_IN.UTF-8", 1);
                 unsetenv("LC_ALL");
                 unsetenv("LANG");
-                CHECK(SystemEnvironment.language() == "en");
+                CHECK(SystemEnvironment().language() == "en");
             }
         }
     }
@@ -136,7 +136,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
         WHEN("langauage is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en", 1);
-                CHECK(SystemEnvironment.language() == "en");
+                CHECK(SystemEnvironment().language() == "en");
             }
         }
     }
@@ -146,7 +146,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
             THEN("it is the first part of the LC_ALL") {
                 unsetenv("LANGUAGE");
                 setenv("LC_ALL", "en_IN.UTF-8", 1);
-                CHECK(SystemEnvironment.language() == "en");
+                CHECK(SystemEnvironment().language() == "en");
             }
         }
     }
@@ -157,7 +157,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 unsetenv("LANGUAGE");
                 unsetenv("LC_ALL");
                 setenv("LANG", "en_IN.UTF-8", 1);
-                CHECK(SystemEnvironment.language() == "en");
+                CHECK(SystemEnvironment().language() == "en");
             }
         }
     }
@@ -168,7 +168,7 @@ SCENARIO("SystemEnvironment", "[systemenvironment]") {
                 unsetenv("LANGUAGE");
                 unsetenv("LC_ALL");
                 unsetenv("LANG");
-                CHECK(SystemEnvironment.language() == "");
+                CHECK(SystemEnvironment().language() == "");
             }
         }
     }
