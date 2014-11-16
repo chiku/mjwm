@@ -146,13 +146,13 @@ SCENARIO("DirectoryX", "[directoryx]") {
                 DirectoryX directory("test/fixtures/applications");
                 DirectoryX::Entries first_set = directory.allEntries();
                 DirectoryX::Entries second_set = directory.allEntries();
-                std::vector<std::string> first_set_names;
-                std::vector<std::string> second_set_names;
 
+                std::vector<std::string> first_set_names;
                 for (DirectoryX::Entries::iterator entry = first_set.begin(); entry != first_set.end(); ++entry) {
                     first_set_names.push_back(entry->name());
                 }
 
+                std::vector<std::string> second_set_names;
                 for (DirectoryX::Entries::iterator entry = second_set.begin(); entry != second_set.end(); ++entry) {
                     second_set_names.push_back(entry->name());
                 }
