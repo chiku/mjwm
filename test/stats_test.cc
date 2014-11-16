@@ -133,11 +133,9 @@ SCENARIO("Stats totals", "[stats]") {
 
 SCENARIO("Stats summaries", "[stats]") {
     GIVEN("A stat") {
-        Stats stats;
+        Stats stats = populatedStats();
 
         WHEN("different types of files are added") {
-            Stats stats = populatedStats();
-
             THEN("short details includes counts") {
                 CHECK(stats.details("short") == expectedShortdetailsWithValues());
             }
@@ -157,7 +155,6 @@ SCENARIO("Stats summaries", "[stats]") {
         }
 
         WHEN("unhandled classifications are added") {
-            Stats stats = populatedStats();
             stats.addUnhandledClassifications(unhandledClassificationFirstSet());
             stats.addUnhandledClassifications(unhandledClassificationSecondSet());
 
