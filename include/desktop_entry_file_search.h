@@ -27,7 +27,6 @@ namespace amm {
 class DesktopEntryFileSearch
 {
 public:
-    DesktopEntryFileSearch() : capture_bad_paths_(true) {}
     void resolve();
     void registerDirectories(const std::vector<std::string> &directory_names) { directory_names_ = directory_names; }
     void registerDefaultDirectories();
@@ -40,7 +39,6 @@ private:
     std::vector<std::string> directory_names_;
     std::vector<std::string> desktop_file_names_;
     std::vector<std::string> bad_paths_;
-    bool capture_bad_paths_;
 };
 } // namespace amm
 
