@@ -64,7 +64,7 @@ bool DesktopEntry::operator != (const DesktopEntry &other) const
 
 bool DesktopEntry::isValid() const
 {
-    return (executable_.length() > 0) && (name_.length() > 0) && (icon_.length() > 0);
+    return !executable_.empty() && !name_.empty() && !icon_.empty();
 }
 
 bool DesktopEntry::isA(const std::string &type) const
