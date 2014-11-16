@@ -17,7 +17,7 @@ AC_PROG_CXX
 AC_PROG_INSTALL
 
 # Checks for header files.
-AC_CHECK_HEADERS([dirent.h getopt.h cstdio cstdlib cstring ctime iostream fstream string sstream vector map algorithm limits])
+AC_CHECK_HEADERS([dirent.h getopt.h])
 
 # Checks for library functions.
 AC_CHECK_FUNCS([mjwm])

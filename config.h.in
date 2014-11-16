@@ -1,25 +1,7 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define to 1 if you have the <algorithm> header file. */
-#undef HAVE_ALGORITHM
-
-/* Define to 1 if you have the <cstdio> header file. */
-#undef HAVE_CSTDIO
-
-/* Define to 1 if you have the <cstdlib> header file. */
-#undef HAVE_CSTDLIB
-
-/* Define to 1 if you have the <cstring> header file. */
-#undef HAVE_CSTRING
-
-/* Define to 1 if you have the <ctime> header file. */
-#undef HAVE_CTIME
-
 /* Define to 1 if you have the <dirent.h> header file. */
 #undef HAVE_DIRENT_H
-
-/* Define to 1 if you have the <fstream> header file. */
-#undef HAVE_FSTREAM
 
 /* Define to 1 if you have the <getopt.h> header file. */
 #undef HAVE_GETOPT_H
@@ -27,32 +9,17 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the <iostream> header file. */
-#undef HAVE_IOSTREAM
-
-/* Define to 1 if you have the <limits> header file. */
-#undef HAVE_LIMITS
-
-/* Define to 1 if you have the <map> header file. */
-#undef HAVE_MAP
-
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
 /* Define to 1 if you have the `mjwm' function. */
 #undef HAVE_MJWM
 
-/* Define to 1 if you have the <sstream> header file. */
-#undef HAVE_SSTREAM
-
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
-
-/* Define to 1 if you have the <string> header file. */
-#undef HAVE_STRING
 
 /* Define to 1 if you have the <strings.h> header file. */
 #undef HAVE_STRINGS_H
@@ -68,9 +35,6 @@
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
-
-/* Define to 1 if you have the <vector> header file. */
-#undef HAVE_VECTOR
 
 /* Name of package */
 #undef PACKAGE
