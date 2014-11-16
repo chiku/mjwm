@@ -3,7 +3,7 @@
 validate() {
   cover="0"
 
-  if [ $CXX != "g++" ]
+  if [ "$CXX" != "g++" ]
   then
     echo ">>> Won't generate coverage: compiler is not g++ <<<"
     return
