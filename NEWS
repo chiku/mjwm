@@ -1,6 +1,11 @@
 mjwm NEWS - User visible changes. 2014-11-15
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
+version 4.0.1 - Chirantan Mitra, NA
+
+* No user visible changes
+
+
 version 4.0.0 - Chirantan Mitra, 2014-11-15
 
 * Provide option to chose summary type from short, normal (default) and long
@@ -16,8 +21,6 @@ version 4.0.0 - Chirantan Mitra, 2014-11-15
 * Accept the language to build menus from command line. This would override the system defaults [#40]
 * [BUG] Trailing whitespaces in a custom category file are ignored
 
-mjwm NEWS - User visible changes. 2014-03-21
-Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
 version 3.0.0 - Chirantan Mitra, 2014-04-16
 
@@ -30,6 +33,7 @@ version 3.0.0 - Chirantan Mitra, 2014-04-16
 * [BUG] Don't ignore desktop file entries in $XDG_DATA_HOME
 * [BUG] Desktop files that couldn't be open are reported as unparsed [#37]
 * [BUG] Suppress duplicate entries in a single subcategory [#14]
+
 
 version 2.4.0 - Chirantan Mitra, 2014-03-30
 

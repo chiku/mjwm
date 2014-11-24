@@ -1,3 +1,8 @@
+v4.0.1-pre
+----------
+
+* Reduce configure time. Don't test for presence of standard C and C++ header files.
+
 v4.0.0
 ------
 
