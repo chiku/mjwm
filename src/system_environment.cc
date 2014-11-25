@@ -24,10 +24,6 @@
 
 #include "stringx.h"
 
-
-
-#include <iostream>
-
 namespace amm {
 
 SystemEnvironment::SystemEnvironment()

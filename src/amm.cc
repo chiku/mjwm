@@ -42,6 +42,16 @@
 
 namespace amm {
 
+static inline void displayToSTDOUT(std::string message)
+{
+    std::cout << message << std::endl;
+}
+
+static inline void displayToSTDERR(std::string message)
+{
+    std::cerr << message << std::endl;
+}
+
 Amm::Amm()
 {
     actual_searcher_ = NULL;
@@ -58,7 +68,7 @@ Amm::~Amm()
 void Amm::validateEnvironment() const
 {
     if (!environment_.isValid()) {
-        std::cerr << messages::homeNotSet() << std::endl;
+        displayToSTDERR(messages::homeNotSet());
         exit(2);
     }
 }
@@ -68,22 +78,22 @@ void Amm::loadCommandLineOption(int argc, char **argv)
     options_ = CommandLineOptionsParser(environment_.home(), environment_.language()).parse(argc, argv);
     std::vector<std::string> deprecations = options_.deprecations;
     if (!deprecations.empty()) {
-        std::cerr << VectorX(deprecations).join("\n") << std::endl;
+        displayToSTDERR(VectorX(deprecations).join("\n"));
     }
     if (!options_.is_parsed) {
-        std::cerr << messages::optionError();
+        displayToSTDERR(messages::optionError());
         exit(2);
     }
     if (!options_.hasValidSummaryType()) {
-        std::cerr << messages::badSummaryType(options_.summary_type);
+        displayToSTDERR(messages::badSummaryType(options_.summary_type));
         exit(2);
     }
     if (options_.is_help) {
-        std::cout << messages::help();
+        displayToSTDOUT(messages::help());
         exit(0);
     }
     if (options_.is_version) {
-        std::cout << messages::version();
+        displayToSTDOUT(messages::version());
         exit(0);
     }
 }
@@ -97,7 +107,7 @@ void Amm::readCategories()
         if (FileX(category_file_name).readLines(&category_lines)) {
             menu_.loadCustomCategories(category_lines);
         } else {
-            std::cerr << messages::badCategoryFile(category_file_name) << std::endl;
+            displayToSTDERR(messages::badCategoryFile(category_file_name));
             exit(1);
         }
     }
@@ -127,7 +137,7 @@ void Amm::readDesktopEntryFiles()
 
     std::vector<std::string> bad_paths = service.badPaths();
     if (!bad_paths.empty()) {
-        std::cerr << "These paths couldn't be opened: " << VectorX(bad_paths).join(", ");
+        displayToSTDERR(messages::badInputPaths(VectorX(bad_paths).join(", ")));
     }
     desktop_entry_file_names_ = service.desktopEntryFileNames();
 }
@@ -137,7 +147,7 @@ void Amm::populate()
     menu_.registerLanguage(options_.language);
     menu_.populate(desktop_entry_file_names_);
     if (menu_.summary().totalParsedFiles() == 0) {
-        std::cerr << messages::noValidDesktopEntryFiles() << std::endl;
+        displayToSTDERR(messages::noValidDesktopEntryFiles());
         exit(1);
     }
     menu_.sort();
@@ -159,24 +169,24 @@ void Amm::writeOutputFile()
     std::string output_file_name = options_.output_file_name;
     FileX output_file = FileX(output_file_name);
     if (output_file.existsAsDirectory()) {
-        std::cerr << messages::outputPathBlockedByDirectory(output_file_name) << std::endl;
+        displayToSTDERR(messages::outputPathBlockedByDirectory(output_file_name));
         exit(1);
     }
     if (output_file.exists()) {
         std::string backup_file_name = output_file_name + "." + timex::currentTimeAsTimestamp() + ".bak";
         output_file.moveTo(backup_file_name);
-        std::cout << "Backed " << output_file_name << " to " << backup_file_name << std::endl;
+        displayToSTDOUT(messages::backupFile(output_file_name, backup_file_name));
     }
     if (!output_file.writeLines(output)) {
-        std::cerr << messages::badOutputFile(options_.output_file_name) << std::endl;
+        displayToSTDERR(messages::badOutputFile(options_.output_file_name));
         exit(1);
     }
 }
 
 void Amm::printSummary() const
 {
-    std::cout << menu_.summary().details(options_.summary_type);
-    std::cout << "Created " << options_.output_file_name << std::endl;
+    displayToSTDOUT(menu_.summary().details(options_.summary_type)); // extra line
+    displayToSTDOUT("Created " + options_.output_file_name);
 }
 
 } // namespace amm

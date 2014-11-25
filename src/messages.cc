@@ -67,29 +67,25 @@ std::string help()
     stream << std::endl;
 
     stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;
-    stream << "More information at http://github.com/chiku/mjwm" << std::endl;
+    stream << "More information at http://github.com/chiku/mjwm";
 
     return stream.str();
 }
 
 std::string version()
 {
-    std::stringstream stream;
-    stream << PACKAGE_STRING << std::endl;
-    return stream.str();
+    return PACKAGE_STRING;
 }
 
 std::string homeNotSet()
 {
-    std::stringstream stream;
-    stream << "$HOME is not set. Please set $HOME to a proper value and rerun." << std::endl;
-    return stream.str();
+    return "$HOME is not set. Please set $HOME to a proper value and rerun.";
 }
 
 std::string optionError()
 {
     std::stringstream stream;
-    stream << "Please run "<< PACKAGE << " --help to see options" << std::endl;
+    stream << "Please run "<< PACKAGE << " --help to see options";
     return stream.str();
 }
 
@@ -97,6 +93,13 @@ std::string badSummaryType(const std::string &actual)
 {
     std::stringstream stream;
     stream << actual << " is not a valid summary type" << std::endl << optionError();
+    return stream.str();
+}
+
+std::string badInputPaths(const std::string &bad_paths)
+{
+    std::stringstream stream;
+    stream << "These paths couldn't be opened: " << bad_paths;
     return stream.str();
 }
 
@@ -130,6 +133,13 @@ std::string badOutputFile(const std::string &file_name)
 {
     std::stringstream stream;
     stream << "Couldn't open output file: " << file_name;
+    return stream.str();
+}
+
+std::string backupFile(const std::string &file_name, const std::string &backup_file_name)
+{
+    std::stringstream stream;
+    stream << "Backed " << file_name << " to " << backup_file_name;
     return stream.str();
 }
 
