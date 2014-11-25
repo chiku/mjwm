@@ -83,10 +83,8 @@ std::string Stats::details(const std::string &summary_type)
            << "]\n";
     stream << "Unclassified files: " << totalUnclassifiedFiles() << std::endl;
 
-    if (summary_type == "normal" || summary_type == "long") {
-        if (totalUnparsedFiles() > 0) {
-            stream << "Unparsed files: " << VectorX(unparsed_files_).join(", ") << std::endl;
-        }
+    if (totalUnparsedFiles() > 0) {
+        stream << "Unparsed files: " << VectorX(unparsed_files_).join(", ") << std::endl;
     }
 
     if (summary_type == "long") {

@@ -41,7 +41,7 @@ struct AmmOptions
     std::string language;
     std::vector<std::string> deprecations;
 
-    bool hasValidSummaryType() const { return (summary_type == "short" || summary_type == "normal" || summary_type == "long"); }
+    bool hasValidSummaryType() const { return (summary_type == "normal" || summary_type == "long"); }
 
     static AmmOptions Default(const std::string &home, const std::string &language);
 };

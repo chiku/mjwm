@@ -2,6 +2,8 @@ v4.0.1-pre
 ----------
 
 * Reduce configure time. Don't test for presence of standard C and C++ header files.
+* Deprecate --summary in favour of --verbose & -v. --summary normal maps to a normal run and --summary long maps to a verbose run (--verbose). --summary short is an error.
+
 
 v4.0.0
 ------

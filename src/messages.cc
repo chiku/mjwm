@@ -63,7 +63,7 @@ std::string help()
     stream << std::endl;
     stream << "Deprecated options. (Would be removed a in future release)" << std::endl;
     stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
-    stream << "                                short, normal and long. Defaults to normal." << std::endl;
+    stream << "                                normal and long. Defaults to normal." << std::endl;
     stream << std::endl;
 
     stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;

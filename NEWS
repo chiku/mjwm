@@ -3,7 +3,7 @@ Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
 version 4.0.1 - Chirantan Mitra, NA
 
-* No user visible changes
+* Deprecate --summary in favour of --verbose & -v. --summary normal maps to a normal run and --summary long maps to a verbose run (--verbose). --summary short is an error.
 
 
 version 4.0.0 - Chirantan Mitra, 2014-11-15

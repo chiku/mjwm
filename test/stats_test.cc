@@ -59,9 +59,10 @@ static std::string expectedEmptydetails() {
            "Unclassified files: 0\n";
 }
 
-static std::string expectedShortdetailsWithValues() {
+static std::string expectedNormalDetails() {
     return "Total desktop files: 7 [5 Parsed, 1 Unparsed, 1 Suppressed]\n"
-           "Unclassified files: 2\n";
+           "Unclassified files: 2\n"
+           "Unparsed files: daemon\n";
 }
 
 SCENARIO("Stats totals", "[stats]") {
@@ -74,10 +75,6 @@ SCENARIO("Stats totals", "[stats]") {
             THEN("it has no unclassified files") { CHECK(stats.totalUnclassifiedFiles() == 0); }
             THEN("it has no suppressed files")   { CHECK(stats.totalSuppressedFiles() == 0); }
             THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
-
-            THEN("is has no counts in short details") {
-                CHECK(stats.details("short") == expectedEmptydetails());
-            }
 
             THEN("is has no counts in details") {
                 CHECK(stats.details("normal") == expectedEmptydetails());
@@ -136,18 +133,13 @@ SCENARIO("Stats summaries", "[stats]") {
         Stats stats = populatedStats();
 
         WHEN("different types of files are added") {
-            THEN("short details includes counts") {
-                CHECK(stats.details("short") == expectedShortdetailsWithValues());
-            }
-
-            THEN("details includes short details and a list of unparsed files") {
-                std::string expected_details = expectedShortdetailsWithValues() + "Unparsed files: daemon\n";
+            THEN("details includes counts and a list of unparsed files") {
+                std::string expected_details = expectedNormalDetails();
                 CHECK(stats.details("normal") == expected_details);
             }
 
-            THEN("long details includes details and lists of suppressed and unclassified files") {
-                std::string expected_details = expectedShortdetailsWithValues() +
-                                                "Unparsed files: daemon\n"
+            THEN("long details includes normal details and lists of suppressed and unclassified files") {
+                std::string expected_details = expectedNormalDetails() +
                                                 "Suppressed files: mplayer\n"
                                                 "Unclassified files: htop, NEdit\n";
                 CHECK(stats.details("long") == expected_details);
@@ -159,8 +151,7 @@ SCENARIO("Stats summaries", "[stats]") {
             stats.addUnhandledClassifications(unhandledClassificationSecondSet());
 
             THEN("long details includes the unhandled classifications") {
-                std::string expected_details = expectedShortdetailsWithValues() +
-                                                "Unparsed files: daemon\n"
+                std::string expected_details = expectedNormalDetails() +
                                                 "Suppressed files: mplayer\n"
                                                 "Unclassified files: htop, NEdit\n"
                                                 "Unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n";

@@ -26,13 +26,6 @@ SCENARIO("Amm options", "[ammoptions]") {
     GIVEN("Amm options") {
         AmmOptions options;
 
-        WHEN("summary type is short") {
-            THEN("it is valid") {
-                options.summary_type = "short";
-                CHECK(options.hasValidSummaryType());
-            }
-        }
-
         WHEN("summary type is normal") {
             THEN("it is valid") {
                 options.summary_type = "normal";
