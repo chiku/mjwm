@@ -55,12 +55,15 @@ std::string help()
     stream << "                                Icon file names would be absolute paths to" << std::endl;
     stream << "                                icons in the specified directories. Hicolor" << std::endl;
     stream << "                                icon theme is used if no theme name is given." << std::endl;
-    stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
-    stream << "                                short, normal and long. Defaults to normal." << std::endl;
     stream << "      --language [NAME]       The language for which the menu would be build." << std::endl;
     stream << "                                Defaults to the system default." << std::endl;
+    stream << "  -v  --verbose               Verbose output" << std::endl;
     stream << "      --help                  Show this help" << std::endl;
     stream << "      --version               Show version information" << std::endl;
+    stream << std::endl;
+    stream << "Deprecated options. (Would be removed a in future release)" << std::endl;
+    stream << "      --summary [TYPE]        The summary of the run. Acceptable values are" << std::endl;
+    stream << "                                short, normal and long. Defaults to normal." << std::endl;
     stream << std::endl;
 
     stream << "Include the generated file in the rootmenu section of your ~/.jwmrc" << std::endl;

@@ -35,10 +35,11 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
     int option_index = 0;
     int help_flag = 0;
     int version_flag = 0;
-    const char* short_options = "o:i:c:";
+    const char* short_options = "o:i:c:v";
     const option long_options[] = {
         {"help",            no_argument,       &help_flag   ,  1 },
         {"version",         no_argument,       &version_flag,  1 },
+        {"verbose",         no_argument,       0,             'v'},
         {"iconize",         optional_argument, 0,              0 },
         {"output-file",     required_argument, 0,             'o'},
         {"input-directory", required_argument, 0,             'i'},
@@ -69,6 +70,7 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
             }
             if (long_option_name == "summary") {
                 amm_options.summary_type = optarg;
+                amm_options.deprecations.push_back("--summary [SUMMARY TYPE] is deprecated. Use -v for verbose output instead.");
             }
             if (long_option_name == "language") {
                 amm_options.language = optarg;
@@ -80,6 +82,8 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
             amm_options.input_directory_names = StringX(optarg).split(":");
         } else if (chosen_option == 'c') {
             amm_options.category_file_name = optarg;
+        } else if (chosen_option == 'v') {
+            amm_options.summary_type = "long";
         } else {
             amm_options.is_parsed = false;
         }
