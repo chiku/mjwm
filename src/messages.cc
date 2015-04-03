@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2015  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ std::string help()
 {
     std::stringstream stream;
 
-    stream << PACKAGE_STRING <<  ", Copyright (C) 2014 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
+    stream << PACKAGE_STRING <<  ", Copyright (C) 2014-2015 Chirantan Mitra <chirantan.mitra@gmail.com>" << std::endl;
     stream << PACKAGE << " comes with ABSOLUTELY NO WARRANTY; for details refer COPYING." << std::endl;
     stream << "This is free software, and you are welcome to redistribute it" << std::endl;
     stream << "under certain conditions; Refer COPYING for details." << std::endl;
