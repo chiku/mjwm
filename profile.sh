@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This file is part of mjwm.
-# Copyright (C) 2014-2015  Chirantan Mitra <chirantan.mitra@gmail.com>
+# Copyright (C) 2014-2016  Chirantan Mitra <chirantan.mitra@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
