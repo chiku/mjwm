@@ -95,7 +95,7 @@ am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 DIST_COMMON = $(srcdir)/Makefile.am $(top_srcdir)/configure \
-	$(am__configure_deps) $(am__DIST_COMMON)
+	$(am__configure_deps) $(dist_mjwm_DATA) $(am__DIST_COMMON)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
@@ -106,42 +106,67 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)" \
 	"$(DESTDIR)$(mjwmdir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am__objects_1 = src/stringx.$(OBJEXT) src/vectorx.$(OBJEXT) \
-	src/filex.$(OBJEXT) src/directoryx.$(OBJEXT) \
-	src/xdg/entry_line.$(OBJEXT) src/xdg/entry.$(OBJEXT) \
-	src/xdg/desktop_entry.$(OBJEXT) \
-	src/xdg/icon_subdirectory.$(OBJEXT) \
-	src/xdg/icon_theme.$(OBJEXT) src/subcategory.$(OBJEXT) \
-	src/stats.$(OBJEXT) src/menu.$(OBJEXT) \
-	src/transformer/jwm.$(OBJEXT) src/system_environment.$(OBJEXT) \
-	src/desktop_entry_file_search.$(OBJEXT) \
-	src/amm_options.$(OBJEXT) \
-	src/command_line_options_parser.$(OBJEXT)
-am_mjwm_OBJECTS = $(am__objects_1) src/timex.$(OBJEXT) \
-	src/messages.$(OBJEXT) src/amm.$(OBJEXT) \
-	src/qualified_icon_theme.$(OBJEXT) \
-	src/icon_search/xdg_search.$(OBJEXT) src/main.$(OBJEXT)
+am__objects_1 = src/mjwm-stringx.$(OBJEXT) src/mjwm-vectorx.$(OBJEXT) \
+	src/mjwm-filex.$(OBJEXT) src/mjwm-directoryx.$(OBJEXT) \
+	src/xdg/mjwm-entry_line.$(OBJEXT) src/xdg/mjwm-entry.$(OBJEXT) \
+	src/xdg/mjwm-desktop_entry.$(OBJEXT) \
+	src/xdg/mjwm-icon_subdirectory.$(OBJEXT) \
+	src/xdg/mjwm-icon_theme.$(OBJEXT) \
+	src/mjwm-subcategory.$(OBJEXT) src/mjwm-stats.$(OBJEXT) \
+	src/mjwm-menu.$(OBJEXT) src/transformer/mjwm-jwm.$(OBJEXT) \
+	src/mjwm-system_environment.$(OBJEXT) \
+	src/mjwm-desktop_entry_file_search.$(OBJEXT) \
+	src/mjwm-amm_options.$(OBJEXT) \
+	src/mjwm-command_line_options_parser.$(OBJEXT)
+am__objects_2 =
+am_mjwm_OBJECTS = $(am__objects_1) src/mjwm-timex.$(OBJEXT) \
+	src/mjwm-messages.$(OBJEXT) src/mjwm-amm.$(OBJEXT) \
+	src/mjwm-qualified_icon_theme.$(OBJEXT) \
+	src/icon_search/mjwm-xdg_search.$(OBJEXT) \
+	src/mjwm-main.$(OBJEXT) $(am__objects_2)
 mjwm_OBJECTS = $(am_mjwm_OBJECTS)
 mjwm_LDADD = $(LDADD)
-am__objects_2 = test/stringx_test.$(OBJEXT) \
-	test/vectorx_test.$(OBJEXT) test/filex_test.$(OBJEXT) \
-	test/directoryx_test.$(OBJEXT) \
-	test/xdg/entry_line_test.$(OBJEXT) \
-	test/xdg/entry_test.$(OBJEXT) \
-	test/xdg/desktop_entry_test.$(OBJEXT) \
-	test/xdg/icon_subdirectory_test.$(OBJEXT) \
-	test/xdg/icon_theme_test.$(OBJEXT) \
-	test/subcategory_test.$(OBJEXT) test/stats_test.$(OBJEXT) \
-	test/menu_test.$(OBJEXT) test/transformer/jwm_test.$(OBJEXT) \
-	test/system_environment_test.$(OBJEXT) \
-	test/desktop_entry_file_search_test.$(OBJEXT) \
-	test/amm_options_test.$(OBJEXT) \
-	test/command_line_options_parser_test.$(OBJEXT) \
-	test/icon_search/caching_search_test.$(OBJEXT)
-am_mjwm_test_OBJECTS = $(am__objects_1) $(am__objects_2) \
-	test/test_runner.$(OBJEXT)
+mjwm_LINK = $(CXXLD) $(mjwm_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+am__objects_3 = src/mjwm_test-stringx.$(OBJEXT) \
+	src/mjwm_test-vectorx.$(OBJEXT) src/mjwm_test-filex.$(OBJEXT) \
+	src/mjwm_test-directoryx.$(OBJEXT) \
+	src/xdg/mjwm_test-entry_line.$(OBJEXT) \
+	src/xdg/mjwm_test-entry.$(OBJEXT) \
+	src/xdg/mjwm_test-desktop_entry.$(OBJEXT) \
+	src/xdg/mjwm_test-icon_subdirectory.$(OBJEXT) \
+	src/xdg/mjwm_test-icon_theme.$(OBJEXT) \
+	src/mjwm_test-subcategory.$(OBJEXT) \
+	src/mjwm_test-stats.$(OBJEXT) src/mjwm_test-menu.$(OBJEXT) \
+	src/transformer/mjwm_test-jwm.$(OBJEXT) \
+	src/mjwm_test-system_environment.$(OBJEXT) \
+	src/mjwm_test-desktop_entry_file_search.$(OBJEXT) \
+	src/mjwm_test-amm_options.$(OBJEXT) \
+	src/mjwm_test-command_line_options_parser.$(OBJEXT)
+am__objects_4 = test/mjwm_test-stringx_test.$(OBJEXT) \
+	test/mjwm_test-vectorx_test.$(OBJEXT) \
+	test/mjwm_test-filex_test.$(OBJEXT) \
+	test/mjwm_test-directoryx_test.$(OBJEXT) \
+	test/xdg/mjwm_test-entry_line_test.$(OBJEXT) \
+	test/xdg/mjwm_test-entry_test.$(OBJEXT) \
+	test/xdg/mjwm_test-desktop_entry_test.$(OBJEXT) \
+	test/xdg/mjwm_test-icon_subdirectory_test.$(OBJEXT) \
+	test/xdg/mjwm_test-icon_theme_test.$(OBJEXT) \
+	test/mjwm_test-subcategory_test.$(OBJEXT) \
+	test/mjwm_test-stats_test.$(OBJEXT) \
+	test/mjwm_test-menu_test.$(OBJEXT) \
+	test/transformer/mjwm_test-jwm_test.$(OBJEXT) \
+	test/mjwm_test-system_environment_test.$(OBJEXT) \
+	test/mjwm_test-desktop_entry_file_search_test.$(OBJEXT) \
+	test/mjwm_test-amm_options_test.$(OBJEXT) \
+	test/mjwm_test-command_line_options_parser_test.$(OBJEXT) \
+	test/icon_search/mjwm_test-caching_search_test.$(OBJEXT)
+am_mjwm_test_OBJECTS = $(am__objects_3) $(am__objects_4) \
+	test/mjwm_test-test_runner.$(OBJEXT) $(am__objects_2)
 mjwm_test_OBJECTS = $(am_mjwm_test_OBJECTS)
 mjwm_test_LDADD = $(LDADD)
+mjwm_test_LINK = $(CXXLD) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -158,6 +183,10 @@ DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
+am__v_lt_1 = 
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 AM_V_CXX = $(am__v_CXX_@AM_V@)
@@ -171,6 +200,18 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+AM_V_CC = $(am__v_CC_@AM_V@)
+am__v_CC_ = $(am__v_CC_@AM_DEFAULT_V@)
+am__v_CC_0 = @echo "  CC      " $@;
+am__v_CC_1 = 
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+AM_V_CCLD = $(am__v_CCLD_@AM_V@)
+am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
+am__v_CCLD_0 = @echo "  CCLD    " $@;
+am__v_CCLD_1 = 
 SOURCES = $(mjwm_SOURCES) $(mjwm_test_SOURCES)
 DIST_SOURCES = $(mjwm_SOURCES) $(mjwm_test_SOURCES)
 am__can_run_installinfo = \
@@ -207,8 +248,8 @@ am__uninstall_files_from_dir = { \
   }
 man1dir = $(mandir)/man1
 NROFF = nroff
-MANS = $(man1_MANS)
-DATA = $(mjwm_DATA)
+MANS = $(dist_man1_MANS)
+DATA = $(dist_mjwm_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) \
 	$(LISP)config.h.in
 # Read a list of newline-separated strings from the standard input,
@@ -407,8 +448,8 @@ TEST_LOGS = $(am__test_logs2:.test.log=.log)
 TEST_LOG_DRIVER = $(SHELL) $(top_srcdir)/build-aux/test-driver
 TEST_LOG_COMPILE = $(TEST_LOG_COMPILER) $(AM_TEST_LOG_FLAGS) \
 	$(TEST_LOG_FLAGS)
-am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/build-aux/depcomp \
+am__DIST_COMMON = $(dist_man1_MANS) $(srcdir)/Makefile.in \
+	$(srcdir)/config.h.in $(top_srcdir)/build-aux/depcomp \
 	$(top_srcdir)/build-aux/install-sh \
 	$(top_srcdir)/build-aux/missing \
 	$(top_srcdir)/build-aux/test-driver AUTHORS COPYING ChangeLog \
@@ -519,9 +560,44 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
+ACLOCAL_AMFLAGS = -I m4 --install
 
-# AM_CPPFLAGS=-I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra -fno-exceptions -fno-rtti -fno-threadsafe-statics -ffast-math -flto
-AM_CPPFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
+# mjwm_CXXFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra -fno-exceptions -fno-rtti -fno-threadsafe-statics -ffast-math -flto
+mjwm_CXXFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra
+mjwm_test_CXXFLAGS = -I$(top_builddir)/include -I$(top_srcdir)/include -Wall -Wextra -DFIXTUREDIR=$(top_srcdir)/test/fixtures/
+header_files = include/system_environment.h \
+               include/timex.h \
+               include/desktop_entry_file_search.h \
+               include/menu.h \
+               include/qualified_icon_theme.h \
+               include/command_line_options_parser.h \
+               include/amm_options.h \
+               include/amm.h \
+               include/directoryx.h \
+               include/transformer/transformer_interface.h \
+               include/transformer/jwm.h \
+               include/stats.h \
+               include/stringx.h \
+               include/xdg/entry_line.h \
+               include/xdg/entry.h \
+               include/xdg/icon_theme.h \
+               include/xdg/icon_subdirectory.h \
+               include/xdg/desktop_entry.h \
+               include/messages.h \
+               include/icon_search/caching_search.h \
+               include/icon_search/xdg_search.h \
+               include/icon_search/icon_search_interface.h \
+               include/icon_search/mirror_search.h \
+               include/filex.h \
+               include/vectorx.h \
+               include/representation/program.h \
+               include/representation/menu_end.h \
+               include/representation/menu_start.h \
+               include/representation/representation_interface.h \
+               include/representation/subcategory_end.h \
+               include/representation/subcategory_start.h \
+               include/subcategory.h
+
 implementation_files = src/stringx.cc \
                        src/vectorx.cc \
                        src/filex.cc \
@@ -540,7 +616,8 @@ implementation_files = src/stringx.cc \
                        src/amm_options.cc \
                        src/command_line_options_parser.cc
 
-test_files = test/stringx_test.cc \
+test_files = test/catch.hpp \
+             test/stringx_test.cc \
              test/vectorx_test.cc \
              test/filex_test.cc \
              test/directoryx_test.cc \
@@ -559,12 +636,23 @@ test_files = test/stringx_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc
 
-mjwm_SOURCES = $(implementation_files) src/timex.cc src/messages.cc src/amm.cc src/qualified_icon_theme.cc src/icon_search/xdg_search.cc src/main.cc
+fixture_files = test/fixtures/applications/nested/deepnested/whaawmp.desktop \
+                test/fixtures/applications/nested/xfburn.desktop \
+                test/fixtures/applications/desktop.vlc \
+                test/fixtures/applications/missing.desktop \
+                test/fixtures/applications/mousepad.desktop \
+                test/fixtures/applications/suppressed.desktop \
+                test/fixtures/applications/suppressedinvalid.desktop \
+                test/fixtures/applications/unclassified.desktop \
+                test/fixtures/applications/vlc.desktop
+
+EXTRA_DIST = m4/NOTES $(fixture_files)
+mjwm_SOURCES = $(implementation_files) src/timex.cc src/messages.cc src/amm.cc src/qualified_icon_theme.cc src/icon_search/xdg_search.cc src/main.cc $(header_files)
+mjwm_test_SOURCES = $(implementation_files) $(test_files) test/test_runner.cc $(header_files)
 mjwmdir = $(datadir)/mjwm
-mjwm_DATA = data/default.mjwm data/puppy.mjwm
-man1_MANS = doc/mjwm.1
+dist_mjwm_DATA = data/default.mjwm data/puppy.mjwm
+dist_man1_MANS = doc/mjwm.1
 TESTS = $(check_PROGRAMS)
-mjwm_test_SOURCES = $(implementation_files) $(test_files) test/test_runner.cc
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -669,12 +757,13 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/stringx.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-stringx.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/vectorx.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-vectorx.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/filex.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/directoryx.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-filex.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-directoryx.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/xdg/$(am__dirstamp):
 	@$(MKDIR_P) src/xdg
@@ -682,41 +771,45 @@ src/xdg/$(am__dirstamp):
 src/xdg/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/xdg/$(DEPDIR)
 	@: > src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/xdg/entry_line.$(OBJEXT): src/xdg/$(am__dirstamp) \
+src/xdg/mjwm-entry_line.$(OBJEXT): src/xdg/$(am__dirstamp) \
 	src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/xdg/entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
+src/xdg/mjwm-entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
 	src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/xdg/desktop_entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
+src/xdg/mjwm-desktop_entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
 	src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/xdg/icon_subdirectory.$(OBJEXT): src/xdg/$(am__dirstamp) \
+src/xdg/mjwm-icon_subdirectory.$(OBJEXT): src/xdg/$(am__dirstamp) \
 	src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/xdg/icon_theme.$(OBJEXT): src/xdg/$(am__dirstamp) \
+src/xdg/mjwm-icon_theme.$(OBJEXT): src/xdg/$(am__dirstamp) \
 	src/xdg/$(DEPDIR)/$(am__dirstamp)
-src/subcategory.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-subcategory.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/stats.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/menu.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-stats.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-menu.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/transformer/$(am__dirstamp):
 	@$(MKDIR_P) src/transformer
 	@: > src/transformer/$(am__dirstamp)
 src/transformer/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/transformer/$(DEPDIR)
 	@: > src/transformer/$(DEPDIR)/$(am__dirstamp)
-src/transformer/jwm.$(OBJEXT): src/transformer/$(am__dirstamp) \
+src/transformer/mjwm-jwm.$(OBJEXT): src/transformer/$(am__dirstamp) \
 	src/transformer/$(DEPDIR)/$(am__dirstamp)
-src/system_environment.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-system_environment.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/desktop_entry_file_search.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-desktop_entry_file_search.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/amm_options.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-amm_options.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/command_line_options_parser.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-command_line_options_parser.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/timex.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/messages.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-timex.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/amm.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/qualified_icon_theme.$(OBJEXT): src/$(am__dirstamp) \
+src/mjwm-messages.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-amm.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-qualified_icon_theme.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/icon_search/$(am__dirstamp):
 	@$(MKDIR_P) src/icon_search
@@ -724,26 +817,63 @@ src/icon_search/$(am__dirstamp):
 src/icon_search/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/icon_search/$(DEPDIR)
 	@: > src/icon_search/$(DEPDIR)/$(am__dirstamp)
-src/icon_search/xdg_search.$(OBJEXT): src/icon_search/$(am__dirstamp) \
+src/icon_search/mjwm-xdg_search.$(OBJEXT):  \
+	src/icon_search/$(am__dirstamp) \
 	src/icon_search/$(DEPDIR)/$(am__dirstamp)
-src/main.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-main.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
 mjwm$(EXEEXT): $(mjwm_OBJECTS) $(mjwm_DEPENDENCIES) $(EXTRA_mjwm_DEPENDENCIES) 
 	@rm -f mjwm$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_OBJECTS) $(mjwm_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(mjwm_LINK) $(mjwm_OBJECTS) $(mjwm_LDADD) $(LIBS)
+src/mjwm_test-stringx.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-vectorx.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-filex.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-directoryx.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/xdg/mjwm_test-entry_line.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/xdg/mjwm_test-entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/xdg/mjwm_test-desktop_entry.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/xdg/mjwm_test-icon_subdirectory.$(OBJEXT):  \
+	src/xdg/$(am__dirstamp) src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/xdg/mjwm_test-icon_theme.$(OBJEXT): src/xdg/$(am__dirstamp) \
+	src/xdg/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-subcategory.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-stats.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-menu.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/transformer/mjwm_test-jwm.$(OBJEXT):  \
+	src/transformer/$(am__dirstamp) \
+	src/transformer/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-system_environment.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-desktop_entry_file_search.$(OBJEXT):  \
+	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-amm_options.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-command_line_options_parser.$(OBJEXT):  \
+	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 test/$(am__dirstamp):
 	@$(MKDIR_P) test
 	@: > test/$(am__dirstamp)
 test/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/$(DEPDIR)
 	@: > test/$(DEPDIR)/$(am__dirstamp)
-test/stringx_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-stringx_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/vectorx_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-vectorx_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/filex_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-filex_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/directoryx_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-directoryx_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 test/xdg/$(am__dirstamp):
 	@$(MKDIR_P) test/xdg
@@ -751,21 +881,21 @@ test/xdg/$(am__dirstamp):
 test/xdg/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/xdg/$(DEPDIR)
 	@: > test/xdg/$(DEPDIR)/$(am__dirstamp)
-test/xdg/entry_line_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
+test/xdg/mjwm_test-entry_line_test.$(OBJEXT):  \
+	test/xdg/$(am__dirstamp) test/xdg/$(DEPDIR)/$(am__dirstamp)
+test/xdg/mjwm_test-entry_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
 	test/xdg/$(DEPDIR)/$(am__dirstamp)
-test/xdg/entry_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
-	test/xdg/$(DEPDIR)/$(am__dirstamp)
-test/xdg/desktop_entry_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
-	test/xdg/$(DEPDIR)/$(am__dirstamp)
-test/xdg/icon_subdirectory_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
-	test/xdg/$(DEPDIR)/$(am__dirstamp)
-test/xdg/icon_theme_test.$(OBJEXT): test/xdg/$(am__dirstamp) \
-	test/xdg/$(DEPDIR)/$(am__dirstamp)
-test/subcategory_test.$(OBJEXT): test/$(am__dirstamp) \
+test/xdg/mjwm_test-desktop_entry_test.$(OBJEXT):  \
+	test/xdg/$(am__dirstamp) test/xdg/$(DEPDIR)/$(am__dirstamp)
+test/xdg/mjwm_test-icon_subdirectory_test.$(OBJEXT):  \
+	test/xdg/$(am__dirstamp) test/xdg/$(DEPDIR)/$(am__dirstamp)
+test/xdg/mjwm_test-icon_theme_test.$(OBJEXT):  \
+	test/xdg/$(am__dirstamp) test/xdg/$(DEPDIR)/$(am__dirstamp)
+test/mjwm_test-subcategory_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/stats_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-stats_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/menu_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-menu_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 test/transformer/$(am__dirstamp):
 	@$(MKDIR_P) test/transformer
@@ -773,31 +903,32 @@ test/transformer/$(am__dirstamp):
 test/transformer/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/transformer/$(DEPDIR)
 	@: > test/transformer/$(DEPDIR)/$(am__dirstamp)
-test/transformer/jwm_test.$(OBJEXT): test/transformer/$(am__dirstamp) \
+test/transformer/mjwm_test-jwm_test.$(OBJEXT):  \
+	test/transformer/$(am__dirstamp) \
 	test/transformer/$(DEPDIR)/$(am__dirstamp)
-test/system_environment_test.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-system_environment_test.$(OBJEXT):  \
+	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
+test/mjwm_test-desktop_entry_file_search_test.$(OBJEXT):  \
+	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
+test/mjwm_test-amm_options_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
-test/desktop_entry_file_search_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-test/amm_options_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
-test/command_line_options_parser_test.$(OBJEXT): test/$(am__dirstamp) \
-	test/$(DEPDIR)/$(am__dirstamp)
+test/mjwm_test-command_line_options_parser_test.$(OBJEXT):  \
+	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
 test/icon_search/$(am__dirstamp):
 	@$(MKDIR_P) test/icon_search
 	@: > test/icon_search/$(am__dirstamp)
 test/icon_search/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) test/icon_search/$(DEPDIR)
 	@: > test/icon_search/$(DEPDIR)/$(am__dirstamp)
-test/icon_search/caching_search_test.$(OBJEXT):  \
+test/icon_search/mjwm_test-caching_search_test.$(OBJEXT):  \
 	test/icon_search/$(am__dirstamp) \
 	test/icon_search/$(DEPDIR)/$(am__dirstamp)
-test/test_runner.$(OBJEXT): test/$(am__dirstamp) \
+test/mjwm_test-test_runner.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 
 mjwm_test$(EXEEXT): $(mjwm_test_OBJECTS) $(mjwm_test_DEPENDENCIES) $(EXTRA_mjwm_test_DEPENDENCIES) 
 	@rm -f mjwm_test$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(mjwm_test_OBJECTS) $(mjwm_test_LDADD) $(LIBS)
+	$(AM_V_CXXLD)$(mjwm_test_LINK) $(mjwm_test_OBJECTS) $(mjwm_test_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -813,48 +944,65 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/amm.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/amm_options.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/command_line_options_parser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/desktop_entry_file_search.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/directoryx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/filex.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/main.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/menu.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/messages.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/qualified_icon_theme.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stats.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/stringx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/subcategory.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/system_environment.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/timex.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/vectorx.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/icon_search/$(DEPDIR)/xdg_search.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/jwm.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/desktop_entry.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/entry.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/entry_line.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/icon_subdirectory.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/icon_theme.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/amm_options_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/command_line_options_parser_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/desktop_entry_file_search_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/directoryx_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/filex_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/menu_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stats_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/stringx_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/subcategory_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/system_environment_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/test_runner.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/vectorx_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/icon_search/$(DEPDIR)/caching_search_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/transformer/$(DEPDIR)/jwm_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/desktop_entry_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/entry_line_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/entry_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/icon_subdirectory_test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/icon_theme_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-amm.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-amm_options.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-command_line_options_parser.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-desktop_entry_file_search.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-directoryx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-filex.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-menu.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-messages.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-qualified_icon_theme.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-stats.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-stringx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-subcategory.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-system_environment.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-timex.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-vectorx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-amm_options.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-command_line_options_parser.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-directoryx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-filex.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-menu.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-stats.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-stringx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-subcategory.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-system_environment.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-vectorx.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/mjwm-jwm.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/transformer/$(DEPDIR)/mjwm_test-jwm.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm-desktop_entry.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm-entry.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm-entry_line.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm-icon_theme.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm_test-entry.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm_test-entry_line.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-amm_options_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-directoryx_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-filex_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-menu_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-stats_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-stringx_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-subcategory_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-system_environment_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-test_runner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-vectorx_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/mjwm_test-entry_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Po@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -871,9 +1019,835 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-install-man1: $(man1_MANS)
+
+src/mjwm-stringx.o: src/stringx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-stringx.o -MD -MP -MF src/$(DEPDIR)/mjwm-stringx.Tpo -c -o src/mjwm-stringx.o `test -f 'src/stringx.cc' || echo '$(srcdir)/'`src/stringx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-stringx.Tpo src/$(DEPDIR)/mjwm-stringx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stringx.cc' object='src/mjwm-stringx.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-stringx.o `test -f 'src/stringx.cc' || echo '$(srcdir)/'`src/stringx.cc
+
+src/mjwm-stringx.obj: src/stringx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-stringx.obj -MD -MP -MF src/$(DEPDIR)/mjwm-stringx.Tpo -c -o src/mjwm-stringx.obj `if test -f 'src/stringx.cc'; then $(CYGPATH_W) 'src/stringx.cc'; else $(CYGPATH_W) '$(srcdir)/src/stringx.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-stringx.Tpo src/$(DEPDIR)/mjwm-stringx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stringx.cc' object='src/mjwm-stringx.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-stringx.obj `if test -f 'src/stringx.cc'; then $(CYGPATH_W) 'src/stringx.cc'; else $(CYGPATH_W) '$(srcdir)/src/stringx.cc'; fi`
+
+src/mjwm-vectorx.o: src/vectorx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-vectorx.o -MD -MP -MF src/$(DEPDIR)/mjwm-vectorx.Tpo -c -o src/mjwm-vectorx.o `test -f 'src/vectorx.cc' || echo '$(srcdir)/'`src/vectorx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-vectorx.Tpo src/$(DEPDIR)/mjwm-vectorx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/vectorx.cc' object='src/mjwm-vectorx.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-vectorx.o `test -f 'src/vectorx.cc' || echo '$(srcdir)/'`src/vectorx.cc
+
+src/mjwm-vectorx.obj: src/vectorx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-vectorx.obj -MD -MP -MF src/$(DEPDIR)/mjwm-vectorx.Tpo -c -o src/mjwm-vectorx.obj `if test -f 'src/vectorx.cc'; then $(CYGPATH_W) 'src/vectorx.cc'; else $(CYGPATH_W) '$(srcdir)/src/vectorx.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-vectorx.Tpo src/$(DEPDIR)/mjwm-vectorx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/vectorx.cc' object='src/mjwm-vectorx.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-vectorx.obj `if test -f 'src/vectorx.cc'; then $(CYGPATH_W) 'src/vectorx.cc'; else $(CYGPATH_W) '$(srcdir)/src/vectorx.cc'; fi`
+
+src/mjwm-filex.o: src/filex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-filex.o -MD -MP -MF src/$(DEPDIR)/mjwm-filex.Tpo -c -o src/mjwm-filex.o `test -f 'src/filex.cc' || echo '$(srcdir)/'`src/filex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-filex.Tpo src/$(DEPDIR)/mjwm-filex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/filex.cc' object='src/mjwm-filex.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-filex.o `test -f 'src/filex.cc' || echo '$(srcdir)/'`src/filex.cc
+
+src/mjwm-filex.obj: src/filex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-filex.obj -MD -MP -MF src/$(DEPDIR)/mjwm-filex.Tpo -c -o src/mjwm-filex.obj `if test -f 'src/filex.cc'; then $(CYGPATH_W) 'src/filex.cc'; else $(CYGPATH_W) '$(srcdir)/src/filex.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-filex.Tpo src/$(DEPDIR)/mjwm-filex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/filex.cc' object='src/mjwm-filex.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-filex.obj `if test -f 'src/filex.cc'; then $(CYGPATH_W) 'src/filex.cc'; else $(CYGPATH_W) '$(srcdir)/src/filex.cc'; fi`
+
+src/mjwm-directoryx.o: src/directoryx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-directoryx.o -MD -MP -MF src/$(DEPDIR)/mjwm-directoryx.Tpo -c -o src/mjwm-directoryx.o `test -f 'src/directoryx.cc' || echo '$(srcdir)/'`src/directoryx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-directoryx.Tpo src/$(DEPDIR)/mjwm-directoryx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/directoryx.cc' object='src/mjwm-directoryx.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-directoryx.o `test -f 'src/directoryx.cc' || echo '$(srcdir)/'`src/directoryx.cc
+
+src/mjwm-directoryx.obj: src/directoryx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-directoryx.obj -MD -MP -MF src/$(DEPDIR)/mjwm-directoryx.Tpo -c -o src/mjwm-directoryx.obj `if test -f 'src/directoryx.cc'; then $(CYGPATH_W) 'src/directoryx.cc'; else $(CYGPATH_W) '$(srcdir)/src/directoryx.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-directoryx.Tpo src/$(DEPDIR)/mjwm-directoryx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/directoryx.cc' object='src/mjwm-directoryx.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-directoryx.obj `if test -f 'src/directoryx.cc'; then $(CYGPATH_W) 'src/directoryx.cc'; else $(CYGPATH_W) '$(srcdir)/src/directoryx.cc'; fi`
+
+src/xdg/mjwm-entry_line.o: src/xdg/entry_line.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-entry_line.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-entry_line.Tpo -c -o src/xdg/mjwm-entry_line.o `test -f 'src/xdg/entry_line.cc' || echo '$(srcdir)/'`src/xdg/entry_line.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-entry_line.Tpo src/xdg/$(DEPDIR)/mjwm-entry_line.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry_line.cc' object='src/xdg/mjwm-entry_line.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-entry_line.o `test -f 'src/xdg/entry_line.cc' || echo '$(srcdir)/'`src/xdg/entry_line.cc
+
+src/xdg/mjwm-entry_line.obj: src/xdg/entry_line.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-entry_line.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-entry_line.Tpo -c -o src/xdg/mjwm-entry_line.obj `if test -f 'src/xdg/entry_line.cc'; then $(CYGPATH_W) 'src/xdg/entry_line.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry_line.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-entry_line.Tpo src/xdg/$(DEPDIR)/mjwm-entry_line.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry_line.cc' object='src/xdg/mjwm-entry_line.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-entry_line.obj `if test -f 'src/xdg/entry_line.cc'; then $(CYGPATH_W) 'src/xdg/entry_line.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry_line.cc'; fi`
+
+src/xdg/mjwm-entry.o: src/xdg/entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-entry.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-entry.Tpo -c -o src/xdg/mjwm-entry.o `test -f 'src/xdg/entry.cc' || echo '$(srcdir)/'`src/xdg/entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-entry.Tpo src/xdg/$(DEPDIR)/mjwm-entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry.cc' object='src/xdg/mjwm-entry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-entry.o `test -f 'src/xdg/entry.cc' || echo '$(srcdir)/'`src/xdg/entry.cc
+
+src/xdg/mjwm-entry.obj: src/xdg/entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-entry.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-entry.Tpo -c -o src/xdg/mjwm-entry.obj `if test -f 'src/xdg/entry.cc'; then $(CYGPATH_W) 'src/xdg/entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-entry.Tpo src/xdg/$(DEPDIR)/mjwm-entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry.cc' object='src/xdg/mjwm-entry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-entry.obj `if test -f 'src/xdg/entry.cc'; then $(CYGPATH_W) 'src/xdg/entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry.cc'; fi`
+
+src/xdg/mjwm-desktop_entry.o: src/xdg/desktop_entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-desktop_entry.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-desktop_entry.Tpo -c -o src/xdg/mjwm-desktop_entry.o `test -f 'src/xdg/desktop_entry.cc' || echo '$(srcdir)/'`src/xdg/desktop_entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-desktop_entry.Tpo src/xdg/$(DEPDIR)/mjwm-desktop_entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/desktop_entry.cc' object='src/xdg/mjwm-desktop_entry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-desktop_entry.o `test -f 'src/xdg/desktop_entry.cc' || echo '$(srcdir)/'`src/xdg/desktop_entry.cc
+
+src/xdg/mjwm-desktop_entry.obj: src/xdg/desktop_entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-desktop_entry.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-desktop_entry.Tpo -c -o src/xdg/mjwm-desktop_entry.obj `if test -f 'src/xdg/desktop_entry.cc'; then $(CYGPATH_W) 'src/xdg/desktop_entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/desktop_entry.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-desktop_entry.Tpo src/xdg/$(DEPDIR)/mjwm-desktop_entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/desktop_entry.cc' object='src/xdg/mjwm-desktop_entry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-desktop_entry.obj `if test -f 'src/xdg/desktop_entry.cc'; then $(CYGPATH_W) 'src/xdg/desktop_entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/desktop_entry.cc'; fi`
+
+src/xdg/mjwm-icon_subdirectory.o: src/xdg/icon_subdirectory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-icon_subdirectory.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Tpo -c -o src/xdg/mjwm-icon_subdirectory.o `test -f 'src/xdg/icon_subdirectory.cc' || echo '$(srcdir)/'`src/xdg/icon_subdirectory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Tpo src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_subdirectory.cc' object='src/xdg/mjwm-icon_subdirectory.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-icon_subdirectory.o `test -f 'src/xdg/icon_subdirectory.cc' || echo '$(srcdir)/'`src/xdg/icon_subdirectory.cc
+
+src/xdg/mjwm-icon_subdirectory.obj: src/xdg/icon_subdirectory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-icon_subdirectory.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Tpo -c -o src/xdg/mjwm-icon_subdirectory.obj `if test -f 'src/xdg/icon_subdirectory.cc'; then $(CYGPATH_W) 'src/xdg/icon_subdirectory.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_subdirectory.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Tpo src/xdg/$(DEPDIR)/mjwm-icon_subdirectory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_subdirectory.cc' object='src/xdg/mjwm-icon_subdirectory.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-icon_subdirectory.obj `if test -f 'src/xdg/icon_subdirectory.cc'; then $(CYGPATH_W) 'src/xdg/icon_subdirectory.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_subdirectory.cc'; fi`
+
+src/xdg/mjwm-icon_theme.o: src/xdg/icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-icon_theme.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-icon_theme.Tpo -c -o src/xdg/mjwm-icon_theme.o `test -f 'src/xdg/icon_theme.cc' || echo '$(srcdir)/'`src/xdg/icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-icon_theme.Tpo src/xdg/$(DEPDIR)/mjwm-icon_theme.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_theme.cc' object='src/xdg/mjwm-icon_theme.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-icon_theme.o `test -f 'src/xdg/icon_theme.cc' || echo '$(srcdir)/'`src/xdg/icon_theme.cc
+
+src/xdg/mjwm-icon_theme.obj: src/xdg/icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm-icon_theme.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm-icon_theme.Tpo -c -o src/xdg/mjwm-icon_theme.obj `if test -f 'src/xdg/icon_theme.cc'; then $(CYGPATH_W) 'src/xdg/icon_theme.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_theme.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm-icon_theme.Tpo src/xdg/$(DEPDIR)/mjwm-icon_theme.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_theme.cc' object='src/xdg/mjwm-icon_theme.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm-icon_theme.obj `if test -f 'src/xdg/icon_theme.cc'; then $(CYGPATH_W) 'src/xdg/icon_theme.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_theme.cc'; fi`
+
+src/mjwm-subcategory.o: src/subcategory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-subcategory.o -MD -MP -MF src/$(DEPDIR)/mjwm-subcategory.Tpo -c -o src/mjwm-subcategory.o `test -f 'src/subcategory.cc' || echo '$(srcdir)/'`src/subcategory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-subcategory.Tpo src/$(DEPDIR)/mjwm-subcategory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/subcategory.cc' object='src/mjwm-subcategory.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-subcategory.o `test -f 'src/subcategory.cc' || echo '$(srcdir)/'`src/subcategory.cc
+
+src/mjwm-subcategory.obj: src/subcategory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-subcategory.obj -MD -MP -MF src/$(DEPDIR)/mjwm-subcategory.Tpo -c -o src/mjwm-subcategory.obj `if test -f 'src/subcategory.cc'; then $(CYGPATH_W) 'src/subcategory.cc'; else $(CYGPATH_W) '$(srcdir)/src/subcategory.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-subcategory.Tpo src/$(DEPDIR)/mjwm-subcategory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/subcategory.cc' object='src/mjwm-subcategory.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-subcategory.obj `if test -f 'src/subcategory.cc'; then $(CYGPATH_W) 'src/subcategory.cc'; else $(CYGPATH_W) '$(srcdir)/src/subcategory.cc'; fi`
+
+src/mjwm-stats.o: src/stats.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-stats.o -MD -MP -MF src/$(DEPDIR)/mjwm-stats.Tpo -c -o src/mjwm-stats.o `test -f 'src/stats.cc' || echo '$(srcdir)/'`src/stats.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-stats.Tpo src/$(DEPDIR)/mjwm-stats.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stats.cc' object='src/mjwm-stats.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-stats.o `test -f 'src/stats.cc' || echo '$(srcdir)/'`src/stats.cc
+
+src/mjwm-stats.obj: src/stats.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-stats.obj -MD -MP -MF src/$(DEPDIR)/mjwm-stats.Tpo -c -o src/mjwm-stats.obj `if test -f 'src/stats.cc'; then $(CYGPATH_W) 'src/stats.cc'; else $(CYGPATH_W) '$(srcdir)/src/stats.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-stats.Tpo src/$(DEPDIR)/mjwm-stats.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stats.cc' object='src/mjwm-stats.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-stats.obj `if test -f 'src/stats.cc'; then $(CYGPATH_W) 'src/stats.cc'; else $(CYGPATH_W) '$(srcdir)/src/stats.cc'; fi`
+
+src/mjwm-menu.o: src/menu.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-menu.o -MD -MP -MF src/$(DEPDIR)/mjwm-menu.Tpo -c -o src/mjwm-menu.o `test -f 'src/menu.cc' || echo '$(srcdir)/'`src/menu.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-menu.Tpo src/$(DEPDIR)/mjwm-menu.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/menu.cc' object='src/mjwm-menu.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-menu.o `test -f 'src/menu.cc' || echo '$(srcdir)/'`src/menu.cc
+
+src/mjwm-menu.obj: src/menu.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-menu.obj -MD -MP -MF src/$(DEPDIR)/mjwm-menu.Tpo -c -o src/mjwm-menu.obj `if test -f 'src/menu.cc'; then $(CYGPATH_W) 'src/menu.cc'; else $(CYGPATH_W) '$(srcdir)/src/menu.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-menu.Tpo src/$(DEPDIR)/mjwm-menu.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/menu.cc' object='src/mjwm-menu.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-menu.obj `if test -f 'src/menu.cc'; then $(CYGPATH_W) 'src/menu.cc'; else $(CYGPATH_W) '$(srcdir)/src/menu.cc'; fi`
+
+src/transformer/mjwm-jwm.o: src/transformer/jwm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/transformer/mjwm-jwm.o -MD -MP -MF src/transformer/$(DEPDIR)/mjwm-jwm.Tpo -c -o src/transformer/mjwm-jwm.o `test -f 'src/transformer/jwm.cc' || echo '$(srcdir)/'`src/transformer/jwm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/transformer/$(DEPDIR)/mjwm-jwm.Tpo src/transformer/$(DEPDIR)/mjwm-jwm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/transformer/jwm.cc' object='src/transformer/mjwm-jwm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/transformer/mjwm-jwm.o `test -f 'src/transformer/jwm.cc' || echo '$(srcdir)/'`src/transformer/jwm.cc
+
+src/transformer/mjwm-jwm.obj: src/transformer/jwm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/transformer/mjwm-jwm.obj -MD -MP -MF src/transformer/$(DEPDIR)/mjwm-jwm.Tpo -c -o src/transformer/mjwm-jwm.obj `if test -f 'src/transformer/jwm.cc'; then $(CYGPATH_W) 'src/transformer/jwm.cc'; else $(CYGPATH_W) '$(srcdir)/src/transformer/jwm.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/transformer/$(DEPDIR)/mjwm-jwm.Tpo src/transformer/$(DEPDIR)/mjwm-jwm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/transformer/jwm.cc' object='src/transformer/mjwm-jwm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/transformer/mjwm-jwm.obj `if test -f 'src/transformer/jwm.cc'; then $(CYGPATH_W) 'src/transformer/jwm.cc'; else $(CYGPATH_W) '$(srcdir)/src/transformer/jwm.cc'; fi`
+
+src/mjwm-system_environment.o: src/system_environment.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-system_environment.o -MD -MP -MF src/$(DEPDIR)/mjwm-system_environment.Tpo -c -o src/mjwm-system_environment.o `test -f 'src/system_environment.cc' || echo '$(srcdir)/'`src/system_environment.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-system_environment.Tpo src/$(DEPDIR)/mjwm-system_environment.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/system_environment.cc' object='src/mjwm-system_environment.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-system_environment.o `test -f 'src/system_environment.cc' || echo '$(srcdir)/'`src/system_environment.cc
+
+src/mjwm-system_environment.obj: src/system_environment.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-system_environment.obj -MD -MP -MF src/$(DEPDIR)/mjwm-system_environment.Tpo -c -o src/mjwm-system_environment.obj `if test -f 'src/system_environment.cc'; then $(CYGPATH_W) 'src/system_environment.cc'; else $(CYGPATH_W) '$(srcdir)/src/system_environment.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-system_environment.Tpo src/$(DEPDIR)/mjwm-system_environment.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/system_environment.cc' object='src/mjwm-system_environment.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-system_environment.obj `if test -f 'src/system_environment.cc'; then $(CYGPATH_W) 'src/system_environment.cc'; else $(CYGPATH_W) '$(srcdir)/src/system_environment.cc'; fi`
+
+src/mjwm-desktop_entry_file_search.o: src/desktop_entry_file_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-desktop_entry_file_search.o -MD -MP -MF src/$(DEPDIR)/mjwm-desktop_entry_file_search.Tpo -c -o src/mjwm-desktop_entry_file_search.o `test -f 'src/desktop_entry_file_search.cc' || echo '$(srcdir)/'`src/desktop_entry_file_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-desktop_entry_file_search.Tpo src/$(DEPDIR)/mjwm-desktop_entry_file_search.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/desktop_entry_file_search.cc' object='src/mjwm-desktop_entry_file_search.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-desktop_entry_file_search.o `test -f 'src/desktop_entry_file_search.cc' || echo '$(srcdir)/'`src/desktop_entry_file_search.cc
+
+src/mjwm-desktop_entry_file_search.obj: src/desktop_entry_file_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-desktop_entry_file_search.obj -MD -MP -MF src/$(DEPDIR)/mjwm-desktop_entry_file_search.Tpo -c -o src/mjwm-desktop_entry_file_search.obj `if test -f 'src/desktop_entry_file_search.cc'; then $(CYGPATH_W) 'src/desktop_entry_file_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/desktop_entry_file_search.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-desktop_entry_file_search.Tpo src/$(DEPDIR)/mjwm-desktop_entry_file_search.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/desktop_entry_file_search.cc' object='src/mjwm-desktop_entry_file_search.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-desktop_entry_file_search.obj `if test -f 'src/desktop_entry_file_search.cc'; then $(CYGPATH_W) 'src/desktop_entry_file_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/desktop_entry_file_search.cc'; fi`
+
+src/mjwm-amm_options.o: src/amm_options.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-amm_options.o -MD -MP -MF src/$(DEPDIR)/mjwm-amm_options.Tpo -c -o src/mjwm-amm_options.o `test -f 'src/amm_options.cc' || echo '$(srcdir)/'`src/amm_options.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-amm_options.Tpo src/$(DEPDIR)/mjwm-amm_options.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/amm_options.cc' object='src/mjwm-amm_options.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-amm_options.o `test -f 'src/amm_options.cc' || echo '$(srcdir)/'`src/amm_options.cc
+
+src/mjwm-amm_options.obj: src/amm_options.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-amm_options.obj -MD -MP -MF src/$(DEPDIR)/mjwm-amm_options.Tpo -c -o src/mjwm-amm_options.obj `if test -f 'src/amm_options.cc'; then $(CYGPATH_W) 'src/amm_options.cc'; else $(CYGPATH_W) '$(srcdir)/src/amm_options.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-amm_options.Tpo src/$(DEPDIR)/mjwm-amm_options.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/amm_options.cc' object='src/mjwm-amm_options.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-amm_options.obj `if test -f 'src/amm_options.cc'; then $(CYGPATH_W) 'src/amm_options.cc'; else $(CYGPATH_W) '$(srcdir)/src/amm_options.cc'; fi`
+
+src/mjwm-command_line_options_parser.o: src/command_line_options_parser.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-command_line_options_parser.o -MD -MP -MF src/$(DEPDIR)/mjwm-command_line_options_parser.Tpo -c -o src/mjwm-command_line_options_parser.o `test -f 'src/command_line_options_parser.cc' || echo '$(srcdir)/'`src/command_line_options_parser.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-command_line_options_parser.Tpo src/$(DEPDIR)/mjwm-command_line_options_parser.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/command_line_options_parser.cc' object='src/mjwm-command_line_options_parser.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-command_line_options_parser.o `test -f 'src/command_line_options_parser.cc' || echo '$(srcdir)/'`src/command_line_options_parser.cc
+
+src/mjwm-command_line_options_parser.obj: src/command_line_options_parser.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-command_line_options_parser.obj -MD -MP -MF src/$(DEPDIR)/mjwm-command_line_options_parser.Tpo -c -o src/mjwm-command_line_options_parser.obj `if test -f 'src/command_line_options_parser.cc'; then $(CYGPATH_W) 'src/command_line_options_parser.cc'; else $(CYGPATH_W) '$(srcdir)/src/command_line_options_parser.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-command_line_options_parser.Tpo src/$(DEPDIR)/mjwm-command_line_options_parser.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/command_line_options_parser.cc' object='src/mjwm-command_line_options_parser.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-command_line_options_parser.obj `if test -f 'src/command_line_options_parser.cc'; then $(CYGPATH_W) 'src/command_line_options_parser.cc'; else $(CYGPATH_W) '$(srcdir)/src/command_line_options_parser.cc'; fi`
+
+src/mjwm-timex.o: src/timex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-timex.o -MD -MP -MF src/$(DEPDIR)/mjwm-timex.Tpo -c -o src/mjwm-timex.o `test -f 'src/timex.cc' || echo '$(srcdir)/'`src/timex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-timex.Tpo src/$(DEPDIR)/mjwm-timex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/timex.cc' object='src/mjwm-timex.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-timex.o `test -f 'src/timex.cc' || echo '$(srcdir)/'`src/timex.cc
+
+src/mjwm-timex.obj: src/timex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-timex.obj -MD -MP -MF src/$(DEPDIR)/mjwm-timex.Tpo -c -o src/mjwm-timex.obj `if test -f 'src/timex.cc'; then $(CYGPATH_W) 'src/timex.cc'; else $(CYGPATH_W) '$(srcdir)/src/timex.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-timex.Tpo src/$(DEPDIR)/mjwm-timex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/timex.cc' object='src/mjwm-timex.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-timex.obj `if test -f 'src/timex.cc'; then $(CYGPATH_W) 'src/timex.cc'; else $(CYGPATH_W) '$(srcdir)/src/timex.cc'; fi`
+
+src/mjwm-messages.o: src/messages.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-messages.o -MD -MP -MF src/$(DEPDIR)/mjwm-messages.Tpo -c -o src/mjwm-messages.o `test -f 'src/messages.cc' || echo '$(srcdir)/'`src/messages.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-messages.Tpo src/$(DEPDIR)/mjwm-messages.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/messages.cc' object='src/mjwm-messages.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-messages.o `test -f 'src/messages.cc' || echo '$(srcdir)/'`src/messages.cc
+
+src/mjwm-messages.obj: src/messages.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-messages.obj -MD -MP -MF src/$(DEPDIR)/mjwm-messages.Tpo -c -o src/mjwm-messages.obj `if test -f 'src/messages.cc'; then $(CYGPATH_W) 'src/messages.cc'; else $(CYGPATH_W) '$(srcdir)/src/messages.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-messages.Tpo src/$(DEPDIR)/mjwm-messages.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/messages.cc' object='src/mjwm-messages.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-messages.obj `if test -f 'src/messages.cc'; then $(CYGPATH_W) 'src/messages.cc'; else $(CYGPATH_W) '$(srcdir)/src/messages.cc'; fi`
+
+src/mjwm-amm.o: src/amm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-amm.o -MD -MP -MF src/$(DEPDIR)/mjwm-amm.Tpo -c -o src/mjwm-amm.o `test -f 'src/amm.cc' || echo '$(srcdir)/'`src/amm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-amm.Tpo src/$(DEPDIR)/mjwm-amm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/amm.cc' object='src/mjwm-amm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-amm.o `test -f 'src/amm.cc' || echo '$(srcdir)/'`src/amm.cc
+
+src/mjwm-amm.obj: src/amm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-amm.obj -MD -MP -MF src/$(DEPDIR)/mjwm-amm.Tpo -c -o src/mjwm-amm.obj `if test -f 'src/amm.cc'; then $(CYGPATH_W) 'src/amm.cc'; else $(CYGPATH_W) '$(srcdir)/src/amm.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-amm.Tpo src/$(DEPDIR)/mjwm-amm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/amm.cc' object='src/mjwm-amm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-amm.obj `if test -f 'src/amm.cc'; then $(CYGPATH_W) 'src/amm.cc'; else $(CYGPATH_W) '$(srcdir)/src/amm.cc'; fi`
+
+src/mjwm-qualified_icon_theme.o: src/qualified_icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-qualified_icon_theme.o -MD -MP -MF src/$(DEPDIR)/mjwm-qualified_icon_theme.Tpo -c -o src/mjwm-qualified_icon_theme.o `test -f 'src/qualified_icon_theme.cc' || echo '$(srcdir)/'`src/qualified_icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-qualified_icon_theme.Tpo src/$(DEPDIR)/mjwm-qualified_icon_theme.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/qualified_icon_theme.cc' object='src/mjwm-qualified_icon_theme.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-qualified_icon_theme.o `test -f 'src/qualified_icon_theme.cc' || echo '$(srcdir)/'`src/qualified_icon_theme.cc
+
+src/mjwm-qualified_icon_theme.obj: src/qualified_icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-qualified_icon_theme.obj -MD -MP -MF src/$(DEPDIR)/mjwm-qualified_icon_theme.Tpo -c -o src/mjwm-qualified_icon_theme.obj `if test -f 'src/qualified_icon_theme.cc'; then $(CYGPATH_W) 'src/qualified_icon_theme.cc'; else $(CYGPATH_W) '$(srcdir)/src/qualified_icon_theme.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-qualified_icon_theme.Tpo src/$(DEPDIR)/mjwm-qualified_icon_theme.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/qualified_icon_theme.cc' object='src/mjwm-qualified_icon_theme.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-qualified_icon_theme.obj `if test -f 'src/qualified_icon_theme.cc'; then $(CYGPATH_W) 'src/qualified_icon_theme.cc'; else $(CYGPATH_W) '$(srcdir)/src/qualified_icon_theme.cc'; fi`
+
+src/icon_search/mjwm-xdg_search.o: src/icon_search/xdg_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/icon_search/mjwm-xdg_search.o -MD -MP -MF src/icon_search/$(DEPDIR)/mjwm-xdg_search.Tpo -c -o src/icon_search/mjwm-xdg_search.o `test -f 'src/icon_search/xdg_search.cc' || echo '$(srcdir)/'`src/icon_search/xdg_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/icon_search/$(DEPDIR)/mjwm-xdg_search.Tpo src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/icon_search/xdg_search.cc' object='src/icon_search/mjwm-xdg_search.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/icon_search/mjwm-xdg_search.o `test -f 'src/icon_search/xdg_search.cc' || echo '$(srcdir)/'`src/icon_search/xdg_search.cc
+
+src/icon_search/mjwm-xdg_search.obj: src/icon_search/xdg_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/icon_search/mjwm-xdg_search.obj -MD -MP -MF src/icon_search/$(DEPDIR)/mjwm-xdg_search.Tpo -c -o src/icon_search/mjwm-xdg_search.obj `if test -f 'src/icon_search/xdg_search.cc'; then $(CYGPATH_W) 'src/icon_search/xdg_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/icon_search/xdg_search.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/icon_search/$(DEPDIR)/mjwm-xdg_search.Tpo src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/icon_search/xdg_search.cc' object='src/icon_search/mjwm-xdg_search.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/icon_search/mjwm-xdg_search.obj `if test -f 'src/icon_search/xdg_search.cc'; then $(CYGPATH_W) 'src/icon_search/xdg_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/icon_search/xdg_search.cc'; fi`
+
+src/mjwm-main.o: src/main.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-main.o -MD -MP -MF src/$(DEPDIR)/mjwm-main.Tpo -c -o src/mjwm-main.o `test -f 'src/main.cc' || echo '$(srcdir)/'`src/main.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-main.Tpo src/$(DEPDIR)/mjwm-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/main.cc' object='src/mjwm-main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-main.o `test -f 'src/main.cc' || echo '$(srcdir)/'`src/main.cc
+
+src/mjwm-main.obj: src/main.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-main.obj -MD -MP -MF src/$(DEPDIR)/mjwm-main.Tpo -c -o src/mjwm-main.obj `if test -f 'src/main.cc'; then $(CYGPATH_W) 'src/main.cc'; else $(CYGPATH_W) '$(srcdir)/src/main.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-main.Tpo src/$(DEPDIR)/mjwm-main.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/main.cc' object='src/mjwm-main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-main.obj `if test -f 'src/main.cc'; then $(CYGPATH_W) 'src/main.cc'; else $(CYGPATH_W) '$(srcdir)/src/main.cc'; fi`
+
+src/mjwm_test-stringx.o: src/stringx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-stringx.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-stringx.Tpo -c -o src/mjwm_test-stringx.o `test -f 'src/stringx.cc' || echo '$(srcdir)/'`src/stringx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-stringx.Tpo src/$(DEPDIR)/mjwm_test-stringx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stringx.cc' object='src/mjwm_test-stringx.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-stringx.o `test -f 'src/stringx.cc' || echo '$(srcdir)/'`src/stringx.cc
+
+src/mjwm_test-stringx.obj: src/stringx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-stringx.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-stringx.Tpo -c -o src/mjwm_test-stringx.obj `if test -f 'src/stringx.cc'; then $(CYGPATH_W) 'src/stringx.cc'; else $(CYGPATH_W) '$(srcdir)/src/stringx.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-stringx.Tpo src/$(DEPDIR)/mjwm_test-stringx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stringx.cc' object='src/mjwm_test-stringx.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-stringx.obj `if test -f 'src/stringx.cc'; then $(CYGPATH_W) 'src/stringx.cc'; else $(CYGPATH_W) '$(srcdir)/src/stringx.cc'; fi`
+
+src/mjwm_test-vectorx.o: src/vectorx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-vectorx.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-vectorx.Tpo -c -o src/mjwm_test-vectorx.o `test -f 'src/vectorx.cc' || echo '$(srcdir)/'`src/vectorx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-vectorx.Tpo src/$(DEPDIR)/mjwm_test-vectorx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/vectorx.cc' object='src/mjwm_test-vectorx.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-vectorx.o `test -f 'src/vectorx.cc' || echo '$(srcdir)/'`src/vectorx.cc
+
+src/mjwm_test-vectorx.obj: src/vectorx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-vectorx.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-vectorx.Tpo -c -o src/mjwm_test-vectorx.obj `if test -f 'src/vectorx.cc'; then $(CYGPATH_W) 'src/vectorx.cc'; else $(CYGPATH_W) '$(srcdir)/src/vectorx.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-vectorx.Tpo src/$(DEPDIR)/mjwm_test-vectorx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/vectorx.cc' object='src/mjwm_test-vectorx.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-vectorx.obj `if test -f 'src/vectorx.cc'; then $(CYGPATH_W) 'src/vectorx.cc'; else $(CYGPATH_W) '$(srcdir)/src/vectorx.cc'; fi`
+
+src/mjwm_test-filex.o: src/filex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-filex.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-filex.Tpo -c -o src/mjwm_test-filex.o `test -f 'src/filex.cc' || echo '$(srcdir)/'`src/filex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-filex.Tpo src/$(DEPDIR)/mjwm_test-filex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/filex.cc' object='src/mjwm_test-filex.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-filex.o `test -f 'src/filex.cc' || echo '$(srcdir)/'`src/filex.cc
+
+src/mjwm_test-filex.obj: src/filex.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-filex.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-filex.Tpo -c -o src/mjwm_test-filex.obj `if test -f 'src/filex.cc'; then $(CYGPATH_W) 'src/filex.cc'; else $(CYGPATH_W) '$(srcdir)/src/filex.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-filex.Tpo src/$(DEPDIR)/mjwm_test-filex.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/filex.cc' object='src/mjwm_test-filex.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-filex.obj `if test -f 'src/filex.cc'; then $(CYGPATH_W) 'src/filex.cc'; else $(CYGPATH_W) '$(srcdir)/src/filex.cc'; fi`
+
+src/mjwm_test-directoryx.o: src/directoryx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-directoryx.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-directoryx.Tpo -c -o src/mjwm_test-directoryx.o `test -f 'src/directoryx.cc' || echo '$(srcdir)/'`src/directoryx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-directoryx.Tpo src/$(DEPDIR)/mjwm_test-directoryx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/directoryx.cc' object='src/mjwm_test-directoryx.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-directoryx.o `test -f 'src/directoryx.cc' || echo '$(srcdir)/'`src/directoryx.cc
+
+src/mjwm_test-directoryx.obj: src/directoryx.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-directoryx.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-directoryx.Tpo -c -o src/mjwm_test-directoryx.obj `if test -f 'src/directoryx.cc'; then $(CYGPATH_W) 'src/directoryx.cc'; else $(CYGPATH_W) '$(srcdir)/src/directoryx.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-directoryx.Tpo src/$(DEPDIR)/mjwm_test-directoryx.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/directoryx.cc' object='src/mjwm_test-directoryx.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-directoryx.obj `if test -f 'src/directoryx.cc'; then $(CYGPATH_W) 'src/directoryx.cc'; else $(CYGPATH_W) '$(srcdir)/src/directoryx.cc'; fi`
+
+src/xdg/mjwm_test-entry_line.o: src/xdg/entry_line.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-entry_line.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-entry_line.Tpo -c -o src/xdg/mjwm_test-entry_line.o `test -f 'src/xdg/entry_line.cc' || echo '$(srcdir)/'`src/xdg/entry_line.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-entry_line.Tpo src/xdg/$(DEPDIR)/mjwm_test-entry_line.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry_line.cc' object='src/xdg/mjwm_test-entry_line.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-entry_line.o `test -f 'src/xdg/entry_line.cc' || echo '$(srcdir)/'`src/xdg/entry_line.cc
+
+src/xdg/mjwm_test-entry_line.obj: src/xdg/entry_line.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-entry_line.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-entry_line.Tpo -c -o src/xdg/mjwm_test-entry_line.obj `if test -f 'src/xdg/entry_line.cc'; then $(CYGPATH_W) 'src/xdg/entry_line.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry_line.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-entry_line.Tpo src/xdg/$(DEPDIR)/mjwm_test-entry_line.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry_line.cc' object='src/xdg/mjwm_test-entry_line.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-entry_line.obj `if test -f 'src/xdg/entry_line.cc'; then $(CYGPATH_W) 'src/xdg/entry_line.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry_line.cc'; fi`
+
+src/xdg/mjwm_test-entry.o: src/xdg/entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-entry.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-entry.Tpo -c -o src/xdg/mjwm_test-entry.o `test -f 'src/xdg/entry.cc' || echo '$(srcdir)/'`src/xdg/entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-entry.Tpo src/xdg/$(DEPDIR)/mjwm_test-entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry.cc' object='src/xdg/mjwm_test-entry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-entry.o `test -f 'src/xdg/entry.cc' || echo '$(srcdir)/'`src/xdg/entry.cc
+
+src/xdg/mjwm_test-entry.obj: src/xdg/entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-entry.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-entry.Tpo -c -o src/xdg/mjwm_test-entry.obj `if test -f 'src/xdg/entry.cc'; then $(CYGPATH_W) 'src/xdg/entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-entry.Tpo src/xdg/$(DEPDIR)/mjwm_test-entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/entry.cc' object='src/xdg/mjwm_test-entry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-entry.obj `if test -f 'src/xdg/entry.cc'; then $(CYGPATH_W) 'src/xdg/entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/entry.cc'; fi`
+
+src/xdg/mjwm_test-desktop_entry.o: src/xdg/desktop_entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-desktop_entry.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Tpo -c -o src/xdg/mjwm_test-desktop_entry.o `test -f 'src/xdg/desktop_entry.cc' || echo '$(srcdir)/'`src/xdg/desktop_entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Tpo src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/desktop_entry.cc' object='src/xdg/mjwm_test-desktop_entry.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-desktop_entry.o `test -f 'src/xdg/desktop_entry.cc' || echo '$(srcdir)/'`src/xdg/desktop_entry.cc
+
+src/xdg/mjwm_test-desktop_entry.obj: src/xdg/desktop_entry.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-desktop_entry.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Tpo -c -o src/xdg/mjwm_test-desktop_entry.obj `if test -f 'src/xdg/desktop_entry.cc'; then $(CYGPATH_W) 'src/xdg/desktop_entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/desktop_entry.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Tpo src/xdg/$(DEPDIR)/mjwm_test-desktop_entry.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/desktop_entry.cc' object='src/xdg/mjwm_test-desktop_entry.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-desktop_entry.obj `if test -f 'src/xdg/desktop_entry.cc'; then $(CYGPATH_W) 'src/xdg/desktop_entry.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/desktop_entry.cc'; fi`
+
+src/xdg/mjwm_test-icon_subdirectory.o: src/xdg/icon_subdirectory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-icon_subdirectory.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Tpo -c -o src/xdg/mjwm_test-icon_subdirectory.o `test -f 'src/xdg/icon_subdirectory.cc' || echo '$(srcdir)/'`src/xdg/icon_subdirectory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Tpo src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_subdirectory.cc' object='src/xdg/mjwm_test-icon_subdirectory.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-icon_subdirectory.o `test -f 'src/xdg/icon_subdirectory.cc' || echo '$(srcdir)/'`src/xdg/icon_subdirectory.cc
+
+src/xdg/mjwm_test-icon_subdirectory.obj: src/xdg/icon_subdirectory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-icon_subdirectory.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Tpo -c -o src/xdg/mjwm_test-icon_subdirectory.obj `if test -f 'src/xdg/icon_subdirectory.cc'; then $(CYGPATH_W) 'src/xdg/icon_subdirectory.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_subdirectory.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Tpo src/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_subdirectory.cc' object='src/xdg/mjwm_test-icon_subdirectory.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-icon_subdirectory.obj `if test -f 'src/xdg/icon_subdirectory.cc'; then $(CYGPATH_W) 'src/xdg/icon_subdirectory.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_subdirectory.cc'; fi`
+
+src/xdg/mjwm_test-icon_theme.o: src/xdg/icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-icon_theme.o -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Tpo -c -o src/xdg/mjwm_test-icon_theme.o `test -f 'src/xdg/icon_theme.cc' || echo '$(srcdir)/'`src/xdg/icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Tpo src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_theme.cc' object='src/xdg/mjwm_test-icon_theme.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-icon_theme.o `test -f 'src/xdg/icon_theme.cc' || echo '$(srcdir)/'`src/xdg/icon_theme.cc
+
+src/xdg/mjwm_test-icon_theme.obj: src/xdg/icon_theme.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/xdg/mjwm_test-icon_theme.obj -MD -MP -MF src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Tpo -c -o src/xdg/mjwm_test-icon_theme.obj `if test -f 'src/xdg/icon_theme.cc'; then $(CYGPATH_W) 'src/xdg/icon_theme.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_theme.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Tpo src/xdg/$(DEPDIR)/mjwm_test-icon_theme.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/xdg/icon_theme.cc' object='src/xdg/mjwm_test-icon_theme.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/xdg/mjwm_test-icon_theme.obj `if test -f 'src/xdg/icon_theme.cc'; then $(CYGPATH_W) 'src/xdg/icon_theme.cc'; else $(CYGPATH_W) '$(srcdir)/src/xdg/icon_theme.cc'; fi`
+
+src/mjwm_test-subcategory.o: src/subcategory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-subcategory.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-subcategory.Tpo -c -o src/mjwm_test-subcategory.o `test -f 'src/subcategory.cc' || echo '$(srcdir)/'`src/subcategory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-subcategory.Tpo src/$(DEPDIR)/mjwm_test-subcategory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/subcategory.cc' object='src/mjwm_test-subcategory.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-subcategory.o `test -f 'src/subcategory.cc' || echo '$(srcdir)/'`src/subcategory.cc
+
+src/mjwm_test-subcategory.obj: src/subcategory.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-subcategory.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-subcategory.Tpo -c -o src/mjwm_test-subcategory.obj `if test -f 'src/subcategory.cc'; then $(CYGPATH_W) 'src/subcategory.cc'; else $(CYGPATH_W) '$(srcdir)/src/subcategory.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-subcategory.Tpo src/$(DEPDIR)/mjwm_test-subcategory.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/subcategory.cc' object='src/mjwm_test-subcategory.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-subcategory.obj `if test -f 'src/subcategory.cc'; then $(CYGPATH_W) 'src/subcategory.cc'; else $(CYGPATH_W) '$(srcdir)/src/subcategory.cc'; fi`
+
+src/mjwm_test-stats.o: src/stats.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-stats.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-stats.Tpo -c -o src/mjwm_test-stats.o `test -f 'src/stats.cc' || echo '$(srcdir)/'`src/stats.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-stats.Tpo src/$(DEPDIR)/mjwm_test-stats.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stats.cc' object='src/mjwm_test-stats.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-stats.o `test -f 'src/stats.cc' || echo '$(srcdir)/'`src/stats.cc
+
+src/mjwm_test-stats.obj: src/stats.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-stats.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-stats.Tpo -c -o src/mjwm_test-stats.obj `if test -f 'src/stats.cc'; then $(CYGPATH_W) 'src/stats.cc'; else $(CYGPATH_W) '$(srcdir)/src/stats.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-stats.Tpo src/$(DEPDIR)/mjwm_test-stats.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/stats.cc' object='src/mjwm_test-stats.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-stats.obj `if test -f 'src/stats.cc'; then $(CYGPATH_W) 'src/stats.cc'; else $(CYGPATH_W) '$(srcdir)/src/stats.cc'; fi`
+
+src/mjwm_test-menu.o: src/menu.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-menu.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-menu.Tpo -c -o src/mjwm_test-menu.o `test -f 'src/menu.cc' || echo '$(srcdir)/'`src/menu.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-menu.Tpo src/$(DEPDIR)/mjwm_test-menu.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/menu.cc' object='src/mjwm_test-menu.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-menu.o `test -f 'src/menu.cc' || echo '$(srcdir)/'`src/menu.cc
+
+src/mjwm_test-menu.obj: src/menu.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-menu.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-menu.Tpo -c -o src/mjwm_test-menu.obj `if test -f 'src/menu.cc'; then $(CYGPATH_W) 'src/menu.cc'; else $(CYGPATH_W) '$(srcdir)/src/menu.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-menu.Tpo src/$(DEPDIR)/mjwm_test-menu.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/menu.cc' object='src/mjwm_test-menu.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-menu.obj `if test -f 'src/menu.cc'; then $(CYGPATH_W) 'src/menu.cc'; else $(CYGPATH_W) '$(srcdir)/src/menu.cc'; fi`
+
+src/transformer/mjwm_test-jwm.o: src/transformer/jwm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/transformer/mjwm_test-jwm.o -MD -MP -MF src/transformer/$(DEPDIR)/mjwm_test-jwm.Tpo -c -o src/transformer/mjwm_test-jwm.o `test -f 'src/transformer/jwm.cc' || echo '$(srcdir)/'`src/transformer/jwm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/transformer/$(DEPDIR)/mjwm_test-jwm.Tpo src/transformer/$(DEPDIR)/mjwm_test-jwm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/transformer/jwm.cc' object='src/transformer/mjwm_test-jwm.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/transformer/mjwm_test-jwm.o `test -f 'src/transformer/jwm.cc' || echo '$(srcdir)/'`src/transformer/jwm.cc
+
+src/transformer/mjwm_test-jwm.obj: src/transformer/jwm.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/transformer/mjwm_test-jwm.obj -MD -MP -MF src/transformer/$(DEPDIR)/mjwm_test-jwm.Tpo -c -o src/transformer/mjwm_test-jwm.obj `if test -f 'src/transformer/jwm.cc'; then $(CYGPATH_W) 'src/transformer/jwm.cc'; else $(CYGPATH_W) '$(srcdir)/src/transformer/jwm.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/transformer/$(DEPDIR)/mjwm_test-jwm.Tpo src/transformer/$(DEPDIR)/mjwm_test-jwm.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/transformer/jwm.cc' object='src/transformer/mjwm_test-jwm.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/transformer/mjwm_test-jwm.obj `if test -f 'src/transformer/jwm.cc'; then $(CYGPATH_W) 'src/transformer/jwm.cc'; else $(CYGPATH_W) '$(srcdir)/src/transformer/jwm.cc'; fi`
+
+src/mjwm_test-system_environment.o: src/system_environment.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-system_environment.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-system_environment.Tpo -c -o src/mjwm_test-system_environment.o `test -f 'src/system_environment.cc' || echo '$(srcdir)/'`src/system_environment.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-system_environment.Tpo src/$(DEPDIR)/mjwm_test-system_environment.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/system_environment.cc' object='src/mjwm_test-system_environment.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-system_environment.o `test -f 'src/system_environment.cc' || echo '$(srcdir)/'`src/system_environment.cc
+
+src/mjwm_test-system_environment.obj: src/system_environment.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-system_environment.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-system_environment.Tpo -c -o src/mjwm_test-system_environment.obj `if test -f 'src/system_environment.cc'; then $(CYGPATH_W) 'src/system_environment.cc'; else $(CYGPATH_W) '$(srcdir)/src/system_environment.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-system_environment.Tpo src/$(DEPDIR)/mjwm_test-system_environment.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/system_environment.cc' object='src/mjwm_test-system_environment.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-system_environment.obj `if test -f 'src/system_environment.cc'; then $(CYGPATH_W) 'src/system_environment.cc'; else $(CYGPATH_W) '$(srcdir)/src/system_environment.cc'; fi`
+
+src/mjwm_test-desktop_entry_file_search.o: src/desktop_entry_file_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-desktop_entry_file_search.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Tpo -c -o src/mjwm_test-desktop_entry_file_search.o `test -f 'src/desktop_entry_file_search.cc' || echo '$(srcdir)/'`src/desktop_entry_file_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Tpo src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/desktop_entry_file_search.cc' object='src/mjwm_test-desktop_entry_file_search.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-desktop_entry_file_search.o `test -f 'src/desktop_entry_file_search.cc' || echo '$(srcdir)/'`src/desktop_entry_file_search.cc
+
+src/mjwm_test-desktop_entry_file_search.obj: src/desktop_entry_file_search.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-desktop_entry_file_search.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Tpo -c -o src/mjwm_test-desktop_entry_file_search.obj `if test -f 'src/desktop_entry_file_search.cc'; then $(CYGPATH_W) 'src/desktop_entry_file_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/desktop_entry_file_search.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Tpo src/$(DEPDIR)/mjwm_test-desktop_entry_file_search.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/desktop_entry_file_search.cc' object='src/mjwm_test-desktop_entry_file_search.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-desktop_entry_file_search.obj `if test -f 'src/desktop_entry_file_search.cc'; then $(CYGPATH_W) 'src/desktop_entry_file_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/desktop_entry_file_search.cc'; fi`
+
+src/mjwm_test-amm_options.o: src/amm_options.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-amm_options.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-amm_options.Tpo -c -o src/mjwm_test-amm_options.o `test -f 'src/amm_options.cc' || echo '$(srcdir)/'`src/amm_options.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-amm_options.Tpo src/$(DEPDIR)/mjwm_test-amm_options.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/amm_options.cc' object='src/mjwm_test-amm_options.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-amm_options.o `test -f 'src/amm_options.cc' || echo '$(srcdir)/'`src/amm_options.cc
+
+src/mjwm_test-amm_options.obj: src/amm_options.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-amm_options.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-amm_options.Tpo -c -o src/mjwm_test-amm_options.obj `if test -f 'src/amm_options.cc'; then $(CYGPATH_W) 'src/amm_options.cc'; else $(CYGPATH_W) '$(srcdir)/src/amm_options.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-amm_options.Tpo src/$(DEPDIR)/mjwm_test-amm_options.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/amm_options.cc' object='src/mjwm_test-amm_options.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-amm_options.obj `if test -f 'src/amm_options.cc'; then $(CYGPATH_W) 'src/amm_options.cc'; else $(CYGPATH_W) '$(srcdir)/src/amm_options.cc'; fi`
+
+src/mjwm_test-command_line_options_parser.o: src/command_line_options_parser.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-command_line_options_parser.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-command_line_options_parser.Tpo -c -o src/mjwm_test-command_line_options_parser.o `test -f 'src/command_line_options_parser.cc' || echo '$(srcdir)/'`src/command_line_options_parser.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-command_line_options_parser.Tpo src/$(DEPDIR)/mjwm_test-command_line_options_parser.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/command_line_options_parser.cc' object='src/mjwm_test-command_line_options_parser.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-command_line_options_parser.o `test -f 'src/command_line_options_parser.cc' || echo '$(srcdir)/'`src/command_line_options_parser.cc
+
+src/mjwm_test-command_line_options_parser.obj: src/command_line_options_parser.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-command_line_options_parser.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-command_line_options_parser.Tpo -c -o src/mjwm_test-command_line_options_parser.obj `if test -f 'src/command_line_options_parser.cc'; then $(CYGPATH_W) 'src/command_line_options_parser.cc'; else $(CYGPATH_W) '$(srcdir)/src/command_line_options_parser.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-command_line_options_parser.Tpo src/$(DEPDIR)/mjwm_test-command_line_options_parser.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/command_line_options_parser.cc' object='src/mjwm_test-command_line_options_parser.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-command_line_options_parser.obj `if test -f 'src/command_line_options_parser.cc'; then $(CYGPATH_W) 'src/command_line_options_parser.cc'; else $(CYGPATH_W) '$(srcdir)/src/command_line_options_parser.cc'; fi`
+
+test/mjwm_test-stringx_test.o: test/stringx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-stringx_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-stringx_test.Tpo -c -o test/mjwm_test-stringx_test.o `test -f 'test/stringx_test.cc' || echo '$(srcdir)/'`test/stringx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-stringx_test.Tpo test/$(DEPDIR)/mjwm_test-stringx_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/stringx_test.cc' object='test/mjwm_test-stringx_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-stringx_test.o `test -f 'test/stringx_test.cc' || echo '$(srcdir)/'`test/stringx_test.cc
+
+test/mjwm_test-stringx_test.obj: test/stringx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-stringx_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-stringx_test.Tpo -c -o test/mjwm_test-stringx_test.obj `if test -f 'test/stringx_test.cc'; then $(CYGPATH_W) 'test/stringx_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/stringx_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-stringx_test.Tpo test/$(DEPDIR)/mjwm_test-stringx_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/stringx_test.cc' object='test/mjwm_test-stringx_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-stringx_test.obj `if test -f 'test/stringx_test.cc'; then $(CYGPATH_W) 'test/stringx_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/stringx_test.cc'; fi`
+
+test/mjwm_test-vectorx_test.o: test/vectorx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-vectorx_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-vectorx_test.Tpo -c -o test/mjwm_test-vectorx_test.o `test -f 'test/vectorx_test.cc' || echo '$(srcdir)/'`test/vectorx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-vectorx_test.Tpo test/$(DEPDIR)/mjwm_test-vectorx_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/vectorx_test.cc' object='test/mjwm_test-vectorx_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-vectorx_test.o `test -f 'test/vectorx_test.cc' || echo '$(srcdir)/'`test/vectorx_test.cc
+
+test/mjwm_test-vectorx_test.obj: test/vectorx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-vectorx_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-vectorx_test.Tpo -c -o test/mjwm_test-vectorx_test.obj `if test -f 'test/vectorx_test.cc'; then $(CYGPATH_W) 'test/vectorx_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/vectorx_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-vectorx_test.Tpo test/$(DEPDIR)/mjwm_test-vectorx_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/vectorx_test.cc' object='test/mjwm_test-vectorx_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-vectorx_test.obj `if test -f 'test/vectorx_test.cc'; then $(CYGPATH_W) 'test/vectorx_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/vectorx_test.cc'; fi`
+
+test/mjwm_test-filex_test.o: test/filex_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-filex_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-filex_test.Tpo -c -o test/mjwm_test-filex_test.o `test -f 'test/filex_test.cc' || echo '$(srcdir)/'`test/filex_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-filex_test.Tpo test/$(DEPDIR)/mjwm_test-filex_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/filex_test.cc' object='test/mjwm_test-filex_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-filex_test.o `test -f 'test/filex_test.cc' || echo '$(srcdir)/'`test/filex_test.cc
+
+test/mjwm_test-filex_test.obj: test/filex_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-filex_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-filex_test.Tpo -c -o test/mjwm_test-filex_test.obj `if test -f 'test/filex_test.cc'; then $(CYGPATH_W) 'test/filex_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/filex_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-filex_test.Tpo test/$(DEPDIR)/mjwm_test-filex_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/filex_test.cc' object='test/mjwm_test-filex_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-filex_test.obj `if test -f 'test/filex_test.cc'; then $(CYGPATH_W) 'test/filex_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/filex_test.cc'; fi`
+
+test/mjwm_test-directoryx_test.o: test/directoryx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-directoryx_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-directoryx_test.Tpo -c -o test/mjwm_test-directoryx_test.o `test -f 'test/directoryx_test.cc' || echo '$(srcdir)/'`test/directoryx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-directoryx_test.Tpo test/$(DEPDIR)/mjwm_test-directoryx_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/directoryx_test.cc' object='test/mjwm_test-directoryx_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-directoryx_test.o `test -f 'test/directoryx_test.cc' || echo '$(srcdir)/'`test/directoryx_test.cc
+
+test/mjwm_test-directoryx_test.obj: test/directoryx_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-directoryx_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-directoryx_test.Tpo -c -o test/mjwm_test-directoryx_test.obj `if test -f 'test/directoryx_test.cc'; then $(CYGPATH_W) 'test/directoryx_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/directoryx_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-directoryx_test.Tpo test/$(DEPDIR)/mjwm_test-directoryx_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/directoryx_test.cc' object='test/mjwm_test-directoryx_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-directoryx_test.obj `if test -f 'test/directoryx_test.cc'; then $(CYGPATH_W) 'test/directoryx_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/directoryx_test.cc'; fi`
+
+test/xdg/mjwm_test-entry_line_test.o: test/xdg/entry_line_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-entry_line_test.o -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Tpo -c -o test/xdg/mjwm_test-entry_line_test.o `test -f 'test/xdg/entry_line_test.cc' || echo '$(srcdir)/'`test/xdg/entry_line_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/entry_line_test.cc' object='test/xdg/mjwm_test-entry_line_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-entry_line_test.o `test -f 'test/xdg/entry_line_test.cc' || echo '$(srcdir)/'`test/xdg/entry_line_test.cc
+
+test/xdg/mjwm_test-entry_line_test.obj: test/xdg/entry_line_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-entry_line_test.obj -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Tpo -c -o test/xdg/mjwm_test-entry_line_test.obj `if test -f 'test/xdg/entry_line_test.cc'; then $(CYGPATH_W) 'test/xdg/entry_line_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/entry_line_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-entry_line_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/entry_line_test.cc' object='test/xdg/mjwm_test-entry_line_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-entry_line_test.obj `if test -f 'test/xdg/entry_line_test.cc'; then $(CYGPATH_W) 'test/xdg/entry_line_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/entry_line_test.cc'; fi`
+
+test/xdg/mjwm_test-entry_test.o: test/xdg/entry_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-entry_test.o -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-entry_test.Tpo -c -o test/xdg/mjwm_test-entry_test.o `test -f 'test/xdg/entry_test.cc' || echo '$(srcdir)/'`test/xdg/entry_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-entry_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-entry_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/entry_test.cc' object='test/xdg/mjwm_test-entry_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-entry_test.o `test -f 'test/xdg/entry_test.cc' || echo '$(srcdir)/'`test/xdg/entry_test.cc
+
+test/xdg/mjwm_test-entry_test.obj: test/xdg/entry_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-entry_test.obj -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-entry_test.Tpo -c -o test/xdg/mjwm_test-entry_test.obj `if test -f 'test/xdg/entry_test.cc'; then $(CYGPATH_W) 'test/xdg/entry_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/entry_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-entry_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-entry_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/entry_test.cc' object='test/xdg/mjwm_test-entry_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-entry_test.obj `if test -f 'test/xdg/entry_test.cc'; then $(CYGPATH_W) 'test/xdg/entry_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/entry_test.cc'; fi`
+
+test/xdg/mjwm_test-desktop_entry_test.o: test/xdg/desktop_entry_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-desktop_entry_test.o -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Tpo -c -o test/xdg/mjwm_test-desktop_entry_test.o `test -f 'test/xdg/desktop_entry_test.cc' || echo '$(srcdir)/'`test/xdg/desktop_entry_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/desktop_entry_test.cc' object='test/xdg/mjwm_test-desktop_entry_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-desktop_entry_test.o `test -f 'test/xdg/desktop_entry_test.cc' || echo '$(srcdir)/'`test/xdg/desktop_entry_test.cc
+
+test/xdg/mjwm_test-desktop_entry_test.obj: test/xdg/desktop_entry_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-desktop_entry_test.obj -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Tpo -c -o test/xdg/mjwm_test-desktop_entry_test.obj `if test -f 'test/xdg/desktop_entry_test.cc'; then $(CYGPATH_W) 'test/xdg/desktop_entry_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/desktop_entry_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-desktop_entry_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/desktop_entry_test.cc' object='test/xdg/mjwm_test-desktop_entry_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-desktop_entry_test.obj `if test -f 'test/xdg/desktop_entry_test.cc'; then $(CYGPATH_W) 'test/xdg/desktop_entry_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/desktop_entry_test.cc'; fi`
+
+test/xdg/mjwm_test-icon_subdirectory_test.o: test/xdg/icon_subdirectory_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-icon_subdirectory_test.o -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Tpo -c -o test/xdg/mjwm_test-icon_subdirectory_test.o `test -f 'test/xdg/icon_subdirectory_test.cc' || echo '$(srcdir)/'`test/xdg/icon_subdirectory_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/icon_subdirectory_test.cc' object='test/xdg/mjwm_test-icon_subdirectory_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-icon_subdirectory_test.o `test -f 'test/xdg/icon_subdirectory_test.cc' || echo '$(srcdir)/'`test/xdg/icon_subdirectory_test.cc
+
+test/xdg/mjwm_test-icon_subdirectory_test.obj: test/xdg/icon_subdirectory_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-icon_subdirectory_test.obj -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Tpo -c -o test/xdg/mjwm_test-icon_subdirectory_test.obj `if test -f 'test/xdg/icon_subdirectory_test.cc'; then $(CYGPATH_W) 'test/xdg/icon_subdirectory_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/icon_subdirectory_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-icon_subdirectory_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/icon_subdirectory_test.cc' object='test/xdg/mjwm_test-icon_subdirectory_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-icon_subdirectory_test.obj `if test -f 'test/xdg/icon_subdirectory_test.cc'; then $(CYGPATH_W) 'test/xdg/icon_subdirectory_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/icon_subdirectory_test.cc'; fi`
+
+test/xdg/mjwm_test-icon_theme_test.o: test/xdg/icon_theme_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-icon_theme_test.o -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Tpo -c -o test/xdg/mjwm_test-icon_theme_test.o `test -f 'test/xdg/icon_theme_test.cc' || echo '$(srcdir)/'`test/xdg/icon_theme_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/icon_theme_test.cc' object='test/xdg/mjwm_test-icon_theme_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-icon_theme_test.o `test -f 'test/xdg/icon_theme_test.cc' || echo '$(srcdir)/'`test/xdg/icon_theme_test.cc
+
+test/xdg/mjwm_test-icon_theme_test.obj: test/xdg/icon_theme_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/xdg/mjwm_test-icon_theme_test.obj -MD -MP -MF test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Tpo -c -o test/xdg/mjwm_test-icon_theme_test.obj `if test -f 'test/xdg/icon_theme_test.cc'; then $(CYGPATH_W) 'test/xdg/icon_theme_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/icon_theme_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Tpo test/xdg/$(DEPDIR)/mjwm_test-icon_theme_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/xdg/icon_theme_test.cc' object='test/xdg/mjwm_test-icon_theme_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/xdg/mjwm_test-icon_theme_test.obj `if test -f 'test/xdg/icon_theme_test.cc'; then $(CYGPATH_W) 'test/xdg/icon_theme_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/xdg/icon_theme_test.cc'; fi`
+
+test/mjwm_test-subcategory_test.o: test/subcategory_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-subcategory_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-subcategory_test.Tpo -c -o test/mjwm_test-subcategory_test.o `test -f 'test/subcategory_test.cc' || echo '$(srcdir)/'`test/subcategory_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-subcategory_test.Tpo test/$(DEPDIR)/mjwm_test-subcategory_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/subcategory_test.cc' object='test/mjwm_test-subcategory_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-subcategory_test.o `test -f 'test/subcategory_test.cc' || echo '$(srcdir)/'`test/subcategory_test.cc
+
+test/mjwm_test-subcategory_test.obj: test/subcategory_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-subcategory_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-subcategory_test.Tpo -c -o test/mjwm_test-subcategory_test.obj `if test -f 'test/subcategory_test.cc'; then $(CYGPATH_W) 'test/subcategory_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/subcategory_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-subcategory_test.Tpo test/$(DEPDIR)/mjwm_test-subcategory_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/subcategory_test.cc' object='test/mjwm_test-subcategory_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-subcategory_test.obj `if test -f 'test/subcategory_test.cc'; then $(CYGPATH_W) 'test/subcategory_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/subcategory_test.cc'; fi`
+
+test/mjwm_test-stats_test.o: test/stats_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-stats_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-stats_test.Tpo -c -o test/mjwm_test-stats_test.o `test -f 'test/stats_test.cc' || echo '$(srcdir)/'`test/stats_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-stats_test.Tpo test/$(DEPDIR)/mjwm_test-stats_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/stats_test.cc' object='test/mjwm_test-stats_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-stats_test.o `test -f 'test/stats_test.cc' || echo '$(srcdir)/'`test/stats_test.cc
+
+test/mjwm_test-stats_test.obj: test/stats_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-stats_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-stats_test.Tpo -c -o test/mjwm_test-stats_test.obj `if test -f 'test/stats_test.cc'; then $(CYGPATH_W) 'test/stats_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/stats_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-stats_test.Tpo test/$(DEPDIR)/mjwm_test-stats_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/stats_test.cc' object='test/mjwm_test-stats_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-stats_test.obj `if test -f 'test/stats_test.cc'; then $(CYGPATH_W) 'test/stats_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/stats_test.cc'; fi`
+
+test/mjwm_test-menu_test.o: test/menu_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-menu_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-menu_test.Tpo -c -o test/mjwm_test-menu_test.o `test -f 'test/menu_test.cc' || echo '$(srcdir)/'`test/menu_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-menu_test.Tpo test/$(DEPDIR)/mjwm_test-menu_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/menu_test.cc' object='test/mjwm_test-menu_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-menu_test.o `test -f 'test/menu_test.cc' || echo '$(srcdir)/'`test/menu_test.cc
+
+test/mjwm_test-menu_test.obj: test/menu_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-menu_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-menu_test.Tpo -c -o test/mjwm_test-menu_test.obj `if test -f 'test/menu_test.cc'; then $(CYGPATH_W) 'test/menu_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/menu_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-menu_test.Tpo test/$(DEPDIR)/mjwm_test-menu_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/menu_test.cc' object='test/mjwm_test-menu_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-menu_test.obj `if test -f 'test/menu_test.cc'; then $(CYGPATH_W) 'test/menu_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/menu_test.cc'; fi`
+
+test/transformer/mjwm_test-jwm_test.o: test/transformer/jwm_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/transformer/mjwm_test-jwm_test.o -MD -MP -MF test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Tpo -c -o test/transformer/mjwm_test-jwm_test.o `test -f 'test/transformer/jwm_test.cc' || echo '$(srcdir)/'`test/transformer/jwm_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Tpo test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/transformer/jwm_test.cc' object='test/transformer/mjwm_test-jwm_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/transformer/mjwm_test-jwm_test.o `test -f 'test/transformer/jwm_test.cc' || echo '$(srcdir)/'`test/transformer/jwm_test.cc
+
+test/transformer/mjwm_test-jwm_test.obj: test/transformer/jwm_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/transformer/mjwm_test-jwm_test.obj -MD -MP -MF test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Tpo -c -o test/transformer/mjwm_test-jwm_test.obj `if test -f 'test/transformer/jwm_test.cc'; then $(CYGPATH_W) 'test/transformer/jwm_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/transformer/jwm_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Tpo test/transformer/$(DEPDIR)/mjwm_test-jwm_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/transformer/jwm_test.cc' object='test/transformer/mjwm_test-jwm_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/transformer/mjwm_test-jwm_test.obj `if test -f 'test/transformer/jwm_test.cc'; then $(CYGPATH_W) 'test/transformer/jwm_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/transformer/jwm_test.cc'; fi`
+
+test/mjwm_test-system_environment_test.o: test/system_environment_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-system_environment_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-system_environment_test.Tpo -c -o test/mjwm_test-system_environment_test.o `test -f 'test/system_environment_test.cc' || echo '$(srcdir)/'`test/system_environment_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-system_environment_test.Tpo test/$(DEPDIR)/mjwm_test-system_environment_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/system_environment_test.cc' object='test/mjwm_test-system_environment_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-system_environment_test.o `test -f 'test/system_environment_test.cc' || echo '$(srcdir)/'`test/system_environment_test.cc
+
+test/mjwm_test-system_environment_test.obj: test/system_environment_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-system_environment_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-system_environment_test.Tpo -c -o test/mjwm_test-system_environment_test.obj `if test -f 'test/system_environment_test.cc'; then $(CYGPATH_W) 'test/system_environment_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/system_environment_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-system_environment_test.Tpo test/$(DEPDIR)/mjwm_test-system_environment_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/system_environment_test.cc' object='test/mjwm_test-system_environment_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-system_environment_test.obj `if test -f 'test/system_environment_test.cc'; then $(CYGPATH_W) 'test/system_environment_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/system_environment_test.cc'; fi`
+
+test/mjwm_test-desktop_entry_file_search_test.o: test/desktop_entry_file_search_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-desktop_entry_file_search_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Tpo -c -o test/mjwm_test-desktop_entry_file_search_test.o `test -f 'test/desktop_entry_file_search_test.cc' || echo '$(srcdir)/'`test/desktop_entry_file_search_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Tpo test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/desktop_entry_file_search_test.cc' object='test/mjwm_test-desktop_entry_file_search_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-desktop_entry_file_search_test.o `test -f 'test/desktop_entry_file_search_test.cc' || echo '$(srcdir)/'`test/desktop_entry_file_search_test.cc
+
+test/mjwm_test-desktop_entry_file_search_test.obj: test/desktop_entry_file_search_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-desktop_entry_file_search_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Tpo -c -o test/mjwm_test-desktop_entry_file_search_test.obj `if test -f 'test/desktop_entry_file_search_test.cc'; then $(CYGPATH_W) 'test/desktop_entry_file_search_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/desktop_entry_file_search_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Tpo test/$(DEPDIR)/mjwm_test-desktop_entry_file_search_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/desktop_entry_file_search_test.cc' object='test/mjwm_test-desktop_entry_file_search_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-desktop_entry_file_search_test.obj `if test -f 'test/desktop_entry_file_search_test.cc'; then $(CYGPATH_W) 'test/desktop_entry_file_search_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/desktop_entry_file_search_test.cc'; fi`
+
+test/mjwm_test-amm_options_test.o: test/amm_options_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-amm_options_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-amm_options_test.Tpo -c -o test/mjwm_test-amm_options_test.o `test -f 'test/amm_options_test.cc' || echo '$(srcdir)/'`test/amm_options_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-amm_options_test.Tpo test/$(DEPDIR)/mjwm_test-amm_options_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/amm_options_test.cc' object='test/mjwm_test-amm_options_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-amm_options_test.o `test -f 'test/amm_options_test.cc' || echo '$(srcdir)/'`test/amm_options_test.cc
+
+test/mjwm_test-amm_options_test.obj: test/amm_options_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-amm_options_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-amm_options_test.Tpo -c -o test/mjwm_test-amm_options_test.obj `if test -f 'test/amm_options_test.cc'; then $(CYGPATH_W) 'test/amm_options_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/amm_options_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-amm_options_test.Tpo test/$(DEPDIR)/mjwm_test-amm_options_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/amm_options_test.cc' object='test/mjwm_test-amm_options_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-amm_options_test.obj `if test -f 'test/amm_options_test.cc'; then $(CYGPATH_W) 'test/amm_options_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/amm_options_test.cc'; fi`
+
+test/mjwm_test-command_line_options_parser_test.o: test/command_line_options_parser_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-command_line_options_parser_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Tpo -c -o test/mjwm_test-command_line_options_parser_test.o `test -f 'test/command_line_options_parser_test.cc' || echo '$(srcdir)/'`test/command_line_options_parser_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Tpo test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/command_line_options_parser_test.cc' object='test/mjwm_test-command_line_options_parser_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-command_line_options_parser_test.o `test -f 'test/command_line_options_parser_test.cc' || echo '$(srcdir)/'`test/command_line_options_parser_test.cc
+
+test/mjwm_test-command_line_options_parser_test.obj: test/command_line_options_parser_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-command_line_options_parser_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Tpo -c -o test/mjwm_test-command_line_options_parser_test.obj `if test -f 'test/command_line_options_parser_test.cc'; then $(CYGPATH_W) 'test/command_line_options_parser_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/command_line_options_parser_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Tpo test/$(DEPDIR)/mjwm_test-command_line_options_parser_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/command_line_options_parser_test.cc' object='test/mjwm_test-command_line_options_parser_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-command_line_options_parser_test.obj `if test -f 'test/command_line_options_parser_test.cc'; then $(CYGPATH_W) 'test/command_line_options_parser_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/command_line_options_parser_test.cc'; fi`
+
+test/icon_search/mjwm_test-caching_search_test.o: test/icon_search/caching_search_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/icon_search/mjwm_test-caching_search_test.o -MD -MP -MF test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Tpo -c -o test/icon_search/mjwm_test-caching_search_test.o `test -f 'test/icon_search/caching_search_test.cc' || echo '$(srcdir)/'`test/icon_search/caching_search_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Tpo test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/icon_search/caching_search_test.cc' object='test/icon_search/mjwm_test-caching_search_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/icon_search/mjwm_test-caching_search_test.o `test -f 'test/icon_search/caching_search_test.cc' || echo '$(srcdir)/'`test/icon_search/caching_search_test.cc
+
+test/icon_search/mjwm_test-caching_search_test.obj: test/icon_search/caching_search_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/icon_search/mjwm_test-caching_search_test.obj -MD -MP -MF test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Tpo -c -o test/icon_search/mjwm_test-caching_search_test.obj `if test -f 'test/icon_search/caching_search_test.cc'; then $(CYGPATH_W) 'test/icon_search/caching_search_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/icon_search/caching_search_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Tpo test/icon_search/$(DEPDIR)/mjwm_test-caching_search_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/icon_search/caching_search_test.cc' object='test/icon_search/mjwm_test-caching_search_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/icon_search/mjwm_test-caching_search_test.obj `if test -f 'test/icon_search/caching_search_test.cc'; then $(CYGPATH_W) 'test/icon_search/caching_search_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/icon_search/caching_search_test.cc'; fi`
+
+test/mjwm_test-test_runner.o: test/test_runner.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-test_runner.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-test_runner.Tpo -c -o test/mjwm_test-test_runner.o `test -f 'test/test_runner.cc' || echo '$(srcdir)/'`test/test_runner.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-test_runner.Tpo test/$(DEPDIR)/mjwm_test-test_runner.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/test_runner.cc' object='test/mjwm_test-test_runner.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-test_runner.o `test -f 'test/test_runner.cc' || echo '$(srcdir)/'`test/test_runner.cc
+
+test/mjwm_test-test_runner.obj: test/test_runner.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-test_runner.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-test_runner.Tpo -c -o test/mjwm_test-test_runner.obj `if test -f 'test/test_runner.cc'; then $(CYGPATH_W) 'test/test_runner.cc'; else $(CYGPATH_W) '$(srcdir)/test/test_runner.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-test_runner.Tpo test/$(DEPDIR)/mjwm_test-test_runner.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/test_runner.cc' object='test/mjwm_test-test_runner.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-test_runner.obj `if test -f 'test/test_runner.cc'; then $(CYGPATH_W) 'test/test_runner.cc'; else $(CYGPATH_W) '$(srcdir)/test/test_runner.cc'; fi`
+install-man1: $(dist_man1_MANS)
 	@$(NORMAL_INSTALL)
-	@list1='$(man1_MANS)'; \
+	@list1='$(dist_man1_MANS)'; \
 	list2=''; \
 	test -n "$(man1dir)" \
 	  && test -n "`echo $$list1$$list2`" \
@@ -907,14 +1881,14 @@ install-man1: $(man1_MANS)
 
 uninstall-man1:
 	@$(NORMAL_UNINSTALL)
-	@list='$(man1_MANS)'; test -n "$(man1dir)" || exit 0; \
+	@list='$(dist_man1_MANS)'; test -n "$(man1dir)" || exit 0; \
 	files=`{ for i in $$list; do echo "$$i"; done; \
 	} | sed -e 's,.*/,,;h;s,.*\.,,;s,^[^1][0-9a-z]*$$,1,;x' \
 	      -e 's,\.[0-9a-z]*$$,,;$(transform);G;s,\n,.,'`; \
 	dir='$(DESTDIR)$(man1dir)'; $(am__uninstall_files_from_dir)
-install-mjwmDATA: $(mjwm_DATA)
+install-dist_mjwmDATA: $(dist_mjwm_DATA)
 	@$(NORMAL_INSTALL)
-	@list='$(mjwm_DATA)'; test -n "$(mjwmdir)" || list=; \
+	@list='$(dist_mjwm_DATA)'; test -n "$(mjwmdir)" || list=; \
 	if test -n "$$list"; then \
 	  echo " $(MKDIR_P) '$(DESTDIR)$(mjwmdir)'"; \
 	  $(MKDIR_P) "$(DESTDIR)$(mjwmdir)" || exit 1; \
@@ -928,9 +1902,9 @@ install-mjwmDATA: $(mjwm_DATA)
 	  $(INSTALL_DATA) $$files "$(DESTDIR)$(mjwmdir)" || exit $$?; \
 	done
 
-uninstall-mjwmDATA:
+uninstall-dist_mjwmDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(mjwm_DATA)'; test -n "$(mjwmdir)" || list=; \
+	@list='$(dist_mjwm_DATA)'; test -n "$(mjwmdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(mjwmdir)'; $(am__uninstall_files_from_dir)
 
@@ -1401,7 +2375,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-man install-mjwmDATA
+install-data-am: install-dist_mjwmDATA install-man
 
 install-dvi: install-dvi-am
 
@@ -1448,7 +2422,8 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-man uninstall-mjwmDATA
+uninstall-am: uninstall-binPROGRAMS uninstall-dist_mjwmDATA \
+	uninstall-man
 
 uninstall-man: uninstall-man1
 
@@ -1462,16 +2437,16 @@ uninstall-man: uninstall-man1
 	distclean-compile distclean-generic distclean-hdr \
 	distclean-tags distcleancheck distdir distuninstallcheck dvi \
 	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-man1 install-mjwmDATA install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-binPROGRAMS install-data install-data-am \
+	install-dist_mjwmDATA install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-man1 install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic pdf pdf-am ps ps-am recheck tags tags-am \
-	uninstall uninstall-am uninstall-binPROGRAMS uninstall-man \
-	uninstall-man1 uninstall-mjwmDATA
+	uninstall uninstall-am uninstall-binPROGRAMS \
+	uninstall-dist_mjwmDATA uninstall-man uninstall-man1
 
 .PRECIOUS: Makefile
 

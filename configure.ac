@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.12])
+AC_PREREQ([2.68])
 AC_INIT([mjwm], [4.0.0], [https://github.com/chiku/mjwm/issues])
 AC_LANG(C++)
 
@@ -10,7 +10,9 @@ AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/main.cc])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_INIT_AUTOMAKE([parallel-tests color-tests])
+AC_CONFIG_MACRO_DIR([m4])
+
+AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects color-tests])
 
 # Checks for programs.
 AC_PROG_CXX

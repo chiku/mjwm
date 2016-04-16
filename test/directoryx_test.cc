@@ -16,6 +16,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define DO_QUOTE(X)       #X
+#define QUOTE(X)          DO_QUOTE(X)
+
 #include "directoryx.h"
 
 #include <string>
@@ -67,10 +70,12 @@ void assertNamesAreCorrect(std::vector<std::string> names)
 }
 
 SCENARIO("DirectoryX", "[directoryx]") {
+    std::string fixture_dir = QUOTE(FIXTUREDIR);
+
     GIVEN("A directoryx") {
         WHEN("present") {
             THEN("it is valid") {
-                DirectoryX directory("test/fixtures/applications");
+                DirectoryX directory(fixture_dir + "applications");
                 CHECK(directory.isValid());
             }
         }
@@ -83,7 +88,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
         }
 
         WHEN("it has files under itself") {
-            DirectoryX directory("test/fixtures/applications");
+            DirectoryX directory(fixture_dir + "applications");
             DirectoryX::Entries entries = directory.allEntries();
             WHEN("its contained files are retrieved one at a time") {
                 THEN("the retrieved entry has the name of the file and knows if it is a directory") {
@@ -143,7 +148,7 @@ SCENARIO("DirectoryX", "[directoryx]") {
 
         WHEN("iterated multiple times") {
             THEN("all iterations have the same results") {
-                DirectoryX directory("test/fixtures/applications");
+                DirectoryX directory(fixture_dir + "applications");
                 DirectoryX::Entries first_set = directory.allEntries();
                 DirectoryX::Entries second_set = directory.allEntries();
 

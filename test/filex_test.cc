@@ -16,8 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define DO_QUOTE(X)       #X
+#define QUOTE(X)          DO_QUOTE(X)
+
 #include "filex.h"
 
+#include <cstdlib>
 #include <cstdio>
 #include <string>
 #include <vector>
@@ -27,9 +31,11 @@
 namespace amm {
 
 SCENARIO("FileX", "[filex]") {
+    std::string fixture_dir = QUOTE(FIXTUREDIR);
+
     GIVEN("A filex") {
         WHEN("pointing to a file that exists") {
-            FileX filex("test/fixtures/applications/vlc.desktop");
+            FileX filex(fixture_dir + "applications/vlc.desktop");
 
             THEN("it exists") {
                 CHECK(filex.exists());
@@ -76,8 +82,8 @@ SCENARIO("FileX", "[filex]") {
             }
 
             THEN("it can move the file to an existing directory") {
-                std::string file_name = "test/fixtures/new-file";
-                std::string renamed_file_name = "test/fixtures/renamed-file";
+                std::string file_name = fixture_dir + "new-file";
+                std::string renamed_file_name = fixture_dir + "renamed-file";
 
                 remove(file_name.c_str());
                 remove(renamed_file_name.c_str());
@@ -102,7 +108,7 @@ SCENARIO("FileX", "[filex]") {
             }
 
             THEN("it can't move the file to a non-existing directory") {
-                std::string file_name = "test/fixtures/new-file";
+                std::string file_name = fixture_dir + "new-file";
                 std::string renamed_file_name = "test/does-not-exist-fixtures/renamed-file";
 
                 remove(file_name.c_str());
@@ -124,7 +130,7 @@ SCENARIO("FileX", "[filex]") {
         }
 
         WHEN("pointing to a directory that exists") {
-            FileX dirx("test/fixtures/applications");
+            FileX dirx(fixture_dir + "applications");
 
             THEN("it exists") {
                 CHECK(dirx.exists());
@@ -136,7 +142,7 @@ SCENARIO("FileX", "[filex]") {
         }
 
         WHEN("pointing to a file that doesn't exist") {
-            std::string file_name = "test/fixtures/applications/does-not-exist.desktop";
+            std::string file_name = fixture_dir + "applications/does-not-exist.desktop";
             FileX filex(file_name);
             remove(file_name.c_str());
             remove((file_name + ".backup_extension").c_str());
