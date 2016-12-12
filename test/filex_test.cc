@@ -127,6 +127,23 @@ SCENARIO("FileX", "[filex]") {
                 remove(file_name.c_str());
                 remove(renamed_file_name.c_str());
             }
+
+            THEN("it can delete the file") {
+                std::string file_name = fixture_dir + "new-file";
+
+                remove(file_name.c_str());
+
+                std::vector<std::string> lines;
+                lines.push_back("first");
+                lines.push_back("second");
+                CHECK(FileX(file_name).writeLines(lines));
+
+                CHECK(FileX(file_name).purge());
+
+                CHECK_FALSE(FileX(file_name).exists());
+
+                remove(file_name.c_str());
+            }
         }
 
         WHEN("pointing to a directory that exists") {
@@ -186,6 +203,16 @@ SCENARIO("FileX", "[filex]") {
                 REQUIRE(read_lines.size() == 2);
                 CHECK(read_lines[0] == "first");
                 CHECK(read_lines[1] == "second");
+                remove(file_name.c_str());
+            }
+
+            THEN("it can't delete the file") {
+                std::string file_name = fixture_dir + "new-file";
+                remove(file_name.c_str());
+
+                CHECK_FALSE(FileX(file_name).purge());
+
+                CHECK_FALSE(FileX(file_name).exists());
                 remove(file_name.c_str());
             }
         }

@@ -16,5 +16,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --callgrind-out-file=callgrind.out  ./mjwm --iconize=Faenza
+valgrind --tool=callgrind --cache-sim=yes --branch-sim=yes --callgrind-out-file=callgrind.out ./mjwm --iconize=Faenza
 gprof2dot --format=callgrind callgrind.out | dot -Tsvg -o output.svg

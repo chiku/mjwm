@@ -29,6 +29,7 @@ AmmOptions AmmOptions::Default(const std::string &home, const std::string &langu
     amm_options.is_help = false;
     amm_options.is_version = false;
     amm_options.is_iconize = false;
+    amm_options.is_backup = true;
     amm_options.override_default_directories = false;
     amm_options.summary_type = "normal";
     amm_options.output_file_name = StringX(home).terminateWith("/") + (".jwmrc-mjwm");

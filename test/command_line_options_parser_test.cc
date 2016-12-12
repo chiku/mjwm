@@ -56,6 +56,10 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
                 CHECK_FALSE(options.is_iconize);
             }
 
+            THEN("its backup flag is on") {
+                CHECK(options.is_backup);
+            }
+
             THEN("its icon theme is hicolor") {
                 CHECK(options.icon_theme_name == "hicolor");
             }
@@ -148,6 +152,15 @@ SCENARIO("Command-line arguments parse with options", "[commandlineoptions]") {
 
             THEN("its summary is set to long") {
                 CHECK(options.summary_type == "long");
+            }
+        }
+
+        WHEN("parsing --no-backup") {
+            char* argv[] = {strdup("amm"), strdup("--no-backup"), 0};
+            AmmOptions options = parser.parse(2, argv);
+
+            THEN("its backup is off") {
+                CHECK_FALSE(options.is_backup);
             }
         }
 

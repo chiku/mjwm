@@ -32,6 +32,7 @@ public:
     bool moveTo(const std::string &location) const;
     bool exists() const;
     bool existsAsDirectory() const;
+    bool purge() const;
 
 private:
     std::string name_;

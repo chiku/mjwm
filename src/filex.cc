@@ -78,4 +78,9 @@ bool FileX::writeLines(const std::vector<std::string> &lines) const
     return true;
 }
 
+bool FileX::purge() const
+{
+    return remove(name_.c_str()) == 0;
+}
+
 } // namespace amm

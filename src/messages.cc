@@ -58,6 +58,7 @@ std::string help()
     stream << "      --language [NAME]       The language for which the menu would be build." << std::endl;
     stream << "                                Defaults to the system default." << std::endl;
     stream << "  -v  --verbose               Verbose output" << std::endl;
+    stream << "      --no-backup             Do not create any backup files." << std::endl;
     stream << "      --help                  Show this help" << std::endl;
     stream << "      --version               Show version information" << std::endl;
     stream << std::endl;

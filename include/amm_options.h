@@ -32,6 +32,7 @@ struct AmmOptions
     bool is_help;
     bool is_version;
     bool is_iconize;
+    bool is_backup;
     bool override_default_directories;
     std::string summary_type;
     std::string output_file_name;

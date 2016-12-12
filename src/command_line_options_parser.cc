@@ -41,6 +41,7 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
         {"version",         no_argument,       &version_flag,  1 },
         {"verbose",         no_argument,       0,             'v'},
         {"iconize",         optional_argument, 0,              0 },
+        {"no-backup",       optional_argument, 0,              0 },
         {"output-file",     required_argument, 0,             'o'},
         {"input-directory", required_argument, 0,             'i'},
         {"category-file",   required_argument, 0,             'c'},
@@ -74,6 +75,9 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
             }
             if (long_option_name == "language") {
                 amm_options.language = optarg;
+            }
+            if (long_option_name == "no-backup") {
+                amm_options.is_backup = false;
             }
         } else if (chosen_option == 'o') {
             amm_options.output_file_name = optarg;

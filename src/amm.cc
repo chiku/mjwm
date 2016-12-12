@@ -173,9 +173,13 @@ void Amm::writeOutputFile()
         exit(1);
     }
     if (output_file.exists()) {
-        std::string backup_file_name = output_file_name + "." + timex::currentTimeAsTimestamp() + ".bak";
-        output_file.moveTo(backup_file_name);
-        displayToSTDOUT(messages::backupFile(output_file_name, backup_file_name));
+        if (options_.is_backup) {
+            std::string backup_file_name = output_file_name + "." + timex::currentTimeAsTimestamp() + ".bak";
+            output_file.moveTo(backup_file_name);
+            displayToSTDOUT(messages::backupFile(output_file_name, backup_file_name));
+        } else {
+            output_file.purge();
+        }
     }
     if (!output_file.writeLines(output)) {
         displayToSTDERR(messages::badOutputFile(options_.output_file_name));
