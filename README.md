@@ -40,25 +40,25 @@ Options
 Usage: mjwm [options]
 
 Optional arguments:
-  -o, --output-file [FILE]    Outfile file [Default: ./automenu]
-  -i, --input-directory [DIRECTORY]
-                              Directory to scan for '.desktop' files. Multiple
-                                directories, if provided, must be separated by
-                                colons. [Default: application directories
-                                under $XDG_DATA_HOME & $XDG_DATA_DIRS]
-  -c, --category-file [FILE]  Use an external category file. Overrides the
+  -c, --category-file=[FILE]  Use an external category file. Overrides the
                                 built in categories. Please look at
                                 default.mjwm to write your own category files.
+      --help                  Show this help.
       --iconize=[THEME]       Search for icon files by name in $HOME,
                                 $XDG_DATA_DIRS/icons, and /usr/share/pixmaps.
                                 Icon file names would be absolute paths to
                                 icons in the specified directories. Hicolor
                                 icon theme is used if no theme name is given.
-      --language [NAME]       The language for which the menu would be build.
-  -v  --verbose               Verbose output
+  -i, --input-directory=[DIRECTORY]
+                              Directory to scan for '.desktop' files. Multiple
+                                directories, if provided, must be separated by
+                                colons. [Default: application directories
+                                under $XDG_DATA_HOME & $XDG_DATA_DIRS]
+      --language=[NAME]       The language for which the menu would be build.
       --no-backup             Do not create any backup files.
-      --help                  Show this help
-      --version               Show version information
+  -o, --output-file=[FILE]    Outfile file [Default: $HOME/.jwmrc-mjwm]
+  -v  --verbose               Verbose output.
+      --version               Show version information.
 ```
 
 Usage
@@ -112,7 +112,7 @@ mjwm --iconize
 
 Create menu entries with absolute path names to icons images from Faenza theme
 ``` script
-mjwm --iconize=Faenza # the equals sign is needed
+mjwm --iconize=Faenza # this works as well : mjwm --iconize Faenza
 ```
 
 Use categories from as an external file

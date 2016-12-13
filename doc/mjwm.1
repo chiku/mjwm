@@ -20,10 +20,19 @@ For more information visit http://github.com/chiku/mjwm.
 .B The following options are available.
 
 .TP
-.BR \-o ", " \-\-output\-file =\fIFILE\fR
-Menu output file name.
-Default is $HOME/.jwmrc-mjwm.
-.LP
+.BR \-c ", " \-\-category\-file =\fIFILE\fR
+Use an external category file.
+This overrides the built in categories. Please look at default.mjwm to write your own category file.
+
+.TP
+.BR \-\-help
+Show help.
+
+.TP
+.BR \-\-iconize ", " \-\-iconize =\fITHEME\fR
+Search for icons by name in $HOME, $XDG_DATA_DIRS/icons and /usr/share/pixmaps.
+The icon references in the generated menu would be absolute paths to icons in the specified directories.
+The given icon is searched for icons. If not specified the icon theme hicolor is searched.
 
 .TP
 .BR \-i ", " \-\-input\-directory =\fIDIRECTORY\fR
@@ -33,31 +42,22 @@ Default is $XDG_DATA_DIRS/applications:$XDG_DATA_HOME/applications.
 $HOME/.local/share is used if $XDG_DATA_HOME is not set.
 
 .TP
-.BR \-c ", " \-\-category\-file =\fIFILE\fR
-Use an external category file.
-This overrides the built in categories. Please look at default.mjwm to write your own category file.
-
-.TP
-.BR \-\-iconize ", " \-\-iconize =\fITHEME\fR
-Search for icons by name in $HOME, $XDG_DATA_DIRS/icons and /usr/share/pixmaps.
-The icon references in the generated menu would be absolute paths to icons in the specified directories.
-The given icon is searched for icons. If not specified the icon theme hicolor is searched.
-
-.TP
-.BR \-v ", " \-\-verbose
-Verbose output.
+.BR \-\-language =\fINAME\fR
+The language for which the menu would be build. Defaults to the system default.
 
 .TP
 .BR \-\-no\-backup
 Do not create any backup files.
 
 .TP
-.BR \-\-language =\fINAME\fR
-The language for which the menu would be build. Defaults to the system default.
+.BR \-o ", " \-\-output\-file =\fIFILE\fR
+Menu output file name.
+Default is $HOME/.jwmrc-mjwm.
+.LP
 
 .TP
-.BR \-\-help
-Show help.
+.BR \-v ", " \-\-verbose
+Verbose output.
 
 .TP
 .BR \-\-version
