@@ -22,11 +22,11 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
-SCENARIO("SystemEnvironment", "[systemenvironment]") {
+SCENARIO("SystemEnvironment") {
     GIVEN("HOME is not set") {
         unsetenv("HOME");
 

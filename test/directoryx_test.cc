@@ -25,7 +25,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
@@ -69,7 +69,7 @@ void assertNamesAreCorrect(std::vector<std::string> names)
     CHECK(names[10] == "vlc.desktop");
 }
 
-SCENARIO("DirectoryX", "[directoryx]") {
+SCENARIO("DirectoryX") {
     std::string fixture_dir = QUOTE(FIXTUREDIR);
 
     GIVEN("A directoryx") {

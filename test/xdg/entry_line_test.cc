@@ -21,12 +21,12 @@
 #include <vector>
 #include <string>
 
-#include "../catch.hpp"
+#include "../doctest.h"
 
 namespace amm {
 namespace xdg {
 
-SCENARIO("EntryLine for Comments", "[entryline]") {
+SCENARIO("EntryLine for Comments") {
     GIVEN("A line in a desktop-file") {
         WHEN("starting with a '#'") {
             EntryLine line("# Comment line");
@@ -40,7 +40,7 @@ SCENARIO("EntryLine for Comments", "[entryline]") {
     }
 }
 
-SCENARIO("EntryLine for Declarations", "[entryline]") {
+SCENARIO("EntryLine for Declarations") {
     GIVEN("A line in a desktop-file") {
         WHEN("starting with a '[' and ending with ']'") {
             EntryLine line("[Desktop Entry]");
@@ -64,7 +64,7 @@ SCENARIO("EntryLine for Declarations", "[entryline]") {
     }
 }
 
-SCENARIO("EntryLine for Assignments", "[entryline]") {
+SCENARIO("EntryLine for Assignments") {
     GIVEN("A line in a desktop-file") {
         WHEN("it has an '=' in the middle") {
             EntryLine line("Name=VLC");

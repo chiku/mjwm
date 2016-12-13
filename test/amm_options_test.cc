@@ -18,11 +18,11 @@
 
 #include "amm_options.h"
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
-SCENARIO("Amm options", "[ammoptions]") {
+SCENARIO("Amm options") {
     GIVEN("Amm options") {
         AmmOptions options;
 

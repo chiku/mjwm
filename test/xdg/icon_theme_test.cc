@@ -21,7 +21,7 @@
 #include <vector>
 #include <string>
 
-#include "../catch.hpp"
+#include "../doctest.h"
 
 namespace amm {
 namespace xdg {
@@ -74,7 +74,7 @@ std::vector<std::string> joinLists(std::vector<std::string> first, std::vector<s
     return first;
 }
 
-SCENARIO("xdg::IconTheme", "[icontheme]") {
+SCENARIO("xdg::IconTheme") {
     GIVEN("An Icon Theme") {
         WHEN("created") {
             IconTheme icon_theme(birchIconThemeLines());

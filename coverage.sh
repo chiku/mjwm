@@ -5,13 +5,13 @@ validate() {
 
   if [ "$CXX" != "g++" ]
   then
-    echo ">>> Won't generate coverage: compiler is not g++ <<<"
+    echo ">>> Won't generate coverage: set CXX to g++ explicitly <<<"
     return
   fi
   which lcov > /dev/null 2>&1
   if [ $? != 0 ]
   then
-    echo ">>> Won't generate coverage: lcov is missing <<<"
+    echo ">>> Won't generate coverage: lcov not found in PATH <<<"
     return
   fi
 

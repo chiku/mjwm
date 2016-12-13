@@ -22,7 +22,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
@@ -44,7 +44,7 @@ static void assertFilesArePresentInList(std::vector<std::string> file_names) {
 }
 
 
-SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
+SCENARIO("DesktopEntryFileSearch custom directories") {
     GIVEN("A file search service with one directory") {
         std::vector<std::string> directory_names;
         directory_names.push_back("test/fixtures/applications/");
@@ -99,7 +99,7 @@ SCENARIO("DesktopEntryFileSearch custom directories", "[filesearch]") {
     }
 }
 
-SCENARIO("DesktopEntryFileSearch default directories", "[filesearch]") {
+SCENARIO("DesktopEntryFileSearch default directories") {
     GIVEN("XDG_DATA_DIRS points to a existing directory and a missing directory") {
         unsetenv("HOME");
         unsetenv("XDG_DATA_HOME");

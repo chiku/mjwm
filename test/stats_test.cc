@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
@@ -65,7 +65,7 @@ static std::string expectedNormalDetails() {
            "Unparsed files: daemon";
 }
 
-SCENARIO("Stats totals", "[stats]") {
+SCENARIO("Stats totals") {
     GIVEN("A stat") {
         Stats stats;
 
@@ -128,7 +128,7 @@ SCENARIO("Stats totals", "[stats]") {
 }
 
 
-SCENARIO("Stats summaries", "[stats]") {
+SCENARIO("Stats summaries") {
     GIVEN("A stat") {
         Stats stats = populatedStats();
 

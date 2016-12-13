@@ -21,12 +21,12 @@
 #include <vector>
 #include <string>
 
-#include "../catch.hpp"
+#include "../doctest.h"
 
 namespace amm {
 namespace xdg {
 
-SCENARIO("Populate DesktopEntry", "[desktopfile]") {
+SCENARIO("Populate DesktopEntry") {
     GIVEN("A desktop-file") {
         DesktopEntry entry;
 
@@ -92,7 +92,7 @@ SCENARIO("Populate DesktopEntry", "[desktopfile]") {
     }
 }
 
-SCENARIO("Language-aware DesktopEntry", "[focus]") {
+SCENARIO("Language-aware DesktopEntry") {
     GIVEN("A desktop-file") {
         DesktopEntry entry;
         entry.hasLanguage("sr");
@@ -121,7 +121,7 @@ SCENARIO("Language-aware DesktopEntry", "[focus]") {
 }
 
 
-SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
+SCENARIO("DesktopEntry comparisons") {
     DesktopEntry entry;
     DesktopEntry other_entry;
 
@@ -200,7 +200,7 @@ SCENARIO("DesktopEntry comparisons", "[desktopfile]") {
 }
 
 
-SCENARIO("DesktopEntry validity", "[desktopfile]") {
+SCENARIO("DesktopEntry validity") {
     DesktopEntry entry;
 
     GIVEN("A desktop-file") {
@@ -251,7 +251,7 @@ SCENARIO("DesktopEntry validity", "[desktopfile]") {
     }
 }
 
-SCENARIO("DesktopEntry classifications", "[desktopfile]") {
+SCENARIO("DesktopEntry classifications") {
     DesktopEntry entry;
 
     GIVEN("A desktop-file") {

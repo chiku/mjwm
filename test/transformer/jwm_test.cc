@@ -18,7 +18,7 @@
 
 #include "transformer/jwm.h"
 
-#include "../catch.hpp"
+#include "../doctest.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
 #include "representation/subcategory_start.h"
@@ -27,7 +27,7 @@
 
 namespace amm {
 
-SCENARIO("transformer::Jwm", "[transformerjwm]") {
+SCENARIO("transformer::Jwm") {
     GIVEN("A JWM transformer") {
         transformer::Jwm jwm_transformer;
 

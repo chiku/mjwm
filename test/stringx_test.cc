@@ -21,11 +21,11 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
-SCENARIO("StringX", "[stringx]") {
+SCENARIO("StringX") {
     GIVEN("A stringx with content") {
         StringX stringx("vlc.desktop");
 

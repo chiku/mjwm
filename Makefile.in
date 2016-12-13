@@ -616,7 +616,7 @@ implementation_files = src/stringx.cc \
                        src/amm_options.cc \
                        src/command_line_options_parser.cc
 
-test_files = test/catch.hpp \
+test_files = test/doctest.h \
              test/stringx_test.cc \
              test/vectorx_test.cc \
              test/filex_test.cc \

@@ -133,7 +133,7 @@ Running tests
 VERBOSE=true make check
 ```
 
-_mjwm uses [Catch](https://github.com/philsquared/Catch) for unit tests. Catch is released under Boost Software License._
+_mjwm uses [Doctest](https://github.com/onqtam/doctest) for unit tests. Doctest is released under the MIT License._
 
 Exit codes
 ----------

@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 #include "xdg/desktop_entry.h"
 
 namespace amm {
@@ -50,7 +50,7 @@ static xdg::DesktopEntry sakuraDesktopEntry() {
     return entry;
 }
 
-SCENARIO("subcategory", "[subcategory]") {
+SCENARIO("subcategory") {
     GIVEN("A subcategory") {
         Subcategory subcategory("Accessories", "accessories", "Utilities");
 

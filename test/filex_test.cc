@@ -26,11 +26,11 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
-SCENARIO("FileX", "[filex]") {
+SCENARIO("FileX") {
     std::string fixture_dir = QUOTE(FIXTUREDIR);
 
     GIVEN("A filex") {

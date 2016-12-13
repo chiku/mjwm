@@ -22,11 +22,11 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
-SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
+SCENARIO("Command-line arguments default parse") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
         std::string language = "hn";
@@ -91,7 +91,7 @@ SCENARIO("Command-line arguments default parse", "[commandlineoptions]") {
     }
 }
 
-SCENARIO("Command-line arguments parse with options", "[commandlineoptions]") {
+SCENARIO("Command-line arguments parse with options") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
         std::string language = "hn";
@@ -256,7 +256,7 @@ SCENARIO("Command-line arguments parse with options", "[commandlineoptions]") {
 }
 
 
-SCENARIO("Command-line arguments parse failure", "[commandlineoptions]") {
+SCENARIO("Command-line arguments parse failure") {
     GIVEN("command line options") {
         std::string home = "/home/mjwm";
         std::string language = "hn";

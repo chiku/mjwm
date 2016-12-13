@@ -21,11 +21,11 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 
 namespace amm {
 
-SCENARIO("VectorX", "[vectorx]") {
+SCENARIO("VectorX") {
     GIVEN("A VectorX with more than one item") {
         std::vector<std::string> vector;
         vector.push_back("foo");

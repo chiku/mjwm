@@ -16,7 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../catch.hpp"
+#include "../doctest.h"
 #include "xdg/entry.h"
 
 namespace amm {
@@ -119,7 +119,7 @@ std::vector<std::string> singleSectionWithMissingAssignmentLines()
     return lines;
 }
 
-SCENARIO("xdg::Entry", "[XDGentry]") {
+SCENARIO("xdg::Entry") {
     GIVEN("An XDG file with one section") {
         xdg::Entry entry(singleSectionEntryLines());
 

@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 
-#include "catch.hpp"
+#include "doctest.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
 #include "representation/subcategory_start.h"
@@ -77,7 +77,7 @@ static void clearMemory(std::vector<representation::RepresentationInterface*> re
 }
 
 
-SCENARIO("Menu custom categories", "[menu]") {
+SCENARIO("Menu custom categories") {
     GIVEN("A menu") {
         Menu menu;
 
@@ -188,7 +188,7 @@ SCENARIO("Menu custom categories", "[menu]") {
     }
 }
 
-SCENARIO("Menu statistics", "[menu]") {
+SCENARIO("Menu statistics") {
     GIVEN("A menu") {
         Menu menu;
 
@@ -268,7 +268,7 @@ SCENARIO("Menu statistics", "[menu]") {
     }
 }
 
-SCENARIO("Menu sort", "[menu]") {
+SCENARIO("Menu sort") {
     GIVEN("A menu") {
         std::vector<std::string> lines;
         lines.push_back("Multimedia:multimedia:AudioVideo");
@@ -312,7 +312,7 @@ SCENARIO("Menu sort", "[menu]") {
     }
 }
 
-SCENARIO("Menu representations", "[menu]") {
+SCENARIO("Menu representations") {
     GIVEN("A menu") {
         Menu menu;
 

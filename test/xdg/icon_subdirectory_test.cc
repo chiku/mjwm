@@ -21,12 +21,12 @@
 #include <climits>
 #include <string>
 
-#include "../catch.hpp"
+#include "../doctest.h"
 
 namespace amm {
 namespace xdg {
 
-SCENARIO("xdg::IconSubdirectory", "[iconsubdir]") {
+SCENARIO("xdg::IconSubdirectory") {
     GIVEN("A subdirectory") {
 
         WHEN("without optional values") {

@@ -19,7 +19,7 @@
 #include "icon_search/caching_search.h"
 
 #include <string>
-#include "../catch.hpp"
+#include "../doctest.h"
 #include "icon_search/icon_search_interface.h"
 
 namespace amm {
@@ -35,7 +35,7 @@ private:
     std::string extension_;
 };
 
-SCENARIO("icon_search::CachingSearch", "[cachingsearch]") {
+SCENARIO("icon_search::CachingSearch") {
     TestSearch *actual_searcher = new TestSearch;
 
     GIVEN("An icon search that caches results") {
