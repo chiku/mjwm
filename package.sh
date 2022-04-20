@@ -5,15 +5,10 @@ set_environment() {
   export CFLAGS="-m32 -Os -Wall -Wextra"
   export CXXFLAGS="-m32 -Os -Wall -Wextra"
   export LDFLAGS="-m32 -Os -Wall -Wextra"
-  install_base_dir=`mktemp -d`
+  install_base_dir="$(mktemp -d)"
   install_dir="${install_base_dir}/usr/local"
   mjwm_binary_path="${install_dir}/bin/mjwm"
   current_dir="$(pwd)"
-}
-
-install_prerequisites() {
-  sudo apt-get update
-  sudo apt-get install g++-multilib upx
 }
 
 build() {
@@ -76,7 +71,6 @@ run() {
 set -e
 
 run set_environment
-run install_prerequisites
 run build
 run crunch_binary
 run assign_properties
