@@ -1,6 +1,8 @@
 mjwm
 ====
 
+[![C/C++ CI](https://github.com/chiku/mjwm/actions/workflows/pipeline.yml/badge.svg)](https://github.com/chiku/mjwm/actions/workflows/pipeline.yml)
+
 Overview
 --------
 

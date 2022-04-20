@@ -7,7 +7,7 @@ on:
       branches: [ master ]
 
 jobs:
-  build-and-test:
+  build:
       runs-on: ubuntu-latest
       steps:
       - uses: actions/checkout@v2
@@ -25,3 +25,5 @@ jobs:
         run: time /tmp/mjwm/bin/mjwm -o automenu.default && cat automenu.default
       - name: Run with icons
         run: time /tmp/mjwm/bin/mjwm --iconize -o automenu.iconize && cat automenu.iconize
+      - name: Package
+        run: ./package.sh
