@@ -84,6 +84,7 @@ std::string Jwm::transform(const representation::Program &entry) const
     stream << "        <Program "
         << "label=\"" << StringX(entry.name()).encode()
         << "\" icon=\"" << StringX(entry.icon()).encode()
+        << "\" tooltip=\"" << StringX(entry.comment()).encode()
         << "\">"
         << removeFieldCode(entry.executable())
         << "</Program>";

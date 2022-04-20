@@ -5,6 +5,7 @@ version 4.1.0 - Chirantan Mitra, NA
 
 * Suppress creation of backup files on --no-backup [#45].
 * Deprecate --summary in favour of --verbose & -v. --summary normal maps to a normal run and --summary long maps to a verbose run (--verbose). --summary short is an error.
+* Read comments from .desktop files as tooltips.
 
 version 4.0.0 - Chirantan Mitra, 2014-11-15
 

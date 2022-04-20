@@ -78,19 +78,19 @@ SCENARIO("transformer::Jwm") {
             std::string result = jwm_transformer.transform(program);
 
             THEN("it is a static message") {
-                CHECK(result == "        <Program label=\"Application\" icon=\"application.png\">/usr/bin/application</Program>");
+                CHECK(result == "        <Program label=\"Application\" icon=\"application.png\" tooltip=\"Application uses\">/usr/bin/application</Program>");
             }
 
             THEN("it XML escapes the name") {
                 representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter", "First person shooter game");
                 std::string result = jwm_transformer.transform(program);
-                CHECK(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\">/usr/bin/shooter</Program>");
+                CHECK(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\" tooltip=\"First person shooter game\">/usr/bin/shooter</Program>");
             }
 
             THEN("it removes field codes from the executable") {
                 representation::Program program("Mousepad", "application-text-editor", "mousepad %F", "Simple Text Editor");
                 std::string result = jwm_transformer.transform(program);
-                CHECK(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\">mousepad</Program>");
+                CHECK(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\" tooltip=\"Simple Text Editor\">mousepad</Program>");
             }
         }
     }
