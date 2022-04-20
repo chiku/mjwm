@@ -14,7 +14,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y lcov
       - name: Configure
-        run: ./autogen.sh && ./configure.sh
+        run: ./autogen.sh
+      - name: Test
+        run: CXX=g++ ./coverage.sh
       - name: Build
         run: make
       - name: Install
