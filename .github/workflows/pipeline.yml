@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+  push:
+      branches: [ master ]
+  pull_request:
+      branches: [ master ]
+
+jobs:
+  build-and-test:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: sudo apt-get install -y lcov
+      - name: Configure
+        run: ./autogen.sh && ./configure.sh
+      - name: Build
+        run: make
+      - name: Install
+        run: make install-strip && ls -halR /tmp/mjwm
+      - name: Run without icons
+        run: time /tmp/mjwm/bin/mjwm -o automenu.default && cat automenu.default
+      - name: Run with icons
+        run: time /tmp/mjwm/bin/mjwm --iconize -o automenu.iconize && cat automenu.iconize

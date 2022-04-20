@@ -1,9 +1,6 @@
 mjwm
 ====
 
-[![Build Status](https://travis-ci.org/chiku/mjwm.svg?branch=master)](https://travis-ci.org/chiku/mjwm)
-[![Build Status](https://drone.io/github.com/chiku/mjwm/status.png)](https://drone.io/github.com/chiku/mjwm/latest)
-
 Overview
 --------
 
@@ -141,15 +138,6 @@ Exit codes
 * 0 - All okay
 * 1 - Couldn't access file for read or write (e.g. couldn't create output file)
 * 2 - Invalid command line arguments
-
-Contributing
-------------
-
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a future version unintentionally.
-* Commit, but do not mess with the VERSION. If you want to have your own version, that is fine but bump the version in a commit by itself in another branch so I can ignore it when I pull.
-* Send me a pull request.
 
 License
 -------
