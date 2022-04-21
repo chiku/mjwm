@@ -11,7 +11,7 @@ jobs:
       runs-on: ubuntu-latest
       strategy:
         matrix:
-          - CXX: [g++, clang++]
+          CXX: [g++, clang++]
       steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
