@@ -9,14 +9,17 @@ on:
 jobs:
   build:
       runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          - CXX: [g++, clang++]
       steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
         run: sudo apt-get install -y lcov
       - name: Configure
         run: ./autogen.sh
-      - name: Test
-        run: CXX=g++ ./coverage.sh
+      - name: Test with ${{ matrix.CXX }}
+        run: CXX=${{ matrix.CXX }} ./coverage.sh
       - name: Build
         run: make
       - name: Install
