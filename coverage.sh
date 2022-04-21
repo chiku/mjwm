@@ -44,9 +44,11 @@ cleanup() {
   find . -name *.coverage.info -delete
 }
 
-set -e
 
 validate
+
+set -e
+
 cleanup
 rm -rf coverage
 reconfigure

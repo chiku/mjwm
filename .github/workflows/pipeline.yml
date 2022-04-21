@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-      branches: [ master ]
+    branches: [master]
   pull_request:
-      branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
@@ -28,3 +28,8 @@ jobs:
         run: time /tmp/mjwm/bin/mjwm -o automenu.default && cat automenu.default
       - name: Run with icons
         run: time /tmp/mjwm/bin/mjwm --iconize -o automenu.iconize && cat automenu.iconize
+      - name: Archive code coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage/

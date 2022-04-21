@@ -2,7 +2,10 @@ name: C/C++ CI
 
 on:
   push:
-      branches: [ master ]
+    branches: [master]
+
+env:
+  MJWM_VERSION: 4.0.0
 
 jobs:
   package:
@@ -13,3 +16,11 @@ jobs:
         run: sudo apt-get install -y g++-multilib upx
       - name: Package
         run: ./package.sh
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: |
+            mjwm-${{ env.MJWM_VERSION }}
+            mjwm-${{ env.MJWM_VERSION }}.tar.gz
+            mjwm-${{ env.MJWM_VERSION }}.pet
