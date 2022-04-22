@@ -84,10 +84,6 @@ void Amm::loadCommandLineOption(int argc, char **argv)
         displayToSTDERR(messages::optionError());
         exit(2);
     }
-    if (!options_.hasValidSummaryType()) {
-        displayToSTDERR(messages::badSummaryType(options_.summary_type));
-        exit(2);
-    }
     if (options_.is_help) {
         displayToSTDOUT(messages::help());
         exit(0);

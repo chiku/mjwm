@@ -19,7 +19,9 @@
 #include "amm_options.h"
 
 #include <string>
+
 #include "stringx.h"
+#include "summary_type.h"
 
 namespace amm {
 AmmOptions AmmOptions::Default(const std::string &home, const std::string &language)
@@ -31,7 +33,7 @@ AmmOptions AmmOptions::Default(const std::string &home, const std::string &langu
     amm_options.is_iconize = false;
     amm_options.is_backup = true;
     amm_options.override_default_directories = false;
-    amm_options.summary_type = "normal";
+    amm_options.summary_type = SummaryType::Normal;
     amm_options.output_file_name = StringX(home).terminateWith("/") + (".jwmrc-mjwm");
     amm_options.icon_theme_name = "hicolor";
     amm_options.language = language;

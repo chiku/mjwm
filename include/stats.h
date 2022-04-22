@@ -22,6 +22,8 @@
 #include <string>
 #include <vector>
 
+#include "summary_type.h"
+
 namespace amm {
 // Understands the summary of populating a menu
 class Stats
@@ -41,7 +43,7 @@ public:
     std::vector<std::string> unparsedFiles() const;
     std::vector<std::string> unhandledClassifications();
 
-    std::string details(const std::string &summary_type);
+    std::string details(const SummaryType summary_type);
 
 private:
     std::vector<std::string> classified_files_;

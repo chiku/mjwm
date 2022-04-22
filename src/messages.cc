@@ -90,13 +90,6 @@ std::string optionError()
     return stream.str();
 }
 
-std::string badSummaryType(const std::string &actual)
-{
-    std::stringstream stream;
-    stream << actual << " is not a valid summary type" << std::endl << optionError();
-    return stream.str();
-}
-
 std::string badInputPaths(const std::string &bad_paths)
 {
     std::stringstream stream;

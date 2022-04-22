@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "stringx.h"
+#include "summary_type.h"
 
 namespace amm {
 
@@ -34,15 +35,13 @@ struct AmmOptions
     bool is_iconize;
     bool is_backup;
     bool override_default_directories;
-    std::string summary_type;
+    SummaryType summary_type;
     std::string output_file_name;
     std::vector<std::string> input_directory_names;
     std::string category_file_name;
     std::string icon_theme_name;
     std::string language;
     std::vector<std::string> deprecations;
-
-    bool hasValidSummaryType() const { return (summary_type == "normal" || summary_type == "long"); }
 
     static AmmOptions Default(const std::string &home, const std::string &language);
 };

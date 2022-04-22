@@ -16,6 +16,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "summary_type.h"
 #include "stats.h"
 
 #include <string>
@@ -76,12 +77,12 @@ SCENARIO("Stats totals") {
             THEN("it has no suppressed files")   { CHECK(stats.totalSuppressedFiles() == 0); }
             THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
 
-            THEN("is has no counts in details") {
-                CHECK(stats.details("normal") == expectedEmptydetails());
+            THEN("is has no counts in normal summary") {
+                CHECK(stats.details(SummaryType::Normal) == expectedEmptydetails());
             }
 
-            THEN("is has no counts in long details") {
-                CHECK(stats.details("long") == expectedEmptydetails());
+            THEN("is has no counts in verbose summary") {
+                CHECK(stats.details(SummaryType::Verbose) == expectedEmptydetails());
             }
         }
 
@@ -133,16 +134,16 @@ SCENARIO("Stats summaries") {
         Stats stats = populatedStats();
 
         WHEN("different types of files are added") {
-            THEN("details includes counts and a list of unparsed files") {
+            THEN("normal summary includes counts and a list of unparsed files") {
                 std::string expected_details = expectedNormalDetails();
-                CHECK(stats.details("normal") == expected_details);
+                CHECK(stats.details(SummaryType::Normal) == expected_details);
             }
 
-            THEN("long details includes normal details and lists of suppressed and unclassified files") {
+            THEN("verbose summary includes normal details and lists of suppressed and unclassified files") {
                 std::string expected_details = expectedNormalDetails() +
                                                 "\nSuppressed files: mplayer"
                                                 "\nUnclassified files: htop, NEdit";
-                CHECK(stats.details("long") == expected_details);
+                CHECK(stats.details(SummaryType::Verbose) == expected_details);
             }
         }
 
@@ -150,12 +151,12 @@ SCENARIO("Stats summaries") {
             stats.addUnhandledClassifications(unhandledClassificationFirstSet());
             stats.addUnhandledClassifications(unhandledClassificationSecondSet());
 
-            THEN("long details includes the unhandled classifications") {
+            THEN("verbose summary details includes the unhandled classifications") {
                 std::string expected_details = expectedNormalDetails() +
                                                 "\nSuppressed files: mplayer"
                                                 "\nUnclassified files: htop, NEdit"
                                                 "\nUnhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor";
-                CHECK(stats.details("long") == expected_details);
+                CHECK(stats.details(SummaryType::Verbose) == expected_details);
             }
         }
     }

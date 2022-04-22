@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 
+#include "summary_type.h"
 #include "doctest.h"
 
 namespace amm {
@@ -80,8 +81,8 @@ SCENARIO("Command-line arguments default parse") {
                 CHECK(options.category_file_name == "");
             }
 
-            THEN("its summary style is normal") {
-                CHECK(options.summary_type == "normal");
+            THEN("its summary type is normal") {
+                CHECK(options.summary_type == SummaryType::Normal);
             }
 
             THEN("its language is the supplied one") {
@@ -141,8 +142,8 @@ SCENARIO("Command-line arguments parse with options") {
             char* argv[] = {strdup("amm"), strdup("--verbose"), 0};
             AmmOptions options = parser.parse(2, argv);
 
-            THEN("its summary is set to long") {
-                CHECK(options.summary_type == "long");
+            THEN("its summary type is set to verbose") {
+                CHECK(options.summary_type == SummaryType::Verbose);
             }
         }
 
@@ -150,8 +151,8 @@ SCENARIO("Command-line arguments parse with options") {
             char* argv[] = {strdup("amm"), strdup("-v"), 0};
             AmmOptions options = parser.parse(2, argv);
 
-            THEN("its summary is set to long") {
-                CHECK(options.summary_type == "long");
+            THEN("its summary type is set to verbose") {
+                CHECK(options.summary_type == SummaryType::Verbose);
             }
         }
 
@@ -227,20 +228,6 @@ SCENARIO("Command-line arguments parse with options") {
 
             THEN("its category-file is set to the given value") {
                 CHECK(options.category_file_name == "default.mjwm");
-            }
-        }
-
-        WHEN("parsing --summary [SUMMARY-TYPE]") {
-            char* argv[] = {strdup("amm"), strdup("--summary"), strdup("long"), 0};
-            AmmOptions options = parser.parse(3, argv);
-
-            THEN("its summary is set to long") {
-                CHECK(options.summary_type == "long");
-            }
-
-            THEN("it has deprecations") {
-                REQUIRE_FALSE(options.deprecations.empty());
-                CHECK(options.deprecations[0] == "--summary [SUMMARY TYPE] is deprecated. Use -v for verbose output instead.");
             }
         }
 

@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "stringx.h"
+#include "summary_type.h"
 #include "amm_options.h"
 
 namespace amm {
@@ -45,7 +46,6 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
         {"output-file",     required_argument, 0,             'o'},
         {"input-directory", required_argument, 0,             'i'},
         {"category-file",   required_argument, 0,             'c'},
-        {"summary",         required_argument, 0,              0 },
         {"language",        required_argument, 0,              0 },
         {0,                 0,                 0,              0 },
     };
@@ -69,10 +69,6 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
                     amm_options.icon_theme_name = optarg;
                 }
             }
-            if (long_option_name == "summary") {
-                amm_options.summary_type = optarg;
-                amm_options.deprecations.push_back("--summary [SUMMARY TYPE] is deprecated. Use -v for verbose output instead.");
-            }
             if (long_option_name == "language") {
                 amm_options.language = optarg;
             }
@@ -87,7 +83,7 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
         } else if (chosen_option == 'c') {
             amm_options.category_file_name = optarg;
         } else if (chosen_option == 'v') {
-            amm_options.summary_type = "long";
+            amm_options.summary_type = SummaryType::Verbose;
         } else {
             amm_options.is_parsed = false;
         }

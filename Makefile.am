@@ -16,6 +16,7 @@ header_files = include/system_environment.h \
                include/menu.h \
                include/qualified_icon_theme.h \
                include/command_line_options_parser.h \
+               include/summary_type.h \
                include/amm_options.h \
                include/amm.h \
                include/directoryx.h \

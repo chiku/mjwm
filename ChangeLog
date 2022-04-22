@@ -1,3 +1,7 @@
+v5.0.0-pre
+----------
+* Drop support for deprecated command-line option --summary. Run with --version or -v instead of --summary long. Run without --version and -v instead of --summary normal.
+
 v4.1.0
 ------
 

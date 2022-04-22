@@ -24,26 +24,17 @@ namespace amm {
 
 SCENARIO("Amm options") {
     GIVEN("Amm options") {
-        AmmOptions options;
-
-        WHEN("summary type is normal") {
-            THEN("it is valid") {
-                options.summary_type = "normal";
-                CHECK(options.hasValidSummaryType());
+        WHEN("$HOME ends with /") {
+            THEN("it sets output file without extra /") {
+                AmmOptions options = AmmOptions::Default("/home/user/", "en");
+                CHECK(options.output_file_name == "/home/user/.jwmrc-mjwm");
             }
         }
 
-        WHEN("summary type is long") {
-            THEN("it is valid") {
-                options.summary_type = "long";
-                CHECK(options.hasValidSummaryType());
-            }
-        }
-
-        WHEN("summary type is something else") {
-            THEN("it is invalid") {
-                options.summary_type = "unknown";
-                CHECK_FALSE(options.hasValidSummaryType());
+        WHEN("$HOME does not ends with /") {
+            THEN("it sets output file with extra /") {
+                AmmOptions options = AmmOptions::Default("/home/user", "en");
+                CHECK(options.output_file_name == "/home/user/.jwmrc-mjwm");
             }
         }
     }

@@ -24,6 +24,7 @@
 #include <algorithm>
 
 #include "vectorx.h"
+#include "summary_type.h"
 
 namespace amm {
 
@@ -73,7 +74,7 @@ std::vector<std::string> Stats::unhandledClassifications()
     return unhandled_classifications_;
 }
 
-std::string Stats::details(const std::string &summary_type)
+std::string Stats::details(const SummaryType summary_type)
 {
     std::stringstream stream;
     stream << "Total desktop files: " << totalFiles() << " ["
@@ -87,7 +88,7 @@ std::string Stats::details(const std::string &summary_type)
         stream << std::endl << "Unparsed files: " << VectorX(unparsed_files_).join(", ");
     }
 
-    if (summary_type == "long") {
+    if (summary_type == SummaryType::Verbose) {
         if (totalSuppressedFiles() > 0) {
             stream << std::endl << "Suppressed files: " << VectorX(suppressed_files_).join(", ");
         }
