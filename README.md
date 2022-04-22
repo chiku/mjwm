@@ -35,7 +35,7 @@ sudo make install
 Options
 -------
 
-``` script
+```script
 Usage: mjwm [options]
 
 Optional arguments:
@@ -64,12 +64,12 @@ Usage
 -----
 
 * Run the script
-``` script
+```script
 mjwm
 ```
 
-* Edit your ```$HOME/.jwmrc file```. Add an ```<Include>$HOME/.jwmrc-mjwm</Include>``` line inside ```RootMenu```.
-``` xml
+* Edit your `$HOME/.jwmrc file`. Add a line `<Include>$HOME/.jwmrc-mjwm</Include>` line inside `RootMenu`.
+```xml
 <JWM>
   <!-- SNIP SNIP -->
 
@@ -86,7 +86,7 @@ mjwm
 ```
 
 * Reload JWM
-``` script
+```script
 jwm -reload
 ```
 
@@ -94,29 +94,29 @@ Examples
 --------
 
 Generate menu entries for files inside /usr/local/share/applications
-``` script
+```script
 mjwm -i /usr/local/share/applications
 ```
 
 Generate menu entries for files inside multiple directories /usr/local/share/applications, /usr/share/applications
 & ~/.local/share/applications
-``` script
+```script
 mjwm -i /usr/local/share/applications:/usr/share/applications:~/.local/share/applications
 ```
 
 Create menu entries with absolute path names to icons images from Hicolor theme
-``` script
+```script
 mjwm --iconize
 ```
 
 Create menu entries with absolute path names to icons images from Faenza theme
-``` script
+```script
 mjwm --iconize=Faenza # this works as well : mjwm --iconize Faenza
 ```
 
 Use categories from as an external file
 Look at data/default.mjwm to create your own category file
-``` script
+```script
 mjwm -c data/default.mjwm
 ```
 
@@ -126,7 +126,7 @@ Running tests
 * Clone the repository
 
 * From the root of the application run
-``` script
+```script
 ./autogen.sh
 ./configure
 VERBOSE=true make check
