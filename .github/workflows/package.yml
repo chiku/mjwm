@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 env:
-  MJWM_VERSION: 4.0.0
+  MJWM_VERSION: 4.1.0
 
 jobs:
   package:

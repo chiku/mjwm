@@ -17,7 +17,7 @@ Dependencies
 
 The application runs on a POSIX system with a C++ runtime.
 
-For compiling the aplication you need make, automake, autoconf and a recent C++ compiler. This application has compiled fine with g++ versions 4.6, 4.8 & 4.9 & 5.3 and clang++ 3.3, 3.4, 3.5 & 3.7.
+For compiling the aplication you need make, automake, autoconf and a recent C++ compiler. This application has compiled fine with g++ versions 4.6, 4.8 & 4.9, 5.3, 10 and clang++ 3.3, 3.4, 3.5, 3.7 & 12.
 
 Installation from source
 ------------------------
@@ -144,4 +144,4 @@ Exit codes
 License
 -------
 
-This tool is released under the GPLv3 license. Please refer to COPYING for license information.
+This tool is released under the GPLv2 license. Please refer to COPYING for license information.
