@@ -55,17 +55,6 @@ static std::vector<std::string> unhandledClassificationSecondSet() {
     return classifications;
 }
 
-static std::string expectedEmptyDetails() {
-    return "Total desktop files: 0 [0 Parsed, 0 Unparsed, 0 Suppressed]\n"
-           "Unclassified files: 0";
-}
-
-static std::string expectedNormalDetails() {
-    return "Total desktop files: 7 [5 Parsed, 1 Unparsed, 1 Suppressed]\n"
-           "Unclassified files: 2\n"
-           "Unparsed files: daemon";
-}
-
 SCENARIO("Stats totals") {
     GIVEN("A stat") {
         Stats stats;
@@ -78,11 +67,17 @@ SCENARIO("Stats totals") {
             THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
 
             THEN("is has no counts in normal summary") {
-                CHECK(stats.details(SummaryType::Normal) == expectedEmptyDetails());
+                std::string expected_details = "Total desktop files: 0 [0 Parsed, 0 Unparsed, 0 Suppressed]\n"
+                                               "Unclassified files: 0\n"
+                                               "Created .output.mjwm";
+                CHECK(stats.details(SummaryType::Normal, ".output.mjwm") == expected_details);
             }
 
             THEN("is has no counts in verbose summary") {
-                CHECK(stats.details(SummaryType::Verbose) == expectedEmptyDetails());
+                std::string expected_details = "Total desktop files: 0 [0 Parsed, 0 Unparsed, 0 Suppressed]\n"
+                                               "Unclassified files: 0\n"
+                                               "Created .output.mjwm";
+                CHECK(stats.details(SummaryType::Verbose, ".output.mjwm") == expected_details);
             }
         }
 
@@ -135,20 +130,26 @@ SCENARIO("Stats summaries") {
 
         WHEN("different types of files are added") {
             THEN("normal summary includes counts and a list of unparsed files") {
-                std::string expected_details = expectedNormalDetails();
-                CHECK(stats.details(SummaryType::Normal) == expected_details);
+                std::string expected_details = "Total desktop files: 7 [5 Parsed, 1 Unparsed, 1 Suppressed]\n"
+                                               "Unclassified files: 2\n"
+                                               "Unparsed files: daemon\n"
+                                               "Created .output.mjwm";
+                CHECK(stats.details(SummaryType::Normal, ".output.mjwm") == expected_details);
             }
 
             THEN("silent summary is empty") {
                 std::string expected_details = "";
-                CHECK(stats.details(SummaryType::Silent) == expected_details);
+                CHECK(stats.details(SummaryType::Silent, ".output.mjwm") == expected_details);
             }
 
             THEN("verbose summary includes normal details and lists of suppressed and unclassified files") {
-                std::string expected_details = expectedNormalDetails() +
-                                                "\nSuppressed files: mplayer"
-                                                "\nUnclassified files: htop, NEdit";
-                CHECK(stats.details(SummaryType::Verbose) == expected_details);
+                std::string expected_details = "Total desktop files: 7 [5 Parsed, 1 Unparsed, 1 Suppressed]\n"
+                                               "Unclassified files: 2\n"
+                                               "Unparsed files: daemon\n"
+                                               "Suppressed files: mplayer\n"
+                                               "Unclassified files: htop, NEdit\n"
+                                               "Created .output.mjwm";
+                CHECK(stats.details(SummaryType::Verbose, ".output.mjwm") == expected_details);
             }
         }
 
@@ -158,15 +159,18 @@ SCENARIO("Stats summaries") {
 
             THEN("silent summary is empty") {
                 std::string expected_details = "";
-                CHECK(stats.details(SummaryType::Silent) == expected_details);
+                CHECK(stats.details(SummaryType::Silent, ".output.mjwm") == expected_details);
             }
 
             THEN("verbose summary details includes the unhandled classifications") {
-                std::string expected_details = expectedNormalDetails() +
-                                                "\nSuppressed files: mplayer"
-                                                "\nUnclassified files: htop, NEdit"
-                                                "\nUnhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor";
-                CHECK(stats.details(SummaryType::Verbose) == expected_details);
+                std::string expected_details = "Total desktop files: 7 [5 Parsed, 1 Unparsed, 1 Suppressed]\n"
+                                               "Unclassified files: 2\n"
+                                               "Unparsed files: daemon\n"
+                                               "Suppressed files: mplayer\n"
+                                               "Unclassified files: htop, NEdit\n"
+                                               "Unhandled classifications: Archiving, Browser, Calculator, Player, WordProcessor\n"
+                                               "Created .output.mjwm";
+                CHECK(stats.details(SummaryType::Verbose, ".output.mjwm") == expected_details);
             }
         }
     }

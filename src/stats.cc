@@ -74,7 +74,7 @@ std::vector<std::string> Stats::unhandledClassifications()
     return unhandled_classifications_;
 }
 
-std::string Stats::details(const SummaryType summary_type)
+std::string Stats::details(const SummaryType summary_type, const std::string output_file_name)
 {
     std::stringstream stream;
 
@@ -103,6 +103,10 @@ std::string Stats::details(const SummaryType summary_type)
         if (unhandled_classifications_.size() > 0) {
             stream << std::endl << "Unhandled classifications: " << VectorX(unhandledClassifications()).join(", ");
         }
+    }
+
+    if (summaryTypeCompatible(summary_type, SummaryType::Normal)) {
+      stream << std::endl << "Created " << output_file_name;
     }
 
     return stream.str();

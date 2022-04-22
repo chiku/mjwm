@@ -185,8 +185,7 @@ void Amm::writeOutputFile()
 
 void Amm::printSummary() const
 {
-    displayToSTDOUT(menu_.summary().details(options_.summary_type)); // extra line
-    displayToSTDOUT("Created " + options_.output_file_name);
+    displayToSTDOUT(menu_.summary().details(options_.summary_type, options_.output_file_name)); // extra line
 }
 
 } // namespace amm

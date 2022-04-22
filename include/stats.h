@@ -43,7 +43,7 @@ public:
     std::vector<std::string> unparsedFiles() const;
     std::vector<std::string> unhandledClassifications();
 
-    std::string details(const SummaryType summary_type);
+    std::string details(const SummaryType summary_type, const std::string output_file_name);
 
 private:
     std::vector<std::string> classified_files_;
