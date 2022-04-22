@@ -36,10 +36,11 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
     int option_index = 0;
     int help_flag = 0;
     int version_flag = 0;
-    const char* short_options = "o:i:c:v";
+    const char* short_options = "o:i:c:sv";
     const option long_options[] = {
         {"help",            no_argument,       &help_flag   ,  1 },
         {"version",         no_argument,       &version_flag,  1 },
+        {"silent",          no_argument,       0,             's'},
         {"verbose",         no_argument,       0,             'v'},
         {"iconize",         optional_argument, 0,              0 },
         {"no-backup",       optional_argument, 0,              0 },
@@ -82,6 +83,8 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
             amm_options.input_directory_names = StringX(optarg).split(":");
         } else if (chosen_option == 'c') {
             amm_options.category_file_name = optarg;
+        } else if (chosen_option == 's') {
+            amm_options.summary_type = SummaryType::Silent;
         } else if (chosen_option == 'v') {
             amm_options.summary_type = SummaryType::Verbose;
         } else {

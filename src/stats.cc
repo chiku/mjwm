@@ -77,15 +77,18 @@ std::vector<std::string> Stats::unhandledClassifications()
 std::string Stats::details(const SummaryType summary_type)
 {
     std::stringstream stream;
-    stream << "Total desktop files: " << totalFiles() << " ["
-           << totalParsedFiles() << " Parsed, "
-           << totalUnparsedFiles()  << " Unparsed, "
-           << totalSuppressedFiles() << " Suppressed"
-           << "]\n";
-    stream << "Unclassified files: " << totalUnclassifiedFiles();
 
-    if (totalUnparsedFiles() > 0) {
-        stream << std::endl << "Unparsed files: " << VectorX(unparsed_files_).join(", ");
+    if (summary_type == SummaryType::Normal || summary_type == SummaryType::Verbose) {
+      stream << "Total desktop files: " << totalFiles() << " ["
+             << totalParsedFiles() << " Parsed, "
+             << totalUnparsedFiles()  << " Unparsed, "
+             << totalSuppressedFiles() << " Suppressed"
+             << "]\n";
+      stream << "Unclassified files: " << totalUnclassifiedFiles();
+
+      if (totalUnparsedFiles() > 0) {
+          stream << std::endl << "Unparsed files: " << VectorX(unparsed_files_).join(", ");
+      }
     }
 
     if (summary_type == SummaryType::Verbose) {

@@ -3,6 +3,7 @@ Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
 version 5.0.0 - Chirantan Mitra, (Date to be decided)
 
+* Provide option for silent output [-s or --silent].
 * Drop support for deprecated command-line option --summary.
 
 version 4.1.0 - Chirantan Mitra, 2022-04-22

@@ -55,7 +55,7 @@ static std::vector<std::string> unhandledClassificationSecondSet() {
     return classifications;
 }
 
-static std::string expectedEmptydetails() {
+static std::string expectedEmptyDetails() {
     return "Total desktop files: 0 [0 Parsed, 0 Unparsed, 0 Suppressed]\n"
            "Unclassified files: 0";
 }
@@ -78,11 +78,11 @@ SCENARIO("Stats totals") {
             THEN("it has no unparsed files")     { CHECK(stats.totalUnparsedFiles() == 0); }
 
             THEN("is has no counts in normal summary") {
-                CHECK(stats.details(SummaryType::Normal) == expectedEmptydetails());
+                CHECK(stats.details(SummaryType::Normal) == expectedEmptyDetails());
             }
 
             THEN("is has no counts in verbose summary") {
-                CHECK(stats.details(SummaryType::Verbose) == expectedEmptydetails());
+                CHECK(stats.details(SummaryType::Verbose) == expectedEmptyDetails());
             }
         }
 
@@ -139,6 +139,11 @@ SCENARIO("Stats summaries") {
                 CHECK(stats.details(SummaryType::Normal) == expected_details);
             }
 
+            THEN("silent summary is empty") {
+                std::string expected_details = "";
+                CHECK(stats.details(SummaryType::Silent) == expected_details);
+            }
+
             THEN("verbose summary includes normal details and lists of suppressed and unclassified files") {
                 std::string expected_details = expectedNormalDetails() +
                                                 "\nSuppressed files: mplayer"
@@ -150,6 +155,11 @@ SCENARIO("Stats summaries") {
         WHEN("unhandled classifications are added") {
             stats.addUnhandledClassifications(unhandledClassificationFirstSet());
             stats.addUnhandledClassifications(unhandledClassificationSecondSet());
+
+            THEN("silent summary is empty") {
+                std::string expected_details = "";
+                CHECK(stats.details(SummaryType::Silent) == expected_details);
+            }
 
             THEN("verbose summary details includes the unhandled classifications") {
                 std::string expected_details = expectedNormalDetails() +

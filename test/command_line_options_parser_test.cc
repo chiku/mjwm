@@ -156,6 +156,24 @@ SCENARIO("Command-line arguments parse with options") {
             }
         }
 
+        WHEN("parsing --silent") {
+            char* argv[] = {strdup("amm"), strdup("--silent"), 0};
+            AmmOptions options = parser.parse(2, argv);
+
+            THEN("its summary type is set to silent") {
+                CHECK(options.summary_type == SummaryType::Silent);
+            }
+        }
+
+        WHEN("parsing -s") {
+            char* argv[] = {strdup("amm"), strdup("-s"), 0};
+            AmmOptions options = parser.parse(2, argv);
+
+            THEN("its summary type is set to silent") {
+                CHECK(options.summary_type == SummaryType::Silent);
+            }
+        }
+
         WHEN("parsing --no-backup") {
             char* argv[] = {strdup("amm"), strdup("--no-backup"), 0};
             AmmOptions options = parser.parse(2, argv);
