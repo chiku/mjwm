@@ -116,7 +116,7 @@ am__objects_1 = src/mjwm-stringx.$(OBJEXT) src/mjwm-vectorx.$(OBJEXT) \
 	src/mjwm-menu.$(OBJEXT) src/transformer/mjwm-jwm.$(OBJEXT) \
 	src/mjwm-system_environment.$(OBJEXT) \
 	src/mjwm-desktop_entry_file_search.$(OBJEXT) \
-	src/mjwm-amm_options.$(OBJEXT) \
+	src/mjwm-summary_type.$(OBJEXT) src/mjwm-amm_options.$(OBJEXT) \
 	src/mjwm-command_line_options_parser.$(OBJEXT)
 am__objects_2 =
 am_mjwm_OBJECTS = $(am__objects_1) src/mjwm-timex.$(OBJEXT) \
@@ -141,6 +141,7 @@ am__objects_3 = src/mjwm_test-stringx.$(OBJEXT) \
 	src/transformer/mjwm_test-jwm.$(OBJEXT) \
 	src/mjwm_test-system_environment.$(OBJEXT) \
 	src/mjwm_test-desktop_entry_file_search.$(OBJEXT) \
+	src/mjwm_test-summary_type.$(OBJEXT) \
 	src/mjwm_test-amm_options.$(OBJEXT) \
 	src/mjwm_test-command_line_options_parser.$(OBJEXT)
 am__objects_4 = test/mjwm_test-stringx_test.$(OBJEXT) \
@@ -158,6 +159,7 @@ am__objects_4 = test/mjwm_test-stringx_test.$(OBJEXT) \
 	test/transformer/mjwm_test-jwm_test.$(OBJEXT) \
 	test/mjwm_test-system_environment_test.$(OBJEXT) \
 	test/mjwm_test-desktop_entry_file_search_test.$(OBJEXT) \
+	test/mjwm_test-summary_type_test.$(OBJEXT) \
 	test/mjwm_test-amm_options_test.$(OBJEXT) \
 	test/mjwm_test-command_line_options_parser_test.$(OBJEXT) \
 	test/icon_search/mjwm_test-caching_search_test.$(OBJEXT)
@@ -192,6 +194,7 @@ am__depfiles_remade = src/$(DEPDIR)/mjwm-amm.Po \
 	src/$(DEPDIR)/mjwm-qualified_icon_theme.Po \
 	src/$(DEPDIR)/mjwm-stats.Po src/$(DEPDIR)/mjwm-stringx.Po \
 	src/$(DEPDIR)/mjwm-subcategory.Po \
+	src/$(DEPDIR)/mjwm-summary_type.Po \
 	src/$(DEPDIR)/mjwm-system_environment.Po \
 	src/$(DEPDIR)/mjwm-timex.Po src/$(DEPDIR)/mjwm-vectorx.Po \
 	src/$(DEPDIR)/mjwm_test-amm_options.Po \
@@ -203,6 +206,7 @@ am__depfiles_remade = src/$(DEPDIR)/mjwm-amm.Po \
 	src/$(DEPDIR)/mjwm_test-stats.Po \
 	src/$(DEPDIR)/mjwm_test-stringx.Po \
 	src/$(DEPDIR)/mjwm_test-subcategory.Po \
+	src/$(DEPDIR)/mjwm_test-summary_type.Po \
 	src/$(DEPDIR)/mjwm_test-system_environment.Po \
 	src/$(DEPDIR)/mjwm_test-vectorx.Po \
 	src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po \
@@ -227,6 +231,7 @@ am__depfiles_remade = src/$(DEPDIR)/mjwm-amm.Po \
 	test/$(DEPDIR)/mjwm_test-stats_test.Po \
 	test/$(DEPDIR)/mjwm_test-stringx_test.Po \
 	test/$(DEPDIR)/mjwm_test-subcategory_test.Po \
+	test/$(DEPDIR)/mjwm_test-summary_type_test.Po \
 	test/$(DEPDIR)/mjwm_test-system_environment_test.Po \
 	test/$(DEPDIR)/mjwm_test-test_runner.Po \
 	test/$(DEPDIR)/mjwm_test-vectorx_test.Po \
@@ -672,6 +677,7 @@ implementation_files = src/stringx.cc \
                        src/transformer/jwm.cc \
                        src/system_environment.cc \
                        src/desktop_entry_file_search.cc \
+                       src/summary_type.cc \
                        src/amm_options.cc \
                        src/command_line_options_parser.cc
 
@@ -691,6 +697,7 @@ test_files = test/doctest.h \
              test/transformer/jwm_test.cc \
              test/system_environment_test.cc \
              test/desktop_entry_file_search_test.cc \
+             test/summary_type_test.cc \
              test/amm_options_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc
@@ -858,6 +865,8 @@ src/mjwm-system_environment.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm-desktop_entry_file_search.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm-summary_type.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm-amm_options.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm-command_line_options_parser.$(OBJEXT): src/$(am__dirstamp) \
@@ -916,6 +925,8 @@ src/mjwm_test-system_environment.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm_test-desktop_entry_file_search.$(OBJEXT):  \
 	src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/mjwm_test-summary_type.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm_test-amm_options.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/mjwm_test-command_line_options_parser.$(OBJEXT):  \
@@ -969,6 +980,8 @@ test/mjwm_test-system_environment_test.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
 test/mjwm_test-desktop_entry_file_search_test.$(OBJEXT):  \
 	test/$(am__dirstamp) test/$(DEPDIR)/$(am__dirstamp)
+test/mjwm_test-summary_type_test.$(OBJEXT): test/$(am__dirstamp) \
+	test/$(DEPDIR)/$(am__dirstamp)
 test/mjwm_test-amm_options_test.$(OBJEXT): test/$(am__dirstamp) \
 	test/$(DEPDIR)/$(am__dirstamp)
 test/mjwm_test-command_line_options_parser_test.$(OBJEXT):  \
@@ -1016,6 +1029,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-stats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-stringx.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-subcategory.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-summary_type.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-system_environment.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-timex.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm-vectorx.Po@am__quote@ # am--include-marker
@@ -1028,6 +1042,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-stats.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-stringx.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-subcategory.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-summary_type.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-system_environment.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/mjwm_test-vectorx.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po@am__quote@ # am--include-marker
@@ -1052,6 +1067,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-stats_test.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-stringx_test.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-subcategory_test.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-summary_type_test.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-system_environment_test.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-test_runner.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@test/$(DEPDIR)/mjwm_test-vectorx_test.Po@am__quote@ # am--include-marker
@@ -1294,6 +1310,20 @@ src/mjwm-desktop_entry_file_search.obj: src/desktop_entry_file_search.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/desktop_entry_file_search.cc' object='src/mjwm-desktop_entry_file_search.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-desktop_entry_file_search.obj `if test -f 'src/desktop_entry_file_search.cc'; then $(CYGPATH_W) 'src/desktop_entry_file_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/desktop_entry_file_search.cc'; fi`
+
+src/mjwm-summary_type.o: src/summary_type.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-summary_type.o -MD -MP -MF src/$(DEPDIR)/mjwm-summary_type.Tpo -c -o src/mjwm-summary_type.o `test -f 'src/summary_type.cc' || echo '$(srcdir)/'`src/summary_type.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-summary_type.Tpo src/$(DEPDIR)/mjwm-summary_type.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/summary_type.cc' object='src/mjwm-summary_type.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-summary_type.o `test -f 'src/summary_type.cc' || echo '$(srcdir)/'`src/summary_type.cc
+
+src/mjwm-summary_type.obj: src/summary_type.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-summary_type.obj -MD -MP -MF src/$(DEPDIR)/mjwm-summary_type.Tpo -c -o src/mjwm-summary_type.obj `if test -f 'src/summary_type.cc'; then $(CYGPATH_W) 'src/summary_type.cc'; else $(CYGPATH_W) '$(srcdir)/src/summary_type.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm-summary_type.Tpo src/$(DEPDIR)/mjwm-summary_type.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/summary_type.cc' object='src/mjwm-summary_type.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm-summary_type.obj `if test -f 'src/summary_type.cc'; then $(CYGPATH_W) 'src/summary_type.cc'; else $(CYGPATH_W) '$(srcdir)/src/summary_type.cc'; fi`
 
 src/mjwm-amm_options.o: src/amm_options.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm-amm_options.o -MD -MP -MF src/$(DEPDIR)/mjwm-amm_options.Tpo -c -o src/mjwm-amm_options.o `test -f 'src/amm_options.cc' || echo '$(srcdir)/'`src/amm_options.cc
@@ -1617,6 +1647,20 @@ src/mjwm_test-desktop_entry_file_search.obj: src/desktop_entry_file_search.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-desktop_entry_file_search.obj `if test -f 'src/desktop_entry_file_search.cc'; then $(CYGPATH_W) 'src/desktop_entry_file_search.cc'; else $(CYGPATH_W) '$(srcdir)/src/desktop_entry_file_search.cc'; fi`
 
+src/mjwm_test-summary_type.o: src/summary_type.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-summary_type.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-summary_type.Tpo -c -o src/mjwm_test-summary_type.o `test -f 'src/summary_type.cc' || echo '$(srcdir)/'`src/summary_type.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-summary_type.Tpo src/$(DEPDIR)/mjwm_test-summary_type.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/summary_type.cc' object='src/mjwm_test-summary_type.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-summary_type.o `test -f 'src/summary_type.cc' || echo '$(srcdir)/'`src/summary_type.cc
+
+src/mjwm_test-summary_type.obj: src/summary_type.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-summary_type.obj -MD -MP -MF src/$(DEPDIR)/mjwm_test-summary_type.Tpo -c -o src/mjwm_test-summary_type.obj `if test -f 'src/summary_type.cc'; then $(CYGPATH_W) 'src/summary_type.cc'; else $(CYGPATH_W) '$(srcdir)/src/summary_type.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-summary_type.Tpo src/$(DEPDIR)/mjwm_test-summary_type.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/summary_type.cc' object='src/mjwm_test-summary_type.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o src/mjwm_test-summary_type.obj `if test -f 'src/summary_type.cc'; then $(CYGPATH_W) 'src/summary_type.cc'; else $(CYGPATH_W) '$(srcdir)/src/summary_type.cc'; fi`
+
 src/mjwm_test-amm_options.o: src/amm_options.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT src/mjwm_test-amm_options.o -MD -MP -MF src/$(DEPDIR)/mjwm_test-amm_options.Tpo -c -o src/mjwm_test-amm_options.o `test -f 'src/amm_options.cc' || echo '$(srcdir)/'`src/amm_options.cc
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/mjwm_test-amm_options.Tpo src/$(DEPDIR)/mjwm_test-amm_options.Po
@@ -1854,6 +1898,20 @@ test/mjwm_test-desktop_entry_file_search_test.obj: test/desktop_entry_file_searc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/desktop_entry_file_search_test.cc' object='test/mjwm_test-desktop_entry_file_search_test.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-desktop_entry_file_search_test.obj `if test -f 'test/desktop_entry_file_search_test.cc'; then $(CYGPATH_W) 'test/desktop_entry_file_search_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/desktop_entry_file_search_test.cc'; fi`
+
+test/mjwm_test-summary_type_test.o: test/summary_type_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-summary_type_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-summary_type_test.Tpo -c -o test/mjwm_test-summary_type_test.o `test -f 'test/summary_type_test.cc' || echo '$(srcdir)/'`test/summary_type_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-summary_type_test.Tpo test/$(DEPDIR)/mjwm_test-summary_type_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/summary_type_test.cc' object='test/mjwm_test-summary_type_test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-summary_type_test.o `test -f 'test/summary_type_test.cc' || echo '$(srcdir)/'`test/summary_type_test.cc
+
+test/mjwm_test-summary_type_test.obj: test/summary_type_test.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-summary_type_test.obj -MD -MP -MF test/$(DEPDIR)/mjwm_test-summary_type_test.Tpo -c -o test/mjwm_test-summary_type_test.obj `if test -f 'test/summary_type_test.cc'; then $(CYGPATH_W) 'test/summary_type_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/summary_type_test.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) test/$(DEPDIR)/mjwm_test-summary_type_test.Tpo test/$(DEPDIR)/mjwm_test-summary_type_test.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='test/summary_type_test.cc' object='test/mjwm_test-summary_type_test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -c -o test/mjwm_test-summary_type_test.obj `if test -f 'test/summary_type_test.cc'; then $(CYGPATH_W) 'test/summary_type_test.cc'; else $(CYGPATH_W) '$(srcdir)/test/summary_type_test.cc'; fi`
 
 test/mjwm_test-amm_options_test.o: test/amm_options_test.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mjwm_test_CXXFLAGS) $(CXXFLAGS) -MT test/mjwm_test-amm_options_test.o -MD -MP -MF test/$(DEPDIR)/mjwm_test-amm_options_test.Tpo -c -o test/mjwm_test-amm_options_test.o `test -f 'test/amm_options_test.cc' || echo '$(srcdir)/'`test/amm_options_test.cc
@@ -2444,6 +2502,7 @@ distclean: distclean-am
 	-rm -f src/$(DEPDIR)/mjwm-stats.Po
 	-rm -f src/$(DEPDIR)/mjwm-stringx.Po
 	-rm -f src/$(DEPDIR)/mjwm-subcategory.Po
+	-rm -f src/$(DEPDIR)/mjwm-summary_type.Po
 	-rm -f src/$(DEPDIR)/mjwm-system_environment.Po
 	-rm -f src/$(DEPDIR)/mjwm-timex.Po
 	-rm -f src/$(DEPDIR)/mjwm-vectorx.Po
@@ -2456,6 +2515,7 @@ distclean: distclean-am
 	-rm -f src/$(DEPDIR)/mjwm_test-stats.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-stringx.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-subcategory.Po
+	-rm -f src/$(DEPDIR)/mjwm_test-summary_type.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-system_environment.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-vectorx.Po
 	-rm -f src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po
@@ -2480,6 +2540,7 @@ distclean: distclean-am
 	-rm -f test/$(DEPDIR)/mjwm_test-stats_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-stringx_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-subcategory_test.Po
+	-rm -f test/$(DEPDIR)/mjwm_test-summary_type_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-system_environment_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-test_runner.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-vectorx_test.Po
@@ -2550,6 +2611,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/$(DEPDIR)/mjwm-stats.Po
 	-rm -f src/$(DEPDIR)/mjwm-stringx.Po
 	-rm -f src/$(DEPDIR)/mjwm-subcategory.Po
+	-rm -f src/$(DEPDIR)/mjwm-summary_type.Po
 	-rm -f src/$(DEPDIR)/mjwm-system_environment.Po
 	-rm -f src/$(DEPDIR)/mjwm-timex.Po
 	-rm -f src/$(DEPDIR)/mjwm-vectorx.Po
@@ -2562,6 +2624,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f src/$(DEPDIR)/mjwm_test-stats.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-stringx.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-subcategory.Po
+	-rm -f src/$(DEPDIR)/mjwm_test-summary_type.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-system_environment.Po
 	-rm -f src/$(DEPDIR)/mjwm_test-vectorx.Po
 	-rm -f src/icon_search/$(DEPDIR)/mjwm-xdg_search.Po
@@ -2586,6 +2649,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f test/$(DEPDIR)/mjwm_test-stats_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-stringx_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-subcategory_test.Po
+	-rm -f test/$(DEPDIR)/mjwm_test-summary_type_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-system_environment_test.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-test_runner.Po
 	-rm -f test/$(DEPDIR)/mjwm_test-vectorx_test.Po

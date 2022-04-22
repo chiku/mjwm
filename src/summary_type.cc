@@ -16,25 +16,21 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_SUMMARY_TYPE_H_
-#define AMM_SUMMARY_TYPE_H_
+#include "summary_type.h"
 
 #include <string>
 #include <vector>
+#include <sstream>
+#include <algorithm>
 
-#include "stringx.h"
+#include "vectorx.h"
+#include "summary_type.h"
 
 namespace amm {
 
-enum SummaryType
+bool summaryTypeCompatible(SummaryType source, SummaryType target)
 {
-    Verbose = 0,
-    Normal,
-    Silent,
-};
-
-bool summaryTypeCompatible(SummaryType source, SummaryType target);
+  return source <= target;
+}
 
 } // namespace amm
-
-#endif // AMM_SUMMARY_TYPE_H_

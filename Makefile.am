@@ -59,6 +59,7 @@ implementation_files = src/stringx.cc \
                        src/transformer/jwm.cc \
                        src/system_environment.cc \
                        src/desktop_entry_file_search.cc \
+                       src/summary_type.cc \
                        src/amm_options.cc \
                        src/command_line_options_parser.cc
 
@@ -78,6 +79,7 @@ test_files = test/doctest.h \
              test/transformer/jwm_test.cc \
              test/system_environment_test.cc \
              test/desktop_entry_file_search_test.cc \
+             test/summary_type_test.cc \
              test/amm_options_test.cc \
              test/command_line_options_parser_test.cc \
              test/icon_search/caching_search_test.cc

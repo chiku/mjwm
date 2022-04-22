@@ -78,7 +78,7 @@ std::string Stats::details(const SummaryType summary_type)
 {
     std::stringstream stream;
 
-    if (summary_type == SummaryType::Normal || summary_type == SummaryType::Verbose) {
+    if (summaryTypeCompatible(summary_type, SummaryType::Normal)) {
       stream << "Total desktop files: " << totalFiles() << " ["
              << totalParsedFiles() << " Parsed, "
              << totalUnparsedFiles()  << " Unparsed, "
@@ -91,7 +91,7 @@ std::string Stats::details(const SummaryType summary_type)
       }
     }
 
-    if (summary_type == SummaryType::Verbose) {
+    if (summaryTypeCompatible(summary_type, SummaryType::Verbose)) {
         if (totalSuppressedFiles() > 0) {
             stream << std::endl << "Suppressed files: " << VectorX(suppressed_files_).join(", ");
         }
