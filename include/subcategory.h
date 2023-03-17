@@ -42,7 +42,7 @@ public:
     void addDesktopEntry(const xdg::DesktopEntry &desktop_file);
     void sortDesktopEntries();
 
-    static Subcategory Others()      { return Subcategory("Others",      "applications-others",      "Others"     ); }
+    static Subcategory Others()      { return Subcategory("Others",      "applications-other",       "Others"     ); }
     static Subcategory Settings()    { return Subcategory("Settings",    "gnome-settings",           "Settings"   ); }
     static Subcategory Accessories() { return Subcategory("Accessories", "applications-accessories", "Utility"    ); }
     static Subcategory Development() { return Subcategory("Development", "applications-development", "Development"); }
