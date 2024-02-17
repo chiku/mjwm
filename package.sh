@@ -53,7 +53,7 @@ puppytize() {
   checksum=$(md5sum mjwm.pet | cut -d' ' -f1)
   echo -n "$checksum" >> mjwm.pet
   cd "$current_dir"
-  cp $install_base_dir/mjwm.pet mjwm-$mjwm_version.pet
+  cp $install_base_dir/mjwm.pet mjwm-$mjwm_version-x86_64.pet
 }
 
 cleanup() {
