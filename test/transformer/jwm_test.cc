@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -25,9 +25,14 @@
 #include "representation/subcategory_end.h"
 #include "representation/program.h"
 
+#include <cstdlib>
+
 namespace amm {
 
 SCENARIO("transformer::Jwm") {
+    setenv("XTERM", "xterm", 1);
+
+
     GIVEN("A JWM transformer") {
         transformer::Jwm jwm_transformer;
 
@@ -74,7 +79,7 @@ SCENARIO("transformer::Jwm") {
         }
 
         WHEN("transforming a menu-entry representation") {
-            representation::Program program("Application", "application.png", "/usr/bin/application", "Application uses");
+            representation::Program program("Application", "application.png", "/usr/bin/application", "Application uses", false);
             std::string result = jwm_transformer.transform(program);
 
             THEN("it is a static message") {
@@ -82,15 +87,21 @@ SCENARIO("transformer::Jwm") {
             }
 
             THEN("it XML escapes the name") {
-                representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter", "First person shooter game");
+                representation::Program program("Shoot & Run", "shooter.png", "/usr/bin/shooter", "First person shooter game", false);
                 std::string result = jwm_transformer.transform(program);
                 CHECK(result == "        <Program label=\"Shoot &amp; Run\" icon=\"shooter.png\" tooltip=\"First person shooter game\">/usr/bin/shooter</Program>");
             }
 
             THEN("it removes field codes from the executable") {
-                representation::Program program("Mousepad", "application-text-editor", "mousepad %F", "Simple Text Editor");
+                representation::Program program("Mousepad", "application-text-editor", "mousepad %F", "Simple Text Editor", false);
                 std::string result = jwm_transformer.transform(program);
                 CHECK(result == "        <Program label=\"Mousepad\" icon=\"application-text-editor\" tooltip=\"Simple Text Editor\">mousepad</Program>");
+            }
+
+            THEN("it runs terminal applications under terminal") {
+                representation::Program program("Htop", "htop", "htop", "Show system processes", true);
+                std::string result = jwm_transformer.transform(program);
+                CHECK(result == "        <Program label=\"Htop\" icon=\"htop\" tooltip=\"Show system processes\">xterm -class \"Htop\" htop</Program>");
             }
         }
     }

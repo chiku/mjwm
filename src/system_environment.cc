@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -45,6 +45,13 @@ SystemEnvironment::SystemEnvironment()
         xdg_data_dirs_ = xdg_data_dirs;
     } else {
         xdg_data_dirs_ = "/usr/local/share:/usr/share";
+    }
+
+    char *term = std::getenv("TERM");
+    if (term != NULL) {
+        term_ = term;
+    } else {
+        term_ = "xterm";
     }
 
     language_ = getLanguageWith(std::getenv("LANGUAGE"));

@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -31,8 +31,9 @@ static bool presentIn(std::string item, std::vector<std::string> list) {
 }
 
 static void assertFilesArePresentInList(std::vector<std::string> file_names) {
-    REQUIRE(file_names.size() == 8);
+    REQUIRE(file_names.size() == 9);
 
+    CHECK(presentIn("test/fixtures/applications/htop.desktop", file_names));
     CHECK(presentIn("test/fixtures/applications/missing.desktop", file_names));
     CHECK(presentIn("test/fixtures/applications/mousepad.desktop", file_names));
     CHECK(presentIn("test/fixtures/applications/unclassified.desktop", file_names));

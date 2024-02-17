@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -169,7 +169,7 @@ std::vector<representation::RepresentationInterface*> Menu::representations() co
             std::vector<xdg::DesktopEntry> entries = subcategory->desktopEntries();
             for (std::vector<xdg::DesktopEntry>::const_iterator entry = entries.begin(); entry != entries.end(); ++entry) {
                 std::string icon_name = icon_searcher_->resolvedName(entry->icon());
-                representation::Program *program = new representation::Program(entry->name(), icon_name, entry->executable(), entry->comment());
+                representation::Program *program = new representation::Program(entry->name(), icon_name, entry->executable(), entry->comment(), entry->terminal());
                 representations.push_back(program);
             }
 

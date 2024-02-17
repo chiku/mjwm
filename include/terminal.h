@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -16,32 +16,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef AMM_XDG_ENTRY_LINE_H_
-#define AMM_XDG_ENTRY_LINE_H_
+#ifndef AMM_TERMINAL_H_
+#define AMM_TERMINAL_H_
 
 #include <string>
 
 namespace amm {
-namespace xdg {
 
-// Understands a line of XDG style INI files
-class EntryLine
-{
-public:
-    explicit EntryLine(const std::string &content);
-    bool isDeclaration() const;
-    bool isAssignment() const;
-    std::string declaration() const;
-    std::string key() const;
-    std::string value() const;
+std::string terminalCommand(const std::string &term, const std::string& exec, const std::string& name);
 
-private:
-    std::string content_;
-    size_t content_length_;
-    size_t assignment_delim_location_;
-};
-
-} // namespace xdg
 } // namespace amm
 
-#endif //AMM_XDG_ENTRY_LINE_H_
+#endif // AMM_TERMINAL_H_

@@ -36,6 +36,7 @@ header_files = include/system_environment.h \
                include/icon_search/mirror_search.h \
                include/filex.h \
                include/vectorx.h \
+               include/terminal.h \
                include/representation/program.h \
                include/representation/menu_end.h \
                include/representation/menu_start.h \
@@ -58,6 +59,7 @@ implementation_files = src/stringx.cc \
                        src/menu.cc \
                        src/transformer/jwm.cc \
                        src/system_environment.cc \
+                       src/terminal.cc \
                        src/desktop_entry_file_search.cc \
                        src/summary_type.cc \
                        src/amm_options.cc \
@@ -78,6 +80,7 @@ test_files = test/doctest.h \
              test/menu_test.cc \
              test/transformer/jwm_test.cc \
              test/system_environment_test.cc \
+             test/terminal_test.cc \
              test/desktop_entry_file_search_test.cc \
              test/summary_type_test.cc \
              test/amm_options_test.cc \
@@ -86,6 +89,7 @@ test_files = test/doctest.h \
 
 fixture_files = test/fixtures/applications/nested/deepnested/whaawmp.desktop \
                 test/fixtures/applications/nested/xfburn.desktop \
+                test/fixtures/applications/micro.vlc \
                 test/fixtures/applications/desktop.vlc \
                 test/fixtures/applications/missing.desktop \
                 test/fixtures/applications/mousepad.desktop \

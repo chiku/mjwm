@@ -58,6 +58,11 @@ Optional arguments:
   -o, --output-file=[FILE]    Outfile file [Default: $HOME/.jwmrc-mjwm]
   -v  --verbose               Verbose output.
       --version               Show version information.
+
+mjwm reads $TERM environment variable to select the program for running
+terminal programs. mjwm supports xterm, alacritty and sakura terminals.
+If $TERM is not recognized, mjwm chooses xterm.
+
 ```
 
 Usage
@@ -118,6 +123,12 @@ Use categories from as an external file
 Look at data/default.mjwm to create your own category file
 ```script
 mjwm -c data/default.mjwm
+```
+
+
+Create menu entries with terminal set to alacritty.
+```script
+TERM=alacritty mjwm
 ```
 
 Running tests

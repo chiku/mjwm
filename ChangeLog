@@ -1,6 +1,7 @@
-v5.0.0-pre
-----------
+v5.0.0
+------
 * Drop support for deprecated command-line option --summary. Run with --version or -v instead of --summary long. Run without --version and -v instead of --summary normal.
+* Run commands under terminal for desktop files with Terminal=true [#47]
 * New option --silent or -s reduces the logs printed to console.
 
 v4.1.0

@@ -1,10 +1,11 @@
-mjwm NEWS - User visible changes. 2022-04-22
+mjwm NEWS - User visible changes. 2024-02-18
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
 
-version 5.0.0 - Chirantan Mitra, (Date to be decided)
+version 5.0.0 - Chirantan Mitra, 2024-02-18
 
 * Provide option for silent output [-s or --silent].
 * Drop support for deprecated command-line option --summary.
+* Run commands under terminal for desktop files with Terminal=true [#47]
 
 version 4.1.0 - Chirantan Mitra, 2022-04-22
 

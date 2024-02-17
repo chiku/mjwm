@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,14 +32,15 @@ namespace amm {
 void assertFileNamesAreCorrect(std::vector<std::string> names)
 {
     std::sort(names.begin(), names.end());
-    REQUIRE(names.size() == 7);
+    REQUIRE(names.size() == 8);
     CHECK(names[0] == "desktop.vlc");
-    CHECK(names[1] == "missing.desktop");
-    CHECK(names[2] == "mousepad.desktop");
-    CHECK(names[3] == "suppressed.desktop");
-    CHECK(names[4] == "suppressedinvalid.desktop");
-    CHECK(names[5] == "unclassified.desktop");
-    CHECK(names[6] == "vlc.desktop");
+    CHECK(names[1] == "htop.desktop");
+    CHECK(names[2] == "missing.desktop");
+    CHECK(names[3] == "mousepad.desktop");
+    CHECK(names[4] == "suppressed.desktop");
+    CHECK(names[5] == "suppressedinvalid.desktop");
+    CHECK(names[6] == "unclassified.desktop");
+    CHECK(names[7] == "vlc.desktop");
 }
 
 void assertDirectoryNamesAreCorrect(std::vector<std::string> names)
@@ -55,18 +56,19 @@ void assertDirectoryNamesAreCorrect(std::vector<std::string> names)
 void assertNamesAreCorrect(std::vector<std::string> names)
 {
     std::sort(names.begin(), names.end());
-    REQUIRE(names.size() == 11);
+    REQUIRE(names.size() == 12);
     CHECK(names[0] == ".");
     CHECK(names[1] == "..");
     CHECK(names[2] == "desktop.vlc");
     CHECK(names[3] == "empty");
-    CHECK(names[4] == "missing.desktop");
-    CHECK(names[5] == "mousepad.desktop");
-    CHECK(names[6] == "nested");
-    CHECK(names[7] == "suppressed.desktop");
-    CHECK(names[8] == "suppressedinvalid.desktop");
-    CHECK(names[9] == "unclassified.desktop");
-    CHECK(names[10] == "vlc.desktop");
+    CHECK(names[4] == "htop.desktop");
+    CHECK(names[5] == "missing.desktop");
+    CHECK(names[6] == "mousepad.desktop");
+    CHECK(names[7] == "nested");
+    CHECK(names[8] == "suppressed.desktop");
+    CHECK(names[9] == "suppressedinvalid.desktop");
+    CHECK(names[10] == "unclassified.desktop");
+    CHECK(names[11] == "vlc.desktop");
 }
 
 SCENARIO("DirectoryX") {
@@ -95,7 +97,7 @@ SCENARIO("DirectoryX") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
 
-                    for (int i = 0; i < 11; i++) {
+                    for (int i = 0; i < 12; i++) {
                         DirectoryX::Entries::SearchResult result = entries.nextName();
                         CHECK(result.success);
                         (result.isDirectory ? directory_names : file_names).push_back(result.name);
@@ -108,7 +110,7 @@ SCENARIO("DirectoryX") {
 
             WHEN("its entries are iterated beyond range") {
                 THEN("it fails") {
-                    for (int i = 0; i < 11; i++) {
+                    for (int i = 0; i < 12; i++) {
                         entries.nextName();
                     }
                     DirectoryX::Entries::SearchResult result = entries.nextName();

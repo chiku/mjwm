@@ -5,19 +5,19 @@ on:
     branches: [master]
 
 env:
-  MJWM_VERSION: 4.1.0
+  MJWM_VERSION: 5.0.0
 
 jobs:
   package:
       runs-on: ubuntu-latest
       steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt-get install -y g++-multilib
+        run: sudo apt-get install -y g++
       - name: Package
         run: ./package.sh
       - name: Archive artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: artifacts
           path: |

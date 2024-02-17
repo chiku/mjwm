@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -39,6 +39,8 @@ void DesktopEntry::parse(const std::vector<std::string> &lines)
     comment_ = xdg_entry.under("Desktop Entry", "Comment");
     std::string display_raw = xdg_entry.under("Desktop Entry", "NoDisplay");
     display_ = display_raw != "true" && display_raw != "1";
+    std::string terminal_raw = xdg_entry.under("Desktop Entry", "Terminal");
+    terminal_ = terminal_raw == "true" || terminal_raw == "1";
     std::sort(categories_.begin(), categories_.end());
 }
 

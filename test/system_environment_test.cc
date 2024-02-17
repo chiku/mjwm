@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -113,7 +113,7 @@ SCENARIO("SystemEnvironment") {
     }
 
     GIVEN("LANGUAGE is set with encoding and sub-type") {
-        WHEN("langauage is asked") {
+        WHEN("language is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en_IN.UTF-8", 1);
                 CHECK(SystemEnvironment().language() == "en");
@@ -122,7 +122,7 @@ SCENARIO("SystemEnvironment") {
     }
 
     GIVEN("LANGUAGE is set but LC_ALL and LANG is not set") {
-        WHEN("langauage is asked") {
+        WHEN("language is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en_IN.UTF-8", 1);
                 unsetenv("LC_ALL");
@@ -133,7 +133,7 @@ SCENARIO("SystemEnvironment") {
     }
 
     GIVEN("LANGUAGE is set without encoding and without sub-type") {
-        WHEN("langauage is asked") {
+        WHEN("language is asked") {
             THEN("it is the first part of the LANGUAGE") {
                 setenv("LANGUAGE", "en", 1);
                 CHECK(SystemEnvironment().language() == "en");
@@ -142,7 +142,7 @@ SCENARIO("SystemEnvironment") {
     }
 
     GIVEN("LANGUAGE is not set but LC_ALL is set") {
-        WHEN("langauage is asked") {
+        WHEN("language is asked") {
             THEN("it is the first part of the LC_ALL") {
                 unsetenv("LANGUAGE");
                 setenv("LC_ALL", "en_IN.UTF-8", 1);
@@ -152,7 +152,7 @@ SCENARIO("SystemEnvironment") {
     }
 
     GIVEN("LANGUAGE and LC_ALL are not set but LANG is set") {
-        WHEN("langauage is asked") {
+        WHEN("language is asked") {
             THEN("it is the first part of the LANG") {
                 unsetenv("LANGUAGE");
                 unsetenv("LC_ALL");
@@ -163,12 +163,30 @@ SCENARIO("SystemEnvironment") {
     }
 
     GIVEN("LANGUAGE, LC_ALL and LANG are not set") {
-        WHEN("langauage is asked") {
+        WHEN("language is asked") {
             THEN("it empty") {
                 unsetenv("LANGUAGE");
                 unsetenv("LC_ALL");
                 unsetenv("LANG");
                 CHECK(SystemEnvironment().language() == "");
+            }
+        }
+    }
+
+    GIVEN("TERM is set") {
+        WHEN("when term is asked") {
+            THEN("it is the value of TERM") {
+                setenv("TERM", "alacritty", 1);
+                CHECK(SystemEnvironment().term() == "alacritty");
+            }
+        }
+    }
+
+    GIVEN("TERM is not set") {
+        WHEN("when term is asked") {
+            THEN("it is xterm") {
+                unsetenv("TERM");
+                CHECK(SystemEnvironment().term() == "xterm");
             }
         }
     }

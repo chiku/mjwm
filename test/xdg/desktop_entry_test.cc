@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -69,6 +69,10 @@ SCENARIO("Populate DesktopEntry") {
                 CHECK(entry.display());
             }
 
+            THEN("it knows if it is run in terminal") {
+                CHECK_FALSE(entry.terminal());
+            }
+
             WHEN("NoDisplay is set to true") {
                 std::vector<std::string> lines;
                 lines.push_back("[Desktop Entry]\n");
@@ -86,6 +90,27 @@ SCENARIO("Populate DesktopEntry") {
                 entry.parse(lines);
                 THEN("it is not marked as displayed") {
                     CHECK_FALSE(entry.display());
+                }
+            }
+
+
+            WHEN("Termimal is set to true") {
+                std::vector<std::string> lines;
+                lines.push_back("[Desktop Entry]\n");
+                lines.push_back("Terminal=true\n");
+                entry.parse(lines);
+                THEN("it is marked as terminal") {
+                    CHECK(entry.terminal());
+                }
+            }
+
+            WHEN("Terminal is set to 1") {
+                std::vector<std::string> lines;
+                lines.push_back("[Desktop Entry]\n");
+                lines.push_back("Terminal=1\n");
+                entry.parse(lines);
+                THEN("it is marked as terminal") {
+                    CHECK(entry.terminal());
                 }
             }
         }

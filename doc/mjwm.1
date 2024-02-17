@@ -64,6 +64,11 @@ Verbose output.
 Show version information.
 
 .TP
+.B Terminal commands.
+mjwm reads $TERM environment variable to select the program for running terminal programs.
+mjwm supports xterm, alacritty and sakura terminals. If $TERM is not recornized, mjwm chooses xterm.
+
+.TP
 .B Exit Status:
 0      if OK,
 
@@ -96,4 +101,9 @@ Create menu entries with absolute path names to Hicolor icons images
 .TP
 Create menu entries with absolute path names to Faenza icons images
 .BR mjwm \ \-\-iconize=Faenza
+.LP
+
+.TP
+Create menu entries with terminal set to alacritty.
+.BR TERM=alacritty \ mjwm
 .LP

@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -35,12 +35,14 @@ public:
     std::string language() const { return language_; }
     std::vector<std::string> applicationDirectories() const;
     std::vector<std::string> iconThemeDirectories() const;
+    std::string term() const { return term_; }
 
 private:
     std::string home_;
     std::string xdg_data_home_;
     std::string xdg_data_dirs_;
     std::string language_;
+    std::string term_;
 
     std::string getLanguageWith(const char *raw);
 };

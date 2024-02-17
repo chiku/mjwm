@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -30,19 +30,21 @@ namespace representation {
 class Program : public RepresentationInterface
 {
 public:
-    Program(const std::string &name, const std::string &icon, const std::string &executable, const std::string &comment)
-            : name_(name), icon_(icon), executable_(executable), comment_(comment) {}
+    Program(const std::string &name, const std::string &icon, const std::string &executable, const std::string &comment, const bool &terminal)
+            : name_(name), icon_(icon), executable_(executable), comment_(comment), terminal_(terminal) {}
     virtual ~Program() {}
     virtual std::string name() const { return name_; }
     virtual std::string icon() const { return icon_; }
     virtual std::string executable() const { return executable_; }
     virtual std::string comment() const { return comment_; }
+    virtual bool terminal() const { return terminal_; }
     virtual std::string visit(const transformer::TransformerInterface &transformer) const { return transformer.transform(*this); }
 private:
     const std::string name_;
     const std::string icon_;
     const std::string executable_;
     const std::string comment_;
+    const bool terminal_;
 };
 } // namespace representation
 } // namespace amm

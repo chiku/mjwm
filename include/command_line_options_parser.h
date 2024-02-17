@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 
 #ifndef AMM_COMMAND_LINE_OPTIONS_PARSER_H_
 #define AMM_COMMAND_LINE_OPTIONS_PARSER_H_
+
+#include <string>
 
 #include "amm_options.h"
 

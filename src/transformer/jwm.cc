@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 
 #include "stringx.h"
 #include "vectorx.h"
+#include "system_environment.h"
+#include "terminal.h"
 #include "transformer/jwm.h"
 
 namespace amm {
@@ -39,6 +41,18 @@ static std::string removeFieldCode(const std::string &input)
     }
 
     return VectorX(result).join(" ");
+}
+
+static std::string withTerminal(const bool terminal, const std::string &exec, const std::string &name)
+{
+    if (!terminal) {
+        return exec;
+    }
+
+    SystemEnvironment environment;
+    std::string term = environment.term();
+
+    return terminalCommand(term, exec, name);
 }
 
 std::string Jwm::transform(const representation::MenuStart &entry) const
@@ -80,13 +94,17 @@ std::string Jwm::transform(const representation::SubcategoryEnd &entry) const
 
 std::string Jwm::transform(const representation::Program &entry) const
 {
+    std::string label = StringX(entry.name()).encode();
+    std::string icon = StringX(entry.icon()).encode();
+    std::string tooltip = StringX(entry.comment()).encode();
+    std::string executable = entry.executable();
     std::stringstream stream;
     stream << "        <Program "
-        << "label=\"" << StringX(entry.name()).encode()
-        << "\" icon=\"" << StringX(entry.icon()).encode()
-        << "\" tooltip=\"" << StringX(entry.comment()).encode()
+        << "label=\"" << label
+        << "\" icon=\"" << icon
+        << "\" tooltip=\"" << tooltip
         << "\">"
-        << removeFieldCode(entry.executable())
+        << withTerminal(entry.terminal(), removeFieldCode(executable), label)
         << "</Program>";
     return stream.str();
 }

@@ -1,6 +1,6 @@
 /*
   This file is part of mjwm.
-  Copyright (C) 2014-2022  Chirantan Mitra <chirantan.mitra@gmail.com>
+  Copyright (C) 2014-2024  Chirantan Mitra <chirantan.mitra@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ public:
     std::vector<std::string> categories() const { return categories_; }
     std::string comment() const { return comment_; }
     bool display() const { return display_; }
+    bool terminal() const { return terminal_; }
 
     void hasLanguage(const std::string &language) { language_ = language; }
 
@@ -57,6 +58,7 @@ private:
     std::vector<std::string> categories_;
     std::string comment_;
     bool display_;
+    bool terminal_;
     std::string language_;
 };
 

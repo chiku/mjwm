@@ -2,9 +2,9 @@
 
 set_environment() {
   export VERBOSE=1
-  export CFLAGS="-m32 -Os -Wall -Wextra"
-  export CXXFLAGS="-m32 -Os -Wall -Wextra"
-  export LDFLAGS="-m32 -Os -Wall -Wextra"
+  export CFLAGS="-Os -Wall -Wextra"
+  export CXXFLAGS="-Os -Wall -Wextra"
+  export LDFLAGS="-Os -Wall -Wextra"
   install_base_dir="$(mktemp -d)"
   install_dir="${install_base_dir}/usr/local"
   mjwm_binary_path="${install_dir}/bin/mjwm"
@@ -30,7 +30,7 @@ crunch_binary() {
 assign_properties() {
   mjwm_version=$($mjwm_binary_path --version | cut -d' ' -f2)
   mjwm_size=$(ls -lah $mjwm_binary_path | awk '{print $5}')
-  mjwm_package_base_dir="mjwm-${mjwm_version}-i686"
+  mjwm_package_base_dir="mjwm-${mjwm_version}-x86_64"
 }
 
 prepackage() {
@@ -48,7 +48,7 @@ artifact() {
 
 puppytize() {
   cd "$install_base_dir"
-  echo "${mjwm_package_base_dir}|mjwm|${mjwm_version}-i686|||${mjwm_size}||${mjwm_package_base_dir}.pet||Create JWM menu|Slackware|14.0||" > "${mjwm_package_base_dir}/pet.specs"
+  echo "${mjwm_package_base_dir}|mjwm|${mjwm_version}-x86_64|||${mjwm_size}||${mjwm_package_base_dir}.pet||Create JWM menu|Slackware|14.0||" > "${mjwm_package_base_dir}/pet.specs"
   tar -cvzf mjwm.pet "${mjwm_package_base_dir}"
   checksum=$(md5sum mjwm.pet | cut -d' ' -f1)
   echo -n "$checksum" >> mjwm.pet
