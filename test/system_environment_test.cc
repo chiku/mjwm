@@ -80,6 +80,17 @@ SCENARIO("SystemEnvironment") {
                     CHECK(directories[2] == "/data/dir2/applications");
                 }
             }
+
+            WHEN("directories for icon themes is asked") {
+                THEN("it is a list of directories pointed to by $HOME/.icons, /usr/local/share/icons, /usr/share/icons and /usr/share/pixmaps") {
+                    std::vector<std::string> directories = environment.iconThemeDirectories();
+                    REQUIRE(directories.size() == 4);
+                    CHECK(directories[0] == "/home/mjwm/.icons");
+                    CHECK(directories[1] == "/data/dir1/icons");
+                    CHECK(directories[2] == "/data/dir2/icons");
+                    CHECK(directories[3] == "/usr/share/pixmaps");
+                }
+            }
         }
 
         GIVEN("XDG_DATA_HOME is unset and XDG_DATA_DIRS is unset") {
