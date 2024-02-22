@@ -23,4 +23,4 @@ jobs:
           path: |
             mjwm-${{ env.MJWM_VERSION }}
             mjwm-${{ env.MJWM_VERSION }}.tar.gz
-            mjwm-${{ env.MJWM_VERSION }}.pet
+            mjwm-${{ env.MJWM_VERSION }}-x86_64.pet
