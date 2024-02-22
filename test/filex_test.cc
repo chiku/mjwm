@@ -74,12 +74,6 @@ SCENARIO("FileX") {
                 CHECK(lines.size() == 11);
             }
 
-            THEN("it doesn't write lines to the file") {
-                std::vector<std::string> lines;
-                lines.push_back("first");
-                lines.push_back("second");
-                CHECK_FALSE(filex.writeLines(lines));
-            }
 
             THEN("it can move the file to an existing directory") {
                 std::string file_name = fixture_dir + "new-file";

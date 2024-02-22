@@ -1,3 +1,7 @@
+v5.1.0
+------
+* Write menu entries to console when output file is /dev/stdout
+
 v5.0.0
 ------
 * Drop support for deprecated command-line option --summary. Run with --verbose or -v instead of --summary long. Run without --verbose and -v instead of --summary normal.

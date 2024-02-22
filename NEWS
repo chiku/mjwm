@@ -1,5 +1,9 @@
-mjwm NEWS - User visible changes. 2024-02-18
+mjwm NEWS - User visible changes. 2024-02-22
 Please file mjwm bug reports at https://github.com/chiku/mjwm/issues
+
+version 5.1.0 - Chirantan Mitra, 2024-02-22
+
+* Write menu entries to console when output file is /dev/stdout
 
 version 5.0.0 - Chirantan Mitra, 2024-02-18
 

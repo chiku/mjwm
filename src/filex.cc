@@ -62,10 +62,6 @@ bool FileX::readLines(std::vector<std::string> *lines) const
 
 bool FileX::writeLines(const std::vector<std::string> &lines) const
 {
-    if (exists()) {
-        return false;
-    }
-
     std::ofstream file(name_.c_str());
     if (!file.good()) {
         return false;

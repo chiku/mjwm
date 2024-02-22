@@ -68,8 +68,8 @@ Show version information.
 mjwm reads $TERM environment variable to select the program for running terminal programs.
 mjwm supports xterm, alacritty and sakura terminals. If $TERM is not recornized, mjwm chooses xterm.
 
-.TP
-.B Exit Status:
+
+.SH EXIT STATUS
 0      if OK,
 
 1      if files could not be accesses (e.g., could not write output file),
@@ -106,4 +106,9 @@ Create menu entries with absolute path names to Faenza icons images
 .TP
 Create menu entries with terminal set to alacritty.
 .BR TERM=alacritty \ mjwm
+.LP
+
+.TP
+Write the output menu entries to console instead of file.
+.BR mjwm \ \-\-no-backup \ \-\-silent \ \-\-output \ /dev/stdout
 .LP

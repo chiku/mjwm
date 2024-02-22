@@ -73,7 +73,7 @@ Usage
 mjwm
 ```
 
-* Edit your `$HOME/.jwmrc file`. Add a line `<Include>$HOME/.jwmrc-mjwm</Include>` line inside `RootMenu`.
+* Edit your `$HOME/.jwmrc` file and add `<Include>$HOME/.jwmrc-mjwm</Include>` under `RootMenu`.
 ```xml
 <JWM>
   <!-- SNIP SNIP -->
@@ -82,6 +82,31 @@ mjwm
       <!-- Other Menu Entries -->
 
       <Include>$HOME/.jwmrc-mjwm</Include>
+
+      <!-- Other Menu Entries -->
+  </RootMenu>
+
+  <!-- SNIP SNIP -->
+</JWM>
+```
+
+* Reload JWM
+```script
+jwm -reload
+```
+
+Alternate usage
+---------------
+
+* Edit yout `$HOME/.jwmrc` file and add `<Include>exec:mjwm --no-backup --iconize=Tango --silent --output /dev/stdout</Include>` under `RootMenu`.
+```xml
+<JWM>
+  <!-- SNIP SNIP -->
+
+  <RootMenu onroot="12">
+      <!-- Other Menu Entries -->
+
+      <Include>exec:mjwm --no-backup --iconize=Tango --silent --output /dev/stdout</Include>
 
       <!-- Other Menu Entries -->
   </RootMenu>
@@ -125,10 +150,14 @@ Look at data/default.mjwm to create your own category file
 mjwm -c data/default.mjwm
 ```
 
-
 Create menu entries with terminal set to alacritty.
 ```script
 TERM=alacritty mjwm
+```
+
+Write the output menu entries to console instead of file.
+```script
+mjwm --no-backup --silent --output /dev/stdout
 ```
 
 Running tests
