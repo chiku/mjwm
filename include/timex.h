@@ -19,7 +19,6 @@
 #ifndef AMM_TIMEX_H_
 #define AMM_TIMEX_H_
 
-#include <ctime>
 #include <string>
 
 namespace amm {

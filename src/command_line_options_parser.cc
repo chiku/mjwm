@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "command_line_options_parser.h"
-
 #include <getopt.h>
 #include <string>
 #include <vector>
 
+#include "command_line_options_parser.h"
 #include "stringx.h"
 #include "summary_type.h"
 #include "amm_options.h"

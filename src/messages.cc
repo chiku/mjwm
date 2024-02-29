@@ -16,11 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "messages.h"
-
 #include <string>
 #include <sstream>
 
+#include "messages.h"
 #include "../config.h"
 #include "timex.h"
 

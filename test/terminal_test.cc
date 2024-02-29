@@ -16,11 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "terminal.h"
-
 #include <string>
 
 #include "doctest.h"
+#include "terminal.h"
 
 namespace amm {
 

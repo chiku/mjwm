@@ -16,10 +16,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "amm_options.h"
-
 #include <string>
 
+#include "amm_options.h"
 #include "stringx.h"
 #include "summary_type.h"
 

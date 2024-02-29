@@ -20,7 +20,6 @@
 #define AMM_ICON_SEARCH_MIRROR_SEARCH_H_
 
 #include <string>
-#include <vector>
 
 #include "icon_search/icon_search_interface.h"
 

@@ -20,7 +20,6 @@
 #define AMM_ICON_SEARCH_ICON_SEARCH_INTERFACE_H_
 
 #include <string>
-#include <vector>
 
 namespace amm {
 namespace icon_search {

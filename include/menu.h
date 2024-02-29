@@ -26,6 +26,7 @@
 #include "subcategory.h"
 #include "icon_search/icon_search_interface.h"
 #include "representation/representation_interface.h"
+#include "xdg/desktop_entry.h"
 
 namespace amm {
 // Understands a collection of desktop files divided in subcategories

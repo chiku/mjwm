@@ -16,16 +16,15 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "transformer/jwm.h"
+#include <cstdlib>
 
 #include "../doctest.h"
+#include "transformer/jwm.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
 #include "representation/subcategory_start.h"
 #include "representation/subcategory_end.h"
 #include "representation/program.h"
-
-#include <cstdlib>
 
 namespace amm {
 

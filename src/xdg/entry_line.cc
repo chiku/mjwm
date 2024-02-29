@@ -16,11 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "xdg/entry_line.h"
-
-#include "stringx.h"
-
 #include <string>
+
+#include "xdg/entry_line.h"
+#include "stringx.h"
 
 namespace amm {
 namespace xdg {

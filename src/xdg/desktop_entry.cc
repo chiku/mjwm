@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "xdg/desktop_entry.h"
-
 #include <string>
 #include <vector>
 #include <algorithm>
 
+#include "xdg/desktop_entry.h"
 #include "stringx.h"
 #include "xdg/entry.h"
 

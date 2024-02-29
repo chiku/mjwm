@@ -16,12 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "xdg/desktop_entry.h"
 
 #include <vector>
 #include <string>
 
 #include "../doctest.h"
+#include "xdg/desktop_entry.h"
 
 namespace amm {
 namespace xdg {

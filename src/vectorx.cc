@@ -16,13 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "vectorx.h"
-
 #include <string>
 #include <vector>
 #include <sstream>
 #include <algorithm>
 
+#include "vectorx.h"
 #include "stringx.h"
 
 namespace amm {

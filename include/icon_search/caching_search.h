@@ -22,7 +22,7 @@
 #include <string>
 #include <map>
 
-#include "icon_search_interface.h"
+#include "icon_search/icon_search_interface.h"
 
 namespace amm {
 namespace icon_search {

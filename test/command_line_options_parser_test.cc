@@ -16,14 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "command_line_options_parser.h"
-
 #include <cstring>
 #include <string>
 #include <vector>
 
-#include "summary_type.h"
 #include "doctest.h"
+#include "summary_type.h"
+#include "command_line_options_parser.h"
 
 namespace amm {
 

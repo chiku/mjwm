@@ -16,17 +16,16 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define DO_QUOTE(X)       #X
-#define QUOTE(X)          DO_QUOTE(X)
-
-#include "filex.h"
-
 #include <cstdlib>
 #include <cstdio>
 #include <string>
 #include <vector>
 
 #include "doctest.h"
+#include "filex.h"
+
+#define DO_QUOTE(X)       #X
+#define QUOTE(X)          DO_QUOTE(X)
 
 namespace amm {
 

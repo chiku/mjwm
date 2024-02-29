@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "xdg/icon_theme.h"
-
 #include <vector>
 #include <string>
 
 #include "../doctest.h"
+#include "xdg/icon_theme.h"
 
 namespace amm {
 namespace xdg {

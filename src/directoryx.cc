@@ -16,11 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "directoryx.h"
-
 #include <dirent.h>
 #include <string>
 
+#include "directoryx.h"
 #include "stringx.h"
 #include "filex.h"
 

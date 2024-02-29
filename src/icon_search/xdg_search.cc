@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "icon_search/xdg_search.h"
-
 #include <climits>
 #include <string>
 #include <vector>
 
+#include "icon_search/xdg_search.h"
 #include "stringx.h"
 #include "filex.h"
 #include "xdg/icon_subdirectory.h"

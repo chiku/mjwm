@@ -16,13 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "summary_type.h"
-#include "stats.h"
-
 #include <string>
 #include <vector>
 
 #include "doctest.h"
+#include "summary_type.h"
+#include "stats.h"
 
 namespace amm {
 

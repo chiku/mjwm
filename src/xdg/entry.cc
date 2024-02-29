@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "xdg/entry.h"
-
 #include <string>
 #include <vector>
 #include <map>
 
+#include "xdg/entry.h"
 #include "xdg/entry_line.h"
 
 namespace amm {

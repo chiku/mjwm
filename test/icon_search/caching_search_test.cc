@@ -16,10 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "icon_search/caching_search.h"
-
 #include <string>
+
 #include "../doctest.h"
+#include "icon_search/caching_search.h"
 #include "icon_search/icon_search_interface.h"
 
 namespace amm {

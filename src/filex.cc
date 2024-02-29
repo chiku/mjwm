@@ -16,13 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "filex.h"
-
 #include <sys/stat.h>
 #include <cstdio>
 #include <string>
 #include <vector>
 #include <fstream> // TODO : enable optional cstdio integration
+
+#include "filex.h"
 
 namespace amm {
 

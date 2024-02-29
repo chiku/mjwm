@@ -20,7 +20,6 @@
 #define AMM_MESSAGES_H_
 
 #include <string>
-#include <vector>
 
 namespace amm {
 namespace messages {

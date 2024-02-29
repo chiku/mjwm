@@ -19,11 +19,6 @@
 #ifndef AMM_SUMMARY_TYPE_H_
 #define AMM_SUMMARY_TYPE_H_
 
-#include <string>
-#include <vector>
-
-#include "stringx.h"
-
 namespace amm {
 
 enum SummaryType

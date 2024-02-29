@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "xdg/icon_theme.h"
+#include "xdg/icon_subdirectory.h"
 #include "icon_search/icon_search_interface.h"
 #include "qualified_icon_theme.h"
 

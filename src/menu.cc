@@ -16,11 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "menu.h"
-
 #include <string>
 #include <vector>
 
+#include "menu.h"
 #include "stringx.h"
 #include "filex.h"
 #include "icon_search/icon_search_interface.h"

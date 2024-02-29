@@ -16,13 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "desktop_entry_file_search.h"
-
 #include <string>
 #include <vector>
 #include <algorithm>
 
 #include "doctest.h"
+#include "desktop_entry_file_search.h"
 
 namespace amm {
 

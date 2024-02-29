@@ -22,7 +22,6 @@
 #include <string>
 #include <vector>
 
-#include "stringx.h"
 #include "summary_type.h"
 
 namespace amm {

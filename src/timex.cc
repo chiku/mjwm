@@ -16,10 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "timex.h"
-
 #include <ctime>
 #include <string>
+
+#include "timex.h"
 
 namespace amm {
 namespace timex {

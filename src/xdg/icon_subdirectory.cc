@@ -16,12 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "xdg/icon_subdirectory.h"
-
 #include <cstdlib>
 #include <string>
 #include <limits>
 #include <algorithm>
+
+#include "xdg/icon_subdirectory.h"
 
 namespace amm {
 namespace xdg {

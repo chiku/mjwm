@@ -16,14 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "amm.h"
-
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 
+#include "amm.h"
 #include "vectorx.h"
 #include "filex.h"
 #include "timex.h"

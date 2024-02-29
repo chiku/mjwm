@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "stringx.h"
-
 #include <string>
 #include <vector>
 
 #include "doctest.h"
+#include "stringx.h"
 
 namespace amm {
 

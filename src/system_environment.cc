@@ -16,12 +16,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "system_environment.h"
-
 #include <cstdlib>
 #include <string>
 #include <vector>
 
+#include "system_environment.h"
 #include "stringx.h"
 
 namespace amm {
