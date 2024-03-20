@@ -70,34 +70,31 @@ void assertNamesAreCorrect(std::vector<std::string> names)
     CHECK(names[11] == "vlc.desktop");
 }
 
-SCENARIO("DirectoryX") {
+SCENARIO("directoryx") {
     std::string fixture_dir = QUOTE(FIXTUREDIR);
 
     GIVEN("A directoryx") {
         WHEN("present") {
             THEN("it is valid") {
-                DirectoryX directory(fixture_dir + "applications");
-                CHECK(directory.isValid());
+                CHECK(directoryx::isValid(fixture_dir + "applications"));
             }
         }
 
         WHEN("not present") {
-            DirectoryX directory("does-not-exist");
             THEN("it is invalid") {
-                CHECK_FALSE(directory.isValid());
+                CHECK_FALSE(directoryx::isValid("does-not-exist"));
             }
         }
 
         WHEN("it has files under itself") {
-            DirectoryX directory(fixture_dir + "applications");
-            DirectoryX::Entries entries = directory.allEntries();
+            directoryx::Entries entries = directoryx::allEntries(fixture_dir + "applications");
             WHEN("its contained files are retrieved one at a time") {
                 THEN("the retrieved entry has the name of the file and knows if it is a directory") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
 
                     for (int i = 0; i < 12; i++) {
-                        DirectoryX::Entries::SearchResult result = entries.nextName();
+                        directoryx::Entries::SearchResult result = entries.nextName();
                         CHECK(result.success);
                         (result.isDirectory ? directory_names : file_names).push_back(result.name);
                     }
@@ -112,7 +109,7 @@ SCENARIO("DirectoryX") {
                     for (int i = 0; i < 12; i++) {
                         entries.nextName();
                     }
-                    DirectoryX::Entries::SearchResult result = entries.nextName();
+                    directoryx::Entries::SearchResult result = entries.nextName();
 
                     CHECK_FALSE(result.success);
                     CHECK_FALSE(result.isDirectory);
@@ -124,7 +121,7 @@ SCENARIO("DirectoryX") {
                 THEN("it has the contained file and sub-directory names") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
-                    for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+                    for (directoryx::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
                         (entry->isDirectory() ? directory_names : file_names).push_back(entry->name());
                     }
 
@@ -137,7 +134,7 @@ SCENARIO("DirectoryX") {
                 THEN("it has the contained file and sub-directory names") {
                     std::vector<std::string> file_names;
                     std::vector<std::string> directory_names;
-                    for (DirectoryX::Entries::iterator entry = entries.begin(); !(entry == entries.end()); entry++) {
+                    for (directoryx::Entries::iterator entry = entries.begin(); !(entry == entries.end()); entry++) {
                         (entry->isDirectory() ? directory_names : file_names).push_back(entry->name());
                     }
 
@@ -149,17 +146,16 @@ SCENARIO("DirectoryX") {
 
         WHEN("iterated multiple times") {
             THEN("all iterations have the same results") {
-                DirectoryX directory(fixture_dir + "applications");
-                DirectoryX::Entries first_set = directory.allEntries();
-                DirectoryX::Entries second_set = directory.allEntries();
+                directoryx::Entries first_set = directoryx::allEntries(fixture_dir + "applications");
+                directoryx::Entries second_set = directoryx::allEntries(fixture_dir + "applications");
 
                 std::vector<std::string> first_set_names;
-                for (DirectoryX::Entries::iterator entry = first_set.begin(); entry != first_set.end(); ++entry) {
+                for (directoryx::Entries::iterator entry = first_set.begin(); entry != first_set.end(); ++entry) {
                     first_set_names.push_back(entry->name());
                 }
 
                 std::vector<std::string> second_set_names;
-                for (DirectoryX::Entries::iterator entry = second_set.begin(); entry != second_set.end(); ++entry) {
+                for (directoryx::Entries::iterator entry = second_set.begin(); entry != second_set.end(); ++entry) {
                     second_set_names.push_back(entry->name());
                 }
 

@@ -23,18 +23,13 @@
 #include <vector>
 
 namespace amm {
+namespace vectorx {
 
-class VectorX
-{
-public:
-    explicit VectorX(const std::vector<std::string> &vector) : vector_(vector) { }
+std::string join(const std::vector<std::string> &vector, const std::string &delimiter);
+std::vector<std::string> terminateEachWith(const std::vector<std::string> &vector, const std::string &delimiter);
+std::vector<std::string> unique(const std::vector<std::string> &vector);
 
-    std::string join(const std::string &delimiter) const;
-    std::vector<std::string> terminateEachWith(const std::string &delimiter) const;
-    std::vector<std::string> unique() const;
-private:
-    const std::vector<std::string> &vector_;
-};
+} // namespace vectorx
 } // namespace amm
 
 #endif // AMM_VECTORX_H_

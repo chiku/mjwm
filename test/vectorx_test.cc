@@ -25,16 +25,15 @@
 
 namespace amm {
 
-SCENARIO("VectorX") {
-    GIVEN("A VectorX with more than one item") {
+SCENARIO("vectorx") {
+    GIVEN("A vectorx with more than one item") {
         std::vector<std::string> vector;
         vector.push_back("foo");
         vector.push_back("bar");
         vector.push_back("baz");
-        VectorX vectorx(vector);
 
         WHEN("joined with a delimeter") {
-            std::string result = vectorx.join("; ");
+            std::string result = vectorx::join(vector, "; ");
             THEN("it is a string with the delimeter in between the items") {
                 CHECK(result == "foo; bar; baz");
             }
@@ -44,10 +43,9 @@ SCENARIO("VectorX") {
     GIVEN("A vectorx with one item") {
         std::vector<std::string> vector;
         vector.push_back("foo");
-        VectorX vectorx(vector);
 
         WHEN("joined with a delimeter") {
-            std::string result = vectorx.join("; ");
+            std::string result = vectorx::join(vector, "; ");
             THEN("it the item in the original vector") {
                 CHECK(result == "foo");
             }
@@ -56,10 +54,9 @@ SCENARIO("VectorX") {
 
     GIVEN("A vectorx with no items") {
         std::vector<std::string> vector;
-        VectorX vectorx(vector);
 
         WHEN("joined with a delimeter") {
-            std::string result = vectorx.join("; ");
+            std::string result = vectorx::join(vector, "; ");
             THEN("it is an empty string") {
                 CHECK(result == "");
             }
@@ -71,10 +68,9 @@ SCENARIO("VectorX") {
         vector.push_back("foo/");
         vector.push_back("bar");
         vector.push_back("baz/");
-        VectorX vectorx(vector);
 
         WHEN("terminated with a delimeter") {
-            std::vector<std::string> result = vectorx.terminateEachWith("/");
+            std::vector<std::string> result = vectorx::terminateEachWith(vector, "/");
             THEN("it adds the delimeter without duplicating it") {
                 REQUIRE(result.size() == 3);
                 CHECK(result[0] == "foo/");
@@ -91,10 +87,9 @@ SCENARIO("VectorX") {
         vector.push_back("foo");
         vector.push_back("bar");
         vector.push_back("bar");
-        VectorX vectorx(vector);
 
         WHEN("unique") {
-            std::vector<std::string> result = vectorx.unique();
+            std::vector<std::string> result = vectorx::unique(vector);
             THEN("it de-duplicates") {
                 REQUIRE(result.size() == 2);
                 CHECK(result[0] == "bar");

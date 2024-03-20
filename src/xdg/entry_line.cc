@@ -27,7 +27,7 @@ namespace xdg {
 std::string kAssignmentDelim = "=";
 
 EntryLine::EntryLine(const std::string &content) :
-        content_(StringX(content).trim()),
+        content_(stringx::trim(content)),
         content_length_(content_.size()),
         assignment_delim_location_(content_.find(kAssignmentDelim)) {}
 
@@ -58,7 +58,7 @@ std::string EntryLine::key() const
         return "";
     }
 
-    return StringX(content_.substr(0, assignment_delim_location_)).trim();
+    return stringx::trim(content_.substr(0, assignment_delim_location_));
 }
 
 std::string EntryLine::value() const
@@ -67,7 +67,7 @@ std::string EntryLine::value() const
         return "";
     }
 
-    return StringX(content_.substr(assignment_delim_location_ + 1, content_length_)).trim();
+    return stringx::trim(content_.substr(assignment_delim_location_ + 1, content_length_));
 }
 
 } // namespace xdg

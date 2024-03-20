@@ -32,7 +32,7 @@ namespace transformer {
 static std::string removeFieldCode(const std::string &input)
 {
     std::vector<std::string> result;
-    std::vector<std::string> tokens = StringX(input).split(" ");
+    std::vector<std::string> tokens = stringx::split(input, " ");
 
     for (std::vector<std::string>::const_iterator iter = tokens.begin(); iter != tokens.end(); ++iter) {
         if (!(iter->size() >= 1 && (*iter)[0] == '%')) {
@@ -40,7 +40,7 @@ static std::string removeFieldCode(const std::string &input)
         }
     }
 
-    return VectorX(result).join(" ");
+    return vectorx::join(result, " ");
 }
 
 static std::string withTerminal(const bool terminal, const std::string &exec, const std::string &name)
@@ -77,7 +77,7 @@ std::string Jwm::transform(const representation::SubcategoryStart &entry) const
 {
     std::stringstream stream;
     stream << "    <Menu "
-        << "label=\"" << StringX(entry.name()).encode()
+        << "label=\"" << stringx::encode(entry.name())
         << "\" icon=\"" << entry.icon()
         << "\">";
     return stream.str();
@@ -94,9 +94,9 @@ std::string Jwm::transform(const representation::SubcategoryEnd &entry) const
 
 std::string Jwm::transform(const representation::Program &entry) const
 {
-    std::string label = StringX(entry.name()).encode();
-    std::string icon = StringX(entry.icon()).encode();
-    std::string tooltip = StringX(entry.comment()).encode();
+    std::string label = stringx::encode(entry.name());
+    std::string icon = stringx::encode(entry.icon());
+    std::string tooltip = stringx::encode(entry.comment());
     std::string executable = entry.executable();
     std::stringstream stream;
     stream << "        <Program "

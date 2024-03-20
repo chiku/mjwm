@@ -69,8 +69,8 @@ private:
                         path.join(icon_theme->internalName());
                         path.join(subdir->name());
                         path.join(icon_name);
-                        std::string file_name = StringX(path.result()).terminateWith(*extension);
-                        if (FileX(file_name).exists()) {
+                        std::string file_name = stringx::terminateWith(path.result(), *extension);
+                        if (filex::exists(file_name)) {
                             search_locations.push_back(xdg::IconSubdirectory(subdir->location(file_name)));
                         }
                     }
@@ -119,8 +119,8 @@ public:
             for (std::vector<std::string>::const_iterator extension = registered_extensions_.begin(); extension != registered_extensions_.end(); ++extension) {
                 Path path(*directory);
                 path.join(icon_name);
-                std::string file_name = StringX(path.result()).terminateWith(*extension);
-                if (FileX(file_name).exists()) {
+                std::string file_name = stringx::terminateWith(path.result(), *extension);
+                if (filex::exists(file_name)) {
                     return file_name;
                 }
             }

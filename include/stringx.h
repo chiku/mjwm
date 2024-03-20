@@ -23,19 +23,15 @@
 #include <vector>
 
 namespace amm {
-class StringX
-{
-public:
-    explicit StringX(const std::string &string) : string_(string) {}
+namespace stringx {
 
-    bool endsWith(const std::string &delimiter) const;
-    std::string terminateWith(const std::string &end) const;
-    std::string encode() const;
-    std::string trim() const;
-    std::vector<std::string> split(const std::string &delimiter) const;
-private:
-    const std::string string_;
-};
+bool endsWith(const std::string &string, const std::string &delimiter);
+std::string terminateWith(const std::string &string, const std::string &end);
+std::string encode(const std::string &string);
+std::string trim(const std::string &string);
+std::vector<std::string> split(const std::string &string, const std::string &delimiter);
+
+} // namespace amm
 } // namespace amm
 
 #endif // AMM_STRINGX_H_

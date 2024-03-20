@@ -33,7 +33,7 @@ QualifiedIconTheme::QualifiedIconTheme(const SystemEnvironment &environment, con
     std::vector<std::string> theme_directories = environment.iconThemeDirectories();
 
     for (std::vector<std::string>::const_iterator dir = theme_directories.begin(); dir != theme_directories.end(); ++dir) {
-        if (FileX(*dir).exists()) {
+        if (filex::exists(*dir)) {
             theme_search_paths_.push_back(*dir);
         }
     }
@@ -42,17 +42,15 @@ QualifiedIconTheme::QualifiedIconTheme(const SystemEnvironment &environment, con
 xdg::IconTheme QualifiedIconTheme::iconThemeFromName(const std::string &theme_name)
 {
     for (std::vector<std::string>::iterator path = theme_search_paths_.begin(); path != theme_search_paths_.end(); ++path) {
-        DirectoryX directory(*path);
-
-        if (directory.isValid()) {
-            DirectoryX::Entries entries = directory.allEntries();
-            for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+        if (directoryx::isValid(*path)) {
+            directoryx::Entries entries = directoryx::allEntries(*path);
+            for (directoryx::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
                 std::string name = entry->name();
                 if (entry->isDirectory() && name != "." && name != "..") {
-                    std::string full_path = StringX(*path).terminateWith("/") + StringX(entry->name()).terminateWith("/") + "index.theme";
+                    std::string full_path = stringx::terminateWith(*path, "/") + stringx::terminateWith(entry->name(), "/") + "index.theme";
                     std::vector<std::string> lines;
 
-                    if (FileX(full_path).readLines(&lines)) {
+                    if (filex::readLines(full_path, &lines)) {
                         xdg::IconTheme xdg_theme = xdg::IconTheme(lines).internalNameIs(entry->name());
                         if (xdg_theme.isNamed(theme_name)) {
                             return xdg_theme;

@@ -33,7 +33,7 @@ static std::vector<std::string> defaultDirectories()
     std::vector<std::string> existing_directories;
     std::vector<std::string> directories = SystemEnvironment().applicationDirectories();
     for (std::vector<std::string>::iterator directory = directories.begin(); directory != directories.end(); ++directory) {
-        if (DirectoryX(*directory).isValid()) {
+        if (directoryx::isValid(*directory)) {
             existing_directories.push_back(*directory);
         }
     }
@@ -50,8 +50,8 @@ void DesktopEntryFileSearch::resolve()
     desktop_file_names_.clear();
     bad_paths_.clear();
 
-    std::vector<std::string> terminated_names = VectorX(directory_names_).terminateEachWith("/");
-    std::vector<std::string> unique_names = VectorX(terminated_names).unique();
+    std::vector<std::string> terminated_names = vectorx::terminateEachWith(directory_names_, "/");
+    std::vector<std::string> unique_names = vectorx::unique(terminated_names);
 
     for (std::vector<std::string>::const_iterator name = unique_names.begin(); name != unique_names.end(); ++name) {
         populate(*name);
@@ -60,20 +60,18 @@ void DesktopEntryFileSearch::resolve()
 
 void DesktopEntryFileSearch::populate(const std::string &directory_name)
 {
-    DirectoryX directory(directory_name);
-
-    if (!directory.isValid()) {
+    if (!directoryx::isValid(directory_name)) {
         bad_paths_.push_back(directory_name);
         return;
     }
 
-    DirectoryX::Entries entries = directory.allEntries();
+    directoryx::Entries entries = directoryx::allEntries(directory_name);
 
-    for (DirectoryX::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
+    for (directoryx::Entries::iterator entry = entries.begin(); entry != entries.end(); ++entry) {
         std::string entry_name = entry->name();
-        std::string full_path = StringX(directory_name).terminateWith("/") + entry_name;
+        std::string full_path = stringx::terminateWith(directory_name, "/") + entry_name;
 
-        if (StringX(entry_name).endsWith(".desktop")) {
+        if (stringx::endsWith(entry_name, ".desktop")) {
             desktop_file_names_.push_back(full_path);
         }
 

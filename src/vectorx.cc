@@ -25,40 +25,41 @@
 #include "stringx.h"
 
 namespace amm {
+namespace vectorx {
 
-std::string VectorX::join(const std::string &delimeter) const
+std::string join(const std::vector<std::string> &vector, const std::string &delimeter)
 {
     std::stringstream stream;
-    size_t vector_size = vector_.size();
+    size_t vector_size = vector.size();
 
     if (vector_size == 0) {
         return "";
     }
 
     if (vector_size >= 2) {
-        for (std::vector<std::string>::const_iterator iterator = vector_.begin(); iterator != vector_.end()-1; ++iterator) {
+        for (std::vector<std::string>::const_iterator iterator = vector.begin(); iterator != vector.end()-1; ++iterator) {
             stream << *iterator << delimeter;
         }
     }
-    stream << vector_.back();
+    stream << vector.back();
 
     return stream.str();
 }
 
-std::vector<std::string> VectorX::terminateEachWith(const std::string &delimiter) const
+std::vector<std::string> terminateEachWith(const std::vector<std::string> &vector, const std::string &delimiter)
 {
     std::vector<std::string> result;
 
-    for (std::vector<std::string>::const_iterator i = vector_.begin(); i != vector_.end(); ++i) {
-        result.push_back(StringX(*i).terminateWith(delimiter));
+    for (std::vector<std::string>::const_iterator i = vector.begin(); i != vector.end(); ++i) {
+        result.push_back(stringx::terminateWith(*i, delimiter));
     }
 
     return result;
 }
 
-std::vector<std::string> VectorX::unique() const
+std::vector<std::string> unique(const std::vector<std::string> &vector)
 {
-    std::vector<std::string> result = vector_;
+    std::vector<std::string> result = vector;
 
     std::sort(result.begin(), result.end());
     std::vector<std::string>::iterator it = std::unique(result.begin(), result.end());
@@ -67,4 +68,5 @@ std::vector<std::string> VectorX::unique() const
     return result;
 }
 
+} // namespace vectorx
 } // namespace amm

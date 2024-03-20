@@ -86,21 +86,21 @@ std::string Stats::details(const SummaryType summary_type, const std::string out
       stream << "Unclassified files: " << totalUnclassifiedFiles();
 
       if (totalUnparsedFiles() > 0) {
-          stream << std::endl << "Unparsed files: " << VectorX(unparsed_files_).join(", ");
+          stream << std::endl << "Unparsed files: " << vectorx::join(unparsed_files_, ", ");
       }
     }
 
     if (summaryTypeCompatible(summary_type, SummaryType::Verbose)) {
         if (totalSuppressedFiles() > 0) {
-            stream << std::endl << "Suppressed files: " << VectorX(suppressed_files_).join(", ");
+            stream << std::endl << "Suppressed files: " << vectorx::join(suppressed_files_, ", ");
         }
 
         if (totalUnclassifiedFiles() > 0) {
-            stream << std::endl << "Unclassified files: " << VectorX(unclassified_files_).join(", ");
+            stream << std::endl << "Unclassified files: " << vectorx::join(unclassified_files_, ", ");
         }
 
         if (unhandled_classifications_.size() > 0) {
-            stream << std::endl << "Unhandled classifications: " << VectorX(unhandledClassifications()).join(", ");
+            stream << std::endl << "Unhandled classifications: " << vectorx::join(unhandledClassifications(), ", ");
         }
     }
 

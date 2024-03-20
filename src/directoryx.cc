@@ -24,9 +24,11 @@
 #include "filex.h"
 
 namespace amm {
-bool DirectoryX::isValid() const
+namespace directoryx {
+
+bool isValid(const std::string path)
 {
-    DIR* directory = opendir(path_.c_str());
+    DIR* directory = opendir(path.c_str());
     if (directory) {
         closedir(directory);
         return true;
@@ -35,44 +37,51 @@ bool DirectoryX::isValid() const
     }
 }
 
-DirectoryX::Entries::Entries(const std::string &path) : path_(path)
+Entries::Entries(const std::string &path) : path_(path)
 {
     directory_ = opendir(path.c_str());
 }
 
-DirectoryX::Entries::~Entries()
+Entries::~Entries()
 {
     if (directory_ != NULL) {
         closedir(directory_);
     }
 }
 
-DirectoryX::Entries::SearchResult DirectoryX::Entries::nextName()
+Entries::SearchResult Entries::nextName()
 {
     dirent *entry_;
     while((entry_ = readdir(directory_)) != NULL) {
-        std::string full_path = StringX(path_).terminateWith("/") + entry_->d_name;
-        current_result_ = SearchResult::Success(entry_->d_name, FileX(full_path).existsAsDirectory());
+        std::string full_path = stringx::terminateWith(path_, "/") + entry_->d_name;
+        current_result_ = SearchResult::Success(entry_->d_name, filex::existsAsDirectory(full_path));
         return current_result_;
     }
     current_result_ = SearchResult::Bad();
     return current_result_;
 }
 
-DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++()
+Entries::iterator Entries::iterator::operator ++()
 {
-    DirectoryX::Entries::iterator output = *this;
+    Entries::iterator output = *this;
     if (!subdirs_->nextName().success) {
         subdirs_ = NULL;
     }
     return output;
 }
 
-DirectoryX::Entries::iterator DirectoryX::Entries::iterator::operator ++(int)
+Entries::iterator Entries::iterator::operator ++(int)
 {
     if (!subdirs_->nextName().success) {
         subdirs_ = NULL;
     }
     return *this;
 }
+
+Entries allEntries(const std::string path)
+{
+    return Entries(path);
+}
+
+} // namespace directoryx
 } // namespace amm

@@ -23,20 +23,14 @@
 #include <vector>
 
 namespace amm {
-class FileX
-{
-public:
-    explicit FileX(const std::string &name) : name_(name) { }
-    bool readLines(std::vector<std::string> *lines) const;
-    bool writeLines(const std::vector<std::string> &lines) const;
-    bool moveTo(const std::string &location) const;
-    bool exists() const;
-    bool existsAsDirectory() const;
-    bool purge() const;
-
-private:
-    std::string name_;
-};
+namespace filex {
+    bool readLines(const std::string fileName, std::vector<std::string> *lines);
+    bool writeLines(const std::string fileName, const std::vector<std::string> &lines);
+    bool moveTo(const std::string fileName, const std::string &location);
+    bool exists(const std::string fileName);
+    bool existsAsDirectory(const std::string fileName);
+    bool purge(const std::string fileName);
+} // namespace filex
 } // namespace amm
 
 #endif // AMM_FILEX_H_

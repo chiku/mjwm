@@ -22,67 +22,60 @@
 #include <dirent.h>
 #include <string>
 
-namespace amm
-{
+namespace amm {
+namespace directoryx {
 
-class DirectoryX
+bool isValid(const std::string path);
+
+class Entries
 {
 public:
-    explicit DirectoryX(const std::string &path) : path_(path) {}
-    bool isValid() const;
+    Entries(const std::string &path);
+    ~Entries();
 
-    class Entries
+    class SearchResult
     {
     public:
-        Entries(const std::string &path);
-        ~Entries();
-
-        class SearchResult
-        {
-        public:
-            std::string name;
-            bool success;
-            bool isDirectory;
-            SearchResult() : name(""), success(false), isDirectory(false) { }
-            static SearchResult Bad() { return SearchResult("", false, false); }
-            static SearchResult Success(const std::string &name, bool is_directory_) { return SearchResult(name, true, is_directory_); }
-        private:
-            SearchResult(const std::string &name_, bool success_, bool isDirectory_) : name(name_), success(success_), isDirectory(isDirectory_) {}
-        };
-
-        class iterator
-        {
-        public:
-            iterator(Entries *subdirs) : subdirs_(subdirs) { }
-            Entries* operator ->() const { return subdirs_; }
-            Entries& operator *() const { return *subdirs_; }
-            iterator operator ++();
-            iterator operator ++(int);
-            bool operator ==(const iterator& rhs) const { return subdirs_ == rhs.subdirs_; }
-            bool operator !=(const iterator& rhs) const { return subdirs_ != rhs.subdirs_; }
-        private:
-            Entries *subdirs_;
-        };
-
-        iterator begin() { nextName(); return iterator(this); }
-        iterator end() { return iterator(NULL); }
-
-        std::string name() const { return current_result_.name; }
-        bool isDirectory() const { return current_result_.isDirectory; }
-        SearchResult nextName();
-
+        std::string name;
+        bool success;
+        bool isDirectory;
+        SearchResult() : name(""), success(false), isDirectory(false) { }
+        static SearchResult Bad() { return SearchResult("", false, false); }
+        static SearchResult Success(const std::string &name, bool is_directory_) { return SearchResult(name, true, is_directory_); }
     private:
-        std::string path_;
-        DIR *directory_;
-        SearchResult current_result_;
+        SearchResult(const std::string &name_, bool success_, bool isDirectory_) : name(name_), success(success_), isDirectory(isDirectory_) {}
     };
 
-    Entries allEntries() { return Entries(path_); }
+    class iterator
+    {
+    public:
+        iterator(Entries *subdirs) : subdirs_(subdirs) { }
+        Entries* operator ->() const { return subdirs_; }
+        Entries& operator *() const { return *subdirs_; }
+        iterator operator ++();
+        iterator operator ++(int);
+        bool operator ==(const iterator& rhs) const { return subdirs_ == rhs.subdirs_; }
+        bool operator !=(const iterator& rhs) const { return subdirs_ != rhs.subdirs_; }
+    private:
+        Entries *subdirs_;
+    };
+
+    iterator begin() { nextName(); return iterator(this); }
+    iterator end() { return iterator(NULL); }
+
+    std::string name() const { return current_result_.name; }
+    bool isDirectory() const { return current_result_.isDirectory; }
+    SearchResult nextName();
 
 private:
     std::string path_;
+    DIR *directory_;
+    SearchResult current_result_;
 };
 
+Entries allEntries(const std::string path);
+
+} // namespace directoryx
 } // namespace amm
 
 #endif // AMM_DIRECTORYX_H_

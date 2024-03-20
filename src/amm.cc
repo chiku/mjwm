@@ -77,7 +77,7 @@ void Amm::loadCommandLineOption(int argc, char **argv)
     options_ = CommandLineOptionsParser(environment_.home(), environment_.language()).parse(argc, argv);
     std::vector<std::string> deprecations = options_.deprecations;
     if (!deprecations.empty()) {
-        displayToSTDERR(VectorX(deprecations).join("\n"));
+        displayToSTDERR(vectorx::join(deprecations, "\n"));
     }
     if (!options_.is_parsed) {
         displayToSTDERR(messages::optionError());
@@ -99,7 +99,7 @@ void Amm::readCategories()
     std::vector<std::string> category_lines;
 
     if (category_file_name != "") {
-        if (FileX(category_file_name).readLines(&category_lines)) {
+        if (filex::readLines(category_file_name, &category_lines)) {
             menu_.loadCustomCategories(category_lines);
         } else {
             displayToSTDERR(messages::badCategoryFile(category_file_name));
@@ -132,7 +132,7 @@ void Amm::readDesktopEntryFiles()
 
     std::vector<std::string> bad_paths = service.badPaths();
     if (!bad_paths.empty()) {
-        displayToSTDERR(messages::badInputPaths(VectorX(bad_paths).join(", ")));
+        displayToSTDERR(messages::badInputPaths(vectorx::join(bad_paths, ", ")));
     }
     desktop_entry_file_names_ = service.desktopEntryFileNames();
 }
@@ -162,21 +162,20 @@ void Amm::writeOutputFile()
     }
 
     std::string output_file_name = options_.output_file_name;
-    FileX output_file = FileX(output_file_name);
-    if (output_file.existsAsDirectory()) {
+    if (filex::existsAsDirectory(output_file_name)) {
         displayToSTDERR(messages::outputPathBlockedByDirectory(output_file_name));
         exit(1);
     }
-    if (output_file.exists()) {
+    if (filex::exists(output_file_name)) {
         if (options_.is_backup) {
             std::string backup_file_name = output_file_name + "." + timex::currentTimeAsTimestamp() + ".bak";
-            output_file.moveTo(backup_file_name);
+            filex::moveTo(output_file_name, backup_file_name);
             displayToSTDOUT(messages::backupFile(output_file_name, backup_file_name));
         } else {
-            output_file.purge();
+            filex::purge(output_file_name);
         }
     }
-    if (!output_file.writeLines(output)) {
+    if (!filex::writeLines(output_file_name, output)) {
         displayToSTDERR(messages::badOutputFile(options_.output_file_name));
         exit(1);
     }

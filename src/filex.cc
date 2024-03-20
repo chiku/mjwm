@@ -25,28 +25,29 @@
 #include "filex.h"
 
 namespace amm {
+namespace filex {
 
-bool FileX::exists() const
+bool exists(const std::string file_name)
 {
     struct stat st;
-    return stat(name_.c_str(), &st) == 0;
+    return stat(file_name.c_str(), &st) == 0;
 }
 
-bool FileX::existsAsDirectory() const
+bool existsAsDirectory(const std::string file_name)
 {
     struct stat st;
-    int result = stat(name_.c_str(), &st);
+    int result = stat(file_name.c_str(), &st);
     return result == 0 && S_ISDIR(st.st_mode);
 }
 
-bool FileX::moveTo(const std::string &new_path) const
+bool moveTo(const std::string file_name, const std::string &new_path)
 {
-    return rename(name_.c_str(), new_path.c_str()) == 0;
+    return rename(file_name.c_str(), new_path.c_str()) == 0;
 }
 
-bool FileX::readLines(std::vector<std::string> *lines) const
+bool readLines(const std::string file_name, std::vector<std::string> *lines)
 {
-    std::ifstream file(name_.c_str());
+    std::ifstream file(file_name.c_str());
     if (!file.good()) {
         return false;
     }
@@ -60,9 +61,9 @@ bool FileX::readLines(std::vector<std::string> *lines) const
     return true;
 }
 
-bool FileX::writeLines(const std::vector<std::string> &lines) const
+bool writeLines(const std::string file_name, const std::vector<std::string> &lines)
 {
-    std::ofstream file(name_.c_str());
+    std::ofstream file(file_name.c_str());
     if (!file.good()) {
         return false;
     }
@@ -74,9 +75,10 @@ bool FileX::writeLines(const std::vector<std::string> &lines) const
     return true;
 }
 
-bool FileX::purge() const
+bool purge(const std::string file_name)
 {
-    return remove(name_.c_str()) == 0;
+    return remove(file_name.c_str()) == 0;
 }
 
+} // namespace filex
 } // namespace amm

@@ -23,8 +23,10 @@
 
 namespace amm {
 namespace timex {
+
 std::string currentTimeAsTimestamp();
 std::string currentTimeAsReadble();
+
 } // namespace timex
 } // namespace amm
 

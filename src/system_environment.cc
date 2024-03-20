@@ -64,18 +64,18 @@ SystemEnvironment::SystemEnvironment()
 
 std::vector<std::string> SystemEnvironment::xdgDataDirectories() const
 {
-    return StringX(xdg_data_dirs_).split(":");
+    return stringx::split(xdg_data_dirs_, ":");
 }
 
 std::vector<std::string> SystemEnvironment::applicationDirectories() const
 {
     std::vector<std::string> directories;
-    std::string home_application = StringX(xdgDataHome()).terminateWith("/") + "applications";
+    std::string home_application = stringx::terminateWith(xdgDataHome(), "/") + "applications";
     directories.push_back(home_application);
 
     std::vector<std::string> data_dir_applications = xdgDataDirectories();
     for (std::vector<std::string>::const_iterator directory = data_dir_applications.begin(); directory != data_dir_applications.end(); ++directory) {
-        directories.push_back(StringX(*directory).terminateWith("/") + "applications");
+        directories.push_back(stringx::terminateWith(*directory, "/") + "applications");
     }
     return directories;
 }
@@ -83,12 +83,12 @@ std::vector<std::string> SystemEnvironment::applicationDirectories() const
 std::vector<std::string> SystemEnvironment::iconThemeDirectories() const
 {
     std::vector<std::string> directories;
-    std::string home_icon = StringX(home()).terminateWith("/") + ".icons";
+    std::string home_icon = stringx::terminateWith(home(), "/") + ".icons";
     directories.push_back(home_icon);
 
     std::vector<std::string> xdg_data_dirs = xdgDataDirectories();
     for (std::vector<std::string>::const_iterator directory = xdg_data_dirs.begin(); directory != xdg_data_dirs.end(); ++directory) {
-        directories.push_back(StringX(*directory).terminateWith("/") + "icons");
+        directories.push_back(stringx::terminateWith(*directory, "/") + "icons");
     }
     directories.push_back("/usr/share/pixmaps");
 
@@ -101,8 +101,8 @@ std::string SystemEnvironment::getLanguageWith(const char *raw)
         return "";
     }
 
-    std::string without_encoding = StringX(raw).split(".")[0];
-    return StringX(without_encoding).split("_")[0];
+    std::string without_encoding = stringx::split(raw, ".")[0];
+    return stringx::split(without_encoding, "_")[0];
 }
 
 } // namespace amm

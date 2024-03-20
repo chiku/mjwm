@@ -79,7 +79,7 @@ AmmOptions CommandLineOptionsParser::parse(int argc, char* const* argv)
             amm_options.output_file_name = optarg;
         } else if (chosen_option == 'i') {
             amm_options.override_default_directories = true;
-            amm_options.input_directory_names = StringX(optarg).split(":");
+            amm_options.input_directory_names = stringx::split(optarg, ":");
         } else if (chosen_option == 'c') {
             amm_options.category_file_name = optarg;
         } else if (chosen_option == 's') {

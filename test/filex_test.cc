@@ -29,29 +29,29 @@
 
 namespace amm {
 
-SCENARIO("FileX") {
+SCENARIO("filex") {
     std::string fixture_dir = QUOTE(FIXTUREDIR);
 
     GIVEN("A filex") {
         WHEN("pointing to a file that exists") {
-            FileX filex(fixture_dir + "applications/vlc.desktop");
+            std::string file_name = fixture_dir + "applications/vlc.desktop";
 
             THEN("it exists") {
-                CHECK(filex.exists());
+                CHECK(filex::exists(file_name));
             }
 
             THEN("it isn't a directory") {
-                CHECK_FALSE(filex.existsAsDirectory());
+                CHECK_FALSE(filex::existsAsDirectory(file_name));
             }
 
             THEN("it succeeds in reading its contents") {
                 std::vector<std::string> lines;
-                CHECK(filex.readLines(&lines));
+                CHECK(filex::readLines(file_name, &lines));
             }
 
             THEN("it reads the content of the file") {
                 std::vector<std::string> lines;
-                filex.readLines(&lines);
+                filex::readLines(file_name, &lines);
                 REQUIRE(lines.size() == 11);
                 CHECK(lines[0] == "[Desktop Entry]");
                 CHECK(lines[1] == "Version=1.0");
@@ -68,8 +68,8 @@ SCENARIO("FileX") {
 
             THEN("it over-writes the older content") {
                 std::vector<std::string> lines;
-                filex.readLines(&lines);
-                filex.readLines(&lines);
+                filex::readLines(file_name, &lines);
+                filex::readLines(file_name, &lines);
                 CHECK(lines.size() == 11);
             }
 
@@ -84,14 +84,14 @@ SCENARIO("FileX") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                CHECK(FileX(file_name).writeLines(lines));
+                CHECK(filex::writeLines(file_name, lines));
 
-                CHECK(FileX(file_name).moveTo(renamed_file_name));
+                CHECK(filex::moveTo(file_name, renamed_file_name));
 
-                CHECK_FALSE(FileX(file_name).exists());
+                CHECK_FALSE(filex::exists(file_name));
 
                 std::vector<std::string> read_lines;
-                CHECK(FileX(renamed_file_name).readLines(&read_lines));
+                CHECK(filex::readLines(renamed_file_name, &read_lines));
                 REQUIRE(read_lines.size() == 2);
                 CHECK(read_lines[0] == "first");
                 CHECK(read_lines[1] == "second");
@@ -110,12 +110,12 @@ SCENARIO("FileX") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                CHECK(FileX(file_name).writeLines(lines));
+                CHECK(filex::writeLines(file_name, lines));
 
-                CHECK_FALSE(FileX(file_name).moveTo(renamed_file_name));
+                CHECK_FALSE(filex::moveTo(file_name, renamed_file_name));
 
-                CHECK(FileX(file_name).exists());
-                CHECK_FALSE(FileX(renamed_file_name).exists());
+                CHECK(filex::exists(file_name));
+                CHECK_FALSE(filex::exists(renamed_file_name));
 
                 remove(file_name.c_str());
                 remove(renamed_file_name.c_str());
@@ -129,57 +129,56 @@ SCENARIO("FileX") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                CHECK(FileX(file_name).writeLines(lines));
+                CHECK(filex::writeLines(file_name, lines));
 
-                CHECK(FileX(file_name).purge());
+                CHECK(filex::purge(file_name));
 
-                CHECK_FALSE(FileX(file_name).exists());
+                CHECK_FALSE(filex::exists(file_name));
 
                 remove(file_name.c_str());
             }
         }
 
         WHEN("pointing to a directory that exists") {
-            FileX dirx(fixture_dir + "applications");
+            std::string dir_name = fixture_dir + "applications";
 
             THEN("it exists") {
-                CHECK(dirx.exists());
+                CHECK(filex::exists(dir_name));
             }
 
             THEN("it is a directory") {
-                CHECK(dirx.existsAsDirectory());
+                CHECK(filex::existsAsDirectory(dir_name));
             }
         }
 
         WHEN("pointing to a file that doesn't exist") {
             std::string file_name = fixture_dir + "applications/does-not-exist.desktop";
-            FileX filex(file_name);
             remove(file_name.c_str());
             remove((file_name + ".backup_extension").c_str());
 
             THEN("it doesn't exist") {
-                CHECK_FALSE(filex.exists());
+                CHECK_FALSE(filex::exists(file_name));
             }
 
             THEN("it isn't a directory") {
-                CHECK_FALSE(filex.existsAsDirectory());
+                CHECK_FALSE(filex::existsAsDirectory(file_name));
             }
 
             THEN("it fails to read its contents") {
                 std::vector<std::string> lines;
-                CHECK_FALSE(filex.readLines(&lines));
+                CHECK_FALSE(filex::readLines(file_name, &lines));
             }
 
             THEN("its lines are empty") {
                 std::vector<std::string> lines;
-                filex.readLines(&lines);
+                filex::readLines(file_name, &lines);
                 CHECK(lines.empty());
             }
 
             THEN("it doesn't over-write the older contents") {
                 std::vector<std::string> lines;
                 lines.push_back("existing line");
-                filex.readLines(&lines);
+                filex::readLines(file_name, &lines);
                 REQUIRE(lines.size() == 1);
                 CHECK(lines[0] == "existing line");
             }
@@ -188,11 +187,10 @@ SCENARIO("FileX") {
                 std::vector<std::string> lines;
                 lines.push_back("first");
                 lines.push_back("second");
-                CHECK(filex.writeLines(lines));
+                CHECK(filex::writeLines(file_name, lines));
 
-                FileX read_file(file_name);
                 std::vector<std::string> read_lines;
-                CHECK(read_file.readLines(&read_lines));
+                CHECK(filex::readLines(file_name, &read_lines));
                 REQUIRE(read_lines.size() == 2);
                 CHECK(read_lines[0] == "first");
                 CHECK(read_lines[1] == "second");
@@ -203,9 +201,9 @@ SCENARIO("FileX") {
                 std::string file_name = fixture_dir + "new-file";
                 remove(file_name.c_str());
 
-                CHECK_FALSE(FileX(file_name).purge());
+                CHECK_FALSE(filex::purge(file_name));
 
-                CHECK_FALSE(FileX(file_name).exists());
+                CHECK_FALSE(filex::exists(file_name));
                 remove(file_name.c_str());
             }
         }

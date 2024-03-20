@@ -21,8 +21,8 @@
 #include <algorithm>
 
 #include "xdg/desktop_entry.h"
-#include "stringx.h"
 #include "xdg/entry.h"
+#include "stringx.h"
 
 namespace amm {
 namespace xdg {
@@ -34,7 +34,7 @@ void DesktopEntry::parse(const std::vector<std::string> &lines)
     name_ = xdg_entry.under("Desktop Entry", "Name");
     icon_ = xdg_entry.under("Desktop Entry", "Icon");
     executable_ = xdg_entry.under("Desktop Entry", "Exec");
-    categories_ = StringX(xdg_entry.under("Desktop Entry", "Categories")).split(";");
+    categories_ = stringx::split(xdg_entry.under("Desktop Entry", "Categories"), ";");
     comment_ = xdg_entry.under("Desktop Entry", "Comment");
     std::string display_raw = xdg_entry.under("Desktop Entry", "NoDisplay");
     display_ = display_raw != "true" && display_raw != "1";

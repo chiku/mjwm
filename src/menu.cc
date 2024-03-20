@@ -73,7 +73,7 @@ void Menu::loadCustomCategories(const std::vector<std::string> &lines)
 
     for (std::vector<std::string>::const_iterator line = lines.begin(); line != lines.end(); ++line) {
         if ((*line)[0] != '#') {
-            std::vector<std::string> tokens = StringX(StringX(*line).trim()).split(":");
+            std::vector<std::string> tokens = stringx::split(stringx::trim(*line), ":");
             if (tokens.size() >= 3 && tokens[0] != "" && tokens[1] != "") {
                 std::vector<std::string> classification_names;
                 for (std::vector<std::string>::const_iterator token = tokens.begin()+2; token != tokens.end(); ++token) {
@@ -101,7 +101,7 @@ void Menu::populate(const std::vector<std::string> &entry_names)
 void Menu::addDesktopEntry(const std::string &entry_name)
 {
     std::vector<std::string> lines;
-    if (!FileX(entry_name).readLines(&lines)) {
+    if (!filex::readLines(entry_name, &lines)) {
         summary_.addUnparsedFile(entry_name);
         return;
     }

@@ -24,61 +24,62 @@
 #include "stringx.h"
 
 namespace amm {
+namespace stringx {
 
-bool StringX::endsWith(const std::string &delimeter) const
+bool endsWith(const std::string &string, const std::string &delimeter)
 {
-    const size_t length = string_.length();
+    const size_t length = string.length();
     const size_t delimeter_length = delimeter.length();
 
-    return ((length >= delimeter_length) && (string_.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
+    return ((length >= delimeter_length) && (string.compare(length - delimeter_length, delimeter_length, delimeter) == 0));
 }
 
-std::string StringX::terminateWith(const std::string &delimeter) const
+std::string terminateWith(const std::string &string, const std::string &delimeter)
 {
-    return endsWith(delimeter) ? string_ : string_ + delimeter;
+    return endsWith(string, delimeter) ? string : string + delimeter;
 }
 
-std::string StringX::encode() const
+std::string encode(const std::string &string)
 {
     std::string result;
-    result.reserve(string_.size());
+    result.reserve(string.size());
 
-    for(size_t pos = 0; pos != string_.size(); ++pos) {
-        switch(string_[pos]) {
+    for(size_t pos = 0; pos != string.size(); ++pos) {
+        switch(string[pos]) {
             case '&' : result.append("&amp;");       break;
             case '\"': result.append("&quot;");      break;
             case '\'': result.append("&apos;");      break;
             case '<' : result.append("&lt;");        break;
             case '>' : result.append("&gt;");        break;
-            default  : result.append(&string_[pos], 1); break;
+            default  : result.append(&string[pos], 1); break;
         }
     }
 
     return result;
 }
 
-std::string StringX::trim() const
+std::string trim(const std::string &string)
 {
     const std::string whitespace = " \t\n";
-    const size_t begin = string_.find_first_not_of(whitespace);
+    const size_t begin = string.find_first_not_of(whitespace);
 
     if (begin == std::string::npos) {
         return "";
     }
 
-    const size_t end = string_.find_last_not_of(whitespace);
+    const size_t end = string.find_last_not_of(whitespace);
     const size_t range = end - begin + 1;
 
-    return string_.substr(begin, range);
+    return string.substr(begin, range);
 }
 
-std::vector<std::string> StringX::split(const std::string &delimeter) const
+std::vector<std::string> split(const std::string &string, const std::string &delimeter)
 {
-    std::string raw = string_;
+    std::string raw = string;
     size_t delimeter_length = delimeter.length();
     std::vector<std::string> result;
 
-    raw = StringX(raw).terminateWith(delimeter);
+    raw = terminateWith(raw, delimeter);
 
     size_t start = 0U;
     size_t end = raw.find(delimeter);
@@ -92,4 +93,5 @@ std::vector<std::string> StringX::split(const std::string &delimeter) const
     return result;
 }
 
+} // namespace stringx
 } // namespace amm
