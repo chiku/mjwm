@@ -17,6 +17,7 @@
 */
 
 #include <cstdlib>
+#include <string>
 
 #include "../doctest.h"
 #include "transformer/jwm.h"

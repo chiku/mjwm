@@ -16,10 +16,12 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stddef.h>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <iterator>
 
 #include "stats.h"
 #include "vectorx.h"

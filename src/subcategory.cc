@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
 #include "subcategory.h"
 #include "xdg/desktop_entry.h"

@@ -21,6 +21,8 @@
 
 #include "doctest.h"
 #include "menu.h"
+#include "xdg/desktop_entry.h"
+#include "representation/representation_interface.h"
 #include "representation/menu_start.h"
 #include "representation/menu_end.h"
 #include "representation/subcategory_start.h"
@@ -28,6 +30,8 @@
 #include "representation/program.h"
 #include "transformer/transformer_interface.h"
 #include "icon_search/icon_search_interface.h"
+#include "stats.h"
+#include "subcategory.h"
 
 namespace amm {
 

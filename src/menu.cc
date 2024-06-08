@@ -22,6 +22,7 @@
 #include "menu.h"
 #include "stringx.h"
 #include "filex.h"
+#include "stats.h"
 #include "icon_search/icon_search_interface.h"
 #include "icon_search/mirror_search.h"
 #include "xdg/desktop_entry.h"
@@ -33,6 +34,10 @@
 #include "representation/program.h"
 
 namespace amm {
+
+namespace representation {
+    class RepresentationInterface;
+}
 
 Menu::Menu() : icon_searcher_(new icon_search::MirrorSearch), unclassified_subcategory_(Subcategory::Others())
 {

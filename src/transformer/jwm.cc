@@ -25,6 +25,11 @@
 #include "system_environment.h"
 #include "terminal.h"
 #include "transformer/jwm.h"
+#include "representation/menu_end.h"
+#include "representation/menu_start.h"
+#include "representation/program.h"
+#include "representation/subcategory_end.h"
+#include "representation/subcategory_start.h"
 
 namespace amm {
 namespace transformer {

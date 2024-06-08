@@ -16,13 +16,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string>
-#include <vector>
-#include <sstream>
-#include <algorithm>
-
-#include "summary_type.h"
-#include "vectorx.h"
 #include "summary_type.h"
 
 namespace amm {

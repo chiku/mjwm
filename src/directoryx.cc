@@ -16,12 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stddef.h>
 #include <dirent.h>
 #include <string>
 
-#include "directoryx.h"
 #include "stringx.h"
 #include "filex.h"
+#include "directoryx.h"
 
 namespace amm {
 namespace directoryx {

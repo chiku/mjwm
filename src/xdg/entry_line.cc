@@ -18,8 +18,8 @@
 
 #include <string>
 
-#include "xdg/entry_line.h"
 #include "stringx.h"
+#include "xdg/entry_line.h"
 
 namespace amm {
 namespace xdg {

@@ -19,6 +19,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <utility>
 
 #include "xdg/entry.h"
 #include "xdg/entry_line.h"

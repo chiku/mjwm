@@ -16,15 +16,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdlib>
 #include <string>
 #include <vector>
 
-#include "desktop_entry_file_search.h"
 #include "stringx.h"
 #include "vectorx.h"
 #include "directoryx.h"
 #include "system_environment.h"
+#include "desktop_entry_file_search.h"
 
 namespace amm {
 

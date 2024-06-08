@@ -19,9 +19,9 @@
 #include <string>
 #include <sstream>
 
-#include "messages.h"
 #include "../config.h"
 #include "timex.h"
+#include "messages.h"
 
 namespace amm {
 namespace messages {

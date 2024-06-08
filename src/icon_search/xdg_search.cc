@@ -20,9 +20,9 @@
 #include <string>
 #include <vector>
 
-#include "icon_search/xdg_search.h"
 #include "stringx.h"
 #include "filex.h"
+#include "icon_search/xdg_search.h"
 #include "xdg/icon_subdirectory.h"
 #include "xdg/icon_theme.h"
 #include "qualified_icon_theme.h"

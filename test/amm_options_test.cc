@@ -16,6 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <string>
+
 #include "doctest.h"
 #include "amm_options.h"
 

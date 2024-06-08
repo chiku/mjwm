@@ -18,7 +18,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <vector>
 
@@ -30,6 +29,7 @@
 #include "amm_options.h"
 #include "system_environment.h"
 #include "command_line_options_parser.h"
+#include "representation/representation_interface.h"
 #include "icon_search/icon_search_interface.h"
 #include "icon_search/xdg_search.h"
 #include "icon_search/caching_search.h"

@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "doctest.h"
+#include "amm_options.h"
 #include "summary_type.h"
 #include "command_line_options_parser.h"
 

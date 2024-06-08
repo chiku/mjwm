@@ -16,13 +16,13 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <cstdlib>
+#include <ctype.h>
 #include <string>
 #include <vector>
 #include <algorithm>
 
-#include "xdg/icon_theme.h"
 #include "stringx.h"
+#include "xdg/icon_theme.h"
 #include "xdg/entry.h"
 #include "xdg/icon_subdirectory.h"
 

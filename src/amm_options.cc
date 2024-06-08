@@ -18,8 +18,8 @@
 
 #include <string>
 
-#include "amm_options.h"
 #include "stringx.h"
+#include "amm_options.h"
 #include "summary_type.h"
 
 namespace amm {

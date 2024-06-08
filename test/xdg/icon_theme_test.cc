@@ -21,6 +21,7 @@
 
 #include "../doctest.h"
 #include "xdg/icon_theme.h"
+#include "xdg/icon_subdirectory.h"
 
 namespace amm {
 namespace xdg {
